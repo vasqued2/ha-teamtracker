@@ -1,0 +1,48 @@
+{
+  "config": {
+    "error": {
+      "league": "Liga inválida inserida."
+    },
+    "step": {
+      "user": {
+        "title": "Rastreador de equipe",
+        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, EPL, LIGA, LIG1, SERA\n\nEquipe : abreviação de equipe de 2 a 4 letras usada nos placares e nas páginas de estatísticas da ESPN\n\nNúmero da conferência: somente para futebol e basquete da NCAA. Consulte README.md para valores válidos. Deixe em branco para incluir apenas jogos com equipes classificadas.",
+        "data": {
+          "league_id": "Liga",
+          "team_id": "Time",  
+          "name": "Nome amigável",
+          "timeout": "Tempo limite de atualização (em segundos)",
+          "conference_id": "Número da Conferência"
+        }
+      },
+      "path": {
+        "title": "Configurador de API personalizado",
+        "description": "Insira a parte 'sport' e 'league' do caminho da API ESPN para usar uma API autoconfigurada",
+        "data": {
+          "sport_path": "Caminho do esporte", 
+          "league_path": "Caminho da Liga"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opções do Rastreador de Equipe",
+        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, EPL, LIGA, LIG1, SERA\n\nEquipe: 2-4 abreviação da equipe de letras usada nos placares da ESPN e nas páginas de estatísticas",
+        "data": {
+          "league_id": "Liga",
+          "team_id": "Time",  
+          "name": "Nome amigável",
+          "timeout": "Tempo limite de atualização (em segundos)"
+        }
+      },
+      "path": {
+        "title": "Opções Custom API Configurator",
+        "description": "Insira a parte 'sport' e 'league' do caminho da API ESPN para usar uma API autoconfigurada",
+        "data": {
+          "sport_path": "Caminho do esporte", 
+          "league_path": "Caminho da Liga"
+        }
+      }
+  
