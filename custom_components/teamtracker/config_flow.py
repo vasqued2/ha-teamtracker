@@ -123,7 +123,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             CONF_TEAM_ID: '',
             CONF_CONFERENCE_ID: DEFAULT_CONFERENCE_ID,
         }
-        _LOGGER.debug("show_config_form() self._errors: %s", self._errors)
         return self.async_show_form(
             step_id="user",
             data_schema=_get_schema(self.hass, user_input, defaults),

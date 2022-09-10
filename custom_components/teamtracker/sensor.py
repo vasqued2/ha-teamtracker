@@ -49,7 +49,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Configuration from yaml"""
 
-    _LOGGER.debug("Setting up config from YAML: %s", config)
+    _LOGGER.debug("Setting up sensor from YAML: %s", config)
 
     league_id = config[CONF_LEAGUE_ID].upper()
     for x in range(len(LEAGUE_LIST)):
@@ -99,7 +99,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             if SPORT_LIST[x][0] == sport:
                 icon = SPORT_LIST[x][1]
         if icon == DEFAULT_ICON:
-            _LOGGER.warn("Sport not found: %s", sport)
+            _LOGGER.debug("Setting up %s from YAML.  Sport not found." % (entry.data[CONF_NAME]))
 
         self._config = entry
         self._name = entry.data[CONF_NAME]
@@ -201,24 +201,23 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             return attrs
 
         attrs[ATTR_ATTRIBUTION] = ATTRIBUTION
+
         attrs["sport"] = self.coordinator.data["sport"]
         attrs["league"] = self.coordinator.data["league"]
         attrs["league_logo"] = self.coordinator.data["league_logo"]
+        attrs["team_abbr"] = self.coordinator.data["team_abbr"]
+        attrs["opponent_abbr"] = self.coordinator.data["opponent_abbr"]
+
         attrs["date"] = self.coordinator.data["date"]
         attrs["kickoff_in"] = self.coordinator.data["kickoff_in"]
-        attrs["quarter"] = self.coordinator.data["quarter"]
-        attrs["clock"] = self.coordinator.data["clock"]
         attrs["venue"] = self.coordinator.data["venue"]
         attrs["location"] = self.coordinator.data["location"]
         attrs["tv_network"] = self.coordinator.data["tv_network"]
         attrs["odds"] = self.coordinator.data["odds"]
         attrs["overunder"] = self.coordinator.data["overunder"]
-        attrs["possession"] = self.coordinator.data["possession"]
-        attrs["last_play"] = self.coordinator.data["last_play"]
-        attrs["down_distance_text"] = self.coordinator.data["down_distance_text"]
-        attrs["team_abbr"] = self.coordinator.data["team_abbr"]
-        attrs["team_id"] = self.coordinator.data["team_id"]
+
         attrs["team_name"] = self.coordinator.data["team_name"]
+        attrs["team_id"] = self.coordinator.data["team_id"]
         attrs["team_record"] = self.coordinator.data["team_record"]
         attrs["team_homeaway"] = self.coordinator.data["team_homeaway"]
         attrs["team_logo"] = self.coordinator.data["team_logo"]
@@ -226,9 +225,9 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_score"] = self.coordinator.data["team_score"]
         attrs["team_win_probability"] = self.coordinator.data["team_win_probability"]
         attrs["team_timeouts"] = self.coordinator.data["team_timeouts"]
-        attrs["opponent_abbr"] = self.coordinator.data["opponent_abbr"]
-        attrs["opponent_id"] = self.coordinator.data["opponent_id"]
+
         attrs["opponent_name"] = self.coordinator.data["opponent_name"]
+        attrs["opponent_id"] = self.coordinator.data["opponent_id"]
         attrs["opponent_record"] = self.coordinator.data["opponent_record"]
         attrs["opponent_homeaway"] = self.coordinator.data["opponent_homeaway"]
         attrs["opponent_logo"] = self.coordinator.data["opponent_logo"]
@@ -236,28 +235,30 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_score"] = self.coordinator.data["opponent_score"]
         attrs["opponent_win_probability"] = self.coordinator.data["opponent_win_probability"]
         attrs["opponent_timeouts"] = self.coordinator.data["opponent_timeouts"]
-        attrs["last_update"] = self.coordinator.data["last_update"]
-#
-#  MLB Specific Fields
-#
+
+        attrs["quarter"] = self.coordinator.data["quarter"]
+        attrs["clock"] = self.coordinator.data["clock"]
+        attrs["possession"] = self.coordinator.data["possession"]
+        attrs["last_play"] = self.coordinator.data["last_play"]
+        attrs["down_distance_text"] = self.coordinator.data["down_distance_text"]
+
         attrs["outs"] = self.coordinator.data["outs"]
         attrs["balls"] = self.coordinator.data["balls"]
         attrs["strikes"] = self.coordinator.data["strikes"]
         attrs["on_first"] = self.coordinator.data["on_first"]
         attrs["on_second"] = self.coordinator.data["on_second"]
         attrs["on_third"] = self.coordinator.data["on_third"]
-#
-#  Soccer Specific Fields
-#
+
         attrs["team_shots_on_target"] = self.coordinator.data["team_shots_on_target"]
         attrs["team_total_shots"] = self.coordinator.data["team_total_shots"]
         attrs["opponent_shots_on_target"] = self.coordinator.data["opponent_shots_on_target"]
         attrs["opponent_total_shots"] = self.coordinator.data["opponent_total_shots"]
-#
-#  Volleyball Specific Fields
-#
+
         attrs["team_sets_won"] = self.coordinator.data["team_sets_won"]
         attrs["opponent_sets_won"] = self.coordinator.data["opponent_sets_won"]
+
+        attrs["last_update"] = self.coordinator.data["last_update"]
+
         return attrs
 
     @property
