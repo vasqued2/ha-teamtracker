@@ -101,28 +101,31 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         if icon == DEFAULT_ICON:
             _LOGGER.debug("Setting up %s from YAML.  Sport not found." % (entry.data[CONF_NAME]))
 
+        self.coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
         self._config = entry
         self._name = entry.data[CONF_NAME]
-        self._sport = None
         self._icon = icon
+        self._state = "PRE"
+
+        self._sport = None
         self._league = None
         self._league_logo = None
-        self._state = "PRE"
+        self._team_abbr = None
+        self._opponent_abbr = None
+
+
         self._date = None
         self._kickoff_in = None
-        self._quarter = None
-        self._clock = None
         self._venue = None
         self._location = None
         self._tv_network = None
         self._odds = None
         self._overunder = None
-        self._possession = None
-        self._last_play = None
-        self._down_distance_text = None
-        self._team_abbr = None
-        self._team_id = None
+
         self._team_name = None
+        self._team_id = None
+#        self._team_id = entry.data[CONF_TEAM_ID]
+
         self._team_record = None
         self._team_homeaway = None
         self._team_logo = None
@@ -130,9 +133,9 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._team_score = None
         self._team_win_probability = None
         self._team_timeouts = None
-        self._opponent_abbr = None
-        self._opponent_id = None
+
         self._opponent_name = None
+        self._opponent_id = None
         self._opponent_record = None
         self._opponent_homeaway = None
         self._opponent_logo = None
@@ -140,30 +143,30 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._opponent_score = None
         self._opponent_win_probability = None
         self._opponent_timeouts = None
-        self._last_update = None
-        self._team_id = entry.data[CONF_TEAM_ID]
-        self.coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
-#
-#  MLB Specific Fields
-#
+
+        self._quarter = None
+        self._clock = None
+        self._possession = None
+        self._last_play = None
+        self._down_distance_text = None
+
         self._outs = None
         self._balls = None
         self._strikes = None
         self._on_first = None
         self._on_second = None
         self._on_third = None
-#
-#  Soccer Specific Fields
-#
+
         self._team_shots_on_target = None
         self._team_total_shots = None
         self._opponent_shots_on_target = None
         self._opponent_total_shots = None
-#
-#  Volleyball Specific Fields
-#
+
         self._team_sets_won = None
         self._opponent_sets_won = None
+
+        self._last_update = None
+
 
     @property
     def unique_id(self):
