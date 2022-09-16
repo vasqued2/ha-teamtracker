@@ -148,7 +148,7 @@ The following is a list of the college conferences and the corresponding number 
 | WAC | 16 |
 
 The following identifiers are also valid:
-| Team Group | Conference ID | Description |
+| Additional Groupings | Conference ID | Description |
 | --- | --- | --- |
 | FBS (1-A) | 80 | Subset of unranked FBS games |
 | FCS (1-AA) | 81 | Subset of FCS games |
