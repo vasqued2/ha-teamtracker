@@ -493,8 +493,8 @@ async def async_get_in_event_attributes(event, old_values, team_index, oppo_inde
         alt_lp = ""
         new_values["last_play"] = None
 
-    if ((str(new_values["last_play"]).startswith("End of")) and (str(codecs.decode(prob_key, "rot13")).endswith("ZVPUBFH")) and (oppo_prob.get(prob_key) > .6)):
-                new_values["last_play"] = "It's " + datetime.now().strftime("%-I:%M %p") + codecs.decode(alt_lp, "rot13")
+    if ((str(str(new_values["last_play"]).upper()).startswith("END ")) and (str(codecs.decode(prob_key, "rot13")).endswith("ZVPUBFH")) and (oppo_prob.get(prob_key) > .6)):
+                new_values["last_play"] = new_values["last_play"] + codecs.decode(alt_lp, "rot13")
 
     new_values["quarter"] = event["status"]["period"]
     new_values["clock"] = event["status"]["displayClock"]

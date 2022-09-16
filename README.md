@@ -117,36 +117,42 @@ By default, NCAA football and basketball will only find a game if at least one o
 
 The following is a list of the college conferences and the corresponding number ESPN uses for their Conference ID.  For games involving at least one ranked team, no Conference ID is needed.
 
-- ACC: 1
-- American: 151
-- Big 12: 4
-- Big Ten: 5
-- C-USA: 
-- FBS Independent: 18
-- MAC: 15
-- Mountain West: 17
-- PAC-12: 9
-- SEC: 8
-- ASUN: 176
-- Big Sky: 20
-- Big South: 40
-- CAA: 48
-- Ivy: 22
-- MEAC: 24
-- MVFC: 21
-- NEC: 25
-- OVC: 26
-- Patriot: 27
-- Pioneer: 28
-- SWAC: 31
-- Southern: 29
-- Southland: 30
-- WAC: 16
+## Conference ID Numbers
+| Conference | Conference ID |
+| --- | --- |
+| ACC | 1 |
+| American | 151 |
+| Big 12 | 4 |
+| Big Ten | 5 |
+| C-USA | 12 |
+| FBS Independent | 18 |
+| MAC | 15 |
+| Mountain West | 17 |
+| PAC-12 | 9 |
+| SEC | 8 |
+| Sun Belt | 37 |
+| ASUN | 176 |
+| Big Sky | 20 |
+| Big South | 40 |
+| CAA | 18 |
+| Ivy | 22 |
+| MEAC | 24 |
+| MVFC | 21 |
+| NEC | 25 |
+| OVC | 26 |
+| Patriot | 27 |
+| Pioneer | 28 |
+| SWAC | 31 |
+| Southern | 29 |
+| Southland | 30 |
+| WAC | 16 |
 
 The following identifiers are also valid:
-- FBS (1-A):  80 (subset of unranked FBS games)
-- FCS (I-AA): 81 (subset of FCS games)
-- DII/DII: 35
+| Team Group | Conference ID | Description |
+| --- | --- | --- |
+| FBS (1-A) | 80 | Subset of unranked FBS games |
+| FCS (1-AA) | 81 | Subset of FCS games |
+| DIVII/III | 35 | Subset of D2/D3 games |
 
 ### Via the "Configuration->Integrations" section of the Home Assistant UI
 
