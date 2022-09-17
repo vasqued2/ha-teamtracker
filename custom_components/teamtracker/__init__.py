@@ -194,7 +194,7 @@ async def async_get_state(config) -> dict:
     
     if (file_override):
         _LOGGER.debug("Overriding API for %s" % team_id)
-        async with aiofiles.open('/share/test.json', mode='r') as f:
+        async with aiofiles.open('/share/tt/test.json', mode='r') as f:
             contents = await f.read()
         data = json.loads(contents)
     else:
