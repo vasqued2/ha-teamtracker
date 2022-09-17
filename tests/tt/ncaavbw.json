@@ -1,0 +1,1351 @@
+{
+    "leagues": [
+      {
+        "id": "402",
+        "uid": "s:400~l:402",
+        "name": "NCAA Women Volleyball",
+        "abbreviation": "NCAA Women's Volley",
+        "midsizeName": "NCAA Women's Volley",
+        "slug": "womens-college-volleyball",
+        "season": {
+          "year": 2022,
+          "startDate": "2022-08-01T07:00Z",
+          "endDate": "2023-01-01T07:59Z",
+          "type": {
+            "id": "2",
+            "type": 2,
+            "name": "Regular Season",
+            "abbreviation": "reg"
+          }
+        },
+        "logos": [
+          {
+            "href": "https://a.espncdn.com/combiner/i?img=/redesign/assets/img/icons/sports-volleyball-solid.png",
+            "width": 500,
+            "height": 500,
+            "alt": "",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "lastUpdated": "2019-03-15T12:34Z"
+          }
+        ],
+        "calendarType": "day",
+        "calendarIsWhitelist": true,
+        "calendarStartDate": "2022-08-01T07:00Z",
+        "calendarEndDate": "2023-01-01T07:59Z",
+        "calendar": [
+          "2022-08-26T07:00Z",
+          "2022-08-27T07:00Z",
+          "2022-08-28T07:00Z",
+          "2022-08-30T07:00Z",
+          "2022-08-31T07:00Z",
+          "2022-09-01T07:00Z",
+          "2022-09-02T07:00Z",
+          "2022-09-03T07:00Z",
+          "2022-09-04T07:00Z",
+          "2022-09-06T07:00Z",
+          "2022-09-07T07:00Z",
+          "2022-09-08T07:00Z",
+          "2022-09-09T07:00Z",
+          "2022-09-10T07:00Z",
+          "2022-09-11T07:00Z",
+          "2022-09-13T07:00Z",
+          "2022-09-14T07:00Z",
+          "2022-09-15T07:00Z",
+          "2022-09-16T07:00Z",
+          "2022-09-17T07:00Z",
+          "2022-09-18T07:00Z",
+          "2022-09-21T07:00Z",
+          "2022-09-23T07:00Z",
+          "2022-09-24T07:00Z",
+          "2022-09-25T07:00Z",
+          "2022-09-28T07:00Z",
+          "2022-09-29T07:00Z",
+          "2022-09-30T07:00Z",
+          "2022-10-01T07:00Z",
+          "2022-10-02T07:00Z",
+          "2022-10-05T07:00Z",
+          "2022-10-07T07:00Z",
+          "2022-10-08T07:00Z",
+          "2022-10-09T07:00Z",
+          "2022-10-12T07:00Z",
+          "2022-10-14T07:00Z",
+          "2022-10-15T07:00Z",
+          "2022-10-16T07:00Z",
+          "2022-10-19T07:00Z",
+          "2022-10-21T07:00Z",
+          "2022-10-22T07:00Z",
+          "2022-10-23T07:00Z",
+          "2022-10-26T07:00Z",
+          "2022-10-28T07:00Z",
+          "2022-10-29T07:00Z",
+          "2022-10-30T07:00Z",
+          "2022-11-01T07:00Z",
+          "2022-11-02T07:00Z",
+          "2022-11-04T07:00Z",
+          "2022-11-05T07:00Z",
+          "2022-11-06T07:00Z",
+          "2022-11-09T08:00Z",
+          "2022-11-10T08:00Z",
+          "2022-11-11T08:00Z",
+          "2022-11-12T08:00Z",
+          "2022-11-13T08:00Z",
+          "2022-11-16T08:00Z",
+          "2022-11-18T08:00Z",
+          "2022-11-19T08:00Z",
+          "2022-11-20T08:00Z",
+          "2022-11-23T08:00Z",
+          "2022-11-25T08:00Z",
+          "2022-11-26T08:00Z"
+        ]
+      }
+    ],
+    "season": {
+      "type": 2,
+      "year": 2022
+    },
+    "day": {
+      "date": "2022-09-11"
+    },
+    "events": [
+      {
+        "id": "401450283",
+        "uid": "s:400~l:402~e:401450283",
+        "date": "2022-09-11T17:00Z",
+        "name": "Auburn Tigers at North Florida Ospreys",
+        "shortName": "AUB @ UNF",
+        "season": {
+          "year": 2022,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401450283",
+            "uid": "s:400~l:402~e:401450283~c:401450283",
+            "date": "2022-09-11T17:00Z",
+            "attendance": 0,
+            "type": {
+              "id": "0",
+              "abbreviation": "N/A"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "conferenceCompetition": false,
+            "recent": true,
+            "venue": {
+              "id": "2155",
+              "fullName": "Bartow Arena",
+              "address": {
+                "city": "Birmingham",
+                "state": "Alabama"
+              },
+              "capacity": 8500,
+              "indoor": true
+            },
+            "competitors": [
+              {
+                "id": "2454",
+                "uid": "s:400~l:402~t:2454",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "winner": false,
+                "team": {
+                  "id": "2454",
+                  "uid": "s:400~l:402~t:2454",
+                  "location": "North Florida",
+                  "name": "Ospreys",
+                  "abbreviation": "UNF",
+                  "displayName": "North Florida",
+                  "shortDisplayName": "Ospreys",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2454.png"
+                },
+                "score": "0",
+                "linescores": [
+                  {
+                    "value": 18
+                  },
+                  {
+                    "value": 16
+                  },
+                  {
+                    "value": 19
+                  }
+                ],
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "0-4"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "0-0"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "0-1"
+                  }
+                ]
+              },
+              {
+                "id": "2",
+                "uid": "s:400~l:402~t:2",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "winner": true,
+                "team": {
+                  "id": "2",
+                  "uid": "s:400~l:402~t:2",
+                  "location": "Auburn",
+                  "name": "Tigers",
+                  "abbreviation": "AUB",
+                  "displayName": "Auburn",
+                  "shortDisplayName": "Tigers",
+                  "color": "182942",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
+                },
+                "score": "3",
+                "linescores": [
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 25
+                  }
+                ],
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "8-0"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "2-0"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "2-0"
+                  }
+                ]
+              }
+            ],
+            "notes": [
+              {
+                "type": "event",
+                "headline": "UAB Invite"
+              }
+            ],
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 3,
+              "type": {
+                "id": "3",
+                "name": "STATUS_FINAL",
+                "state": "post",
+                "completed": true,
+                "description": "Final",
+                "detail": "Final",
+                "shortDetail": "Final"
+              }
+            },
+            "broadcasts": [],
+            "format": {
+              "regulation": {
+                "periods": 5
+              }
+            },
+            "startDate": "2022-09-11T17:00Z",
+            "geoBroadcasts": []
+          }
+        ],
+        "links": [],
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 3,
+          "type": {
+            "id": "3",
+            "name": "STATUS_FINAL",
+            "state": "post",
+            "completed": true,
+            "description": "Final",
+            "detail": "Final",
+            "shortDetail": "Final"
+          }
+        }
+      },
+      {
+        "id": "401460292",
+        "uid": "s:400~l:402~e:401460292",
+        "date": "2022-09-11T17:00Z",
+        "name": "Wake Forest Demon Deacons at Texas State Bobcats",
+        "shortName": "WAKE @ TXST",
+        "season": {
+          "year": 2022,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401460292",
+            "uid": "s:400~l:402~e:401460292~c:401460292",
+            "date": "2022-09-11T17:00Z",
+            "attendance": 0,
+            "type": {
+              "id": "0",
+              "abbreviation": "N/A"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "conferenceCompetition": false,
+            "recent": true,
+            "venue": {
+              "id": "2010",
+              "fullName": "Strahan Arena at the University Events Center",
+              "address": {
+                "city": "San Marcos",
+                "state": "Texas"
+              },
+              "capacity": 7200,
+              "indoor": true
+            },
+            "competitors": [
+              {
+                "id": "326",
+                "uid": "s:400~l:402~t:326",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "winner": true,
+                "team": {
+                  "id": "326",
+                  "uid": "s:400~l:402~t:326",
+                  "location": "Texas State",
+                  "name": "Bobcats",
+                  "abbreviation": "TXST",
+                  "displayName": "Texas State",
+                  "shortDisplayName": "Bobcats",
+                  "color": "94314a",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/326.png"
+                },
+                "score": "3",
+                "linescores": [
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 25
+                  }
+                ],
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "1-2"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "1-1"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "0-0"
+                  }
+                ]
+              },
+              {
+                "id": "154",
+                "uid": "s:400~l:402~t:154",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "winner": false,
+                "team": {
+                  "id": "154",
+                  "uid": "s:400~l:402~t:154",
+                  "location": "Wake Forest",
+                  "name": "Demon Deacons",
+                  "abbreviation": "WAKE",
+                  "displayName": "Wake Forest",
+                  "shortDisplayName": "Demon Deacons",
+                  "color": "000000",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/154.png"
+                },
+                "score": "0",
+                "linescores": [
+                  {
+                    "value": 17
+                  },
+                  {
+                    "value": 17
+                  },
+                  {
+                    "value": 17
+                  }
+                ],
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "6-3"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "3-2"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "1-1"
+                  }
+                ]
+              }
+            ],
+            "notes": [
+              {
+                "type": "event",
+                "headline": "Bobcat Invitational"
+              }
+            ],
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 3,
+              "type": {
+                "id": "3",
+                "name": "STATUS_FINAL",
+                "state": "post",
+                "completed": true,
+                "description": "Final",
+                "detail": "Final",
+                "shortDetail": "Final"
+              }
+            },
+            "broadcasts": [],
+            "format": {
+              "regulation": {
+                "periods": 5
+              }
+            },
+            "startDate": "2022-09-11T17:00Z",
+            "geoBroadcasts": []
+          }
+        ],
+        "links": [],
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 3,
+          "type": {
+            "id": "3",
+            "name": "STATUS_FINAL",
+            "state": "post",
+            "completed": true,
+            "description": "Final",
+            "detail": "Final",
+            "shortDetail": "Final"
+          }
+        }
+      },
+      {
+        "id": "401460293",
+        "uid": "s:400~l:402~e:401460293",
+        "date": "2022-09-11T17:00Z",
+        "name": "Ohio State Buckeyes at Georgia Tech Yellow Jackets",
+        "shortName": "OSU @ GT",
+        "season": {
+          "year": 2022,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401460293",
+            "uid": "s:400~l:402~e:401460293~c:401460293",
+            "date": "2022-09-11T17:00Z",
+            "attendance": 0,
+            "type": {
+              "id": "0",
+              "abbreviation": "N/A"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "conferenceCompetition": false,
+            "recent": true,
+            "venue": {
+              "id": "5413",
+              "fullName": "O'Keefe Gymnasium",
+              "address": {
+                "city": "Atlanta",
+                "state": "Georgia"
+              },
+              "capacity": 0,
+              "indoor": true
+            },
+            "competitors": [
+              {
+                "id": "59",
+                "uid": "s:400~l:402~t:59",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "team": {
+                  "id": "59",
+                  "uid": "s:400~l:402~t:59",
+                  "location": "Georgia Tech",
+                  "name": "Yellow Jackets",
+                  "abbreviation": "GT",
+                  "displayName": "Georgia Tech",
+                  "shortDisplayName": "Yellow Jackets",
+                  "color": "000000",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/59.png"
+                },
+                "score": "1",
+                "linescores": [
+                  {
+                    "value": 19
+                  },
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 21
+                  },
+                  {
+                    "value": 0
+                  }
+                ],
+                "ranks": [
+                  {
+                    "name": "AVCA Division I Women's Top 25 Poll",
+                    "shortName": "AVCA Poll",
+                    "type": "ap",
+                    "headline": "2022 AVCA Division I Women's Top 25 Poll: Week 3",
+                    "shortHeadline": "2022 AVCA Poll: Week 3",
+                    "rank": {
+                      "current": 5,
+                      "previous": 5,
+                      "record": {
+                        "summary": "5-0"
+                      }
+                    }
+                  }
+                ],
+                "curatedRank": {
+                  "current": 5
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "6-0"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "4-0"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "1-0"
+                  }
+                ]
+              },
+              {
+                "id": "194",
+                "uid": "s:400~l:402~t:194",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "team": {
+                  "id": "194",
+                  "uid": "s:400~l:402~t:194",
+                  "location": "Ohio State",
+                  "name": "Buckeyes",
+                  "abbreviation": "OSU",
+                  "displayName": "Ohio State",
+                  "shortDisplayName": "Buckeyes",
+                  "color": "de3129",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/194.png"
+                },
+                "score": "2",
+                "linescores": [
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 20
+                  },
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 0
+                  }
+                ],
+                "ranks": [
+                  {
+                    "name": "AVCA Division I Women's Top 25 Poll",
+                    "shortName": "AVCA Poll",
+                    "type": "ap",
+                    "headline": "2022 AVCA Division I Women's Top 25 Poll: Week 3",
+                    "shortHeadline": "2022 AVCA Poll: Week 3",
+                    "rank": {
+                      "current": 8,
+                      "previous": 8,
+                      "record": {
+                        "summary": "1-3"
+                      }
+                    }
+                  }
+                ],
+                "curatedRank": {
+                  "current": 8
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "2-3"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "0-2"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "1-1"
+                  }
+                ]
+              }
+            ],
+            "notes": [
+              {
+                "type": "event",
+                "headline": "Georgia Tech Classic"
+              }
+            ],
+            "situation": {},
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 4,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "4th Set",
+                "shortDetail": "4th"
+              }
+            },
+            "broadcasts": [
+              {
+                "market": "national",
+                "names": [
+                  "ACCNX"
+                ]
+              }
+            ],
+            "format": {
+              "regulation": {
+                "periods": 5
+              }
+            },
+            "startDate": "2022-09-11T17:00Z",
+            "geoBroadcasts": [
+              {
+                "type": {
+                  "id": "4",
+                  "shortName": "Web"
+                },
+                "market": {
+                  "id": "1",
+                  "type": "National"
+                },
+                "media": {
+                  "shortName": "ACCNX"
+                },
+                "lang": "en",
+                "region": "us"
+              }
+            ]
+          }
+        ],
+        "links": [],
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 4,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "4th Set",
+            "shortDetail": "4th"
+          }
+        }
+      },
+      {
+        "id": "401463847",
+        "uid": "s:400~l:402~e:401463847",
+        "date": "2022-09-11T18:00Z",
+        "name": "Colorado Buffaloes at Arkansas Razorbacks",
+        "shortName": "COLO @ ARK",
+        "season": {
+          "year": 2022,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401463847",
+            "uid": "s:400~l:402~e:401463847~c:401463847",
+            "date": "2022-09-11T18:00Z",
+            "attendance": 0,
+            "type": {
+              "id": "0",
+              "abbreviation": "N/A"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "conferenceCompetition": false,
+            "recent": true,
+            "venue": {
+              "id": "5044",
+              "fullName": "Barnhill Arena",
+              "address": {
+                "city": "Fayetteville",
+                "state": "Arkansas"
+              },
+              "capacity": 8500,
+              "indoor": true
+            },
+            "competitors": [
+              {
+                "id": "8",
+                "uid": "s:400~l:402~t:8",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "team": {
+                  "id": "8",
+                  "uid": "s:400~l:402~t:8",
+                  "location": "Arkansas",
+                  "name": "Razorbacks",
+                  "abbreviation": "ARK",
+                  "displayName": "Arkansas",
+                  "shortDisplayName": "Razorbacks",
+                  "color": "9c1831",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/8.png"
+                },
+                "score": "1",
+                "linescores": [
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 25
+                  }
+                ],
+                "statistics": [],
+                "ranks": [],
+                "curatedRank": {
+                  "current": 99
+                },
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "6-1"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "3-1"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "1-0"
+                  }
+                ]
+              },
+              {
+                "id": "38",
+                "uid": "s:400~l:402~t:38",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "team": {
+                  "id": "38",
+                  "uid": "s:400~l:402~t:38",
+                  "location": "Colorado",
+                  "name": "Buffaloes",
+                  "abbreviation": "COLO",
+                  "displayName": "Colorado",
+                  "shortDisplayName": "Buffaloes",
+                  "color": "bd9c00",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/38.png"
+                },
+                "score": "0",
+                "linescores": [
+                  {
+                    "value": 20
+                  },
+                  {
+                    "value": 16
+                  }
+                ],
+                "statistics": [],
+                "ranks": [],
+                "curatedRank": {
+                  "current": 99
+                },
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "1-0"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "1-0"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "0-0"
+                  }
+                ]
+              }
+            ],
+            "notes": [
+              {
+                "type": "event",
+                "headline": "Arkansas Invitational"
+              }
+            ],
+            "situation": {},
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 2,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "2nd Set",
+                "shortDetail": "2nd"
+              }
+            },
+            "broadcasts": [
+              {
+                "market": "national",
+                "names": [
+                  "SECN+"
+                ]
+              }
+            ],
+            "format": {
+              "regulation": {
+                "periods": 5
+              }
+            },
+            "startDate": "2022-09-11T18:00Z",
+            "geoBroadcasts": [
+              {
+                "type": {
+                  "id": "4",
+                  "shortName": "Web"
+                },
+                "market": {
+                  "id": "1",
+                  "type": "National"
+                },
+                "media": {
+                  "shortName": "SECN+"
+                },
+                "lang": "en",
+                "region": "us"
+              }
+            ]
+          }
+        ],
+        "links": [],
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 2,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "2nd Set",
+            "shortDetail": "2nd"
+          }
+        }
+      },
+      {
+        "id": "401483160",
+        "uid": "s:400~l:402~e:401483160",
+        "date": "2022-09-11T18:00Z",
+        "name": "Milwaukee Panthers at Marquette Golden Eagles",
+        "shortName": "MILW @ MARQ",
+        "season": {
+          "year": 2022,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401483160",
+            "uid": "s:400~l:402~e:401483160~c:401483160",
+            "date": "2022-09-11T18:00Z",
+            "attendance": 0,
+            "type": {
+              "id": "0",
+              "abbreviation": "N/A"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "conferenceCompetition": false,
+            "recent": true,
+            "venue": {
+              "id": "906",
+              "fullName": "Al McGuire Center",
+              "address": {
+                "city": "Milwaukee",
+                "state": "Wisconsin"
+              },
+              "capacity": 3700,
+              "indoor": true
+            },
+            "competitors": [
+              {
+                "id": "269",
+                "uid": "s:400~l:402~t:269",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "team": {
+                  "id": "269",
+                  "uid": "s:400~l:402~t:269",
+                  "location": "Marquette",
+                  "name": "Golden Eagles",
+                  "abbreviation": "MARQ",
+                  "displayName": "Marquette",
+                  "shortDisplayName": "Golden Eagles",
+                  "color": "083963",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/269.png"
+                },
+                "score": "0",
+                "ranks": [
+                  {
+                    "name": "AVCA Division I Women's Top 25 Poll",
+                    "shortName": "AVCA Poll",
+                    "type": "ap",
+                    "headline": "2022 AVCA Division I Women's Top 25 Poll: Week 3",
+                    "shortHeadline": "2022 AVCA Poll: Week 3",
+                    "rank": {
+                      "current": 23,
+                      "previous": 24,
+                      "record": {
+                        "summary": "3-1"
+                      }
+                    }
+                  }
+                ],
+                "curatedRank": {
+                  "current": 23
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "4-1"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "3-0"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "1-1"
+                  }
+                ]
+              },
+              {
+                "id": "270",
+                "uid": "s:400~l:402~t:270",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "team": {
+                  "id": "270",
+                  "uid": "s:400~l:402~t:270",
+                  "location": "Milwaukee",
+                  "name": "Panthers",
+                  "abbreviation": "MILW",
+                  "displayName": "Milwaukee",
+                  "shortDisplayName": "Panthers",
+                  "color": "000000",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/270.png"
+                },
+                "score": "0",
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "0-4"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "0-1"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "0-2"
+                  }
+                ]
+              }
+            ],
+            "notes": [],
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 0,
+              "type": {
+                "id": "1",
+                "name": "STATUS_SCHEDULED",
+                "state": "pre",
+                "completed": false,
+                "description": "Scheduled",
+                "detail": "Sun, September 11th at 2:00 PM EDT",
+                "shortDetail": "9/11 - 2:00 PM EDT"
+              }
+            },
+            "broadcasts": [],
+            "format": {
+              "regulation": {
+                "periods": 5
+              }
+            },
+            "startDate": "2022-09-11T18:00Z",
+            "geoBroadcasts": []
+          }
+        ],
+        "links": [],
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 0,
+          "type": {
+            "id": "1",
+            "name": "STATUS_SCHEDULED",
+            "state": "pre",
+            "completed": false,
+            "description": "Scheduled",
+            "detail": "Sun, September 11th at 2:00 PM EDT",
+            "shortDetail": "9/11 - 2:00 PM EDT"
+          }
+        }
+      },
+      {
+        "id": "401460294",
+        "uid": "s:400~l:402~e:401460294",
+        "date": "2022-09-11T18:30Z",
+        "name": "UNC Wilmington Seahawks at Miami Hurricanes",
+        "shortName": "UNCW @ MIA",
+        "season": {
+          "year": 2022,
+          "type": 2,
+          "slug": "regular-season"
+        },
+        "competitions": [
+          {
+            "id": "401460294",
+            "uid": "s:400~l:402~e:401460294~c:401460294",
+            "date": "2022-09-11T18:30Z",
+            "attendance": 0,
+            "type": {
+              "id": "0",
+              "abbreviation": "N/A"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "conferenceCompetition": false,
+            "recent": true,
+            "venue": {
+              "id": "2074",
+              "fullName": "The Venue at UCF",
+              "address": {
+                "city": "Orlando",
+                "state": "Florida"
+              },
+              "capacity": 2500,
+              "indoor": true
+            },
+            "competitors": [
+              {
+                "id": "2390",
+                "uid": "s:400~l:402~t:2390",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "team": {
+                  "id": "2390",
+                  "uid": "s:400~l:402~t:2390",
+                  "location": "Miami",
+                  "name": "Hurricanes",
+                  "abbreviation": "MIA",
+                  "displayName": "Miami",
+                  "shortDisplayName": "Hurricanes",
+                  "color": "004325",
+                  "isActive": false,
+                  "venue": {
+                    "id": "3018"
+                  },
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png"
+                },
+                "score": "1",
+                "linescores": [
+                  {
+                    "value": 25
+                  },
+                  {
+                    "value": 0
+                  }
+                ],
+                "ranks": [],
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "6-2"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "0-0"
+                  },
+                  {
+                    "name": "Road",
+                    "abbreviation": "AWAY",
+                    "type": "road",
+                    "summary": "2-1"
+                  }
+                ]
+              },
+              {
+                "id": "350",
+                "uid": "s:400~l:402~t:350",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "team": {
+                  "id": "350",
+                  "uid": "s:400~l:402~t:350",
+                  "location": "UNC Wilmington",
+                  "name": "Seahawks",
+                  "abbreviation": "UNCW",
+                  "displayName": "UNC Wilmington",
+                  "shortDisplayName": "Seahawks",
+                  "color": "1d2f68",
+                  "isActive": false,
+                  "links": [],
+                  "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/350.png"
+                },
+                "score": "0",
+                "linescores": [
+                  {
+                    "value": 21
+                  },
+                  {
+                    "value": 0
+                  }
+                ],
+                "curatedRank": {
+                  "current": 99
+                },
+                "statistics": [],
+                "records": [
+                  {
+                    "name": "Season",
+                    "abbreviation": "Season",
+                    "type": "total",
+                    "summary": "0-1"
+                  },
+                  {
+                    "name": "Home",
+                    "abbreviation": "Home",
+                    "type": "home",
+                    "summary": "0-1"
+                  }
+                ]
+              }
+            ],
+            "notes": [
+              {
+                "type": "event",
+                "headline": "UCF Invitational"
+              }
+            ],
+            "situation": {},
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 2,
+              "type": {
+                "id": "2",
+                "name": "STATUS_IN_PROGRESS",
+                "state": "in",
+                "completed": false,
+                "description": "In Progress",
+                "detail": "2nd Set",
+                "shortDetail": "2nd"
+              }
+            },
+            "broadcasts": [],
+            "format": {
+              "regulation": {
+                "periods": 5
+              }
+            },
+            "startDate": "2022-09-11T18:30Z",
+            "geoBroadcasts": []
+          }
+        ],
+        "links": [],
+        "status": {
+          "clock": 0,
+          "displayClock": "0:00",
+          "period": 2,
+          "type": {
+            "id": "2",
+            "name": "STATUS_IN_PROGRESS",
+            "state": "in",
+            "completed": false,
+            "description": "In Progress",
+            "detail": "2nd Set",
+            "shortDetail": "2nd"
+          }
+        }
+      }
+    ]
+  }

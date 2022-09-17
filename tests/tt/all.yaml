@@ -1,0 +1,143 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/test.json file instead
+# 
+
+# Baseball
+# PRE - MLB, MIA
+  - platform: teamtracker
+    league_id: MLB
+    team_id: MIA
+    conference_id: 9999
+    name: yaml_test01
+# IN - MLB, MIL
+  - platform: teamtracker
+    league_id: MLB
+    team_id: MIL
+    conference_id: 9999
+    name: yaml_test02
+# POST - MLB, CIN
+  - platform: teamtracker
+    league_id: MLB
+    team_id: CIN
+    conference_id: 9999
+    name: yaml_test03
+
+# Football
+# PRE - NFL, CHI
+  - platform: teamtracker
+    league_id: NFL
+    team_id: CHI
+    conference_id: 9999
+    name: yaml_test04
+# IN - NCAAF, LOU
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: LOU
+    conference_id: 9999
+    name: yaml_test05
+# POST - NFL, BUF
+  - platform: teamtracker
+    league_id: NFL
+    team_id: BUF
+    conference_id: 9999
+    name: yaml_test06
+
+# Soccer
+# PRE - NWSL, ORL
+  - platform: teamtracker
+    league_id: NWSL
+    team_id: ORL
+    conference_id: 9999
+    name: yaml_test07
+# IN - MLS, CLB
+  - platform: teamtracker
+    league_id: MLS
+    team_id: CLB
+    conference_id: 9999
+    name: yaml_test08
+# POST - BUND, FCA
+  - platform: teamtracker
+    league_id: BUND
+    team_id: FCA
+    conference_id: 9999
+    name: yaml_test09
+
+# Basketball
+# PRE - NBA, GS
+  - platform: teamtracker
+    league_id: NBA
+    team_id: GS
+    conference_id: 9999
+    name: yaml_test10
+# IN - WNBA, ?
+  - platform: teamtracker
+    league_id: NBA
+    team_id: TBD
+    conference_id: 9999
+    name: yaml_test11
+# POST - WNBA,?
+  - platform: teamtracker
+    league_id: NBA
+    team_id: TBD
+    conference_id: 9999
+    name: yaml_test12
+
+# Hockey
+# PRE - 
+  - platform: teamtracker
+    league_id: NHL
+    team_id: TBD
+    conference_id: 9999
+    name: yaml_test13
+# IN - 
+  - platform: teamtracker
+    league_id: NHL
+    team_id: TBD
+    conference_id: 9999
+    name: yaml_test14
+# POST - 
+  - platform: teamtracker
+    league_id: NHL
+    team_id: TBD
+    conference_id: 9999
+    name: yaml_test15
+
+# 
+# Volleyball
+# PRE - NCAAVBW, PEPP
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: PEPP
+    conference_id: 9999
+    name: yaml_test16
+# IN - NCAAVBW, MSST
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: MSST
+    conference_id: 9999
+    name: yaml_test17
+# POST - NCAAVBW, ARMY
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: ARMY
+    conference_id: 9999
+    name: yaml_test18
+
+# Error Conditions
+# Invalid League - 
+  - platform: teamtracker
+    league_id: ABC
+    team_id: XYZ
+    name: yaml_teste01
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: NFL
+    team_id: ABC
+    name: yaml_teste02
+# Hafttime MI
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: ND
+    conference_id: 9999
+    name: yaml_teste03

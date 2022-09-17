@@ -1,0 +1,18 @@
+alias: XXX - TeamTracker Test
+description: ""
+trigger:
+  - platform: time
+    at: "17:00:00"
+condition: []
+action:
+  - service: notify.filenotify_teamtracker
+    data:
+      message: >-
+        {% for tt_sensor in states | selectattr('state', 'in', ['PRE', 'IN',
+        'POST']) | map(attribute='entity_id') | list %}
+          {% if 'test_tt' in tt_sensor %}
+            {{tt_sensor}}    {% for attr in states.sensor.test_tt_test01.attributes %}  {% if attr not in ['kickoff_in', 'last_update'] %}
+            {{tt_sensor}}.{{attr}}: {{state_attr(tt_sensor, attr)}} {% endif %} {%- endfor -%}
+          {% endif %}
+        {%- endfor -%}
+mode: single
