@@ -680,7 +680,7 @@ sensor.test_tt_test01
     sensor.test_tt_teste00.team_id: 87   
     sensor.test_tt_teste00.team_record: 0-1   
     sensor.test_tt_teste00.team_homeaway: home   
-    sensor.test_tt_teste00.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/87.png   
+    sensor.test_tt_teste00.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/130.png   
     sensor.test_tt_teste00.team_colors: ['#00122b', '#ae9142']   
     sensor.test_tt_teste00.team_score: 7   
     sensor.test_tt_teste00.team_win_probability: 0.3   
@@ -689,8 +689,8 @@ sensor.test_tt_test01
     sensor.test_tt_teste00.opponent_id: 276   
     sensor.test_tt_teste00.opponent_record: 1-0   
     sensor.test_tt_teste00.opponent_homeaway: away   
-    sensor.test_tt_teste00.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/276.png   
-    sensor.test_tt_teste00.opponent_colors: ['#00ae42', '#be854c']   
+    sensor.test_tt_teste00.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/194.png   
+    sensor.test_tt_teste00.opponent_colors: ['#de3121', '#666666']   
     sensor.test_tt_teste00.opponent_score: 9   
     sensor.test_tt_teste00.opponent_win_probability: 0.7   
     sensor.test_tt_teste00.opponent_timeouts: 3   
