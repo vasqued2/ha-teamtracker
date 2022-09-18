@@ -1,0 +1,78 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/tt/test.json file instead
+# 
+
+# MLS
+  - platform: teamtracker
+    league_id: MLS
+    team_id: NY
+    conference_id: 9999
+    name: test_tt_mls_test01
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: ATL
+    conference_id: 9999
+    name: test_tt_mls_test02
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: MTL
+    conference_id: 9999
+    name: test_tt_mls_test03
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: ORL
+    conference_id: 9999
+    name: test_tt_mls_test04
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: CLT
+    conference_id: 9999
+    name: test_tt_mls_test05
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: SKC
+    conference_id: 9999
+    name: test_tt_mls_test06
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: NSH
+    conference_id: 9999
+    name: test_tt_mls_test07
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: CIN
+    conference_id: 9999
+    name: test_tt_mls_test08
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: VAN
+    conference_id: 9999
+    name: test_tt_mls_test09
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: LA
+    conference_id: 9999
+    name: test_tt_mls_test10
+
+  - platform: teamtracker
+    league_id: MLS
+    team_id: DAL
+    conference_id: 9999
+    name: test_tt_mls_test11
+
+# Error Conditions
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: MLS 
+    team_id: BADTEAM
+    name: test_tt_mls_teste01

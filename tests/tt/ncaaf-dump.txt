@@ -1,0 +1,1276 @@
+Home Assistant notifications (Log started: 2022-09-17T18:30:12.702270+00:00)
+--------------------------------------------------------------------------------
+sensor.test_tt_ncaaf_test01      
+    sensor.test_tt_ncaaf_test01.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test01.sport: football   
+    sensor.test_tt_ncaaf_test01.league: NCAAF   
+    sensor.test_tt_ncaaf_test01.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test01.team_abbr: VT   
+    sensor.test_tt_ncaaf_test01.opponent_abbr: WOF   
+    sensor.test_tt_ncaaf_test01.date: 2022-09-17T15:00Z     
+    sensor.test_tt_ncaaf_test01.venue: Lane Stadium   
+    sensor.test_tt_ncaaf_test01.location: Blacksburg, VA   
+    sensor.test_tt_ncaaf_test01.tv_network: ACCN   
+    sensor.test_tt_ncaaf_test01.odds: None   
+    sensor.test_tt_ncaaf_test01.overunder: None   
+    sensor.test_tt_ncaaf_test01.team_name: Hokies   
+    sensor.test_tt_ncaaf_test01.team_id: 259   
+    sensor.test_tt_ncaaf_test01.team_record: 2-1   
+    sensor.test_tt_ncaaf_test01.team_homeaway: home   
+    sensor.test_tt_ncaaf_test01.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/259.png   
+    sensor.test_tt_ncaaf_test01.team_colors: ['#74232D', '#c2c1ba']   
+    sensor.test_tt_ncaaf_test01.team_score: 27   
+    sensor.test_tt_ncaaf_test01.team_win_probability: None   
+    sensor.test_tt_ncaaf_test01.team_timeouts: None   
+    sensor.test_tt_ncaaf_test01.opponent_name: Terriers   
+    sensor.test_tt_ncaaf_test01.opponent_id: 2747   
+    sensor.test_tt_ncaaf_test01.opponent_record: 0-3   
+    sensor.test_tt_ncaaf_test01.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test01.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2747.png   
+    sensor.test_tt_ncaaf_test01.opponent_colors: ['#533B23', '#f0f0f0']   
+    sensor.test_tt_ncaaf_test01.opponent_score: 7   
+    sensor.test_tt_ncaaf_test01.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test01.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test01.quarter: None   
+    sensor.test_tt_ncaaf_test01.clock: None   
+    sensor.test_tt_ncaaf_test01.possession: None   
+    sensor.test_tt_ncaaf_test01.last_play: None   
+    sensor.test_tt_ncaaf_test01.down_distance_text: None   
+    sensor.test_tt_ncaaf_test01.outs: None   
+    sensor.test_tt_ncaaf_test01.balls: None   
+    sensor.test_tt_ncaaf_test01.strikes: None   
+    sensor.test_tt_ncaaf_test01.on_first: None   
+    sensor.test_tt_ncaaf_test01.on_second: None   
+    sensor.test_tt_ncaaf_test01.on_third: None   
+    sensor.test_tt_ncaaf_test01.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test01.team_total_shots: None   
+    sensor.test_tt_ncaaf_test01.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test01.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test01.team_sets_won: None   
+    sensor.test_tt_ncaaf_test01.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test01.icon: mdi:football   
+    sensor.test_tt_ncaaf_test01.friendly_name: test_tt_ncaaf_test01 
+  
+    sensor.test_tt_ncaaf_test02      
+    sensor.test_tt_ncaaf_test02.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test02.sport: football   
+    sensor.test_tt_ncaaf_test02.league: NCAAF   
+    sensor.test_tt_ncaaf_test02.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test02.team_abbr: SC   
+    sensor.test_tt_ncaaf_test02.opponent_abbr: UGA   
+    sensor.test_tt_ncaaf_test02.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test02.venue: Williams-Brice Stadium   
+    sensor.test_tt_ncaaf_test02.location: Columbia, SC   
+    sensor.test_tt_ncaaf_test02.tv_network: ESPN   
+    sensor.test_tt_ncaaf_test02.odds: None   
+    sensor.test_tt_ncaaf_test02.overunder: None   
+    sensor.test_tt_ncaaf_test02.team_name: Gamecocks   
+    sensor.test_tt_ncaaf_test02.team_id: 2579   
+    sensor.test_tt_ncaaf_test02.team_record: 1-1   
+    sensor.test_tt_ncaaf_test02.team_homeaway: home   
+    sensor.test_tt_ncaaf_test02.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png   
+    sensor.test_tt_ncaaf_test02.team_colors: ['#670010', '#000000']   
+    sensor.test_tt_ncaaf_test02.team_score: 0   
+    sensor.test_tt_ncaaf_test02.team_win_probability: 0.0058   
+    sensor.test_tt_ncaaf_test02.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test02.opponent_name: Bulldogs   
+    sensor.test_tt_ncaaf_test02.opponent_id: 61   
+    sensor.test_tt_ncaaf_test02.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test02.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test02.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/61.png   
+    sensor.test_tt_ncaaf_test02.opponent_colors: ['#CC0000', '#000000']   
+    sensor.test_tt_ncaaf_test02.opponent_score: 24   
+    sensor.test_tt_ncaaf_test02.opponent_win_probability: 0.9942   
+    sensor.test_tt_ncaaf_test02.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test02.quarter: 2   
+    sensor.test_tt_ncaaf_test02.clock: 0:00   
+    sensor.test_tt_ncaaf_test02.possession: None   
+    sensor.test_tt_ncaaf_test02.last_play: Mitch Jeter kickoff for 64 yds , Kearis Jackson return for 19 yds to the SOCAROLINA 46 GEORGIA Penalty, Personal Foul (10 Yards) to the Geo 10   
+    sensor.test_tt_ncaaf_test02.down_distance_text: 1st & 10 at UGA 10   
+    sensor.test_tt_ncaaf_test02.outs: None   
+    sensor.test_tt_ncaaf_test02.balls: None   
+    sensor.test_tt_ncaaf_test02.strikes: None   
+    sensor.test_tt_ncaaf_test02.on_first: None   
+    sensor.test_tt_ncaaf_test02.on_second: None   
+    sensor.test_tt_ncaaf_test02.on_third: None   
+    sensor.test_tt_ncaaf_test02.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test02.team_total_shots: None   
+    sensor.test_tt_ncaaf_test02.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test02.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test02.team_sets_won: None   
+    sensor.test_tt_ncaaf_test02.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test02.icon: mdi:football   
+    sensor.test_tt_ncaaf_test02.friendly_name: test_tt_ncaaf_test02 
+  
+    sensor.test_tt_ncaaf_test03      
+    sensor.test_tt_ncaaf_test03.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test03.sport: football   
+    sensor.test_tt_ncaaf_test03.league: NCAAF   
+    sensor.test_tt_ncaaf_test03.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test03.team_abbr: MICH   
+    sensor.test_tt_ncaaf_test03.opponent_abbr: CONN   
+    sensor.test_tt_ncaaf_test03.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test03.venue: Michigan Stadium   
+    sensor.test_tt_ncaaf_test03.location: Ann Arbor, MI   
+    sensor.test_tt_ncaaf_test03.tv_network: ABC   
+    sensor.test_tt_ncaaf_test03.odds: None   
+    sensor.test_tt_ncaaf_test03.overunder: None   
+    sensor.test_tt_ncaaf_test03.team_name: Wolverines   
+    sensor.test_tt_ncaaf_test03.team_id: 130   
+    sensor.test_tt_ncaaf_test03.team_record: 2-0   
+    sensor.test_tt_ncaaf_test03.team_homeaway: home   
+    sensor.test_tt_ncaaf_test03.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/130.png   
+    sensor.test_tt_ncaaf_test03.team_colors: ['#00274c', '#00274c']   
+    sensor.test_tt_ncaaf_test03.team_score: 38   
+    sensor.test_tt_ncaaf_test03.team_win_probability: 0.999   
+    sensor.test_tt_ncaaf_test03.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test03.opponent_name: Huskies   
+    sensor.test_tt_ncaaf_test03.opponent_id: 41   
+    sensor.test_tt_ncaaf_test03.opponent_record: 1-2   
+    sensor.test_tt_ncaaf_test03.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test03.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/41.png   
+    sensor.test_tt_ncaaf_test03.opponent_colors: ['#001d40', '#f1f2f3']   
+    sensor.test_tt_ncaaf_test03.opponent_score: 0   
+    sensor.test_tt_ncaaf_test03.opponent_win_probability: 0.0010000000000000009   
+    sensor.test_tt_ncaaf_test03.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test03.quarter: 2   
+    sensor.test_tt_ncaaf_test03.clock: 0:00   
+    sensor.test_tt_ncaaf_test03.possession: None   
+    sensor.test_tt_ncaaf_test03.last_play: End of 2nd Quarter   
+    sensor.test_tt_ncaaf_test03.down_distance_text: None   
+    sensor.test_tt_ncaaf_test03.outs: None   
+    sensor.test_tt_ncaaf_test03.balls: None   
+    sensor.test_tt_ncaaf_test03.strikes: None   
+    sensor.test_tt_ncaaf_test03.on_first: None   
+    sensor.test_tt_ncaaf_test03.on_second: None   
+    sensor.test_tt_ncaaf_test03.on_third: None   
+    sensor.test_tt_ncaaf_test03.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test03.team_total_shots: None   
+    sensor.test_tt_ncaaf_test03.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test03.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test03.team_sets_won: None   
+    sensor.test_tt_ncaaf_test03.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test03.icon: mdi:football   
+    sensor.test_tt_ncaaf_test03.friendly_name: test_tt_ncaaf_test03 
+  
+    sensor.test_tt_ncaaf_test04      
+    sensor.test_tt_ncaaf_test04.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test04.sport: football   
+    sensor.test_tt_ncaaf_test04.league: NCAAF   
+    sensor.test_tt_ncaaf_test04.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test04.team_abbr: OU   
+    sensor.test_tt_ncaaf_test04.opponent_abbr: NEB   
+    sensor.test_tt_ncaaf_test04.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test04.venue: Memorial Stadium (Lincoln, NE)   
+    sensor.test_tt_ncaaf_test04.location: Lincoln, NE   
+    sensor.test_tt_ncaaf_test04.tv_network: FOX   
+    sensor.test_tt_ncaaf_test04.odds: None   
+    sensor.test_tt_ncaaf_test04.overunder: None   
+    sensor.test_tt_ncaaf_test04.team_name: Sooners   
+    sensor.test_tt_ncaaf_test04.team_id: 201   
+    sensor.test_tt_ncaaf_test04.team_record: 2-0   
+    sensor.test_tt_ncaaf_test04.team_homeaway: away   
+    sensor.test_tt_ncaaf_test04.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/201.png   
+    sensor.test_tt_ncaaf_test04.team_colors: ['#7b0000', '#cccccc']   
+    sensor.test_tt_ncaaf_test04.team_score: 35   
+    sensor.test_tt_ncaaf_test04.team_win_probability: 0.9958   
+    sensor.test_tt_ncaaf_test04.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test04.opponent_name: Cornhuskers   
+    sensor.test_tt_ncaaf_test04.opponent_id: 158   
+    sensor.test_tt_ncaaf_test04.opponent_record: 1-2   
+    sensor.test_tt_ncaaf_test04.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test04.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/158.png   
+    sensor.test_tt_ncaaf_test04.opponent_colors: ['#F20017', '#f5f1e7']   
+    sensor.test_tt_ncaaf_test04.opponent_score: 7   
+    sensor.test_tt_ncaaf_test04.opponent_win_probability: 0.0042   
+    sensor.test_tt_ncaaf_test04.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test04.quarter: 2   
+    sensor.test_tt_ncaaf_test04.clock: 0:00   
+    sensor.test_tt_ncaaf_test04.possession: None   
+    sensor.test_tt_ncaaf_test04.last_play: End of 2nd Quarter   
+    sensor.test_tt_ncaaf_test04.down_distance_text: None   
+    sensor.test_tt_ncaaf_test04.outs: None   
+    sensor.test_tt_ncaaf_test04.balls: None   
+    sensor.test_tt_ncaaf_test04.strikes: None   
+    sensor.test_tt_ncaaf_test04.on_first: None   
+    sensor.test_tt_ncaaf_test04.on_second: None   
+    sensor.test_tt_ncaaf_test04.on_third: None   
+    sensor.test_tt_ncaaf_test04.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test04.team_total_shots: None   
+    sensor.test_tt_ncaaf_test04.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test04.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test04.team_sets_won: None   
+    sensor.test_tt_ncaaf_test04.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test04.icon: mdi:football   
+    sensor.test_tt_ncaaf_test04.friendly_name: test_tt_ncaaf_test04 
+  
+    sensor.test_tt_ncaaf_test05      
+    sensor.test_tt_ncaaf_test05.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test05.sport: football   
+    sensor.test_tt_ncaaf_test05.league: NCAAF   
+    sensor.test_tt_ncaaf_test05.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test05.team_abbr: UK   
+    sensor.test_tt_ncaaf_test05.opponent_abbr: YSU   
+    sensor.test_tt_ncaaf_test05.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test05.venue: Kroger Field   
+    sensor.test_tt_ncaaf_test05.location: Lexington, KY   
+    sensor.test_tt_ncaaf_test05.tv_network: SECN   
+    sensor.test_tt_ncaaf_test05.odds: None   
+    sensor.test_tt_ncaaf_test05.overunder: None   
+    sensor.test_tt_ncaaf_test05.team_name: Wildcats   
+    sensor.test_tt_ncaaf_test05.team_id: 96   
+    sensor.test_tt_ncaaf_test05.team_record: 2-0   
+    sensor.test_tt_ncaaf_test05.team_homeaway: home   
+    sensor.test_tt_ncaaf_test05.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/96.png   
+    sensor.test_tt_ncaaf_test05.team_colors: ['#005DAA', '#ffffff']   
+    sensor.test_tt_ncaaf_test05.team_score: 28   
+    sensor.test_tt_ncaaf_test05.team_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test05.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test05.opponent_name: Penguins   
+    sensor.test_tt_ncaaf_test05.opponent_id: 2754   
+    sensor.test_tt_ncaaf_test05.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test05.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test05.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2754.png   
+    sensor.test_tt_ncaaf_test05.opponent_colors: ['#E51936', '#690717']   
+    sensor.test_tt_ncaaf_test05.opponent_score: 0   
+    sensor.test_tt_ncaaf_test05.opponent_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test05.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test05.quarter: 3   
+    sensor.test_tt_ncaaf_test05.clock: 8:36   
+    sensor.test_tt_ncaaf_test05.possession: None   
+    sensor.test_tt_ncaaf_test05.last_play: (M. Ruffolo KICK)   
+    sensor.test_tt_ncaaf_test05.down_distance_text: None   
+    sensor.test_tt_ncaaf_test05.outs: None   
+    sensor.test_tt_ncaaf_test05.balls: None   
+    sensor.test_tt_ncaaf_test05.strikes: None   
+    sensor.test_tt_ncaaf_test05.on_first: None   
+    sensor.test_tt_ncaaf_test05.on_second: None   
+    sensor.test_tt_ncaaf_test05.on_third: None   
+    sensor.test_tt_ncaaf_test05.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test05.team_total_shots: None   
+    sensor.test_tt_ncaaf_test05.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test05.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test05.team_sets_won: None   
+    sensor.test_tt_ncaaf_test05.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test05.icon: mdi:football   
+    sensor.test_tt_ncaaf_test05.friendly_name: test_tt_ncaaf_test05 
+  
+    sensor.test_tt_ncaaf_test06      
+    sensor.test_tt_ncaaf_test06.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test06.sport: football   
+    sensor.test_tt_ncaaf_test06.league: NCAAF   
+    sensor.test_tt_ncaaf_test06.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test06.team_abbr: BAY   
+    sensor.test_tt_ncaaf_test06.opponent_abbr: TXST   
+    sensor.test_tt_ncaaf_test06.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test06.venue: McLane Stadium   
+    sensor.test_tt_ncaaf_test06.location: Waco, TX   
+    sensor.test_tt_ncaaf_test06.tv_network: FS1   
+    sensor.test_tt_ncaaf_test06.odds: None   
+    sensor.test_tt_ncaaf_test06.overunder: None   
+    sensor.test_tt_ncaaf_test06.team_name: Bears   
+    sensor.test_tt_ncaaf_test06.team_id: 239   
+    sensor.test_tt_ncaaf_test06.team_record: 1-1   
+    sensor.test_tt_ncaaf_test06.team_homeaway: home   
+    sensor.test_tt_ncaaf_test06.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/239.png   
+    sensor.test_tt_ncaaf_test06.team_colors: ['#004834', '#ffb81c']   
+    sensor.test_tt_ncaaf_test06.team_score: 21   
+    sensor.test_tt_ncaaf_test06.team_win_probability: 0.979   
+    sensor.test_tt_ncaaf_test06.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test06.opponent_name: Bobcats   
+    sensor.test_tt_ncaaf_test06.opponent_id: 326   
+    sensor.test_tt_ncaaf_test06.opponent_record: 1-1   
+    sensor.test_tt_ncaaf_test06.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test06.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/326.png   
+    sensor.test_tt_ncaaf_test06.opponent_colors: ['#4e1719', '#b4975a']   
+    sensor.test_tt_ncaaf_test06.opponent_score: 7   
+    sensor.test_tt_ncaaf_test06.opponent_win_probability: 0.02100000000000002   
+    sensor.test_tt_ncaaf_test06.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test06.quarter: 3   
+    sensor.test_tt_ncaaf_test06.clock: 12:57   
+    sensor.test_tt_ncaaf_test06.possession: 239   
+    sensor.test_tt_ncaaf_test06.last_play: Timeout BAYLOR, clock 12:25   
+    sensor.test_tt_ncaaf_test06.down_distance_text: 2nd & 10 at BAY 48   
+    sensor.test_tt_ncaaf_test06.outs: None   
+    sensor.test_tt_ncaaf_test06.balls: None   
+    sensor.test_tt_ncaaf_test06.strikes: None   
+    sensor.test_tt_ncaaf_test06.on_first: None   
+    sensor.test_tt_ncaaf_test06.on_second: None   
+    sensor.test_tt_ncaaf_test06.on_third: None   
+    sensor.test_tt_ncaaf_test06.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test06.team_total_shots: None   
+    sensor.test_tt_ncaaf_test06.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test06.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test06.team_sets_won: None   
+    sensor.test_tt_ncaaf_test06.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test06.icon: mdi:football   
+    sensor.test_tt_ncaaf_test06.friendly_name: test_tt_ncaaf_test06 
+  
+    sensor.test_tt_ncaaf_test07      
+    sensor.test_tt_ncaaf_test07.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test07.sport: football   
+    sensor.test_tt_ncaaf_test07.league: NCAAF   
+    sensor.test_tt_ncaaf_test07.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test07.team_abbr: ACU   
+    sensor.test_tt_ncaaf_test07.opponent_abbr: MIZ   
+    sensor.test_tt_ncaaf_test07.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test07.venue: Memorial Stadium/Faurot Field   
+    sensor.test_tt_ncaaf_test07.location: Columbia, MO   
+    sensor.test_tt_ncaaf_test07.tv_network: ESPN+   
+    sensor.test_tt_ncaaf_test07.odds: None   
+    sensor.test_tt_ncaaf_test07.overunder: None   
+    sensor.test_tt_ncaaf_test07.team_name: Wildcats   
+    sensor.test_tt_ncaaf_test07.team_id: 2000   
+    sensor.test_tt_ncaaf_test07.team_record: 2-0   
+    sensor.test_tt_ncaaf_test07.team_homeaway: away   
+    sensor.test_tt_ncaaf_test07.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2000.png   
+    sensor.test_tt_ncaaf_test07.team_colors: ['#4e2683', '#ebebeb']   
+    sensor.test_tt_ncaaf_test07.team_score: 3   
+    sensor.test_tt_ncaaf_test07.team_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test07.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test07.opponent_name: Tigers   
+    sensor.test_tt_ncaaf_test07.opponent_id: 142   
+    sensor.test_tt_ncaaf_test07.opponent_record: 1-1   
+    sensor.test_tt_ncaaf_test07.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test07.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/142.png   
+    sensor.test_tt_ncaaf_test07.opponent_colors: ['#000000', '#000000']   
+    sensor.test_tt_ncaaf_test07.opponent_score: 24   
+    sensor.test_tt_ncaaf_test07.opponent_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test07.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test07.quarter: 3   
+    sensor.test_tt_ncaaf_test07.clock: 10:47   
+    sensor.test_tt_ncaaf_test07.possession: None   
+    sensor.test_tt_ncaaf_test07.last_play: (H. Mevis KICK)   
+    sensor.test_tt_ncaaf_test07.down_distance_text: None   
+    sensor.test_tt_ncaaf_test07.outs: None   
+    sensor.test_tt_ncaaf_test07.balls: None   
+    sensor.test_tt_ncaaf_test07.strikes: None   
+    sensor.test_tt_ncaaf_test07.on_first: None   
+    sensor.test_tt_ncaaf_test07.on_second: None   
+    sensor.test_tt_ncaaf_test07.on_third: None   
+    sensor.test_tt_ncaaf_test07.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test07.team_total_shots: None   
+    sensor.test_tt_ncaaf_test07.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test07.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test07.team_sets_won: None   
+    sensor.test_tt_ncaaf_test07.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test07.icon: mdi:football   
+    sensor.test_tt_ncaaf_test07.friendly_name: test_tt_ncaaf_test07 
+  
+    sensor.test_tt_ncaaf_test08      
+    sensor.test_tt_ncaaf_test08.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test08.sport: football   
+    sensor.test_tt_ncaaf_test08.league: NCAAF   
+    sensor.test_tt_ncaaf_test08.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test08.team_abbr: ARMY   
+    sensor.test_tt_ncaaf_test08.opponent_abbr: VILL   
+    sensor.test_tt_ncaaf_test08.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test08.venue: Michie Stadium   
+    sensor.test_tt_ncaaf_test08.location: West Point, NY   
+    sensor.test_tt_ncaaf_test08.tv_network: CBSSN   
+    sensor.test_tt_ncaaf_test08.odds: None   
+    sensor.test_tt_ncaaf_test08.overunder: None   
+    sensor.test_tt_ncaaf_test08.team_name: Black Knights   
+    sensor.test_tt_ncaaf_test08.team_id: 349   
+    sensor.test_tt_ncaaf_test08.team_record: 0-2   
+    sensor.test_tt_ncaaf_test08.team_homeaway: home   
+    sensor.test_tt_ncaaf_test08.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/349.png   
+    sensor.test_tt_ncaaf_test08.team_colors: ['#ce9c00', '#231f20']   
+    sensor.test_tt_ncaaf_test08.team_score: 28   
+    sensor.test_tt_ncaaf_test08.team_win_probability: 0.9824   
+    sensor.test_tt_ncaaf_test08.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test08.opponent_name: Wildcats   
+    sensor.test_tt_ncaaf_test08.opponent_id: 222   
+    sensor.test_tt_ncaaf_test08.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test08.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test08.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/222.png   
+    sensor.test_tt_ncaaf_test08.opponent_colors: ['#123d7C', '#f0f0f0']   
+    sensor.test_tt_ncaaf_test08.opponent_score: 7   
+    sensor.test_tt_ncaaf_test08.opponent_win_probability: 0.01759999999999995   
+    sensor.test_tt_ncaaf_test08.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test08.quarter: 3   
+    sensor.test_tt_ncaaf_test08.clock: 13:05   
+    sensor.test_tt_ncaaf_test08.possession: 222   
+    sensor.test_tt_ncaaf_test08.last_play: No Huddle-Shotgun Watkins,Connor pass incomplete short middle to Boykin,Dez PENALTY VIL False Start (Corbi,Michael) 5 yards from AWP28 to AWP33. NO PLAY.   
+    sensor.test_tt_ncaaf_test08.down_distance_text: 2nd & 20 at ARMY 33   
+    sensor.test_tt_ncaaf_test08.outs: None   
+    sensor.test_tt_ncaaf_test08.balls: None   
+    sensor.test_tt_ncaaf_test08.strikes: None   
+    sensor.test_tt_ncaaf_test08.on_first: None   
+    sensor.test_tt_ncaaf_test08.on_second: None   
+    sensor.test_tt_ncaaf_test08.on_third: None   
+    sensor.test_tt_ncaaf_test08.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test08.team_total_shots: None   
+    sensor.test_tt_ncaaf_test08.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test08.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test08.team_sets_won: None   
+    sensor.test_tt_ncaaf_test08.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test08.icon: mdi:football   
+    sensor.test_tt_ncaaf_test08.friendly_name: test_tt_ncaaf_test08 
+  
+    sensor.test_tt_ncaaf_test09      
+    sensor.test_tt_ncaaf_test09.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test09.sport: football   
+    sensor.test_tt_ncaaf_test09.league: NCAAF   
+    sensor.test_tt_ncaaf_test09.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test09.team_abbr: NU   
+    sensor.test_tt_ncaaf_test09.opponent_abbr: SIU   
+    sensor.test_tt_ncaaf_test09.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test09.venue: Ryan Field   
+    sensor.test_tt_ncaaf_test09.location: Evanston, IL   
+    sensor.test_tt_ncaaf_test09.tv_network: BTN   
+    sensor.test_tt_ncaaf_test09.odds: None   
+    sensor.test_tt_ncaaf_test09.overunder: None   
+    sensor.test_tt_ncaaf_test09.team_name: Wildcats   
+    sensor.test_tt_ncaaf_test09.team_id: 77   
+    sensor.test_tt_ncaaf_test09.team_record: 1-1   
+    sensor.test_tt_ncaaf_test09.team_homeaway: home   
+    sensor.test_tt_ncaaf_test09.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/77.png   
+    sensor.test_tt_ncaaf_test09.team_colors: ['#372286', '#d6cac1']   
+    sensor.test_tt_ncaaf_test09.team_score: 14   
+    sensor.test_tt_ncaaf_test09.team_win_probability: 0.788   
+    sensor.test_tt_ncaaf_test09.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test09.opponent_name: Salukis   
+    sensor.test_tt_ncaaf_test09.opponent_id: 79   
+    sensor.test_tt_ncaaf_test09.opponent_record: 0-2   
+    sensor.test_tt_ncaaf_test09.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test09.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/79.png   
+    sensor.test_tt_ncaaf_test09.opponent_colors: ['#85283D', '#c2c3c0']   
+    sensor.test_tt_ncaaf_test09.opponent_score: 14   
+    sensor.test_tt_ncaaf_test09.opponent_win_probability: 0.21199999999999997   
+    sensor.test_tt_ncaaf_test09.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test09.quarter: 3   
+    sensor.test_tt_ncaaf_test09.clock: 13:25   
+    sensor.test_tt_ncaaf_test09.possession: 79   
+    sensor.test_tt_ncaaf_test09.last_play: Javon Williams Jr. pass incomplete   
+    sensor.test_tt_ncaaf_test09.down_distance_text: 4th & 1 at NU 28   
+    sensor.test_tt_ncaaf_test09.outs: None   
+    sensor.test_tt_ncaaf_test09.balls: None   
+    sensor.test_tt_ncaaf_test09.strikes: None   
+    sensor.test_tt_ncaaf_test09.on_first: None   
+    sensor.test_tt_ncaaf_test09.on_second: None   
+    sensor.test_tt_ncaaf_test09.on_third: None   
+    sensor.test_tt_ncaaf_test09.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test09.team_total_shots: None   
+    sensor.test_tt_ncaaf_test09.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test09.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test09.team_sets_won: None   
+    sensor.test_tt_ncaaf_test09.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test09.icon: mdi:football   
+    sensor.test_tt_ncaaf_test09.friendly_name: test_tt_ncaaf_test09 
+  
+    sensor.test_tt_ncaaf_test10      
+    sensor.test_tt_ncaaf_test10.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test10.sport: football   
+    sensor.test_tt_ncaaf_test10.league: NCAAF   
+    sensor.test_tt_ncaaf_test10.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test10.team_abbr: PUR   
+    sensor.test_tt_ncaaf_test10.opponent_abbr: SYR   
+    sensor.test_tt_ncaaf_test10.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test10.venue: JMA Wireless Dome   
+    sensor.test_tt_ncaaf_test10.location: Syracuse, NY   
+    sensor.test_tt_ncaaf_test10.tv_network: ESPN2   
+    sensor.test_tt_ncaaf_test10.odds: None   
+    sensor.test_tt_ncaaf_test10.overunder: None   
+    sensor.test_tt_ncaaf_test10.team_name: Boilermakers   
+    sensor.test_tt_ncaaf_test10.team_id: 2509   
+    sensor.test_tt_ncaaf_test10.team_record: 1-1   
+    sensor.test_tt_ncaaf_test10.team_homeaway: away   
+    sensor.test_tt_ncaaf_test10.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png   
+    sensor.test_tt_ncaaf_test10.team_colors: ['#B89D29', '#a4a9ad']   
+    sensor.test_tt_ncaaf_test10.team_score: 9   
+    sensor.test_tt_ncaaf_test10.team_win_probability: 0.6426000000000001   
+    sensor.test_tt_ncaaf_test10.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test10.opponent_name: Orange   
+    sensor.test_tt_ncaaf_test10.opponent_id: 183   
+    sensor.test_tt_ncaaf_test10.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test10.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test10.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/183.png   
+    sensor.test_tt_ncaaf_test10.opponent_colors: ['#F37321', '#0d1d37']   
+    sensor.test_tt_ncaaf_test10.opponent_score: 3   
+    sensor.test_tt_ncaaf_test10.opponent_win_probability: 0.3574   
+    sensor.test_tt_ncaaf_test10.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test10.quarter: 2   
+    sensor.test_tt_ncaaf_test10.clock: 0:00   
+    sensor.test_tt_ncaaf_test10.possession: None   
+    sensor.test_tt_ncaaf_test10.last_play: Aidan O'Connell pass complete to TJ Sheffield for 5 yds to the Prdue 45   
+    sensor.test_tt_ncaaf_test10.down_distance_text: 2nd & 10 at PUR 45   
+    sensor.test_tt_ncaaf_test10.outs: None   
+    sensor.test_tt_ncaaf_test10.balls: None   
+    sensor.test_tt_ncaaf_test10.strikes: None   
+    sensor.test_tt_ncaaf_test10.on_first: None   
+    sensor.test_tt_ncaaf_test10.on_second: None   
+    sensor.test_tt_ncaaf_test10.on_third: None   
+    sensor.test_tt_ncaaf_test10.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test10.team_total_shots: None   
+    sensor.test_tt_ncaaf_test10.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test10.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test10.team_sets_won: None   
+    sensor.test_tt_ncaaf_test10.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test10.icon: mdi:football   
+    sensor.test_tt_ncaaf_test10.friendly_name: test_tt_ncaaf_test10 
+  
+    sensor.test_tt_ncaaf_test11      
+    sensor.test_tt_ncaaf_test11.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test11.sport: football   
+    sensor.test_tt_ncaaf_test11.league: NCAAF   
+    sensor.test_tt_ncaaf_test11.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test11.team_abbr: M-OH   
+    sensor.test_tt_ncaaf_test11.opponent_abbr: CIN   
+    sensor.test_tt_ncaaf_test11.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test11.venue: Paycor Stadium   
+    sensor.test_tt_ncaaf_test11.location: Cincinnati, OH   
+    sensor.test_tt_ncaaf_test11.tv_network: ESPNU   
+    sensor.test_tt_ncaaf_test11.odds: None   
+    sensor.test_tt_ncaaf_test11.overunder: None   
+    sensor.test_tt_ncaaf_test11.team_name: RedHawks   
+    sensor.test_tt_ncaaf_test11.team_id: 193   
+    sensor.test_tt_ncaaf_test11.team_record: 1-1   
+    sensor.test_tt_ncaaf_test11.team_homeaway: home   
+    sensor.test_tt_ncaaf_test11.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/193.png   
+    sensor.test_tt_ncaaf_test11.team_colors: ['#a4000c', '#f0f0f0']   
+    sensor.test_tt_ncaaf_test11.team_score: 17   
+    sensor.test_tt_ncaaf_test11.team_win_probability: 0.0747   
+    sensor.test_tt_ncaaf_test11.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test11.opponent_name: Bearcats   
+    sensor.test_tt_ncaaf_test11.opponent_id: 2132   
+    sensor.test_tt_ncaaf_test11.opponent_record: 1-1   
+    sensor.test_tt_ncaaf_test11.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test11.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png   
+    sensor.test_tt_ncaaf_test11.opponent_colors: ['#000000', '#717073']   
+    sensor.test_tt_ncaaf_test11.opponent_score: 24   
+    sensor.test_tt_ncaaf_test11.opponent_win_probability: 0.9253   
+    sensor.test_tt_ncaaf_test11.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test11.quarter: 2   
+    sensor.test_tt_ncaaf_test11.clock: 0:00   
+    sensor.test_tt_ncaaf_test11.possession: None   
+    sensor.test_tt_ncaaf_test11.last_play: Ben Bryant run for 1 yd to the MiaOh 8 CINCINNATI Penalty, Offensive holding (Joe Huber) to the MiaOh 8   
+    sensor.test_tt_ncaaf_test11.down_distance_text: 4th & 4 at M-OH 8   
+    sensor.test_tt_ncaaf_test11.outs: None   
+    sensor.test_tt_ncaaf_test11.balls: None   
+    sensor.test_tt_ncaaf_test11.strikes: None   
+    sensor.test_tt_ncaaf_test11.on_first: None   
+    sensor.test_tt_ncaaf_test11.on_second: None   
+    sensor.test_tt_ncaaf_test11.on_third: None   
+    sensor.test_tt_ncaaf_test11.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test11.team_total_shots: None   
+    sensor.test_tt_ncaaf_test11.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test11.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test11.team_sets_won: None   
+    sensor.test_tt_ncaaf_test11.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test11.icon: mdi:football   
+    sensor.test_tt_ncaaf_test11.friendly_name: test_tt_ncaaf_test11 
+  
+    sensor.test_tt_ncaaf_test12      
+    sensor.test_tt_ncaaf_test12.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test12.sport: football   
+    sensor.test_tt_ncaaf_test12.league: NCAAF   
+    sensor.test_tt_ncaaf_test12.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test12.team_abbr: KENT   
+    sensor.test_tt_ncaaf_test12.opponent_abbr: LIU   
+    sensor.test_tt_ncaaf_test12.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test12.venue: Dix Stadium   
+    sensor.test_tt_ncaaf_test12.location: Kent, OH   
+    sensor.test_tt_ncaaf_test12.tv_network: ESPN3   
+    sensor.test_tt_ncaaf_test12.odds: None   
+    sensor.test_tt_ncaaf_test12.overunder: None   
+    sensor.test_tt_ncaaf_test12.team_name: Golden Flashes   
+    sensor.test_tt_ncaaf_test12.team_id: 2309   
+    sensor.test_tt_ncaaf_test12.team_record: 0-2   
+    sensor.test_tt_ncaaf_test12.team_homeaway: home   
+    sensor.test_tt_ncaaf_test12.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png   
+    sensor.test_tt_ncaaf_test12.team_colors: ['#002445', '#f0b510']   
+    sensor.test_tt_ncaaf_test12.team_score: 42   
+    sensor.test_tt_ncaaf_test12.team_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test12.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test12.opponent_name: Sharks   
+    sensor.test_tt_ncaaf_test12.opponent_id: 112358   
+    sensor.test_tt_ncaaf_test12.opponent_record: 0-2   
+    sensor.test_tt_ncaaf_test12.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test12.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/112358.png   
+    sensor.test_tt_ncaaf_test12.opponent_colors: ['#A9A9A9', '#A9A9A9']   
+    sensor.test_tt_ncaaf_test12.opponent_score: 10   
+    sensor.test_tt_ncaaf_test12.opponent_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test12.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test12.quarter: 3   
+    sensor.test_tt_ncaaf_test12.clock: 12:17   
+    sensor.test_tt_ncaaf_test12.possession: None   
+    sensor.test_tt_ncaaf_test12.last_play: (A. Glass KICK)   
+    sensor.test_tt_ncaaf_test12.down_distance_text: None   
+    sensor.test_tt_ncaaf_test12.outs: None   
+    sensor.test_tt_ncaaf_test12.balls: None   
+    sensor.test_tt_ncaaf_test12.strikes: None   
+    sensor.test_tt_ncaaf_test12.on_first: None   
+    sensor.test_tt_ncaaf_test12.on_second: None   
+    sensor.test_tt_ncaaf_test12.on_third: None   
+    sensor.test_tt_ncaaf_test12.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test12.team_total_shots: None   
+    sensor.test_tt_ncaaf_test12.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test12.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test12.team_sets_won: None   
+    sensor.test_tt_ncaaf_test12.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test12.icon: mdi:football   
+    sensor.test_tt_ncaaf_test12.friendly_name: test_tt_ncaaf_test12 
+  
+    sensor.test_tt_ncaaf_test13      
+    sensor.test_tt_ncaaf_test13.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test13.sport: football   
+    sensor.test_tt_ncaaf_test13.league: NCAAF   
+    sensor.test_tt_ncaaf_test13.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test13.team_abbr: IU   
+    sensor.test_tt_ncaaf_test13.opponent_abbr: WKU   
+    sensor.test_tt_ncaaf_test13.date: 2022-09-17T16:00Z     
+    sensor.test_tt_ncaaf_test13.venue: Memorial Stadium (Bloomington, IN)   
+    sensor.test_tt_ncaaf_test13.location: Bloomington, IN   
+    sensor.test_tt_ncaaf_test13.tv_network: BTN   
+    sensor.test_tt_ncaaf_test13.odds: None   
+    sensor.test_tt_ncaaf_test13.overunder: None   
+    sensor.test_tt_ncaaf_test13.team_name: Hoosiers   
+    sensor.test_tt_ncaaf_test13.team_id: 84   
+    sensor.test_tt_ncaaf_test13.team_record: 2-0   
+    sensor.test_tt_ncaaf_test13.team_homeaway: home   
+    sensor.test_tt_ncaaf_test13.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/84.png   
+    sensor.test_tt_ncaaf_test13.team_colors: ['#7D110C', '#eeedeb']   
+    sensor.test_tt_ncaaf_test13.team_score: 10   
+    sensor.test_tt_ncaaf_test13.team_win_probability: 0.3336   
+    sensor.test_tt_ncaaf_test13.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test13.opponent_name: Hilltoppers   
+    sensor.test_tt_ncaaf_test13.opponent_id: 98   
+    sensor.test_tt_ncaaf_test13.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test13.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test13.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/98.png   
+    sensor.test_tt_ncaaf_test13.opponent_colors: ['#F32026', '#b3b5b8']   
+    sensor.test_tt_ncaaf_test13.opponent_score: 17   
+    sensor.test_tt_ncaaf_test13.opponent_win_probability: 0.6664   
+    sensor.test_tt_ncaaf_test13.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test13.quarter: 3   
+    sensor.test_tt_ncaaf_test13.clock: 15:00   
+    sensor.test_tt_ncaaf_test13.possession: 84   
+    sensor.test_tt_ncaaf_test13.last_play: Connor Bazelak pass incomplete to Cam Camper   
+    sensor.test_tt_ncaaf_test13.down_distance_text: 3rd & 6 at WKU 21   
+    sensor.test_tt_ncaaf_test13.outs: None   
+    sensor.test_tt_ncaaf_test13.balls: None   
+    sensor.test_tt_ncaaf_test13.strikes: None   
+    sensor.test_tt_ncaaf_test13.on_first: None   
+    sensor.test_tt_ncaaf_test13.on_second: None   
+    sensor.test_tt_ncaaf_test13.on_third: None   
+    sensor.test_tt_ncaaf_test13.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test13.team_total_shots: None   
+    sensor.test_tt_ncaaf_test13.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test13.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test13.team_sets_won: None   
+    sensor.test_tt_ncaaf_test13.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test13.icon: mdi:football   
+    sensor.test_tt_ncaaf_test13.friendly_name: test_tt_ncaaf_test13 
+  
+    sensor.test_tt_ncaaf_test14      
+    sensor.test_tt_ncaaf_test14.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test14.sport: football   
+    sensor.test_tt_ncaaf_test14.league: NCAAF   
+    sensor.test_tt_ncaaf_test14.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test14.team_abbr: TOW   
+    sensor.test_tt_ncaaf_test14.opponent_abbr: WVU   
+    sensor.test_tt_ncaaf_test14.date: 2022-09-17T17:00Z     
+    sensor.test_tt_ncaaf_test14.venue: Milan Puskar Stadium   
+    sensor.test_tt_ncaaf_test14.location: Morgantown, WV   
+    sensor.test_tt_ncaaf_test14.tv_network: BIG12|ESPN+   
+    sensor.test_tt_ncaaf_test14.odds: None   
+    sensor.test_tt_ncaaf_test14.overunder: None   
+    sensor.test_tt_ncaaf_test14.team_name: Tigers   
+    sensor.test_tt_ncaaf_test14.team_id: 119   
+    sensor.test_tt_ncaaf_test14.team_record: 2-0   
+    sensor.test_tt_ncaaf_test14.team_homeaway: away   
+    sensor.test_tt_ncaaf_test14.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/119.png   
+    sensor.test_tt_ncaaf_test14.team_colors: ['#FFC229', '#FFC229']   
+    sensor.test_tt_ncaaf_test14.team_score: 7   
+    sensor.test_tt_ncaaf_test14.team_win_probability: 0.008299999999999974   
+    sensor.test_tt_ncaaf_test14.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test14.opponent_name: Mountaineers   
+    sensor.test_tt_ncaaf_test14.opponent_id: 277   
+    sensor.test_tt_ncaaf_test14.opponent_record: 0-2   
+    sensor.test_tt_ncaaf_test14.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test14.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/277.png   
+    sensor.test_tt_ncaaf_test14.opponent_colors: ['#FFC600', '#eaaa00']   
+    sensor.test_tt_ncaaf_test14.opponent_score: 28   
+    sensor.test_tt_ncaaf_test14.opponent_win_probability: 0.9917   
+    sensor.test_tt_ncaaf_test14.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test14.quarter: 2   
+    sensor.test_tt_ncaaf_test14.clock: 12:59   
+    sensor.test_tt_ncaaf_test14.possession: None   
+    sensor.test_tt_ncaaf_test14.last_play: CJ Donaldson run for 3 yds for a TD, (Casey Legg KICK)   
+    sensor.test_tt_ncaaf_test14.down_distance_text: None   
+    sensor.test_tt_ncaaf_test14.outs: None   
+    sensor.test_tt_ncaaf_test14.balls: None   
+    sensor.test_tt_ncaaf_test14.strikes: None   
+    sensor.test_tt_ncaaf_test14.on_first: None   
+    sensor.test_tt_ncaaf_test14.on_second: None   
+    sensor.test_tt_ncaaf_test14.on_third: None   
+    sensor.test_tt_ncaaf_test14.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test14.team_total_shots: None   
+    sensor.test_tt_ncaaf_test14.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test14.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test14.team_sets_won: None   
+    sensor.test_tt_ncaaf_test14.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test14.icon: mdi:football   
+    sensor.test_tt_ncaaf_test14.friendly_name: test_tt_ncaaf_test14 
+  
+    sensor.test_tt_ncaaf_test15      
+    sensor.test_tt_ncaaf_test15.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test15.sport: football   
+    sensor.test_tt_ncaaf_test15.league: NCAAF   
+    sensor.test_tt_ncaaf_test15.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test15.team_abbr: BUFF   
+    sensor.test_tt_ncaaf_test15.opponent_abbr: CCU   
+    sensor.test_tt_ncaaf_test15.date: 2022-09-17T17:00Z     
+    sensor.test_tt_ncaaf_test15.venue: Brooks Stadium (SC)   
+    sensor.test_tt_ncaaf_test15.location: Conway, SC   
+    sensor.test_tt_ncaaf_test15.tv_network: ESPN+   
+    sensor.test_tt_ncaaf_test15.odds: None   
+    sensor.test_tt_ncaaf_test15.overunder: None   
+    sensor.test_tt_ncaaf_test15.team_name: Bulls   
+    sensor.test_tt_ncaaf_test15.team_id: 2084   
+    sensor.test_tt_ncaaf_test15.team_record: 0-2   
+    sensor.test_tt_ncaaf_test15.team_homeaway: away   
+    sensor.test_tt_ncaaf_test15.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2084.png   
+    sensor.test_tt_ncaaf_test15.team_colors: ['#041A9B', '#ebebeb']   
+    sensor.test_tt_ncaaf_test15.team_score: 9   
+    sensor.test_tt_ncaaf_test15.team_win_probability: 0.405   
+    sensor.test_tt_ncaaf_test15.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test15.opponent_name: Chanticleers   
+    sensor.test_tt_ncaaf_test15.opponent_id: 324   
+    sensor.test_tt_ncaaf_test15.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test15.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test15.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/324.png   
+    sensor.test_tt_ncaaf_test15.opponent_colors: ['#007073', '#876447']   
+    sensor.test_tt_ncaaf_test15.opponent_score: 7   
+    sensor.test_tt_ncaaf_test15.opponent_win_probability: 0.595   
+    sensor.test_tt_ncaaf_test15.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test15.quarter: 2   
+    sensor.test_tt_ncaaf_test15.clock: 8:47   
+    sensor.test_tt_ncaaf_test15.possession: None   
+    sensor.test_tt_ncaaf_test15.last_play: Alex McNulty 42 yd FG GOOD   
+    sensor.test_tt_ncaaf_test15.down_distance_text: None   
+    sensor.test_tt_ncaaf_test15.outs: None   
+    sensor.test_tt_ncaaf_test15.balls: None   
+    sensor.test_tt_ncaaf_test15.strikes: None   
+    sensor.test_tt_ncaaf_test15.on_first: None   
+    sensor.test_tt_ncaaf_test15.on_second: None   
+    sensor.test_tt_ncaaf_test15.on_third: None   
+    sensor.test_tt_ncaaf_test15.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test15.team_total_shots: None   
+    sensor.test_tt_ncaaf_test15.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test15.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test15.team_sets_won: None   
+    sensor.test_tt_ncaaf_test15.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test15.icon: mdi:football   
+    sensor.test_tt_ncaaf_test15.friendly_name: test_tt_ncaaf_test15 
+  
+    sensor.test_tt_ncaaf_test16      
+    sensor.test_tt_ncaaf_test16.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test16.sport: football   
+    sensor.test_tt_ncaaf_test16.league: NCAAF   
+    sensor.test_tt_ncaaf_test16.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test16.team_abbr: CMU   
+    sensor.test_tt_ncaaf_test16.opponent_abbr: BUCK   
+    sensor.test_tt_ncaaf_test16.date: 2022-09-17T17:00Z     
+    sensor.test_tt_ncaaf_test16.venue: Kelly/Shorts Stadium   
+    sensor.test_tt_ncaaf_test16.location: Mount Pleasant, MI   
+    sensor.test_tt_ncaaf_test16.tv_network: ESPN3   
+    sensor.test_tt_ncaaf_test16.odds: None   
+    sensor.test_tt_ncaaf_test16.overunder: None   
+    sensor.test_tt_ncaaf_test16.team_name: Chippewas   
+    sensor.test_tt_ncaaf_test16.team_id: 2117   
+    sensor.test_tt_ncaaf_test16.team_record: 0-2   
+    sensor.test_tt_ncaaf_test16.team_homeaway: home   
+    sensor.test_tt_ncaaf_test16.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2117.png   
+    sensor.test_tt_ncaaf_test16.team_colors: ['#6a0032', '#ffffff']   
+    sensor.test_tt_ncaaf_test16.team_score: 0   
+    sensor.test_tt_ncaaf_test16.team_win_probability: 0.945   
+    sensor.test_tt_ncaaf_test16.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test16.opponent_name: Bison   
+    sensor.test_tt_ncaaf_test16.opponent_id: 2083   
+    sensor.test_tt_ncaaf_test16.opponent_record: 0-2   
+    sensor.test_tt_ncaaf_test16.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test16.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2083.png   
+    sensor.test_tt_ncaaf_test16.opponent_colors: ['#000060', '#00316e']   
+    sensor.test_tt_ncaaf_test16.opponent_score: 0   
+    sensor.test_tt_ncaaf_test16.opponent_win_probability: 0.05500000000000005   
+    sensor.test_tt_ncaaf_test16.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test16.quarter: 2   
+    sensor.test_tt_ncaaf_test16.clock: 9:26   
+    sensor.test_tt_ncaaf_test16.possession: 2117   
+    sensor.test_tt_ncaaf_test16.last_play: Myles Bailey run for 2 yds to the Buckn 40   
+    sensor.test_tt_ncaaf_test16.down_distance_text: 2nd & 8 at BUCK 40   
+    sensor.test_tt_ncaaf_test16.outs: None   
+    sensor.test_tt_ncaaf_test16.balls: None   
+    sensor.test_tt_ncaaf_test16.strikes: None   
+    sensor.test_tt_ncaaf_test16.on_first: None   
+    sensor.test_tt_ncaaf_test16.on_second: None   
+    sensor.test_tt_ncaaf_test16.on_third: None   
+    sensor.test_tt_ncaaf_test16.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test16.team_total_shots: None   
+    sensor.test_tt_ncaaf_test16.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test16.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test16.team_sets_won: None   
+    sensor.test_tt_ncaaf_test16.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test16.icon: mdi:football   
+    sensor.test_tt_ncaaf_test16.friendly_name: test_tt_ncaaf_test16 
+  
+    sensor.test_tt_ncaaf_test17      
+    sensor.test_tt_ncaaf_test17.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test17.sport: football   
+    sensor.test_tt_ncaaf_test17.league: NCAAF   
+    sensor.test_tt_ncaaf_test17.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test17.team_abbr: USA   
+    sensor.test_tt_ncaaf_test17.opponent_abbr: UCLA   
+    sensor.test_tt_ncaaf_test17.date: 2022-09-17T18:00Z     
+    sensor.test_tt_ncaaf_test17.venue: Rose Bowl   
+    sensor.test_tt_ncaaf_test17.location: Pasadena, CA   
+    sensor.test_tt_ncaaf_test17.tv_network: PAC12   
+    sensor.test_tt_ncaaf_test17.odds: None   
+    sensor.test_tt_ncaaf_test17.overunder: None   
+    sensor.test_tt_ncaaf_test17.team_name: Jaguars   
+    sensor.test_tt_ncaaf_test17.team_id: 6   
+    sensor.test_tt_ncaaf_test17.team_record: 2-0   
+    sensor.test_tt_ncaaf_test17.team_homeaway: away   
+    sensor.test_tt_ncaaf_test17.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/6.png   
+    sensor.test_tt_ncaaf_test17.team_colors: ['#003E7E', '#003E7E']   
+    sensor.test_tt_ncaaf_test17.team_score: 0   
+    sensor.test_tt_ncaaf_test17.team_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test17.team_timeouts: None   
+    sensor.test_tt_ncaaf_test17.opponent_name: Bruins   
+    sensor.test_tt_ncaaf_test17.opponent_id: 26   
+    sensor.test_tt_ncaaf_test17.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test17.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test17.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/26.png   
+    sensor.test_tt_ncaaf_test17.opponent_colors: ['#005C8E', '#ffc72c']   
+    sensor.test_tt_ncaaf_test17.opponent_score: 0   
+    sensor.test_tt_ncaaf_test17.opponent_win_probability: 0.0   
+    sensor.test_tt_ncaaf_test17.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test17.quarter: 1   
+    sensor.test_tt_ncaaf_test17.clock: 15:00   
+    sensor.test_tt_ncaaf_test17.possession: None   
+    sensor.test_tt_ncaaf_test17.last_play: None   
+    sensor.test_tt_ncaaf_test17.down_distance_text: None   
+    sensor.test_tt_ncaaf_test17.outs: None   
+    sensor.test_tt_ncaaf_test17.balls: None   
+    sensor.test_tt_ncaaf_test17.strikes: None   
+    sensor.test_tt_ncaaf_test17.on_first: None   
+    sensor.test_tt_ncaaf_test17.on_second: None   
+    sensor.test_tt_ncaaf_test17.on_third: None   
+    sensor.test_tt_ncaaf_test17.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test17.team_total_shots: None   
+    sensor.test_tt_ncaaf_test17.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test17.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test17.team_sets_won: None   
+    sensor.test_tt_ncaaf_test17.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test17.icon: mdi:football   
+    sensor.test_tt_ncaaf_test17.friendly_name: test_tt_ncaaf_test17 
+  
+    sensor.test_tt_ncaaf_test18      
+    sensor.test_tt_ncaaf_test18.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test18.sport: football   
+    sensor.test_tt_ncaaf_test18.league: NCAAF   
+    sensor.test_tt_ncaaf_test18.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test18.team_abbr: OHIO   
+    sensor.test_tt_ncaaf_test18.opponent_abbr: ISU   
+    sensor.test_tt_ncaaf_test18.date: 2022-09-17T18:00Z     
+    sensor.test_tt_ncaaf_test18.venue: Jack Trice Stadium   
+    sensor.test_tt_ncaaf_test18.location: Ames, IA   
+    sensor.test_tt_ncaaf_test18.tv_network: BIG12|ESPN+   
+    sensor.test_tt_ncaaf_test18.odds: ISU -20.0   
+    sensor.test_tt_ncaaf_test18.overunder: 48.5   
+    sensor.test_tt_ncaaf_test18.team_name: Bobcats   
+    sensor.test_tt_ncaaf_test18.team_id: 195   
+    sensor.test_tt_ncaaf_test18.team_record: 1-1   
+    sensor.test_tt_ncaaf_test18.team_homeaway: away   
+    sensor.test_tt_ncaaf_test18.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/195.png   
+    sensor.test_tt_ncaaf_test18.team_colors: ['#295A29', '#e4bb85']   
+    sensor.test_tt_ncaaf_test18.team_score: 0   
+    sensor.test_tt_ncaaf_test18.team_win_probability: None   
+    sensor.test_tt_ncaaf_test18.team_timeouts: None   
+    sensor.test_tt_ncaaf_test18.opponent_name: Cyclones   
+    sensor.test_tt_ncaaf_test18.opponent_id: 66   
+    sensor.test_tt_ncaaf_test18.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test18.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test18.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/66.png   
+    sensor.test_tt_ncaaf_test18.opponent_colors: ['#660015', '#830b2c']   
+    sensor.test_tt_ncaaf_test18.opponent_score: 0   
+    sensor.test_tt_ncaaf_test18.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test18.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test18.quarter: None   
+    sensor.test_tt_ncaaf_test18.clock: None   
+    sensor.test_tt_ncaaf_test18.possession: None   
+    sensor.test_tt_ncaaf_test18.last_play: None   
+    sensor.test_tt_ncaaf_test18.down_distance_text: None   
+    sensor.test_tt_ncaaf_test18.outs: None   
+    sensor.test_tt_ncaaf_test18.balls: None   
+    sensor.test_tt_ncaaf_test18.strikes: None   
+    sensor.test_tt_ncaaf_test18.on_first: None   
+    sensor.test_tt_ncaaf_test18.on_second: None   
+    sensor.test_tt_ncaaf_test18.on_third: None   
+    sensor.test_tt_ncaaf_test18.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test18.team_total_shots: None   
+    sensor.test_tt_ncaaf_test18.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test18.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test18.team_sets_won: None   
+    sensor.test_tt_ncaaf_test18.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test18.icon: mdi:football   
+    sensor.test_tt_ncaaf_test18.friendly_name: test_tt_ncaaf_test18 
+  
+    sensor.test_tt_ncaaf_test19      
+    sensor.test_tt_ncaaf_test19.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test19.sport: football   
+    sensor.test_tt_ncaaf_test19.league: NCAAF   
+    sensor.test_tt_ncaaf_test19.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test19.team_abbr: TEM   
+    sensor.test_tt_ncaaf_test19.opponent_abbr: RUTG   
+    sensor.test_tt_ncaaf_test19.date: 2022-09-17T18:00Z     
+    sensor.test_tt_ncaaf_test19.venue: Lincoln Financial Field   
+    sensor.test_tt_ncaaf_test19.location: Philadelphia, PA   
+    sensor.test_tt_ncaaf_test19.tv_network: ESPN+   
+    sensor.test_tt_ncaaf_test19.odds: None   
+    sensor.test_tt_ncaaf_test19.overunder: None   
+    sensor.test_tt_ncaaf_test19.team_name: Owls   
+    sensor.test_tt_ncaaf_test19.team_id: 218   
+    sensor.test_tt_ncaaf_test19.team_record: 1-1   
+    sensor.test_tt_ncaaf_test19.team_homeaway: home   
+    sensor.test_tt_ncaaf_test19.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/218.png   
+    sensor.test_tt_ncaaf_test19.team_colors: ['#A80532', '#a7a9ac']   
+    sensor.test_tt_ncaaf_test19.team_score: 0   
+    sensor.test_tt_ncaaf_test19.team_win_probability: 0.1435   
+    sensor.test_tt_ncaaf_test19.team_timeouts: 3   
+    sensor.test_tt_ncaaf_test19.opponent_name: Scarlet Knights   
+    sensor.test_tt_ncaaf_test19.opponent_id: 164   
+    sensor.test_tt_ncaaf_test19.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test19.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test19.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/164.png   
+    sensor.test_tt_ncaaf_test19.opponent_colors: ['#d21034', '#ffffff']   
+    sensor.test_tt_ncaaf_test19.opponent_score: 0   
+    sensor.test_tt_ncaaf_test19.opponent_win_probability: 0.8565   
+    sensor.test_tt_ncaaf_test19.opponent_timeouts: 3   
+    sensor.test_tt_ncaaf_test19.quarter: 1   
+    sensor.test_tt_ncaaf_test19.clock: 4:02   
+    sensor.test_tt_ncaaf_test19.possession: 218   
+    sensor.test_tt_ncaaf_test19.last_play: E.J. Warner pass incomplete to Jose Barbon   
+    sensor.test_tt_ncaaf_test19.down_distance_text: 2nd & 10 at TEM 25   
+    sensor.test_tt_ncaaf_test19.outs: None   
+    sensor.test_tt_ncaaf_test19.balls: None   
+    sensor.test_tt_ncaaf_test19.strikes: None   
+    sensor.test_tt_ncaaf_test19.on_first: None   
+    sensor.test_tt_ncaaf_test19.on_second: None   
+    sensor.test_tt_ncaaf_test19.on_third: None   
+    sensor.test_tt_ncaaf_test19.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test19.team_total_shots: None   
+    sensor.test_tt_ncaaf_test19.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test19.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test19.team_sets_won: None   
+    sensor.test_tt_ncaaf_test19.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test19.icon: mdi:football   
+    sensor.test_tt_ncaaf_test19.friendly_name: test_tt_ncaaf_test19 
+  
+    sensor.test_tt_ncaaf_test20      
+    sensor.test_tt_ncaaf_test20.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test20.sport: football   
+    sensor.test_tt_ncaaf_test20.league: NCAAF   
+    sensor.test_tt_ncaaf_test20.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test20.team_abbr: ODU   
+    sensor.test_tt_ncaaf_test20.opponent_abbr: UVA   
+    sensor.test_tt_ncaaf_test20.date: 2022-09-17T18:00Z     
+    sensor.test_tt_ncaaf_test20.venue: Scott Stadium   
+    sensor.test_tt_ncaaf_test20.location: Charlottesville, VA   
+    sensor.test_tt_ncaaf_test20.tv_network: ACCN   
+    sensor.test_tt_ncaaf_test20.odds: UVA -8.5   
+    sensor.test_tt_ncaaf_test20.overunder: 53.5   
+    sensor.test_tt_ncaaf_test20.team_name: Monarchs   
+    sensor.test_tt_ncaaf_test20.team_id: 295   
+    sensor.test_tt_ncaaf_test20.team_record: 1-1   
+    sensor.test_tt_ncaaf_test20.team_homeaway: away   
+    sensor.test_tt_ncaaf_test20.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/295.png   
+    sensor.test_tt_ncaaf_test20.team_colors: ['#00507d', '#a1d2f1']   
+    sensor.test_tt_ncaaf_test20.team_score: 0   
+    sensor.test_tt_ncaaf_test20.team_win_probability: None   
+    sensor.test_tt_ncaaf_test20.team_timeouts: None   
+    sensor.test_tt_ncaaf_test20.opponent_name: Cavaliers   
+    sensor.test_tt_ncaaf_test20.opponent_id: 258   
+    sensor.test_tt_ncaaf_test20.opponent_record: 1-1   
+    sensor.test_tt_ncaaf_test20.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test20.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/258.png   
+    sensor.test_tt_ncaaf_test20.opponent_colors: ['#f84c1e', '#ffffff']   
+    sensor.test_tt_ncaaf_test20.opponent_score: 0   
+    sensor.test_tt_ncaaf_test20.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test20.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test20.quarter: None   
+    sensor.test_tt_ncaaf_test20.clock: None   
+    sensor.test_tt_ncaaf_test20.possession: None   
+    sensor.test_tt_ncaaf_test20.last_play: None   
+    sensor.test_tt_ncaaf_test20.down_distance_text: None   
+    sensor.test_tt_ncaaf_test20.outs: None   
+    sensor.test_tt_ncaaf_test20.balls: None   
+    sensor.test_tt_ncaaf_test20.strikes: None   
+    sensor.test_tt_ncaaf_test20.on_first: None   
+    sensor.test_tt_ncaaf_test20.on_second: None   
+    sensor.test_tt_ncaaf_test20.on_third: None   
+    sensor.test_tt_ncaaf_test20.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test20.team_total_shots: None   
+    sensor.test_tt_ncaaf_test20.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test20.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test20.team_sets_won: None   
+    sensor.test_tt_ncaaf_test20.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test20.icon: mdi:football   
+    sensor.test_tt_ncaaf_test20.friendly_name: test_tt_ncaaf_test20 
+  
+    sensor.test_tt_ncaaf_test21      
+    sensor.test_tt_ncaaf_test21.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test21.sport: football   
+    sensor.test_tt_ncaaf_test21.league: NCAAF   
+    sensor.test_tt_ncaaf_test21.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test21.team_abbr: BALL   
+    sensor.test_tt_ncaaf_test21.opponent_abbr: MUR   
+    sensor.test_tt_ncaaf_test21.date: 2022-09-17T18:00Z     
+    sensor.test_tt_ncaaf_test21.venue: Scheumann Stadium   
+    sensor.test_tt_ncaaf_test21.location: Muncie, IN   
+    sensor.test_tt_ncaaf_test21.tv_network: ESPN+   
+    sensor.test_tt_ncaaf_test21.odds: BALL -21.0   
+    sensor.test_tt_ncaaf_test21.overunder: 53   
+    sensor.test_tt_ncaaf_test21.team_name: Cardinals   
+    sensor.test_tt_ncaaf_test21.team_id: 2050   
+    sensor.test_tt_ncaaf_test21.team_record: 0-2   
+    sensor.test_tt_ncaaf_test21.team_homeaway: home   
+    sensor.test_tt_ncaaf_test21.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2050.png   
+    sensor.test_tt_ncaaf_test21.team_colors: ['#DA0000', '#ffffff']   
+    sensor.test_tt_ncaaf_test21.team_score: 0   
+    sensor.test_tt_ncaaf_test21.team_win_probability: None   
+    sensor.test_tt_ncaaf_test21.team_timeouts: None   
+    sensor.test_tt_ncaaf_test21.opponent_name: Racers   
+    sensor.test_tt_ncaaf_test21.opponent_id: 93   
+    sensor.test_tt_ncaaf_test21.opponent_record: 0-2   
+    sensor.test_tt_ncaaf_test21.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test21.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/93.png   
+    sensor.test_tt_ncaaf_test21.opponent_colors: ['#002148', '#000e00']   
+    sensor.test_tt_ncaaf_test21.opponent_score: 0   
+    sensor.test_tt_ncaaf_test21.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test21.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test21.quarter: None   
+    sensor.test_tt_ncaaf_test21.clock: None   
+    sensor.test_tt_ncaaf_test21.possession: None   
+    sensor.test_tt_ncaaf_test21.last_play: None   
+    sensor.test_tt_ncaaf_test21.down_distance_text: None   
+    sensor.test_tt_ncaaf_test21.outs: None   
+    sensor.test_tt_ncaaf_test21.balls: None   
+    sensor.test_tt_ncaaf_test21.strikes: None   
+    sensor.test_tt_ncaaf_test21.on_first: None   
+    sensor.test_tt_ncaaf_test21.on_second: None   
+    sensor.test_tt_ncaaf_test21.on_third: None   
+    sensor.test_tt_ncaaf_test21.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test21.team_total_shots: None   
+    sensor.test_tt_ncaaf_test21.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test21.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test21.team_sets_won: None   
+    sensor.test_tt_ncaaf_test21.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test21.icon: mdi:football   
+    sensor.test_tt_ncaaf_test21.friendly_name: test_tt_ncaaf_test21 
+  
+    sensor.test_tt_ncaaf_test22      
+    sensor.test_tt_ncaaf_test22.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test22.sport: football   
+    sensor.test_tt_ncaaf_test22.league: NCAAF   
+    sensor.test_tt_ncaaf_test22.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test22.team_abbr: ND   
+    sensor.test_tt_ncaaf_test22.opponent_abbr: CAL   
+    sensor.test_tt_ncaaf_test22.date: 2022-09-17T18:30Z     
+    sensor.test_tt_ncaaf_test22.venue: Notre Dame Stadium   
+    sensor.test_tt_ncaaf_test22.location: Notre Dame, IN   
+    sensor.test_tt_ncaaf_test22.tv_network: NBC   
+    sensor.test_tt_ncaaf_test22.odds: ND -13.5   
+    sensor.test_tt_ncaaf_test22.overunder: 41   
+    sensor.test_tt_ncaaf_test22.team_name: Fighting Irish   
+    sensor.test_tt_ncaaf_test22.team_id: 87   
+    sensor.test_tt_ncaaf_test22.team_record: 0-2   
+    sensor.test_tt_ncaaf_test22.team_homeaway: home   
+    sensor.test_tt_ncaaf_test22.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/87.png   
+    sensor.test_tt_ncaaf_test22.team_colors: ['#00122b', '#ae9142']   
+    sensor.test_tt_ncaaf_test22.team_score: 0   
+    sensor.test_tt_ncaaf_test22.team_win_probability: None   
+    sensor.test_tt_ncaaf_test22.team_timeouts: None   
+    sensor.test_tt_ncaaf_test22.opponent_name: Golden Bears   
+    sensor.test_tt_ncaaf_test22.opponent_id: 25   
+    sensor.test_tt_ncaaf_test22.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test22.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test22.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/25.png   
+    sensor.test_tt_ncaaf_test22.opponent_colors: ['#031522', '#ffc423']   
+    sensor.test_tt_ncaaf_test22.opponent_score: 0   
+    sensor.test_tt_ncaaf_test22.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test22.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test22.quarter: None   
+    sensor.test_tt_ncaaf_test22.clock: None   
+    sensor.test_tt_ncaaf_test22.possession: None   
+    sensor.test_tt_ncaaf_test22.last_play: None   
+    sensor.test_tt_ncaaf_test22.down_distance_text: None   
+    sensor.test_tt_ncaaf_test22.outs: None   
+    sensor.test_tt_ncaaf_test22.balls: None   
+    sensor.test_tt_ncaaf_test22.strikes: None   
+    sensor.test_tt_ncaaf_test22.on_first: None   
+    sensor.test_tt_ncaaf_test22.on_second: None   
+    sensor.test_tt_ncaaf_test22.on_third: None   
+    sensor.test_tt_ncaaf_test22.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test22.team_total_shots: None   
+    sensor.test_tt_ncaaf_test22.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test22.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test22.team_sets_won: None   
+    sensor.test_tt_ncaaf_test22.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test22.icon: mdi:football   
+    sensor.test_tt_ncaaf_test22.friendly_name: test_tt_ncaaf_test22 
+  
+    sensor.test_tt_ncaaf_test23      
+    sensor.test_tt_ncaaf_test23.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test23.sport: football   
+    sensor.test_tt_ncaaf_test23.league: NCAAF   
+    sensor.test_tt_ncaaf_test23.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test23.team_abbr: TULN   
+    sensor.test_tt_ncaaf_test23.opponent_abbr: KSU   
+    sensor.test_tt_ncaaf_test23.date: 2022-09-17T19:00Z     
+    sensor.test_tt_ncaaf_test23.venue: Bill Snyder Family Stadium   
+    sensor.test_tt_ncaaf_test23.location: Manhattan, KS   
+    sensor.test_tt_ncaaf_test23.tv_network: BIG12|ESPN+   
+    sensor.test_tt_ncaaf_test23.odds: KSU -14.0   
+    sensor.test_tt_ncaaf_test23.overunder: 49   
+    sensor.test_tt_ncaaf_test23.team_name: Green Wave   
+    sensor.test_tt_ncaaf_test23.team_id: 2655   
+    sensor.test_tt_ncaaf_test23.team_record: 2-0   
+    sensor.test_tt_ncaaf_test23.team_homeaway: away   
+    sensor.test_tt_ncaaf_test23.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2655.png   
+    sensor.test_tt_ncaaf_test23.team_colors: ['#005837', '#3baf29']   
+    sensor.test_tt_ncaaf_test23.team_score: 0   
+    sensor.test_tt_ncaaf_test23.team_win_probability: None   
+    sensor.test_tt_ncaaf_test23.team_timeouts: None   
+    sensor.test_tt_ncaaf_test23.opponent_name: Wildcats   
+    sensor.test_tt_ncaaf_test23.opponent_id: 2306   
+    sensor.test_tt_ncaaf_test23.opponent_record: 2-0   
+    sensor.test_tt_ncaaf_test23.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test23.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2306.png   
+    sensor.test_tt_ncaaf_test23.opponent_colors: ['#633194', '#e7d2ad']   
+    sensor.test_tt_ncaaf_test23.opponent_score: 0   
+    sensor.test_tt_ncaaf_test23.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test23.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test23.quarter: None   
+    sensor.test_tt_ncaaf_test23.clock: None   
+    sensor.test_tt_ncaaf_test23.possession: None   
+    sensor.test_tt_ncaaf_test23.last_play: None   
+    sensor.test_tt_ncaaf_test23.down_distance_text: None   
+    sensor.test_tt_ncaaf_test23.outs: None   
+    sensor.test_tt_ncaaf_test23.balls: None   
+    sensor.test_tt_ncaaf_test23.strikes: None   
+    sensor.test_tt_ncaaf_test23.on_first: None   
+    sensor.test_tt_ncaaf_test23.on_second: None   
+    sensor.test_tt_ncaaf_test23.on_third: None   
+    sensor.test_tt_ncaaf_test23.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test23.team_total_shots: None   
+    sensor.test_tt_ncaaf_test23.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test23.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test23.team_sets_won: None   
+    sensor.test_tt_ncaaf_test23.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test23.icon: mdi:football   
+    sensor.test_tt_ncaaf_test23.friendly_name: test_tt_ncaaf_test23 
+  
+    sensor.test_tt_ncaaf_test24      
+    sensor.test_tt_ncaaf_test24.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test24.sport: football   
+    sensor.test_tt_ncaaf_test24.league: NCAAF   
+    sensor.test_tt_ncaaf_test24.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test24.team_abbr: UNLV   
+    sensor.test_tt_ncaaf_test24.opponent_abbr: UNT   
+    sensor.test_tt_ncaaf_test24.date: 2022-09-17T19:00Z     
+    sensor.test_tt_ncaaf_test24.venue: Allegiant Stadium   
+    sensor.test_tt_ncaaf_test24.location: Las Vegas, NV   
+    sensor.test_tt_ncaaf_test24.tv_network: None   
+    sensor.test_tt_ncaaf_test24.odds: UNLV -2.5   
+    sensor.test_tt_ncaaf_test24.overunder: 62.5   
+    sensor.test_tt_ncaaf_test24.team_name: Rebels   
+    sensor.test_tt_ncaaf_test24.team_id: 2439   
+    sensor.test_tt_ncaaf_test24.team_record: 1-1   
+    sensor.test_tt_ncaaf_test24.team_homeaway: home   
+    sensor.test_tt_ncaaf_test24.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2439.png   
+    sensor.test_tt_ncaaf_test24.team_colors: ['#000000', '#c2c4c6']   
+    sensor.test_tt_ncaaf_test24.team_score: 0   
+    sensor.test_tt_ncaaf_test24.team_win_probability: None   
+    sensor.test_tt_ncaaf_test24.team_timeouts: None   
+    sensor.test_tt_ncaaf_test24.opponent_name: Mean Green   
+    sensor.test_tt_ncaaf_test24.opponent_id: 249   
+    sensor.test_tt_ncaaf_test24.opponent_record: 2-1   
+    sensor.test_tt_ncaaf_test24.opponent_homeaway: away   
+    sensor.test_tt_ncaaf_test24.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/249.png   
+    sensor.test_tt_ncaaf_test24.opponent_colors: ['#00853D', '#000000']   
+    sensor.test_tt_ncaaf_test24.opponent_score: 0   
+    sensor.test_tt_ncaaf_test24.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test24.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test24.quarter: None   
+    sensor.test_tt_ncaaf_test24.clock: None   
+    sensor.test_tt_ncaaf_test24.possession: None   
+    sensor.test_tt_ncaaf_test24.last_play: None   
+    sensor.test_tt_ncaaf_test24.down_distance_text: None   
+    sensor.test_tt_ncaaf_test24.outs: None   
+    sensor.test_tt_ncaaf_test24.balls: None   
+    sensor.test_tt_ncaaf_test24.strikes: None   
+    sensor.test_tt_ncaaf_test24.on_first: None   
+    sensor.test_tt_ncaaf_test24.on_second: None   
+    sensor.test_tt_ncaaf_test24.on_third: None   
+    sensor.test_tt_ncaaf_test24.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test24.team_total_shots: None   
+    sensor.test_tt_ncaaf_test24.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test24.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test24.team_sets_won: None   
+    sensor.test_tt_ncaaf_test24.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test24.icon: mdi:football   
+    sensor.test_tt_ncaaf_test24.friendly_name: test_tt_ncaaf_test24 
+  
+    sensor.test_tt_ncaaf_test25      
+    sensor.test_tt_ncaaf_test25.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaaf_test25.sport: football   
+    sensor.test_tt_ncaaf_test25.league: NCAAF   
+    sensor.test_tt_ncaaf_test25.league_logo: https://a3.espncdn.com/redesign/assets/img/icons/ESPN-icon-football-college.png   
+    sensor.test_tt_ncaaf_test25.team_abbr: BYU   
+    sensor.test_tt_ncaaf_test25.opponent_abbr: ORE   
+    sensor.test_tt_ncaaf_test25.date: 2022-09-17T19:30Z     
+    sensor.test_tt_ncaaf_test25.venue: Autzen Stadium   
+    sensor.test_tt_ncaaf_test25.location: Eugene, OR   
+    sensor.test_tt_ncaaf_test25.tv_network: FOX   
+    sensor.test_tt_ncaaf_test25.odds: ORE -3.5   
+    sensor.test_tt_ncaaf_test25.overunder: 58   
+    sensor.test_tt_ncaaf_test25.team_name: Cougars   
+    sensor.test_tt_ncaaf_test25.team_id: 252   
+    sensor.test_tt_ncaaf_test25.team_record: 2-0   
+    sensor.test_tt_ncaaf_test25.team_homeaway: away   
+    sensor.test_tt_ncaaf_test25.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/252.png   
+    sensor.test_tt_ncaaf_test25.team_colors: ['#001E4C', '#ffffff']   
+    sensor.test_tt_ncaaf_test25.team_score: 0   
+    sensor.test_tt_ncaaf_test25.team_win_probability: None   
+    sensor.test_tt_ncaaf_test25.team_timeouts: None   
+    sensor.test_tt_ncaaf_test25.opponent_name: Ducks   
+    sensor.test_tt_ncaaf_test25.opponent_id: 2483   
+    sensor.test_tt_ncaaf_test25.opponent_record: 1-1   
+    sensor.test_tt_ncaaf_test25.opponent_homeaway: home   
+    sensor.test_tt_ncaaf_test25.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png   
+    sensor.test_tt_ncaaf_test25.opponent_colors: ['#044520', '#fee123']   
+    sensor.test_tt_ncaaf_test25.opponent_score: 0   
+    sensor.test_tt_ncaaf_test25.opponent_win_probability: None   
+    sensor.test_tt_ncaaf_test25.opponent_timeouts: None   
+    sensor.test_tt_ncaaf_test25.quarter: None   
+    sensor.test_tt_ncaaf_test25.clock: None   
+    sensor.test_tt_ncaaf_test25.possession: None   
+    sensor.test_tt_ncaaf_test25.last_play: None   
+    sensor.test_tt_ncaaf_test25.down_distance_text: None   
+    sensor.test_tt_ncaaf_test25.outs: None   
+    sensor.test_tt_ncaaf_test25.balls: None   
+    sensor.test_tt_ncaaf_test25.strikes: None   
+    sensor.test_tt_ncaaf_test25.on_first: None   
+    sensor.test_tt_ncaaf_test25.on_second: None   
+    sensor.test_tt_ncaaf_test25.on_third: None   
+    sensor.test_tt_ncaaf_test25.team_shots_on_target: None   
+    sensor.test_tt_ncaaf_test25.team_total_shots: None   
+    sensor.test_tt_ncaaf_test25.opponent_shots_on_target: None   
+    sensor.test_tt_ncaaf_test25.opponent_total_shots: None   
+    sensor.test_tt_ncaaf_test25.team_sets_won: None   
+    sensor.test_tt_ncaaf_test25.opponent_sets_won: None     
+    sensor.test_tt_ncaaf_test25.icon: mdi:football   
+    sensor.test_tt_ncaaf_test25.friendly_name: test_tt_ncaaf_test25

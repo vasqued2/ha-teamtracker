@@ -1,0 +1,114 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/tt/test.json file instead
+# 
+
+# Baseball
+  - platform: teamtracker
+    league_id: MLB
+    team_id: CLE
+    conference_id: 9999
+    name: test_tt_mlb_test01
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: CIN
+    conference_id: 9999
+    name: test_tt_mlb_test02
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: CHC
+    conference_id: 9999
+    name: test_tt_mlb_test03
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: TOR
+    conference_id: 9999
+    name: test_tt_mlb_test04
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: MIA
+    conference_id: 9999
+    name: test_tt_mlb_test05
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: BOS
+    conference_id: 9999
+    name: test_tt_mlb_test06
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: DET
+    conference_id: 9999
+    name: test_tt_mlb_test07
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: TEX
+    conference_id: 9999
+    name: test_tt_mlb_test08
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: MIN
+    conference_id: 9999
+    name: test_tt_mlb_test09
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: NYY
+    conference_id: 9999
+    name: test_tt_mlb_test10
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: HOU
+    conference_id: 9999
+    name: test_tt_mlb_test11
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: PIT
+    conference_id: 9999
+    name: test_tt_mlb_test12
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: STL
+    conference_id: 9999
+    name: test_tt_mlb_test13
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: ATL
+    conference_id: 9999
+    name: test_tt_mlb_test14
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: SD
+    conference_id: 9999
+    name: test_tt_mlb_test15
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: LAD
+    conference_id: 9999
+    name: test_tt_mlb_test16
+
+  - platform: teamtracker
+    league_id: MLB
+    team_id: LAA
+    conference_id: 9999
+    name: test_tt_mlb_test17
+
+# Error Conditions
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: MLB
+    team_id: BADTEAM
+    name: test_tt_mlb_teste01

@@ -3,12 +3,16 @@
 #  all.json - a mix of all sports in a single file.  See below for details
 #  nfl.json - base NFL games
 #  mlb.json - base MLB games
+#  mls.json - base MLS games
+#  ncaaf.json - base NCAAF games
 #  ncaavbw - base volleyball games
 #
 # Expected output
 #  all-dump.txt
 #  nfl-dump.txt
 #  mlb-dump.txt
+#  mls-dump.txt
+#  ncaaf-dump.txt
 #  ncaavb-dump.txt
 #
 

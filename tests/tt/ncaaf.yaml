@@ -1,0 +1,162 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/tt/test.json file instead
+# 
+
+# NCAAF
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: VT
+    conference_id: 9999
+    name: test_tt_ncaaf_test01
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: SC
+    conference_id: 9999
+    name: test_tt_ncaaf_test02
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: MICH
+    conference_id: 9999
+    name: test_tt_ncaaf_test03
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: OU
+    conference_id: 9999
+    name: test_tt_ncaaf_test04
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: UK
+    conference_id: 9999
+    name: test_tt_ncaaf_test05
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: BAY
+    conference_id: 9999
+    name: test_tt_ncaaf_test06
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: ACU
+    conference_id: 9999
+    name: test_tt_ncaaf_test07
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: ARMY
+    conference_id: 9999
+    name: test_tt_ncaaf_test08
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: NU
+    conference_id: 9999
+    name: test_tt_ncaaf_test09
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: PUR
+    conference_id: 9999
+    name: test_tt_ncaaf_test10
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: "M-OH"
+    conference_id: 9999
+    name: test_tt_ncaaf_test11
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: KENT
+    conference_id: 9999
+    name: test_tt_ncaaf_test12
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: IU
+    conference_id: 9999
+    name: test_tt_ncaaf_test13
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: TOW
+    conference_id: 9999
+    name: test_tt_ncaaf_test14
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: BUFF
+    conference_id: 9999
+    name: test_tt_ncaaf_test15
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: CMU
+    conference_id: 9999
+    name: test_tt_ncaaf_test16
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: USA
+    conference_id: 9999
+    name: test_tt_ncaaf_test17
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: OHIO
+    conference_id: 9999
+    name: test_tt_ncaaf_test18
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: TEM
+    conference_id: 9999
+    name: test_tt_ncaaf_test19
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: ODU
+    conference_id: 9999
+    name: test_tt_ncaaf_test20
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: BALL
+    conference_id: 9999
+    name: test_tt_ncaaf_test21
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: ND
+    conference_id: 9999
+    name: test_tt_ncaaf_test22
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: TULN
+    conference_id: 9999
+    name: test_tt_ncaaf_test23
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: UNLV
+    conference_id: 9999
+    name: test_tt_ncaaf_test24
+
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: BYU
+    conference_id: 9999
+    name: test_tt_ncaaf_test25
+
+# Error Conditions
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: BADTEAM
+    name: test_tt_ncaaf_teste01

@@ -9,39 +9,39 @@
     league_id: MLB
     team_id: MIA
     conference_id: 9999
-    name: yaml_test01
+    name: test_tt_all_test01
 # IN - MLB, MIL
   - platform: teamtracker
     league_id: MLB
     team_id: MIL
     conference_id: 9999
-    name: yaml_test02
+    name: test_tt_all_test02
 # POST - MLB, CIN
   - platform: teamtracker
     league_id: MLB
     team_id: CIN
     conference_id: 9999
-    name: yaml_test03
+    name: test_tt_all_test03
 
 # Football
-# PRE - NFL, CHI
-  - platform: teamtracker
-    league_id: NFL
-    team_id: CHI
-    conference_id: 9999
-    name: yaml_test04
-# IN - NCAAF, LOU
+# PRE - NCAAF, BGSU
   - platform: teamtracker
     league_id: NCAAF
-    team_id: LOU
+    team_id: BGSU
     conference_id: 9999
-    name: yaml_test05
+    name: test_tt_all_test04
+# IN - NCAAF, ALA
+  - platform: teamtracker
+    league_id: NCAAF
+    team_id: ALA
+    conference_id: 9999
+    name: test_tt_all_test05
 # POST - NFL, BUF
   - platform: teamtracker
     league_id: NFL
     team_id: BUF
     conference_id: 9999
-    name: yaml_test06
+    name: test_tt_all_test06
 
 # Soccer
 # PRE - NWSL, ORL
@@ -49,19 +49,19 @@
     league_id: NWSL
     team_id: ORL
     conference_id: 9999
-    name: yaml_test07
+    name: test_tt_all_test07
 # IN - MLS, CLB
   - platform: teamtracker
     league_id: MLS
     team_id: CLB
     conference_id: 9999
-    name: yaml_test08
+    name: test_tt_all_test08
 # POST - BUND, FCA
   - platform: teamtracker
     league_id: BUND
     team_id: FCA
     conference_id: 9999
-    name: yaml_test09
+    name: test_tt_all_test09
 
 # Basketball
 # PRE - NBA, GS
@@ -69,19 +69,19 @@
     league_id: NBA
     team_id: GS
     conference_id: 9999
-    name: yaml_test10
+    name: test_tt_all_test10
 # IN - WNBA, ?
   - platform: teamtracker
     league_id: NBA
     team_id: TBD
     conference_id: 9999
-    name: yaml_test11
+    name: test_tt_all_test11
 # POST - WNBA,?
   - platform: teamtracker
     league_id: NBA
     team_id: TBD
     conference_id: 9999
-    name: yaml_test12
+    name: test_tt_all_test12
 
 # Hockey
 # PRE - 
@@ -89,19 +89,19 @@
     league_id: NHL
     team_id: TBD
     conference_id: 9999
-    name: yaml_test13
+    name: test_tt_all_test13
 # IN - 
   - platform: teamtracker
     league_id: NHL
     team_id: TBD
     conference_id: 9999
-    name: yaml_test14
+    name: test_tt_all_test14
 # POST - 
   - platform: teamtracker
     league_id: NHL
     team_id: TBD
     conference_id: 9999
-    name: yaml_test15
+    name: test_tt_all_test15
 
 # 
 # Volleyball
@@ -110,34 +110,28 @@
     league_id: NCAAVBW
     team_id: PEPP
     conference_id: 9999
-    name: yaml_test16
+    name: test_tt_all_test16
 # IN - NCAAVBW, MSST
   - platform: teamtracker
     league_id: NCAAVBW
     team_id: MSST
     conference_id: 9999
-    name: yaml_test17
+    name: test_tt_all_test17
 # POST - NCAAVBW, ARMY
   - platform: teamtracker
     league_id: NCAAVBW
     team_id: ARMY
     conference_id: 9999
-    name: yaml_test18
+    name: test_tt_all_test18
 
 # Error Conditions
 # Invalid League - 
   - platform: teamtracker
-    league_id: ABC
-    team_id: XYZ
-    name: yaml_teste01
+    league_id: BADLEAGUE
+    team_id: BADTEAM
+    name: test_tt_all_teste01
 # Invalid Team - 
   - platform: teamtracker
     league_id: NFL
-    team_id: ABC
-    name: yaml_teste02
-# Hafttime MI
-  - platform: teamtracker
-    league_id: NCAAF
-    team_id: ND
-    conference_id: 9999
-    name: yaml_teste03
+    team_id: BADTEAM
+    name: test_tt_all_teste02

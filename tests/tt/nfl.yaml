@@ -1,0 +1,108 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/tt/test.json file instead
+# 
+
+# Football
+  - platform: teamtracker
+    league_id: NFL
+    team_id: 'NO'
+    conference_id: 9999
+    name: test_tt_nfl_test01
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: SF
+    conference_id: 9999
+    name: test_tt_nfl_test02
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: CIN
+    conference_id: 9999
+    name: test_tt_nfl_test03
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: DET
+    conference_id: 9999
+    name: test_tt_nfl_test04
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: NE
+    conference_id: 9999
+    name: test_tt_nfl_test05
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: NYJ
+    conference_id: 9999
+    name: test_tt_nfl_test06
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: JAX
+    conference_id: 9999
+    name: test_tt_nfl_test07
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: CLE
+    conference_id: 9999
+    name: test_tt_nfl_test08
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: HOU
+    conference_id: 9999
+    name: test_tt_nfl_test09
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: NYG
+    conference_id: 9999
+    name: test_tt_nfl_test10
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: GB
+    conference_id: 9999
+    name: test_tt_nfl_test11
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: ARI
+    conference_id: 9999
+    name: test_tt_nfl_test12
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: LV
+    conference_id: 9999
+    name: test_tt_nfl_test13
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: DAL
+    conference_id: 9999
+    name: test_tt_nfl_test14
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: BUF
+    conference_id: 9999
+    name: test_tt_nfl_test15
+
+  - platform: teamtracker
+    league_id: NFL
+    team_id: SEA
+    conference_id: 9999
+    name: test_tt_nfl_test16
+
+# Error Conditions
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: NFL
+    team_id: BADTEAM
+    name: test_tt_nfl_teste01

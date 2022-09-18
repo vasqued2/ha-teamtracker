@@ -1,715 +1,664 @@
-Home Assistant notifications (Log started: 2022-09-16T23:36:46.658433+00:00)
+Home Assistant notifications (Log started: 2022-09-18T18:38:40.717147+00:00)
 --------------------------------------------------------------------------------
-sensor.test_tt_test01      
-    sensor.test_tt_test01.attribution: Data provided by ESPN   
-    sensor.test_tt_test01.sport: baseball   
-    sensor.test_tt_test01.league: MLB   
-    sensor.test_tt_test01.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test01.team_abbr: MIA   
-    sensor.test_tt_test01.opponent_abbr: PHI   
-    sensor.test_tt_test01.date: 2022-09-08T22:45Z     
-    sensor.test_tt_test01.venue: Citizens Bank Park   
-    sensor.test_tt_test01.location: Philadelphia, Pennsylvania   
-    sensor.test_tt_test01.tv_network: None   
-    sensor.test_tt_test01.odds: PHI -140   
-    sensor.test_tt_test01.overunder: 7   
-    sensor.test_tt_test01.team_name: Marlins   
-    sensor.test_tt_test01.team_id: 28   
-    sensor.test_tt_test01.team_record: 55-80   
-    sensor.test_tt_test01.team_homeaway: away   
-    sensor.test_tt_test01.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mia.png   
-    sensor.test_tt_test01.team_colors: ['#0081c7', '#0077c8']   
-    sensor.test_tt_test01.team_score: 0   
-    sensor.test_tt_test01.team_win_probability: None   
-    sensor.test_tt_test01.team_timeouts: None   
-    sensor.test_tt_test01.opponent_name: Phillies   
-    sensor.test_tt_test01.opponent_id: 22   
-    sensor.test_tt_test01.opponent_record: 75-61   
-    sensor.test_tt_test01.opponent_homeaway: home   
-    sensor.test_tt_test01.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png   
-    sensor.test_tt_test01.opponent_colors: ['#be0011', '#284898']   
-    sensor.test_tt_test01.opponent_score: 0   
-    sensor.test_tt_test01.opponent_win_probability: None   
-    sensor.test_tt_test01.opponent_timeouts: None   
-    sensor.test_tt_test01.quarter: None   
-    sensor.test_tt_test01.clock: None   
-    sensor.test_tt_test01.possession: None   
-    sensor.test_tt_test01.last_play: None   
-    sensor.test_tt_test01.down_distance_text: None   
-    sensor.test_tt_test01.outs: None   
-    sensor.test_tt_test01.balls: None   
-    sensor.test_tt_test01.strikes: None   
-    sensor.test_tt_test01.on_first: None   
-    sensor.test_tt_test01.on_second: None   
-    sensor.test_tt_test01.on_third: None   
-    sensor.test_tt_test01.team_shots_on_target: None   
-    sensor.test_tt_test01.team_total_shots: None   
-    sensor.test_tt_test01.opponent_shots_on_target: None   
-    sensor.test_tt_test01.opponent_total_shots: None   
-    sensor.test_tt_test01.team_sets_won: None   
-    sensor.test_tt_test01.opponent_sets_won: None     
-    sensor.test_tt_test01.icon: mdi:baseball   
-    sensor.test_tt_test01.friendly_name: test_tt_test01 
+sensor.test_tt_all_test01      
+    sensor.test_tt_all_test01.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test01.sport: baseball   
+    sensor.test_tt_all_test01.league: MLB   
+    sensor.test_tt_all_test01.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test01.team_abbr: MIA   
+    sensor.test_tt_all_test01.opponent_abbr: PHI   
+    sensor.test_tt_all_test01.date: 2022-09-08T22:45Z     
+    sensor.test_tt_all_test01.venue: Citizens Bank Park   
+    sensor.test_tt_all_test01.location: Philadelphia, Pennsylvania   
+    sensor.test_tt_all_test01.tv_network: None   
+    sensor.test_tt_all_test01.odds: PHI -140   
+    sensor.test_tt_all_test01.overunder: 7   
+    sensor.test_tt_all_test01.team_name: Marlins   
+    sensor.test_tt_all_test01.team_id: 28   
+    sensor.test_tt_all_test01.team_record: 55-80   
+    sensor.test_tt_all_test01.team_homeaway: away   
+    sensor.test_tt_all_test01.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mia.png   
+    sensor.test_tt_all_test01.team_colors: ['#0081c7', '#0077c8']   
+    sensor.test_tt_all_test01.team_score: 0   
+    sensor.test_tt_all_test01.team_win_probability: None   
+    sensor.test_tt_all_test01.team_timeouts: None   
+    sensor.test_tt_all_test01.opponent_name: Phillies   
+    sensor.test_tt_all_test01.opponent_id: 22   
+    sensor.test_tt_all_test01.opponent_record: 75-61   
+    sensor.test_tt_all_test01.opponent_homeaway: home   
+    sensor.test_tt_all_test01.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png   
+    sensor.test_tt_all_test01.opponent_colors: ['#be0011', '#284898']   
+    sensor.test_tt_all_test01.opponent_score: 0   
+    sensor.test_tt_all_test01.opponent_win_probability: None   
+    sensor.test_tt_all_test01.opponent_timeouts: None   
+    sensor.test_tt_all_test01.quarter: None   
+    sensor.test_tt_all_test01.clock: None   
+    sensor.test_tt_all_test01.possession: None   
+    sensor.test_tt_all_test01.last_play: None   
+    sensor.test_tt_all_test01.down_distance_text: None   
+    sensor.test_tt_all_test01.outs: None   
+    sensor.test_tt_all_test01.balls: None   
+    sensor.test_tt_all_test01.strikes: None   
+    sensor.test_tt_all_test01.on_first: None   
+    sensor.test_tt_all_test01.on_second: None   
+    sensor.test_tt_all_test01.on_third: None   
+    sensor.test_tt_all_test01.team_shots_on_target: None   
+    sensor.test_tt_all_test01.team_total_shots: None   
+    sensor.test_tt_all_test01.opponent_shots_on_target: None   
+    sensor.test_tt_all_test01.opponent_total_shots: None   
+    sensor.test_tt_all_test01.team_sets_won: None   
+    sensor.test_tt_all_test01.opponent_sets_won: None     
+    sensor.test_tt_all_test01.icon: mdi:baseball   
+    sensor.test_tt_all_test01.friendly_name: test_tt_all_test01 
   
-    sensor.test_tt_test02      
-    sensor.test_tt_test02.attribution: Data provided by ESPN   
-    sensor.test_tt_test02.sport: baseball   
-    sensor.test_tt_test02.league: MLB   
-    sensor.test_tt_test02.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test02.team_abbr: MIL   
-    sensor.test_tt_test02.opponent_abbr: SF   
-    sensor.test_tt_test02.date: 2022-09-08T20:10Z     
-    sensor.test_tt_test02.venue: American Family Field   
-    sensor.test_tt_test02.location: Milwaukee, Wisconsin   
-    sensor.test_tt_test02.tv_network: None   
-    sensor.test_tt_test02.odds: None   
-    sensor.test_tt_test02.overunder: None   
-    sensor.test_tt_test02.team_name: Brewers   
-    sensor.test_tt_test02.team_id: 8   
-    sensor.test_tt_test02.team_record: 71-65   
-    sensor.test_tt_test02.team_homeaway: home   
-    sensor.test_tt_test02.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png   
-    sensor.test_tt_test02.team_colors: ['#050C33', '#f1f2f3']   
-    sensor.test_tt_test02.team_score: 2   
-    sensor.test_tt_test02.team_win_probability: 0.762   
-    sensor.test_tt_test02.team_timeouts: None   
-    sensor.test_tt_test02.opponent_name: Giants   
-    sensor.test_tt_test02.opponent_id: 26   
-    sensor.test_tt_test02.opponent_record: 65-70   
-    sensor.test_tt_test02.opponent_homeaway: away   
-    sensor.test_tt_test02.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sf.png   
-    sensor.test_tt_test02.opponent_colors: ['#161415', '#000000']   
-    sensor.test_tt_test02.opponent_score: 1   
-    sensor.test_tt_test02.opponent_win_probability: 0.238   
-    sensor.test_tt_test02.opponent_timeouts: None   
-    sensor.test_tt_test02.quarter: 6   
-    sensor.test_tt_test02.clock: Top 6th   
-    sensor.test_tt_test02.possession: 26   
-    sensor.test_tt_test02.last_play: Yastrzemski struck out looking.   
-    sensor.test_tt_test02.down_distance_text: None   
-    sensor.test_tt_test02.outs: 2   
-    sensor.test_tt_test02.balls: 1   
-    sensor.test_tt_test02.strikes: 3   
-    sensor.test_tt_test02.on_first: False   
-    sensor.test_tt_test02.on_second: False   
-    sensor.test_tt_test02.on_third: False   
-    sensor.test_tt_test02.team_shots_on_target: None   
-    sensor.test_tt_test02.team_total_shots: None   
-    sensor.test_tt_test02.opponent_shots_on_target: None   
-    sensor.test_tt_test02.opponent_total_shots: None   
-    sensor.test_tt_test02.team_sets_won: None   
-    sensor.test_tt_test02.opponent_sets_won: None     
-    sensor.test_tt_test02.icon: mdi:baseball   
-    sensor.test_tt_test02.friendly_name: test_tt_test02 
+    sensor.test_tt_all_test02      
+    sensor.test_tt_all_test02.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test02.sport: baseball   
+    sensor.test_tt_all_test02.league: MLB   
+    sensor.test_tt_all_test02.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test02.team_abbr: MIL   
+    sensor.test_tt_all_test02.opponent_abbr: SF   
+    sensor.test_tt_all_test02.date: 2022-09-08T20:10Z     
+    sensor.test_tt_all_test02.venue: American Family Field   
+    sensor.test_tt_all_test02.location: Milwaukee, Wisconsin   
+    sensor.test_tt_all_test02.tv_network: None   
+    sensor.test_tt_all_test02.odds: None   
+    sensor.test_tt_all_test02.overunder: None   
+    sensor.test_tt_all_test02.team_name: Brewers   
+    sensor.test_tt_all_test02.team_id: 8   
+    sensor.test_tt_all_test02.team_record: 71-65   
+    sensor.test_tt_all_test02.team_homeaway: home   
+    sensor.test_tt_all_test02.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png   
+    sensor.test_tt_all_test02.team_colors: ['#050C33', '#f1f2f3']   
+    sensor.test_tt_all_test02.team_score: 2   
+    sensor.test_tt_all_test02.team_win_probability: 0.762   
+    sensor.test_tt_all_test02.team_timeouts: None   
+    sensor.test_tt_all_test02.opponent_name: Giants   
+    sensor.test_tt_all_test02.opponent_id: 26   
+    sensor.test_tt_all_test02.opponent_record: 65-70   
+    sensor.test_tt_all_test02.opponent_homeaway: away   
+    sensor.test_tt_all_test02.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sf.png   
+    sensor.test_tt_all_test02.opponent_colors: ['#161415', '#000000']   
+    sensor.test_tt_all_test02.opponent_score: 1   
+    sensor.test_tt_all_test02.opponent_win_probability: 0.238   
+    sensor.test_tt_all_test02.opponent_timeouts: None   
+    sensor.test_tt_all_test02.quarter: 6   
+    sensor.test_tt_all_test02.clock: Top 6th   
+    sensor.test_tt_all_test02.possession: 26   
+    sensor.test_tt_all_test02.last_play: Yastrzemski struck out looking.   
+    sensor.test_tt_all_test02.down_distance_text: None   
+    sensor.test_tt_all_test02.outs: 2   
+    sensor.test_tt_all_test02.balls: 1   
+    sensor.test_tt_all_test02.strikes: 3   
+    sensor.test_tt_all_test02.on_first: False   
+    sensor.test_tt_all_test02.on_second: False   
+    sensor.test_tt_all_test02.on_third: False   
+    sensor.test_tt_all_test02.team_shots_on_target: None   
+    sensor.test_tt_all_test02.team_total_shots: None   
+    sensor.test_tt_all_test02.opponent_shots_on_target: None   
+    sensor.test_tt_all_test02.opponent_total_shots: None   
+    sensor.test_tt_all_test02.team_sets_won: None   
+    sensor.test_tt_all_test02.opponent_sets_won: None     
+    sensor.test_tt_all_test02.icon: mdi:baseball   
+    sensor.test_tt_all_test02.friendly_name: test_tt_all_test02 
   
-    sensor.test_tt_test03      
-    sensor.test_tt_test03.attribution: Data provided by ESPN   
-    sensor.test_tt_test03.sport: baseball   
-    sensor.test_tt_test03.league: MLB   
-    sensor.test_tt_test03.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test03.team_abbr: CIN   
-    sensor.test_tt_test03.opponent_abbr: CHC   
-    sensor.test_tt_test03.date: 2022-09-08T18:20Z     
-    sensor.test_tt_test03.venue: Wrigley Field   
-    sensor.test_tt_test03.location: Chicago, Illinois   
-    sensor.test_tt_test03.tv_network: None   
-    sensor.test_tt_test03.odds: None   
-    sensor.test_tt_test03.overunder: None   
-    sensor.test_tt_test03.team_name: Reds   
-    sensor.test_tt_test03.team_id: 17   
-    sensor.test_tt_test03.team_record: 55-80   
-    sensor.test_tt_test03.team_homeaway: away   
-    sensor.test_tt_test03.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cin.png   
-    sensor.test_tt_test03.team_colors: ['#c41422', '#ffffff']   
-    sensor.test_tt_test03.team_score: 4   
-    sensor.test_tt_test03.team_win_probability: None   
-    sensor.test_tt_test03.team_timeouts: None   
-    sensor.test_tt_test03.opponent_name: Cubs   
-    sensor.test_tt_test03.opponent_id: 16   
-    sensor.test_tt_test03.opponent_record: 57-80   
-    sensor.test_tt_test03.opponent_homeaway: home   
-    sensor.test_tt_test03.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png   
-    sensor.test_tt_test03.opponent_colors: ['#00417d', '#00417d']   
-    sensor.test_tt_test03.opponent_score: 3   
-    sensor.test_tt_test03.opponent_win_probability: None   
-    sensor.test_tt_test03.opponent_timeouts: None   
-    sensor.test_tt_test03.quarter: None   
-    sensor.test_tt_test03.clock: None   
-    sensor.test_tt_test03.possession: None   
-    sensor.test_tt_test03.last_play: None   
-    sensor.test_tt_test03.down_distance_text: None   
-    sensor.test_tt_test03.outs: None   
-    sensor.test_tt_test03.balls: None   
-    sensor.test_tt_test03.strikes: None   
-    sensor.test_tt_test03.on_first: None   
-    sensor.test_tt_test03.on_second: None   
-    sensor.test_tt_test03.on_third: None   
-    sensor.test_tt_test03.team_shots_on_target: None   
-    sensor.test_tt_test03.team_total_shots: None   
-    sensor.test_tt_test03.opponent_shots_on_target: None   
-    sensor.test_tt_test03.opponent_total_shots: None   
-    sensor.test_tt_test03.team_sets_won: None   
-    sensor.test_tt_test03.opponent_sets_won: None     
-    sensor.test_tt_test03.icon: mdi:baseball   
-    sensor.test_tt_test03.friendly_name: test_tt_test03 
+    sensor.test_tt_all_test03      
+    sensor.test_tt_all_test03.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test03.sport: baseball   
+    sensor.test_tt_all_test03.league: MLB   
+    sensor.test_tt_all_test03.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test03.team_abbr: CIN   
+    sensor.test_tt_all_test03.opponent_abbr: CHC   
+    sensor.test_tt_all_test03.date: 2022-09-08T18:20Z     
+    sensor.test_tt_all_test03.venue: Wrigley Field   
+    sensor.test_tt_all_test03.location: Chicago, Illinois   
+    sensor.test_tt_all_test03.tv_network: None   
+    sensor.test_tt_all_test03.odds: None   
+    sensor.test_tt_all_test03.overunder: None   
+    sensor.test_tt_all_test03.team_name: Reds   
+    sensor.test_tt_all_test03.team_id: 17   
+    sensor.test_tt_all_test03.team_record: 55-80   
+    sensor.test_tt_all_test03.team_homeaway: away   
+    sensor.test_tt_all_test03.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cin.png   
+    sensor.test_tt_all_test03.team_colors: ['#c41422', '#ffffff']   
+    sensor.test_tt_all_test03.team_score: 4   
+    sensor.test_tt_all_test03.team_win_probability: None   
+    sensor.test_tt_all_test03.team_timeouts: None   
+    sensor.test_tt_all_test03.opponent_name: Cubs   
+    sensor.test_tt_all_test03.opponent_id: 16   
+    sensor.test_tt_all_test03.opponent_record: 57-80   
+    sensor.test_tt_all_test03.opponent_homeaway: home   
+    sensor.test_tt_all_test03.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png   
+    sensor.test_tt_all_test03.opponent_colors: ['#00417d', '#00417d']   
+    sensor.test_tt_all_test03.opponent_score: 3   
+    sensor.test_tt_all_test03.opponent_win_probability: None   
+    sensor.test_tt_all_test03.opponent_timeouts: None   
+    sensor.test_tt_all_test03.quarter: None   
+    sensor.test_tt_all_test03.clock: None   
+    sensor.test_tt_all_test03.possession: None   
+    sensor.test_tt_all_test03.last_play: None   
+    sensor.test_tt_all_test03.down_distance_text: None   
+    sensor.test_tt_all_test03.outs: None   
+    sensor.test_tt_all_test03.balls: None   
+    sensor.test_tt_all_test03.strikes: None   
+    sensor.test_tt_all_test03.on_first: None   
+    sensor.test_tt_all_test03.on_second: None   
+    sensor.test_tt_all_test03.on_third: None   
+    sensor.test_tt_all_test03.team_shots_on_target: None   
+    sensor.test_tt_all_test03.team_total_shots: None   
+    sensor.test_tt_all_test03.opponent_shots_on_target: None   
+    sensor.test_tt_all_test03.opponent_total_shots: None   
+    sensor.test_tt_all_test03.team_sets_won: None   
+    sensor.test_tt_all_test03.opponent_sets_won: None     
+    sensor.test_tt_all_test03.icon: mdi:baseball   
+    sensor.test_tt_all_test03.friendly_name: test_tt_all_test03 
   
-    sensor.test_tt_test04      
-    sensor.test_tt_test04.attribution: Data provided by ESPN   
-    sensor.test_tt_test04.sport: football   
-    sensor.test_tt_test04.league: NCAAF   
-    sensor.test_tt_test04.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test04.team_abbr: BGSU   
-    sensor.test_tt_test04.opponent_abbr: EKU   
-    sensor.test_tt_test04.date: 2022-09-10T20:00Z     
-    sensor.test_tt_test04.venue: Doyt L. Perry Stadium   
-    sensor.test_tt_test04.location: Bowling Green, OH   
-    sensor.test_tt_test04.tv_network: ESPN3   
-    sensor.test_tt_test04.odds: BGSU -7.5   
-    sensor.test_tt_test04.overunder: 57   
-    sensor.test_tt_test04.team_name: Falcons   
-    sensor.test_tt_test04.team_id: 189   
-    sensor.test_tt_test04.team_record: 0-1   
-    sensor.test_tt_test04.team_homeaway: home   
-    sensor.test_tt_test04.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/189.png   
-    sensor.test_tt_test04.team_colors: ['#2b1000', '#492000']   
-    sensor.test_tt_test04.team_score: 0   
-    sensor.test_tt_test04.team_win_probability: None   
-    sensor.test_tt_test04.team_timeouts: None   
-    sensor.test_tt_test04.opponent_name: Colonels   
-    sensor.test_tt_test04.opponent_id: 2198   
-    sensor.test_tt_test04.opponent_record: 0-1   
-    sensor.test_tt_test04.opponent_homeaway: away   
-    sensor.test_tt_test04.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png   
-    sensor.test_tt_test04.opponent_colors: ['#660819', '#f0f0f0']   
-    sensor.test_tt_test04.opponent_score: 0   
-    sensor.test_tt_test04.opponent_win_probability: None   
-    sensor.test_tt_test04.opponent_timeouts: None   
-    sensor.test_tt_test04.quarter: None   
-    sensor.test_tt_test04.clock: None   
-    sensor.test_tt_test04.possession: None   
-    sensor.test_tt_test04.last_play: None   
-    sensor.test_tt_test04.down_distance_text: None   
-    sensor.test_tt_test04.outs: None   
-    sensor.test_tt_test04.balls: None   
-    sensor.test_tt_test04.strikes: None   
-    sensor.test_tt_test04.on_first: None   
-    sensor.test_tt_test04.on_second: None   
-    sensor.test_tt_test04.on_third: None   
-    sensor.test_tt_test04.team_shots_on_target: None   
-    sensor.test_tt_test04.team_total_shots: None   
-    sensor.test_tt_test04.opponent_shots_on_target: None   
-    sensor.test_tt_test04.opponent_total_shots: None   
-    sensor.test_tt_test04.team_sets_won: None   
-    sensor.test_tt_test04.opponent_sets_won: None     
-    sensor.test_tt_test04.icon: mdi:football   
-    sensor.test_tt_test04.friendly_name: test_tt_test04 
+    sensor.test_tt_all_test04      
+    sensor.test_tt_all_test04.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test04.sport: football   
+    sensor.test_tt_all_test04.league: NCAAF   
+    sensor.test_tt_all_test04.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test04.team_abbr: BGSU   
+    sensor.test_tt_all_test04.opponent_abbr: EKU   
+    sensor.test_tt_all_test04.date: 2022-09-10T20:00Z     
+    sensor.test_tt_all_test04.venue: Doyt L. Perry Stadium   
+    sensor.test_tt_all_test04.location: Bowling Green, OH   
+    sensor.test_tt_all_test04.tv_network: ESPN3   
+    sensor.test_tt_all_test04.odds: BGSU -7.5   
+    sensor.test_tt_all_test04.overunder: 57   
+    sensor.test_tt_all_test04.team_name: Falcons   
+    sensor.test_tt_all_test04.team_id: 189   
+    sensor.test_tt_all_test04.team_record: 0-1   
+    sensor.test_tt_all_test04.team_homeaway: home   
+    sensor.test_tt_all_test04.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/189.png   
+    sensor.test_tt_all_test04.team_colors: ['#2b1000', '#492000']   
+    sensor.test_tt_all_test04.team_score: 0   
+    sensor.test_tt_all_test04.team_win_probability: None   
+    sensor.test_tt_all_test04.team_timeouts: None   
+    sensor.test_tt_all_test04.opponent_name: Colonels   
+    sensor.test_tt_all_test04.opponent_id: 2198   
+    sensor.test_tt_all_test04.opponent_record: 0-1   
+    sensor.test_tt_all_test04.opponent_homeaway: away   
+    sensor.test_tt_all_test04.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png   
+    sensor.test_tt_all_test04.opponent_colors: ['#660819', '#f0f0f0']   
+    sensor.test_tt_all_test04.opponent_score: 0   
+    sensor.test_tt_all_test04.opponent_win_probability: None   
+    sensor.test_tt_all_test04.opponent_timeouts: None   
+    sensor.test_tt_all_test04.quarter: None   
+    sensor.test_tt_all_test04.clock: None   
+    sensor.test_tt_all_test04.possession: None   
+    sensor.test_tt_all_test04.last_play: None   
+    sensor.test_tt_all_test04.down_distance_text: None   
+    sensor.test_tt_all_test04.outs: None   
+    sensor.test_tt_all_test04.balls: None   
+    sensor.test_tt_all_test04.strikes: None   
+    sensor.test_tt_all_test04.on_first: None   
+    sensor.test_tt_all_test04.on_second: None   
+    sensor.test_tt_all_test04.on_third: None   
+    sensor.test_tt_all_test04.team_shots_on_target: None   
+    sensor.test_tt_all_test04.team_total_shots: None   
+    sensor.test_tt_all_test04.opponent_shots_on_target: None   
+    sensor.test_tt_all_test04.opponent_total_shots: None   
+    sensor.test_tt_all_test04.team_sets_won: None   
+    sensor.test_tt_all_test04.opponent_sets_won: None     
+    sensor.test_tt_all_test04.icon: mdi:football   
+    sensor.test_tt_all_test04.friendly_name: test_tt_all_test04 
   
-    sensor.test_tt_test05      
-    sensor.test_tt_test05.attribution: Data provided by ESPN   
-    sensor.test_tt_test05.sport: football   
-    sensor.test_tt_test05.league: NCAAF   
-    sensor.test_tt_test05.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test05.team_abbr: ALA   
-    sensor.test_tt_test05.opponent_abbr: TEX   
-    sensor.test_tt_test05.date: 2022-09-10T16:00Z     
-    sensor.test_tt_test05.venue: DKR-Texas Memorial Stadium   
-    sensor.test_tt_test05.location: Austin, TX   
-    sensor.test_tt_test05.tv_network: FOX   
-    sensor.test_tt_test05.odds: None   
-    sensor.test_tt_test05.overunder: None   
-    sensor.test_tt_test05.team_name: Crimson Tide   
-    sensor.test_tt_test05.team_id: 333   
-    sensor.test_tt_test05.team_record: 1-0   
-    sensor.test_tt_test05.team_homeaway: away   
-    sensor.test_tt_test05.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/333.png   
-    sensor.test_tt_test05.team_colors: ['#690014', '#f1f2f3']   
-    sensor.test_tt_test05.team_score: 17   
-    sensor.test_tt_test05.team_win_probability: 0.848   
-    sensor.test_tt_test05.team_timeouts: 3   
-    sensor.test_tt_test05.opponent_name: Longhorns   
-    sensor.test_tt_test05.opponent_id: 251   
-    sensor.test_tt_test05.opponent_record: 1-0   
-    sensor.test_tt_test05.opponent_homeaway: home   
-    sensor.test_tt_test05.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/251.png   
-    sensor.test_tt_test05.opponent_colors: ['#EE7524', '#f0f0f0']   
-    sensor.test_tt_test05.opponent_score: 16   
-    sensor.test_tt_test05.opponent_win_probability: 0.152   
-    sensor.test_tt_test05.opponent_timeouts: 3   
-    sensor.test_tt_test05.quarter: 4   
-    sensor.test_tt_test05.clock: 4:15   
-    sensor.test_tt_test05.possession: 333   
-    sensor.test_tt_test05.last_play: Jahmyr Gibbs run for 2 yds to the Texas 24 for a 1ST down   
-    sensor.test_tt_test05.down_distance_text: 1st & 10 at TEX 24   
-    sensor.test_tt_test05.outs: None   
-    sensor.test_tt_test05.balls: None   
-    sensor.test_tt_test05.strikes: None   
-    sensor.test_tt_test05.on_first: None   
-    sensor.test_tt_test05.on_second: None   
-    sensor.test_tt_test05.on_third: None   
-    sensor.test_tt_test05.team_shots_on_target: None   
-    sensor.test_tt_test05.team_total_shots: None   
-    sensor.test_tt_test05.opponent_shots_on_target: None   
-    sensor.test_tt_test05.opponent_total_shots: None   
-    sensor.test_tt_test05.team_sets_won: None   
-    sensor.test_tt_test05.opponent_sets_won: None     
-    sensor.test_tt_test05.icon: mdi:football   
-    sensor.test_tt_test05.friendly_name: test_tt_test05 
+    sensor.test_tt_all_test05      
+    sensor.test_tt_all_test05.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test05.sport: football   
+    sensor.test_tt_all_test05.league: NCAAF   
+    sensor.test_tt_all_test05.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test05.team_abbr: ALA   
+    sensor.test_tt_all_test05.opponent_abbr: TEX   
+    sensor.test_tt_all_test05.date: 2022-09-10T16:00Z     
+    sensor.test_tt_all_test05.venue: DKR-Texas Memorial Stadium   
+    sensor.test_tt_all_test05.location: Austin, TX   
+    sensor.test_tt_all_test05.tv_network: FOX   
+    sensor.test_tt_all_test05.odds: None   
+    sensor.test_tt_all_test05.overunder: None   
+    sensor.test_tt_all_test05.team_name: Crimson Tide   
+    sensor.test_tt_all_test05.team_id: 333   
+    sensor.test_tt_all_test05.team_record: 1-0   
+    sensor.test_tt_all_test05.team_homeaway: away   
+    sensor.test_tt_all_test05.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/333.png   
+    sensor.test_tt_all_test05.team_colors: ['#690014', '#f1f2f3']   
+    sensor.test_tt_all_test05.team_score: 17   
+    sensor.test_tt_all_test05.team_win_probability: 0.848   
+    sensor.test_tt_all_test05.team_timeouts: 3   
+    sensor.test_tt_all_test05.opponent_name: Longhorns   
+    sensor.test_tt_all_test05.opponent_id: 251   
+    sensor.test_tt_all_test05.opponent_record: 1-0   
+    sensor.test_tt_all_test05.opponent_homeaway: home   
+    sensor.test_tt_all_test05.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/251.png   
+    sensor.test_tt_all_test05.opponent_colors: ['#EE7524', '#f0f0f0']   
+    sensor.test_tt_all_test05.opponent_score: 16   
+    sensor.test_tt_all_test05.opponent_win_probability: 0.152   
+    sensor.test_tt_all_test05.opponent_timeouts: 3   
+    sensor.test_tt_all_test05.quarter: 4   
+    sensor.test_tt_all_test05.clock: 4:15   
+    sensor.test_tt_all_test05.possession: 333   
+    sensor.test_tt_all_test05.last_play: Jahmyr Gibbs run for 2 yds to the Texas 24 for a 1ST down   
+    sensor.test_tt_all_test05.down_distance_text: 1st & 10 at TEX 24   
+    sensor.test_tt_all_test05.outs: None   
+    sensor.test_tt_all_test05.balls: None   
+    sensor.test_tt_all_test05.strikes: None   
+    sensor.test_tt_all_test05.on_first: None   
+    sensor.test_tt_all_test05.on_second: None   
+    sensor.test_tt_all_test05.on_third: None   
+    sensor.test_tt_all_test05.team_shots_on_target: None   
+    sensor.test_tt_all_test05.team_total_shots: None   
+    sensor.test_tt_all_test05.opponent_shots_on_target: None   
+    sensor.test_tt_all_test05.opponent_total_shots: None   
+    sensor.test_tt_all_test05.team_sets_won: None   
+    sensor.test_tt_all_test05.opponent_sets_won: None     
+    sensor.test_tt_all_test05.icon: mdi:football   
+    sensor.test_tt_all_test05.friendly_name: test_tt_all_test05 
   
-    sensor.test_tt_test06      
-    sensor.test_tt_test06.attribution: Data provided by ESPN   
-    sensor.test_tt_test06.sport: football   
-    sensor.test_tt_test06.league: NFL   
-    sensor.test_tt_test06.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test06.team_abbr: BUF   
-    sensor.test_tt_test06.opponent_abbr: LAR   
-    sensor.test_tt_test06.date: 2022-09-09T00:20Z     
-    sensor.test_tt_test06.venue: SoFi Stadium   
-    sensor.test_tt_test06.location: Inglewood, CA   
-    sensor.test_tt_test06.tv_network: NBC   
-    sensor.test_tt_test06.odds: None   
-    sensor.test_tt_test06.overunder: None   
-    sensor.test_tt_test06.team_name: Bills   
-    sensor.test_tt_test06.team_id: 2   
-    sensor.test_tt_test06.team_record: 1-0   
-    sensor.test_tt_test06.team_homeaway: away   
-    sensor.test_tt_test06.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png   
-    sensor.test_tt_test06.team_colors: ['#04407F', '#c60c30']   
-    sensor.test_tt_test06.team_score: 31   
-    sensor.test_tt_test06.team_win_probability: None   
-    sensor.test_tt_test06.team_timeouts: None   
-    sensor.test_tt_test06.opponent_name: Rams   
-    sensor.test_tt_test06.opponent_id: 14   
-    sensor.test_tt_test06.opponent_record: 0-1   
-    sensor.test_tt_test06.opponent_homeaway: home   
-    sensor.test_tt_test06.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png   
-    sensor.test_tt_test06.opponent_colors: ['#00295B', '#b3995d']   
-    sensor.test_tt_test06.opponent_score: 10   
-    sensor.test_tt_test06.opponent_win_probability: None   
-    sensor.test_tt_test06.opponent_timeouts: None   
-    sensor.test_tt_test06.quarter: None   
-    sensor.test_tt_test06.clock: None   
-    sensor.test_tt_test06.possession: None   
-    sensor.test_tt_test06.last_play: None   
-    sensor.test_tt_test06.down_distance_text: None   
-    sensor.test_tt_test06.outs: None   
-    sensor.test_tt_test06.balls: None   
-    sensor.test_tt_test06.strikes: None   
-    sensor.test_tt_test06.on_first: None   
-    sensor.test_tt_test06.on_second: None   
-    sensor.test_tt_test06.on_third: None   
-    sensor.test_tt_test06.team_shots_on_target: None   
-    sensor.test_tt_test06.team_total_shots: None   
-    sensor.test_tt_test06.opponent_shots_on_target: None   
-    sensor.test_tt_test06.opponent_total_shots: None   
-    sensor.test_tt_test06.team_sets_won: None   
-    sensor.test_tt_test06.opponent_sets_won: None     
-    sensor.test_tt_test06.icon: mdi:football   
-    sensor.test_tt_test06.friendly_name: test_tt_test06 
+    sensor.test_tt_all_test06      
+    sensor.test_tt_all_test06.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test06.sport: football   
+    sensor.test_tt_all_test06.league: NFL   
+    sensor.test_tt_all_test06.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test06.team_abbr: BUF   
+    sensor.test_tt_all_test06.opponent_abbr: LAR   
+    sensor.test_tt_all_test06.date: 2022-09-09T00:20Z     
+    sensor.test_tt_all_test06.venue: SoFi Stadium   
+    sensor.test_tt_all_test06.location: Inglewood, CA   
+    sensor.test_tt_all_test06.tv_network: NBC   
+    sensor.test_tt_all_test06.odds: None   
+    sensor.test_tt_all_test06.overunder: None   
+    sensor.test_tt_all_test06.team_name: Bills   
+    sensor.test_tt_all_test06.team_id: 2   
+    sensor.test_tt_all_test06.team_record: 1-0   
+    sensor.test_tt_all_test06.team_homeaway: away   
+    sensor.test_tt_all_test06.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png   
+    sensor.test_tt_all_test06.team_colors: ['#04407F', '#c60c30']   
+    sensor.test_tt_all_test06.team_score: 31   
+    sensor.test_tt_all_test06.team_win_probability: None   
+    sensor.test_tt_all_test06.team_timeouts: None   
+    sensor.test_tt_all_test06.opponent_name: Rams   
+    sensor.test_tt_all_test06.opponent_id: 14   
+    sensor.test_tt_all_test06.opponent_record: 0-1   
+    sensor.test_tt_all_test06.opponent_homeaway: home   
+    sensor.test_tt_all_test06.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png   
+    sensor.test_tt_all_test06.opponent_colors: ['#00295B', '#b3995d']   
+    sensor.test_tt_all_test06.opponent_score: 10   
+    sensor.test_tt_all_test06.opponent_win_probability: None   
+    sensor.test_tt_all_test06.opponent_timeouts: None   
+    sensor.test_tt_all_test06.quarter: None   
+    sensor.test_tt_all_test06.clock: None   
+    sensor.test_tt_all_test06.possession: None   
+    sensor.test_tt_all_test06.last_play: None   
+    sensor.test_tt_all_test06.down_distance_text: None   
+    sensor.test_tt_all_test06.outs: None   
+    sensor.test_tt_all_test06.balls: None   
+    sensor.test_tt_all_test06.strikes: None   
+    sensor.test_tt_all_test06.on_first: None   
+    sensor.test_tt_all_test06.on_second: None   
+    sensor.test_tt_all_test06.on_third: None   
+    sensor.test_tt_all_test06.team_shots_on_target: None   
+    sensor.test_tt_all_test06.team_total_shots: None   
+    sensor.test_tt_all_test06.opponent_shots_on_target: None   
+    sensor.test_tt_all_test06.opponent_total_shots: None   
+    sensor.test_tt_all_test06.team_sets_won: None   
+    sensor.test_tt_all_test06.opponent_sets_won: None     
+    sensor.test_tt_all_test06.icon: mdi:football   
+    sensor.test_tt_all_test06.friendly_name: test_tt_all_test06 
   
-    sensor.test_tt_test07      
-    sensor.test_tt_test07.attribution: Data provided by ESPN   
-    sensor.test_tt_test07.sport: soccer   
-    sensor.test_tt_test07.league: MLS   
-    sensor.test_tt_test07.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test07.team_abbr: NSH   
-    sensor.test_tt_test07.opponent_abbr: LA   
-    sensor.test_tt_test07.date: 2022-09-10T19:30Z     
-    sensor.test_tt_test07.venue: GEODIS Park   
-    sensor.test_tt_test07.location: Nashville   
-    sensor.test_tt_test07.tv_network: None   
-    sensor.test_tt_test07.odds: None   
-    sensor.test_tt_test07.overunder: 2.5   
-    sensor.test_tt_test07.team_name: Nashville   
-    sensor.test_tt_test07.team_id: 18986   
-    sensor.test_tt_test07.team_record: 12-9-9   
-    sensor.test_tt_test07.team_homeaway: home   
-    sensor.test_tt_test07.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/18986.png   
-    sensor.test_tt_test07.team_colors: ['#ffff00', '#001f5e']   
-    sensor.test_tt_test07.team_score: 0   
-    sensor.test_tt_test07.team_win_probability: None   
-    sensor.test_tt_test07.team_timeouts: None   
-    sensor.test_tt_test07.opponent_name: LA Galaxy   
-    sensor.test_tt_test07.opponent_id: 187   
-    sensor.test_tt_test07.opponent_record: 11-6-11   
-    sensor.test_tt_test07.opponent_homeaway: away   
-    sensor.test_tt_test07.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/187.png   
-    sensor.test_tt_test07.opponent_colors: ['#ffffff', '#231F20']   
-    sensor.test_tt_test07.opponent_score: 0   
-    sensor.test_tt_test07.opponent_win_probability: None   
-    sensor.test_tt_test07.opponent_timeouts: None   
-    sensor.test_tt_test07.quarter: None   
-    sensor.test_tt_test07.clock: None   
-    sensor.test_tt_test07.possession: None   
-    sensor.test_tt_test07.last_play: None   
-    sensor.test_tt_test07.down_distance_text: None   
-    sensor.test_tt_test07.outs: None   
-    sensor.test_tt_test07.balls: None   
-    sensor.test_tt_test07.strikes: None   
-    sensor.test_tt_test07.on_first: None   
-    sensor.test_tt_test07.on_second: None   
-    sensor.test_tt_test07.on_third: None   
-    sensor.test_tt_test07.team_shots_on_target: None   
-    sensor.test_tt_test07.team_total_shots: None   
-    sensor.test_tt_test07.opponent_shots_on_target: None   
-    sensor.test_tt_test07.opponent_total_shots: None   
-    sensor.test_tt_test07.team_sets_won: None   
-    sensor.test_tt_test07.opponent_sets_won: None     
-    sensor.test_tt_test07.icon: mdi:soccer   
-    sensor.test_tt_test07.friendly_name: test_tt_test07 
+    sensor.test_tt_all_test07      
+    sensor.test_tt_all_test07.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test07.sport: soccer   
+    sensor.test_tt_all_test07.league: NWSL   
+    sensor.test_tt_all_test07.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test07.team_abbr: ORL   
+    sensor.test_tt_all_test07.opponent_abbr: POR   
+    sensor.test_tt_all_test07.date: 2022-09-09T23:00Z     
+    sensor.test_tt_all_test07.venue: Exploria Stadium   
+    sensor.test_tt_all_test07.location: Orlando, Florida   
+    sensor.test_tt_all_test07.tv_network: None   
+    sensor.test_tt_all_test07.odds: None   
+    sensor.test_tt_all_test07.overunder: None   
+    sensor.test_tt_all_test07.team_name: Orlando   
+    sensor.test_tt_all_test07.team_id: 18206   
+    sensor.test_tt_all_test07.team_record: 5-6-6   
+    sensor.test_tt_all_test07.team_homeaway: home   
+    sensor.test_tt_all_test07.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/18206.png   
+    sensor.test_tt_all_test07.team_colors: ['#633492', '#a7c0dd']   
+    sensor.test_tt_all_test07.team_score: 0   
+    sensor.test_tt_all_test07.team_win_probability: None   
+    sensor.test_tt_all_test07.team_timeouts: None   
+    sensor.test_tt_all_test07.opponent_name: Portland   
+    sensor.test_tt_all_test07.opponent_id: 15362   
+    sensor.test_tt_all_test07.opponent_record: 7-7-3   
+    sensor.test_tt_all_test07.opponent_homeaway: away   
+    sensor.test_tt_all_test07.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/15362.png   
+    sensor.test_tt_all_test07.opponent_colors: ['#004812', '#000000']   
+    sensor.test_tt_all_test07.opponent_score: 0   
+    sensor.test_tt_all_test07.opponent_win_probability: None   
+    sensor.test_tt_all_test07.opponent_timeouts: None   
+    sensor.test_tt_all_test07.quarter: None   
+    sensor.test_tt_all_test07.clock: None   
+    sensor.test_tt_all_test07.possession: None   
+    sensor.test_tt_all_test07.last_play: None   
+    sensor.test_tt_all_test07.down_distance_text: None   
+    sensor.test_tt_all_test07.outs: None   
+    sensor.test_tt_all_test07.balls: None   
+    sensor.test_tt_all_test07.strikes: None   
+    sensor.test_tt_all_test07.on_first: None   
+    sensor.test_tt_all_test07.on_second: None   
+    sensor.test_tt_all_test07.on_third: None   
+    sensor.test_tt_all_test07.team_shots_on_target: None   
+    sensor.test_tt_all_test07.team_total_shots: None   
+    sensor.test_tt_all_test07.opponent_shots_on_target: None   
+    sensor.test_tt_all_test07.opponent_total_shots: None   
+    sensor.test_tt_all_test07.team_sets_won: None   
+    sensor.test_tt_all_test07.opponent_sets_won: None     
+    sensor.test_tt_all_test07.icon: mdi:soccer   
+    sensor.test_tt_all_test07.friendly_name: test_tt_all_test07 
   
-    sensor.test_tt_test08      
-    sensor.test_tt_test08.attribution: Data provided by ESPN   
-    sensor.test_tt_test08.sport: soccer   
-    sensor.test_tt_test08.league: MLS   
-    sensor.test_tt_test08.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test08.team_abbr: CLB   
-    sensor.test_tt_test08.opponent_abbr: MTL   
-    sensor.test_tt_test08.date: 2022-09-09T23:30Z     
-    sensor.test_tt_test08.venue: Stade Saputo   
-    sensor.test_tt_test08.location: Montreal   
-    sensor.test_tt_test08.tv_network: ESPN+   
-    sensor.test_tt_test08.odds: None   
-    sensor.test_tt_test08.overunder: None   
-    sensor.test_tt_test08.team_name: Columbus   
-    sensor.test_tt_test08.team_id: 183   
-    sensor.test_tt_test08.team_record: 9-13-6   
-    sensor.test_tt_test08.team_homeaway: away   
-    sensor.test_tt_test08.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/183.png   
-    sensor.test_tt_test08.team_colors: ['#ffff00', '#c9c7c8']   
-    sensor.test_tt_test08.team_score: 2   
-    sensor.test_tt_test08.team_win_probability: 0.0   
-    sensor.test_tt_test08.team_timeouts: None   
-    sensor.test_tt_test08.opponent_name: CF Montréal   
-    sensor.test_tt_test08.opponent_id: 9720   
-    sensor.test_tt_test08.opponent_record: 16-4-9   
-    sensor.test_tt_test08.opponent_homeaway: home   
-    sensor.test_tt_test08.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/9720.png   
-    sensor.test_tt_test08.opponent_colors: ['#181818', '#c9c7c8']   
-    sensor.test_tt_test08.opponent_score: 0   
-    sensor.test_tt_test08.opponent_win_probability: 0.0   
-    sensor.test_tt_test08.opponent_timeouts: None   
-    sensor.test_tt_test08.quarter: 2   
-    sensor.test_tt_test08.clock: 69'   
-    sensor.test_tt_test08.possession: None   
-    sensor.test_tt_test08.last_play:      11'  Yellow Card: Rudy Camacho (MTL)               64'  Yellow Card: Joel Waterman (MTL)               66'  Goal - Header: Jonathan Mensah (CLB)   
-    sensor.test_tt_test08.down_distance_text: None   
-    sensor.test_tt_test08.outs: None   
-    sensor.test_tt_test08.balls: None   
-    sensor.test_tt_test08.strikes: None   
-    sensor.test_tt_test08.on_first: None   
-    sensor.test_tt_test08.on_second: None   
-    sensor.test_tt_test08.on_third: None   
-    sensor.test_tt_test08.team_shots_on_target: 5   
-    sensor.test_tt_test08.team_total_shots: 11   
-    sensor.test_tt_test08.opponent_shots_on_target: 8   
-    sensor.test_tt_test08.opponent_total_shots: 15   
-    sensor.test_tt_test08.team_sets_won: None   
-    sensor.test_tt_test08.opponent_sets_won: None     
-    sensor.test_tt_test08.icon: mdi:soccer   
-    sensor.test_tt_test08.friendly_name: test_tt_test08 
+    sensor.test_tt_all_test08      
+    sensor.test_tt_all_test08.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test08.sport: soccer   
+    sensor.test_tt_all_test08.league: MLS   
+    sensor.test_tt_all_test08.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test08.team_abbr: CLB   
+    sensor.test_tt_all_test08.opponent_abbr: MTL   
+    sensor.test_tt_all_test08.date: 2022-09-09T23:30Z     
+    sensor.test_tt_all_test08.venue: Stade Saputo   
+    sensor.test_tt_all_test08.location: Montreal   
+    sensor.test_tt_all_test08.tv_network: ESPN+   
+    sensor.test_tt_all_test08.odds: None   
+    sensor.test_tt_all_test08.overunder: None   
+    sensor.test_tt_all_test08.team_name: Columbus   
+    sensor.test_tt_all_test08.team_id: 183   
+    sensor.test_tt_all_test08.team_record: 9-13-6   
+    sensor.test_tt_all_test08.team_homeaway: away   
+    sensor.test_tt_all_test08.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/183.png   
+    sensor.test_tt_all_test08.team_colors: ['#ffff00', '#c9c7c8']   
+    sensor.test_tt_all_test08.team_score: 2   
+    sensor.test_tt_all_test08.team_win_probability: 0.0   
+    sensor.test_tt_all_test08.team_timeouts: None   
+    sensor.test_tt_all_test08.opponent_name: CF Montréal   
+    sensor.test_tt_all_test08.opponent_id: 9720   
+    sensor.test_tt_all_test08.opponent_record: 16-4-9   
+    sensor.test_tt_all_test08.opponent_homeaway: home   
+    sensor.test_tt_all_test08.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/9720.png   
+    sensor.test_tt_all_test08.opponent_colors: ['#181818', '#c9c7c8']   
+    sensor.test_tt_all_test08.opponent_score: 0   
+    sensor.test_tt_all_test08.opponent_win_probability: 0.0   
+    sensor.test_tt_all_test08.opponent_timeouts: None   
+    sensor.test_tt_all_test08.quarter: 2   
+    sensor.test_tt_all_test08.clock: 69'   
+    sensor.test_tt_all_test08.possession: None   
+    sensor.test_tt_all_test08.last_play:      11'  Yellow Card: Rudy Camacho (MTL)               64'  Yellow Card: Joel Waterman (MTL)               66'  Goal - Header: Jonathan Mensah (CLB)   
+    sensor.test_tt_all_test08.down_distance_text: None   
+    sensor.test_tt_all_test08.outs: None   
+    sensor.test_tt_all_test08.balls: None   
+    sensor.test_tt_all_test08.strikes: None   
+    sensor.test_tt_all_test08.on_first: None   
+    sensor.test_tt_all_test08.on_second: None   
+    sensor.test_tt_all_test08.on_third: None   
+    sensor.test_tt_all_test08.team_shots_on_target: 5   
+    sensor.test_tt_all_test08.team_total_shots: 11   
+    sensor.test_tt_all_test08.opponent_shots_on_target: 8   
+    sensor.test_tt_all_test08.opponent_total_shots: 15   
+    sensor.test_tt_all_test08.team_sets_won: None   
+    sensor.test_tt_all_test08.opponent_sets_won: None     
+    sensor.test_tt_all_test08.icon: mdi:soccer   
+    sensor.test_tt_all_test08.friendly_name: test_tt_all_test08 
   
-    sensor.test_tt_test09      
-    sensor.test_tt_test09.attribution: Data provided by ESPN   
-    sensor.test_tt_test09.sport: soccer   
-    sensor.test_tt_test09.league: BUND   
-    sensor.test_tt_test09.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test09.team_abbr: FCA   
-    sensor.test_tt_test09.opponent_abbr: SVW   
-    sensor.test_tt_test09.date: 2022-09-09T18:30Z     
-    sensor.test_tt_test09.venue: wohninvest WESERSTADION   
-    sensor.test_tt_test09.location: Bremen   
-    sensor.test_tt_test09.tv_network: ESPN+   
-    sensor.test_tt_test09.odds: None   
-    sensor.test_tt_test09.overunder: None   
-    sensor.test_tt_test09.team_name: Augsburg   
-    sensor.test_tt_test09.team_id: 3841   
-    sensor.test_tt_test09.team_record: 2-0-4   
-    sensor.test_tt_test09.team_homeaway: away   
-    sensor.test_tt_test09.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/3841.png   
-    sensor.test_tt_test09.team_colors: ['#DA0308', '#ffffff']   
-    sensor.test_tt_test09.team_score: 1   
-    sensor.test_tt_test09.team_win_probability: None   
-    sensor.test_tt_test09.team_timeouts: None   
-    sensor.test_tt_test09.opponent_name: Bremen   
-    sensor.test_tt_test09.opponent_id: 137   
-    sensor.test_tt_test09.opponent_record: 2-2-2   
-    sensor.test_tt_test09.opponent_homeaway: home   
-    sensor.test_tt_test09.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/137.png   
-    sensor.test_tt_test09.opponent_colors: ['#03915c', '#f9c0a2']   
-    sensor.test_tt_test09.opponent_score: 0   
-    sensor.test_tt_test09.opponent_win_probability: None   
-    sensor.test_tt_test09.opponent_timeouts: None   
-    sensor.test_tt_test09.quarter: None   
-    sensor.test_tt_test09.clock: None   
-    sensor.test_tt_test09.possession: None   
-    sensor.test_tt_test09.last_play: None   
-    sensor.test_tt_test09.down_distance_text: None   
-    sensor.test_tt_test09.outs: None   
-    sensor.test_tt_test09.balls: None   
-    sensor.test_tt_test09.strikes: None   
-    sensor.test_tt_test09.on_first: None   
-    sensor.test_tt_test09.on_second: None   
-    sensor.test_tt_test09.on_third: None   
-    sensor.test_tt_test09.team_shots_on_target: None   
-    sensor.test_tt_test09.team_total_shots: None   
-    sensor.test_tt_test09.opponent_shots_on_target: None   
-    sensor.test_tt_test09.opponent_total_shots: None   
-    sensor.test_tt_test09.team_sets_won: None   
-    sensor.test_tt_test09.opponent_sets_won: None     
-    sensor.test_tt_test09.icon: mdi:soccer   
-    sensor.test_tt_test09.friendly_name: test_tt_test09 
+    sensor.test_tt_all_test09      
+    sensor.test_tt_all_test09.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test09.sport: soccer   
+    sensor.test_tt_all_test09.league: BUND   
+    sensor.test_tt_all_test09.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test09.team_abbr: FCA   
+    sensor.test_tt_all_test09.opponent_abbr: SVW   
+    sensor.test_tt_all_test09.date: 2022-09-09T18:30Z     
+    sensor.test_tt_all_test09.venue: wohninvest WESERSTADION   
+    sensor.test_tt_all_test09.location: Bremen   
+    sensor.test_tt_all_test09.tv_network: ESPN+   
+    sensor.test_tt_all_test09.odds: None   
+    sensor.test_tt_all_test09.overunder: None   
+    sensor.test_tt_all_test09.team_name: Augsburg   
+    sensor.test_tt_all_test09.team_id: 3841   
+    sensor.test_tt_all_test09.team_record: 2-0-4   
+    sensor.test_tt_all_test09.team_homeaway: away   
+    sensor.test_tt_all_test09.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/3841.png   
+    sensor.test_tt_all_test09.team_colors: ['#DA0308', '#ffffff']   
+    sensor.test_tt_all_test09.team_score: 1   
+    sensor.test_tt_all_test09.team_win_probability: None   
+    sensor.test_tt_all_test09.team_timeouts: None   
+    sensor.test_tt_all_test09.opponent_name: Bremen   
+    sensor.test_tt_all_test09.opponent_id: 137   
+    sensor.test_tt_all_test09.opponent_record: 2-2-2   
+    sensor.test_tt_all_test09.opponent_homeaway: home   
+    sensor.test_tt_all_test09.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/137.png   
+    sensor.test_tt_all_test09.opponent_colors: ['#03915c', '#f9c0a2']   
+    sensor.test_tt_all_test09.opponent_score: 0   
+    sensor.test_tt_all_test09.opponent_win_probability: None   
+    sensor.test_tt_all_test09.opponent_timeouts: None   
+    sensor.test_tt_all_test09.quarter: None   
+    sensor.test_tt_all_test09.clock: None   
+    sensor.test_tt_all_test09.possession: None   
+    sensor.test_tt_all_test09.last_play: None   
+    sensor.test_tt_all_test09.down_distance_text: None   
+    sensor.test_tt_all_test09.outs: None   
+    sensor.test_tt_all_test09.balls: None   
+    sensor.test_tt_all_test09.strikes: None   
+    sensor.test_tt_all_test09.on_first: None   
+    sensor.test_tt_all_test09.on_second: None   
+    sensor.test_tt_all_test09.on_third: None   
+    sensor.test_tt_all_test09.team_shots_on_target: None   
+    sensor.test_tt_all_test09.team_total_shots: None   
+    sensor.test_tt_all_test09.opponent_shots_on_target: None   
+    sensor.test_tt_all_test09.opponent_total_shots: None   
+    sensor.test_tt_all_test09.team_sets_won: None   
+    sensor.test_tt_all_test09.opponent_sets_won: None     
+    sensor.test_tt_all_test09.icon: mdi:soccer   
+    sensor.test_tt_all_test09.friendly_name: test_tt_all_test09 
   
-    sensor.test_tt_test10      
-    sensor.test_tt_test10.attribution: Data provided by ESPN   
-    sensor.test_tt_test10.sport: basketball   
-    sensor.test_tt_test10.league: NBA   
-    sensor.test_tt_test10.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test10.team_abbr: GS   
-    sensor.test_tt_test10.opponent_abbr: WSH   
-    sensor.test_tt_test10.date: 2022-09-30T10:00Z     
-    sensor.test_tt_test10.venue: Saitama Super Arena   
-    sensor.test_tt_test10.location: Saitama   
-    sensor.test_tt_test10.tv_network: None   
-    sensor.test_tt_test10.odds: None   
-    sensor.test_tt_test10.overunder: None   
-    sensor.test_tt_test10.team_name: Warriors   
-    sensor.test_tt_test10.team_id: 9   
-    sensor.test_tt_test10.team_record: None   
-    sensor.test_tt_test10.team_homeaway: away   
-    sensor.test_tt_test10.team_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png   
-    sensor.test_tt_test10.team_colors: ['#003da5', '#fdb927']   
-    sensor.test_tt_test10.team_score: 0   
-    sensor.test_tt_test10.team_win_probability: None   
-    sensor.test_tt_test10.team_timeouts: None   
-    sensor.test_tt_test10.opponent_name: Wizards   
-    sensor.test_tt_test10.opponent_id: 27   
-    sensor.test_tt_test10.opponent_record: None   
-    sensor.test_tt_test10.opponent_homeaway: home   
-    sensor.test_tt_test10.opponent_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png   
-    sensor.test_tt_test10.opponent_colors: ['#0E3764', '#e31837']   
-    sensor.test_tt_test10.opponent_score: 0   
-    sensor.test_tt_test10.opponent_win_probability: None   
-    sensor.test_tt_test10.opponent_timeouts: None   
-    sensor.test_tt_test10.quarter: None   
-    sensor.test_tt_test10.clock: None   
-    sensor.test_tt_test10.possession: None   
-    sensor.test_tt_test10.last_play: None   
-    sensor.test_tt_test10.down_distance_text: None   
-    sensor.test_tt_test10.outs: None   
-    sensor.test_tt_test10.balls: None   
-    sensor.test_tt_test10.strikes: None   
-    sensor.test_tt_test10.on_first: None   
-    sensor.test_tt_test10.on_second: None   
-    sensor.test_tt_test10.on_third: None   
-    sensor.test_tt_test10.team_shots_on_target: None   
-    sensor.test_tt_test10.team_total_shots: None   
-    sensor.test_tt_test10.opponent_shots_on_target: None   
-    sensor.test_tt_test10.opponent_total_shots: None   
-    sensor.test_tt_test10.team_sets_won: None   
-    sensor.test_tt_test10.opponent_sets_won: None     
-    sensor.test_tt_test10.icon: mdi:basketball   
-    sensor.test_tt_test10.friendly_name: test_tt_test10 
+    sensor.test_tt_all_test10      
+    sensor.test_tt_all_test10.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test10.sport: basketball   
+    sensor.test_tt_all_test10.league: NBA   
+    sensor.test_tt_all_test10.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test10.team_abbr: GS   
+    sensor.test_tt_all_test10.opponent_abbr: WSH   
+    sensor.test_tt_all_test10.date: 2022-09-30T10:00Z     
+    sensor.test_tt_all_test10.venue: Saitama Super Arena   
+    sensor.test_tt_all_test10.location: Saitama   
+    sensor.test_tt_all_test10.tv_network: None   
+    sensor.test_tt_all_test10.odds: None   
+    sensor.test_tt_all_test10.overunder: None   
+    sensor.test_tt_all_test10.team_name: Warriors   
+    sensor.test_tt_all_test10.team_id: 9   
+    sensor.test_tt_all_test10.team_record: None   
+    sensor.test_tt_all_test10.team_homeaway: away   
+    sensor.test_tt_all_test10.team_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png   
+    sensor.test_tt_all_test10.team_colors: ['#003da5', '#fdb927']   
+    sensor.test_tt_all_test10.team_score: 0   
+    sensor.test_tt_all_test10.team_win_probability: None   
+    sensor.test_tt_all_test10.team_timeouts: None   
+    sensor.test_tt_all_test10.opponent_name: Wizards   
+    sensor.test_tt_all_test10.opponent_id: 27   
+    sensor.test_tt_all_test10.opponent_record: None   
+    sensor.test_tt_all_test10.opponent_homeaway: home   
+    sensor.test_tt_all_test10.opponent_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png   
+    sensor.test_tt_all_test10.opponent_colors: ['#0E3764', '#e31837']   
+    sensor.test_tt_all_test10.opponent_score: 0   
+    sensor.test_tt_all_test10.opponent_win_probability: None   
+    sensor.test_tt_all_test10.opponent_timeouts: None   
+    sensor.test_tt_all_test10.quarter: None   
+    sensor.test_tt_all_test10.clock: None   
+    sensor.test_tt_all_test10.possession: None   
+    sensor.test_tt_all_test10.last_play: None   
+    sensor.test_tt_all_test10.down_distance_text: None   
+    sensor.test_tt_all_test10.outs: None   
+    sensor.test_tt_all_test10.balls: None   
+    sensor.test_tt_all_test10.strikes: None   
+    sensor.test_tt_all_test10.on_first: None   
+    sensor.test_tt_all_test10.on_second: None   
+    sensor.test_tt_all_test10.on_third: None   
+    sensor.test_tt_all_test10.team_shots_on_target: None   
+    sensor.test_tt_all_test10.team_total_shots: None   
+    sensor.test_tt_all_test10.opponent_shots_on_target: None   
+    sensor.test_tt_all_test10.opponent_total_shots: None   
+    sensor.test_tt_all_test10.team_sets_won: None   
+    sensor.test_tt_all_test10.opponent_sets_won: None     
+    sensor.test_tt_all_test10.icon: mdi:basketball   
+    sensor.test_tt_all_test10.friendly_name: test_tt_all_test10 
   
-    sensor.test_tt_test16      
-    sensor.test_tt_test16.attribution: Data provided by ESPN   
-    sensor.test_tt_test16.sport: volleyball   
-    sensor.test_tt_test16.league: NCAAVBW   
-    sensor.test_tt_test16.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test16.team_abbr: PEPP   
-    sensor.test_tt_test16.opponent_abbr: CP   
-    sensor.test_tt_test16.date: 2022-09-09T00:00Z     
-    sensor.test_tt_test16.venue: Alaska Airlines Arena   
-    sensor.test_tt_test16.location: Seattle, Washington   
-    sensor.test_tt_test16.tv_network: None   
-    sensor.test_tt_test16.odds: None   
-    sensor.test_tt_test16.overunder: None   
-    sensor.test_tt_test16.team_name: Waves   
-    sensor.test_tt_test16.team_id: 2492   
-    sensor.test_tt_test16.team_record: 1-1   
-    sensor.test_tt_test16.team_homeaway: home   
-    sensor.test_tt_test16.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2492.png   
-    sensor.test_tt_test16.team_colors: ['#009c98', '#009c98']   
-    sensor.test_tt_test16.team_score: 0   
-    sensor.test_tt_test16.team_win_probability: None   
-    sensor.test_tt_test16.team_timeouts: None   
-    sensor.test_tt_test16.opponent_name: Mustangs   
-    sensor.test_tt_test16.opponent_id: 13   
-    sensor.test_tt_test16.opponent_record: 0-1   
-    sensor.test_tt_test16.opponent_homeaway: away   
-    sensor.test_tt_test16.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/13.png   
-    sensor.test_tt_test16.opponent_colors: ['#083808', '#083808']   
-    sensor.test_tt_test16.opponent_score: 0   
-    sensor.test_tt_test16.opponent_win_probability: None   
-    sensor.test_tt_test16.opponent_timeouts: None   
-    sensor.test_tt_test16.quarter: None   
-    sensor.test_tt_test16.clock: None   
-    sensor.test_tt_test16.possession: None   
-    sensor.test_tt_test16.last_play: None   
-    sensor.test_tt_test16.down_distance_text: None   
-    sensor.test_tt_test16.outs: None   
-    sensor.test_tt_test16.balls: None   
-    sensor.test_tt_test16.strikes: None   
-    sensor.test_tt_test16.on_first: None   
-    sensor.test_tt_test16.on_second: None   
-    sensor.test_tt_test16.on_third: None   
-    sensor.test_tt_test16.team_shots_on_target: None   
-    sensor.test_tt_test16.team_total_shots: None   
-    sensor.test_tt_test16.opponent_shots_on_target: None   
-    sensor.test_tt_test16.opponent_total_shots: None   
-    sensor.test_tt_test16.team_sets_won: None   
-    sensor.test_tt_test16.opponent_sets_won: None     
-    sensor.test_tt_test16.icon: mdi:volleyball   
-    sensor.test_tt_test16.friendly_name: test_tt_test16 
+    sensor.test_tt_all_test16      
+    sensor.test_tt_all_test16.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test16.sport: volleyball   
+    sensor.test_tt_all_test16.league: NCAAVBW   
+    sensor.test_tt_all_test16.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test16.team_abbr: PEPP   
+    sensor.test_tt_all_test16.opponent_abbr: CP   
+    sensor.test_tt_all_test16.date: 2022-09-09T00:00Z     
+    sensor.test_tt_all_test16.venue: Alaska Airlines Arena   
+    sensor.test_tt_all_test16.location: Seattle, Washington   
+    sensor.test_tt_all_test16.tv_network: None   
+    sensor.test_tt_all_test16.odds: None   
+    sensor.test_tt_all_test16.overunder: None   
+    sensor.test_tt_all_test16.team_name: Waves   
+    sensor.test_tt_all_test16.team_id: 2492   
+    sensor.test_tt_all_test16.team_record: 1-1   
+    sensor.test_tt_all_test16.team_homeaway: home   
+    sensor.test_tt_all_test16.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2492.png   
+    sensor.test_tt_all_test16.team_colors: ['#009c98', '#009c98']   
+    sensor.test_tt_all_test16.team_score: 0   
+    sensor.test_tt_all_test16.team_win_probability: None   
+    sensor.test_tt_all_test16.team_timeouts: None   
+    sensor.test_tt_all_test16.opponent_name: Mustangs   
+    sensor.test_tt_all_test16.opponent_id: 13   
+    sensor.test_tt_all_test16.opponent_record: 0-1   
+    sensor.test_tt_all_test16.opponent_homeaway: away   
+    sensor.test_tt_all_test16.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/13.png   
+    sensor.test_tt_all_test16.opponent_colors: ['#083808', '#083808']   
+    sensor.test_tt_all_test16.opponent_score: 0   
+    sensor.test_tt_all_test16.opponent_win_probability: None   
+    sensor.test_tt_all_test16.opponent_timeouts: None   
+    sensor.test_tt_all_test16.quarter: None   
+    sensor.test_tt_all_test16.clock: None   
+    sensor.test_tt_all_test16.possession: None   
+    sensor.test_tt_all_test16.last_play: None   
+    sensor.test_tt_all_test16.down_distance_text: None   
+    sensor.test_tt_all_test16.outs: None   
+    sensor.test_tt_all_test16.balls: None   
+    sensor.test_tt_all_test16.strikes: None   
+    sensor.test_tt_all_test16.on_first: None   
+    sensor.test_tt_all_test16.on_second: None   
+    sensor.test_tt_all_test16.on_third: None   
+    sensor.test_tt_all_test16.team_shots_on_target: None   
+    sensor.test_tt_all_test16.team_total_shots: None   
+    sensor.test_tt_all_test16.opponent_shots_on_target: None   
+    sensor.test_tt_all_test16.opponent_total_shots: None   
+    sensor.test_tt_all_test16.team_sets_won: None   
+    sensor.test_tt_all_test16.opponent_sets_won: None     
+    sensor.test_tt_all_test16.icon: mdi:volleyball   
+    sensor.test_tt_all_test16.friendly_name: test_tt_all_test16 
   
-    sensor.test_tt_test17      
-    sensor.test_tt_test17.attribution: Data provided by ESPN   
-    sensor.test_tt_test17.sport: volleyball   
-    sensor.test_tt_test17.league: NCAAVBW   
-    sensor.test_tt_test17.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test17.team_abbr: MSST   
-    sensor.test_tt_test17.opponent_abbr: KENN   
-    sensor.test_tt_test17.date: 2022-09-08T23:00Z     
-    sensor.test_tt_test17.venue: Newell-Grissom Building   
-    sensor.test_tt_test17.location: Starkville, Mississippi   
-    sensor.test_tt_test17.tv_network: SECN+   
-    sensor.test_tt_test17.odds: None   
-    sensor.test_tt_test17.overunder: None   
-    sensor.test_tt_test17.team_name: Bulldogs   
-    sensor.test_tt_test17.team_id: 344   
-    sensor.test_tt_test17.team_record: 5-0   
-    sensor.test_tt_test17.team_homeaway: home   
-    sensor.test_tt_test17.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/344.png   
-    sensor.test_tt_test17.team_colors: ['#531122', '#531122']   
-    sensor.test_tt_test17.team_score: 20   
-    sensor.test_tt_test17.team_win_probability: 0.0   
-    sensor.test_tt_test17.team_timeouts: None   
-    sensor.test_tt_test17.opponent_name: Owls   
-    sensor.test_tt_test17.opponent_id: 338   
-    sensor.test_tt_test17.opponent_record: 0-1   
-    sensor.test_tt_test17.opponent_homeaway: away   
-    sensor.test_tt_test17.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/338.png   
-    sensor.test_tt_test17.opponent_colors: ['#A9A9A9', '#A9A9A9']   
-    sensor.test_tt_test17.opponent_score: 13   
-    sensor.test_tt_test17.opponent_win_probability: 0.0   
-    sensor.test_tt_test17.opponent_timeouts: None   
-    sensor.test_tt_test17.quarter: 1   
-    sensor.test_tt_test17.clock: 1st Set   
-    sensor.test_tt_test17.possession: None   
-    sensor.test_tt_test17.last_play:  Set 1: MSST 20 KENN 13;    
-    sensor.test_tt_test17.down_distance_text: None   
-    sensor.test_tt_test17.outs: None   
-    sensor.test_tt_test17.balls: None   
-    sensor.test_tt_test17.strikes: None   
-    sensor.test_tt_test17.on_first: None   
-    sensor.test_tt_test17.on_second: None   
-    sensor.test_tt_test17.on_third: None   
-    sensor.test_tt_test17.team_shots_on_target: None   
-    sensor.test_tt_test17.team_total_shots: None   
-    sensor.test_tt_test17.opponent_shots_on_target: None   
-    sensor.test_tt_test17.opponent_total_shots: None   
-    sensor.test_tt_test17.team_sets_won: 0   
-    sensor.test_tt_test17.opponent_sets_won: 0     
-    sensor.test_tt_test17.icon: mdi:volleyball   
-    sensor.test_tt_test17.friendly_name: test_tt_test17 
+    sensor.test_tt_all_test17      
+    sensor.test_tt_all_test17.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test17.sport: volleyball   
+    sensor.test_tt_all_test17.league: NCAAVBW   
+    sensor.test_tt_all_test17.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test17.team_abbr: MSST   
+    sensor.test_tt_all_test17.opponent_abbr: KENN   
+    sensor.test_tt_all_test17.date: 2022-09-08T23:00Z     
+    sensor.test_tt_all_test17.venue: Newell-Grissom Building   
+    sensor.test_tt_all_test17.location: Starkville, Mississippi   
+    sensor.test_tt_all_test17.tv_network: SECN+   
+    sensor.test_tt_all_test17.odds: None   
+    sensor.test_tt_all_test17.overunder: None   
+    sensor.test_tt_all_test17.team_name: Bulldogs   
+    sensor.test_tt_all_test17.team_id: 344   
+    sensor.test_tt_all_test17.team_record: 5-0   
+    sensor.test_tt_all_test17.team_homeaway: home   
+    sensor.test_tt_all_test17.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/344.png   
+    sensor.test_tt_all_test17.team_colors: ['#531122', '#531122']   
+    sensor.test_tt_all_test17.team_score: 20   
+    sensor.test_tt_all_test17.team_win_probability: 0.0   
+    sensor.test_tt_all_test17.team_timeouts: None   
+    sensor.test_tt_all_test17.opponent_name: Owls   
+    sensor.test_tt_all_test17.opponent_id: 338   
+    sensor.test_tt_all_test17.opponent_record: 0-1   
+    sensor.test_tt_all_test17.opponent_homeaway: away   
+    sensor.test_tt_all_test17.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/338.png   
+    sensor.test_tt_all_test17.opponent_colors: ['#A9A9A9', '#A9A9A9']   
+    sensor.test_tt_all_test17.opponent_score: 13   
+    sensor.test_tt_all_test17.opponent_win_probability: 0.0   
+    sensor.test_tt_all_test17.opponent_timeouts: None   
+    sensor.test_tt_all_test17.quarter: 1   
+    sensor.test_tt_all_test17.clock: 1st Set   
+    sensor.test_tt_all_test17.possession: None   
+    sensor.test_tt_all_test17.last_play:  Set 1: MSST 20 KENN 13;    
+    sensor.test_tt_all_test17.down_distance_text: None   
+    sensor.test_tt_all_test17.outs: None   
+    sensor.test_tt_all_test17.balls: None   
+    sensor.test_tt_all_test17.strikes: None   
+    sensor.test_tt_all_test17.on_first: None   
+    sensor.test_tt_all_test17.on_second: None   
+    sensor.test_tt_all_test17.on_third: None   
+    sensor.test_tt_all_test17.team_shots_on_target: None   
+    sensor.test_tt_all_test17.team_total_shots: None   
+    sensor.test_tt_all_test17.opponent_shots_on_target: None   
+    sensor.test_tt_all_test17.opponent_total_shots: None   
+    sensor.test_tt_all_test17.team_sets_won: 0   
+    sensor.test_tt_all_test17.opponent_sets_won: 0     
+    sensor.test_tt_all_test17.icon: mdi:volleyball   
+    sensor.test_tt_all_test17.friendly_name: test_tt_all_test17 
   
-    sensor.test_tt_test18      
-    sensor.test_tt_test18.attribution: Data provided by ESPN   
-    sensor.test_tt_test18.sport: volleyball   
-    sensor.test_tt_test18.league: NCAAVBW   
-    sensor.test_tt_test18.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_test18.team_abbr: ARMY   
-    sensor.test_tt_test18.opponent_abbr: SYR   
-    sensor.test_tt_test18.date: 2022-09-08T21:00Z     
-    sensor.test_tt_test18.venue: Women's Building   
-    sensor.test_tt_test18.location: Syracuse, New York   
-    sensor.test_tt_test18.tv_network: ACCNX   
-    sensor.test_tt_test18.odds: None   
-    sensor.test_tt_test18.overunder: None   
-    sensor.test_tt_test18.team_name: Black Knights   
-    sensor.test_tt_test18.team_id: 349   
-    sensor.test_tt_test18.team_record: 0-1   
-    sensor.test_tt_test18.team_homeaway: away   
-    sensor.test_tt_test18.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/349.png   
-    sensor.test_tt_test18.team_colors: ['#ce9c00', '#ce9c00']   
-    sensor.test_tt_test18.team_score: 3   
-    sensor.test_tt_test18.team_win_probability: None   
-    sensor.test_tt_test18.team_timeouts: None   
-    sensor.test_tt_test18.opponent_name: Orange   
-    sensor.test_tt_test18.opponent_id: 183   
-    sensor.test_tt_test18.opponent_record: 3-3   
-    sensor.test_tt_test18.opponent_homeaway: home   
-    sensor.test_tt_test18.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/183.png   
-    sensor.test_tt_test18.opponent_colors: ['#1A3E86', '#1A3E86']   
-    sensor.test_tt_test18.opponent_score: 1   
-    sensor.test_tt_test18.opponent_win_probability: None   
-    sensor.test_tt_test18.opponent_timeouts: None   
-    sensor.test_tt_test18.quarter: None   
-    sensor.test_tt_test18.clock: None   
-    sensor.test_tt_test18.possession: None   
-    sensor.test_tt_test18.last_play: None   
-    sensor.test_tt_test18.down_distance_text: None   
-    sensor.test_tt_test18.outs: None   
-    sensor.test_tt_test18.balls: None   
-    sensor.test_tt_test18.strikes: None   
-    sensor.test_tt_test18.on_first: None   
-    sensor.test_tt_test18.on_second: None   
-    sensor.test_tt_test18.on_third: None   
-    sensor.test_tt_test18.team_shots_on_target: None   
-    sensor.test_tt_test18.team_total_shots: None   
-    sensor.test_tt_test18.opponent_shots_on_target: None   
-    sensor.test_tt_test18.opponent_total_shots: None   
-    sensor.test_tt_test18.team_sets_won: None   
-    sensor.test_tt_test18.opponent_sets_won: None     
-    sensor.test_tt_test18.icon: mdi:volleyball   
-    sensor.test_tt_test18.friendly_name: test_tt_test18 
-  
-    sensor.test_tt_teste00      
-    sensor.test_tt_teste00.attribution: Data provided by ESPN   
-    sensor.test_tt_teste00.sport: football   
-    sensor.test_tt_teste00.league: NCAAF   
-    sensor.test_tt_teste00.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_teste00.team_abbr: MICH   
-    sensor.test_tt_teste00.opponent_abbr: OSU   
-    sensor.test_tt_teste00.date: 2022-09-10T18:30Z     
-    sensor.test_tt_teste00.venue: Notre Dame Stadium   
-    sensor.test_tt_teste00.location: Notre Dame, IN   
-    sensor.test_tt_teste00.tv_network: NBC   
-    sensor.test_tt_teste00.odds: None   
-    sensor.test_tt_teste00.overunder: None   
-    sensor.test_tt_teste00.team_name: Wolverines   
-    sensor.test_tt_teste00.team_id: 87   
-    sensor.test_tt_teste00.team_record: 0-1   
-    sensor.test_tt_teste00.team_homeaway: home   
-    sensor.test_tt_teste00.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/130.png   
-    sensor.test_tt_teste00.team_colors: ['#00122b', '#ae9142']   
-    sensor.test_tt_teste00.team_score: 7   
-    sensor.test_tt_teste00.team_win_probability: 0.3   
-    sensor.test_tt_teste00.team_timeouts: 3   
-    sensor.test_tt_teste00.opponent_name: Buckeyes   
-    sensor.test_tt_teste00.opponent_id: 276   
-    sensor.test_tt_teste00.opponent_record: 1-0   
-    sensor.test_tt_teste00.opponent_homeaway: away   
-    sensor.test_tt_teste00.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/194.png   
-    sensor.test_tt_teste00.opponent_colors: ['#de3121', '#666666']   
-    sensor.test_tt_teste00.opponent_score: 9   
-    sensor.test_tt_teste00.opponent_win_probability: 0.7   
-    sensor.test_tt_teste00.opponent_timeouts: 3   
-    sensor.test_tt_teste00.quarter: 2   
-    sensor.test_tt_teste00.clock: 0:00   
-    sensor.test_tt_teste00.possession: None   
-    sensor.test_tt_teste00.last_play: End of 2nd Quarter, and Michigan still sucks   
-    sensor.test_tt_teste00.down_distance_text: None   
-    sensor.test_tt_teste00.outs: None   
-    sensor.test_tt_teste00.balls: None   
-    sensor.test_tt_teste00.strikes: None   
-    sensor.test_tt_teste00.on_first: None   
-    sensor.test_tt_teste00.on_second: None   
-    sensor.test_tt_teste00.on_third: None   
-    sensor.test_tt_teste00.team_shots_on_target: None   
-    sensor.test_tt_teste00.team_total_shots: None   
-    sensor.test_tt_teste00.opponent_shots_on_target: None   
-    sensor.test_tt_teste00.opponent_total_shots: None   
-    sensor.test_tt_teste00.team_sets_won: None   
-    sensor.test_tt_teste00.opponent_sets_won: None     
-    sensor.test_tt_teste00.icon: mdi:football   
-    sensor.test_tt_teste00.friendly_name: test_tt_teste00
+    sensor.test_tt_all_test18      
+    sensor.test_tt_all_test18.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test18.sport: volleyball   
+    sensor.test_tt_all_test18.league: NCAAVBW   
+    sensor.test_tt_all_test18.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test18.team_abbr: ARMY   
+    sensor.test_tt_all_test18.opponent_abbr: SYR   
+    sensor.test_tt_all_test18.date: 2022-09-08T21:00Z     
+    sensor.test_tt_all_test18.venue: Women's Building   
+    sensor.test_tt_all_test18.location: Syracuse, New York   
+    sensor.test_tt_all_test18.tv_network: ACCNX   
+    sensor.test_tt_all_test18.odds: None   
+    sensor.test_tt_all_test18.overunder: None   
+    sensor.test_tt_all_test18.team_name: Black Knights   
+    sensor.test_tt_all_test18.team_id: 349   
+    sensor.test_tt_all_test18.team_record: 0-1   
+    sensor.test_tt_all_test18.team_homeaway: away   
+    sensor.test_tt_all_test18.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/349.png   
+    sensor.test_tt_all_test18.team_colors: ['#ce9c00', '#ce9c00']   
+    sensor.test_tt_all_test18.team_score: 3   
+    sensor.test_tt_all_test18.team_win_probability: None   
+    sensor.test_tt_all_test18.team_timeouts: None   
+    sensor.test_tt_all_test18.opponent_name: Orange   
+    sensor.test_tt_all_test18.opponent_id: 183   
+    sensor.test_tt_all_test18.opponent_record: 3-3   
+    sensor.test_tt_all_test18.opponent_homeaway: home   
+    sensor.test_tt_all_test18.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/183.png   
+    sensor.test_tt_all_test18.opponent_colors: ['#1A3E86', '#1A3E86']   
+    sensor.test_tt_all_test18.opponent_score: 1   
+    sensor.test_tt_all_test18.opponent_win_probability: None   
+    sensor.test_tt_all_test18.opponent_timeouts: None   
+    sensor.test_tt_all_test18.quarter: None   
+    sensor.test_tt_all_test18.clock: None   
+    sensor.test_tt_all_test18.possession: None   
+    sensor.test_tt_all_test18.last_play: None   
+    sensor.test_tt_all_test18.down_distance_text: None   
+    sensor.test_tt_all_test18.outs: None   
+    sensor.test_tt_all_test18.balls: None   
+    sensor.test_tt_all_test18.strikes: None   
+    sensor.test_tt_all_test18.on_first: None   
+    sensor.test_tt_all_test18.on_second: None   
+    sensor.test_tt_all_test18.on_third: None   
+    sensor.test_tt_all_test18.team_shots_on_target: None   
+    sensor.test_tt_all_test18.team_total_shots: None   
+    sensor.test_tt_all_test18.opponent_shots_on_target: None   
+    sensor.test_tt_all_test18.opponent_total_shots: None   
+    sensor.test_tt_all_test18.team_sets_won: None   
+    sensor.test_tt_all_test18.opponent_sets_won: None     
+    sensor.test_tt_all_test18.icon: mdi:volleyball   
+    sensor.test_tt_all_test18.friendly_name: test_tt_all_test18

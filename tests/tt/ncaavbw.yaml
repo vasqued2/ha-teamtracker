@@ -1,0 +1,48 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/tt/test.json file instead
+# 
+
+# NCAAVBW
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: AUB
+    conference_id: 9999
+    name: test_tt_ncaavbw_test01
+
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: TXST
+    conference_id: 9999
+    name: test_tt_ncaavbw_test02
+
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: OSU
+    conference_id: 9999
+    name: test_tt_ncaavbw_test03
+
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: ARK
+    conference_id: 9999
+    name: test_tt_ncaavbw_test04
+
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: MILW
+    conference_id: 9999
+    name: test_tt_ncaavbw_test05
+
+  - platform: teamtracker
+    league_id: NCAAVBW
+    team_id: MIA
+    conference_id: 9999
+    name: test_tt_ncaavbw_test06
+
+# Error Conditions
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: NCAAVBW 
+    team_id: BADTEAM
+    name: test_tt_ncaavbw_teste01
