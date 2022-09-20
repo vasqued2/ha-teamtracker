@@ -2,7 +2,15 @@
 
 This integration provides real-time scores for teams in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer) sports using ESPN APIs, and creates a sensor with attributes for the details of the game. 
 
+This integration can be used with the [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) to display the game information in the Home Assistant dashboard.
+
 This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-nfl) custom component by @zacs.  Thanks for the starting place!
+
+#### Version Compatibility
+ - Releases for [ha-teamtracker](https://github.com/vasqued2/ha-teamtracker) and [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) follow the MAJOR.MINOR.PATCH convention.
+ - All teamtracker and teamtracker-card releases with the same MAJOR and MINOR version numbers will be compatible, regardless of PATCH version.
+ - For example, any teamtracker v0.2.x will be compatible with any teamtracker-card v0.2.y.
+ - Compatibility is not guaranteed across MAJOR or MINOR version numbers.
 
 ## Supported Sports / Leagues
 - Baseball - MLB
