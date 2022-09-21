@@ -313,6 +313,7 @@ async def async_clear_states(config) -> dict:
         "team_name": None,
         "team_id": None,
         "team_record": None,
+        "team_rank": None,
         "team_homeaway": None,
         "team_logo": None,
         "team_colors": None,
@@ -323,6 +324,7 @@ async def async_clear_states(config) -> dict:
         "opponent_name": None,
         "opponent_id": None,
         "opponent_record": None,
+        "opponent_rank": None,
         "opponent_homeaway": None,
         "opponent_logo": None,
         "opponent_colors": None,
@@ -386,6 +388,10 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index) ->
         new_values["team_record"] = event["competitions"][0]["competitors"][team_index]["records"][0]["summary"]
     except:
         new_values["team_record"] = None
+    try:
+        new_values["team_rank"] = event["competitions"][0]["competitors"][team_index]["curatedRank"]["current"] 
+    except:
+        new_values["team_rank"] = None
     new_values["team_homeaway"] = event["competitions"][0]["competitors"][team_index]["homeAway"]
     new_values["team_logo"] = event["competitions"][0]["competitors"][team_index]["team"]["logo"]
     try:
@@ -410,6 +416,10 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index) ->
         new_values["opponent_record"] = event["competitions"][0]["competitors"][oppo_index]["records"][0]["summary"]
     except:
         new_values["opponent_record"] = None
+    try:
+        new_values["opponent_rank"] = event["competitions"][0]["competitors"][oppo_index]["curatedRank"]["current"] 
+    except:
+        new_values["opponent_rank"] = None
     new_values["opponent_homeaway"] = event["competitions"][0]["competitors"][oppo_index]["homeAway"]
     new_values["opponent_logo"] = event["competitions"][0]["competitors"][oppo_index]["team"]["logo"]
     try:
