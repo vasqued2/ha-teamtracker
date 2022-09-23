@@ -245,6 +245,8 @@ async def async_get_state(config) -> dict:
                         values.update(await async_get_in_soccer_event_attributes(event, values, team_index, oppo_index))
                     elif sport_path in ["volleyball"]:
                         values.update(await async_get_in_volleyball_event_attributes(event, values, team_index, oppo_index))
+                    elif sport_path in ["hockey"]:
+                        values.update(await async_get_in_hockey_event_attributes(event, values, team_index, oppo_index))
 
                 if 'IN' in values["state"]:
                     break
@@ -389,7 +391,8 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index) ->
     except:
         new_values["team_record"] = None
     try:
-        new_values["team_rank"] = event["competitions"][0]["competitors"][team_index]["curatedRank"]["current"] 
+        if (event["competitions"][0]["competitors"][team_index]["curatedRank"]["current"] != 99):
+            new_values["team_rank"] = event["competitions"][0]["competitors"][team_index]["curatedRank"]["current"] 
     except:
         new_values["team_rank"] = None
     new_values["team_homeaway"] = event["competitions"][0]["competitors"][team_index]["homeAway"]
@@ -417,7 +420,8 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index) ->
     except:
         new_values["opponent_record"] = None
     try:
-        new_values["opponent_rank"] = event["competitions"][0]["competitors"][oppo_index]["curatedRank"]["current"] 
+        if (event["competitions"][0]["competitors"][oppo_index]["curatedRank"]["current"] != 99):
+            new_values["opponent_rank"] = event["competitions"][0]["competitors"][oppo_index]["curatedRank"]["current"] 
     except:
         new_values["opponent_rank"] = None
     new_values["opponent_homeaway"] = event["competitions"][0]["competitors"][oppo_index]["homeAway"]
@@ -633,3 +637,22 @@ async def async_get_in_volleyball_event_attributes(event, old_values, team_index
     return new_values
 
 
+async def async_get_in_hockey_event_attributes(event, old_values, team_index, oppo_index) -> dict:
+    """Get IN event values"""
+    new_values = {}
+
+    new_values["team_shots_on_target"] = 0
+    for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
+        _LOGGER.debug("Looking at this statistic: %s" % statistic)
+        if "saves" in statistic["name"]:
+            _LOGGER.debug("Found saves statistics; parsing data.")
+            new_values["team_shots_on_target"] = statistic["displayValue"]
+
+    new_values["opponent_shots_on_target"] = 0
+    for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
+        _LOGGER.debug("Looking at this statistic: %s" % statistic)
+        if "saves" in statistic["name"]:
+            _LOGGER.debug("Found saves statistics; parsing data.")
+            new_values["opponent_shots_on_target"] = statistic["displayValue"]
+
+    return new_values
