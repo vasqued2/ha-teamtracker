@@ -511,7 +511,7 @@ async def async_get_in_event_attributes(event, old_values, team_index, oppo_inde
                 new_values["last_play"] = new_values["last_play"] + codecs.decode(alt_lp, "rot13")
 
     new_values["quarter"] = event["status"]["period"]
-    new_values["clock"] = event["status"]["displayClock"]
+    new_values["clock"] = event["status"]["type"]["shortDetail"]
     try:
         new_values["down_distance_text"] = event["competitions"][0]["situation"]["downDistanceText"]
     except:
@@ -641,18 +641,20 @@ async def async_get_in_hockey_event_attributes(event, old_values, team_index, op
     """Get IN event values"""
     new_values = {}
 
-    new_values["team_shots_on_target"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
-        _LOGGER.debug("Looking at this statistic: %s" % statistic)
-        if "saves" in statistic["name"]:
-            _LOGGER.debug("Found saves statistics; parsing data.")
-            new_values["team_shots_on_target"] = statistic["displayValue"]
+    new_values["clock"] = event["status"]["type"]["shortDetail"] # Period clock
 
-    new_values["opponent_shots_on_target"] = 0
+    new_values["team_shots_on_target"] = 0
     for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
         _LOGGER.debug("Looking at this statistic: %s" % statistic)
         if "saves" in statistic["name"]:
-            _LOGGER.debug("Found saves statistics; parsing data.")
-            new_values["opponent_shots_on_target"] = statistic["displayValue"]
+            shots = int(old_values["team_score"]) + int(statistic["displayValue"])
+            new_values["team_shots_on_target"] = str(shots)
 
+    new_values["opponent_shots_on_target"] = 0
+    for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
+        _LOGGER.debug("Looking at this statistic: %s" % statistic)
+        if "saves" in statistic["name"]:
+            shots = int(old_values["opponent_score"]) + int(statistic["displayValue"])
+            new_values["opponent_shots_on_target"] = str(shots)
+            
     return new_values

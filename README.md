@@ -66,6 +66,7 @@ Some attributes are only available for certain sports.
 | `team_id` | A numeric ID for your team, used to match `possession` above. | `PRE` `IN` `POST` |
 | `team_name` | Your team's name (eg. "Seahawks"). Note this does not include the city name. | `PRE` `IN` `POST` `BYE` |
 | `team_record` | Your team's current record (eg. "2-3"). | `PRE` `IN` `POST` |
+| `team_rank` | Your team's current rank (null if unranked or does not apply). | `PRE` `IN` `POST` |
 | `team_homeaway` | Your team's home/away status. Either `home` or `away`. | `PRE` `IN` `POST` |
 | `team_logo` | A URL for a 500px wide PNG logo for the team. | `PRE` `IN` `POST` `BYE` |
 | `team_colors` | An array with two hex colors. The first is your team's primary color, and the second is their secondary color. Unless you're the Browns, in which case they are the same. | `PRE` `IN` `POST` |
@@ -76,6 +77,7 @@ Some attributes are only available for certain sports.
 | `opponent_id` | A numeric ID for your opponent, used to match `possession` above. | `PRE` `IN` `POST` |
 | `opponent_name` | Your opponent's name (eg. "Seahawks"). Note this does not include the city name. | `PRE` `IN` `POST` `BYE` |
 | `opponent_record` | Your opponent's current record (eg. "2-3"). | `PRE` `IN` `POST` |
+| `opponent_rank` | Your opponent's current rank (null if unranked or does not apply). | `PRE` `IN` `POST` |
 | `opponent_homeaway` | Your opponent's home/away status. Either `home` or `away`. | `PRE` `IN` `POST` |
 | `opponent_logo` | A URL for a 500px wide PNG logo for the opponent. | `PRE` `IN` `POST` `BYE` |
 | `opponent_colors` | An array with two hex colors. The first is your opponent's primary color, and the second is their secondary color. | `PRE` `IN` `POST` |
