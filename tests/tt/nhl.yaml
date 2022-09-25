@@ -1,0 +1,60 @@
+#
+# Test Scenarios
+#  Use conference_id: 9999 to override API call and use /share/tt/test.json file instead
+# 
+
+# Hockey
+  - platform: teamtracker
+    league_id: NHL
+    team_id: BUF
+    conference_id: 9999
+    name: test_tt_nhl_test01
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: MIN
+    conference_id: 9999
+    name: test_tt_nhl_test02
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: ANA
+    conference_id: 9999
+    name: test_tt_nhl_test03
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: EDM
+    conference_id: 9999
+    name: test_tt_nhl_test04
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: LA
+    conference_id: 9999
+    name: test_tt_nhl_test05
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: VAN
+    conference_id: 9999
+    name: test_tt_nhl_test06
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: PIT
+    conference_id: 9999
+    name: test_tt_nhl_test07
+
+  - platform: teamtracker
+    league_id: NHL
+    team_id: VGK
+    conference_id: 9999
+    name: test_tt_nhl_test08
+
+# Error Conditions
+# Invalid Team - 
+  - platform: teamtracker
+    league_id: NHL
+    team_id: BADTEAM
+    name: test_tt_nhl_teste01
