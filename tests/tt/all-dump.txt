@@ -1,4 +1,4 @@
-Home Assistant notifications (Log started: 2022-09-18T18:38:40.717147+00:00)
+Home Assistant notifications (Log started: 2022-09-25T17:07:21.937578+00:00)
 --------------------------------------------------------------------------------
 sensor.test_tt_all_test01      
     sensor.test_tt_all_test01.attribution: Data provided by ESPN   
@@ -16,6 +16,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test01.team_name: Marlins   
     sensor.test_tt_all_test01.team_id: 28   
     sensor.test_tt_all_test01.team_record: 55-80   
+    sensor.test_tt_all_test01.team_rank: None   
     sensor.test_tt_all_test01.team_homeaway: away   
     sensor.test_tt_all_test01.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mia.png   
     sensor.test_tt_all_test01.team_colors: ['#0081c7', '#0077c8']   
@@ -25,6 +26,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test01.opponent_name: Phillies   
     sensor.test_tt_all_test01.opponent_id: 22   
     sensor.test_tt_all_test01.opponent_record: 75-61   
+    sensor.test_tt_all_test01.opponent_rank: None   
     sensor.test_tt_all_test01.opponent_homeaway: home   
     sensor.test_tt_all_test01.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png   
     sensor.test_tt_all_test01.opponent_colors: ['#be0011', '#284898']   
@@ -67,6 +69,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test02.team_name: Brewers   
     sensor.test_tt_all_test02.team_id: 8   
     sensor.test_tt_all_test02.team_record: 71-65   
+    sensor.test_tt_all_test02.team_rank: None   
     sensor.test_tt_all_test02.team_homeaway: home   
     sensor.test_tt_all_test02.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png   
     sensor.test_tt_all_test02.team_colors: ['#050C33', '#f1f2f3']   
@@ -76,6 +79,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test02.opponent_name: Giants   
     sensor.test_tt_all_test02.opponent_id: 26   
     sensor.test_tt_all_test02.opponent_record: 65-70   
+    sensor.test_tt_all_test02.opponent_rank: None   
     sensor.test_tt_all_test02.opponent_homeaway: away   
     sensor.test_tt_all_test02.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sf.png   
     sensor.test_tt_all_test02.opponent_colors: ['#161415', '#000000']   
@@ -118,6 +122,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test03.team_name: Reds   
     sensor.test_tt_all_test03.team_id: 17   
     sensor.test_tt_all_test03.team_record: 55-80   
+    sensor.test_tt_all_test03.team_rank: None   
     sensor.test_tt_all_test03.team_homeaway: away   
     sensor.test_tt_all_test03.team_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cin.png   
     sensor.test_tt_all_test03.team_colors: ['#c41422', '#ffffff']   
@@ -127,6 +132,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test03.opponent_name: Cubs   
     sensor.test_tt_all_test03.opponent_id: 16   
     sensor.test_tt_all_test03.opponent_record: 57-80   
+    sensor.test_tt_all_test03.opponent_rank: None   
     sensor.test_tt_all_test03.opponent_homeaway: home   
     sensor.test_tt_all_test03.opponent_logo: https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png   
     sensor.test_tt_all_test03.opponent_colors: ['#00417d', '#00417d']   
@@ -169,6 +175,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test04.team_name: Falcons   
     sensor.test_tt_all_test04.team_id: 189   
     sensor.test_tt_all_test04.team_record: 0-1   
+    sensor.test_tt_all_test04.team_rank: None   
     sensor.test_tt_all_test04.team_homeaway: home   
     sensor.test_tt_all_test04.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/189.png   
     sensor.test_tt_all_test04.team_colors: ['#2b1000', '#492000']   
@@ -178,6 +185,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test04.opponent_name: Colonels   
     sensor.test_tt_all_test04.opponent_id: 2198   
     sensor.test_tt_all_test04.opponent_record: 0-1   
+    sensor.test_tt_all_test04.opponent_rank: None   
     sensor.test_tt_all_test04.opponent_homeaway: away   
     sensor.test_tt_all_test04.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png   
     sensor.test_tt_all_test04.opponent_colors: ['#660819', '#f0f0f0']   
@@ -220,6 +228,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test05.team_name: Crimson Tide   
     sensor.test_tt_all_test05.team_id: 333   
     sensor.test_tt_all_test05.team_record: 1-0   
+    sensor.test_tt_all_test05.team_rank: 1   
     sensor.test_tt_all_test05.team_homeaway: away   
     sensor.test_tt_all_test05.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/333.png   
     sensor.test_tt_all_test05.team_colors: ['#690014', '#f1f2f3']   
@@ -229,6 +238,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test05.opponent_name: Longhorns   
     sensor.test_tt_all_test05.opponent_id: 251   
     sensor.test_tt_all_test05.opponent_record: 1-0   
+    sensor.test_tt_all_test05.opponent_rank: None   
     sensor.test_tt_all_test05.opponent_homeaway: home   
     sensor.test_tt_all_test05.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/251.png   
     sensor.test_tt_all_test05.opponent_colors: ['#EE7524', '#f0f0f0']   
@@ -236,7 +246,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test05.opponent_win_probability: 0.152   
     sensor.test_tt_all_test05.opponent_timeouts: 3   
     sensor.test_tt_all_test05.quarter: 4   
-    sensor.test_tt_all_test05.clock: 4:15   
+    sensor.test_tt_all_test05.clock: 4:15 - 4th   
     sensor.test_tt_all_test05.possession: 333   
     sensor.test_tt_all_test05.last_play: Jahmyr Gibbs run for 2 yds to the Texas 24 for a 1ST down   
     sensor.test_tt_all_test05.down_distance_text: 1st & 10 at TEX 24   
@@ -271,6 +281,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test06.team_name: Bills   
     sensor.test_tt_all_test06.team_id: 2   
     sensor.test_tt_all_test06.team_record: 1-0   
+    sensor.test_tt_all_test06.team_rank: None   
     sensor.test_tt_all_test06.team_homeaway: away   
     sensor.test_tt_all_test06.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png   
     sensor.test_tt_all_test06.team_colors: ['#04407F', '#c60c30']   
@@ -280,6 +291,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test06.opponent_name: Rams   
     sensor.test_tt_all_test06.opponent_id: 14   
     sensor.test_tt_all_test06.opponent_record: 0-1   
+    sensor.test_tt_all_test06.opponent_rank: None   
     sensor.test_tt_all_test06.opponent_homeaway: home   
     sensor.test_tt_all_test06.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png   
     sensor.test_tt_all_test06.opponent_colors: ['#00295B', '#b3995d']   
@@ -322,6 +334,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test07.team_name: Orlando   
     sensor.test_tt_all_test07.team_id: 18206   
     sensor.test_tt_all_test07.team_record: 5-6-6   
+    sensor.test_tt_all_test07.team_rank: None   
     sensor.test_tt_all_test07.team_homeaway: home   
     sensor.test_tt_all_test07.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/18206.png   
     sensor.test_tt_all_test07.team_colors: ['#633492', '#a7c0dd']   
@@ -331,6 +344,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test07.opponent_name: Portland   
     sensor.test_tt_all_test07.opponent_id: 15362   
     sensor.test_tt_all_test07.opponent_record: 7-7-3   
+    sensor.test_tt_all_test07.opponent_rank: None   
     sensor.test_tt_all_test07.opponent_homeaway: away   
     sensor.test_tt_all_test07.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/15362.png   
     sensor.test_tt_all_test07.opponent_colors: ['#004812', '#000000']   
@@ -373,6 +387,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test08.team_name: Columbus   
     sensor.test_tt_all_test08.team_id: 183   
     sensor.test_tt_all_test08.team_record: 9-13-6   
+    sensor.test_tt_all_test08.team_rank: None   
     sensor.test_tt_all_test08.team_homeaway: away   
     sensor.test_tt_all_test08.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/183.png   
     sensor.test_tt_all_test08.team_colors: ['#ffff00', '#c9c7c8']   
@@ -382,6 +397,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test08.opponent_name: CF Montréal   
     sensor.test_tt_all_test08.opponent_id: 9720   
     sensor.test_tt_all_test08.opponent_record: 16-4-9   
+    sensor.test_tt_all_test08.opponent_rank: None   
     sensor.test_tt_all_test08.opponent_homeaway: home   
     sensor.test_tt_all_test08.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/9720.png   
     sensor.test_tt_all_test08.opponent_colors: ['#181818', '#c9c7c8']   
@@ -424,6 +440,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test09.team_name: Augsburg   
     sensor.test_tt_all_test09.team_id: 3841   
     sensor.test_tt_all_test09.team_record: 2-0-4   
+    sensor.test_tt_all_test09.team_rank: None   
     sensor.test_tt_all_test09.team_homeaway: away   
     sensor.test_tt_all_test09.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/3841.png   
     sensor.test_tt_all_test09.team_colors: ['#DA0308', '#ffffff']   
@@ -433,6 +450,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test09.opponent_name: Bremen   
     sensor.test_tt_all_test09.opponent_id: 137   
     sensor.test_tt_all_test09.opponent_record: 2-2-2   
+    sensor.test_tt_all_test09.opponent_rank: None   
     sensor.test_tt_all_test09.opponent_homeaway: home   
     sensor.test_tt_all_test09.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/137.png   
     sensor.test_tt_all_test09.opponent_colors: ['#03915c', '#f9c0a2']   
@@ -475,6 +493,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test10.team_name: Warriors   
     sensor.test_tt_all_test10.team_id: 9   
     sensor.test_tt_all_test10.team_record: None   
+    sensor.test_tt_all_test10.team_rank: None   
     sensor.test_tt_all_test10.team_homeaway: away   
     sensor.test_tt_all_test10.team_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png   
     sensor.test_tt_all_test10.team_colors: ['#003da5', '#fdb927']   
@@ -484,6 +503,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test10.opponent_name: Wizards   
     sensor.test_tt_all_test10.opponent_id: 27   
     sensor.test_tt_all_test10.opponent_record: None   
+    sensor.test_tt_all_test10.opponent_rank: None   
     sensor.test_tt_all_test10.opponent_homeaway: home   
     sensor.test_tt_all_test10.opponent_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png   
     sensor.test_tt_all_test10.opponent_colors: ['#0E3764', '#e31837']   
@@ -510,6 +530,165 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test10.icon: mdi:basketball   
     sensor.test_tt_all_test10.friendly_name: test_tt_all_test10 
   
+    sensor.test_tt_all_test13      
+    sensor.test_tt_all_test13.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test13.sport: hockey   
+    sensor.test_tt_all_test13.league: NHL   
+    sensor.test_tt_all_test13.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test13.team_abbr: CBJ   
+    sensor.test_tt_all_test13.opponent_abbr: PIT   
+    sensor.test_tt_all_test13.date: 2022-09-25T17:00Z     
+    sensor.test_tt_all_test13.venue: PPG Paints Arena   
+    sensor.test_tt_all_test13.location: Pittsburgh, PA   
+    sensor.test_tt_all_test13.tv_network: None   
+    sensor.test_tt_all_test13.odds: None   
+    sensor.test_tt_all_test13.overunder: None   
+    sensor.test_tt_all_test13.team_name: Blue Jackets   
+    sensor.test_tt_all_test13.team_id: 29   
+    sensor.test_tt_all_test13.team_record: 0-0-0   
+    sensor.test_tt_all_test13.team_rank: None   
+    sensor.test_tt_all_test13.team_homeaway: away   
+    sensor.test_tt_all_test13.team_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/cbj.png   
+    sensor.test_tt_all_test13.team_colors: ['#002d62', '#cd202c']   
+    sensor.test_tt_all_test13.team_score: 0   
+    sensor.test_tt_all_test13.team_win_probability: None   
+    sensor.test_tt_all_test13.team_timeouts: None   
+    sensor.test_tt_all_test13.opponent_name: Penguins   
+    sensor.test_tt_all_test13.opponent_id: 16   
+    sensor.test_tt_all_test13.opponent_record: 0-0-0   
+    sensor.test_tt_all_test13.opponent_rank: None   
+    sensor.test_tt_all_test13.opponent_homeaway: home   
+    sensor.test_tt_all_test13.opponent_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/pit.png   
+    sensor.test_tt_all_test13.opponent_colors: ['#231f20', '#f0b128']   
+    sensor.test_tt_all_test13.opponent_score: 0   
+    sensor.test_tt_all_test13.opponent_win_probability: None   
+    sensor.test_tt_all_test13.opponent_timeouts: None   
+    sensor.test_tt_all_test13.quarter: None   
+    sensor.test_tt_all_test13.clock: None   
+    sensor.test_tt_all_test13.possession: None   
+    sensor.test_tt_all_test13.last_play: None   
+    sensor.test_tt_all_test13.down_distance_text: None   
+    sensor.test_tt_all_test13.outs: None   
+    sensor.test_tt_all_test13.balls: None   
+    sensor.test_tt_all_test13.strikes: None   
+    sensor.test_tt_all_test13.on_first: None   
+    sensor.test_tt_all_test13.on_second: None   
+    sensor.test_tt_all_test13.on_third: None   
+    sensor.test_tt_all_test13.team_shots_on_target: None   
+    sensor.test_tt_all_test13.team_total_shots: None   
+    sensor.test_tt_all_test13.opponent_shots_on_target: None   
+    sensor.test_tt_all_test13.opponent_total_shots: None   
+    sensor.test_tt_all_test13.team_sets_won: None   
+    sensor.test_tt_all_test13.opponent_sets_won: None     
+    sensor.test_tt_all_test13.icon: mdi:hockey-puck   
+    sensor.test_tt_all_test13.friendly_name: test_tt_all_test13 
+  
+    sensor.test_tt_all_test14      
+    sensor.test_tt_all_test14.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test14.sport: hockey   
+    sensor.test_tt_all_test14.league: NHL   
+    sensor.test_tt_all_test14.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test14.team_abbr: BOS   
+    sensor.test_tt_all_test14.opponent_abbr: PHI   
+    sensor.test_tt_all_test14.date: 2022-09-24T23:00Z     
+    sensor.test_tt_all_test14.venue: Wells Fargo Center   
+    sensor.test_tt_all_test14.location: Philadelphia, PA   
+    sensor.test_tt_all_test14.tv_network: NHL NET   
+    sensor.test_tt_all_test14.odds: None   
+    sensor.test_tt_all_test14.overunder: None   
+    sensor.test_tt_all_test14.team_name: Bruins   
+    sensor.test_tt_all_test14.team_id: 1   
+    sensor.test_tt_all_test14.team_record: 0-0-0   
+    sensor.test_tt_all_test14.team_rank: None   
+    sensor.test_tt_all_test14.team_homeaway: away   
+    sensor.test_tt_all_test14.team_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/bos.png   
+    sensor.test_tt_all_test14.team_colors: ['#231f20', '#fdbb30']   
+    sensor.test_tt_all_test14.team_score: 0   
+    sensor.test_tt_all_test14.team_win_probability: 0.0   
+    sensor.test_tt_all_test14.team_timeouts: None   
+    sensor.test_tt_all_test14.opponent_name: Flyers   
+    sensor.test_tt_all_test14.opponent_id: 15   
+    sensor.test_tt_all_test14.opponent_record: 0-0-0   
+    sensor.test_tt_all_test14.opponent_rank: None   
+    sensor.test_tt_all_test14.opponent_homeaway: home   
+    sensor.test_tt_all_test14.opponent_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png   
+    sensor.test_tt_all_test14.opponent_colors: ['#eb7131', '#000000']   
+    sensor.test_tt_all_test14.opponent_score: 1   
+    sensor.test_tt_all_test14.opponent_win_probability: 0.0   
+    sensor.test_tt_all_test14.opponent_timeouts: None   
+    sensor.test_tt_all_test14.quarter: 3   
+    sensor.test_tt_all_test14.clock: 14:49 - 3rd   
+    sensor.test_tt_all_test14.possession: None   
+    sensor.test_tt_all_test14.last_play: None   
+    sensor.test_tt_all_test14.down_distance_text: None   
+    sensor.test_tt_all_test14.outs: None   
+    sensor.test_tt_all_test14.balls: None   
+    sensor.test_tt_all_test14.strikes: None   
+    sensor.test_tt_all_test14.on_first: None   
+    sensor.test_tt_all_test14.on_second: None   
+    sensor.test_tt_all_test14.on_third: None   
+    sensor.test_tt_all_test14.team_shots_on_target: 26   
+    sensor.test_tt_all_test14.team_total_shots: None   
+    sensor.test_tt_all_test14.opponent_shots_on_target: 23   
+    sensor.test_tt_all_test14.opponent_total_shots: None   
+    sensor.test_tt_all_test14.team_sets_won: None   
+    sensor.test_tt_all_test14.opponent_sets_won: None     
+    sensor.test_tt_all_test14.icon: mdi:hockey-puck   
+    sensor.test_tt_all_test14.friendly_name: test_tt_all_test14 
+  
+    sensor.test_tt_all_test15      
+    sensor.test_tt_all_test15.attribution: Data provided by ESPN   
+    sensor.test_tt_all_test15.sport: hockey   
+    sensor.test_tt_all_test15.league: NHL   
+    sensor.test_tt_all_test15.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
+    sensor.test_tt_all_test15.team_abbr: TOR   
+    sensor.test_tt_all_test15.opponent_abbr: OTT   
+    sensor.test_tt_all_test15.date: 2022-09-24T17:00Z     
+    sensor.test_tt_all_test15.venue: Scotiabank Arena   
+    sensor.test_tt_all_test15.location: Toronto, ON   
+    sensor.test_tt_all_test15.tv_network: NHL NET   
+    sensor.test_tt_all_test15.odds: None   
+    sensor.test_tt_all_test15.overunder: None   
+    sensor.test_tt_all_test15.team_name: Maple Leafs   
+    sensor.test_tt_all_test15.team_id: 21   
+    sensor.test_tt_all_test15.team_record: 1-0-0   
+    sensor.test_tt_all_test15.team_rank: None   
+    sensor.test_tt_all_test15.team_homeaway: home   
+    sensor.test_tt_all_test15.team_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png   
+    sensor.test_tt_all_test15.team_colors: ['#003e7e', '#f0f0f0']   
+    sensor.test_tt_all_test15.team_score: 4   
+    sensor.test_tt_all_test15.team_win_probability: None   
+    sensor.test_tt_all_test15.team_timeouts: None   
+    sensor.test_tt_all_test15.opponent_name: Senators   
+    sensor.test_tt_all_test15.opponent_id: 14   
+    sensor.test_tt_all_test15.opponent_record: 0-1-0   
+    sensor.test_tt_all_test15.opponent_rank: None   
+    sensor.test_tt_all_test15.opponent_homeaway: away   
+    sensor.test_tt_all_test15.opponent_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/ott.png   
+    sensor.test_tt_all_test15.opponent_colors: ['#d01b35', '#c89a1c']   
+    sensor.test_tt_all_test15.opponent_score: 1   
+    sensor.test_tt_all_test15.opponent_win_probability: None   
+    sensor.test_tt_all_test15.opponent_timeouts: None   
+    sensor.test_tt_all_test15.quarter: None   
+    sensor.test_tt_all_test15.clock: None   
+    sensor.test_tt_all_test15.possession: None   
+    sensor.test_tt_all_test15.last_play: None   
+    sensor.test_tt_all_test15.down_distance_text: None   
+    sensor.test_tt_all_test15.outs: None   
+    sensor.test_tt_all_test15.balls: None   
+    sensor.test_tt_all_test15.strikes: None   
+    sensor.test_tt_all_test15.on_first: None   
+    sensor.test_tt_all_test15.on_second: None   
+    sensor.test_tt_all_test15.on_third: None   
+    sensor.test_tt_all_test15.team_shots_on_target: None   
+    sensor.test_tt_all_test15.team_total_shots: None   
+    sensor.test_tt_all_test15.opponent_shots_on_target: None   
+    sensor.test_tt_all_test15.opponent_total_shots: None   
+    sensor.test_tt_all_test15.team_sets_won: None   
+    sensor.test_tt_all_test15.opponent_sets_won: None     
+    sensor.test_tt_all_test15.icon: mdi:hockey-puck   
+    sensor.test_tt_all_test15.friendly_name: test_tt_all_test15 
+  
     sensor.test_tt_all_test16      
     sensor.test_tt_all_test16.attribution: Data provided by ESPN   
     sensor.test_tt_all_test16.sport: volleyball   
@@ -526,6 +705,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test16.team_name: Waves   
     sensor.test_tt_all_test16.team_id: 2492   
     sensor.test_tt_all_test16.team_record: 1-1   
+    sensor.test_tt_all_test16.team_rank: 24   
     sensor.test_tt_all_test16.team_homeaway: home   
     sensor.test_tt_all_test16.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/2492.png   
     sensor.test_tt_all_test16.team_colors: ['#009c98', '#009c98']   
@@ -535,6 +715,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test16.opponent_name: Mustangs   
     sensor.test_tt_all_test16.opponent_id: 13   
     sensor.test_tt_all_test16.opponent_record: 0-1   
+    sensor.test_tt_all_test16.opponent_rank: None   
     sensor.test_tt_all_test16.opponent_homeaway: away   
     sensor.test_tt_all_test16.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/13.png   
     sensor.test_tt_all_test16.opponent_colors: ['#083808', '#083808']   
@@ -577,6 +758,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test17.team_name: Bulldogs   
     sensor.test_tt_all_test17.team_id: 344   
     sensor.test_tt_all_test17.team_record: 5-0   
+    sensor.test_tt_all_test17.team_rank: None   
     sensor.test_tt_all_test17.team_homeaway: home   
     sensor.test_tt_all_test17.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/344.png   
     sensor.test_tt_all_test17.team_colors: ['#531122', '#531122']   
@@ -586,6 +768,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test17.opponent_name: Owls   
     sensor.test_tt_all_test17.opponent_id: 338   
     sensor.test_tt_all_test17.opponent_record: 0-1   
+    sensor.test_tt_all_test17.opponent_rank: None   
     sensor.test_tt_all_test17.opponent_homeaway: away   
     sensor.test_tt_all_test17.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/338.png   
     sensor.test_tt_all_test17.opponent_colors: ['#A9A9A9', '#A9A9A9']   
@@ -628,6 +811,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test18.team_name: Black Knights   
     sensor.test_tt_all_test18.team_id: 349   
     sensor.test_tt_all_test18.team_record: 0-1   
+    sensor.test_tt_all_test18.team_rank: None   
     sensor.test_tt_all_test18.team_homeaway: away   
     sensor.test_tt_all_test18.team_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/349.png   
     sensor.test_tt_all_test18.team_colors: ['#ce9c00', '#ce9c00']   
@@ -637,6 +821,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test18.opponent_name: Orange   
     sensor.test_tt_all_test18.opponent_id: 183   
     sensor.test_tt_all_test18.opponent_record: 3-3   
+    sensor.test_tt_all_test18.opponent_rank: None   
     sensor.test_tt_all_test18.opponent_homeaway: home   
     sensor.test_tt_all_test18.opponent_logo: https://a.espncdn.com/i/teamlogos/ncaa/500/183.png   
     sensor.test_tt_all_test18.opponent_colors: ['#1A3E86', '#1A3E86']   

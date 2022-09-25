@@ -1,4 +1,4 @@
-Home Assistant notifications (Log started: 2022-09-18T01:03:25.952962+00:00)
+Home Assistant notifications (Log started: 2022-09-25T13:41:18.641155+00:00)
 --------------------------------------------------------------------------------
 sensor.test_tt_mls_test01      
     sensor.test_tt_mls_test01.attribution: Data provided by ESPN   
@@ -16,6 +16,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test01.team_name: NY Red Bulls   
     sensor.test_tt_mls_test01.team_id: 190   
     sensor.test_tt_mls_test01.team_record: 14-8-10   
+    sensor.test_tt_mls_test01.team_rank: None   
     sensor.test_tt_mls_test01.team_homeaway: away   
     sensor.test_tt_mls_test01.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/190.png   
     sensor.test_tt_mls_test01.team_colors: ['#c9c7c8', '#D50031']   
@@ -25,6 +26,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test01.opponent_name: NYCFC   
     sensor.test_tt_mls_test01.opponent_id: 17606   
     sensor.test_tt_mls_test01.opponent_record: 14-7-11   
+    sensor.test_tt_mls_test01.opponent_rank: None   
     sensor.test_tt_mls_test01.opponent_homeaway: home   
     sensor.test_tt_mls_test01.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/17606.png   
     sensor.test_tt_mls_test01.opponent_colors: ['#6CADDF', '#F36600']   
@@ -67,6 +69,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test02.team_name: Atlanta   
     sensor.test_tt_mls_test02.team_id: 18418   
     sensor.test_tt_mls_test02.team_record: 10-10-12   
+    sensor.test_tt_mls_test02.team_rank: None   
     sensor.test_tt_mls_test02.team_homeaway: home   
     sensor.test_tt_mls_test02.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/18418.png   
     sensor.test_tt_mls_test02.team_colors: ['#000000', '#ccfcfc']   
@@ -76,6 +79,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test02.opponent_name: Philadelphia   
     sensor.test_tt_mls_test02.opponent_id: 10739   
     sensor.test_tt_mls_test02.opponent_record: 18-10-4   
+    sensor.test_tt_mls_test02.opponent_rank: None   
     sensor.test_tt_mls_test02.opponent_homeaway: away   
     sensor.test_tt_mls_test02.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/10739.png   
     sensor.test_tt_mls_test02.opponent_colors: ['#001f5e', '#008de5']   
@@ -118,6 +122,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test03.team_name: CF Montréal   
     sensor.test_tt_mls_test03.team_id: 9720   
     sensor.test_tt_mls_test03.team_record: 17-5-9   
+    sensor.test_tt_mls_test03.team_rank: None   
     sensor.test_tt_mls_test03.team_homeaway: away   
     sensor.test_tt_mls_test03.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/9720.png   
     sensor.test_tt_mls_test03.team_colors: ['#181818', '#c9c7c8']   
@@ -127,6 +132,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test03.opponent_name: New England   
     sensor.test_tt_mls_test03.opponent_id: 189   
     sensor.test_tt_mls_test03.opponent_record: 9-11-11   
+    sensor.test_tt_mls_test03.opponent_rank: None   
     sensor.test_tt_mls_test03.opponent_homeaway: home   
     sensor.test_tt_mls_test03.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/189.png   
     sensor.test_tt_mls_test03.opponent_colors: ['#022166', '#c9c7c8']   
@@ -169,6 +175,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test04.team_name: Orlando   
     sensor.test_tt_mls_test04.team_id: 12011   
     sensor.test_tt_mls_test04.team_record: 12-6-12   
+    sensor.test_tt_mls_test04.team_rank: None   
     sensor.test_tt_mls_test04.team_homeaway: home   
     sensor.test_tt_mls_test04.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/12011.png   
     sensor.test_tt_mls_test04.team_colors: ['#633492', '#ffffff']   
@@ -178,6 +185,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test04.opponent_name: Toronto   
     sensor.test_tt_mls_test04.opponent_id: 7318   
     sensor.test_tt_mls_test04.opponent_record: 9-7-15   
+    sensor.test_tt_mls_test04.opponent_rank: None   
     sensor.test_tt_mls_test04.opponent_homeaway: away   
     sensor.test_tt_mls_test04.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/7318.png   
     sensor.test_tt_mls_test04.opponent_colors: ['#D80016', '#c9c7c8']   
@@ -220,6 +228,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test05.team_name: Charlotte   
     sensor.test_tt_mls_test05.team_id: 21300   
     sensor.test_tt_mls_test05.team_record: 11-2-17   
+    sensor.test_tt_mls_test05.team_rank: None   
     sensor.test_tt_mls_test05.team_homeaway: away   
     sensor.test_tt_mls_test05.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/21300.png   
     sensor.test_tt_mls_test05.team_colors: ['#0080ff', '#000000']   
@@ -229,6 +238,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test05.opponent_name: Chicago   
     sensor.test_tt_mls_test05.opponent_id: 182   
     sensor.test_tt_mls_test05.opponent_record: 9-8-14   
+    sensor.test_tt_mls_test05.opponent_rank: None   
     sensor.test_tt_mls_test05.opponent_homeaway: home   
     sensor.test_tt_mls_test05.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/182.png   
     sensor.test_tt_mls_test05.opponent_colors: ['#00006c', '#a4d1ff']   
@@ -271,6 +281,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test06.team_name: Kansas City   
     sensor.test_tt_mls_test06.team_id: 186   
     sensor.test_tt_mls_test06.team_record: 9-7-15   
+    sensor.test_tt_mls_test06.team_rank: None   
     sensor.test_tt_mls_test06.team_homeaway: home   
     sensor.test_tt_mls_test06.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/186.png   
     sensor.test_tt_mls_test06.team_colors: ['#9fcfff', '#231F20']   
@@ -280,6 +291,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test06.opponent_name: Minnesota   
     sensor.test_tt_mls_test06.opponent_id: 17362   
     sensor.test_tt_mls_test06.opponent_record: 13-6-12   
+    sensor.test_tt_mls_test06.opponent_rank: None   
     sensor.test_tt_mls_test06.opponent_homeaway: away   
     sensor.test_tt_mls_test06.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/17362.png   
     sensor.test_tt_mls_test06.opponent_colors: ['#000000', '#6CADDF']   
@@ -322,6 +334,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test07.team_name: Nashville   
     sensor.test_tt_mls_test07.team_id: 18986   
     sensor.test_tt_mls_test07.team_record: 12-10-9   
+    sensor.test_tt_mls_test07.team_rank: None   
     sensor.test_tt_mls_test07.team_homeaway: away   
     sensor.test_tt_mls_test07.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/18986.png   
     sensor.test_tt_mls_test07.team_colors: ['#ffff00', '#001f5e']   
@@ -331,6 +344,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test07.opponent_name: Austin   
     sensor.test_tt_mls_test07.opponent_id: 20906   
     sensor.test_tt_mls_test07.opponent_record: 16-6-9   
+    sensor.test_tt_mls_test07.opponent_rank: None   
     sensor.test_tt_mls_test07.opponent_homeaway: home   
     sensor.test_tt_mls_test07.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/20906.png   
     sensor.test_tt_mls_test07.opponent_colors: ['#000000', '#a2deae']   
@@ -373,6 +387,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test08.team_name: Cincinnati   
     sensor.test_tt_mls_test08.team_id: 18267   
     sensor.test_tt_mls_test08.team_record: 10-12-8   
+    sensor.test_tt_mls_test08.team_rank: None   
     sensor.test_tt_mls_test08.team_homeaway: away   
     sensor.test_tt_mls_test08.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/18267.png   
     sensor.test_tt_mls_test08.team_colors: ['#001f5e', '#F36600']   
@@ -382,6 +397,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test08.opponent_name: Salt Lake   
     sensor.test_tt_mls_test08.opponent_id: 4771   
     sensor.test_tt_mls_test08.opponent_record: 11-10-10   
+    sensor.test_tt_mls_test08.opponent_rank: None   
     sensor.test_tt_mls_test08.opponent_homeaway: home   
     sensor.test_tt_mls_test08.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/4771.png   
     sensor.test_tt_mls_test08.opponent_colors: ['#C60000', '#9fcfff']   
@@ -424,6 +440,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test09.team_name: Vancouver   
     sensor.test_tt_mls_test09.team_id: 9727   
     sensor.test_tt_mls_test09.team_record: 10-7-14   
+    sensor.test_tt_mls_test09.team_rank: None   
     sensor.test_tt_mls_test09.team_homeaway: home   
     sensor.test_tt_mls_test09.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/9727.png   
     sensor.test_tt_mls_test09.team_colors: ['#ffffff', '#001f5e']   
@@ -433,6 +450,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test09.opponent_name: Seattle   
     sensor.test_tt_mls_test09.opponent_id: 9726   
     sensor.test_tt_mls_test09.opponent_record: 12-3-15   
+    sensor.test_tt_mls_test09.opponent_rank: None   
     sensor.test_tt_mls_test09.opponent_homeaway: away   
     sensor.test_tt_mls_test09.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/9726.png   
     sensor.test_tt_mls_test09.opponent_colors: ['#628b18', '#4c4091']   
@@ -475,6 +493,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test10.team_name: LA Galaxy   
     sensor.test_tt_mls_test10.team_id: 187   
     sensor.test_tt_mls_test10.team_record: 11-7-12   
+    sensor.test_tt_mls_test10.team_rank: None   
     sensor.test_tt_mls_test10.team_homeaway: home   
     sensor.test_tt_mls_test10.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/187.png   
     sensor.test_tt_mls_test10.team_colors: ['#ffffff', '#231F20']   
@@ -484,6 +503,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test10.opponent_name: Colorado   
     sensor.test_tt_mls_test10.opponent_id: 184   
     sensor.test_tt_mls_test10.opponent_record: 10-9-12   
+    sensor.test_tt_mls_test10.opponent_rank: None   
     sensor.test_tt_mls_test10.opponent_homeaway: away   
     sensor.test_tt_mls_test10.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/184.png   
     sensor.test_tt_mls_test10.opponent_colors: ['#7A003C', '#ceded4']   
@@ -526,6 +546,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test11.team_name: Dallas   
     sensor.test_tt_mls_test11.team_id: 185   
     sensor.test_tt_mls_test11.team_record: 13-10-8   
+    sensor.test_tt_mls_test11.team_rank: None   
     sensor.test_tt_mls_test11.team_homeaway: away   
     sensor.test_tt_mls_test11.team_logo: https://a.espncdn.com/i/teamlogos/soccer/500/185.png   
     sensor.test_tt_mls_test11.team_colors: ['#CF0032', '#9fcfff']   
@@ -535,6 +556,7 @@ sensor.test_tt_mls_test01
     sensor.test_tt_mls_test11.opponent_name: San Jose   
     sensor.test_tt_mls_test11.opponent_id: 191   
     sensor.test_tt_mls_test11.opponent_record: 7-9-14   
+    sensor.test_tt_mls_test11.opponent_rank: None   
     sensor.test_tt_mls_test11.opponent_homeaway: home   
     sensor.test_tt_mls_test11.opponent_logo: https://a.espncdn.com/i/teamlogos/soccer/500/191.png   
     sensor.test_tt_mls_test11.opponent_colors: ['#0000ff', '#ffffff']   

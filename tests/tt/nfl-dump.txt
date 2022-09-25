@@ -1,4 +1,4 @@
-Home Assistant notifications (Log started: 2022-09-17T19:31:58.726209+00:00)
+Home Assistant notifications (Log started: 2022-09-25T13:56:11.197582+00:00)
 --------------------------------------------------------------------------------
 sensor.test_tt_nfl_test01      
     sensor.test_tt_nfl_test01.attribution: Data provided by ESPN   
@@ -16,6 +16,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test01.team_name: Saints   
     sensor.test_tt_nfl_test01.team_id: 18   
     sensor.test_tt_nfl_test01.team_record: 0-0   
+    sensor.test_tt_nfl_test01.team_rank: None   
     sensor.test_tt_nfl_test01.team_homeaway: away   
     sensor.test_tt_nfl_test01.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png   
     sensor.test_tt_nfl_test01.team_colors: ['#020202', '#000000']   
@@ -25,6 +26,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test01.opponent_name: Falcons   
     sensor.test_tt_nfl_test01.opponent_id: 1   
     sensor.test_tt_nfl_test01.opponent_record: 0-0   
+    sensor.test_tt_nfl_test01.opponent_rank: None   
     sensor.test_tt_nfl_test01.opponent_homeaway: home   
     sensor.test_tt_nfl_test01.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png   
     sensor.test_tt_nfl_test01.opponent_colors: ['#000000', '#000000']   
@@ -32,7 +34,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test01.opponent_win_probability: 0.924   
     sensor.test_tt_nfl_test01.opponent_timeouts: 3   
     sensor.test_tt_nfl_test01.quarter: 4   
-    sensor.test_tt_nfl_test01.clock: 0:48   
+    sensor.test_tt_nfl_test01.clock: 0:48 - 4th   
     sensor.test_tt_nfl_test01.possession: 18   
     sensor.test_tt_nfl_test01.last_play: (:54) B.Pinion punts 37 yards to NO 10, Center-L.McCullough, fair catch by D.Harty. PENALTY on ATL-L.McCullough, Offensive Holding, 10 yards, enforced between downs.   
     sensor.test_tt_nfl_test01.down_distance_text: 1st & 10 at NO 10   
@@ -67,6 +69,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test02.team_name: 49ers   
     sensor.test_tt_nfl_test02.team_id: 25   
     sensor.test_tt_nfl_test02.team_record: 0-0   
+    sensor.test_tt_nfl_test02.team_rank: None   
     sensor.test_tt_nfl_test02.team_homeaway: away   
     sensor.test_tt_nfl_test02.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png   
     sensor.test_tt_nfl_test02.team_colors: ['#981324', '#b3995d']   
@@ -76,6 +79,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test02.opponent_name: Bears   
     sensor.test_tt_nfl_test02.opponent_id: 3   
     sensor.test_tt_nfl_test02.opponent_record: 0-0   
+    sensor.test_tt_nfl_test02.opponent_rank: None   
     sensor.test_tt_nfl_test02.opponent_homeaway: home   
     sensor.test_tt_nfl_test02.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png   
     sensor.test_tt_nfl_test02.opponent_colors: ['#152644', '#0b162a']   
@@ -83,7 +87,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test02.opponent_win_probability: 0.9973   
     sensor.test_tt_nfl_test02.opponent_timeouts: 3   
     sensor.test_tt_nfl_test02.quarter: 4   
-    sensor.test_tt_nfl_test02.clock: 2:00   
+    sensor.test_tt_nfl_test02.clock: 2:00 - 4th   
     sensor.test_tt_nfl_test02.possession: 25   
     sensor.test_tt_nfl_test02.last_play: Two-Minute Warning   
     sensor.test_tt_nfl_test02.down_distance_text: 3rd & 10 at SF 20   
@@ -118,6 +122,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test03.team_name: Bengals   
     sensor.test_tt_nfl_test03.team_id: 4   
     sensor.test_tt_nfl_test03.team_record: 0-0   
+    sensor.test_tt_nfl_test03.team_rank: None   
     sensor.test_tt_nfl_test03.team_homeaway: home   
     sensor.test_tt_nfl_test03.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png   
     sensor.test_tt_nfl_test03.team_colors: ['#FF2700', '#000000']   
@@ -127,6 +132,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test03.opponent_name: Steelers   
     sensor.test_tt_nfl_test03.opponent_id: 23   
     sensor.test_tt_nfl_test03.opponent_record: 0-0   
+    sensor.test_tt_nfl_test03.opponent_rank: None   
     sensor.test_tt_nfl_test03.opponent_homeaway: away   
     sensor.test_tt_nfl_test03.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png   
     sensor.test_tt_nfl_test03.opponent_colors: ['#000000', '#ffb612']   
@@ -134,7 +140,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test03.opponent_win_probability: 0.6474   
     sensor.test_tt_nfl_test03.opponent_timeouts: 2   
     sensor.test_tt_nfl_test03.quarter: 4   
-    sensor.test_tt_nfl_test03.clock: 0:16   
+    sensor.test_tt_nfl_test03.clock: 0:16 - 4th   
     sensor.test_tt_nfl_test03.possession: 4   
     sensor.test_tt_nfl_test03.last_play: (:16) (Shotgun) J.Burrow pass incomplete short left to Mi.Thomas.   
     sensor.test_tt_nfl_test03.down_distance_text: 2nd & 10 at PIT 12   
@@ -169,6 +175,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test04.team_name: Lions   
     sensor.test_tt_nfl_test04.team_id: 8   
     sensor.test_tt_nfl_test04.team_record: 0-0   
+    sensor.test_tt_nfl_test04.team_rank: None   
     sensor.test_tt_nfl_test04.team_homeaway: home   
     sensor.test_tt_nfl_test04.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png   
     sensor.test_tt_nfl_test04.team_colors: ['#035C98', '#b0b7bc']   
@@ -178,6 +185,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test04.opponent_name: Eagles   
     sensor.test_tt_nfl_test04.opponent_id: 21   
     sensor.test_tt_nfl_test04.opponent_record: 0-0   
+    sensor.test_tt_nfl_test04.opponent_rank: None   
     sensor.test_tt_nfl_test04.opponent_homeaway: away   
     sensor.test_tt_nfl_test04.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png   
     sensor.test_tt_nfl_test04.opponent_colors: ['#06424D', '#a5acaf']   
@@ -185,7 +193,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test04.opponent_win_probability: 0.9404   
     sensor.test_tt_nfl_test04.opponent_timeouts: 1   
     sensor.test_tt_nfl_test04.quarter: 4   
-    sensor.test_tt_nfl_test04.clock: 7:45   
+    sensor.test_tt_nfl_test04.clock: 7:45 - 4th   
     sensor.test_tt_nfl_test04.possession: 8   
     sensor.test_tt_nfl_test04.last_play: (7:45) D.Swift up the middle to DET 34 for 1 yard (M.Williams).   
     sensor.test_tt_nfl_test04.down_distance_text: 3rd & 4 at DET 34   
@@ -220,6 +228,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test05.team_name: Patriots   
     sensor.test_tt_nfl_test05.team_id: 17   
     sensor.test_tt_nfl_test05.team_record: 0-1   
+    sensor.test_tt_nfl_test05.team_rank: None   
     sensor.test_tt_nfl_test05.team_homeaway: away   
     sensor.test_tt_nfl_test05.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png   
     sensor.test_tt_nfl_test05.team_colors: ['#02244A', '#b0b7bc']   
@@ -229,6 +238,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test05.opponent_name: Dolphins   
     sensor.test_tt_nfl_test05.opponent_id: 15   
     sensor.test_tt_nfl_test05.opponent_record: 1-0   
+    sensor.test_tt_nfl_test05.opponent_rank: None   
     sensor.test_tt_nfl_test05.opponent_homeaway: home   
     sensor.test_tt_nfl_test05.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png   
     sensor.test_tt_nfl_test05.opponent_colors: ['#006B79', '#005778']   
@@ -271,6 +281,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test06.team_name: Jets   
     sensor.test_tt_nfl_test06.team_id: 20   
     sensor.test_tt_nfl_test06.team_record: 0-0   
+    sensor.test_tt_nfl_test06.team_rank: None   
     sensor.test_tt_nfl_test06.team_homeaway: home   
     sensor.test_tt_nfl_test06.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png   
     sensor.test_tt_nfl_test06.team_colors: ['#174032', '#ffffff']   
@@ -280,6 +291,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test06.opponent_name: Ravens   
     sensor.test_tt_nfl_test06.opponent_id: 33   
     sensor.test_tt_nfl_test06.opponent_record: 0-0   
+    sensor.test_tt_nfl_test06.opponent_rank: None   
     sensor.test_tt_nfl_test06.opponent_homeaway: away   
     sensor.test_tt_nfl_test06.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png   
     sensor.test_tt_nfl_test06.opponent_colors: ['#2B025B', '#9e7c0c']   
@@ -287,7 +299,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test06.opponent_win_probability: 0.999   
     sensor.test_tt_nfl_test06.opponent_timeouts: 2   
     sensor.test_tt_nfl_test06.quarter: 4   
-    sensor.test_tt_nfl_test06.clock: 1:21   
+    sensor.test_tt_nfl_test06.clock: 1:21 - 4th   
     sensor.test_tt_nfl_test06.possession: 20   
     sensor.test_tt_nfl_test06.last_play: (1:21) (Shotgun) J.Flacco pass short right to E.Moore for 12 yards, TOUCHDOWN NULLIFIED by Penalty. BLT-K.Fuller was injured during the play.  PENALTY on NYJ-E.Moore, Offensive Pass Interference, 10 yards, enforced at BLT 12 - No Play.   
     sensor.test_tt_nfl_test06.down_distance_text: 4th & 15 at BAL 22   
@@ -322,6 +334,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test07.team_name: Jaguars   
     sensor.test_tt_nfl_test07.team_id: 30   
     sensor.test_tt_nfl_test07.team_record: 0-0   
+    sensor.test_tt_nfl_test07.team_rank: None   
     sensor.test_tt_nfl_test07.team_homeaway: away   
     sensor.test_tt_nfl_test07.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png   
     sensor.test_tt_nfl_test07.team_colors: ['#00839C', '#000000']   
@@ -331,6 +344,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test07.opponent_name: Commanders   
     sensor.test_tt_nfl_test07.opponent_id: 28   
     sensor.test_tt_nfl_test07.opponent_record: 0-0   
+    sensor.test_tt_nfl_test07.opponent_rank: None   
     sensor.test_tt_nfl_test07.opponent_homeaway: home   
     sensor.test_tt_nfl_test07.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png   
     sensor.test_tt_nfl_test07.opponent_colors: ['#650415', '#650415']   
@@ -338,7 +352,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test07.opponent_win_probability: 0.346   
     sensor.test_tt_nfl_test07.opponent_timeouts: 2   
     sensor.test_tt_nfl_test07.quarter: 4   
-    sensor.test_tt_nfl_test07.clock: 4:25   
+    sensor.test_tt_nfl_test07.clock: 4:25 - 4th   
     sensor.test_tt_nfl_test07.possession: 28   
     sensor.test_tt_nfl_test07.last_play: (4:25) (Shotgun) C.Wentz pass incomplete short left to D.Milne.   
     sensor.test_tt_nfl_test07.down_distance_text: 3rd & 10 at WSH 36   
@@ -373,6 +387,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test08.team_name: Browns   
     sensor.test_tt_nfl_test08.team_id: 5   
     sensor.test_tt_nfl_test08.team_record: 0-0   
+    sensor.test_tt_nfl_test08.team_rank: None   
     sensor.test_tt_nfl_test08.team_homeaway: away   
     sensor.test_tt_nfl_test08.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png   
     sensor.test_tt_nfl_test08.team_colors: ['#4C230E', '#4c230e']   
@@ -382,6 +397,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test08.opponent_name: Panthers   
     sensor.test_tt_nfl_test08.opponent_id: 29   
     sensor.test_tt_nfl_test08.opponent_record: 0-0   
+    sensor.test_tt_nfl_test08.opponent_rank: None   
     sensor.test_tt_nfl_test08.opponent_homeaway: home   
     sensor.test_tt_nfl_test08.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png   
     sensor.test_tt_nfl_test08.opponent_colors: ['#2177B0', '#bfc0bf']   
@@ -389,7 +405,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test08.opponent_win_probability: 0.463   
     sensor.test_tt_nfl_test08.opponent_timeouts: 1   
     sensor.test_tt_nfl_test08.quarter: 4   
-    sensor.test_tt_nfl_test08.clock: 2:00   
+    sensor.test_tt_nfl_test08.clock: 2:00 - 4th   
     sensor.test_tt_nfl_test08.possession: 29   
     sensor.test_tt_nfl_test08.last_play: Two-Minute Warning   
     sensor.test_tt_nfl_test08.down_distance_text: 1st & 10 at CAR 46   
@@ -424,6 +440,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test09.team_name: Texans   
     sensor.test_tt_nfl_test09.team_id: 34   
     sensor.test_tt_nfl_test09.team_record: 0-0   
+    sensor.test_tt_nfl_test09.team_rank: None   
     sensor.test_tt_nfl_test09.team_homeaway: home   
     sensor.test_tt_nfl_test09.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png   
     sensor.test_tt_nfl_test09.team_colors: ['#00133F', '#a71930']   
@@ -433,6 +450,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test09.opponent_name: Colts   
     sensor.test_tt_nfl_test09.opponent_id: 11   
     sensor.test_tt_nfl_test09.opponent_record: 0-0   
+    sensor.test_tt_nfl_test09.opponent_rank: None   
     sensor.test_tt_nfl_test09.opponent_homeaway: away   
     sensor.test_tt_nfl_test09.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png   
     sensor.test_tt_nfl_test09.opponent_colors: ['#00417E', '#ffffff']   
@@ -440,7 +458,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test09.opponent_win_probability: 0.5664   
     sensor.test_tt_nfl_test09.opponent_timeouts: 2   
     sensor.test_tt_nfl_test09.quarter: 4   
-    sensor.test_tt_nfl_test09.clock: 1:01   
+    sensor.test_tt_nfl_test09.clock: 1:01 - 4th   
     sensor.test_tt_nfl_test09.possession: 11   
     sensor.test_tt_nfl_test09.last_play: (1:01) (Shotgun) D.Patmon pass short left to M.Pittman to IND 23 for 12 yards.   
     sensor.test_tt_nfl_test09.down_distance_text: 1st & 10 at IND 23   
@@ -475,6 +493,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test10.team_name: Giants   
     sensor.test_tt_nfl_test10.team_id: 19   
     sensor.test_tt_nfl_test10.team_record: 0-0   
+    sensor.test_tt_nfl_test10.team_rank: None   
     sensor.test_tt_nfl_test10.team_homeaway: away   
     sensor.test_tt_nfl_test10.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png   
     sensor.test_tt_nfl_test10.team_colors: ['#052570', '#ffffff']   
@@ -484,6 +503,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test10.opponent_name: Titans   
     sensor.test_tt_nfl_test10.opponent_id: 10   
     sensor.test_tt_nfl_test10.opponent_record: 0-0   
+    sensor.test_tt_nfl_test10.opponent_rank: None   
     sensor.test_tt_nfl_test10.opponent_homeaway: home   
     sensor.test_tt_nfl_test10.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png   
     sensor.test_tt_nfl_test10.opponent_colors: ['#2F95DD', '#4b92db']   
@@ -526,6 +546,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test11.team_name: Packers   
     sensor.test_tt_nfl_test11.team_id: 9   
     sensor.test_tt_nfl_test11.team_record: 0-0   
+    sensor.test_tt_nfl_test11.team_rank: None   
     sensor.test_tt_nfl_test11.team_homeaway: away   
     sensor.test_tt_nfl_test11.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png   
     sensor.test_tt_nfl_test11.team_colors: ['#204E32', '#ffb612']   
@@ -535,6 +556,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test11.opponent_name: Vikings   
     sensor.test_tt_nfl_test11.opponent_id: 16   
     sensor.test_tt_nfl_test11.opponent_record: 0-0   
+    sensor.test_tt_nfl_test11.opponent_rank: None   
     sensor.test_tt_nfl_test11.opponent_homeaway: home   
     sensor.test_tt_nfl_test11.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png   
     sensor.test_tt_nfl_test11.opponent_colors: ['#240A67', '#ffc62f']   
@@ -577,6 +599,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test12.team_name: Cardinals   
     sensor.test_tt_nfl_test12.team_id: 22   
     sensor.test_tt_nfl_test12.team_record: 0-0   
+    sensor.test_tt_nfl_test12.team_rank: None   
     sensor.test_tt_nfl_test12.team_homeaway: home   
     sensor.test_tt_nfl_test12.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png   
     sensor.test_tt_nfl_test12.team_colors: ['#A40227', '#000000']   
@@ -586,6 +609,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test12.opponent_name: Chiefs   
     sensor.test_tt_nfl_test12.opponent_id: 12   
     sensor.test_tt_nfl_test12.opponent_record: 0-0   
+    sensor.test_tt_nfl_test12.opponent_rank: None   
     sensor.test_tt_nfl_test12.opponent_homeaway: away   
     sensor.test_tt_nfl_test12.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png   
     sensor.test_tt_nfl_test12.opponent_colors: ['#BE1415', '#e31837']   
@@ -628,6 +652,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test13.team_name: Raiders   
     sensor.test_tt_nfl_test13.team_id: 13   
     sensor.test_tt_nfl_test13.team_record: 0-0   
+    sensor.test_tt_nfl_test13.team_rank: None   
     sensor.test_tt_nfl_test13.team_homeaway: away   
     sensor.test_tt_nfl_test13.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png   
     sensor.test_tt_nfl_test13.team_colors: ['#000000', '#a5acaf']   
@@ -637,6 +662,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test13.opponent_name: Chargers   
     sensor.test_tt_nfl_test13.opponent_id: 24   
     sensor.test_tt_nfl_test13.opponent_record: 0-0   
+    sensor.test_tt_nfl_test13.opponent_rank: None   
     sensor.test_tt_nfl_test13.opponent_homeaway: home   
     sensor.test_tt_nfl_test13.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png   
     sensor.test_tt_nfl_test13.opponent_colors: ['#042453', '#0073cf']   
@@ -679,6 +705,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test14.team_name: Cowboys   
     sensor.test_tt_nfl_test14.team_id: 6   
     sensor.test_tt_nfl_test14.team_record: 0-0   
+    sensor.test_tt_nfl_test14.team_rank: None   
     sensor.test_tt_nfl_test14.team_homeaway: home   
     sensor.test_tt_nfl_test14.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png   
     sensor.test_tt_nfl_test14.team_colors: ['#002E4D', '#b0b7bc']   
@@ -688,6 +715,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test14.opponent_name: Buccaneers   
     sensor.test_tt_nfl_test14.opponent_id: 27   
     sensor.test_tt_nfl_test14.opponent_record: 0-0   
+    sensor.test_tt_nfl_test14.opponent_rank: None   
     sensor.test_tt_nfl_test14.opponent_homeaway: away   
     sensor.test_tt_nfl_test14.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png   
     sensor.test_tt_nfl_test14.opponent_colors: ['#A80D08', '#34302b']   
@@ -730,6 +758,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test15.team_name: Bills   
     sensor.test_tt_nfl_test15.team_id: 2   
     sensor.test_tt_nfl_test15.team_record: 1-0   
+    sensor.test_tt_nfl_test15.team_rank: None   
     sensor.test_tt_nfl_test15.team_homeaway: away   
     sensor.test_tt_nfl_test15.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png   
     sensor.test_tt_nfl_test15.team_colors: ['#04407F', '#c60c30']   
@@ -739,6 +768,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test15.opponent_name: Rams   
     sensor.test_tt_nfl_test15.opponent_id: 14   
     sensor.test_tt_nfl_test15.opponent_record: 0-1   
+    sensor.test_tt_nfl_test15.opponent_rank: None   
     sensor.test_tt_nfl_test15.opponent_homeaway: home   
     sensor.test_tt_nfl_test15.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png   
     sensor.test_tt_nfl_test15.opponent_colors: ['#00295B', '#b3995d']   
@@ -781,6 +811,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test16.team_name: Seahawks   
     sensor.test_tt_nfl_test16.team_id: 26   
     sensor.test_tt_nfl_test16.team_record: 0-0   
+    sensor.test_tt_nfl_test16.team_rank: None   
     sensor.test_tt_nfl_test16.team_homeaway: home   
     sensor.test_tt_nfl_test16.team_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png   
     sensor.test_tt_nfl_test16.team_colors: ['#224970', '#69be28']   
@@ -790,6 +821,7 @@ sensor.test_tt_nfl_test01
     sensor.test_tt_nfl_test16.opponent_name: Broncos   
     sensor.test_tt_nfl_test16.opponent_id: 7   
     sensor.test_tt_nfl_test16.opponent_record: 0-0   
+    sensor.test_tt_nfl_test16.opponent_rank: None   
     sensor.test_tt_nfl_test16.opponent_homeaway: away   
     sensor.test_tt_nfl_test16.opponent_logo: https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png   
     sensor.test_tt_nfl_test16.opponent_colors: ['#002E4D', '#fb4f14']   
