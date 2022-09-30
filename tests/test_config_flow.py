@@ -2,7 +2,6 @@
 from tests.const import CONFIG_DATA
 from unittest.mock import patch
 import pytest
-import aiofiles
 from homeassistant import config_entries, data_entry_flow, setup
 from homeassistant.const import CONF_NAME
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -20,6 +19,8 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
                 "team_id": "SEA",
                 "timeout": 120,
                 "conference_id": "",
+                "league_path": "nfl",
+                "sport_path": "football",
             },
             "user",
             "Testing State",
@@ -29,6 +30,8 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
                 "team_id": "SEA",
                 "timeout": 120,
                 "conference_id": "",
+                "league_path": "nfl",
+                "sport_path": "football",
             },
         ),
     ],
