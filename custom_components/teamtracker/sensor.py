@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
-from . import AlertsDataUpdateCoordinator
+from . import TeamTrackerDataUpdateCoordinator
 
 from .const import (
     ATTRIBUTION,
@@ -66,7 +66,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         config.data = config
 
     # Setup the data coordinator
-    coordinator = AlertsDataUpdateCoordinator(
+    coordinator = TeamTrackerDataUpdateCoordinator(
         hass,
         config,
         config[CONF_TIMEOUT],

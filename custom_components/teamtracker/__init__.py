@@ -65,7 +65,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             ent_reg.async_update_entity(entity.entity_id, new_unique_id=entry.entry_id)
 
     # Setup the data coordinator
-    coordinator = AlertsDataUpdateCoordinator(
+    coordinator = TeamTrackerDataUpdateCoordinator(
         hass,
         entry.data,
         entry.data.get(CONF_TIMEOUT)
@@ -131,7 +131,7 @@ async def async_migrate_entry(hass, config_entry):
     return True
 
 
-class AlertsDataUpdateCoordinator(DataUpdateCoordinator):
+class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching TeamTracker data."""
 
     def __init__(self, hass, config, the_timeout: int):

@@ -4,6 +4,8 @@ This integration provides real-time scores for teams in multiple professional (N
 
 This integration can be used with the [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) to display the game information in the Home Assistant dashboard.
 
+See the [Wiki](https://github.com/vasqued2/ha-teamtracker/wiki) for FAQs, troubleshooting advise, and custom API configurations that have been already been validated.  Please contribute to help others.
+
 This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-nfl) custom component by @zacs.  Thanks for the starting place!
 
 #### Version Compatibility
@@ -61,7 +63,7 @@ Some attributes are only available for certain sports.
 | `team_total_shots` | Total shots by team (MLS only). | `IN` |
 | `team_shots_on_target` | Shots on net by team (MLS only). | `IN` |
 | `opponent_total_shots` | Total shots by team (MLS only). | `IN` |
-| 'opponent_shots_on_target` | Shots on net by team (MLS only). | `IN` |
+| `opponent_shots_on_target` | Shots on net by team (MLS only). | `IN` |
 | `team_abbr` | The abbreviation for your team (ie. `SEA` for the Seahawks). | `PRE` `IN` `POST` `BYE` |
 | `team_id` | A numeric ID for your team, used to match `possession` above. | `PRE` `IN` `POST` |
 | `team_name` | Your team's name (eg. "Seahawks"). Note this does not include the city name. | `PRE` `IN` `POST` `BYE` |
@@ -211,7 +213,9 @@ where {SPORT_PATH} is the sport and {LEAGUE_PATH} is the league that the team pl
 
 For example, for the NFL, the URL is https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard
 
-If you know the URL with the scoreboard of your team, it is possible to configure Team Tracker to use it.  It is beyond the scope of this document to explain how to determine the URL for the desired scoreboard, but the effort involves examining the URLs of various ESPN pages and trial-and-error.
+If you know the URL with the scoreboard of your team, it is possible to configure Team Tracker to use it.  the [Custom API Configuration section of the Wiki](https://github.com/vasqued2/ha-teamtracker/wiki/Custom-API-Configurations) contains more details on how to determine the {SPORT_PATH} and {LEAGUE_PATH} as well as some that have been verified to work and some that are known to not be compatible.  Please update the Wiki if you try others.
+
+The [FAQ in the Wiki](https://github.com/vasqued2/ha-teamtracker/wiki/Frequently-Asked-Questions) also contains an explanation of the types of sports that work with the teamtracker integration and those that currently do not.
 
 ### Via the "Configuration->Integrations" section of the Home Assistant UI
 
