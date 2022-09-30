@@ -2,6 +2,6 @@
     "name": "Team Tracker",
     "domains": [ "sensor" ],
     "homeassistant": "0.95.4",
-    "render_readme": true,
-    "iot_class": "Cloud Polling"
+    "iot_class": "Cloud Polling",
+    "render_readme": true
 }
