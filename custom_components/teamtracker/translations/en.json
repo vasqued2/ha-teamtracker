@@ -5,7 +5,6 @@
     },
     "step": {
       "user": {
-        "title": "Team Tracker",
         "description": "Enter the League and Team to create the sensor.\n\nLeague: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, EPL, LIGA, LIG1, SERA\n\nTeam: 2-4 letter team abreviation used on ESPN's scoreboards and stats pages\n\nConference Number: For NCAA football and basketball only.  See README.md for valid values.  Leave blank to only include games with ranked teams.",
         "data": {
           "league_id": "League",
