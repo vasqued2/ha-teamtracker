@@ -2,6 +2,7 @@
 from tests.const import CONFIG_DATA
 from unittest.mock import patch
 import pytest
+import aiofiles
 from homeassistant import config_entries, data_entry_flow, setup
 from homeassistant.const import CONF_NAME
 from pytest_homeassistant_custom_component.common import MockConfigEntry
