@@ -166,6 +166,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._opponent_sets_won = None
 
         self._last_update = None
+        self._api_message = None
 
 
     @property
@@ -263,6 +264,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_sets_won"] = self.coordinator.data["opponent_sets_won"]
 
         attrs["last_update"] = self.coordinator.data["last_update"]
+        attrs["api_message"] = self.coordinator.data["api_message"]
 
         return attrs
 

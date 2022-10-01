@@ -87,6 +87,8 @@ Some attributes are only available for certain sports.
 | `opponent_win_probability` | The real-time chance your opponent has to win, according to ESPN. A percentage, but presented as a float. Note that this value can become null in between posession changes. | `IN` |
 | `opponent_timeouts` | The number of remaining timeouts your opponent has. | `PRE` `IN` `POST` |
 | `last_update` | A timestamp for the last time data was fetched for the game. If you watch this in real-time, you should notice it updating every 10 minutes, except for during the game (and for the ~20 minutes pre-game) when it updates every 5 seconds. | `PRE` `IN` `POST` `BYE` |
+| `api_message` | A message giving information to help troubleshoot when the sensor is state `NOT_FOUND` | `NOT_FOUND` |
+
 
 ## Installation
 

@@ -179,6 +179,8 @@ async def async_get_state(config) -> dict:
     headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
     data = None
     file_override = False
+    first_date = "9999"
+    last_date =  "0000"
 
     league_id = config[CONF_LEAGUE_ID].upper()
     sport_path = config[CONF_SPORT_PATH]
@@ -225,6 +227,17 @@ async def async_get_state(config) -> dict:
                 sn = ""
                 _LOGGER.debug("This is an ill-formed event, it does not have a short name: %s" % event)
 
+            try:
+                if (last_date < event["date"]):
+                    last_date = event["date"]
+            except:
+                last_date = last_date
+            try:
+                if (event["date"] < first_date):
+                    first_date = event["date"]
+            except:
+                first_date = first_date
+
             if sn.startswith(team_id + ' ') or sn.endswith(' ' + team_id):
                 found_team = True
                 _LOGGER.debug("Found event for %s; parsing data.", team_id)
@@ -268,11 +281,13 @@ async def async_get_state(config) -> dict:
                         values["state"] = 'BYE'
                         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
                 if found_bye == False:
-                    _LOGGER.debug("Team information (%s) not returned by API: %s" % (team_id, url))
+                    values["api_message"] = "No data for competitor (" + team_id + ") from " + first_date + " through " + last_date
+                    _LOGGER.debug("Competitor information (%s) not returned by API: %s" % (team_id, url))
                     values["state"] = 'NOT_FOUND'
                     values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
             except:
-                _LOGGER.debug("Team information (%s) not returned by API: %s" % (team_id, url))
+                values["api_message"] = "No data for competitor (" + team_id + ") from " + first_date + " through " + last_date
+                _LOGGER.debug("Competitor information (%s) not returned by API: %s" % (team_id, url))
                 values["state"] = 'NOT_FOUND'
                 values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
         if values["state"] == 'PRE' and ((arrow.get(values["date"])-arrow.now()).total_seconds() < 1200):
@@ -285,7 +300,8 @@ async def async_get_state(config) -> dict:
             _LOGGER.debug("Event is over, setting refresh back to 10 minutes.")
             values["private_fast_refresh"] = False
     else:
-        _LOGGER.warn("URL did not return data for team (%s):  %s" % (team_id, url))
+        values["api_message"] = "API did not return any data"
+        _LOGGER.warn("API did not return any data for team (%s):  %s" % (team_id, url))
         values["state"] = 'NOT_FOUND'
         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
         values["private_fast_refresh"] = False
@@ -356,6 +372,8 @@ async def async_clear_states(config) -> dict:
         "opponent_sets_won": None,
 
         "last_update": None,
+        "api_message": None,
+        
         "private_fast_refresh": False
     }
 
