@@ -227,6 +227,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_homeaway"] = self.coordinator.data["team_homeaway"]
         attrs["team_logo"] = self.coordinator.data["team_logo"]
         attrs["team_colors"] = self.coordinator.data["team_colors"]
+#        attrs["team_colors_rbg"] = self.colors2rgb(self.coordinator.data["team_colors"])
         attrs["team_score"] = self.coordinator.data["team_score"]
         attrs["team_win_probability"] = self.coordinator.data["team_win_probability"]
         attrs["team_timeouts"] = self.coordinator.data["team_timeouts"]
@@ -238,6 +239,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_homeaway"] = self.coordinator.data["opponent_homeaway"]
         attrs["opponent_logo"] = self.coordinator.data["opponent_logo"]
         attrs["opponent_colors"] = self.coordinator.data["opponent_colors"]
+#        attrs["opponent_colors_rgb"] = self.colors2rgb(self.coordinator.data["opponent_colors"])
         attrs["opponent_score"] = self.coordinator.data["opponent_score"]
         attrs["opponent_win_probability"] = self.coordinator.data["opponent_win_probability"]
         attrs["opponent_timeouts"] = self.coordinator.data["opponent_timeouts"]
@@ -272,3 +274,17 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     def available(self) -> bool:
         """Return if entity is available."""
         return self.coordinator.last_update_success
+
+
+    def colors2rgb(self, colors) -> tuple:
+        if colors is None:
+            return None
+        color_list = []
+        _LOGGER.debug("Colors: %s", colors[0])
+        color_list.append(list(self.hex_to_rgb(colors[0])))
+        color_list.append(list(self.hex_to_rgb(colors[1])))
+        return color_list
+
+    def hex_to_rgb(self, hexa) -> tuple:
+        hexa = hexa.lstrip("#")
+        return tuple(int(hexa[i : i + 2], 16) for i in (0, 2, 4))

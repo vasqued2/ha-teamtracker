@@ -2,13 +2,13 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, Dict, Optional
 
 import aiohttp
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
 from homeassistant.data_entry_flow import FlowResult
 
@@ -37,14 +37,14 @@ JSON_ID = "id"
 _LOGGER = logging.getLogger(__name__)
 
 
-def _get_schema(hass: Any, user_input: list, default_dict: list) -> Any:
+def _get_schema(hass: HomeAssistant, user_input: Optional[Dict[str, Any]], default_dict: Dict[str, Any], entry_id: str = None) -> vol.Schema:
     """Gets a schema using the default_dict as a backup."""
     if user_input is None:
         user_input = {}
 
-    def _get_default(key):
+    def _get_default(key: str, fallback_default: Any = None) -> None:
         """Gets default value for key."""
-        return user_input.get(key, default_dict.get(key))
+        return user_input.get(key, default_dict.get(key, fallback_default))
 
     return vol.Schema(
         {
