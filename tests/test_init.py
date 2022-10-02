@@ -66,7 +66,7 @@ async def test_unload_entry(hass):
 #     )
 #     await async_setup_component(hass, "persistent_notification", {})
 #     with patch(
-#         "custom_components.nfl.async_setup_entry",
+#         "custom_components.teamtracker.async_setup_entry",
 #         return_value=True,
 #     ) as mock_setup_entry:
 

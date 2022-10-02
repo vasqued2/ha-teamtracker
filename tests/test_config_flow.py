@@ -45,7 +45,7 @@ async def test_form(
     # assert result["title"] == title_1
 
     with patch(
-        "custom_components.nfl.async_setup_entry",
+        "custom_components.teamtracker.async_setup_entry",
         return_value=True,
     ) as mock_setup_entry:
 
@@ -77,7 +77,7 @@ async def test_form(
 #     await setup.async_setup_component(hass, "persistent_notification", {})
 
 #     with patch(
-#         "custom_components.nfl.async_setup_entry",
+#         "custom_components.teamtracker.async_setup_entry",
 #         return_value=True,
 #     ):
 #         result = await hass.config_entries.flow.async_init(

@@ -17,4 +17,4 @@ async def test_sensor(hass):
     assert await hass.config_entries.async_setup(entry.entry_id)
     await hass.async_block_till_done()
 
-    assert "nfl" in hass.config.components
+    assert "teamtracker" in hass.config.components
