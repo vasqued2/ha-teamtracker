@@ -160,7 +160,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
 
-        _LOGGER.debug("Data will be updated every %s for %s", (self.interval, self.name))
+        _LOGGER.debug("Data will be updated every %s", self.interval)
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=self.interval)
 
