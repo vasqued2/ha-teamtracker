@@ -29,6 +29,8 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
                 "name": "team_tracker",
                 "timeout": 120,
                 "conference_id": "9999",
+                "league_path": "nfl",
+                "sport_path": "football",
             },
         ),
     ],
