@@ -1,7 +1,7 @@
 """Test NFL Sensor"""
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.nfl.const import DOMAIN
+from custom_components.teamtracker.const import DOMAIN
 from tests.const import CONFIG_DATA
 
 
