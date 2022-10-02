@@ -6,7 +6,7 @@ from homeassistant import config_entries, data_entry_flow, setup
 from homeassistant.const import CONF_NAME
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
+from custom_components.nfl.const import CONF_TEAM_ID, DOMAIN
 
 
 @pytest.mark.parametrize(
@@ -14,24 +14,16 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
     [
         (
             {
-                "league_id": "NFL",
                 "name": "Testing State",
                 "team_id": "SEA",
                 "timeout": 120,
-                "conference_id": "",
-                "league_path": "nfl",
-                "sport_path": "football",
             },
             "user",
             "Testing State",
             {
-                "league_id": "NFL",
                 "name": "Testing State",
                 "team_id": "SEA",
                 "timeout": 120,
-                "conference_id": "",
-                "league_path": "nfl",
-                "sport_path": "football",
             },
         ),
     ],
@@ -53,7 +45,7 @@ async def test_form(
     # assert result["title"] == title_1
 
     with patch(
-        "custom_components.teamtracker.async_setup_entry",
+        "custom_components.nfl.async_setup_entry",
         return_value=True,
     ) as mock_setup_entry:
 
