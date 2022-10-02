@@ -18,7 +18,7 @@ async def test_setup_entry(
     """Test settting up entities."""
     entry = MockConfigEntry(
         domain=DOMAIN,
-        title="NFL",
+        title="team_tracker",
         data=CONFIG_DATA,
     )
 
@@ -35,7 +35,7 @@ async def test_unload_entry(hass):
     """Test unloading entities."""
     entry = MockConfigEntry(
         domain=DOMAIN,
-        title="NFL",
+        title="team_tracker",
         data=CONFIG_DATA,
     )
 
