@@ -21,7 +21,7 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
                 "conference_id": "9999",
             },
             "user",
-            "Team Tracker",
+            "team_tracker",
             "description",
             {
                 "league_id": "NFL",
