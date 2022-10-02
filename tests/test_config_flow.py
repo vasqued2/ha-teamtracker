@@ -14,16 +14,20 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
     [
         (
             {
-                "name": "Testing State",
+                "league_id": "NFL",
                 "team_id": "SEA",
+                "name": "Testing State",
                 "timeout": 120,
+                "conference_id": 9999,
             },
             "user",
             "Testing State",
             {
-                "name": "Testing State",
+                "league_id": "NFL",
                 "team_id": "SEA",
+                "name": "Testing State",
                 "timeout": 120,
+                "conference_id": 9999,
             },
         ),
     ],
