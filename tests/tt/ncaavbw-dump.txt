@@ -1,4 +1,4 @@
-Home Assistant notifications (Log started: 2022-09-25T13:51:27.416242+00:00)
+Home Assistant notifications (Log started: 2022-10-02T17:16:26.424068+00:00)
 --------------------------------------------------------------------------------
 sensor.test_tt_ncaavbw_test01      
     sensor.test_tt_ncaavbw_test01.attribution: Data provided by ESPN   
@@ -50,6 +50,7 @@ sensor.test_tt_ncaavbw_test01
     sensor.test_tt_ncaavbw_test01.opponent_total_shots: None   
     sensor.test_tt_ncaavbw_test01.team_sets_won: None   
     sensor.test_tt_ncaavbw_test01.opponent_sets_won: None     
+    sensor.test_tt_ncaavbw_test01.api_message: None   
     sensor.test_tt_ncaavbw_test01.icon: mdi:volleyball   
     sensor.test_tt_ncaavbw_test01.friendly_name: test_tt_ncaavbw_test01 
   
@@ -103,6 +104,7 @@ sensor.test_tt_ncaavbw_test01
     sensor.test_tt_ncaavbw_test02.opponent_total_shots: None   
     sensor.test_tt_ncaavbw_test02.team_sets_won: None   
     sensor.test_tt_ncaavbw_test02.opponent_sets_won: None     
+    sensor.test_tt_ncaavbw_test02.api_message: None   
     sensor.test_tt_ncaavbw_test02.icon: mdi:volleyball   
     sensor.test_tt_ncaavbw_test02.friendly_name: test_tt_ncaavbw_test02 
   
@@ -156,6 +158,7 @@ sensor.test_tt_ncaavbw_test01
     sensor.test_tt_ncaavbw_test03.opponent_total_shots: None   
     sensor.test_tt_ncaavbw_test03.team_sets_won: 2   
     sensor.test_tt_ncaavbw_test03.opponent_sets_won: 1     
+    sensor.test_tt_ncaavbw_test03.api_message: None   
     sensor.test_tt_ncaavbw_test03.icon: mdi:volleyball   
     sensor.test_tt_ncaavbw_test03.friendly_name: test_tt_ncaavbw_test03 
   
@@ -209,6 +212,7 @@ sensor.test_tt_ncaavbw_test01
     sensor.test_tt_ncaavbw_test04.opponent_total_shots: None   
     sensor.test_tt_ncaavbw_test04.team_sets_won: 1   
     sensor.test_tt_ncaavbw_test04.opponent_sets_won: 0     
+    sensor.test_tt_ncaavbw_test04.api_message: None   
     sensor.test_tt_ncaavbw_test04.icon: mdi:volleyball   
     sensor.test_tt_ncaavbw_test04.friendly_name: test_tt_ncaavbw_test04 
   
@@ -262,6 +266,7 @@ sensor.test_tt_ncaavbw_test01
     sensor.test_tt_ncaavbw_test05.opponent_total_shots: None   
     sensor.test_tt_ncaavbw_test05.team_sets_won: None   
     sensor.test_tt_ncaavbw_test05.opponent_sets_won: None     
+    sensor.test_tt_ncaavbw_test05.api_message: None   
     sensor.test_tt_ncaavbw_test05.icon: mdi:volleyball   
     sensor.test_tt_ncaavbw_test05.friendly_name: test_tt_ncaavbw_test05 
   
@@ -315,5 +320,60 @@ sensor.test_tt_ncaavbw_test01
     sensor.test_tt_ncaavbw_test06.opponent_total_shots: None   
     sensor.test_tt_ncaavbw_test06.team_sets_won: 1   
     sensor.test_tt_ncaavbw_test06.opponent_sets_won: 0     
+    sensor.test_tt_ncaavbw_test06.api_message: None   
     sensor.test_tt_ncaavbw_test06.icon: mdi:volleyball   
-    sensor.test_tt_ncaavbw_test06.friendly_name: test_tt_ncaavbw_test06
+    sensor.test_tt_ncaavbw_test06.friendly_name: test_tt_ncaavbw_test06 
+  
+    sensor.test_tt_ncaavbw_teste01      
+    sensor.test_tt_ncaavbw_teste01.attribution: Data provided by ESPN   
+    sensor.test_tt_ncaavbw_teste01.sport: volleyball   
+    sensor.test_tt_ncaavbw_teste01.league: NCAAVBW   
+    sensor.test_tt_ncaavbw_teste01.league_logo: https://a.espncdn.com/combiner/i?img=/redesign/assets/img/icons/sports-volleyball-solid.png   
+    sensor.test_tt_ncaavbw_teste01.team_abbr: BADTEAM   
+    sensor.test_tt_ncaavbw_teste01.opponent_abbr: None   
+    sensor.test_tt_ncaavbw_teste01.date: None     
+    sensor.test_tt_ncaavbw_teste01.venue: None   
+    sensor.test_tt_ncaavbw_teste01.location: None   
+    sensor.test_tt_ncaavbw_teste01.tv_network: None   
+    sensor.test_tt_ncaavbw_teste01.odds: None   
+    sensor.test_tt_ncaavbw_teste01.overunder: None   
+    sensor.test_tt_ncaavbw_teste01.team_name: None   
+    sensor.test_tt_ncaavbw_teste01.team_id: None   
+    sensor.test_tt_ncaavbw_teste01.team_record: None   
+    sensor.test_tt_ncaavbw_teste01.team_rank: None   
+    sensor.test_tt_ncaavbw_teste01.team_homeaway: None   
+    sensor.test_tt_ncaavbw_teste01.team_logo: None   
+    sensor.test_tt_ncaavbw_teste01.team_colors: None   
+    sensor.test_tt_ncaavbw_teste01.team_score: None   
+    sensor.test_tt_ncaavbw_teste01.team_win_probability: None   
+    sensor.test_tt_ncaavbw_teste01.team_timeouts: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_name: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_id: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_record: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_rank: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_homeaway: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_logo: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_colors: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_score: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_win_probability: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_timeouts: None   
+    sensor.test_tt_ncaavbw_teste01.quarter: None   
+    sensor.test_tt_ncaavbw_teste01.clock: None   
+    sensor.test_tt_ncaavbw_teste01.possession: None   
+    sensor.test_tt_ncaavbw_teste01.last_play: None   
+    sensor.test_tt_ncaavbw_teste01.down_distance_text: None   
+    sensor.test_tt_ncaavbw_teste01.outs: None   
+    sensor.test_tt_ncaavbw_teste01.balls: None   
+    sensor.test_tt_ncaavbw_teste01.strikes: None   
+    sensor.test_tt_ncaavbw_teste01.on_first: None   
+    sensor.test_tt_ncaavbw_teste01.on_second: None   
+    sensor.test_tt_ncaavbw_teste01.on_third: None   
+    sensor.test_tt_ncaavbw_teste01.team_shots_on_target: None   
+    sensor.test_tt_ncaavbw_teste01.team_total_shots: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_shots_on_target: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_total_shots: None   
+    sensor.test_tt_ncaavbw_teste01.team_sets_won: None   
+    sensor.test_tt_ncaavbw_teste01.opponent_sets_won: None     
+    sensor.test_tt_ncaavbw_teste01.api_message: No game scheduled for BADTEAM between 2022-10-02T16:00Z and 2022-10-02T21:00Z   
+    sensor.test_tt_ncaavbw_teste01.icon: mdi:volleyball   
+    sensor.test_tt_ncaavbw_teste01.friendly_name: test_tt_ncaavbw_teste01

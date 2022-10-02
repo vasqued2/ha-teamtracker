@@ -70,16 +70,16 @@
     team_id: GS
     conference_id: 9999
     name: test_tt_all_test10
-# IN - WNBA, ?
+# IN - NBA, BOS
   - platform: teamtracker
     league_id: NBA
-    team_id: TBD
+    team_id: UTAH
     conference_id: 9999
     name: test_tt_all_test11
-# POST - WNBA,?
+# POST - NBA,CHA
   - platform: teamtracker
     league_id: NBA
-    team_id: TBD
+    team_id: CHA
     conference_id: 9999
     name: test_tt_all_test12
 
@@ -87,19 +87,19 @@
 # PRE - 
   - platform: teamtracker
     league_id: NHL
-    team_id: TBD
+    team_id: ANA
     conference_id: 9999
     name: test_tt_all_test13
 # IN - 
   - platform: teamtracker
     league_id: NHL
-    team_id: TBD
+    team_id: MIN
     conference_id: 9999
     name: test_tt_all_test14
 # POST - 
   - platform: teamtracker
     league_id: NHL
-    team_id: TBD
+    team_id: CBJ
     conference_id: 9999
     name: test_tt_all_test15
 
