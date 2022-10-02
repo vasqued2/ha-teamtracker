@@ -10,7 +10,7 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
 
 
 @pytest.mark.parametrize(
-    "input,step_id,title,data",
+    "input,step_id,title,description,data",
     [
         (
             {
@@ -22,6 +22,7 @@ from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
             },
             "user",
             "Team Tracker",
+            "description",
             {
                 "league_id": "NFL",
                 "team_id": "SEA",
@@ -36,6 +37,7 @@ async def test_form(
     input,
     step_id,
     title,
+    description,
     data,
     hass,
 ):
