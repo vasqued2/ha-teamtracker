@@ -19403,6 +19403,2421 @@
           "shortDetail": "Final"
         }
       }
+    },
+    {
+      "id": "401474846",
+      "uid": "s:40~l:46~e:401474846",
+      "date": "2022-10-02T22:00Z",
+      "name": "Utah Jazz at Toronto Raptors",
+      "shortName": "UTAH @ TOR",
+      "season": {
+        "year": 2023,
+        "type": 1,
+        "slug": "preseason"
+      },
+      "competitions": [
+        {
+          "id": "401474846",
+          "uid": "s:40~l:46~e:401474846~c:401474846",
+          "date": "2022-10-02T22:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": true,
+          "conferenceCompetition": false,
+          "recent": true,
+          "venue": {
+            "id": "5282",
+            "fullName": "Rogers Place",
+            "address": {
+              "city": "Edmonton",
+              "state": "AB"
+            },
+            "capacity": 0,
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "28",
+              "uid": "s:40~l:46~t:28",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "28",
+                "uid": "s:40~l:46~t:28",
+                "location": "Toronto",
+                "name": "Raptors",
+                "abbreviation": "TOR",
+                "displayName": "Toronto Raptors",
+                "shortDisplayName": "Raptors",
+                "color": "CE0F41",
+                "alternateColor": "061922",
+                "isActive": true,
+                "venue": {
+                  "id": "1838"
+                },
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/_/name/tor/toronto-raptors",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "roster",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/team/roster/_/name/tor/toronto-raptors",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/team/stats/_/name/tor/toronto-raptors",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/schedule/_/name/tor",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "photos",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/photos/_/name/tor",
+                    "text": "photos",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "scores",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:46~t:28&section=scores",
+                    "text": "Scores",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "draftpicks",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/draft/teams/_/name/tor/toronto-raptors",
+                    "text": "Draft Picks",
+                    "isExternal": false,
+                    "isPremium": true
+                  },
+                  {
+                    "rel": [
+                      "transactions",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/team/transactions/_/name/tor",
+                    "text": "Transactions",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "injuries",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/injuries/_/name/tor",
+                    "text": "Injuries",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "depthchart",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/depth/_/name/tor",
+                    "text": "Depth Chart",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png"
+              },
+              "score": "47",
+              "linescores": [
+                {
+                  "value": 22
+                },
+                {
+                  "value": 25
+                }
+              ],
+              "statistics": [
+                {
+                  "name": "rebounds",
+                  "abbreviation": "REB",
+                  "displayValue": "27"
+                },
+                {
+                  "name": "avgRebounds",
+                  "abbreviation": "REB",
+                  "displayValue": "27.0"
+                },
+                {
+                  "name": "assists",
+                  "abbreviation": "AST",
+                  "displayValue": "10"
+                },
+                {
+                  "name": "fieldGoalsAttempted",
+                  "abbreviation": "FGA",
+                  "displayValue": "39"
+                },
+                {
+                  "name": "fieldGoalsMade",
+                  "abbreviation": "FGM",
+                  "displayValue": "17"
+                },
+                {
+                  "name": "fieldGoalPct",
+                  "abbreviation": "FG%",
+                  "displayValue": "43.6"
+                },
+                {
+                  "name": "freeThrowPct",
+                  "abbreviation": "FT%",
+                  "displayValue": "60.0"
+                },
+                {
+                  "name": "freeThrowsAttempted",
+                  "abbreviation": "FTA",
+                  "displayValue": "10"
+                },
+                {
+                  "name": "freeThrowsMade",
+                  "abbreviation": "FTM",
+                  "displayValue": "6"
+                },
+                {
+                  "name": "points",
+                  "abbreviation": "PTS",
+                  "displayValue": "47"
+                },
+                {
+                  "name": "threePointPct",
+                  "abbreviation": "3P%",
+                  "displayValue": "41.2"
+                },
+                {
+                  "name": "threePointFieldGoalsAttempted",
+                  "abbreviation": "3PA",
+                  "displayValue": "17"
+                },
+                {
+                  "name": "threePointFieldGoalsMade",
+                  "abbreviation": "3PM",
+                  "displayValue": "7"
+                },
+                {
+                  "name": "avgPoints",
+                  "abbreviation": "PTS",
+                  "displayValue": "47.0"
+                },
+                {
+                  "name": "avgAssists",
+                  "abbreviation": "AST",
+                  "displayValue": "10.0"
+                },
+                {
+                  "name": "threePointFieldGoalPct",
+                  "abbreviation": "3P%",
+                  "displayValue": "41.2"
+                }
+              ],
+              "leaders": [
+                {
+                  "name": "points",
+                  "displayName": "Points",
+                  "shortDisplayName": "Pts",
+                  "abbreviation": "Pts",
+                  "leaders": [
+                    {
+                      "displayValue": "10",
+                      "value": 10,
+                      "athlete": {
+                        "id": "4431679",
+                        "fullName": "Precious Achiuwa",
+                        "displayName": "Precious Achiuwa",
+                        "shortName": "P. Achiuwa",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/4431679/precious-achiuwa"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4431679.png",
+                        "jersey": "5",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "28"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "28"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "rebounds",
+                  "displayName": "Rebounds",
+                  "shortDisplayName": "Reb",
+                  "abbreviation": "Reb",
+                  "leaders": [
+                    {
+                      "displayValue": "5",
+                      "value": 5,
+                      "athlete": {
+                        "id": "4431679",
+                        "fullName": "Precious Achiuwa",
+                        "displayName": "Precious Achiuwa",
+                        "shortName": "P. Achiuwa",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/4431679/precious-achiuwa"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4431679.png",
+                        "jersey": "5",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "28"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "28"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "assists",
+                  "displayName": "Assists",
+                  "shortDisplayName": "Ast",
+                  "abbreviation": "Ast",
+                  "leaders": [
+                    {
+                      "displayValue": "2",
+                      "value": 2,
+                      "athlete": {
+                        "id": "3149673",
+                        "fullName": "Pascal Siakam",
+                        "displayName": "Pascal Siakam",
+                        "shortName": "P. Siakam",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/3149673/pascal-siakam"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/3149673/pascal-siakam"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/3149673.png",
+                        "jersey": "43",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "28"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "28"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "rating",
+                  "displayName": "Rating",
+                  "shortDisplayName": "RAT",
+                  "abbreviation": "RAT",
+                  "leaders": [
+                    {
+                      "displayValue": "10 PTS, 5 REB",
+                      "value": 15.850000381469727,
+                      "athlete": {
+                        "id": "4431679",
+                        "fullName": "Precious Achiuwa",
+                        "displayName": "Precious Achiuwa",
+                        "shortName": "P. Achiuwa",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/4431679/precious-achiuwa"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/4431679/precious-achiuwa"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4431679.png",
+                        "jersey": "5",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "28"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "28"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "records": [
+                {
+                  "name": "All Splits",
+                  "abbreviation": "Total",
+                  "type": "total",
+                  "summary": "0-0"
+                },
+                {
+                  "name": "Home",
+                  "type": "home",
+                  "summary": "0-0"
+                },
+                {
+                  "name": "Road",
+                  "type": "road",
+                  "summary": "0-0"
+                }
+              ]
+            },
+            {
+              "id": "26",
+              "uid": "s:40~l:46~t:26",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "26",
+                "uid": "s:40~l:46~t:26",
+                "location": "Utah",
+                "name": "Jazz",
+                "abbreviation": "UTAH",
+                "displayName": "Utah Jazz",
+                "shortDisplayName": "Jazz",
+                "color": "06143F",
+                "alternateColor": "f9a01b",
+                "isActive": true,
+                "venue": {
+                  "id": "3093"
+                },
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/_/name/utah/utah-jazz",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "roster",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/team/roster/_/name/utah/utah-jazz",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/team/stats/_/name/utah/utah-jazz",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/schedule/_/name/utah",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "photos",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/photos/_/name/utah",
+                    "text": "photos",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "scores",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:46~t:26&section=scores",
+                    "text": "Scores",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "draftpicks",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/draft/teams/_/name/utah/utah-jazz",
+                    "text": "Draft Picks",
+                    "isExternal": false,
+                    "isPremium": true
+                  },
+                  {
+                    "rel": [
+                      "transactions",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nba/team/transactions/_/name/utah",
+                    "text": "Transactions",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "injuries",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/injuries/_/name/utah",
+                    "text": "Injuries",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "depthchart",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nba/team/depth/_/name/utah",
+                    "text": "Depth Chart",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png"
+              },
+              "score": "41",
+              "linescores": [
+                {
+                  "value": 22
+                },
+                {
+                  "value": 19
+                }
+              ],
+              "statistics": [
+                {
+                  "name": "rebounds",
+                  "abbreviation": "REB",
+                  "displayValue": "20"
+                },
+                {
+                  "name": "avgRebounds",
+                  "abbreviation": "REB",
+                  "displayValue": "20.0"
+                },
+                {
+                  "name": "assists",
+                  "abbreviation": "AST",
+                  "displayValue": "11"
+                },
+                {
+                  "name": "fieldGoalsAttempted",
+                  "abbreviation": "FGA",
+                  "displayValue": "40"
+                },
+                {
+                  "name": "fieldGoalsMade",
+                  "abbreviation": "FGM",
+                  "displayValue": "15"
+                },
+                {
+                  "name": "fieldGoalPct",
+                  "abbreviation": "FG%",
+                  "displayValue": "37.5"
+                },
+                {
+                  "name": "freeThrowPct",
+                  "abbreviation": "FT%",
+                  "displayValue": "60.0"
+                },
+                {
+                  "name": "freeThrowsAttempted",
+                  "abbreviation": "FTA",
+                  "displayValue": "10"
+                },
+                {
+                  "name": "freeThrowsMade",
+                  "abbreviation": "FTM",
+                  "displayValue": "6"
+                },
+                {
+                  "name": "points",
+                  "abbreviation": "PTS",
+                  "displayValue": "41"
+                },
+                {
+                  "name": "threePointPct",
+                  "abbreviation": "3P%",
+                  "displayValue": "23.8"
+                },
+                {
+                  "name": "threePointFieldGoalsAttempted",
+                  "abbreviation": "3PA",
+                  "displayValue": "21"
+                },
+                {
+                  "name": "threePointFieldGoalsMade",
+                  "abbreviation": "3PM",
+                  "displayValue": "5"
+                },
+                {
+                  "name": "avgPoints",
+                  "abbreviation": "PTS",
+                  "displayValue": "41.0"
+                },
+                {
+                  "name": "avgAssists",
+                  "abbreviation": "AST",
+                  "displayValue": "11.0"
+                },
+                {
+                  "name": "threePointFieldGoalPct",
+                  "abbreviation": "3P%",
+                  "displayValue": "23.8"
+                }
+              ],
+              "leaders": [
+                {
+                  "name": "points",
+                  "displayName": "Points",
+                  "shortDisplayName": "Pts",
+                  "abbreviation": "Pts",
+                  "leaders": [
+                    {
+                      "displayValue": "14",
+                      "value": 14,
+                      "athlete": {
+                        "id": "4066336",
+                        "fullName": "Lauri Markkanen",
+                        "displayName": "Lauri Markkanen",
+                        "shortName": "L. Markkanen",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/4066336/lauri-markkanen"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4066336.png",
+                        "jersey": "23",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "26"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "26"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "rebounds",
+                  "displayName": "Rebounds",
+                  "shortDisplayName": "Reb",
+                  "abbreviation": "Reb",
+                  "leaders": [
+                    {
+                      "displayValue": "4",
+                      "value": 4,
+                      "athlete": {
+                        "id": "4066336",
+                        "fullName": "Lauri Markkanen",
+                        "displayName": "Lauri Markkanen",
+                        "shortName": "L. Markkanen",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/4066336/lauri-markkanen"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4066336.png",
+                        "jersey": "23",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "26"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "26"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "assists",
+                  "displayName": "Assists",
+                  "shortDisplayName": "Ast",
+                  "abbreviation": "Ast",
+                  "leaders": [
+                    {
+                      "displayValue": "3",
+                      "value": 3,
+                      "athlete": {
+                        "id": "2528426",
+                        "fullName": "Jordan Clarkson",
+                        "displayName": "Jordan Clarkson",
+                        "shortName": "J. Clarkson",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/2528426/jordan-clarkson"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/2528426/jordan-clarkson"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/2528426.png",
+                        "jersey": "00",
+                        "position": {
+                          "abbreviation": "PG"
+                        },
+                        "team": {
+                          "id": "26"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "26"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "rating",
+                  "displayName": "Rating",
+                  "shortDisplayName": "RAT",
+                  "abbreviation": "RAT",
+                  "leaders": [
+                    {
+                      "displayValue": "14 PTS, 4 REB, 1 STL",
+                      "value": 21.200000762939453,
+                      "athlete": {
+                        "id": "4066336",
+                        "fullName": "Lauri Markkanen",
+                        "displayName": "Lauri Markkanen",
+                        "shortName": "L. Markkanen",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/stats/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/splits/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/gamelog/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/news/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/bio/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/_/id/4066336/lauri-markkanen"
+                          },
+                          {
+                            "rel": [
+                              "advancedstats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nba/player/advancedstats/_/id/4066336/lauri-markkanen"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4066336.png",
+                        "jersey": "23",
+                        "position": {
+                          "abbreviation": "PF"
+                        },
+                        "team": {
+                          "id": "26"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "26"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "records": [
+                {
+                  "name": "All Splits",
+                  "abbreviation": "Total",
+                  "type": "total",
+                  "summary": "0-0"
+                },
+                {
+                  "name": "Home",
+                  "type": "home",
+                  "summary": "0-0"
+                },
+                {
+                  "name": "Road",
+                  "type": "road",
+                  "summary": "0-0"
+                }
+              ]
+            }
+          ],
+          "notes": [
+            {
+              "type": "event",
+              "headline": "NBA Canada Series"
+            }
+          ],
+          "situation": {
+            "lastPlay": {
+              "id": "401474846325",
+              "type": {
+                "id": "155",
+                "text": "Defensive Rebound"
+              },
+              "text": "Gary Trent Jr. defensive rebound",
+              "scoreValue": 0,
+              "team": {
+                "id": "28"
+              }
+            }
+          },
+          "status": {
+            "clock": 98,
+            "displayClock": "1:38",
+            "period": 2,
+            "type": {
+              "id": "2",
+              "name": "STATUS_IN_PROGRESS",
+              "state": "in",
+              "completed": false,
+              "description": "In Progress",
+              "detail": "1:38 - 2nd Quarter",
+              "shortDetail": "1:38 - 2nd"
+            }
+          },
+          "broadcasts": [
+            {
+              "market": "national",
+              "names": [
+                "NBA TV"
+              ]
+            }
+          ],
+          "format": {
+            "regulation": {
+              "periods": 4
+            }
+          },
+          "startDate": "2022-10-02T22:00Z",
+          "geoBroadcasts": [
+            {
+              "type": {
+                "id": "1",
+                "shortName": "TV"
+              },
+              "market": {
+                "id": "1",
+                "type": "National"
+              },
+              "media": {
+                "shortName": "NBA TV"
+              },
+              "lang": "en",
+              "region": "us"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "language": "en-US",
+          "rel": [
+            "live",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/nba/game?gameId=401474846",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "boxscore",
+            "desktop",
+            "event"
+          ],
+          "href": "http://www.espn.com/nba/boxscore/_/gameId/401474846",
+          "text": "Box Score",
+          "shortText": "Box Score",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "highlights",
+            "desktop"
+          ],
+          "href": "https://www.espn.com/nba/video?gameId=401474846",
+          "text": "Highlights",
+          "shortText": "Highlights",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "pbp",
+            "desktop",
+            "event"
+          ],
+          "href": "http://www.espn.com/nba/playbyplay/_/gameId/401474846",
+          "text": "Play-by-Play",
+          "shortText": "Play-by-Play",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 98,
+        "displayClock": "1:38",
+        "period": 2,
+        "type": {
+          "id": "2",
+          "name": "STATUS_IN_PROGRESS",
+          "state": "in",
+          "completed": false,
+          "description": "In Progress",
+          "detail": "1:38 - 2nd Quarter",
+          "shortDetail": "1:38 - 2nd"
+        }
+      }
+    },
+    {
+      "id": "401461502",
+      "uid": "s:70~l:90~e:401461502",
+      "date": "2022-10-02T23:00Z",
+      "name": "Philadelphia Flyers at New York Islanders",
+      "shortName": "PHI @ NYI",
+      "season": {
+        "year": 2023,
+        "type": 1,
+        "slug": "preseason"
+      },
+      "competitions": [
+        {
+          "id": "401461502",
+          "uid": "s:70~l:90~e:401461502~c:401461502",
+          "date": "2022-10-02T23:00Z",
+          "attendance": 0,
+          "type": {
+            "id": "1",
+            "abbreviation": "STD"
+          },
+          "timeValid": true,
+          "neutralSite": false,
+          "recent": true,
+          "venue": {
+            "id": "7226",
+            "fullName": "UBS Arena",
+            "address": {
+              "city": "Elmont",
+              "state": "NY",
+              "country": "USA"
+            },
+            "capacity": 17113,
+            "indoor": true
+          },
+          "competitors": [
+            {
+              "id": "12",
+              "uid": "s:70~l:90~t:12",
+              "type": "team",
+              "order": 0,
+              "homeAway": "home",
+              "team": {
+                "id": "12",
+                "uid": "s:70~l:90~t:12",
+                "location": "New York",
+                "name": "Islanders",
+                "abbreviation": "NYI",
+                "displayName": "New York Islanders",
+                "shortDisplayName": "Islanders",
+                "color": "10539c",
+                "alternateColor": "e17033",
+                "isActive": true,
+                "venue": {
+                  "id": "7226"
+                },
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/_/name/nyi/new-york-islanders",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "mobile",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/clubhouse?teamId=12",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "roster",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/roster/_/name/nyi/new-york-islanders",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/stats/_/name/nyi/new-york-islanders",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nhl/team/schedule/_/name/nyi",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "photos",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nhl/team/photos/_/name/nyi",
+                    "text": "photos",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "scores",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~t:12&section=scores",
+                    "text": "Scores",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "transactions",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/transactions/_/name/nyi",
+                    "text": "Transactions",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "injuries",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/injuries/_/name/nyi",
+                    "text": "Injuries",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyi.png"
+              },
+              "score": "0",
+              "linescores": [
+                {
+                  "value": 0
+                },
+                {
+                  "value": 0
+                }
+              ],
+              "statistics": [
+                {
+                  "name": "goals",
+                  "abbreviation": "G",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "ytdGoals",
+                  "abbreviation": "YTDG",
+                  "displayValue": "4"
+                },
+                {
+                  "name": "assists",
+                  "abbreviation": "A",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "points",
+                  "abbreviation": "PTS",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "saves",
+                  "abbreviation": "SV",
+                  "displayValue": "12"
+                },
+                {
+                  "name": "savePct",
+                  "abbreviation": "SV%",
+                  "displayValue": ".923"
+                }
+              ],
+              "probables": [
+                {
+                  "name": "probableStartingGoalie",
+                  "displayName": "Probable Starting Goalie",
+                  "shortDisplayName": "Starter",
+                  "abbreviation": "SG",
+                  "playerId": 3151981,
+                  "athlete": {
+                    "id": "3151981",
+                    "fullName": "Ilya Sorokin",
+                    "displayName": "Ilya Sorokin",
+                    "shortName": "I. Sorokin",
+                    "links": [
+                      {
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/nhl/player/_/id/3151981"
+                      },
+                      {
+                        "rel": [
+                          "stats",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/stats/_/id/3151981/ilya-sorokin"
+                      },
+                      {
+                        "rel": [
+                          "splits",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/splits/_/id/3151981/ilya-sorokin"
+                      },
+                      {
+                        "rel": [
+                          "gamelog",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/gamelog/_/id/3151981/ilya-sorokin"
+                      },
+                      {
+                        "rel": [
+                          "news",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/news/_/id/3151981/ilya-sorokin"
+                      },
+                      {
+                        "rel": [
+                          "bio",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/bio/_/id/3151981/ilya-sorokin"
+                      },
+                      {
+                        "rel": [
+                          "overview",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/_/id/3151981/ilya-sorokin"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nhl/players/full/3151981.png",
+                    "jersey": "30",
+                    "position": "G",
+                    "team": {
+                      "id": "12"
+                    }
+                  },
+                  "status": {
+                    "id": "101",
+                    "name": "Expected",
+                    "type": "expected",
+                    "abbreviation": "Expected"
+                  },
+                  "statistics": []
+                }
+              ],
+              "records": [
+                {
+                  "name": "Total",
+                  "abbreviation": "TOTAL",
+                  "type": "total",
+                  "summary": "0-2-0"
+                },
+                {
+                  "name": "Home",
+                  "abbreviation": "HOME",
+                  "type": "home",
+                  "summary": "0-0-0"
+                },
+                {
+                  "name": "Road",
+                  "abbreviation": "AWAY",
+                  "type": "road",
+                  "summary": "0-2-0"
+                }
+              ]
+            },
+            {
+              "id": "15",
+              "uid": "s:70~l:90~t:15",
+              "type": "team",
+              "order": 1,
+              "homeAway": "away",
+              "team": {
+                "id": "15",
+                "uid": "s:70~l:90~t:15",
+                "location": "Philadelphia",
+                "name": "Flyers",
+                "abbreviation": "PHI",
+                "displayName": "Philadelphia Flyers",
+                "shortDisplayName": "Flyers",
+                "color": "eb7131",
+                "alternateColor": "000000",
+                "isActive": true,
+                "venue": {
+                  "id": "1845"
+                },
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/_/name/phi/philadelphia-flyers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "mobile",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/clubhouse?teamId=15",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "roster",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/roster/_/name/phi/philadelphia-flyers",
+                    "text": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/stats/_/name/phi/philadelphia-flyers",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nhl/team/schedule/_/name/phi",
+                    "text": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "photos",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/nhl/team/photos/_/name/phi",
+                    "text": "photos",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "scores",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:70~l:90~t:15&section=scores",
+                    "text": "Scores",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "transactions",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/transactions/_/name/phi",
+                    "text": "Transactions",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "injuries",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "http://www.espn.com/nhl/team/injuries/_/name/phi",
+                    "text": "Injuries",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png"
+              },
+              "score": "1",
+              "linescores": [
+                {
+                  "value": 0
+                },
+                {
+                  "value": 1
+                }
+              ],
+              "statistics": [
+                {
+                  "name": "goals",
+                  "abbreviation": "G",
+                  "displayValue": "1"
+                },
+                {
+                  "name": "ytdGoals",
+                  "abbreviation": "YTDG",
+                  "displayValue": "8"
+                },
+                {
+                  "name": "assists",
+                  "abbreviation": "A",
+                  "displayValue": "2"
+                },
+                {
+                  "name": "points",
+                  "abbreviation": "PTS",
+                  "displayValue": "3"
+                },
+                {
+                  "name": "saves",
+                  "abbreviation": "SV",
+                  "displayValue": "7"
+                },
+                {
+                  "name": "savePct",
+                  "abbreviation": "SV%",
+                  "displayValue": "1.000"
+                }
+              ],
+              "leaders": [
+                {
+                  "name": "goals",
+                  "displayName": "Goals",
+                  "shortDisplayName": "Goals",
+                  "abbreviation": "G",
+                  "leaders": [
+                    {
+                      "displayValue": "1",
+                      "value": 1,
+                      "athlete": {
+                        "id": "3114769",
+                        "fullName": "Tony DeAngelo",
+                        "displayName": "Tony DeAngelo",
+                        "shortName": "T. DeAngelo",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nhl/player/_/id/3114769"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/stats/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/splits/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/gamelog/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/news/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/bio/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/_/id/3114769/tony-deangelo"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nhl/players/full/3114769.png",
+                        "jersey": "77",
+                        "position": {
+                          "abbreviation": "D"
+                        },
+                        "team": {
+                          "id": "15"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "15"
+                      },
+                      "statistics": [
+                        {
+                          "name": "plusMinus",
+                          "displayName": "Plus/Minus Rating",
+                          "shortDisplayName": "Plus/Minus",
+                          "description": "Plus/Minus Rating",
+                          "abbreviation": "+/-",
+                          "value": 0,
+                          "displayValue": "0"
+                        },
+                        {
+                          "name": "goals",
+                          "displayName": "Goals",
+                          "shortDisplayName": "Goals",
+                          "description": "Total goals scored.",
+                          "abbreviation": "G",
+                          "value": 1,
+                          "displayValue": "1"
+                        },
+                        {
+                          "name": "ytdGoals",
+                          "displayName": "Year to Date Goals",
+                          "shortDisplayName": "Year to Date Goals",
+                          "description": "Year to date goals/",
+                          "abbreviation": "YTDG",
+                          "value": 1,
+                          "displayValue": "1"
+                        },
+                        {
+                          "name": "assists",
+                          "displayName": "Assists",
+                          "shortDisplayName": "Assists",
+                          "description": "Total goal assists.",
+                          "abbreviation": "A",
+                          "value": 0,
+                          "displayValue": "0"
+                        },
+                        {
+                          "name": "points",
+                          "displayName": "Points",
+                          "shortDisplayName": "Points",
+                          "description": "Points",
+                          "abbreviation": "PTS",
+                          "value": 1,
+                          "displayValue": "1"
+                        },
+                        {
+                          "name": "saves",
+                          "displayName": "Saves",
+                          "shortDisplayName": "Saves",
+                          "description": "Total saves.",
+                          "abbreviation": "SV",
+                          "value": 0,
+                          "displayValue": "0"
+                        },
+                        {
+                          "name": "savePct",
+                          "displayName": "Save Percentage",
+                          "shortDisplayName": "Save Percentage",
+                          "description": "Percentage of shots saved.",
+                          "abbreviation": "SV%",
+                          "value": 0,
+                          "displayValue": ".000"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "assists",
+                  "displayName": "Assists",
+                  "shortDisplayName": "Assists",
+                  "abbreviation": "A",
+                  "leaders": [
+                    {
+                      "displayValue": "1",
+                      "value": 1,
+                      "athlete": {
+                        "id": "4233685",
+                        "fullName": "Morgan Frost",
+                        "displayName": "Morgan Frost",
+                        "shortName": "M. Frost",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nhl/player/_/id/4233685"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/stats/_/id/4233685/morgan-frost"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/splits/_/id/4233685/morgan-frost"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/gamelog/_/id/4233685/morgan-frost"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/news/_/id/4233685/morgan-frost"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/bio/_/id/4233685/morgan-frost"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/_/id/4233685/morgan-frost"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nhl/players/full/4233685.png",
+                        "jersey": "48",
+                        "position": {
+                          "abbreviation": "C"
+                        },
+                        "team": {
+                          "id": "15"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "15"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "points",
+                  "displayName": "Points",
+                  "shortDisplayName": "Points",
+                  "abbreviation": "PTS",
+                  "leaders": [
+                    {
+                      "displayValue": "1",
+                      "value": 1,
+                      "athlete": {
+                        "id": "3114769",
+                        "fullName": "Tony DeAngelo",
+                        "displayName": "Tony DeAngelo",
+                        "shortName": "T. DeAngelo",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/nhl/player/_/id/3114769"
+                          },
+                          {
+                            "rel": [
+                              "stats",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/stats/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "splits",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/splits/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "gamelog",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/gamelog/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "news",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/news/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "bio",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/bio/_/id/3114769/tony-deangelo"
+                          },
+                          {
+                            "rel": [
+                              "overview",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "http://www.espn.com/nhl/player/_/id/3114769/tony-deangelo"
+                          }
+                        ],
+                        "headshot": "https://a.espncdn.com/i/headshots/nhl/players/full/3114769.png",
+                        "jersey": "77",
+                        "position": {
+                          "abbreviation": "D"
+                        },
+                        "team": {
+                          "id": "15"
+                        },
+                        "active": true
+                      },
+                      "team": {
+                        "id": "15"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "probables": [
+                {
+                  "name": "probableStartingGoalie",
+                  "displayName": "Probable Starting Goalie",
+                  "shortDisplayName": "Starter",
+                  "abbreviation": "SG",
+                  "playerId": 3025651,
+                  "athlete": {
+                    "id": "3025651",
+                    "fullName": "Troy Grosenick",
+                    "displayName": "Troy Grosenick",
+                    "shortName": "T. Grosenick",
+                    "links": [
+                      {
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/nhl/player/_/id/3025651"
+                      },
+                      {
+                        "rel": [
+                          "stats",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/stats/_/id/3025651/troy-grosenick"
+                      },
+                      {
+                        "rel": [
+                          "splits",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/splits/_/id/3025651/troy-grosenick"
+                      },
+                      {
+                        "rel": [
+                          "gamelog",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/gamelog/_/id/3025651/troy-grosenick"
+                      },
+                      {
+                        "rel": [
+                          "news",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/news/_/id/3025651/troy-grosenick"
+                      },
+                      {
+                        "rel": [
+                          "bio",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/bio/_/id/3025651/troy-grosenick"
+                      },
+                      {
+                        "rel": [
+                          "overview",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "http://www.espn.com/nhl/player/_/id/3025651/troy-grosenick"
+                      }
+                    ],
+                    "headshot": "https://a.espncdn.com/i/headshots/nhl/players/full/3025651.png",
+                    "jersey": "29",
+                    "position": "G",
+                    "team": {
+                      "id": "15"
+                    }
+                  },
+                  "status": {
+                    "id": "101",
+                    "name": "Expected",
+                    "type": "expected",
+                    "abbreviation": "Expected"
+                  },
+                  "statistics": []
+                }
+              ],
+              "records": [
+                {
+                  "name": "Total",
+                  "abbreviation": "TOTAL",
+                  "type": "total",
+                  "summary": "1-2-0"
+                },
+                {
+                  "name": "Home",
+                  "abbreviation": "HOME",
+                  "type": "home",
+                  "summary": "1-1-0"
+                },
+                {
+                  "name": "Road",
+                  "abbreviation": "AWAY",
+                  "type": "road",
+                  "summary": "0-1-0"
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "situation": {},
+          "status": {
+            "clock": 718,
+            "displayClock": "11:58",
+            "period": 2,
+            "type": {
+              "id": "2",
+              "name": "STATUS_IN_PROGRESS",
+              "state": "in",
+              "completed": false,
+              "description": "In Progress",
+              "detail": "11:58 - 2th Period",
+              "shortDetail": "11:58 - 2th"
+            }
+          },
+          "broadcasts": [],
+          "format": {
+            "regulation": {
+              "periods": 3
+            }
+          },
+          "startDate": "2022-10-02T23:00Z",
+          "geoBroadcasts": []
+        }
+      ],
+      "links": [
+        {
+          "language": "xy",
+          "rel": [
+            "live",
+            "desktop",
+            "event"
+          ],
+          "href": "http://www.espn.com/nhl/game/_/gameId/401461502",
+          "text": "Gamecast",
+          "shortText": "Gamecast",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "xy",
+          "rel": [
+            "boxscore",
+            "desktop",
+            "event"
+          ],
+          "href": "http://www.espn.com/nhl/boxscore/_/gameId/401461502",
+          "text": "Box Score",
+          "shortText": "Box Score",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 718,
+        "displayClock": "11:58",
+        "period": 2,
+        "type": {
+          "id": "2",
+          "name": "STATUS_IN_PROGRESS",
+          "state": "in",
+          "completed": false,
+          "description": "In Progress",
+          "detail": "11:58 - 2th Period",
+          "shortDetail": "11:58 - 2th"
+        }
+      }
     }
   ]
 }

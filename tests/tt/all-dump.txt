@@ -1,4 +1,4 @@
-Home Assistant notifications (Log started: 2022-10-02T19:32:52.709080+00:00)
+Home Assistant notifications (Log started: 2022-10-03T00:32:20.539441+00:00)
 --------------------------------------------------------------------------------
 sensor.test_tt_all_test01      
     sensor.test_tt_all_test01.attribution: Data provided by ESPN   
@@ -546,37 +546,37 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test11.league: NBA   
     sensor.test_tt_all_test11.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
     sensor.test_tt_all_test11.team_abbr: UTAH   
-    sensor.test_tt_all_test11.opponent_abbr: None   
-    sensor.test_tt_all_test11.date: None     
-    sensor.test_tt_all_test11.venue: None   
-    sensor.test_tt_all_test11.location: None   
-    sensor.test_tt_all_test11.tv_network: None   
+    sensor.test_tt_all_test11.opponent_abbr: TOR   
+    sensor.test_tt_all_test11.date: 2022-10-02T22:00Z     
+    sensor.test_tt_all_test11.venue: Rogers Place   
+    sensor.test_tt_all_test11.location: Edmonton, AB   
+    sensor.test_tt_all_test11.tv_network: NBA TV   
     sensor.test_tt_all_test11.odds: None   
     sensor.test_tt_all_test11.overunder: None   
-    sensor.test_tt_all_test11.team_name: None   
-    sensor.test_tt_all_test11.team_id: None   
-    sensor.test_tt_all_test11.team_record: None   
+    sensor.test_tt_all_test11.team_name: Jazz   
+    sensor.test_tt_all_test11.team_id: 26   
+    sensor.test_tt_all_test11.team_record: 0-0   
     sensor.test_tt_all_test11.team_rank: None   
-    sensor.test_tt_all_test11.team_homeaway: None   
-    sensor.test_tt_all_test11.team_logo: None   
-    sensor.test_tt_all_test11.team_colors: None   
-    sensor.test_tt_all_test11.team_score: None   
-    sensor.test_tt_all_test11.team_win_probability: None   
+    sensor.test_tt_all_test11.team_homeaway: away   
+    sensor.test_tt_all_test11.team_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png   
+    sensor.test_tt_all_test11.team_colors: ['#06143F', '#f9a01b']   
+    sensor.test_tt_all_test11.team_score: 41   
+    sensor.test_tt_all_test11.team_win_probability: 0.0   
     sensor.test_tt_all_test11.team_timeouts: None   
-    sensor.test_tt_all_test11.opponent_name: None   
-    sensor.test_tt_all_test11.opponent_id: None   
-    sensor.test_tt_all_test11.opponent_record: None   
+    sensor.test_tt_all_test11.opponent_name: Raptors   
+    sensor.test_tt_all_test11.opponent_id: 28   
+    sensor.test_tt_all_test11.opponent_record: 0-0   
     sensor.test_tt_all_test11.opponent_rank: None   
-    sensor.test_tt_all_test11.opponent_homeaway: None   
-    sensor.test_tt_all_test11.opponent_logo: None   
-    sensor.test_tt_all_test11.opponent_colors: None   
-    sensor.test_tt_all_test11.opponent_score: None   
-    sensor.test_tt_all_test11.opponent_win_probability: None   
+    sensor.test_tt_all_test11.opponent_homeaway: home   
+    sensor.test_tt_all_test11.opponent_logo: https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png   
+    sensor.test_tt_all_test11.opponent_colors: ['#CE0F41', '#061922']   
+    sensor.test_tt_all_test11.opponent_score: 47   
+    sensor.test_tt_all_test11.opponent_win_probability: 0.0   
     sensor.test_tt_all_test11.opponent_timeouts: None   
-    sensor.test_tt_all_test11.quarter: None   
-    sensor.test_tt_all_test11.clock: None   
+    sensor.test_tt_all_test11.quarter: 2   
+    sensor.test_tt_all_test11.clock: 1:38 - 2nd   
     sensor.test_tt_all_test11.possession: None   
-    sensor.test_tt_all_test11.last_play: None   
+    sensor.test_tt_all_test11.last_play: Gary Trent Jr. defensive rebound   
     sensor.test_tt_all_test11.down_distance_text: None   
     sensor.test_tt_all_test11.outs: None   
     sensor.test_tt_all_test11.balls: None   
@@ -590,7 +590,7 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test11.opponent_total_shots: None   
     sensor.test_tt_all_test11.team_sets_won: None   
     sensor.test_tt_all_test11.opponent_sets_won: None     
-    sensor.test_tt_all_test11.api_message: No game scheduled for UTAH between 2022-09-08T18:20Z and 2022-10-03T01:00Z   
+    sensor.test_tt_all_test11.api_message: None   
     sensor.test_tt_all_test11.icon: mdi:basketball   
     sensor.test_tt_all_test11.friendly_name: test_tt_all_test11 
   
@@ -707,36 +707,36 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test14.sport: hockey   
     sensor.test_tt_all_test14.league: NHL   
     sensor.test_tt_all_test14.league_logo: https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png   
-    sensor.test_tt_all_test14.team_abbr: MIN   
-    sensor.test_tt_all_test14.opponent_abbr: None   
-    sensor.test_tt_all_test14.date: None     
-    sensor.test_tt_all_test14.venue: None   
-    sensor.test_tt_all_test14.location: None   
+    sensor.test_tt_all_test14.team_abbr: NYI   
+    sensor.test_tt_all_test14.opponent_abbr: PHI   
+    sensor.test_tt_all_test14.date: 2022-10-02T23:00Z     
+    sensor.test_tt_all_test14.venue: UBS Arena   
+    sensor.test_tt_all_test14.location: Elmont, NY   
     sensor.test_tt_all_test14.tv_network: None   
     sensor.test_tt_all_test14.odds: None   
     sensor.test_tt_all_test14.overunder: None   
-    sensor.test_tt_all_test14.team_name: None   
-    sensor.test_tt_all_test14.team_id: None   
-    sensor.test_tt_all_test14.team_record: None   
+    sensor.test_tt_all_test14.team_name: Islanders   
+    sensor.test_tt_all_test14.team_id: 12   
+    sensor.test_tt_all_test14.team_record: 0-2-0   
     sensor.test_tt_all_test14.team_rank: None   
-    sensor.test_tt_all_test14.team_homeaway: None   
-    sensor.test_tt_all_test14.team_logo: None   
-    sensor.test_tt_all_test14.team_colors: None   
-    sensor.test_tt_all_test14.team_score: None   
-    sensor.test_tt_all_test14.team_win_probability: None   
+    sensor.test_tt_all_test14.team_homeaway: home   
+    sensor.test_tt_all_test14.team_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyi.png   
+    sensor.test_tt_all_test14.team_colors: ['#10539c', '#e17033']   
+    sensor.test_tt_all_test14.team_score: 0   
+    sensor.test_tt_all_test14.team_win_probability: 0.0   
     sensor.test_tt_all_test14.team_timeouts: None   
-    sensor.test_tt_all_test14.opponent_name: None   
-    sensor.test_tt_all_test14.opponent_id: None   
-    sensor.test_tt_all_test14.opponent_record: None   
+    sensor.test_tt_all_test14.opponent_name: Flyers   
+    sensor.test_tt_all_test14.opponent_id: 15   
+    sensor.test_tt_all_test14.opponent_record: 1-2-0   
     sensor.test_tt_all_test14.opponent_rank: None   
-    sensor.test_tt_all_test14.opponent_homeaway: None   
-    sensor.test_tt_all_test14.opponent_logo: None   
-    sensor.test_tt_all_test14.opponent_colors: None   
-    sensor.test_tt_all_test14.opponent_score: None   
-    sensor.test_tt_all_test14.opponent_win_probability: None   
+    sensor.test_tt_all_test14.opponent_homeaway: away   
+    sensor.test_tt_all_test14.opponent_logo: https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png   
+    sensor.test_tt_all_test14.opponent_colors: ['#eb7131', '#000000']   
+    sensor.test_tt_all_test14.opponent_score: 1   
+    sensor.test_tt_all_test14.opponent_win_probability: 0.0   
     sensor.test_tt_all_test14.opponent_timeouts: None   
-    sensor.test_tt_all_test14.quarter: None   
-    sensor.test_tt_all_test14.clock: None   
+    sensor.test_tt_all_test14.quarter: 2   
+    sensor.test_tt_all_test14.clock: 11:58 - 2th   
     sensor.test_tt_all_test14.possession: None   
     sensor.test_tt_all_test14.last_play: None   
     sensor.test_tt_all_test14.down_distance_text: None   
@@ -746,13 +746,13 @@ sensor.test_tt_all_test01
     sensor.test_tt_all_test14.on_first: None   
     sensor.test_tt_all_test14.on_second: None   
     sensor.test_tt_all_test14.on_third: None   
-    sensor.test_tt_all_test14.team_shots_on_target: None   
+    sensor.test_tt_all_test14.team_shots_on_target: 7   
     sensor.test_tt_all_test14.team_total_shots: None   
-    sensor.test_tt_all_test14.opponent_shots_on_target: None   
+    sensor.test_tt_all_test14.opponent_shots_on_target: 13   
     sensor.test_tt_all_test14.opponent_total_shots: None   
     sensor.test_tt_all_test14.team_sets_won: None   
     sensor.test_tt_all_test14.opponent_sets_won: None     
-    sensor.test_tt_all_test14.api_message: No game scheduled for MIN between 2022-09-08T18:20Z and 2022-10-03T01:00Z   
+    sensor.test_tt_all_test14.api_message: None   
     sensor.test_tt_all_test14.icon: mdi:hockey-puck   
     sensor.test_tt_all_test14.friendly_name: test_tt_all_test14 
   
