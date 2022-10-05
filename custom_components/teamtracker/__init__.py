@@ -225,7 +225,7 @@ async def async_get_state(config, hass) -> dict:
     url_parms = "?lang=" + lang[:2]
     if CONF_CONFERENCE_ID in config.keys():
             if (len(config[CONF_CONFERENCE_ID]) > 0):
-                url_parms = "&groups=" + config[CONF_CONFERENCE_ID]
+                url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
                 if (config[CONF_CONFERENCE_ID] == '9999'):
                     file_override = True
     team_id = config[CONF_TEAM_ID].upper()
