@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import arrow
 import json
 import codecs
+import locale
 
 import aiohttp
 import aiofiles
@@ -169,7 +170,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         """Fetch data"""
         async with timeout(self.timeout):
             try:
-                data = await update_game(self.config)
+                data = await update_game(self.config, self.hass)
                 # update the interval based on flag
                 if data["private_fast_refresh"] == True:
                     self.update_interval = timedelta(seconds=5)
@@ -180,17 +181,16 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             return data
         
 
-
-async def update_game(config) -> dict:
+async def update_game(config, hass) -> dict:
     """Fetch new state data for the sensor.
     This is the only method that should fetch new data for Home Assistant.
     """
 
-    data = await async_get_state(config)
+    data = await async_get_state(config, hass)
     return data
 
 
-async def async_get_state(config) -> dict:
+async def async_get_state(config, hass) -> dict:
     """Query API for status."""
 
     values = {}
@@ -200,13 +200,32 @@ async def async_get_state(config) -> dict:
     first_date = "9999"
     last_date =  "0000"
 
+#
+#  Get the language based on the locale
+#    Then override it if there is a value in frontend_storage for the selected language
+#      (it usually takes about a minute after reboot for frontend_storage to be populated)
+#
+
+    lang, enc = locale.getlocale()
+    lang = lang or "en_US"
+    enc = enc or "UTF-8"
+
+    for t in hass.data["frontend_storage"]:
+        for key, value in t.items():
+            if "dict" in str(type(value)):
+                try:
+                    lang = value["language"]["language"]
+                except:
+                    lang = lang 
+    _LOGGER.debug("vasqued2 the selected language is %s" % lang)
+
     league_id = config[CONF_LEAGUE_ID].upper()
     sport_path = config[CONF_SPORT_PATH]
     league_path = config[CONF_LEAGUE_PATH]
-    url_parms = ""
+    url_parms = "?lang=" + lang[:2]
     if CONF_CONFERENCE_ID in config.keys():
             if (len(config[CONF_CONFERENCE_ID]) > 0):
-                url_parms = "?groups=" + config[CONF_CONFERENCE_ID]
+                url_parms = "&groups=" + config[CONF_CONFERENCE_ID]
                 if (config[CONF_CONFERENCE_ID] == '9999'):
                     file_override = True
     team_id = config[CONF_TEAM_ID].upper()
@@ -263,7 +282,7 @@ async def async_get_state(config) -> dict:
                 team_index = 0 if event["competitions"][0]["competitors"][0]["team"]["abbreviation"] == team_id else 1
                 oppo_index = abs((team_index-1))
 
-                values.update(await async_get_universal_event_attributes(event, team_index, oppo_index))
+                values.update(await async_get_universal_event_attributes(event, team_index, oppo_index, lang))
 
                 if values["state"] in ['PRE']: # odds only exist pre-game
                     values.update(await async_get_pre_event_attributes(event))
@@ -398,14 +417,14 @@ async def async_clear_states(config) -> dict:
     return new_values
 
 
-async def async_get_universal_event_attributes(event, team_index, oppo_index) -> dict:
+async def async_get_universal_event_attributes(event, team_index, oppo_index, lang) -> dict:
     """Traverse JSON for universal values"""
     new_values = {}
 
 
     new_values["state"] = event["status"]["type"]["state"].upper()
     new_values["date"] = event["date"]
-    new_values["kickoff_in"] = arrow.get(event["date"]).humanize()
+    new_values["kickoff_in"] = arrow.get(event["date"]).humanize(locale=lang)
     new_values["venue"] = event["competitions"][0]["venue"]["fullName"]
     try:
         new_values["location"] = "%s, %s" % (event["competitions"][0]["venue"]["address"]["city"], event["competitions"][0]["venue"]["address"]["state"])
