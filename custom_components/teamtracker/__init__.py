@@ -217,7 +217,7 @@ async def async_get_state(config, hass) -> dict:
                     lang = value["language"]["language"]
                 except:
                     lang = lang 
-    _LOGGER.debug("vasqued2 the selected language is %s" % lang)
+#    _LOGGER.debug("vasqued2 the selected language is %s" % lang)
 
     league_id = config[CONF_LEAGUE_ID].upper()
     sport_path = config[CONF_SPORT_PATH]
