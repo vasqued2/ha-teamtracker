@@ -290,8 +290,14 @@ async def async_get_state(config, hass) -> dict:
                 elif t1 == team_id:
                     team_index = 1
                 else:
-                    team_index = 0
-                    _LOGGER.warn("Sensor using English team_id %s with language %s.  Recreate sensor with team_id in correct language." % (team_id, lang))
+                    if sn.startswith(team_id + ' '): # Lazy, but assumes first team in short_name is always team_index 1.
+                        team_index = 1
+                        values["api_message"] = "Unmatched team_id '" + team_id + "' (lang=en), using team_abbr '" + t1 + "' (lang=" + lang + ")"
+                        _LOGGER.warn("Sensor created with team_id '%s' (lang=en).  Using team_abbr '%s' (lang=%s).  Recreate sensor using team_abbr for best performance." % (team_id, t1, lang))
+                    else:
+                        team_index = 0
+                        values["api_message"] = "Unmatched team_id '" + team_id + "' (lang=en), using team_abbr '" + t0 + "' (lang=" + lang + ")"
+                        _LOGGER.warn("Sensor created with team_id '%s' (lang=en).  Using team_abbr '%s' (lang=%s).  Recreate sensor using team_abbr for best performance." % (team_id, t0, lang))
 
                 oppo_index = abs((team_index-1))
 
