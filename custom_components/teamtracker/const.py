@@ -13,6 +13,7 @@ LEAGUE_LIST = [
     ["NFL", "football", "nfl"],
     ["NHL", "hockey", "nhl"],
     ["BUND", "soccer", "ger.1"],
+    ["CL", "soccer", "uefa.champions"], 
     ["EPL", "soccer", "eng.1"], 
     ["LIGA", "soccer", "esp.1"], 
     ["LIG1", "soccer", "fra.1"], 

@@ -20,7 +20,7 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
 - Football - NFL, NCAAF
 - Hockey - NHL (Coming Soon)
 - U.S. Soccer - MLS, NWSL
-- International Soccer - BUND (German Bundesliga), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A)
+- International Soccer - BUND (German Bundesliga), CL (Champions League), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A)
 - Volleyball - NCAAVB, NCAAVBW
 
 See Custom API Configuration section below on how to set up additional sports/leagues if you know the ESPN API.
@@ -109,6 +109,7 @@ Clone or download this repository and copy the "teamtracker" directory to your "
 
 For the League, the following values are valid:
 - BUND (German Bundesliga)
+- CL (Champions League)
 - EPL (English Premiere League)
 - LIGA (Spanish LaLiga)
 - LIG1 (French Ligue 1)

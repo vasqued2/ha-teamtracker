@@ -217,7 +217,6 @@ async def async_get_state(config, hass) -> dict:
                     lang = value["language"]["language"]
                 except:
                     lang = lang 
-#    _LOGGER.debug("vasqued2 the selected language is %s" % lang)
 
     league_id = config[CONF_LEAGUE_ID].upper()
     sport_path = config[CONF_SPORT_PATH]
@@ -263,7 +262,14 @@ async def async_get_state(config, hass) -> dict:
             except:
                 sn = ""
                 _LOGGER.debug("This is an ill-formed event, it does not have a short name: %s" % event)
-
+            try:
+                t0 = event["competitions"][0]["competitors"][0]["team"]["abbreviation"]
+            except:
+                t0 = ""
+            try:
+                t1 = event["competitions"][0]["competitors"][1]["team"]["abbreviation"]
+            except:
+                t1 = ""
             try:
                 if (last_date < event["date"]):
                     last_date = event["date"]
@@ -275,11 +281,18 @@ async def async_get_state(config, hass) -> dict:
             except:
                 first_date = first_date
 
-            if sn.startswith(team_id + ' ') or sn.endswith(' ' + team_id):
+            if sn.startswith(team_id + ' ') or sn.endswith(' ' + team_id) or t0 == team_id or t1 == team_id:
                 found_team = True
                 _LOGGER.debug("Found event for %s; parsing data.", team_id)
                 
-                team_index = 0 if event["competitions"][0]["competitors"][0]["team"]["abbreviation"] == team_id else 1
+                if t0 == team_id:
+                    team_index = 0
+                elif t1 == team_id:
+                    team_index = 1
+                else:
+                    team_index = 0
+                    _LOGGER.warn("Sensor using English team_id %s with language %s.  Recreate sensor with team_id in correct language." % (team_id, lang))
+
                 oppo_index = abs((team_index-1))
 
                 values.update(await async_get_universal_event_attributes(event, team_index, oppo_index, lang))
@@ -318,12 +331,12 @@ async def async_get_state(config, hass) -> dict:
                         values["state"] = 'BYE'
                         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
                 if found_bye == False:
-                    values["api_message"] = "No game scheduled for " + team_id + " between " + first_date + " and " + last_date
+                    values["api_message"] = "No game scheduled for '" + team_id + "' between " + first_date + " and " + last_date
                     _LOGGER.debug("Competitor information (%s) not returned by API: %s" % (team_id, url))
                     values["state"] = 'NOT_FOUND'
                     values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
             except:
-                values["api_message"] = "No game scheduled for " + team_id + " between " + first_date + " and " + last_date
+                values["api_message"] = "No game scheduled for '" + team_id + "' between " + first_date + " and " + last_date
                 _LOGGER.debug("Competitor information (%s) not returned by API: %s" % (team_id, url))
                 values["state"] = 'NOT_FOUND'
                 values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
@@ -706,14 +719,12 @@ async def async_get_in_hockey_event_attributes(event, old_values, team_index, op
 
     new_values["team_shots_on_target"] = 0
     for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
-        _LOGGER.debug("Looking at this statistic: %s" % statistic)
         if "saves" in statistic["name"]:
             shots = int(old_values["team_score"]) + int(statistic["displayValue"])
             new_values["team_shots_on_target"] = str(shots)
 
     new_values["opponent_shots_on_target"] = 0
     for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
-        _LOGGER.debug("Looking at this statistic: %s" % statistic)
         if "saves" in statistic["name"]:
             shots = int(old_values["opponent_score"]) + int(statistic["displayValue"])
             new_values["opponent_shots_on_target"] = str(shots)
