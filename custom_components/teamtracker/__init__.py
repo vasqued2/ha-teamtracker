@@ -344,7 +344,7 @@ async def async_get_state(config, hass) -> dict:
                 _LOGGER.debug("$s: Competitor information '%s' not returned by API: %s", sensor_name, team_id, url)
                 values["state"] = 'NOT_FOUND'
                 values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
-        if values["state"] == 'PRE' and ((arrow.get(values["date"])-arrow.now()).total_seconds() < 1200):
+        if values["state"] == 'PRE' and (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) < 1200):
             _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
             values["private_fast_refresh"] = True
         elif values["state"] == 'IN':
