@@ -52,11 +52,7 @@ oppo_prob = {}
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
     # Print startup message
-    _LOGGER.info(
-        "TeamTracker version %s is starting, if you have any issues please report them here: %s",
-        VERSION,
-        ISSUE_URL,
-    )
+    _LOGGER.info("TeamTracker version %s is starting, if you have any issues please report them here: %s", VERSION, ISSUE_URL,)
     hass.data.setdefault(DOMAIN, {})
 
 #
@@ -161,7 +157,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
 
-        _LOGGER.debug("Data will be updated every %s", self.interval)
+        _LOGGER.debug("%s: Data will be updated every %s minutes", self.name, self.interval)
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=self.interval)
 
@@ -195,6 +191,8 @@ async def async_get_state(config, hass) -> dict:
 
     values = {}
     headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+    sensor_name = config[CONF_NAME]
+
     data = None
     file_override = False
     first_date = "9999"
@@ -231,14 +229,14 @@ async def async_get_state(config, hass) -> dict:
     url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
     
     if (file_override):
-        _LOGGER.debug("Overriding API for %s" % team_id)
+        _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
         async with aiofiles.open('/share/tt/test.json', mode='r') as f:
             contents = await f.read()
         data = json.loads(contents)
     else:
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers) as r:
-                _LOGGER.debug("Getting state for %s from %s" % (team_id, url))
+                _LOGGER.debug("%s: Getting state for '%s' from %s", sensor_name, team_id, url)
                 if r.status == 200:
                     data = await r.json()
 
@@ -256,12 +254,12 @@ async def async_get_state(config, hass) -> dict:
             values["league_logo"] = DEFAULT_LOGO
 
         for event in data["events"]:
-            #_LOGGER.debug("Looking at this event: %s" % event)
+            #_LOGGER.debug("%s: Looking at this event: %s" sensor_name, event)
             try:
                 sn = event["shortName"]
             except:
                 sn = ""
-                _LOGGER.debug("This is an ill-formed event, it does not have a short name: %s" % event)
+                _LOGGER.debug("%s: This is an ill-formed event, it does not have a short name: %s", sensor_name, event)
             try:
                 t0 = event["competitions"][0]["competitors"][0]["team"]["abbreviation"]
             except:
@@ -283,7 +281,7 @@ async def async_get_state(config, hass) -> dict:
 
             if sn.startswith(team_id + ' ') or sn.endswith(' ' + team_id) or t0 == team_id or t1 == team_id:
                 found_team = True
-                _LOGGER.debug("Found event for %s; parsing data.", team_id)
+                _LOGGER.debug("%s: Found event for %s; parsing data.", sensor_name, team_id)
                 
                 if t0 == team_id:
                     team_index = 0
@@ -293,11 +291,11 @@ async def async_get_state(config, hass) -> dict:
                     if sn.startswith(team_id + ' '): # Lazy, but assumes first team in short_name is always team_index 1.
                         team_index = 1
                         values["api_message"] = "Unmatched team_id '" + team_id + "' (lang=en), using team_abbr '" + t1 + "' (lang=" + lang + ")"
-                        _LOGGER.warn("Sensor created with team_id '%s' (lang=en).  Using team_abbr '%s' (lang=%s).  Recreate sensor using team_abbr for best performance." % (team_id, t1, lang))
+                        _LOGGER.warn("%s: Sensor created with team_id '%s' (lang=en).  Using team_abbr '%s' (lang=%s).  Recreate sensor using team_abbr for best performance.", sensor_name, team_id, t1, lang)
                     else:
                         team_index = 0
                         values["api_message"] = "Unmatched team_id '" + team_id + "' (lang=en), using team_abbr '" + t0 + "' (lang=" + lang + ")"
-                        _LOGGER.warn("Sensor created with team_id '%s' (lang=en).  Using team_abbr '%s' (lang=%s).  Recreate sensor using team_abbr for best performance." % (team_id, t0, lang))
+                        _LOGGER.warn("%s: Sensor created with team_id '%s' (lang=en).  Using team_abbr '%s' (lang=%s).  Recreate sensor using team_abbr for best performance.", sensor_name, team_id, t0, lang)
 
                 oppo_index = abs((team_index-1))
 
@@ -324,12 +322,12 @@ async def async_get_state(config, hass) -> dict:
 
         # Never found the team. Either a bye or a post-season condition
         if not found_team:
-            _LOGGER.debug("Did not find a game with for the configured team(%s). Checking if it's a bye week.", team_id)
+            _LOGGER.debug("%s: Did not find a game for team '%s'. Checking if it's a bye week.", sensor_name, team_id)
             found_bye = False
             try: # look for byes in regular season
                 for bye_team in data["week"]["teamsOnBye"]:
                     if team_id.lower() == bye_team["abbreviation"].lower():
-                        _LOGGER.debug("Bye week confirmed.")
+                        _LOGGER.debug("%s: Bye week confirmed.", sensor_name)
                         found_bye = True
                         values["team_abbr"] = bye_team["abbreviation"]
                         values["team_name"] = bye_team["shortDisplayName"]
@@ -338,26 +336,26 @@ async def async_get_state(config, hass) -> dict:
                         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
                 if found_bye == False:
                     values["api_message"] = "No game scheduled for '" + team_id + "' between " + first_date + " and " + last_date
-                    _LOGGER.debug("Competitor information (%s) not returned by API: %s" % (team_id, url))
+                    _LOGGER.debug("%s: Competitor information '%s' not returned by API: %s", sensor_name, team_id, url)
                     values["state"] = 'NOT_FOUND'
                     values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
             except:
                 values["api_message"] = "No game scheduled for '" + team_id + "' between " + first_date + " and " + last_date
-                _LOGGER.debug("Competitor information (%s) not returned by API: %s" % (team_id, url))
+                _LOGGER.debug("$s: Competitor information '%s' not returned by API: %s", sensor_name, team_id, url)
                 values["state"] = 'NOT_FOUND'
                 values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
         if values["state"] == 'PRE' and ((arrow.get(values["date"])-arrow.now()).total_seconds() < 1200):
-            _LOGGER.debug("Event is within 20 minutes, setting refresh rate to 5 seconds.")
+            _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
             values["private_fast_refresh"] = True
         elif values["state"] == 'IN':
-            _LOGGER.debug("Event in progress, setting refresh rate to 5 seconds.")
+            _LOGGER.debug("%s: Event in progress, setting refresh rate to 5 seconds.", sensor_name)
             values["private_fast_refresh"] = True
         elif values["state"] in ['POST', 'BYE']: 
-            _LOGGER.debug("Event is over, setting refresh back to 10 minutes.")
+            _LOGGER.debug("%s: Event is over, setting refresh back to 10 minutes.", sensor_name)
             values["private_fast_refresh"] = False
     else:
-        values["api_message"] = "API error, no data returned"
-        _LOGGER.warn("API did not return any data for team (%s):  %s" % (team_id, url))
+        values["api_message"] = "PI error, no data returned"
+        _LOGGER.warn("%s: API did not return any data for team '%s':  %s", sensor_name, team_id, url)
         values["state"] = 'NOT_FOUND'
         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
         values["private_fast_refresh"] = False

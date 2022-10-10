@@ -49,7 +49,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Configuration from yaml"""
 
-    _LOGGER.debug("Setting up sensor from YAML: %s", config)
+    _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
 
     league_id = config[CONF_LEAGUE_ID].upper()
     for x in range(len(LEAGUE_LIST)):
@@ -99,7 +99,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             if SPORT_LIST[x][0] == sport:
                 icon = SPORT_LIST[x][1]
         if icon == DEFAULT_ICON:
-            _LOGGER.debug("Setting up %s from YAML.  Sport not found." % (entry.data[CONF_NAME]))
+            _LOGGER.debug("%s:  Setting up sensor from YAML.  Sport '%s' not found.", entry.data[CONF_NAME], sport)
 
         self.coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
         self._config = entry
@@ -280,7 +280,6 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         if colors is None:
             return None
         color_list = []
-        _LOGGER.debug("Colors: %s", colors[0])
         color_list.append(list(self.hex_to_rgb(colors[0])))
         color_list.append(list(self.hex_to_rgb(colors[1])))
         return color_list
