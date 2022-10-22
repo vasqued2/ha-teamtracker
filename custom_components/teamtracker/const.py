@@ -11,7 +11,9 @@ LEAGUE_LIST = [
     ["NCAAW", "basketball", "womens-college-basketball"],
     ["NCAAF", "football", "college-football"],
     ["NFL", "football", "nfl"],
+    ["PGA", "golf", "pga"],
     ["NHL", "hockey", "nhl"],
+    ["UFC", "mma", "ufc"],
     ["BUND", "soccer", "ger.1"],
     ["CL", "soccer", "uefa.champions"], 
     ["EPL", "soccer", "eng.1"], 
@@ -20,6 +22,8 @@ LEAGUE_LIST = [
     ["MLS", "soccer", "usa.1"], 
     ["NWSL", "soccer", "usa.nwsl"], 
     ["SERA", "soccer", "ita.1"],
+    ["ATP", "tennis", "atp"],
+    ["WTA", "tennis", "wta"],
     ["NCAAVB", "volleyball", "mens-college-volleyball"],
     ["NCAAVBW", "volleyball", "womens-college-volleyball"],
     ]
@@ -28,8 +32,11 @@ SPORT_LIST = [
     ["baseball", "mdi:baseball"],
     ["basketball", "mdi:basketball"],
     ["football", "mdi:football"],
+    ["golf", "mdi:golf-tee"],
     ["hockey", "mdi:hockey-puck"],
+    ["mma", "mdi:karate"],
     ["soccer", "mdi:soccer"],
+    ["tennis", "mdi:tennis"],
     ["volleyball", "mdi:volleyball"]
 ]
 

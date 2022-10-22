@@ -20,6 +20,10 @@ from homeassistant.helpers.entity_registry import (
 )
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
+from .event import (
+    async_process_event,
+)
+
 from .const import (
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
@@ -240,6 +244,10 @@ async def async_get_state(config, hass) -> dict:
                 if r.status == 200:
                     data = await r.json()
 
+    if sport_path in ["golf", "mma", "tennis"]:
+        values = await async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
+        return values
+    
     values = await async_clear_states(config)
     values["sport"] = sport_path
     values["league"] = league_id
