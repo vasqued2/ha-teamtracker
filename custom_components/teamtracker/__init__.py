@@ -244,7 +244,7 @@ async def async_get_state(config, hass) -> dict:
                 if r.status == 200:
                     data = await r.json()
 
-    if sport_path in ["golf", "mma", "tennis"]:
+    if sport_path in ["golf", "mma", "racing", "tennis"]:
         values = await async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
         return values
     
@@ -362,7 +362,7 @@ async def async_get_state(config, hass) -> dict:
             _LOGGER.debug("%s: Event is over, setting refresh back to 10 minutes.", sensor_name)
             values["private_fast_refresh"] = False
     else:
-        values["api_message"] = "PI error, no data returned"
+        values["api_message"] = "API error, no data returned"
         _LOGGER.warn("%s: API did not return any data for team '%s':  %s", sensor_name, team_id, url)
         values["state"] = 'NOT_FOUND'
         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)

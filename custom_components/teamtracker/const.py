@@ -14,6 +14,8 @@ LEAGUE_LIST = [
     ["PGA", "golf", "pga"],
     ["NHL", "hockey", "nhl"],
     ["UFC", "mma", "ufc"],
+    ["F1", "racing", "f1"],
+    ["IRL", "racing", "irl"],
     ["BUND", "soccer", "ger.1"],
     ["CL", "soccer", "uefa.champions"], 
     ["EPL", "soccer", "eng.1"], 
@@ -35,6 +37,7 @@ SPORT_LIST = [
     ["golf", "mdi:golf-tee"],
     ["hockey", "mdi:hockey-puck"],
     ["mma", "mdi:karate"],
+    ["racing", "mdi:flag-checkered"],
     ["soccer", "mdi:soccer"],
     ["tennis", "mdi:tennis"],
     ["volleyball", "mdi:volleyball"]
