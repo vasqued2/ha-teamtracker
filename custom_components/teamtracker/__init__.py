@@ -313,10 +313,10 @@ async def async_get_state(config, hass) -> dict:
 
             if sn.startswith(team_id + ' ') or sn.endswith(' ' + team_id) or t0 == team_id or t1 == team_id:
                 found_team = True
-                prev_values = values
+                prev_values = values.copy()
 
                 _LOGGER.debug("%s: Found event for %s; parsing data.", sensor_name, team_id)
-                
+
                 if t0 == team_id:
                     team_index = 0
                 elif t1 == team_id:
@@ -356,8 +356,8 @@ async def async_get_state(config, hass) -> dict:
                     break
 
                 if prev_values["state"] == "POST":
-                    if values["state"] == "PRE": # Use POST if PRE is more than 18 in future
-                        if (abs((arrow.get(values["date"])-arrow.now()).total_hours()) > 18):
+                    if values["state"] == "PRE": # Use POST if PRE is more than 18 hours in future
+                        if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
                             values = prev_values
                     elif values["state"] == "POST": # use POST w/ latest date
                         if (arrow.get(prev_values["date"]) > arrow.get(values["date"])):
@@ -367,7 +367,7 @@ async def async_get_state(config, hass) -> dict:
                         if (arrow.get(prev_values["date"]) < arrow.get(values["date"])):
                             values = prev_values
                     elif values["state"] == "POST": # Use PRE if less than 18 hours in future
-                        if (abs((arrow.get(prev_values["date"])-arrow.now()).total_hours()) < 18):
+                        if (abs((arrow.get(prev_values["date"])-arrow.now()).total_seconds()) < 64800):
                             values = prev_values
 
         # Never found the team. Either a bye or a post-season condition
