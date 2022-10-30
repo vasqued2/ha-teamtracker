@@ -20,6 +20,7 @@ LEAGUE_LIST = [
     ["MLS", "soccer", "usa.1"], 
     ["NWSL", "soccer", "usa.nwsl"], 
     ["SERA", "soccer", "ita.1"],
+    ["WC", "soccer", "fifa.world"],
     ["NCAAVB", "volleyball", "mens-college-volleyball"],
     ["NCAAVBW", "volleyball", "womens-college-volleyball"],
     ]
