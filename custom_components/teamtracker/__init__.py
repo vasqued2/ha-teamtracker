@@ -1,7 +1,7 @@
 """ TeamTracker Team Status """
 import asyncio
 import logging
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 import arrow
 import json
 import codecs
@@ -43,6 +43,7 @@ from .const import (
     ISSUE_URL,
     LEAGUE_LIST,
     PLATFORMS,
+    SPORT_LIST,
     URL_HEAD,
     URL_TAIL,
     USER_AGENT,
@@ -194,13 +195,14 @@ async def async_get_state(config, hass) -> dict:
     """Query API for status."""
 
     values = {}
+    prev_values = {}
     headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
     sensor_name = config[CONF_NAME]
 
     data = None
     file_override = False
-    first_date = "9999"
-    last_date =  "0000"
+    first_date = (date.today() - timedelta(days = 1)).strftime("%Y-%m-%dT%H:%MZ")
+    last_date =  (date.today() + timedelta(days = 5)).strftime("%Y-%m-%dT%H:%MZ")
 
 #
 #  Get the language based on the locale
@@ -224,6 +226,11 @@ async def async_get_state(config, hass) -> dict:
     sport_path = config[CONF_SPORT_PATH]
     league_path = config[CONF_LEAGUE_PATH]
     url_parms = "?lang=" + lang[:2]
+
+    d1 = (date.today() - timedelta(days = 1)).strftime("%Y%m%d")
+    d2 = (date.today() + timedelta(days = 5)).strftime("%Y%m%d")
+    url_parms = url_parms + "&dates=" + d1 + "-" + d2
+
     if CONF_CONFERENCE_ID in config.keys():
             if (len(config[CONF_CONFERENCE_ID]) > 0):
                 url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
@@ -244,6 +251,30 @@ async def async_get_state(config, hass) -> dict:
                 if r.status == 200:
                     data = await r.json()
 
+        num_events = 0
+        if data is not None:
+            try:
+                num_events = len(data["events"])
+            except:
+                num_events = 0
+
+        if num_events == 0:
+            url_parms = "?lang=" + lang[:2]
+            if CONF_CONFERENCE_ID in config.keys():
+                    if (len(config[CONF_CONFERENCE_ID]) > 0):
+                        url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
+                        if (config[CONF_CONFERENCE_ID] == '9999'):
+                            file_override = True
+            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, headers=headers) as r:
+                    _LOGGER.debug("%s: Getting state without date constraint for '%s' from %s", sensor_name, team_id, url)
+                    if r.status == 200:
+                        data = await r.json()
+
+    team_id = config[CONF_TEAM_ID].upper()
+
     if sport_path in ["golf", "mma", "racing", "tennis"]:
         values = await async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
         return values
@@ -253,6 +284,7 @@ async def async_get_state(config, hass) -> dict:
     values["league"] = league_id
     values["league_logo"] = DEFAULT_LOGO
     values["team_abbr"] = team_id
+    values["state"] = "NOT_FOUND"
 
     found_team = False
     if data is not None:
@@ -289,8 +321,10 @@ async def async_get_state(config, hass) -> dict:
 
             if sn.startswith(team_id + ' ') or sn.endswith(' ' + team_id) or t0 == team_id or t1 == team_id:
                 found_team = True
+                prev_values = values.copy()
+
                 _LOGGER.debug("%s: Found event for %s; parsing data.", sensor_name, team_id)
-                
+
                 if t0 == team_id:
                     team_index = 0
                 elif t1 == team_id:
@@ -323,10 +357,26 @@ async def async_get_state(config, hass) -> dict:
                     elif sport_path in ["hockey"]:
                         values.update(await async_get_in_hockey_event_attributes(event, values, team_index, oppo_index))
 
-                if 'IN' in values["state"]:
+                if values["state"] == "IN":
                     break
-                if 'PRE' in values["state"] and "minute" in values["kickoff_in"]:
+
+                if ((values["state"] == "PRE") and (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) < 1200)):
                     break
+
+                if prev_values["state"] == "POST":
+                    if values["state"] == "PRE": # Use POST if PRE is more than 18 hours in future
+                        if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
+                            values = prev_values
+                    elif values["state"] == "POST": # use POST w/ latest date
+                        if (arrow.get(prev_values["date"]) > arrow.get(values["date"])):
+                            values = prev_values
+                if prev_values["state"] == "PRE":
+                    if values["state"] == "PRE":  # use PRE w/ earliest date
+                        if (arrow.get(prev_values["date"]) < arrow.get(values["date"])):
+                            values = prev_values
+                    elif values["state"] == "POST": # Use PRE if less than 18 hours in future
+                        if (abs((arrow.get(prev_values["date"])-arrow.now()).total_seconds()) < 64800):
+                            values = prev_values
 
         # Never found the team. Either a bye or a post-season condition
         if not found_team:
