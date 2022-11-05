@@ -1,6 +1,6 @@
 # Real-time Sports Scores in Home Assistant
 
-This integration provides real-time scores for teams in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer) sports using ESPN APIs, and creates a sensor with attributes for the details of the game. 
+This integration provides real-time scores for teams and athletes in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer, golf, tennis, racing) sports using ESPN APIs, and creates a sensor with attributes for the details of the game. 
 
 This integration can be used with the [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) to display the game information in the Home Assistant dashboard.
 
@@ -18,9 +18,12 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
 - Baseball - MLB
 - Basketball - NBA, WNBA, NCAAM, NCAAW, WNBA
 - Football - NFL, NCAAF
-- Hockey - NHL (Coming Soon)
+- Golf - PGA
+- Hockey - NHL
 - U.S. Soccer - MLS, NWSL
-- International Soccer - BUND (German Bundesliga), CL (Champions League), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A)
+- International Soccer - BUND (German Bundesliga), CL (Champions League), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup)
+- Racing - F1, IRL
+- Tennis - ATP, WTA
 - Volleyball - NCAAVB, NCAAVBW
 
 See Custom API Configuration section below on how to set up additional sports/leagues if you know the ESPN API.
@@ -108,14 +111,17 @@ Clone or download this repository and copy the "teamtracker" directory to your "
 ## Configuration
 
 For the League, the following values are valid:
+- ATP (Assc. of Tennis Professionals)
 - BUND (German Bundesliga)
 - CL (Champions League)
 - EPL (English Premiere League)
+- F1 (Formula 1 Racing)
+- IRL (Indy Racing League)
 - LIGA (Spanish LaLiga)
 - LIG1 (French Ligue 1)
 - MLB (Major League Baseball)
 - MLS (Major League Soccer)
-- NBA (National Basketball Assc)
+- NBA (National Basketball Assc.)
 - NCAAF (NCAA Football)
 - NCAAM (NCAA Men's Basketball)
 - NCAAW (NCAA Women's Basketball)
@@ -123,8 +129,11 @@ For the League, the following values are valid:
 - NCAAVBW (NCAA Women's Volleyball)
 - NFL (National Football League)
 - NWSL (National Women's Soccer League)
+- PGA (Professional Golfers' Assc.)
 - SERA (Italian Serie A)
+- WC (World Cup)
 - WNBA (Women's NBA)
+- WTA (Women's Tennis Assc.)
     
 For the Team, you'll need to know the team ID ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.
 

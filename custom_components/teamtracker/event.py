@@ -31,6 +31,9 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang) -> dict:
     values = {} 
+    prev_values = {}
+
+    stop_flag = False
 
     values = await async_clear_states2()
 
@@ -61,11 +64,12 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                     index = 0
                     for competitor in competition["competitors"]:
                         if competitor["type"] == "team":
-                            _LOGGER.debug("%s: Competitor: %s", sensor_name, competitor["team"]["displayName"])
+                            _LOGGER.debug("%s: Competitor: Team ID %s", sensor_name, competitor["id"])
                         if competitor["type"] == "athlete":
 #                            _LOGGER.debug("%s: Searching for %s in %s", sensor_name, search_key, competitor["athlete"]["displayName"].upper())
-                            if search_key in competitor["athlete"]["displayName"].upper():
+                            if ((search_key in competitor["athlete"]["displayName"].upper()) or (search_key == "*")):
 #                                _LOGGER.debug("%s: Competitor Found.  Searching for sport: %s", sensor_name, sport)
+                                prev_values = values.copy()
                                 if sport in ["golf", "mma", "racing", "tennis"]:
                                     _LOGGER.debug("%s: Sport Found.  Assigning values for competitor: %s", sensor_name, competitor["athlete"]["displayName"])
                                     try:
@@ -75,19 +79,40 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                                         _LOGGER.warn("%s: exception w/ function call", sensor_name)
                                     _LOGGER.debug("%s: values[] %s %s", sensor_name, type(values), values)
                                     if values["state"] == "IN":
+                                        stop_flag = True;
+                                    if ((values["state"] == "PRE") and (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) < 1200)):
+                                        stop_flag = True;
+                                    if stop_flag:
                                         break;
+
+                                    _LOGGER.debug("%s: values[state] %s, values[state] %s", sensor_name, values["state"], values["state"])
+            
+                                    if prev_values["state"] == "POST":
+                                        if values["state"] == "PRE": # Use POST if PRE is more than 18 hours in future
+                                            if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
+                                                            values = prev_values
+                                        elif values["state"] == "POST": # use POST w/ latest date
+                                            if (arrow.get(prev_values["date"]) >= arrow.get(values["date"])):
+                                                values = prev_values
+                                    if prev_values["state"] == "PRE":
+                                        if values["state"] == "PRE":  # use PRE w/ earliest date
+                                            if (arrow.get(prev_values["date"]) <= arrow.get(values["date"])):
+                                                values = prev_values
+                                        elif values["state"] == "POST": # Use PRE if less than 18 hours in future
+                                            if (abs((arrow.get(prev_values["date"])-arrow.now()).total_seconds()) < 64800):
+                                                values = prev_values
+
                         index = index + 1
-                        if values["state"] == "IN":
-                            break;
-                    if values["state"] == "IN":
+
+                    if stop_flag:
                         break;
                     comp_index = comp_index + 1
                 try:
                     if values["state"] == "POST" and event["status"]["type"]["state"].upper() == "IN":
-                        break;
+                        stop_flag = True;
                 except:
                     values["state"] = values["state"]
-                if values["state"] == "IN":
+                if stop_flag:
                     break;
             except:
                 _LOGGER.debug("%s: No competitions listed for this event: %s", sensor_name, event["shortName"])
@@ -307,11 +332,14 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         except:
             new_values["venue"] = None
 
-        new_values["team_rank"] = index + 1
-        new_values["opponent_rank"] = oppo_index + 1
+        _LOGGER.debug("%s: set_golf_values() 3.2.1: index %s, oppo_index %s", sensor_name, index, oppo_index)
 
-        new_values["team_rank"] = await get_golf_position(competition, index)
-        new_values["opponent_rank"] = await get_golf_position(competition, oppo_index)
+        if new_values["state"] in ["IN","POST"]:
+            new_values["team_rank"] = await get_golf_position(competition, index)
+            new_values["opponent_rank"] = await get_golf_position(competition, oppo_index)
+        else:
+            new_values["team_rank"] = None
+            new_values["opponent_rank"] = None
 
         round = new_values["quarter"] - 1
         try:
@@ -332,7 +360,7 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         except:
             new_values["opponent_shots_on_target"] = 0
 
-        new_values["last_play"] = "LEADERBOARD: "
+        new_values["last_play"] = ""
         for x in range (0, 10):
             try:
                 p = await get_golf_position(competition, x)
@@ -341,7 +369,8 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
                 new_values["last_play"] = new_values["last_play"] + " (" + str(competition["competitors"][x]["score"]) + "),   "
             except:
                 new_values["last_play"] = new_values["last_play"]
-
+        new_values["last_play"] = new_values["last_play"][:-1]
+        
     if (new_values["sport"] == "tennis"):
         _LOGGER.debug("%s: set_golf_values() 4: %s", sensor_name, sensor_name)
 
@@ -451,14 +480,28 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
 
     if (new_values["sport"] == "mma"):
         try:
-            new_values["team_score"] = competitor["linescores"][-1]["value"]
+            t = 0
+            o = 0
+            for ls in range(0, len(competitor["linescores"][-1]["linescores"])):
+                if (competitor["linescores"][-1]["linescores"][ls] > competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]):
+                    t = t + 1
+                if (competitor["linescores"][-1]["linescores"][ls] < competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]):
+                    o = o + 1
+            
+            new_values["team_score"] = t
+            new_values["opponent_score"] = o
         except:
-            new_values["team_score"] = None
+            if competitor["winner"] == True:
+                new_values["team_score"] = "W"
+            else:
+                new_values["team_score"] = None
         try:
             new_values["opponent_score"] = competition["competitors"][oppo_index]["linescores"][-1]["value"]
         except:
-            new_values["opponent_score"] = None
-
+            if competition["competitors"][oppo_index]["winner"] == True:
+                new_values["opponent_score"] = "W"
+            else:
+                new_values["opponent_score"] = None
 
     if (new_values["sport"] == "racing"):
         new_values["team_score"] = index + 1
