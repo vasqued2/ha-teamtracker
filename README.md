@@ -1,6 +1,6 @@
 # Real-time Sports Scores in Home Assistant
 
-This integration provides real-time scores for teams and athletes in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer, golf, tennis, racing) sports using ESPN APIs, and creates a sensor with attributes for the details of the game. 
+This integration provides real-time scores for teams and athletes (beta) in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer, golf, tennis, racing) sports using the ESPN Scoreboard APIs, and creates a sensor with attributes for the details of the game. 
 
 This integration can be used with the [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) to display the game information in the Home Assistant dashboard.
 
@@ -12,18 +12,19 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
  - Releases for [ha-teamtracker](https://github.com/vasqued2/ha-teamtracker) and [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) follow the MAJOR.MINOR.PATCH convention.
  - All teamtracker and teamtracker-card releases with the same MAJOR and MINOR version numbers will be compatible, regardless of PATCH version.
  - For example, any teamtracker v0.2.x will be compatible with any teamtracker-card v0.2.y.
- - Compatibility is not guaranteed across MAJOR or MINOR version numbers.
+ - Compatibility is not guaranteed across different MAJOR or MINOR version numbers.
 
 ## Supported Sports / Leagues
 - Baseball - MLB
 - Basketball - NBA, WNBA, NCAAM, NCAAW, WNBA
 - Football - NFL, NCAAF
-- Golf - PGA
+- Golf - PGA (beta)
 - Hockey - NHL
+- MMA - UFC (beta)
 - U.S. Soccer - MLS, NWSL
 - International Soccer - BUND (German Bundesliga), CL (Champions League), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup)
-- Racing - F1, IRL
-- Tennis - ATP, WTA
+- Racing - F1, IRL (beta)
+- Tennis - ATP, WTA (bata)
 - Volleyball - NCAAVB, NCAAVBW
 
 See Custom API Configuration section below on how to set up additional sports/leagues if you know the ESPN API.
@@ -36,7 +37,7 @@ The sensor is pretty simple: the main state is `PRE`, `IN`, `POST`, `BYE` or `NO
 - `IN`: The game is in progress.
 - `POST`: The game has completed. 
 - `BYE`: Your given team has a bye week this week. Note that attributes available are limited in this case (only abreviation, name, logo, and last updated time will be available). 
-- `NOT_FOUND`: There is no game found for your team, nor is there a bye. This can happen if an invalid league or team ID has been entered.  It can also happen at the end of the season or mid-season when ESPN hasn't published the pre-game info for the next game. 
+- `NOT_FOUND`: There is no game found for your team, nor is there a bye. This can happen if an invalid league or team ID has been entered.  It can also happen at the end of the season or mid-season when ESPN hasn't published the pre-game info for the next game.  See the [Wiki for help in troubleshooting tips](https://github.com/vasqued2/ha-teamtracker/wiki/Troubleshooting:--State-=--NOT_FOUND) when you believe the sensor is incorrectly in the `NOT_FOUND` state.
 
 ### Attributes
 The attributes available will change based on the sensor's state, a small number are always available (league, team abbreviation, team name, and logo), but otherwise the attributes only populate when in the current state. The table below lists which attributes are available in which states. 
@@ -49,6 +50,7 @@ Some attributes are only available for certain sports.
 | `kickoff_in` | Human-readable string for how far away the game is (eg. "in 30 minutes" or "tomorrow") |  `PRE` `IN` `POST` |
 | `quarter` | The current quarter of gameplay | `IN` |
 | `clock` | The clock value within the quarter (should never be higher than 15:00).  Inning (MLB only). | `IN` |
+| `event_name` | The name of the event being played (eg. "The Masters") | `PRE` `IN` `POST` |
 | `venue` | The name of the stadium where the game is being played (eg. "Arrowhead Stadium") | `PRE` `IN` `POST` |
 | `location` | The city and state where the game is being played (eg. "Pittsburgh, PA") | `PRE` `IN` `POST` |
 | `tv_network` | The TV network where you can watch the game (eg. "NBC" or "NFL"). Note that if there is a national feed, it will be listed here, otherwise the local affiliate will be listed. | `PRE` `IN` `POST` |
@@ -111,12 +113,12 @@ Clone or download this repository and copy the "teamtracker" directory to your "
 ## Configuration
 
 For the League, the following values are valid:
-- ATP (Assc. of Tennis Professionals)
+- ATP (Assc. of Tennis Professionals)*
 - BUND (German Bundesliga)
 - CL (Champions League)
 - EPL (English Premiere League)
-- F1 (Formula 1 Racing)
-- IRL (Indy Racing League)
+- F1 (Formula 1 Racing)*
+- IRL (Indy Racing League)*
 - LIGA (Spanish LaLiga)
 - LIG1 (French Ligue 1)
 - MLB (Major League Baseball)
@@ -129,54 +131,83 @@ For the League, the following values are valid:
 - NCAAVBW (NCAA Women's Volleyball)
 - NFL (National Football League)
 - NWSL (National Women's Soccer League)
-- PGA (Professional Golfers' Assc.)
+- PGA (Professional Golfers' Assc.)*
 - SERA (Italian Serie A)
+- UFC (Ultimate Fighting Championship)*
 - WC (World Cup)
 - WNBA (Women's NBA)
-- WTA (Women's Tennis Assc.)
+- WTA (Women's Tennis Assc.)*
     
-For the Team, you'll need to know the team ID ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.
+For the Team, you'll need to know the team ID ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.  
 
-By default, NCAA football and basketball will only find a game if at least one of the teams playing is ranked.  In order to find games in which both teams are unranked, you must specify a Conference ID, which is a number used by ESPN to identify college conferences and other groups of teams.
+NOTE:  In rare instances, the team ID will vary based on your local language.  While rare, changing the language after a sensor is set up can cause it to stop working.
+
+For individual sports, you should specify the althlete's name in `team_id` field.  This will cause the sensor to track the competitions matching the name of the specified athlete.  You should use as much of the name (i.e. last name, full name) as needed to uniquely identify the athlete.
+
+#### Use of a Wild Card In Place of Athlete's Name
+
+For individual sports, you can use the single `*` character as a Wild Card in place of the athlete's name.  This will cause the sensor to match an athlete using sport-specific logic.
+
+The Wild Card acts in the following manner
+| Sport | Behavior |
+| --- | --- |
+| Golf | Displays the current leader and competitor in second place |
+| MMA | Displays the current active fight or the next upcoming fight if none are active |
+| Racing | Displays the current leader and competitor in second place |
+| Tennis | Results will be unpredictable due to multiple tournaments and matches in progress at once |
+
+## Conference ID Numbers
+
+By default, NCAA football and basketball will only find a game if at least one of the teams playing is ranked.  In order to find games in which both teams are unranked, you must specify a Conference ID, which is a number used by ESPN to identify college conferences and other groups of teams.  Conferences ID's are not consistent across football and basketball.
 
 The following is a list of the college conferences and the corresponding number ESPN uses for their Conference ID.  For games involving at least one ranked team, no Conference ID is needed.
 
-## Conference ID Numbers
-| Conference | Conference ID |
-| --- | --- |
-| ACC | 1 |
-| American | 151 |
-| Big 12 | 4 |
-| Big Ten | 5 |
-| C-USA | 12 |
-| FBS Independent | 18 |
-| MAC | 15 |
-| Mountain West | 17 |
-| PAC-12 | 9 |
-| SEC | 8 |
-| Sun Belt | 37 |
-| ASUN | 176 |
-| Big Sky | 20 |
-| Big South | 40 |
-| CAA | 18 |
-| Ivy | 22 |
-| MEAC | 24 |
+| Conference | Football Conference ID | Basketball Conference ID |
+| --- | --- | --- |
+| ACC | 1 | 2 |
+| American | 151 | 62 |
+| Big 12 | 4 | 8 |
+| Big Ten | 5 | 7 |
+| C-USA | 12 | 11 |
+| FBS Independent | 18 |  |
+| Independent |  | 43 |
+| MAC | 15 | 14 |
+| Mountain West | 17 | 44 |
+| MVC |  | 18 |
+| PAC-12 | 9 | 21 | 
+| SEC | 8 | 23 |
+| Sun Belt | 37 | 27 |
+| America East |  | 1 |
+| ASUN | 176 | 46 |
+| Atlantic 10 |  | 3 |
+| Big East |  | 4 |
+| Big Sky | 20 | 5 |
+| Big South | 40 | 6 |
+| Big West |  | 9 |
+| CAA | 18 | 10 |
+| Horizon |  | 45 |
+| Ivy | 22 | 12 |
+| MAAC |  | 13 |
+| MEAC | 24 | 16 |
 | MVFC | 21 |
-| NEC | 25 |
-| OVC | 26 |
-| Patriot | 27 |
+| NEC | 25 | 19 |
+| OVC | 26 | 20 |
+| Patriot | 27 | 22 |
 | Pioneer | 28 |
-| SWAC | 31 |
-| Southern | 29 |
-| Southland | 30 |
-| WAC | 16 |
+| SWAC | 31 | 26 |
+| Southern | 29 | 24 |
+| Southland | 30 | 25 |
+| Summit |  | 49 |
+| WAC | 16 | 30 |
+| WCC |  | 29 |
 
 The following identifiers are also valid:
-| Additional Groupings | Conference ID | Description |
-| --- | --- | --- |
-| FBS (1-A) | 80 | Subset of unranked FBS games |
-| FCS (1-AA) | 81 | Subset of FCS games |
-| DIVII/III | 35 | Subset of D2/D3 games |
+| Additional Groupings | Football Conference ID | Basketball Conference ID | Description |
+| --- | --- | --- | --- |
+| FBS (1-A) | 80 |  | Subset of unranked FBS games |
+| FCS (1-AA) | 81 |  | Subset of FCS games |
+| DIVII/III | 35 |  | Subset of D2/D3 games |
+| D1 |  | 50 | Subset of unranked D1 games |
 
 ### Via the "Configuration->Integrations" section of the Home Assistant UI
 
