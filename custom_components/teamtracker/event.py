@@ -35,7 +35,7 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
 
     stop_flag = False
 
-    values = await async_clear_states2()
+    values = await async_clear_values()
 
     search_key = team_id
     sport = sport_path
@@ -73,7 +73,7 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                                 if sport in ["golf", "mma", "racing", "tennis"]:
                                     _LOGGER.debug("%s: Sport Found.  Assigning values for competitor: %s", sensor_name, competitor["athlete"]["displayName"])
                                     try:
-                                        values.update(await set_golf_values(values, event, competition, competitor, lang, index, comp_index, sensor_name))
+                                        values.update(await async_set_values(values, event, competition, competitor, lang, index, comp_index, sensor_name))
                                         _LOGGER.debug("%s: values[] %s", sensor_name, values)
                                     except:
                                         _LOGGER.warn("%s: exception w/ function call", sensor_name)
@@ -92,7 +92,9 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                                             if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
                                                             values = prev_values
                                         elif values["state"] == "POST": # use POST w/ latest date
-                                            if (arrow.get(prev_values["date"]) >= arrow.get(values["date"])):
+                                            if (arrow.get(prev_values["date"]) > arrow.get(values["date"])):
+                                                values = prev_values
+                                            if (arrow.get(prev_values["date"]) == arrow.get(values["date"])) and sport in ["golf", "racing"]:
                                                 values = prev_values
                                     if prev_values["state"] == "PRE":
                                         if values["state"] == "PRE":  # use PRE w/ earliest date
@@ -121,7 +123,7 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
 
 
 
-async def async_clear_states2() -> dict:
+async def async_clear_values() -> dict:
     """Clear all state attributes"""
     new_values = {}
 
@@ -195,7 +197,7 @@ async def async_clear_states2() -> dict:
     return new_values
 
 
-async def set_golf_values(old_values, event, competition, competitor, lang, index, comp_index, sensor_name) -> dict:
+async def async_set_values(old_values, event, competition, competitor, lang, index, comp_index, sensor_name) -> dict:
     new_values = {}
 #    new_values["team_colors"] = ["#FFFFFF", "#000000"]
 #    new_values["opponent_colors"] = ["#FFFFFF", "#000000"]
@@ -336,8 +338,8 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         _LOGGER.debug("%s: set_golf_values() 3.2.1: index %s, oppo_index %s", sensor_name, index, oppo_index)
 
         if new_values["state"] in ["IN","POST"]:
-            new_values["team_rank"] = await get_golf_position(competition, index)
-            new_values["opponent_rank"] = await get_golf_position(competition, oppo_index)
+            new_values["team_rank"] = await async_get_golf_position(competition, index)
+            new_values["opponent_rank"] = await async_get_golf_position(competition, oppo_index)
         else:
             new_values["team_rank"] = None
             new_values["opponent_rank"] = None
@@ -364,7 +366,7 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         new_values["last_play"] = ""
         for x in range (0, 10):
             try:
-                p = await get_golf_position(competition, x)
+                p = await async_get_golf_position(competition, x)
                 new_values["last_play"] = new_values["last_play"] + p + ". "
                 new_values["last_play"] = new_values["last_play"] + competition["competitors"][x]["athlete"]["shortName"]
                 new_values["last_play"] = new_values["last_play"] + " (" + str(competition["competitors"][x]["score"]) + "),   "
@@ -479,9 +481,9 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
             t = 0
             o = 0
             for ls in range(0, len(competitor["linescores"][-1]["linescores"])):
-                if (competitor["linescores"][-1]["linescores"][ls] > competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]):
+                if (competitor["linescores"][-1]["linescores"][ls]["value"] > competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]["value"]):
                     t = t + 1
-                if (competitor["linescores"][-1]["linescores"][ls] < competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]):
+                if (competitor["linescores"][-1]["linescores"][ls]["value"] < competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]["value"]):
                     o = o + 1
             
             new_values["team_score"] = t
@@ -489,15 +491,10 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         except:
             if competitor["winner"] == True:
                 new_values["team_score"] = "W"
-            else:
-                new_values["team_score"] = None
-        try:
-            new_values["opponent_score"] = competition["competitors"][oppo_index]["linescores"][-1]["value"]
-        except:
+                new_values["opponent_score"] = "L"
             if competition["competitors"][oppo_index]["winner"] == True:
+                new_values["team_score"] = "L"
                 new_values["opponent_score"] = "W"
-            else:
-                new_values["opponent_score"] = None
 
         new_values["last_play"] = await async_get_prior_fights(event)
 
@@ -550,7 +547,7 @@ async def async_get_prior_fights(event) -> str:
 
 
 
-async def get_golf_position(competition, index) -> str:
+async def async_get_golf_position(competition, index) -> str:
 
     t = 0
     tie = ""
