@@ -432,6 +432,7 @@ async def async_clear_states(config) -> dict:
         "team_abbr": None,
         "opponent_abbr": None,
 
+        "event_name": None,
         "date": None,
         "kickoff_in": None,
         "venue": None,
@@ -498,6 +499,7 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index, la
 
 
     new_values["state"] = event["status"]["type"]["state"].upper()
+    new_values["event_name"] = event["shortName"]
     new_values["date"] = event["date"]
     new_values["kickoff_in"] = arrow.get(event["date"]).humanize(locale=lang)
     new_values["venue"] = event["competitions"][0]["venue"]["fullName"]

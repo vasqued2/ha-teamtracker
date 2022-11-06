@@ -133,6 +133,7 @@ async def async_clear_states2() -> dict:
         "team_abbr": None,
         "opponent_abbr": None,
 
+        "event_name": None,
         "date": None,
         "kickoff_in": None,
         "venue": None,
@@ -217,6 +218,11 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         new_values["state"] = competition["status"]["type"]["state"].upper()
     except:
         new_values["state"] = event["status"]["type"]["state"].upper()
+
+    try:
+        new_values["event_name"] = event["shortName"]
+    except:
+        new_values["event_name"] = None
 
     try:
         new_values["date"] = competition["date"]
@@ -327,11 +333,6 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
     _LOGGER.debug("%s: set_golf_values() 3.2: %s", sensor_name, sensor_name)
 
     if (new_values["sport"] == "golf"):
-        try:
-            new_values["venue"] = event["shortName"]
-        except:
-            new_values["venue"] = None
-
         _LOGGER.debug("%s: set_golf_values() 3.2.1: index %s, oppo_index %s", sensor_name, index, oppo_index)
 
         if new_values["state"] in ["IN","POST"]:
@@ -375,11 +376,6 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
         _LOGGER.debug("%s: set_golf_values() 4: %s", sensor_name, sensor_name)
 
         team_index = index
-
-        try:
-            new_values["venue"] = event["shortName"]
-        except:
-            new_values["venue"] = None
 
         try:
             remaining_games = len(event["competitions"]) - comp_index;
@@ -503,12 +499,54 @@ async def set_golf_values(old_values, event, competition, competitor, lang, inde
             else:
                 new_values["opponent_score"] = None
 
+        new_values["last_play"] = await async_get_prior_fights(event)
+
     if (new_values["sport"] == "racing"):
         new_values["team_score"] = index + 1
         new_values["opponent_score"] = oppo_index + 1
         
     return new_values
 
+
+async def async_get_prior_fights(event) -> str:
+    prior_fights = ""
+
+    c = 1
+    for competition in event["competitions"]:
+        if competition["status"]["type"]["state"].upper() == "POST":
+            prior_fights = prior_fights + str(c) + ". "
+            if competition["competitors"][0]["winner"]:
+                prior_fights = prior_fights + "*" + competition["competitors"][0]["athlete"]["shortName"].upper()
+            else:
+                prior_fights = prior_fights + competition["competitors"][0]["athlete"]["shortName"]
+            prior_fights = prior_fights + " v. "
+            if competition["competitors"][1]["winner"]:
+                prior_fights = prior_fights + competition["competitors"][1]["athlete"]["shortName"].upper() + "*"
+            else:
+                prior_fights = prior_fights + competition["competitors"][1]["athlete"]["shortName"]
+
+            try:
+                f1 = 0
+                f2 = 0
+                t = 0
+                for ls in range(0, len(competition["competitors"][0]["linescores"][0]["linescores"])):
+                    if (competition["competitors"][0]["linescores"][0]["linescores"][ls]["value"] > competition["competitors"][1]["linescores"][0]["linescores"][ls]["value"]):
+                        f1= f1 + 1
+                    elif (competition["competitors"][0]["linescores"][0]["linescores"][ls]["value"] < competition["competitors"][1]["linescores"][0]["linescores"][ls]["value"]):
+                        f2 = f2 + 1
+                    else:
+                        t = t + 1
+
+                prior_fights = prior_fights + " (Dec: " + str(f1) + "-" + str(f2)
+                if t != 0:
+                    prior_fights = prior_fights + "-" + str(t)
+                prior_fights = prior_fights + ") "
+            except:
+                prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(competition["status"]["period"]) + "@" + competition["status"]["displayClock"] + ") "
+                    
+            prior_fights = prior_fights + "; "
+            c = c + 1
+    return prior_fights
 
 
 
@@ -529,116 +567,3 @@ async def get_golf_position(competition, index) -> str:
         tie = tie
 
     return tie + str(t + 1)
-
-
-async def set_tennis_values(old_values, event, competition, competitor, lang, index) -> dict:
-    new_values = {}
-
-    if index == 0:
-        oppo_index = 1
-    else:
-        oppo_index = 0
-
-    new_values["key"] = "value"
-
-    new_values["sport"] = old_values["sport"]
-    new_values["league"] = old_values["league"]
-    new_values["team_abbr"] = old_values["team_abbr"]
-    new_values["opponent_abbr"] = None
-
-    try:
-        new_values["state"] = competition["status"]["type"]["state"].upper()
-    except:
-        new_values["state"] = event["status"]["type"]["state"].upper()
-
-    try:
-        new_values["date"] = competition["date"]
-    except:
-        new_values["date"] = event["date"]
-
-    new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize(locale=lang)
-
-    try:
-        new_values["venue"] = competition["venue"]["fullName"]
-    except:
-        new_values["venue"] = None
-
-    try:
-        new_values["location"] = "%s, %s" % (competition["venue"]["address"]["city"], competition["venue"]["address"]["state"])
-    except:
-        try:
-            new_values["location"] = competition["venue"]["address"]["city"]
-        except:
-            new_values["location"] = None
-
-    try:
-        new_values["tv_network"] = competition["broadcasts"][0]["names"][0]
-    except:
-        new_values["tv_network"] = None
-
-    try:
-        new_values["odds"] = competition["odds"][0]["details"]
-    except:
-        new_values["odds"] = None
-
-    try:
-        new_values["overunder"] = competition["odds"][0]["overUnder"]
-    except:
-        new_values["overunder"] = None
-
-    try:
-        new_values["clock"] = competition["status"]["type"]["shortDetail"]
-    except:
-        try:
-            new_values["clock"] = event["status"]["type"]["shortDetail"]
-        except:
-            new_values["clock"] = None
-
-#    new_values["team_abbr"] = competitor["team"]["abbreviation"]
-    new_values["team_id"] = competitor["id"]
-    new_values["opponent_id"] = competition["competitors"][oppo_index]["id"]
-
-    new_values["team_name"] = competitor["athlete"]["displayName"]
-    new_values["opponent_name"] = competition["competitors"][oppo_index]["athlete"]["displayName"]
-
-    try:
-        new_values["team_record"] = competitor["records"][0]["summary"]
-    except:
-        new_values["team_record"] = None
-    try:
-        new_values["opponent_record"] = competition["competitors"][oppo_index]["records"][0]["summary"]
-    except:
-        new_values["opponent_record"] = None
-
-
-    try:
-        new_values["team_rank"] = competitor["tournamentSeed"]
-    except:
-        new_values["team_rank"] = None
-    try:
-        new_values["opponent_rank"] = competition["competitors"][oppo_index]["tournamentSeed"]
-    except:
-        new_values["opponent_rank"] = None
-
-
-    try:
-        new_values["team_logo"] = competitor["athlete"]["flag"]["href"]
-    except:
-        new_values["team_logo"] = DEFAULT_LOGO
-    try:
-        new_values["opponent_logo"] = competition["competitors"][oppo_index]["athlete"]["flag"]["href"]
-    except:
-        new_values["opponent_logo"] = DEFAULT_LOGO
-
-
-
-    try:
-        new_values["team_score"] = competitor["score"]
-    except:
-        new_values["team_score"] = None
-    try:
-        new_values["opponent_score"] = competition["competitors"][oppo_index]["score"]
-    except:
-        new_values["opponent_score"] = None
-
-    return new_values
