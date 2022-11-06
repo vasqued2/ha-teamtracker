@@ -65,7 +65,7 @@ DEFAULT_TIMEOUT = 120
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.4.1"
+VERSION = "v0.5.0"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 PLATFORM = "sensor"
