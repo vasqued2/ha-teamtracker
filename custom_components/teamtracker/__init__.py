@@ -276,7 +276,7 @@ async def async_get_state(config, hass) -> dict:
     team_id = config[CONF_TEAM_ID].upper()
 
     if sport_path in ["golf", "mma", "racing", "tennis"]:
-        values = await async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
+        values = await async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
         return values
     
     values = await async_clear_states(config)
