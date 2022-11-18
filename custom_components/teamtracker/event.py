@@ -243,7 +243,7 @@ async def async_set_values(old_values, event, competition, competitor, lang, ind
             new_values["location"] = competition["venue"]["address"]["city"]
         except:
             try:
-                new_values["location"] = competition["venue"]["address"]
+                new_values["location"] = competition["venue"]["address"]["summary"]
             except:
                 new_values["location"] = None
 
