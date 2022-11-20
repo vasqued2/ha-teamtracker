@@ -24,7 +24,7 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
 - MMA - UFC
 - U.S. Soccer - MLS, NWSL
 - International Soccer - BUND (German Bundesliga), CL (Champions League), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup)
-- Racing - F1, IRL, NASCAR
+- Racing - F1, IRL
 - Tennis - ATP, WTA
 - Volleyball - NCAAVB, NCAAVBW
 
