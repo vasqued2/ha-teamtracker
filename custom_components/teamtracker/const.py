@@ -4,6 +4,7 @@ URL_TAIL = "/scoreboard"
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15"
 
 LEAGUE_LIST = [
+    ["AFL", "australian-football", "afl"],
     ["MLB", "baseball", "mlb"],
     ["NBA", "basketball", "nba"],
     ["WNBA", "basketball", "wnba"],
@@ -16,6 +17,7 @@ LEAGUE_LIST = [
     ["UFC", "mma", "ufc"],
     ["F1", "racing", "f1"],
     ["IRL", "racing", "irl"],
+    ["NASCAR", "racing", "nascar-premier"],
     ["BUND", "soccer", "ger.1"],
     ["CL", "soccer", "uefa.champions"], 
     ["EPL", "soccer", "eng.1"], 
@@ -32,6 +34,7 @@ LEAGUE_LIST = [
     ]
 
 SPORT_LIST = [
+    ["australian-football", "mdi:football-australian"],
     ["baseball", "mdi:baseball"],
     ["basketball", "mdi:basketball"],
     ["football", "mdi:football"],
@@ -65,7 +68,7 @@ DEFAULT_TIMEOUT = 120
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.5.2"
+VERSION = "v0.5.3"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 PLATFORM = "sensor"
