@@ -556,7 +556,12 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index, la
     except:
         alt_color = color
     new_values["team_colors"] = [color, alt_color]
-    new_values["team_score"] = event["competitions"][0]["competitors"][team_index]["score"]                
+    new_values["team_score"] = event["competitions"][0]["competitors"][team_index]["score"]
+    try:
+        new_values["team_score"] = new_values["team_score"] + "(" + event["competitions"][0]["competitors"][team_index]["shootoutScore"] + ")"
+    except:
+        new_values["team_score"] = new_values["team_score"]
+
     new_values["opponent_abbr"] = event["competitions"][0]["competitors"][oppo_index]["team"]["abbreviation"]
     new_values["opponent_id"] = event["competitions"][0]["competitors"][oppo_index]["team"]["id"]
     new_values["opponent_name"] = event["competitions"][0]["competitors"][oppo_index]["team"]["shortDisplayName"]
@@ -589,6 +594,10 @@ async def async_get_universal_event_attributes(event, team_index, oppo_index, la
         alt_color = color
     new_values["opponent_colors"] = [color, alt_color]
     new_values["opponent_score"] = event["competitions"][0]["competitors"][oppo_index]["score"]
+    try:
+        new_values["opponent_score"] = new_values["opponent_score"] + "(" + event["competitions"][0]["competitors"][oppo_index]["shootoutScore"] + ")"
+    except:
+        new_values["opponent_score"] = new_values["opponent_score"]
 
     new_values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
     new_values["private_fast_refresh"] = False
@@ -714,6 +723,8 @@ async def async_get_in_baseball_event_attributes(event, old_values) -> dict:
 async def async_get_in_soccer_event_attributes(event, old_values, team_index, oppo_index) -> dict:
     """Get IN event values"""
     new_values = {}
+    teamPP = None
+    oppoPP = None
 
     new_values["team_shots_on_target"] = 0
     new_values["team_total_shots"] = 0
@@ -722,6 +733,9 @@ async def async_get_in_soccer_event_attributes(event, old_values, team_index, op
             new_values["team_shots_on_target"] = statistic["displayValue"]
         if "totalShots" in statistic["name"]:
             new_values["team_total_shots"] = statistic["displayValue"]
+        if "possessionPct" in statistic["name"]:
+            teamPP = statistic["displayValue"]
+
     new_values["opponent_shots_on_target"] = 0
     new_values["opponent_total_shots"] = 0
     for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
@@ -729,8 +743,12 @@ async def async_get_in_soccer_event_attributes(event, old_values, team_index, op
             new_values["opponent_shots_on_target"] = statistic["displayValue"]
         if "totalShots" in statistic["name"]:
             new_values["opponent_total_shots"] = statistic["displayValue"]
-                        
+        if "possessionPct" in statistic["name"]:
+            oppoPP = statistic["displayValue"]
+
     new_values["last_play"] = ''
+    if teamPP and oppoPP:
+        new_values["last_play"] = old_values["team_abbr"] + " " + str(teamPP) + "%, " + old_values["opponent_abbr"] + " " + str(oppoPP) + "%; "
     for detail in event["competitions"][0]["details"]:
         try:
             mls_team_id = detail["team"]["id"]
