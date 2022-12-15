@@ -23,6 +23,18 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .event import (
     async_process_event,
 )
+from .set_baseball import (
+    async_get_in_baseball_event_attributes,
+)
+from .set_hockey import (
+    async_get_in_hockey_event_attributes,
+)
+from .set_soccer import (
+    async_get_in_soccer_event_attributes,
+)
+from .set_volleyball import (
+    async_get_in_volleyball_event_attributes,
+)
 
 from .const import (
     CONF_CONFERENCE_ID,
@@ -678,147 +690,4 @@ async def async_get_in_event_attributes(event, old_values, team_index, oppo_inde
     except:
         new_values["possession"] = None
     return new_values
-
-
-async def async_get_in_baseball_event_attributes(event, old_values) -> dict:
-    """Get IN event values"""
-    new_values = {}
-
-
-    new_values["clock"] = event["status"]["type"]["detail"] # Inning
-    if new_values["clock"][:3].lower() in ['bot','mid']:
-        if old_values["team_homeaway"] in ["home"]: # Home outs, at bat in bottom of inning
-            new_values["possession"] = old_values["team_id"]
-        else: # Away outs, at bat in bottom of inning
-            new_values["possession"] = old_values["opponent_id"]
-    else:
-        if old_values["team_homeaway"] in ["away"]: # Away outs, at bat in top of inning
-            new_values["possession"] = old_values["team_id"]
-        else:  # Home outs, at bat in top of inning
-            new_values["possession"] = old_values["opponent_id"]
-    try:
-        new_values["outs"] = event["competitions"][0]["situation"]["outs"]
-    except:
-        new_values["outs"] = None
-    try: # Balls
-        new_values["balls"] = event["competitions"][0]["situation"]["balls"]
-    except:
-        new_values["balls"] = None
-    try: # Strikes
-        new_values["strikes"] = event["competitions"][0]["situation"]["strikes"]
-    except:
-        new_values["strikes"] = None
-    try: # Baserunners
-        new_values["on_first"] = event["competitions"][0]["situation"]["onFirst"]
-        new_values["on_second"] = event["competitions"][0]["situation"]["onSecond"]
-        new_values["on_third"] = event["competitions"][0]["situation"]["onThird"]
-    except:
-        new_values["on_first"] = None
-        new_values["on_second"] = None
-        new_values["on_third"] = None
-
-    return new_values
-
-
-async def async_get_in_soccer_event_attributes(event, old_values, team_index, oppo_index) -> dict:
-    """Get IN event values"""
-    new_values = {}
-    teamPP = None
-    oppoPP = None
-
-    new_values["team_shots_on_target"] = 0
-    new_values["team_total_shots"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
-        if "shotsOnTarget" in statistic["name"]:
-            new_values["team_shots_on_target"] = statistic["displayValue"]
-        if "totalShots" in statistic["name"]:
-            new_values["team_total_shots"] = statistic["displayValue"]
-        if "possessionPct" in statistic["name"]:
-            teamPP = statistic["displayValue"]
-
-    new_values["opponent_shots_on_target"] = 0
-    new_values["opponent_total_shots"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
-        if "shotsOnTarget" in statistic["name"]:
-            new_values["opponent_shots_on_target"] = statistic["displayValue"]
-        if "totalShots" in statistic["name"]:
-            new_values["opponent_total_shots"] = statistic["displayValue"]
-        if "possessionPct" in statistic["name"]:
-            oppoPP = statistic["displayValue"]
-
-    new_values["last_play"] = ''
-    if teamPP and oppoPP:
-        new_values["last_play"] = old_values["team_abbr"] + " " + str(teamPP) + "%, " + old_values["opponent_abbr"] + " " + str(oppoPP) + "%; "
-    for detail in event["competitions"][0]["details"]:
-        try:
-            mls_team_id = detail["team"]["id"]
-                            
-            new_values["last_play"] = new_values["last_play"] + "     " + detail["clock"]["displayValue"]
-            new_values["last_play"] = new_values["last_play"] + "  " + detail["type"]["text"]
-            new_values["last_play"] = new_values["last_play"] + ": " + detail["athletesInvolved"][0]["displayName"]
-            if mls_team_id == old_values["team_id"]:
-                new_values["last_play"] = new_values["last_play"] + " (" + old_values["team_abbr"] + ")"
-            else:
-                new_values["last_play"] = new_values["last_play"] + " (" + old_values["opponent_abbr"] + ")          "
-        except:
-            new_values["last_play"] = new_values["last_play"] + " (Last play not found) "
-    return new_values
-
-
-async def async_get_in_volleyball_event_attributes(event, old_values, team_index, oppo_index) -> dict:
-    """Get IN event values"""
-    new_values = {}
-
-
-    new_values["clock"] = event["status"]["type"]["detail"] # Set
-    new_values["team_sets_won"] = old_values["team_score"]
-    new_values["opponent_sets_won"] = old_values["opponent_score"]
-    try:
-        new_values["team_score"] = event["competitions"] [0] ["competitors"] [team_index] ["linescores"] [-1] ["value"]
-    except:
-        new_values["team_score"] = 0
-    try:
-        new_values["opponent_score"] = event["competitions"] [0] ["competitors"] [oppo_index] ["linescores"] [-1] ["value"]
-    except:
-        new_values["opponent_score"] = 0
-                            
-    new_values["last_play"] = ''
-    try:
-        sets = len(event["competitions"] [0] ["competitors"] [team_index] ["linescores"])
-    except:
-        sets = 0
-    for x in range (0, sets):
-        new_values["last_play"] = new_values["last_play"] + " Set " + str(x + 1) + ": "
-        new_values["last_play"] = new_values["last_play"] + old_values["team_abbr"] + " "
-        try:
-            new_values["last_play"] = new_values["last_play"] + str(int(event["competitions"] [0] ["competitors"] [team_index] ["linescores"] [x] ["value"])) + " "
-        except:
-            new_values["last_play"] = new_values["last_play"] + "?? "
-        new_values["last_play"] = new_values["last_play"] + old_values["opponent_abbr"] + " "
-        try:
-            new_values["last_play"] = new_values["last_play"] + str(int(event["competitions"] [0] ["competitors"] [oppo_index] ["linescores"] [x] ["value"])) + "; "
-        except:
-            new_values["last_play"] = new_values["last_play"] + "??; "
-
-    return new_values
-
-
-async def async_get_in_hockey_event_attributes(event, old_values, team_index, oppo_index) -> dict:
-    """Get IN event values"""
-    new_values = {}
-
-    new_values["clock"] = event["status"]["type"]["shortDetail"] # Period clock
-
-    new_values["team_shots_on_target"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
-        if "saves" in statistic["name"]:
-            shots = int(old_values["team_score"]) + int(statistic["displayValue"])
-            new_values["team_shots_on_target"] = str(shots)
-
-    new_values["opponent_shots_on_target"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
-        if "saves" in statistic["name"]:
-            shots = int(old_values["opponent_score"]) + int(statistic["displayValue"])
-            new_values["opponent_shots_on_target"] = str(shots)
-            
-    return new_values
+    
