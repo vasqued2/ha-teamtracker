@@ -4,62 +4,75 @@ from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 
-async def async_set_mma_values(old_values, event, competition, competitor, lang, index, comp_index, sensor_name) -> dict:
-        new_values = {}
+async def async_set_mma_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
+#        new_values = {}
 
-#        _LOGGER.debug("%s: async_set_mma_values() 100: %s", sensor_name, type(competition))
+    _LOGGER.debug("%s: async_set_mma_values() 1: %s", sensor_name, sensor_name)
 
-        if index == 0:
-            oppo_index = 1
-        else:
-            oppo_index = 0
+    if team_index == 0:
+        oppo_index = 1
+    else:
+        oppo_index = 0
+    competition = await async_get_value(event, "competitions", competition_index)
+    competitor = await async_get_value(competition, "competitors", team_index)
+    opponent = await async_get_value(competition, "competitors", oppo_index)
 
-        new_values["state"] = await async_get_value(competition, "status", "type", "state")
-#        _LOGGER.debug("%s: async_set_mma_values() 0.1: %s", sensor_name, new_values)
+    if competition == None or competitor == None or opponent == None:
+        _LOGGER.debug("%s: async_set_mma_values() 0: %s", sensor_name, sensor_name)
+        return(False)
 
-        if new_values["state"] == None:
-            new_values["state"] = await async_get_value(event, "status", "type", "state")
-        new_values["state"] = new_values["state"].upper()
+    _LOGGER.debug("%s: async_set_mma_values() 2: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
-        t = 0
-        o = 0
-        for ls in range(0, len(await async_get_value(competitor, "linescores", -1, "linescores", default=[]))):
-            if (await async_get_value(competitor, "linescores", -1, "linescores", ls, "value", default=0) > await async_get_value(competition, "competitors", oppo_index, "linescores", -1, "linescores", ls, "value", default=0)):
-                t = t + 1
-            if (await async_get_value(competitor, "linescores", -1, "linescores", ls, "value", default=0) < await async_get_value(competition, "competitors", oppo_index, "linescores", -1, "linescores", ls, "value", default=0)):
-                o = o + 1
+    t = 0
+    o = 0
+    for ls in range(0, len(await async_get_value(competitor, "linescores", -1, "linescores", default=[]))):
+        _LOGGER.debug("%s: async_set_mma_values() 2.1: %s", sensor_name, ls)
+
+        if (await async_get_value(competitor, "linescores", -1, "linescores", ls, "value", default=0) > await async_get_value(opponent, "linescores", -1, "linescores", ls, "value", default=0)):
+            t = t + 1
+        if (await async_get_value(competitor, "linescores", -1, "linescores", ls, "value", default=0) < await async_get_value(opponent, "linescores", -1, "linescores", ls, "value", default=0)):
+            o = o + 1
             
-            new_values["team_score"] = t
-            new_values["opponent_score"] = o
-        if t == o:
-            if await async_get_value(competitor, "winner", default=False) == True:
-                new_values["team_score"] = "W"
-                new_values["opponent_score"] = "L"
-            if await async_get_value(competition, "competitors", oppo_index, "winner", default=False) == True:
-                new_values["team_score"] = "L"
-                new_values["opponent_score"] = "W"
+        new_values["team_score"] = t
+        new_values["opponent_score"] = o
+    if t == o:
+        _LOGGER.debug("%s: async_set_mma_values() 3: %s", sensor_name, sensor_name)
+        if await async_get_value(competitor, "winner", default=False) == True:
+            new_values["team_score"] = "W"
+            new_values["opponent_score"] = "L"
+        if await async_get_value(opponent, "winner", default=False) == True:
+            new_values["team_score"] = "L"
+            new_values["opponent_score"] = "W"
 
-#        new_values["last_play"] = await async_get_prior_fights(event)
+    _LOGGER.debug("%s: async_set_mma_values() 4: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
+    new_values["last_play"] = await async_get_prior_fights(event, sensor_name)
 
-        return(new_values)
+    _LOGGER.debug("%s: async_set_mma_values() 5: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
+
+    return True
 
 
-async def async_get_prior_fights(event) -> str:
+async def async_get_prior_fights(event, sensor_name) -> str:
     prior_fights = ""
 
+    _LOGGER.debug("%s: async_get_prior_fights() 1: %s", sensor_name, sensor_name)
     c = 1
     for competition in await async_get_value(event, "competitions", default=[]):
-        if await async_get_value(competition, "status", "type", "state", default="NOT_FOUND").upper() == "POST":
+        _LOGGER.debug("%s: async_get_prior_fights() 2: %s", sensor_name, sensor_name)
+
+        if str(await async_get_value(competition, "status", "type", "state", default="NOT_FOUND")).upper() == "POST":
+            _LOGGER.debug("%s: async_get_prior_fights() 2.1: %s", sensor_name, sensor_name)
+
             prior_fights = prior_fights + str(c) + ". "
             if await async_get_value(competition, "competitors", 0, "winner", default=False):
-                prior_fights = prior_fights + "*" + await async_get_value(competition, "competitors", 0, "athlete", "shortName", default="Unknown").upper()
+                prior_fights = prior_fights + "*" + str(await async_get_value(competition, "competitors", 0, "athlete", "shortName", default="{shortName}")).upper()
             else:
-                prior_fights = prior_fights + await async_get_value(competition, "competitors", 0, "athlete", "shortName", default="Unknown")
+                prior_fights = prior_fights + str(await async_get_value(competition, "competitors", 0, "athlete", "shortName", default="{shortName}"))
             prior_fights = prior_fights + " v. "
             if await async_get_value(competition, "competitors", 1, "winner", default=False):
-                prior_fights = prior_fights + await async_get_value(competition, "competitors", 1, "athlete", "shortName", default="Unknown").upper() + "*"
+                prior_fights = prior_fights + str(await async_get_value(competition, "competitors", 1, "athlete", "shortName", default="{shortName}")).upper() + "*"
             else:
-                prior_fights = prior_fights + await async_get_value(competition, "competitors", 1, "athlete", "shortName", default="Unknown")
+                prior_fights = prior_fights + str(await async_get_value(competition, "competitors", 1, "athlete", "shortName", default="{shortName}"))
             f1 = 0
             f2 = 0
             t = 0
@@ -71,13 +84,16 @@ async def async_get_prior_fights(event) -> str:
                 else:
                     t = t + 1
 
+            _LOGGER.debug("%s: async_get_prior_fights() 2.2: %s", sensor_name, sensor_name)
+
             prior_fights = prior_fights + " (Dec: " + str(f1) + "-" + str(f2)
             if t != 0:
                 prior_fights = prior_fights + "-" + str(t)
             prior_fights = prior_fights + ") "
             if (f1 == 0 and f2 ==0 and t == 0):
-                prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(await get_value(competition, "status", "period", default="?")) + "@" + str(await async_get_value(competition, "status", "displayClock", default="0:00")) + ") "
-                    
+                prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(await get_value(competition, "status", "period", default="{period}")) + "@" + str(await async_get_value(competition, "status", "displayClock", default="{displayClock}")) + ") "
             prior_fights = prior_fights + "; "
             c = c + 1
+            _LOGGER.debug("%s: async_get_prior_fights() 2.3: %s", sensor_name, prior_fights)
+
     return prior_fights

@@ -77,7 +77,7 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                                     prev_values = values.copy()
                                     if sport in ["golf", "mma", "racing", "tennis"]:
                                         try:
-                                            values.update(await async_set_values(values, event, competition_index, team_index, lang, sensor_name))
+                                            rc = await async_set_values(values, event, competition_index, team_index, lang, sensor_name)
                                         except:
                                             _LOGGER.warn("%s: exception w/ function call", sensor_name)
 
@@ -127,4 +127,3 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
         _LOGGER.debug("%s: Competitor information '%s' not returned by API: %s", sensor_name, team_id, url)
 
     return values
-

@@ -350,13 +350,11 @@ async def async_get_state(config, hass) -> dict:
 
                 oppo_index = abs((team_index-1))
 
-                rc = await async_set_universal_values(values, event, 0, team_index, lang)
-
-                if values["state"] in ['PRE']: # odds only exist pre-game
-                    rc = await async_get_pre_event_attributes(values, event)
+                rc = await async_set_universal_values(values, event, 0, team_index, lang, sensor_name)
+                _LOGGER.debug("%s: post async_set_universal_values() %s", sensor_name, values)
 
                 if values["state"] not in ['PRE', 'POST']: # could use status.completed == true as well
-                    values.update(await async_get_in_event_attributes(event, values, team_index, oppo_index))
+                    values.update(await async_get_in_event_attributes(event, values, team_index, oppo_index, sensor_name))
                     if sport_path in ["baseball"]:
                         values.update(await async_get_in_baseball_event_attributes(event, values))
                     elif sport_path in ["soccer"]:
