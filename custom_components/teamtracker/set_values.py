@@ -160,10 +160,6 @@ async def async_set_universal_values(new_values, event, competition_index, team_
     if new_values["state"] == 'PRE':
         rc = await async_get_pre_event_attributes(new_values, event)
 
-
-    if (new_values["sport"] == "tennis" or competitor["type"] == "athlete"):
-        _LOGGER.debug("%s: async_set_universal_values() 6.1: %s", sensor_name, sensor_name)
-        return True
 #
 #  Additional values only needed for team sports
 #
@@ -175,17 +171,24 @@ async def async_set_universal_values(new_values, event, competition_index, team_
     _LOGGER.debug("%s: async_set_universal_values() 7: %s", sensor_name, new_values)
 
 #
-#  PRE and IN specific values
+#  IN specific values
 #
-#    new_values["odds"] = await async_get_value(competition, "odds", 0, "details")
-#    new_values["overunder"] = await async_get_value(competition, "odds", 0, "overUnder")
 #    new_values["quarter"] = await async_get_value(competition, "status", "period")
 #    new_values["clock"] = await async_get_value(competition, "status", "type", "shortDetail",
 #        default=await async_get_value(event, "status", "type", "shortDetail"))
 
-
-    new_values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
     new_values["private_fast_refresh"] = False
+    if new_values["state"] == "IN":
+        _LOGGER.debug("%s: Event in progress, setting refresh rate to 5 seconds.", sensor_name)
+        new_values["private_fast_refresh"] = True
+    if new_values["state"] == 'PRE' and (abs((arrow.get(new_values["date"])-arrow.now()).total_seconds()) < 1200):
+        _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
+        new_values["private_fast_refresh"] = True
+
+#
+#  Is last update also set somewhere else?
+#
+    new_values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
     _LOGGER.debug("%s: async_set_universal_values() 8: %s", sensor_name, new_values)
 
     return True
@@ -235,7 +238,9 @@ async def async_set_team_values(new_values, event, competition_index, team_index
 
     return True
 
-
+#
+#  PRE
+#
 
 
 async def async_get_pre_event_attributes(new_values, event) -> bool:
@@ -251,70 +256,60 @@ async def async_get_pre_event_attributes(new_values, event) -> bool:
 #  IN
 #
 
-async def async_get_in_event_attributes(event, old_values, team_index, oppo_index, sensor_name) -> dict:
+async def async_get_in_event_attributes(new_values, event, competition_index, team_index, sensor_name) -> dict:
     """Get IN event values"""
     global team_prob
     global oppo_prob
-    new_values = {}
+#    new_values = {}
 
-    _LOGGER.debug("%s: async_set_in_values() 1: %s", sensor_name, old_values)
+    _LOGGER.debug("%s: async_set_in_values() 1: %s", sensor_name, sensor_name)
 
-    prob_key = old_values["league"] + '-' + old_values["team_abbr"] + old_values["opponent_abbr"]
-    if event["competitions"][0]["competitors"][team_index]["homeAway"] == "home":
-        try:
-            new_values["team_timeouts"] = event["competitions"][0]["situation"]["homeTimeouts"]
-            new_values["opponent_timeouts"] = event["competitions"][0]["situation"]["awayTimeouts"]
-        except:
-            new_values["team_timeouts"] = None
-            new_values["opponent_timeouts"] = None
-        try:
-            new_values["team_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["homeWinPercentage"]
-            new_values["opponent_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["awayWinPercentage"]
-        except:
-            new_values["team_win_probability"] = team_prob.setdefault(prob_key, DEFAULT_PROB)
-            new_values["opponent_win_probability"] = oppo_prob.setdefault(prob_key, DEFAULT_PROB)
+    if team_index == 0:
+        oppo_index = 1
     else:
-        try:
-            new_values["team_timeouts"] = event["competitions"][0]["situation"]["awayTimeouts"]
-            new_values["opponent_timeouts"] = event["competitions"][0]["situation"]["homeTimeouts"]
-        except:
-            new_values["team_timeouts"] = None
-            new_values["opponent_timeouts"] = None
-        try:
-            new_values["team_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["awayWinPercentage"]
-            new_values["opponent_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["homeWinPercentage"]
-        except:
-            new_values["team_win_probability"] = team_prob.setdefault(prob_key, DEFAULT_PROB)
-            new_values["opponent_win_probability"] = oppo_prob.setdefault(prob_key, DEFAULT_PROB)
+        oppo_index = 0
+    competition = await async_get_value(event, "competitions", competition_index)
+    competitor = await async_get_value(competition, "competitors", team_index)
+    opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    _LOGGER.debug("%s: async_set_in_values() 2: %s", sensor_name, old_values)
+    if competition == None or competitor == None or opponent == None:
+        _LOGGER.debug("%s: async_set_in_values() 2: %s", sensor_name, sensor_name)
+        return False
+
+    _LOGGER.debug("%s: async_set_in_values() 3: %s", sensor_name, new_values)
+    prob_key = new_values["league"] + '-' + new_values["team_abbr"] + new_values["opponent_abbr"]
+    alt_lp = ", naq Zvpuvtna fgvyy fhpxf"
+    if str(await async_get_value(competitor, "homeAway")) == "home":
+        new_values["team_timeouts"] = await async_get_value(competition, "situation", "homeTimeouts")
+        new_values["opponent_timeouts"] = await async_get_value(competition, "awayTimeouts")
+        new_values["team_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "homeWinPercentage",
+            default=team_prob.setdefault(prob_key, DEFAULT_PROB))
+        new_values["opponent_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "awayWinPercentage",
+            default=oppo_prob.setdefault(prob_key, DEFAULT_PROB))
+    else:
+        new_values["team_timeouts"] = await async_get_value(competition, "situation", "awayTimeouts")
+        new_values["opponent_timeouts"] = await async_get_value(competition, "homeTimeouts")
+        new_values["team_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "awayWinPercentage",
+            default=team_prob.setdefault(prob_key, DEFAULT_PROB))
+        new_values["opponent_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "homeWinPercentage",
+            default=oppo_prob.setdefault(prob_key, DEFAULT_PROB))
+
+    _LOGGER.debug("%s: async_set_in_values() 4: %s", sensor_name, sensor_name)
 
     team_prob.update({prob_key: new_values["team_win_probability"]})
     oppo_prob.update({prob_key: new_values["opponent_win_probability"]})
-    try:
-        alt_lp = ", naq Zvpuvtna fgvyy fhpxf"
-        new_values["last_play"] = event["competitions"][0]["situation"]["lastPlay"]["text"]
-    except:
-        alt_lp = ""
-        new_values["last_play"] = None
+    new_values["last_play"] = await async_get_value(competition, "situation", "lastPlay", "text")
 
-    _LOGGER.debug("%s: async_set_in_values() 3: %s", sensor_name, old_values)
+    _LOGGER.debug("%s: async_set_in_values() 5: %s", sensor_name, sensor_name)
 
     if ((str(str(new_values["last_play"]).upper()).startswith("END ")) and (str(codecs.decode(prob_key, "rot13")).endswith("ZVPUBFH")) and (oppo_prob.get(prob_key) > .6)):
                 new_values["last_play"] = new_values["last_play"] + codecs.decode(alt_lp, "rot13")
 
-    new_values["quarter"] = event["status"]["period"]
-    new_values["clock"] = event["status"]["type"]["shortDetail"]
-    try:
-        new_values["down_distance_text"] = event["competitions"][0]["situation"]["downDistanceText"]
-    except:
-        new_values["down_distance_text"] = None
-    try:
-        new_values["possession"] = event["competitions"][0]["situation"]["possession"]
-    except:
-        new_values["possession"] = None
+    new_values["quarter"] = await async_get_value(event, "status", "period")
+    new_values["clock"] = await async_get_value(event, "status", "type", "shortDetail")
+    new_values["down_distance_text"] = await async_get_value(competition, "situation", "downDistanceText")
+    new_values["possession"] = await async_get_value(competition, "situation", "possession")
 
-    _LOGGER.debug("%s: async_set_in_values() 4: %s", sensor_name, old_values)
+    _LOGGER.debug("%s: async_set_in_values() 6: %s", sensor_name, sensor_name)
 
-    return new_values
-    
+    return True

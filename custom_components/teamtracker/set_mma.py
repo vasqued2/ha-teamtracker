@@ -77,14 +77,15 @@ async def async_get_prior_fights(event, sensor_name) -> str:
             f2 = 0
             t = 0
             for ls in range(0, len(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", default=[]))):
-                if await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", ls, "value", default=0) > await async_get_value(competition, "competitors", 1, "linescores", 0, "linescores", ls, "value", default=0):
+                _LOGGER.debug("%s: async_get_prior_fights() 2.2: %s %s %s %s %s", sensor_name, ls, f1, f2, t)
+                if int(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", ls, "value", default=0)) > int(await async_get_value(competition, "competitors", 1, "linescores", 0, "linescores", ls, "value", default=0)):
                     f1= f1 + 1
-                elif (await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", ls, "value", default=0) < await async_get_value(competition, "competitors", 1, "linescores", 0, "linescores", ls, "value", default=0)):
+                elif int(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", ls, "value", default=0)) < int (await async_get_value(competition, "competitors", 1, "linescores", 0, "linescores", ls, "value", default=0)):
                     f2 = f2 + 1
                 else:
                     t = t + 1
 
-            _LOGGER.debug("%s: async_get_prior_fights() 2.2: %s", sensor_name, sensor_name)
+            _LOGGER.debug("%s: async_get_prior_fights() 3: %s", sensor_name, prior_fights)
 
             prior_fights = prior_fights + " (Dec: " + str(f1) + "-" + str(f2)
             if t != 0:
@@ -94,6 +95,6 @@ async def async_get_prior_fights(event, sensor_name) -> str:
                 prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(await get_value(competition, "status", "period", default="{period}")) + "@" + str(await async_get_value(competition, "status", "displayClock", default="{displayClock}")) + ") "
             prior_fights = prior_fights + "; "
             c = c + 1
-            _LOGGER.debug("%s: async_get_prior_fights() 2.3: %s", sensor_name, prior_fights)
+            _LOGGER.debug("%s: async_get_prior_fights() 4: %s", sensor_name, prior_fights)
 
     return prior_fights

@@ -354,7 +354,7 @@ async def async_get_state(config, hass) -> dict:
                 _LOGGER.debug("%s: post async_set_universal_values() %s", sensor_name, values)
 
                 if values["state"] not in ['PRE', 'POST']: # could use status.completed == true as well
-                    values.update(await async_get_in_event_attributes(event, values, team_index, oppo_index, sensor_name))
+                    rc = await async_get_in_event_attributes(values, event, 0, team_index, sensor_name)
                     if sport_path in ["baseball"]:
                         values.update(await async_get_in_baseball_event_attributes(event, values))
                     elif sport_path in ["soccer"]:
