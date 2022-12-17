@@ -1,3 +1,10 @@
+import logging
+
+from .utils import async_get_value
+
+_LOGGER = logging.getLogger(__name__)
+
+
 async def async_get_in_soccer_event_attributes(event, old_values, team_index, oppo_index) -> dict:
     """Get IN event values"""
     new_values = {}
@@ -6,34 +13,34 @@ async def async_get_in_soccer_event_attributes(event, old_values, team_index, op
 
     new_values["team_shots_on_target"] = 0
     new_values["team_total_shots"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [team_index] ["statistics"]:
-        if "shotsOnTarget" in statistic["name"]:
-            new_values["team_shots_on_target"] = statistic["displayValue"]
-        if "totalShots" in statistic["name"]:
-            new_values["team_total_shots"] = statistic["displayValue"]
-        if "possessionPct" in statistic["name"]:
-            teamPP = statistic["displayValue"]
+    for statistic in await async_get_value(event, "competitions", 0, "competitors", team_index, "statistics", default=[]):
+        if "shotsOnTarget" in await async_get_value(statistic, "name", default=[]):
+            new_values["team_shots_on_target"] = await async_get_value(statistic, "displayValue")
+        if "totalShots" in await async_get_value(statistic, "name", default=[]):
+            new_values["team_total_shots"] = await async_get_value(statistic, "displayValue")
+        if "possessionPct" in await async_get_value(statistic, "name", default=[]):
+            teamPP = await async_get_value(statistic, "displayValue")
 
     new_values["opponent_shots_on_target"] = 0
     new_values["opponent_total_shots"] = 0
-    for statistic in event["competitions"] [0] ["competitors"] [oppo_index] ["statistics"]:
-        if "shotsOnTarget" in statistic["name"]:
-            new_values["opponent_shots_on_target"] = statistic["displayValue"]
-        if "totalShots" in statistic["name"]:
-            new_values["opponent_total_shots"] = statistic["displayValue"]
-        if "possessionPct" in statistic["name"]:
-            oppoPP = statistic["displayValue"]
+    for statistic in await async_get_value(event, "competitions", 0, "competitors", oppo_index, "statistics", default=[]):
+        if "shotsOnTarget" in await async_get_value(statistic, "name", default=[]):
+            new_values["opponent_shots_on_target"] = await async_get_value(statistic, "displayValue")
+        if "totalShots" in await async_get_value(statistic, "name", default=[]):
+            new_values["opponent_total_shots"] = await async_get_value(statistic, "displayValue")
+        if "possessionPct" in await async_get_value(statistic, "name", default=[]):
+            oppoPP = await async_get_value(statistic, "displayValue")
 
     new_values["last_play"] = ''
     if teamPP and oppoPP:
         new_values["last_play"] = old_values["team_abbr"] + " " + str(teamPP) + "%, " + old_values["opponent_abbr"] + " " + str(oppoPP) + "%; "
-    for detail in event["competitions"][0]["details"]:
+    for detail in await async_get_value(event, "competitions", 0, "details", default=[]):
         try:
-            mls_team_id = detail["team"]["id"]
+            mls_team_id = await async_get_value(detail, "team", "id", default=0)
                             
-            new_values["last_play"] = new_values["last_play"] + "     " + detail["clock"]["displayValue"]
-            new_values["last_play"] = new_values["last_play"] + "  " + detail["type"]["text"]
-            new_values["last_play"] = new_values["last_play"] + ": " + detail["athletesInvolved"][0]["displayName"]
+            new_values["last_play"] = new_values["last_play"] + "     " + await async_get_value(detail, "clock", "displayValue", default="0:00")
+            new_values["last_play"] = new_values["last_play"] + "  " + await async_get_value(detail, "type", "text", default="")
+            new_values["last_play"] = new_values["last_play"] + ": " + await async_get_value(detail, "athletesInvolved", 0, "displayName", default="")
             if mls_team_id == old_values["team_id"]:
                 new_values["last_play"] = new_values["last_play"] + " (" + old_values["team_abbr"] + ")"
             else:

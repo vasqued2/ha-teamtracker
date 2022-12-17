@@ -1,44 +1,38 @@
 import arrow
 import logging
-from datetime import date, datetime, timedelta
+import codecs
+
+from .utils import async_get_value
+from .set_golf import async_set_golf_values
+from .set_mma import async_set_mma_values
+from .set_racing import async_set_racing_values
+from .set_tennis import async_set_tennis_values
 
 from .const import (
-    CONF_CONFERENCE_ID,
-    CONF_LEAGUE_ID,
-    CONF_LEAGUE_PATH,
-    CONF_SPORT_PATH,
-    CONF_TIMEOUT,
-    CONF_TEAM_ID,
-    COORDINATOR,
-    DEFAULT_CONFERENCE_ID,
-    DEFAULT_TIMEOUT,
-    DEFAULT_LEAGUE,
     DEFAULT_LOGO,
-    DEFAULT_LEAGUE_PATH,
     DEFAULT_PROB,
-    DEFAULT_SPORT_PATH,
-    DOMAIN,
-    ISSUE_URL,
-    LEAGUE_LIST,
-    PLATFORMS,
-    URL_HEAD,
-    URL_TAIL,
-    USER_AGENT,
-    VERSION,
 )
 
-
 _LOGGER = logging.getLogger(__name__)
+team_prob = {}
+oppo_prob = {}
 
-async def async_set_values(old_values, event, competition, competitor, lang, index, comp_index, sensor_name) -> dict:
+async def async_set_values(old_values, event, competition_index, team_index, lang, sensor_name) -> dict:
     new_values = {}
 
 #    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
 
-    if index == 0:
+    if team_index == 0:
         oppo_index = 1
     else:
         oppo_index = 0
+    competition = await async_get_value(event, "competitions", competition_index)
+    competitor = await async_get_value(competition, "competitors", team_index)
+    opponent = await async_get_value(competition, "competitors", oppo_index)
+
+    if competition == None or competitor == None or opponent == None:
+        return(new_values)
+
 
     new_values["key"] = "value"
 
@@ -47,20 +41,19 @@ async def async_set_values(old_values, event, competition, competitor, lang, ind
     new_values["team_abbr"] = old_values["team_abbr"]
     new_values["opponent_abbr"] = None
 
-    try:
-        new_values["state"] = competition["status"]["type"]["state"].upper()
-    except:
-        new_values["state"] = event["status"]["type"]["state"].upper()
+#    _LOGGER.debug("%s: async_set_values() 1.1: %s", sensor_name, sensor_name)
 
-    try:
-        new_values["event_name"] = event["shortName"]
-    except:
-        new_values["event_name"] = None
+#    _LOGGER.debug("%s: async_set_values() 1.1.1: %s", sensor_name, sensor_name)
+    new_values["state"] = str(await async_get_value(competition, "status", "type", "state",
+        default=await async_get_value(event, "status", "type", "state"))).upper()
+#    _LOGGER.debug("%s: async_set_values() 1.1.2: %s", sensor_name, sensor_name)
+    new_values["event_name"] = await async_get_value(event, "shortName")
+#    _LOGGER.debug("%s: async_set_values() 1.1.3: %s", sensor_name, sensor_name)
+    new_values["date"] = await async_get_value(competition, "date",
+        default=(await async_get_value(event, "date")))
 
-    try:
-        new_values["date"] = competition["date"]
-    except:
-        new_values["date"] = event["date"]
+#    _LOGGER.debug("%s: async_set_values() 1.2: %s", sensor_name, sensor_name)
+
     try:
         new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize(locale=lang)
     except:
@@ -69,95 +62,48 @@ async def async_set_values(old_values, event, competition, competitor, lang, ind
         except:
             new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize()
 
-    try:
-        new_values["venue"] = competition["venue"]["fullName"]
-    except:
-        new_values["venue"] = None
+    new_values["venue"] = await async_get_value(competition, "venue", "fullName")
+
+#    _LOGGER.debug("%s: async_set_values() 1.3: %s", sensor_name, sensor_name)
 
     try:
         new_values["location"] = "%s, %s" % (competition["venue"]["address"]["city"], competition["venue"]["address"]["state"])
     except:
-        try:
-            new_values["location"] = competition["venue"]["address"]["city"]
-        except:
-            try:
-                new_values["location"] = competition["venue"]["address"]["summary"]
-            except:
-                new_values["location"] = None
+        new_values["location"] = await async_get_value(competition, "venue", "address", "city",
+            default=await async_get_value(competition, "venue", "address", "summary"))
 
-    try:
-        new_values["tv_network"] = competition["broadcasts"][0]["names"][0]
-    except:
-        new_values["tv_network"] = None
+#    _LOGGER.debug("%s: async_set_values() 1.4: %s", sensor_name, sensor_name)
 
-    try:
-        new_values["odds"] = competition["odds"][0]["details"]
-    except:
-        new_values["odds"] = None
-
-    try:
-        new_values["overunder"] = competition["odds"][0]["overUnder"]
-    except:
-        new_values["overunder"] = None
-
-    try:
-        new_values["quarter"] = competition["status"]["period"]
-    except:
-        new_values["quarter"] = None
-
-    try:
-        new_values["clock"] = competition["status"]["type"]["shortDetail"]
-    except:
-        try:
-            new_values["clock"] = event["status"]["type"]["shortDetail"]
-        except:
-            new_values["clock"] = None
+    new_values["tv_network"] = await async_get_value(competition, "broadcasts", 0, "names", 0)
+    new_values["odds"] = await async_get_value(competition, "odds", 0, "details")
+    new_values["overunder"] = await async_get_value(competition, "odds", 0, "overUnder")
+    new_values["quarter"] = await async_get_value(competition, "status", "period")
+    new_values["clock"] = await async_get_value(competition, "status", "type", "shortDetail",
+        default=await async_get_value(event, "status", "type", "shortDetail"))
 
 #    _LOGGER.debug("%s: async_set_values() 2: %s", sensor_name, sensor_name)
 
 #    new_values["team_abbr"] = competitor["team"]["abbreviation"]
-    new_values["team_id"] = competitor["id"]
-    new_values["opponent_id"] = competition["competitors"][oppo_index]["id"]
+    new_values["team_id"] = await async_get_value(competitor, "id")
+    new_values["opponent_id"] = await async_get_value(competition, "competitors", oppo_index, "id")
 
-    new_values["team_name"] = competitor["athlete"]["displayName"]
-    new_values["opponent_name"] = competition["competitors"][oppo_index]["athlete"]["displayName"]
-    
-    try:
-        new_values["team_record"] = competitor["records"][0]["summary"]
-    except:
-        new_values["team_record"] = None
-    try:
-        new_values["opponent_record"] = competition["competitors"][oppo_index]["records"][0]["summary"]
-    except:
-        new_values["opponent_record"] = None
+    new_values["team_name"] = await async_get_value(competitor, "athlete", "displayName")
+    new_values["opponent_name"] = await async_get_value(competition, "competitors", oppo_index, "athlete", "displayName")
+    new_values["team_record"] = await async_get_value(competitor, "records", 0, "summary")
+    new_values["opponent_record"] = await async_get_value(competition, "competitors", oppo_index, "records", 0, "summary")
+    new_values["team_logo"] = await async_get_value(competitor, "athlete", "flag", "href",
+        default=DEFAULT_LOGO)
+    new_values["opponent_logo"] = await async_get_value(competition, "competitors", oppo_index, "athlete", "flag", "href",
+        default=DEFAULT_LOGO)
+    new_values["team_score"] = await async_get_value(competitor, "score")
+    new_values["opponent_score"] = await async_get_value(competition, "competitors", oppo_index, "score")
 
-    try:
-        new_values["team_logo"] = competitor["athlete"]["flag"]["href"]
-    except:
-        new_values["team_logo"] = DEFAULT_LOGO
-    try:
-        new_values["opponent_logo"] = competition["competitors"][oppo_index]["athlete"]["flag"]["href"]
-    except:
-        new_values["opponent_logo"] = DEFAULT_LOGO
-
-    try:
-        new_values["team_score"] = competitor["score"]
-    except:
-        new_values["team_score"] = None
-    try:
-        new_values["opponent_score"] = competition["competitors"][oppo_index]["score"]
-    except:
-        new_values["opponent_score"] = None
-
-    try:
-        if (competitor["curatedRank"]["current"] != 99):
-            new_values["team_rank"] = competitor["curatedRank"]["current"] 
-    except:
+    new_values["team_rank"] = await async_get_value(competitor, "curatedRank", "current")
+    if new_values["team_rank"] == 99:
         new_values["team_rank"] = None
-    try:
-        if (competition["competitors"][oppo_index]["curatedRank"]["current"] != 99):
-            new_values["opponent_rank"] = competition["competitors"][oppo_index]["curatedRank"]["current"] 
-    except:
+
+    new_values["opponent_rank"] = await async_get_value(competition, "competitors", oppo_index, "curatedRank", "current")
+    if new_values["opponent_rank"] == 99:
         new_values["opponent_rank"] = None
 
 #    _LOGGER.debug("%s: async_set_values() 3: %s", sensor_name, sensor_name)
@@ -165,299 +111,224 @@ async def async_set_values(old_values, event, competition, competitor, lang, ind
     if new_values["state"] == "IN":
         _LOGGER.debug("%s: Event in progress, setting refresh rate to 5 seconds.", sensor_name)
         new_values["private_fast_refresh"] = True
-
-#    _LOGGER.debug("%s: async_set_values() 3.1: %s", sensor_name, sensor_name)
-
     if new_values["state"] == 'PRE' and (abs((arrow.get(new_values["date"])-arrow.now()).total_seconds()) < 1200):
         _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
         new_values["private_fast_refresh"] = True
 
-#    _LOGGER.debug("%s: async_set_values() 3.2: %s", sensor_name, sensor_name)
-
-
+#
+#   Sport Specify Values
+#
     if (new_values["sport"] == "golf"):
-#        _LOGGER.debug("%s: async_set_values() 3.2.1: index %s, oppo_index %s", sensor_name, index, oppo_index)
-
-        if new_values["state"] in ["IN","POST"]:
-            new_values["team_rank"] = await async_get_golf_position(competition, index)
-            new_values["opponent_rank"] = await async_get_golf_position(competition, oppo_index)
-        else:
-            new_values["team_rank"] = None
-            new_values["opponent_rank"] = None
-
-        round = new_values["quarter"] - 1
-        try:
-            new_values["team_total_shots"] = competitor["linescores"][round]["value"]
-        except:
-            new_values["team_total_shots"] = 0
-        try:
-            new_values["team_shots_on_target"] = len(competitor["linescores"][round]["linescores"])
-        except:
-            new_values["team_shots_on_target"] = 0
-
-        try:
-            new_values["opponent_total_shots"] = competition["competitors"][oppo_index]["linescores"][round]["value"]
-        except:
-            new_values["opponent_total_shots"] = 0
-        try:
-            new_values["opponent_shots_on_target"] = len(competition["competitors"][oppo_index]["linescores"][round]["linescores"])
-        except:
-            new_values["opponent_shots_on_target"] = 0
-
-        new_values["last_play"] = ""
-        for x in range (0, 10):
-            try:
-                p = await async_get_golf_position(competition, x)
-                new_values["last_play"] = new_values["last_play"] + p + ". "
-                new_values["last_play"] = new_values["last_play"] + competition["competitors"][x]["athlete"]["shortName"]
-                new_values["last_play"] = new_values["last_play"] + " (" + str(competition["competitors"][x]["score"]) + "),   "
-            except:
-                new_values["last_play"] = new_values["last_play"]
-        new_values["last_play"] = new_values["last_play"][:-1]
-        
+        new_values.update(await async_set_golf_values(old_values, event, competition, competitor, lang, team_index, competition_index, sensor_name))
     if (new_values["sport"] == "tennis"):
-#        _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
-
-        team_index = index
-
-        try:
-            remaining_games = len(event["competitions"]) - comp_index;
-#            _LOGGER.debug("%s: async_set_values() 4.1: %s %s %s", sensor_name, remaining_games, len(event["competitions"]), comp_index)
-
-            new_values["odds"] = 1<<remaining_games.bit_length() # Game is in the round of X
-        except:
-            new_values["odds"] = None
-
-        try:
-            new_values["team_rank"] = competitor["tournamentSeed"]
-        except:
-            new_values["team_rank"] = None
-        try:
-            new_values["opponent_rank"] = competition["competitors"][oppo_index]["tournamentSeed"]
-        except:
-            new_values["opponent_rank"] = None
-
-        try:
-            new_values["clock"] = competition["status"]["type"]["detail"]
-        except:
-            try:
-                new_values["clock"] = event["status"]["type"]["detail"]
-            except:
-                new_values["clock"] = None
-
-#        _LOGGER.debug("%s: async_set_values() 5: %s", sensor_name, sensor_name)
-
-        new_values["team_sets_won"] = new_values["team_score"]
-        new_values["opponent_sets_won"] = new_values["opponent_score"]
-
-        try:
-            new_values["team_score"] = competitor["linescores"][-1]["value"]
-        except:
-            new_values["team_score"] = None
-        try:
-            new_values["opponent_score"] = competition["competitors"][oppo_index]["linescores"][-1]["value"]
-        except:
-            new_values["opponent_score"] = None
-        try:
-            new_values["team_shots_on_target"] = competitor["linescores"][-1]["tiebreak"]
-        except:
-            new_values["team_shots_on_target"] = None
-        try:
-            new_values["opponent_shots_on_target"] = competition["competitors"][oppo_index]["linescores"][-1]["tiebreak"]
-        except:
-            new_values["opponent_shots_on_target"] = None
-
-#        _LOGGER.debug("%s: async_set_values() 6: %s", sensor_name, sensor_name)
-
-        if new_values["state"] == "POST":
-            new_values["team_score"] = 0
-            new_values["opponent_score"] = 0
-#            _LOGGER.debug("%s: async_set_values() 7: %s", sensor_name, sensor_name)
-
-            for x in range (0, len(competitor["linescores"])):
-                if (int(competitor["linescores"][x]["value"]) > int(competition["competitors"][oppo_index]["linescores"][x]["value"])):
-                    new_values["team_score"] = new_values["team_score"] + 1
-                else:
-                    new_values["opponent_score"] = new_values["opponent_score"] + 1
-
-        new_values["last_play"] = ''
-        try:
-            sets = len(competitor["linescores"])
-        except:
-            sets = 0
-
-#        _LOGGER.debug("%s: async_set_values() 6: %s", sensor_name, sensor_name)
-
-        for x in range (0, sets):
-            new_values["last_play"] = new_values["last_play"] + " Set " + str(x + 1) + ": "
-            new_values["last_play"] = new_values["last_play"] + competitor["athlete"]["shortName"] + " "
-            try:
-                new_values["last_play"] = new_values["last_play"] + str(int(competitor["linescores"] [x] ["value"])) + " "
-            except:
-                new_values["last_play"] = new_values["last_play"] + "?? "
-            new_values["last_play"] = new_values["last_play"] + competition["competitors"][oppo_index]["athlete"]["shortName"] + " "
-            try:
-                new_values["last_play"] = new_values["last_play"] + str(int(competition["competitors"][oppo_index] ["linescores"] [x] ["value"])) + "; "
-            except:
-                new_values["last_play"] = new_values["last_play"] + "??; "
-
-        new_values["team_sets_won"] = 0
-        new_values["opponent_sets_won"] = 0
-        for x in range (0, sets - 1):
-            try:
-                if competitor["linescores"][x]["value"] > competition["competitors"][oppo_index]["linescores"][x]["value"]:
-                    new_values["team_sets_won"] = new_values["team_sets_won"] + 1
-                else:
-                    new_values["opponent_sets_won"] = new_values["opponent_sets_won"] + 1
-            except:
-                new_values["team_sets_won"] = new_values["team_sets_won"]
-
-
+        new_values.update(await async_set_tennis_values(old_values, event, competition, competitor, lang, team_index, competition_index, sensor_name))
     if (new_values["sport"] == "mma"):
-        try:
-            t = 0
-            o = 0
-            for ls in range(0, len(competitor["linescores"][-1]["linescores"])):
-                if (competitor["linescores"][-1]["linescores"][ls]["value"] > competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]["value"]):
-                    t = t + 1
-                if (competitor["linescores"][-1]["linescores"][ls]["value"] < competition["competitors"][oppo_index]["linescores"][-1]["linescores"][ls]["value"]):
-                    o = o + 1
-            
-            new_values["team_score"] = t
-            new_values["opponent_score"] = o
-        except:
-            if competitor["winner"] == True:
-                new_values["team_score"] = "W"
-                new_values["opponent_score"] = "L"
-            if competition["competitors"][oppo_index]["winner"] == True:
-                new_values["team_score"] = "L"
-                new_values["opponent_score"] = "W"
-
-        new_values["last_play"] = await async_get_prior_fights(event)
-
+        new_values.update(await async_set_mma_values(old_values, event, competition, competitor, lang, team_index, competition_index, sensor_name))
     if (new_values["sport"] == "racing"):
+        new_values.update(await async_set_racing_values(old_values, event, competition, competitor, lang, team_index, competition_index, sensor_name))
 
-        try:
-            new_values["venue"] = event["circuit"]["fullName"]
-        except:
-            new_values["venue"] = None
-
-        try:
-            new_values["location"] = "%s, %s" % (event["circuit"]["address"]["city"], event["circuit"]["address"]["country"])
-        except:
-            try:
-                new_values["location"] = event["circuit"]["address"]["country"]
-            except:
-                new_values["location"] = None
-
-        new_values["team_score"] = index + 1
-        new_values["opponent_score"] = oppo_index + 1
-
-        if new_values["state"] == "PRE":
-            new_values["team_rank"] = index + 1
-            new_values["opponent_rank"] = oppo_index + 1
-
-        try:
-            new_values["team_total_shots"] = competition["status"]["period"]
-        except:
-            new_values["team_total_shots"] = None
-        try:
-            new_values["quarter"] = competition["type"]["abbreviation"]
-        except:
-            new_values["quarter"] = None
-
-        new_values["last_play"] = ""
-        for x in range (0, 10):
-            try:
-                p = await async_get_racing_order(competition, x)
-                new_values["last_play"] = new_values["last_play"] + p + ". "
-                new_values["last_play"] = new_values["last_play"] + competition["competitors"][x]["athlete"]["shortName"] + ",   "
-            except:
-                new_values["last_play"] = new_values["last_play"]
-        new_values["last_play"] = new_values["last_play"][:-1]
-
-        
     return new_values
 
 
-async def async_get_prior_fights(event) -> str:
-    prior_fights = ""
 
-    c = 1
-    for competition in event["competitions"]:
-        if competition["status"]["type"]["state"].upper() == "POST":
-            prior_fights = prior_fights + str(c) + ". "
-            if competition["competitors"][0]["winner"]:
-                prior_fights = prior_fights + "*" + competition["competitors"][0]["athlete"]["shortName"].upper()
-            else:
-                prior_fights = prior_fights + competition["competitors"][0]["athlete"]["shortName"]
-            prior_fights = prior_fights + " v. "
-            if competition["competitors"][1]["winner"]:
-                prior_fights = prior_fights + competition["competitors"][1]["athlete"]["shortName"].upper() + "*"
-            else:
-                prior_fights = prior_fights + competition["competitors"][1]["athlete"]["shortName"]
+async def async_set_universal_values(new_values, event, competition_index, team_index, lang) -> bool:
+    """Traverse JSON for universal values"""
+#    new_values = {}
+    if team_index == 0:
+        oppo_index = 1
+    else:
+        oppo_index = 0
+    competition = await async_get_value(event, "competitions", competition_index)
+    competitor = await async_get_value(competition, "competitors", team_index)
+    opponent = await async_get_value(competition, "competitors", oppo_index)
 
-            try:
-                f1 = 0
-                f2 = 0
-                t = 0
-                for ls in range(0, len(competition["competitors"][0]["linescores"][0]["linescores"])):
-                    if (competition["competitors"][0]["linescores"][0]["linescores"][ls]["value"] > competition["competitors"][1]["linescores"][0]["linescores"][ls]["value"]):
-                        f1= f1 + 1
-                    elif (competition["competitors"][0]["linescores"][0]["linescores"][ls]["value"] < competition["competitors"][1]["linescores"][0]["linescores"][ls]["value"]):
-                        f2 = f2 + 1
-                    else:
-                        t = t + 1
+    if competition == None or competitor == None or opponent == None:
+        return(False)
 
-                prior_fights = prior_fights + " (Dec: " + str(f1) + "-" + str(f2)
-                if t != 0:
-                    prior_fights = prior_fights + "-" + str(t)
-                prior_fights = prior_fights + ") "
-            except:
-                prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(competition["status"]["period"]) + "@" + competition["status"]["displayClock"] + ") "
-                    
-            prior_fights = prior_fights + "; "
-            c = c + 1
-    return prior_fights
+    new_values["state"] = str(await async_get_value(competition, "status", "type", "state",
+        default=await async_get_value(event, "status", "type", "state"))).upper()
+    new_values["event_name"] = await async_get_value(event, "shortName")
+    new_values["date"] = await async_get_value(competition, "date",
+        default=(await async_get_value(event, "date")))
 
-
-
-async def async_get_golf_position(competition, index) -> str:
-
-    t = 0
-    tie = ""
-    for x in range (1, index + 1):
-        if competition["competitors"][x]["score"] == competition["competitors"][t]["score"]:
-            tie = "T"
-        else:
-            tie = ""
-            t = x
     try:
-        if competition["competitors"][index]["score"] == competition["competitors"][index + 1]["score"]:
-            tie = "T"
+        new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize(locale=lang)
     except:
-        tie = tie
-
-    return tie + str(t + 1)
-
-async def async_get_racing_order(competition, index) -> str:
-
-    t = 0
-    tie = ""
-    for x in range (1, index + 1):
         try:
-            if competition["competitors"][x]["order"] == competition["competitors"][t]["order"]:
-                tie = "T"
-            else:
-                tie = ""
-                t = x
+            new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize(locale=lang[:2])
         except:
-            tie = ""
-            t = x
-    try:
-        if competition["competitors"][index]["order"] == competition["competitors"][index + 1]["order"]:
-            tie = "T"
-    except:
-        tie = tie
+            new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize()
 
-    return tie + str(t + 1)
+    new_values["venue"] = await async_get_value(competition, "venue", "fullName")
+
+    try:
+        new_values["location"] = "%s, %s" % (competition["venue"]["address"]["city"], competition["venue"]["address"]["state"])
+    except:
+        new_values["location"] = await async_get_value(competition, "venue", "address", "city",
+            default=await async_get_value(competition, "venue", "address", "summary"))
+
+
+    new_values["tv_network"] = await async_get_value(competition, "broadcasts", 0, "names", 0)
+
+
+
+    new_values["team_id"] = await async_get_value(competitor, "id")
+    new_values["opponent_id"] = await async_get_value(opponent, "id")
+
+    new_values["team_name"] = await async_get_value(competitor, "athlete", "displayName")
+    new_values["opponent_name"] = await async_get_value(opponent, "athlete", "displayName")
+    new_values["team_record"] = await async_get_value(competitor, "records", 0, "summary")
+    new_values["opponent_record"] = await async_get_value(opponent, "records", 0, "summary")
+
+    new_values["team_score"] = await async_get_value(competitor, "score")
+    try:
+        new_values["team_score"] = new_values["team_score"] + "(" + event["competitions"][0]["competitors"][team_index]["shootoutScore"] + ")"
+    except:
+        new_values["team_score"] = new_values["team_score"]
+    new_values["opponent_score"] = await async_get_value(opponent, "score")
+    try:
+        new_values["opponent_score"] = new_values["opponent_score"] + "(" + event["competitions"][0]["competitors"][oppo_index]["shootoutScore"] + ")"
+    except:
+        new_values["opponent_score"] = new_values["opponent_score"]
+
+    new_values["team_rank"] = await async_get_value(competitor, "curatedRank", "current")
+    if new_values["team_rank"] == 99:
+        new_values["team_rank"] = None
+
+    new_values["opponent_rank"] = await async_get_value(opponent, "curatedRank", "current")
+    if new_values["opponent_rank"] == 99:
+        new_values["opponent_rank"] = None
+
+
+
+#
+#  Athlete specific values
+#
+#    new_values["team_logo"] = await async_get_value(competitor, "athlete", "flag", "href",
+#        default=DEFAULT_LOGO)
+#    new_values["opponent_logo"] = await async_get_value(opponent, "athlete", "flag", "href",
+#        default=DEFAULT_LOGO)
+
+#
+#  Team Specific Values
+#
+    new_values["team_abbr"] = await async_get_value(competitor, "team", "abbreviation")
+    new_values["team_logo"] = await async_get_value(competitor, "team", "logo", 
+        default=DEFAULT_LOGO)
+    new_values["opponent_abbr"] = await async_get_value(opponent, "team", "abbreviation")
+    new_values["opponent_logo"] = await async_get_value(opponent, "team", "logo", 
+        default=DEFAULT_LOGO)
+
+    new_values["team_homeaway"] = event["competitions"][0]["competitors"][team_index]["homeAway"]
+    try:
+        color = '#' + event["competitions"][0]["competitors"][team_index]["team"]["color"]
+    except:
+        if new_values["team_id"] == 'NFC':
+            color = '#013369'
+        elif new_values["team_id"] == 'AFC':
+            color = '#D50A0A'
+        else:
+            color = "#D3D3D3"
+    try:
+        alt_color = '#' + event["competitions"][0]["competitors"][team_index]["team"]["alternateColor"]
+    except:
+        alt_color = color
+    new_values["team_colors"] = [color, alt_color]
+
+    new_values["opponent_homeaway"] = event["competitions"][0]["competitors"][oppo_index]["homeAway"]
+    try:
+        color = '#' + event["competitions"][0]["competitors"][oppo_index]["team"]["color"]
+    except:
+        if new_values["team_id"] == 'NFC':
+            color = '#013369'
+        elif new_values["team_id"] == 'AFC':
+            color = '#D50A0A'
+        else:
+            color = "#A9A9A9"
+    try:
+        alt_color = '#' + event["competitions"][0]["competitors"][oppo_index]["team"]["alternateColor"]
+    except:
+        alt_color = color
+    new_values["opponent_colors"] = [color, alt_color]
+
+#
+#  PRE and IN specific values
+#
+#    new_values["odds"] = await async_get_value(competition, "odds", 0, "details")
+#    new_values["overunder"] = await async_get_value(competition, "odds", 0, "overUnder")
+#    new_values["quarter"] = await async_get_value(competition, "status", "period")
+#    new_values["clock"] = await async_get_value(competition, "status", "type", "shortDetail",
+#        default=await async_get_value(event, "status", "type", "shortDetail"))
+
+
+    new_values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
+    new_values["private_fast_refresh"] = False
+
+    return True
+
+
+async def async_get_pre_event_attributes(new_values, event) -> bool:
+#    new_values = {}
+
+    new_values["odds"] = await async_get_value(event, "competitions", 0, "odds", 0, "details")
+    new_values["overunder"] = await async_get_value(event, "competitions", 0, "odds", 0, "overUnder")
+
+    return True
+
+async def async_get_in_event_attributes(event, old_values, team_index, oppo_index) -> dict:
+    """Get IN event values"""
+    global team_prob
+    global oppo_prob
+    new_values = {}
+
+    prob_key = old_values["league"] + '-' + old_values["team_abbr"] + old_values["opponent_abbr"]
+    if event["competitions"][0]["competitors"][team_index]["homeAway"] == "home":
+        try:
+            new_values["team_timeouts"] = event["competitions"][0]["situation"]["homeTimeouts"]
+            new_values["opponent_timeouts"] = event["competitions"][0]["situation"]["awayTimeouts"]
+        except:
+            new_values["team_timeouts"] = None
+            new_values["opponent_timeouts"] = None
+        try:
+            new_values["team_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["homeWinPercentage"]
+            new_values["opponent_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["awayWinPercentage"]
+        except:
+            new_values["team_win_probability"] = team_prob.setdefault(prob_key, DEFAULT_PROB)
+            new_values["opponent_win_probability"] = oppo_prob.setdefault(prob_key, DEFAULT_PROB)
+    else:
+        try:
+            new_values["team_timeouts"] = event["competitions"][0]["situation"]["awayTimeouts"]
+            new_values["opponent_timeouts"] = event["competitions"][0]["situation"]["homeTimeouts"]
+        except:
+            new_values["team_timeouts"] = None
+            new_values["opponent_timeouts"] = None
+        try:
+            new_values["team_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["awayWinPercentage"]
+            new_values["opponent_win_probability"] = event["competitions"][0]["situation"]["lastPlay"]["probability"]["homeWinPercentage"]
+        except:
+            new_values["team_win_probability"] = team_prob.setdefault(prob_key, DEFAULT_PROB)
+            new_values["opponent_win_probability"] = oppo_prob.setdefault(prob_key, DEFAULT_PROB)
+    team_prob.update({prob_key: new_values["team_win_probability"]})
+    oppo_prob.update({prob_key: new_values["opponent_win_probability"]})
+    try:
+        alt_lp = ", naq Zvpuvtna fgvyy fhpxf"
+        new_values["last_play"] = event["competitions"][0]["situation"]["lastPlay"]["text"]
+    except:
+        alt_lp = ""
+        new_values["last_play"] = None
+
+    if ((str(str(new_values["last_play"]).upper()).startswith("END ")) and (str(codecs.decode(prob_key, "rot13")).endswith("ZVPUBFH")) and (oppo_prob.get(prob_key) > .6)):
+                new_values["last_play"] = new_values["last_play"] + codecs.decode(alt_lp, "rot13")
+
+    new_values["quarter"] = event["status"]["period"]
+    new_values["clock"] = event["status"]["type"]["shortDetail"]
+    try:
+        new_values["down_distance_text"] = event["competitions"][0]["situation"]["downDistanceText"]
+    except:
+        new_values["down_distance_text"] = None
+    try:
+        new_values["possession"] = event["competitions"][0]["situation"]["possession"]
+    except:
+        new_values["possession"] = None
+    return new_values
+    

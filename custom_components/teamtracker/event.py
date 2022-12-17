@@ -62,12 +62,12 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
 
         for event in data["events"]:
             try:
-                comp_index = 0
+                competition_index = 0
                 for competition in event["competitions"]:
                     if "competitors" not in competition:
                         _LOGGER.debug("%s: No competitors in this competition: %s", sensor_name, competition["id"])
                     else:
-                        index = 0
+                        team_index = 0
                         for competitor in competition["competitors"]:
                             if competitor["type"] == "team":
                                 _LOGGER.debug("%s: Team found in competition for athletes, skipping ID %s", sensor_name, competitor["id"])
@@ -77,7 +77,7 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                                     prev_values = values.copy()
                                     if sport in ["golf", "mma", "racing", "tennis"]:
                                         try:
-                                            values.update(await async_set_values(values, event, competition, competitor, lang, index, comp_index, sensor_name))
+                                            values.update(await async_set_values(values, event, competition_index, team_index, lang, sensor_name))
                                         except:
                                             _LOGGER.warn("%s: exception w/ function call", sensor_name)
 
@@ -105,11 +105,11 @@ async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_
                                                 if (abs((arrow.get(prev_values["date"])-arrow.now()).total_seconds()) < 64800):
                                                     values = prev_values
 
-                            index = index + 1
+                            team_index = team_index + 1
 
                     if stop_flag:
                         break;
-                    comp_index = comp_index + 1
+                    competition_index = competition_index + 1
                 try:
                     if values["state"] == "POST" and event["status"]["type"]["state"].upper() == "IN":
                         stop_flag = True;
