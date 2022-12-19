@@ -23,9 +23,8 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .clear_values import async_clear_values
 from .event import async_process_event
 from .set_values import (
-    async_set_universal_values,
-    async_get_pre_event_attributes,
-    async_get_in_event_attributes,
+    async_set_values,
+    async_set_in_values,
 )
 from .set_baseball import async_set_baseball_values
 from .set_hockey import async_set_hockey_values
@@ -350,19 +349,8 @@ async def async_get_state(config, hass) -> dict:
 
                 oppo_index = abs((team_index-1))
 
-                rc = await async_set_universal_values(values, event, 0, team_index, lang, sensor_name)
+                rc = await async_set_values(values, event, 0, team_index, lang, sensor_name)
                 _LOGGER.debug("%s: post async_set_universal_values() %s", sensor_name, values)
-
-                if values["state"] not in ['PRE', 'POST']: # could use status.completed == true as well
-                    rc = await async_get_in_event_attributes(values, event, 0, team_index, sensor_name)
-                    if sport_path in ["baseball"]:
-                        rc = await async_set_baseball_values(values, event, 0, team_index, sensor_name)
-                    elif sport_path in ["soccer"]:
-                        rc = await async_set_soccer_values(values, event, 0, team_index, sensor_name)
-                    elif sport_path in ["volleyball"]:
-                        rc = await async_set_volleyball_values(values, event, 0, team_index, sensor_name)
-                    elif sport_path in ["hockey"]:
-                        rc = await async_set_hockey_values(values, event, 0, team_index, sensor_name)
 
                 if values["state"] == "IN":
                     break

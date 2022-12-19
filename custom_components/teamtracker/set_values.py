@@ -7,6 +7,10 @@ from .set_golf import async_set_golf_values
 from .set_mma import async_set_mma_values
 from .set_racing import async_set_racing_values
 from .set_tennis import async_set_tennis_values
+from .set_baseball import async_set_baseball_values
+from .set_hockey import async_set_hockey_values
+from .set_soccer import async_set_soccer_values
+from .set_volleyball import async_set_volleyball_values
 
 from .const import (
     DEFAULT_LOGO,
@@ -37,12 +41,45 @@ async def async_set_values(new_values, event, competition_index, team_index, lan
     rc = await async_set_universal_values(new_values, event, competition_index, team_index, lang, sensor_name)
     _LOGGER.debug("%s: async_set_values() 2: %s", sensor_name, rc)
 
-    new_values["quarter"] = await async_get_value(competition, "status", "period")
-    new_values["clock"] = await async_get_value(competition, "status", "type", "shortDetail",
-        default=await async_get_value(event, "status", "type", "shortDetail"))
+#
+#  Additional values only needed for team sports
+#
+    if await async_get_value(competitor, "type") == "team":
+        _LOGGER.debug("%s: async_set_values() 6.2: %s", sensor_name, sensor_name)
+        rc = await async_set_team_values(new_values, event, competition_index, team_index, lang, sensor_name)
 
-    _LOGGER.debug("%s: async_set_values() 3: %s", sensor_name, new_values)
+    _LOGGER.debug("%s: async_set_values() 7: %s", sensor_name, new_values)
 
+    if new_values["state"] == 'PRE':
+        rc = await async_set_pre_values(new_values, event)
+    if new_values["state"] == 'IN':
+        rc = await async_set_in_values(new_values, event, competition_index, team_index, sensor_name)
+
+    _LOGGER.debug("%s: async_set_values() 8: %s", sensor_name, new_values)
+
+#
+#   Sport Specific Values
+#
+
+    if new_values["sport"] == "baseball":
+        rc = await async_set_baseball_values(new_values, event, competition_index, team_index, sensor_name)
+    elif new_values["sport"] == "soccer":
+        rc = await async_set_soccer_values(new_values, event, competition_index, team_index, sensor_name)
+    elif new_values["sport"] == "volleyball":
+        rc = await async_set_volleyball_values(new_values, event, competition_index, team_index, sensor_name)
+    elif new_values["sport"] == "hockey":
+        rc = await async_set_hockey_values(new_values, event, competition_index, team_index, sensor_name)
+    elif new_values["sport"] == "golf":
+        rc = await async_set_golf_values(new_values, event, competition_index, team_index, lang, sensor_name)
+    elif new_values["sport"] == "tennis":
+        rc = await async_set_tennis_values(new_values, event, competition_index, team_index, lang, sensor_name)
+    elif new_values["sport"] == "mma":
+        rc = await async_set_mma_values(new_values, event, competition_index, team_index, lang, sensor_name)
+    elif new_values["sport"] == "racing":
+        rc = await async_set_racing_values(new_values, event, competition_index, team_index, lang, sensor_name)
+    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
+
+    new_values["private_fast_refresh"] = False
     if new_values["state"] == "IN":
         _LOGGER.debug("%s: Event in progress, setting refresh rate to 5 seconds.", sensor_name)
         new_values["private_fast_refresh"] = True
@@ -50,18 +87,13 @@ async def async_set_values(new_values, event, competition_index, team_index, lan
         _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
         new_values["private_fast_refresh"] = True
 
+    _LOGGER.debug("%s: async_set_values() 9: %s", sensor_name, new_values)
+
 #
-#   Sport Specify Values
+#  Is last update also set somewhere else?
 #
-    if (new_values["sport"] == "golf"):
-        rc = await async_set_golf_values(new_values, event, competition_index, team_index, lang, sensor_name)
-    if (new_values["sport"] == "tennis"):
-        rc = await async_set_tennis_values(new_values, event, competition_index, team_index, lang, sensor_name)
-    if (new_values["sport"] == "mma"):
-        rc = await async_set_mma_values(new_values, event, competition_index, team_index, lang, sensor_name)
-    if (new_values["sport"] == "racing"):
-        rc = await async_set_racing_values(new_values, event, competition_index, team_index, lang, sensor_name)
-    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
+    new_values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
+    _LOGGER.debug("%s: async_set_values() 10: %s", sensor_name, new_values)
 
     return True
 
@@ -136,12 +168,16 @@ async def async_set_universal_values(new_values, event, competition_index, team_
         default=DEFAULT_LOGO))
     _LOGGER.debug("%s: async_set_universal_values() 5: %s", sensor_name, sensor_name)
 
+    new_values["quarter"] = await async_get_value(competition, "status", "period", 
+        default=await async_get_value(event, "status", "period"))
+    new_values["clock"] = await async_get_value(competition, "status", "type", "shortDetail",
+        default=await async_get_value(event, "status", "type", "shortDetail"))
     try:
-        new_values["team_score"] = str(await async_get_value(competitor, "score")) + "(" + event["competitions"][0]["competitors"][team_index]["shootoutScore"] + ")"
+        new_values["team_score"] = str(await async_get_value(competitor, "score")) + "(" + str(event["competitions"][0]["competitors"][team_index]["shootoutScore"]) + ")"
     except:
         new_values["team_score"] = await async_get_value(competitor, "score")
     try:
-        new_values["opponent_score"] = str(await async_get_value(opponent, "score")) + "(" + event["competitions"][0]["competitors"][oppo_index]["shootoutScore"] + ")"
+        new_values["opponent_score"] = str(await async_get_value(opponent, "score")) + "(" + str(event["competitions"][0]["competitors"][oppo_index]["shootoutScore"]) + ")"
     except:
         new_values["opponent_score"] = await async_get_value(opponent, "score")
 
@@ -155,43 +191,9 @@ async def async_set_universal_values(new_values, event, competition_index, team_
 
     _LOGGER.debug("%s: async_set_universal_values() 6: %s", sensor_name, sensor_name)
 
-
-
-    if new_values["state"] == 'PRE':
-        rc = await async_get_pre_event_attributes(new_values, event)
-
-#
-#  Additional values only needed for team sports
-#
-
-    if await async_get_value(competitor, "type") == "team":
-        _LOGGER.debug("%s: async_set_universal_values() 6.2: %s", sensor_name, sensor_name)
-        rc = await async_set_team_values(new_values, event, competition_index, team_index, lang, sensor_name)
-
-    _LOGGER.debug("%s: async_set_universal_values() 7: %s", sensor_name, new_values)
-
-#
-#  IN specific values
-#
-#    new_values["quarter"] = await async_get_value(competition, "status", "period")
-#    new_values["clock"] = await async_get_value(competition, "status", "type", "shortDetail",
-#        default=await async_get_value(event, "status", "type", "shortDetail"))
-
-    new_values["private_fast_refresh"] = False
-    if new_values["state"] == "IN":
-        _LOGGER.debug("%s: Event in progress, setting refresh rate to 5 seconds.", sensor_name)
-        new_values["private_fast_refresh"] = True
-    if new_values["state"] == 'PRE' and (abs((arrow.get(new_values["date"])-arrow.now()).total_seconds()) < 1200):
-        _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
-        new_values["private_fast_refresh"] = True
-
-#
-#  Is last update also set somewhere else?
-#
-    new_values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
-    _LOGGER.debug("%s: async_set_universal_values() 8: %s", sensor_name, new_values)
-
     return True
+
+
 
 
 async def async_set_team_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
@@ -243,7 +245,7 @@ async def async_set_team_values(new_values, event, competition_index, team_index
 #
 
 
-async def async_get_pre_event_attributes(new_values, event) -> bool:
+async def async_set_pre_values(new_values, event) -> bool:
 #    new_values = {}
 
     new_values["odds"] = await async_get_value(event, "competitions", 0, "odds", 0, "details")
@@ -256,7 +258,7 @@ async def async_get_pre_event_attributes(new_values, event) -> bool:
 #  IN
 #
 
-async def async_get_in_event_attributes(new_values, event, competition_index, team_index, sensor_name) -> dict:
+async def async_set_in_values(new_values, event, competition_index, team_index, sensor_name) -> dict:
     """Get IN event values"""
     global team_prob
     global oppo_prob
@@ -277,8 +279,12 @@ async def async_get_in_event_attributes(new_values, event, competition_index, te
         return False
 
     _LOGGER.debug("%s: async_set_in_values() 3: %s", sensor_name, new_values)
+
     prob_key = new_values["league"] + '-' + new_values["team_abbr"] + new_values["opponent_abbr"]
     alt_lp = ", naq Zvpuvtna fgvyy fhpxf"
+    new_values["down_distance_text"] = await async_get_value(competition, "situation", "downDistanceText")
+    new_values["possession"] = await async_get_value(competition, "situation", "possession")
+
     if str(await async_get_value(competitor, "homeAway")) == "home":
         new_values["team_timeouts"] = await async_get_value(competition, "situation", "homeTimeouts")
         new_values["opponent_timeouts"] = await async_get_value(competition, "awayTimeouts")
@@ -305,10 +311,6 @@ async def async_get_in_event_attributes(new_values, event, competition_index, te
     if ((str(str(new_values["last_play"]).upper()).startswith("END ")) and (str(codecs.decode(prob_key, "rot13")).endswith("ZVPUBFH")) and (oppo_prob.get(prob_key) > .6)):
                 new_values["last_play"] = new_values["last_play"] + codecs.decode(alt_lp, "rot13")
 
-    new_values["quarter"] = await async_get_value(event, "status", "period")
-    new_values["clock"] = await async_get_value(event, "status", "type", "shortDetail")
-    new_values["down_distance_text"] = await async_get_value(competition, "situation", "downDistanceText")
-    new_values["possession"] = await async_get_value(competition, "situation", "possession")
 
     _LOGGER.debug("%s: async_set_in_values() 6: %s", sensor_name, sensor_name)
 
