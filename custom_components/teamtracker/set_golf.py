@@ -19,11 +19,7 @@ async def async_set_golf_values(new_values, event, competition_index, team_index
         _LOGGER.debug("%s: async_set_golf_values() 0: %s", sensor_name, sensor_name)
         return(False)
 
-    _LOGGER.debug("%s: async_set_golf_values() 0.1: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
-
-    new_values["quarter"] = await async_get_value(competition, "status", "period")
-
-    _LOGGER.debug("%s: async_set_golf_values() 1: %s", sensor_name, sensor_name)
+    _LOGGER.debug("%s: async_set_golf_values() 1: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
     if new_values["state"] in ["IN","POST"]:
         _LOGGER.debug("%s: async_set_golf_values() 1.1: %s", sensor_name, sensor_name)
@@ -34,6 +30,8 @@ async def async_set_golf_values(new_values, event, competition_index, team_index
         _LOGGER.debug("%s: async_set_golf_values() 1.2: %s", sensor_name, sensor_name)
         new_values["team_rank"] = None
         new_values["opponent_rank"] = None
+
+    _LOGGER.debug("%s: async_set_golf_values() 1.3: %s", sensor_name, new_values)
 
     round = new_values["quarter"] - 1
     _LOGGER.debug("%s: async_set_golf_values() 2: %s", sensor_name, round)

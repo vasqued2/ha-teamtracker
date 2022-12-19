@@ -27,10 +27,10 @@ from .set_values import (
     async_get_pre_event_attributes,
     async_get_in_event_attributes,
 )
-from .set_baseball import async_get_in_baseball_event_attributes
-from .set_hockey import async_get_in_hockey_event_attributes
-from .set_soccer import async_get_in_soccer_event_attributes
-from .set_volleyball import async_get_in_volleyball_event_attributes
+from .set_baseball import async_set_baseball_values
+from .set_hockey import async_set_hockey_values
+from .set_soccer import async_set_soccer_values
+from .set_volleyball import async_set_volleyball_values
 from .utils import async_get_value
 
 from .const import (
@@ -356,13 +356,13 @@ async def async_get_state(config, hass) -> dict:
                 if values["state"] not in ['PRE', 'POST']: # could use status.completed == true as well
                     rc = await async_get_in_event_attributes(values, event, 0, team_index, sensor_name)
                     if sport_path in ["baseball"]:
-                        values.update(await async_get_in_baseball_event_attributes(event, values))
+                        rc = await async_set_baseball_values(values, event, 0, team_index, sensor_name)
                     elif sport_path in ["soccer"]:
-                        values.update(await async_get_in_soccer_event_attributes(event, values, team_index, oppo_index))
+                        rc = await async_set_soccer_values(values, event, 0, team_index, sensor_name)
                     elif sport_path in ["volleyball"]:
-                        values.update(await async_get_in_volleyball_event_attributes(event, values, team_index, oppo_index))
+                        rc = await async_set_volleyball_values(values, event, 0, team_index, sensor_name)
                     elif sport_path in ["hockey"]:
-                        values.update(await async_get_in_hockey_event_attributes(event, values, team_index, oppo_index))
+                        rc = await async_set_hockey_values(values, event, 0, team_index, sensor_name)
 
                 if values["state"] == "IN":
                     break

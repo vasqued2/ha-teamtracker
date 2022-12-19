@@ -4,28 +4,40 @@ from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 
-async def async_get_in_hockey_event_attributes(event, old_values, team_index, oppo_index) -> dict:
+async def async_set_hockey_values(new_values, event, competition_index, team_index, sensor_name) -> bool:
     """Get IN event values"""
-    new_values = {}
+#    new_values = {}
 
-    new_values["clock"] = await async_get_value(event, "status", "type", "shortDetail") # Period clock
+    if team_index == 0:
+        oppo_index = 1
+    else:
+        oppo_index = 0
+    competition = await async_get_value(event, "competitions", competition_index)
+    competitor = await async_get_value(competition, "competitors", team_index)
+    opponent = await async_get_value(competition, "competitors", oppo_index)
+
+    if competition == None or competitor == None or opponent == None:
+        _LOGGER.debug("%s: async_set_hockey_values() 0: %s", sensor_name, sensor_name)
+        return False
+
+#    new_values["clock"] = await async_get_value(event, "status", "type", "shortDetail") # Period clock
 
     new_values["team_shots_on_target"] = 0
-    for statistic in await async_get_value(event, "competitions", 0, "competitors", oppo_index, "statistics", 
+    for statistic in await async_get_value(opponent, "statistics", 
                                 default=[]):
         if "saves" in await async_get_value(statistic, "name", 
                                 default=[]):
-            shots = int(old_values["team_score"]) + int(await async_get_value(statistic, "displayValue", 
+            shots = int(new_values["team_score"]) + int(await async_get_value(statistic, "displayValue", 
                                                                     default=0))
             new_values["team_shots_on_target"] = str(shots)
 
     new_values["opponent_shots_on_target"] = 0
-    for statistic in await async_get_value(event, "competitions", 0, "competitors", team_index, "statistics", 
+    for statistic in await async_get_value(competitor, "statistics", 
                                 default=[]):
         if "saves" in await async_get_value(statistic, "name", 
                                 default=[]):
-            shots = int(old_values["opponent_score"]) + int(await async_get_value(statistic, "displayValue", 
+            shots = int(new_values["opponent_score"]) + int(await async_get_value(statistic, "displayValue", 
                                                                         default=0))
             new_values["opponent_shots_on_target"] = str(shots)
             
-    return new_values
+    return True

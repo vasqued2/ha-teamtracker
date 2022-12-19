@@ -2,28 +2,42 @@ from .utils import (
     async_get_value,
 )
 
-async def async_get_in_volleyball_event_attributes(event, old_values, team_index, oppo_index) -> dict:
+
+async def async_set_volleyball_values(new_values, event, competition_index, team_index, sensor_name) -> bool:
     """Get IN event values"""
-    new_values = {}
+#    new_values = {}
+
+    if team_index == 0:
+        oppo_index = 1
+    else:
+        oppo_index = 0
+    competition = await async_get_value(event, "competitions", competition_index)
+    competitor = await async_get_value(competition, "competitors", team_index)
+    opponent = await async_get_value(competition, "competitors", oppo_index)
+
+    if competition == None or competitor == None or opponent == None:
+        _LOGGER.debug("%s: async_set_volleyball_values() 0: %s", sensor_name, sensor_name)
+        return False
+
 
     new_values["clock"] = await async_get_value(event, "status", "type", "detail") # Set
-    new_values["team_sets_won"] = old_values["team_score"]
-    new_values["opponent_sets_won"] = old_values["opponent_score"]
-    new_values["team_score"] = await async_get_value(event, "competitions", 0, "competitors", team_index, "linescores", -1, "value", 
-                                        default=0)
-    new_values["opponent_score"] = await async_get_value(event, "competitions", 0, "competitors", oppo_index, "linescores", -1, "value",
-                                        default=0)
+    new_values["team_sets_won"] = new_values["team_score"]
+    new_values["opponent_sets_won"] = new_values["opponent_score"]
+    new_values["team_score"] = await async_get_value(competitor, "linescores", -1, "value", 
+        default=0)
+    new_values["opponent_score"] = await async_get_value(opponent, "linescores", -1, "value",
+        default=0)
 
     new_values["last_play"] = ''
-    sets = len(await async_get_value(event, "competitions", 0, "competitors", team_index, "linescores",
-                        default=""))
+    sets = len(await async_get_value(competitor, "linescores",
+        default=[]))
 
     for x in range (0, sets):
         new_values["last_play"] = new_values["last_play"] + " Set " + str(x + 1) + ": "
-        new_values["last_play"] = new_values["last_play"] + old_values["team_abbr"] + " "
-        new_values["last_play"] = new_values["last_play"] + str(int(await async_get_value(event, "competitions", 0, "competitors", team_index, "linescores", x, "value",
+        new_values["last_play"] = new_values["last_play"] + new_values["team_abbr"] + " "
+        new_values["last_play"] = new_values["last_play"] + str(int(await async_get_value(competitor, "linescores", x, "value",
                                                                                 default=0))) + " "
-        new_values["last_play"] = new_values["last_play"] + old_values["opponent_abbr"] + " "
-        new_values["last_play"] = new_values["last_play"] + str(int(await async_get_value(event, "competitions", 0, "competitors", oppo_index, "linescores", x, "value",
+        new_values["last_play"] = new_values["last_play"] + new_values["opponent_abbr"] + " "
+        new_values["last_play"] = new_values["last_play"] + str(int(await async_get_value(opponent, "linescores", x, "value",
                                                                                 default=0))) + "; "
     return new_values
