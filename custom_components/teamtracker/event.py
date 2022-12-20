@@ -27,103 +27,98 @@ from .const import (
     VERSION,
 )
 
-from .set_values import (
-    async_set_values,
-)
-from .clear_values import (
-    async_clear_values,
-)
+from .clear_values import async_clear_values
+from .set_values import async_set_values
+from .utils import async_get_value
+
 _LOGGER = logging.getLogger(__name__)
 
-async def async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url) -> dict:
-    values = {} 
+async def async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url) -> bool:
+#    values = {} 
     prev_values = {}
 
     stop_flag = False
-
-    values = await async_clear_values()
-
     search_key = team_id
     sport = sport_path
     
-    values["sport"] = sport_path
-    values["league"] = league_id
-    values["team_abbr"] = team_id
-    values["state"] = 'NOT_FOUND'
-    values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
-    values["private_fast_refresh"] = False
-
     found_competitor = False
-    if data is not None:
-        try:
-            values["league_logo"] = data["leagues"][0]["logos"][0]["href"]
-        except:
-            values["league_logo"] = DEFAULT_LOGO
 
-        for event in data["events"]:
-            try:
-                competition_index = 0
-                for competition in event["competitions"]:
-                    if "competitors" not in competition:
-                        _LOGGER.debug("%s: No competitors in this competition: %s", sensor_name, competition["id"])
-                    else:
-                        team_index = 0
-                        for competitor in competition["competitors"]:
-                            if competitor["type"] == "team":
-                                _LOGGER.debug("%s: Team found in competition for athletes, skipping ID %s", sensor_name, competitor["id"])
-                            if competitor["type"] == "athlete":
-                                if ((search_key in competitor["athlete"]["displayName"].upper()) or (search_key == "*")):
-                                    found_competitor = True
-                                    prev_values = values.copy()
-                                    if sport in ["golf", "mma", "racing", "tennis"]:
-                                        try:
-                                            rc = await async_set_values(values, event, competition_index, team_index, lang, sensor_name)
-                                        except:
-                                            _LOGGER.warn("%s: exception w/ function call", sensor_name)
+    values["league_logo"] = await async_get_value(data, "leagues", 0, "logos", 0, "href",
+        default=DEFAULT_LOGO)
 
-                                        if values["state"] == "IN":
-                                            stop_flag = True;
-                                        if ((values["state"] == "PRE") and (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) < 1200)):
-                                            stop_flag = True;
-                                        if stop_flag:
-                                            break;            
+    for event in data["events"]:
+        _LOGGER.debug("%s: event() Processing event: %s", sensor_name, str(await async_get_value(event, "shortName")))
 
-                                        if prev_values["state"] == "POST":
-                                            if values["state"] == "PRE": # Use POST if PRE is more than 18 hours in future
-                                                if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
-                                                                values = prev_values
-                                            elif values["state"] == "POST": # use POST w/ latest date
-                                                if (arrow.get(prev_values["date"]) > arrow.get(values["date"])):
-                                                    values = prev_values
-                                                if (arrow.get(prev_values["date"]) == arrow.get(values["date"])) and sport in ["golf", "racing"]:
-                                                    values = prev_values
-                                        if prev_values["state"] == "PRE":
-                                            if values["state"] == "PRE":  # use PRE w/ earliest date
-                                                if (arrow.get(prev_values["date"]) <= arrow.get(values["date"])):
-                                                    values = prev_values
-                                            elif values["state"] == "POST": # Use PRE if less than 18 hours in future
-                                                if (abs((arrow.get(prev_values["date"])-arrow.now()).total_seconds()) < 64800):
-                                                    values = prev_values
+        competition_index = -1
+        for competition_index in range (0, len(await async_get_value(event, "competitions", default=[]))):
+            competition = await async_get_value(event, "competitions", competition_index)
+            team_index = -1
+            for team_index in range(0, len(await async_get_value(competition, "competitors", default=[]))):
+                competitor = await async_get_value(competition, "competitors", team_index)
+                matched_index = -1
+                if competitor["type"] == "team":
+                    if search_key == await async_get_value(competitor, "team", "abbreviation", default=""):
+                        matched_index = team_index
+                        _LOGGER.debug("%s: Found competition for %s in team abbreviation; parsing data.", sensor_name, search_key)
+                    if matched_index == -1 and team_index == 1:      # Look at event name after going through competitor abbreviations
+                        sn = await async_get_value(event, "shortName", default="")
+                        if sn.startswith(search_key + ' '): # Lazy, but assumes first team in short_name is always team_index 1.
+                            matched_index = 1
+                            values["api_message"] = "team_id (" + search_key + ") does not match team_abbr.  Matched on event_name."
+                            _LOGGER.warn("%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.", sensor_name, search_key)
+                        if sn.endswith(' ' + search_key): # Lazy, but assumes second team in short_name is always team_index 0.
+                            matched_index = 0
+                            values["api_message"] = "team_id (" + search_key + ") does not match team_abbr.  Matched on event_name."
+                            _LOGGER.warn("%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.", sensor_name, search_key)
+                if competitor["type"] == "athlete":
+                    if search_key in str(await async_get_value(competitor, "athlete", "displayName",default="")).upper() or (search_key == "*"):
+                        matched_index = team_index
+                        _LOGGER.debug("%s: Found competition for %s in athlete name; parsing data", sensor_name, search_key)
+                if matched_index != -1:
+                        found_competitor = True
+                        prev_values = values.copy()
+                        rc = await async_set_values(values, event, competition_index, matched_index, lang, sensor_name)
+                        if rc == False:
+                            _LOGGER.debug("%s: event() Error occurred setting event values: %s", sensor_name, values)
 
-                            team_index = team_index + 1
+                        if values["state"] == "IN":
+                            stop_flag = True;
+                        if ((values["state"] == "PRE") and (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) < 1200)):
+                            stop_flag = True;
+                        if stop_flag:
+                            break;            
 
-                    if stop_flag:
-                        break;
-                    competition_index = competition_index + 1
-                try:
-                    if values["state"] == "POST" and event["status"]["type"]["state"].upper() == "IN":
-                        stop_flag = True;
-                except:
-                    values["state"] = values["state"]
-                if stop_flag:
-                    break;
-            except:
-                _LOGGER.debug("%s: No competitions for this event: %s", sensor_name, event["shortName"])
+                        if prev_values["state"] == "POST":
+                            if values["state"] == "PRE": # Use POST if PRE is more than 18 hours in future
+                                if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
+                                                values = prev_values
+                            elif values["state"] == "POST": # use POST w/ latest date
+                                if (arrow.get(prev_values["date"]) > arrow.get(values["date"])):
+                                    values = prev_values
+                                if (arrow.get(prev_values["date"]) == arrow.get(values["date"])) and sport in ["golf", "racing"]:
+                                    values = prev_values
+                        if prev_values["state"] == "PRE":
+                            if values["state"] == "PRE":  # use PRE w/ earliest date
+                                if (arrow.get(prev_values["date"]) <= arrow.get(values["date"])):
+                                    values = prev_values
+                            elif values["state"] == "POST": # Use PRE if less than 18 hours in future
+                                if (abs((arrow.get(prev_values["date"])-arrow.now()).total_seconds()) < 64800):
+                                    values = prev_values
+            if team_index == -1:
+                _LOGGER.debug("%s: event() No competitors in this competition: %s", sensor_name, str(await async_get_value(competition, "id", default="{id}")))
+            if stop_flag:
+                break;
+        if values["state"] == "POST" and str(await async_get_value(event, "status", "type", "state", default="NOT_FOUND")).upper() == "IN":
+            stop_flag = True;
+        if stop_flag:
+            break;
+        if competition_index == -1:
+            _LOGGER.debug("%s: event() No competitions for this event: %s", sensor_name, await async_get_value(event, "shortName", default="{shortName}"))
 
     if found_competitor == False:
         first_date = (date.today() - timedelta(days = 1)).strftime("%Y-%m-%dT%H:%MZ")
         last_date =  (date.today() + timedelta(days = 5)).strftime("%Y-%m-%dT%H:%MZ")
         values["api_message"] = "No competition scheduled for '" + team_id + "' between " + first_date + " and " + last_date
-        _LOGGER.debug("%s: Competitor information '%s' not returned by API: %s", sensor_name, team_id, url)
+        _LOGGER.debug("%s: event() Competitor information '%s' not returned by API: %s", sensor_name, search_key, url)
 
     return values

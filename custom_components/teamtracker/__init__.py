@@ -283,23 +283,33 @@ async def async_get_state(config, hass) -> dict:
 
     team_id = config[CONF_TEAM_ID].upper()
 
-    if sport_path in ["golf", "mma", "racing", "tennis"]:
-        values = await async_process_event(sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
-        return values
-    
+    search_key = team_id
+    sport = sport_path
+    found_competitor = False
+
     values = await async_clear_values()
     values["sport"] = sport_path
     values["league"] = league_id
     values["league_logo"] = DEFAULT_LOGO
     values["team_abbr"] = team_id
     values["state"] = "NOT_FOUND"
+    values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
+    values["private_fast_refresh"] = False
+
+    if data is None:
+        values["api_message"] = "API error, no data returned"
+        _LOGGER.warn("%s: API did not return any data for team '%s':  %s", sensor_name, team_id, url)
+        return values
+
+#    if sport_path in ["football", "golf", "mma", "racing", "tennis"]:
+    if True:
+        values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
+        return values
 
     found_team = False
     if data is not None:
-        try:
-            values["league_logo"] = data["leagues"][0]["logos"][0]["href"]
-        except:
-            values["league_logo"] = DEFAULT_LOGO
+        values["league_logo"] = await async_get_value(data, "leagues", 0, "logos", 0, "href",
+            default=DEFAULT_LOGO)
 
         for event in data["events"]:
             #_LOGGER.debug("%s: Looking at this event: %s" sensor_name, event)
@@ -406,11 +416,6 @@ async def async_get_state(config, hass) -> dict:
         elif values["state"] in ['POST', 'BYE']: 
             _LOGGER.debug("%s: Event is over, setting refresh back to 10 minutes.", sensor_name)
             values["private_fast_refresh"] = False
-    else:
-        values["api_message"] = "API error, no data returned"
-        _LOGGER.warn("%s: API did not return any data for team '%s':  %s", sensor_name, team_id, url)
-        values["state"] = 'NOT_FOUND'
-        values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
-        values["private_fast_refresh"] = False
+
         
     return values
