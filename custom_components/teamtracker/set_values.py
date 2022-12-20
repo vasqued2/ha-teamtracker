@@ -280,7 +280,7 @@ async def async_set_in_values(new_values, event, competition_index, team_index, 
 
     _LOGGER.debug("%s: async_set_in_values() 3: %s", sensor_name, new_values)
 
-    prob_key = new_values["league"] + '-' + new_values["team_abbr"] + new_values["opponent_abbr"]
+    prob_key = str(new_values["league"]) + '-' + str(new_values["team_abbr"]) + str(new_values["opponent_abbr"])
     alt_lp = ", naq Zvpuvtna fgvyy fhpxf"
     new_values["down_distance_text"] = await async_get_value(competition, "situation", "downDistanceText")
     new_values["possession"] = await async_get_value(competition, "situation", "possession")
