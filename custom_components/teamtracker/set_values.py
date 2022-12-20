@@ -220,7 +220,7 @@ async def async_set_team_values(new_values, event, competition_index, team_index
     _LOGGER.debug("%s: async_set_team_values() 3: %s", sensor_name, new_values)
 
     new_values["team_homeaway"] = await async_get_value(competitor, "homeAway")
-    new_values["opponent_homeaway"] = await async_get_value(competitor, "homeAway")
+    new_values["opponent_homeaway"] = await async_get_value(opponent, "homeAway")
 
     team_color = str(await async_get_value(competitor, "team", "color",
         default="D3D3D3"))
@@ -287,14 +287,14 @@ async def async_set_in_values(new_values, event, competition_index, team_index, 
 
     if str(await async_get_value(competitor, "homeAway")) == "home":
         new_values["team_timeouts"] = await async_get_value(competition, "situation", "homeTimeouts")
-        new_values["opponent_timeouts"] = await async_get_value(competition, "awayTimeouts")
+        new_values["opponent_timeouts"] = await async_get_value(competition, "situation", "awayTimeouts")
         new_values["team_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "homeWinPercentage",
             default=team_prob.setdefault(prob_key, DEFAULT_PROB))
         new_values["opponent_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "awayWinPercentage",
             default=oppo_prob.setdefault(prob_key, DEFAULT_PROB))
     else:
         new_values["team_timeouts"] = await async_get_value(competition, "situation", "awayTimeouts")
-        new_values["opponent_timeouts"] = await async_get_value(competition, "homeTimeouts")
+        new_values["opponent_timeouts"] = await async_get_value(competition, "situation", "homeTimeouts")
         new_values["team_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "awayWinPercentage",
             default=team_prob.setdefault(prob_key, DEFAULT_PROB))
         new_values["opponent_win_probability"] = await async_get_value(competition, "situation", "lastPlay", "probability", "homeWinPercentage",

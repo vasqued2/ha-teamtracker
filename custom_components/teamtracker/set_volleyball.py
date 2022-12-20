@@ -23,10 +23,12 @@ async def async_set_volleyball_values(new_values, event, competition_index, team
     new_values["clock"] = await async_get_value(event, "status", "type", "detail") # Set
     new_values["team_sets_won"] = new_values["team_score"]
     new_values["opponent_sets_won"] = new_values["opponent_score"]
-    new_values["team_score"] = await async_get_value(competitor, "linescores", -1, "value", 
-        default=0)
-    new_values["opponent_score"] = await async_get_value(opponent, "linescores", -1, "value",
-        default=0)
+
+    if new_values["state"] == "IN":
+        new_values["team_score"] = await async_get_value(competitor, "linescores", -1, "value", 
+            default=0)
+        new_values["opponent_score"] = await async_get_value(opponent, "linescores", -1, "value",
+            default=0)
 
     new_values["last_play"] = ''
     sets = len(await async_get_value(competitor, "linescores",
