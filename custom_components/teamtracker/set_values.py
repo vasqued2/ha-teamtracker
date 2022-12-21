@@ -54,22 +54,19 @@ async def async_set_values(new_values, event, competition_index, team_index, lan
         rc = await async_set_pre_values(new_values, event)
     if new_values["state"] == 'IN':
         rc = await async_set_in_values(new_values, event, competition_index, team_index, sensor_name)
-
-    _LOGGER.debug("%s: async_set_values() 8: %s", sensor_name, new_values)
-
+        _LOGGER.debug("%s: async_set_values() 8: %s", sensor_name, new_values)
 #
 #   Sport Specific Values
 #
-
-    if new_values["sport"] == "baseball":
-        rc = await async_set_baseball_values(new_values, event, competition_index, team_index, sensor_name)
-    elif new_values["sport"] == "soccer":
-        rc = await async_set_soccer_values(new_values, event, competition_index, team_index, sensor_name)
-    elif new_values["sport"] == "volleyball":
-        rc = await async_set_volleyball_values(new_values, event, competition_index, team_index, sensor_name)
-    elif new_values["sport"] == "hockey":
-        rc = await async_set_hockey_values(new_values, event, competition_index, team_index, sensor_name)
-    elif new_values["sport"] == "golf":
+        if new_values["sport"] == "baseball":
+            rc = await async_set_baseball_values(new_values, event, competition_index, team_index, sensor_name)
+        elif new_values["sport"] == "soccer":
+            rc = await async_set_soccer_values(new_values, event, competition_index, team_index, sensor_name)
+        elif new_values["sport"] == "volleyball":
+            rc = await async_set_volleyball_values(new_values, event, competition_index, team_index, sensor_name)
+        elif new_values["sport"] == "hockey":
+            rc = await async_set_hockey_values(new_values, event, competition_index, team_index, sensor_name)
+    if new_values["sport"] == "golf":
         rc = await async_set_golf_values(new_values, event, competition_index, team_index, lang, sensor_name)
     elif new_values["sport"] == "tennis":
         rc = await async_set_tennis_values(new_values, event, competition_index, team_index, lang, sensor_name)

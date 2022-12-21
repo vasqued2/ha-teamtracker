@@ -88,13 +88,14 @@ async def async_get_prior_fights(event, sensor_name) -> str:
 
             _LOGGER.debug("%s: async_get_prior_fights() 3: %s %s %s %s %s", sensor_name, f1, f2, t, prior_fights)
 
-            prior_fights = prior_fights + " (Dec: " + str(f1) + "-" + str(f2)
-            if t != 0:
-                prior_fights = prior_fights + "-" + str(t)
-            prior_fights = prior_fights + ") "
             if (f1 == 0 and f2 ==0 and t == 0):
-                prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(await async_get_value(competition, "status", "period", default="{period}")) + "@" + str(await async_get_value(competition, "status", "displayClock", default="{displayClock}")) + ") "
-            prior_fights = prior_fights + "; "
+                prior_fights = prior_fights + " (KO/TKO/Sub: R" + str(await async_get_value(competition, "status", "period", default="{period}")) + "@" + str(await async_get_value(competition, "status", "displayClock", default="{displayClock}"))
+            else:
+                prior_fights = prior_fights + " (Dec: " + str(f1) + "-" + str(f2)
+                if t != 0:
+                    prior_fights = prior_fights + "-" + str(t)
+
+            prior_fights = prior_fights + "); "
             c = c + 1
             _LOGGER.debug("%s: async_get_prior_fights() 4: %s", sensor_name, prior_fights)
 

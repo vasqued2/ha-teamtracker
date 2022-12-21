@@ -90,7 +90,7 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
 
                         if prev_values["state"] == "POST":
                             if values["state"] == "PRE": # Use POST if PRE is more than 18 hours in future
-                                if (abs((arrow.get(values["date"])-arrow.now()).total_seconds()) > 64800):
+                                if ((arrow.get(values["date"])-arrow.now()).total_seconds() > 64800):
                                                 values = prev_values
                             elif values["state"] == "POST": # use POST w/ latest date
                                 if (arrow.get(prev_values["date"]) > arrow.get(values["date"])):
