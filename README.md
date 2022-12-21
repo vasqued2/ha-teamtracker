@@ -106,6 +106,11 @@ Clone or download this repository and copy the "teamtracker" directory to your "
   
 ### HACS
 
+Use this button:
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=vasqued2&repository=ha-teamtracker&category=integration)
+
+_OR_ Manually
+
 1. Open the HACS section of Home Assistant.
 2. Click the "..." button in the top right corner and select "Custom Repositories."
 3. In the window that opens paste this Github URL.
