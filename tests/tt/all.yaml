@@ -58,8 +58,8 @@
     name: test_tt_all_test08
 # POST - BUND, FCA
   - platform: teamtracker
-    league_id: BUND
-    team_id: FCA
+    league_id: WC
+    team_id: ARG
     conference_id: 9999
     name: test_tt_all_test09
 
@@ -67,7 +67,7 @@
 # PRE - NBA, GS
   - platform: teamtracker
     league_id: NBA
-    team_id: GS
+    team_id: DET
     conference_id: 9999
     name: test_tt_all_test10
 # IN - NBA, BOS
@@ -87,13 +87,13 @@
 # PRE - 
   - platform: teamtracker
     league_id: NHL
-    team_id: ANA
+    team_id: WPG
     conference_id: 9999
     name: test_tt_all_test13
 # IN - 
   - platform: teamtracker
     league_id: NHL
-    team_id: MIN
+    team_id: NYI
     conference_id: 9999
     name: test_tt_all_test14
 # POST - 
@@ -123,6 +123,58 @@
     team_id: ARMY
     conference_id: 9999
     name: test_tt_all_test18
+
+# 
+# Tennis
+# PRE - 
+  - platform: teamtracker
+    league_id: WTA
+    team_id: Kalinina
+    conference_id: 9999
+    name: test_tt_all_test19
+# IN - 
+  - platform: teamtracker
+    league_id: WTA
+    team_id: Bogdan
+    conference_id: 9999
+    name: test_tt_all_test20
+# POST - 
+  - platform: teamtracker
+    league_id: WTA
+    team_id: Partaud
+    conference_id: 9999
+    name: test_tt_all_test21
+
+# 
+# MMA
+# PRE - 
+  - platform: teamtracker
+    league_id: UFC
+    team_id: Strickland
+    conference_id: 9999
+    name: test_tt_all_test22
+# IN - 
+  - platform: teamtracker
+    league_id: UFC
+    team_id: Caceres
+    conference_id: 9999
+    name: test_tt_all_test23
+
+# POST - 
+  - platform: teamtracker
+    league_id: UFC
+    team_id: Fakhretdinov
+    conference_id: 9999
+    name: test_tt_all_test24
+
+# 
+# Golf
+# IN - 
+  - platform: teamtracker
+    league_id: PGA
+    team_id: Conners
+    conference_id: 9999
+    name: test_tt_all_test25
 
 # Error Conditions
 # Invalid League - 
