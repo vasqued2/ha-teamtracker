@@ -10,7 +10,7 @@ async def test_sensor(hass):
     entry = MockConfigEntry(
         domain=DOMAIN,
         title="NFL",
-        data=CONFIG_DATA,
+        data=CONFIG_DATA[0],
     )
 
     entry.add_to_hass(hass)
