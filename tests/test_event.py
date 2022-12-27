@@ -8,7 +8,7 @@ import logging
 
 _LOGGER = logging.getLogger(__name__)
 
-from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO
+from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO, DEFAULT_LAST_UPDATE
 from tests.const import CONFIG_DATA, TEST_DATA
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.event import async_process_event
@@ -47,7 +47,7 @@ async def test_eventzxc(hass):
         values["league_logo"] = DEFAULT_LOGO
         values["team_abbr"] = t["team_abbr"]
         values["state"] = "NOT_FOUND"
-        values["last_update"] = "2022-12-27 08:32:48-05:00"
+        values["last_update"] = DEFAULT_LAST_UPDATE
         values["private_fast_refresh"] = False
 
         sensor_name = t["sensor_name"]
