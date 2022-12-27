@@ -61,3 +61,10 @@ async def test_eventzxc(hass):
         values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
 
         assert values
+
+        file = "tests/tt/results/" + sensor_name + ".json"
+        async with aiofiles.open(file, mode='r') as f:
+            contents = await f.read()
+        expected_results = json.loads(contents)
+
+        assert values == expected_results
