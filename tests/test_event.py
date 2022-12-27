@@ -4,6 +4,9 @@ import asyncio
 import aiohttp
 import aiofiles
 import json
+import logging
+
+_LOGGER = logging.getLogger(__name__)
 
 from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO
 from tests.const import CONFIG_DATA
