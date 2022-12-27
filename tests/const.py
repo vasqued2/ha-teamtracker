@@ -4,17 +4,17 @@ CONFIG_DATA = [{"league_id": "MLB", "team_id": "MIA", "name": "test_tt_all_test0
             ]
 
 TEST_DATA = [
-    {"sensor_name": "test_tt_all_test01"
+    {"sensor_name": "test_tt_all_test01",
     "sport": "baseball",
     "league": "MLB",
     "team_abbr": "MIA",
     },
-    {"sensor_name": "test_tt_all_test01"
+    {"sensor_name": "test_tt_all_test01",
     "sport": "baseball",
     "league": "MLB",
     "team_abbr": "MIL",
     },
-    {"sensor_name": "test_tt_all_test01"
+    {"sensor_name": "test_tt_all_test01",
     "sport": "baseball",
     "league": "MLB",
     "team_abbr": "CIN",
