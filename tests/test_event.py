@@ -1,5 +1,6 @@
 """Test NFL Sensor"""
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+import asyncio
 
 from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO
 from tests.const import CONFIG_DATA
