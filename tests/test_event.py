@@ -14,23 +14,7 @@ from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.event import async_process_event
 
 
-async def test_eventzxc(hass):
-
-    entry = MockConfigEntry(
-        domain=DOMAIN,
-        title="NFL",
-        data=CONFIG_DATA[0],
-    )
-
-    entry.add_to_hass(hass)
-    assert await hass.config_entries.async_setup(entry.entry_id)
-    await hass.async_block_till_done()
-
-    assert "teamtracker" in hass.config.components
-
-#
-#  New test 
-#
+async def test_event(hass):
 
     async with aiofiles.open('tests/tt/all.json', mode='r') as f:
         contents = await f.read()
