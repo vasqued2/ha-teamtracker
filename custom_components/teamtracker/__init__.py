@@ -262,7 +262,7 @@ async def async_get_state(config, hass) -> dict:
                 contents = await f.read()
             data = json.loads(contents)
         else:
-        _LOGGER.debug("%s: data is not None", sensor_name)
+            _LOGGER.debug("%s: data is not None", sensor_name)
 
     else:
         async with aiohttp.ClientSession() as session:
