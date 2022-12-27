@@ -236,7 +236,7 @@ async def async_get_state(config, hass) -> dict:
     league_path = config[CONF_LEAGUE_PATH]
     url_parms = "?lang=" + lang[:2]
 
-    _LOGGER.debug("%s: league %s, sport %s, team %s, conf %s", league_id, sport_path, config[CONF_TEAM_ID], config[CONF_CONFERENCE_ID])
+    _LOGGER.debug("%s: league %s, sport %s, team %s, conf %s", sensor_name, league_id, sport_path, config[CONF_TEAM_ID], config[CONF_CONFERENCE_ID])
 
 
     d1 = (date.today() - timedelta(days = 1)).strftime("%Y%m%d")
