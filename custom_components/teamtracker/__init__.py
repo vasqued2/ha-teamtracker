@@ -261,6 +261,9 @@ async def async_get_state(config, hass) -> dict:
             async with aiofiles.open('custom_components/tests/tt/all.json', mode='r') as f:
                 contents = await f.read()
             data = json.loads(contents)
+        else:
+        _LOGGER.debug("%s: data is not None", sensor_name)
+
     else:
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers) as r:
@@ -312,6 +315,7 @@ async def async_get_state(config, hass) -> dict:
 
 #    if sport_path in ["football", "golf", "mma", "racing", "tennis"]:
     if True:
+        _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
         return values
 
