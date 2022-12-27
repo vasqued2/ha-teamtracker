@@ -3,6 +3,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 import asyncio
 import aiohttp
 import aiofiles
+import json
 
 from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO
 from tests.const import CONFIG_DATA
