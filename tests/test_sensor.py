@@ -22,4 +22,4 @@ async def test_sensor(hass):
     state = hass.states.get("sensor.test_tt_all_test01")
 
     assert state
-    assert state.state == "PRE"
+    assert state.state == "unavailable"

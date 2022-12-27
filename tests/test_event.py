@@ -28,11 +28,6 @@ async def test_eventzxc(hass):
 
     assert "teamtracker" in hass.config.components
 
-    state = hass.states.get("sensor.test_tt_all_test01")
-
-    assert state
-    assert state.state == "PRE"
-
 #
 #  New test 
 #
