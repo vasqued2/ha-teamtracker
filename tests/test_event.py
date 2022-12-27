@@ -37,31 +37,32 @@ async def test_eventzxc(hass):
 #  New test 
 #
 
-    values = await async_clear_values()
-    values["sport"] = "baseball"
-    values["league"] = "MLB"
-    values["league_logo"] = DEFAULT_LOGO
-    values["team_abbr"] = "MIA"
-    values["state"] = "NOT_FOUND"
-    values["last_update"] = "2022-12-27 08:32:48-05:00"
-    values["private_fast_refresh"] = False
-
     async with aiofiles.open('tests/tt/all.json', mode='r') as f:
         contents = await f.read()
     data = json.loads(contents)
-
-    sensor_name = "test_sensor"
-    sport_path = values["sport"]
-    league_id = values["league"]
-    team_id = values["team_abbr"]
-    lang = "en"
-    url = "tests/tt/all.json"
-
     if data is None:
         values["api_message"] = "API error, no data returned"
-        _LOGGER.warn("%s: Error with test file '%s':  %s", sensor_name, team_id, "tests/tt/all.json")
+        _LOGGER.warn("test_event(): Error with test file '%s'", "tests/tt/all.json")
+        assert False
 
-    _LOGGER.debug("%s: calling async_process_event()", sensor_name)
-    values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
+    for t in TEST_DATA:
+        values = await async_clear_values()
+        values["sport"] = t["sport"]
+        values["league"] = t["league"]
+        values["league_logo"] = DEFAULT_LOGO
+        values["team_abbr"] = t["team_abbr"]
+        values["state"] = "NOT_FOUND"
+        values["last_update"] = "2022-12-27 08:32:48-05:00"
+        values["private_fast_refresh"] = False
 
-    assert values
+        sensor_name = t["sensor_name"]
+        sport_path = values["sport"]
+        league_id = values["league"]
+        team_id = values["team_abbr"]
+        lang = "en"
+        url = "tests/tt/all.json"
+
+        _LOGGER.debug("%s: calling async_process_event()", sensor_name)
+        values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
+
+        assert values
