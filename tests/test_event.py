@@ -9,7 +9,7 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO
-from tests.const import CONFIG_DATA
+from tests.const import CONFIG_DATA, TEST_DATA
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.event import async_process_event
 
