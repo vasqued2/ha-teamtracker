@@ -256,17 +256,9 @@ async def async_get_state(config, hass) -> dict:
         files = os.listdir()
         _LOGGER.debug("%s: Files in cwd: %s", sensor_name, files)
 
-        async with aiofiles.open('tests/tt/all.json', mode='r') as f:
+        async with aiofiles.open('/share/tt/test.json', mode='r') as f:
             contents = await f.read()
         data = json.loads(contents)
-        if data is None:
-            _LOGGER.debug("%s: /share/tt/test.json does not exist.  Trying test files. '%s'", sensor_name, team_id)
-            async with aiofiles.open('custom_components/tests/tt/all.json', mode='r') as f:
-                contents = await f.read()
-            data = json.loads(contents)
-        else:
-            _LOGGER.debug("%s: data is not None", sensor_name)
-
     else:
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers) as r:
@@ -320,6 +312,14 @@ async def async_get_state(config, hass) -> dict:
     if True:
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
+
+        if (file_override):
+            path = "/share/tt/results/" + sensor_name + ".json"
+            if not os.path.exists(path):
+                _LOGGER.debug("%s: Creating results file '%s'", sensor_name, path)
+                with open(path, 'w') as convert_file:
+                    convert_file.write(json.dumps(values))
+
         return values
 
     found_team = False

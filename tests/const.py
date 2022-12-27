@@ -1,6 +1,6 @@
 """Constants for tests."""
 
-CONFIG_DATA = [{"league_id": "MLB", "team_id": "MIA", "name": "test_tt_all_test01", "timeout": 120, "conference_id": "9999"},
+CONFIG_DATA = [{"league_id": "MLB", "team_id": "MIA", "name": "test_tt_all_test01", "timeout": 120},
             ]
 
 TEST_DATA = [
@@ -128,15 +128,5 @@ TEST_DATA = [
     "sport": "golf",
     "league": "PGA",
     "team_abbr": "Conners",
-    },
-    {"sensor_name": "test_tt_all_teste01",
-    "sport": "sport_not_found",
-    "league": "BADLEALGUE",
-    "team_abbr": "BADTEAM",
-    },
-    {"sensor_name": "test_tt_all_teste02",
-    "sport": "football",
-    "league": "NFL",
-    "team_abbr": "BADTEAM",
     },
 ]
