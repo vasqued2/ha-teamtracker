@@ -224,21 +224,18 @@ async def async_get_state(config, hass) -> dict:
     lang = lang or "en_US"
     enc = enc or "UTF-8"
 
-#    for t in hass.data["frontend_storage"]:
-#        for key, value in t.items():
-#            if "dict" in str(type(value)):
-#                try:
-#                    lang = value["language"]["language"]
-#                except:
-#                    lang = lang 
+    try:
+        for t in hass.data["frontend_storage"]:
+            for key, value in t.items():
+                if "dict" in str(type(value)):
+                    lang = value["language"]["language"]
+    except:
+        lang = lang 
 
     league_id = config[CONF_LEAGUE_ID].upper()
     sport_path = config[CONF_SPORT_PATH]
     league_path = config[CONF_LEAGUE_PATH]
     url_parms = "?lang=" + lang[:2]
-
-    _LOGGER.debug("%s: league %s, sport %s, team %s, conf %s", sensor_name, league_id, sport_path, config[CONF_TEAM_ID], config[CONF_CONFERENCE_ID])
-
 
     d1 = (date.today() - timedelta(days = 1)).strftime("%Y%m%d")
     d2 = (date.today() + timedelta(days = 5)).strftime("%Y%m%d")
@@ -253,10 +250,7 @@ async def async_get_state(config, hass) -> dict:
     url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
     
     if (file_override):
-        _LOGGER.debug("%s: Overriding API for '%s' cwd='%s'", sensor_name, team_id, os. getcwd())
-        files = os.listdir()
-        _LOGGER.debug("%s: Files in cwd: %s", sensor_name, files)
-
+        _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
         async with aiofiles.open('/share/tt/test.json', mode='r') as f:
             contents = await f.read()
         data = json.loads(contents)
@@ -311,7 +305,6 @@ async def async_get_state(config, hass) -> dict:
 
 #    if sport_path in ["football", "golf", "mma", "racing", "tennis"]:
     if True:
-        _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
 
         if (file_override):

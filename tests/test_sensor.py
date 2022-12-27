@@ -10,7 +10,7 @@ async def test_sensor(hass):
     entry = MockConfigEntry(
         domain=DOMAIN,
         title="NFL",
-        data=CONFIG_DATA[0],
+        data=CONFIG_DATA,
     )
 
     entry.add_to_hass(hass)
@@ -18,8 +18,3 @@ async def test_sensor(hass):
     await hass.async_block_till_done()
 
     assert "teamtracker" in hass.config.components
-
-    state = hass.states.get("sensor.test_tt_all_test01")
-
-    assert state
-    assert state.state == "unavailable"
