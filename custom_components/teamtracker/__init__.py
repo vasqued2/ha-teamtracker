@@ -256,7 +256,7 @@ async def async_get_state(config, hass) -> dict:
         files = os.listdir()
         _LOGGER.debug("%s: Files in cwd: %s", sensor_name, files)
 
-        async with aiofiles.open('custom_components/tests/tt/all.json', mode='r') as f:
+        async with aiofiles.open('tests/tt/all.json', mode='r') as f:
             contents = await f.read()
         data = json.loads(contents)
         if data is None:
