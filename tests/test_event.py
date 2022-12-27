@@ -41,7 +41,7 @@ async def test_eventzxc(hass):
         contents = await f.read()
     data = json.loads(contents)
     if data is None:
-        values["api_message"] = "API error, no data returned"
+        values["api_message"] = "Test file error, no data returned"
         _LOGGER.warn("test_event(): Error with test file '%s'", "tests/tt/all.json")
         assert False
 
