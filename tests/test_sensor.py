@@ -18,3 +18,8 @@ async def test_sensor(hass):
     await hass.async_block_till_done()
 
     assert "teamtracker" in hass.config.components
+
+    state = hass.states.get("sensor.test_tt_all_test01")
+
+    assert state
+    assert state.state == "PRE"
