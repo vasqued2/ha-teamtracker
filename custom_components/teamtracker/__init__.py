@@ -252,6 +252,11 @@ async def async_get_state(config, hass) -> dict:
         async with aiofiles.open('/share/tt/test.json', mode='r') as f:
             contents = await f.read()
         data = json.loads(contents)
+        if data is None:
+            _LOGGER.debug("%s: /share/tt/test.json does not exist.  Trying test files. '%s'", sensor_name, team_id)
+            async with aiofiles.open('custom_components/tests/tt/all.json', mode='r') as f:
+                contents = await f.read()
+            data = json.loads(contents)
     else:
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers) as r:
