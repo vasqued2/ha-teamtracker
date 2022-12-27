@@ -32,7 +32,7 @@ async def test_eventzxc(hass):
 
     values = await async_clear_values()
     values["sport"] = "baseball"
-    values["league"] = "MLB""
+    values["league"] = "MLB"
     values["league_logo"] = DEFAULT_LOGO
     values["team_abbr"] = "MIA"
     values["state"] = "NOT_FOUND"
