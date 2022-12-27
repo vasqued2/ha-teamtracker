@@ -43,6 +43,7 @@ from .const import (
     COORDINATOR,
     DEFAULT_CONFERENCE_ID,
     DEFAULT_TIMEOUT,
+    DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LEAGUE,
     DEFAULT_LOGO,
@@ -312,6 +313,7 @@ async def async_get_state(config, hass) -> dict:
             if not os.path.exists(path):
                 _LOGGER.debug("%s: Creating results file '%s'", sensor_name, path)
                 values["last_update"] = DEFAULT_LAST_UPDATE # set to fixed time for compares
+                values["kickoff_in"] = DEFAULT_KICKOFF_IN
                 with open(path, 'w') as convert_file:
                     convert_file.write(json.dumps(values))
 

@@ -8,7 +8,7 @@ import logging
 
 _LOGGER = logging.getLogger(__name__)
 
-from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO, DEFAULT_LAST_UPDATE
+from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO, DEFAULT_LAST_UPDATE, DEFAULT_KICKOFF_IN
 from tests.const import CONFIG_DATA, TEST_DATA
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.event import async_process_event
@@ -51,4 +51,5 @@ async def test_event(hass):
             contents = await f.read()
         expected_results = json.loads(contents)
 
+        values["kickoff_in"] = DEFAULT_KICKOFF_IN  # set to default value for compare
         assert values == expected_results
