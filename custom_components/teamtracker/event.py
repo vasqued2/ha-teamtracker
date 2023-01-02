@@ -33,7 +33,7 @@ from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 
-async def async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url) -> bool:
+async def async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang) -> bool:
 #    values = {} 
     prev_values = {}
 
@@ -118,6 +118,6 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
         first_date = (date.today() - timedelta(days = 1)).strftime("%Y-%m-%dT%H:%MZ")
         last_date =  (date.today() + timedelta(days = 5)).strftime("%Y-%m-%dT%H:%MZ")
         values["api_message"] = "No competition scheduled for '" + team_id + "' between " + first_date + " and " + last_date
-        _LOGGER.debug("%s: No competitor information '%s' returned by API: %s", sensor_name, search_key, url)
+        _LOGGER.debug("%s: No competitor information '%s' returned by API", sensor_name, search_key)
 
     return values
