@@ -236,10 +236,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
-#                values["team_name"] = values["team_name"].upper()
-#                values["opponent_name"] = values["opponent_name"].upper()
-                _LOGGER.debug("%s: update_game_data() Using cache '%s'", self.name, key)
-
+                values["api_message"] = "Cached data"
                 return values
 
 #
@@ -262,8 +259,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 values["kickoff_in"] = DEFAULT_KICKOFF_IN
                 with open(path, 'w') as convert_file:
                     convert_file.write(json.dumps(values, indent=4))
-
-        _LOGGER.debug("%s: update_game_data() Using API '%s'", self.name, key)
 
         return values
 
