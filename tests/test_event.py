@@ -42,7 +42,7 @@ async def test_event(hass):
         url = "tests/tt/all.json"
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
-        values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang, url)
+        values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
 
         assert values
 
