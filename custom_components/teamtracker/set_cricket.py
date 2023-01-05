@@ -4,7 +4,7 @@ from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 
-async def async_set_cricket_values(new_values, event, competition_index, team_index, sensor_name) -> bool:
+async def async_set_cricket_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
 
     if team_index == 0:
         oppo_index = 1
@@ -23,9 +23,9 @@ async def async_set_cricket_values(new_values, event, competition_index, team_in
     new_values["clock"] = await async_get_value(competition, "status", "type", "description")
 
     if await async_get_value(competitor, "linescores", -1, "isBatting"):
-        values["possession"] = await async_get_value(competitor, "id")
+        new_values["possession"] = await async_get_value(competitor, "id")
     if await async_get_value(opponent, "linescores", -1, "isBatting"):
-        values["possession"] = await async_get_value(opponent, "id")
+        new_values["possession"] = await async_get_value(opponent, "id")
 
     new_values["last_play"] = await async_get_value(competition, "status", "summary")
 

@@ -3,6 +3,7 @@ import logging
 import codecs
 
 from .utils import async_get_value
+from .set_cricket import async_set_cricket_values
 from .set_golf import async_set_golf_values
 from .set_mma import async_set_mma_values
 from .set_racing import async_set_racing_values
@@ -78,6 +79,8 @@ async def async_set_values(new_values, event, competition_index, team_index, lan
         rc = await async_set_mma_values(new_values, event, competition_index, team_index, lang, sensor_name)
     elif new_values["sport"] == "racing":
         rc = await async_set_racing_values(new_values, event, competition_index, team_index, lang, sensor_name)
+    elif new_values["sport"] == "cricket":
+        rc = await async_set_cricket_values(new_values, event, competition_index, team_index, lang, sensor_name)
 #    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
 
     new_values["private_fast_refresh"] = False
