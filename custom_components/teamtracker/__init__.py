@@ -236,7 +236,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
-                values["api_message"] = "Cached data"
+                if values["api_message"]:
+                    values["api_message"] = "Cached data: " + values["api_message"]
+                else:
+                    values["api_message"] = "Cached data"
                 return values
 
 #
