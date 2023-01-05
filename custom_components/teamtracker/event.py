@@ -61,11 +61,11 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
                         _LOGGER.debug("%s: Found competition for '%s' in team abbreviation; parsing data.", sensor_name, search_key)
                     else: # Abbreviations in event_name can be different than team_abbr so try that too
                         sn = await async_get_value(event, "shortName", default="")
-                        if sn.startswith(search_key + ' ') and str(await async_get_value(competition, "competitors", 1, "team", "abbreviation", default="")) != search_key:
+                        if sn.startswith(search_key + ' ') and str(await async_get_value(competition, "competitors", 0, "team", "abbreviation", default="")) != search_key and str(await async_get_value(competition, "competitors", 1, "team", "abbreviation", default="")) != search_key:
                             matched_index = 1     # Lazy, but assumes first team in short_name is always team_index 1.
                             values["api_message"] = "team_id '" + search_key + "' does not match team_abbr.  Matched on event_name."
                             _LOGGER.warn("%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.", sensor_name, search_key)
-                        if sn.endswith(' ' + search_key) and str(await async_get_value(competition, "competitors", 0, "team", "abbreviation", default="")) != search_key: 
+                        if sn.endswith(' ' + search_key) and str(await async_get_value(competition, "competitors", 0, "team", "abbreviation", default="")) != search_key and str(await async_get_value(competition, "competitors", 1, "team", "abbreviation", default="")) != search_key: 
                             matched_index = 0     # Lazy, but assumes second team in short_name is always team_index 0.
                             values["api_message"] = "team_id '" + search_key + "' does not match team_abbr.  Matched on event_name."
                             _LOGGER.warn("%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.", sensor_name, search_key)
