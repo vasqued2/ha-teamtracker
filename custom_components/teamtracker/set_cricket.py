@@ -21,6 +21,7 @@ async def async_set_cricket_values(new_values, event, competition_index, team_in
 
     new_values["odds"] = await async_get_value(competition, "class", "generalClassCard")
     new_values["clock"] = await async_get_value(competition, "status", "type", "description")
+    new_values["quarter"] = await async_get_value(competition, "status", "session")
 
     if await async_get_value(competitor, "linescores", -1, "isBatting"):
         new_values["possession"] = await async_get_value(competitor, "id")

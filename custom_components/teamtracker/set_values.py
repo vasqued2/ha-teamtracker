@@ -134,11 +134,22 @@ async def async_set_universal_values(new_values, event, competition_index, team_
     new_values["venue"] = await async_get_value(competition, "venue", "fullName",
         default=await async_get_value(event, "circuit", "fullName"))
 
-    try:
-        new_values["location"] = "%s, %s" % (competition["venue"]["address"]["city"], competition["venue"]["address"]["state"])
-    except:
-        new_values["location"] = await async_get_value(competition, "venue", "address", "city",
-            default=await async_get_value(competition, "venue", "address", "summary"))
+    state = await async_get_value(competition, "venue", "address", "state")
+    country = await async_get_value(competition, "venue", "address", "country")
+
+    new_values["location"] = await async_get_value(competition, "venue", "address", "city")
+    if state:
+        if new_values["location"]:
+            new_values["location"] = f'{new_values["location"]}, {state}'
+        else:
+            new_values["location"] = state
+    if country:
+        if new_values["location"]:
+            new_values["location"] = f'{new_values["location"]}, {country}'
+        else:
+            new_values["location"] = country
+    if new_values["location"] is None:
+        new_values["location"] = await async_get_value(competition, "venue", "address", "summary")
 
 #    _LOGGER.debug("%s: async_set_universal_values() 3: %s", sensor_name, sensor_name)
 
