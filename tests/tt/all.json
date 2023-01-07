@@ -56374,6 +56374,1131 @@
           "shortDetail": "12/20 - 8:00 PM EST"
         }
       }
+    },
+    {
+      "id": "1324647",
+      "uid": "s:200~e:1324647",
+      "date": "2023-01-01T02:40Z",
+      "endDate": "2023-01-02T23:59Z",
+      "name": "Melbourne Renegades v Perth Scorchers",
+      "shortName": "MR v PS",
+      "description": "24th Match (D/N), Big Bash League at Melbourne, Jan 1 2023",
+      "season": {
+        "year": 2022,
+        "type": 8044
+      },
+      "competitions": [
+        {
+          "id": "1324647",
+          "uid": "s:200~e:1324647~c:1324647",
+          "description": "24th Match",
+          "shortDescription": "24th Match,  (D/N) at Melbourne",
+          "date": "2023-01-01T02:40Z",
+          "endDate": "2023-01-02T23:59Z",
+          "timeValid": true,
+          "neutralSite": true,
+          "attendance": 0,
+          "conferenceCompetition": false,
+          "fastcastAvailable": true,
+          "recent": true,
+          "class": {
+            "internationalClassId": "0",
+            "generalClassId": "6",
+            "generalClassCard": "Twenty20",
+            "name": "Twenty20 matches",
+            "eventType": "T20"
+          },
+          "venue": {
+            "id": "56450",
+            "fullName": "Docklands Stadium, Melbourne",
+            "address": {
+              "city": "Melbourne",
+              "state": "",
+              "country": "Australia",
+              "summary": "Docklands, VIC, 3008. +61 (0) 3 8625 7700"
+            },
+            "capacity": 12000,
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "509671",
+              "uid": "s:200~e:1324647~c:1324647~t:509671",
+              "type": "team",
+              "order": 1,
+              "homeAway": "home",
+              "winner": "false",
+              "score": "155/6",
+              "team": {
+                "id": "509671",
+                "uid": "s:200~t:509671",
+                "location": "Australia",
+                "name": "Melbourne Renegades",
+                "abbreviation": "MR",
+                "displayName": "Melbourne Renegades",
+                "shortDisplayName": "MR",
+                "isActive": true,
+                "countryCode": "AU",
+                "color": "",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/team/_/id/509671/melbourne-renegades",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "fixtures",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/scores/team/509671/melbourne-renegades",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "videos",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/current/video_audio/index.html?object=509671",
+                    "text": "Videos",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/cricket/500/509671.png"
+              },
+              "linescores": [
+                {
+                  "value": 1,
+                  "wickets": 6,
+                  "runs": 155,
+                  "overs": 20,
+                  "isBatting": true,
+                  "description": "complete",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 2,
+                  "wickets": 0,
+                  "runs": 0,
+                  "overs": 16,
+                  "isBatting": false,
+                  "description": "",
+                  "isCurrent": 1
+                }
+              ],
+              "leaders": {
+                "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/8044/events/1324647/competitions/1324647/competitors/509671/leaders"
+              },
+              "statistics": [],
+              "records": [
+                {
+                  "name": "Total",
+                  "abbreviation": "Total",
+                  "type": "total",
+                  "summary": ""
+                }
+              ]
+            },
+            {
+              "id": "509670",
+              "uid": "s:200~e:1324647~c:1324647~t:509670",
+              "type": "team",
+              "order": 2,
+              "homeAway": "away",
+              "winner": "false",
+              "score": "125/3 (16/20 ov, target 156)",
+              "team": {
+                "id": "509670",
+                "uid": "s:200~t:509670",
+                "location": "Australia",
+                "name": "Perth Scorchers",
+                "abbreviation": "PS",
+                "displayName": "Perth Scorchers",
+                "shortDisplayName": "PS",
+                "isActive": true,
+                "countryCode": "AU",
+                "color": "",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/team/_/id/509670/perth-scorchers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "fixtures",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/scores/team/509670/perth-scorchers",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "videos",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/current/video_audio/index.html?object=509670",
+                    "text": "Videos",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/cricket/500/509670.png"
+              },
+              "linescores": [
+                {
+                  "value": 1,
+                  "wickets": 0,
+                  "runs": 0,
+                  "overs": 20,
+                  "isBatting": false,
+                  "description": "complete",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 2,
+                  "wickets": 3,
+                  "runs": 125,
+                  "overs": 16,
+                  "isBatting": true,
+                  "description": "",
+                  "isCurrent": 1
+                }
+              ],
+              "leaders": {
+                "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/8044/events/1324647/competitions/1324647/competitors/509670/leaders"
+              },
+              "statistics": [],
+              "records": [
+                {
+                  "name": "Total",
+                  "abbreviation": "Total",
+                  "type": "total",
+                  "summary": ""
+                }
+              ]
+            }
+          ],
+          "status": {
+            "clock": 0,
+            "displayClock": "0'",
+            "period": 2,
+            "session": "",
+            "featuredAthletes": [],
+            "summary": "Scorchers require 31 runs",
+            "type": {
+              "id": "0",
+              "description": "Live",
+              "detail": "Live",
+              "shortDetail": "Live",
+              "state": "in"
+            }
+          },
+          "odds": [
+            {
+              "provider": {
+                "id": 1,
+                "name": "Bet 365",
+                "priority": 0
+              },
+              "awayTeamOdds": {
+                "odds": {
+                  "handicap": 0,
+                  "summary": "1/12",
+                  "value": 0
+                },
+                "team": {
+                  "id": "509670",
+                  "abbreviation": "PS",
+                  "displayName": "Perth Scorchers",
+                  "shortDisplayName": "PS"
+                }
+              },
+              "homeTeamOdds": {
+                "odds": {
+                  "handicap": 0,
+                  "summary": "7/1",
+                  "value": 0
+                },
+                "team": {
+                  "id": "509671",
+                  "abbreviation": "MR",
+                  "displayName": "Melbourne Renegades",
+                  "shortDisplayName": "MR"
+                }
+              },
+              "drawOdds": {},
+              "links": [
+                {
+                  "language": "en",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "hometeamodds",
+                    "bet-365",
+                    "desktop"
+                  ],
+                  "href": "https://www.bet365.com/dl/sportsbookredirect?affiliate=365_307576&bs=130553459-2061882008~7/1&bet=1",
+                  "text": "homeTeamOdds",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false
+                },
+                {
+                  "language": "en",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "awayteamodds",
+                    "bet-365",
+                    "desktop"
+                  ],
+                  "href": "https://www.bet365.com/dl/sportsbookredirect?affiliate=365_307576&bs=130553459-2061882020~1/12&bet=1",
+                  "text": "awayTeamOdds",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false
+                }
+              ]
+            },
+            {
+              "provider": {
+                "id": 1,
+                "name": "Bet 365",
+                "priority": 0
+              }
+            }
+          ],
+          "broadcasts": [],
+          "notes": [],
+          "situation": {},
+          "startDate": "2023-01-01T02:40Z",
+          "geoBroadcasts": [],
+          "highlights": []
+        }
+      ],
+      "links": [
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "boxscore",
+            "match",
+            "live",
+            "summary",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/8044/game/1324647/melbourne-renegades-vs-perth-scorchers-24th-match-big-bash-league-2022-23",
+          "text": "Summary",
+          "shortText": "Summary",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "league",
+            "serieshome",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/_/id/8044/season/2022/big-bash-league",
+          "text": "Series Home",
+          "shortText": "Series Home",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0,
+        "displayClock": "0'",
+        "period": 2,
+        "session": "",
+        "summary": "Scorchers require 31 runs",
+        "type": {
+          "id": "0",
+          "description": "Live",
+          "detail": "Live",
+          "shortDetail": "Live",
+          "state": "in"
+        }
+      }
+    },
+    {
+      "id": "1324648",
+      "uid": "s:200~e:1324648",
+      "date": "2023-01-01T08:15Z",
+      "endDate": "2023-01-02T23:59Z",
+      "name": "Brisbane Heat v Sydney Sixers",
+      "shortName": "BH v SS",
+      "description": "25th Match (N), Big Bash League at Brisbane, Jan 1 2023",
+      "season": {
+        "year": 2022,
+        "type": 8044
+      },
+      "competitions": [
+        {
+          "id": "1324648",
+          "uid": "s:200~e:1324648~c:1324648",
+          "description": "25th Match",
+          "shortDescription": "25th Match,  (N) at Brisbane",
+          "date": "2023-01-01T08:15Z",
+          "endDate": "2023-01-02T23:59Z",
+          "timeValid": true,
+          "neutralSite": true,
+          "attendance": 0,
+          "conferenceCompetition": false,
+          "fastcastAvailable": false,
+          "recent": false,
+          "class": {
+            "internationalClassId": "0",
+            "generalClassId": "6",
+            "generalClassCard": "Twenty20",
+            "name": "Twenty20 matches",
+            "eventType": "T20"
+          },
+          "venue": {
+            "id": "56336",
+            "fullName": "Brisbane Cricket Ground, Woolloongabba, Brisbane",
+            "address": {
+              "city": "Brisbane",
+              "state": "",
+              "country": "Australia",
+              "summary": "Vulture Street Woolloongabba, QLD, 4151 +61 (0)7 3008 6166"
+            },
+            "capacity": 37000,
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "509668",
+              "uid": "s:200~e:1324648~c:1324648~t:509668",
+              "type": "team",
+              "order": 1,
+              "homeAway": "home",
+              "winner": "false",
+              "score": "",
+              "team": {
+                "id": "509668",
+                "uid": "s:200~t:509668",
+                "location": "Australia",
+                "name": "Brisbane Heat",
+                "abbreviation": "BH",
+                "displayName": "Brisbane Heat",
+                "shortDisplayName": "BH",
+                "isActive": true,
+                "countryCode": "AU",
+                "color": "",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/team/_/id/509668/brisbane-heat",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "fixtures",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/scores/team/509668/brisbane-heat",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "videos",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/current/video_audio/index.html?object=509668",
+                    "text": "Videos",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/cricket/500/509668.png"
+              },
+              "linescores": [],
+              "leaders": {
+                "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/8044/events/1324648/competitions/1324648/competitors/509668/leaders"
+              },
+              "statistics": [],
+              "records": [
+                {
+                  "name": "Total",
+                  "abbreviation": "Total",
+                  "type": "total",
+                  "summary": ""
+                }
+              ]
+            },
+            {
+              "id": "509673",
+              "uid": "s:200~e:1324648~c:1324648~t:509673",
+              "type": "team",
+              "order": 2,
+              "homeAway": "away",
+              "winner": "false",
+              "score": "",
+              "team": {
+                "id": "509673",
+                "uid": "s:200~t:509673",
+                "location": "Australia",
+                "name": "Sydney Sixers",
+                "abbreviation": "SS",
+                "displayName": "Sydney Sixers",
+                "shortDisplayName": "SS",
+                "isActive": true,
+                "countryCode": "AU",
+                "color": "",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/team/_/id/509673/sydney-sixers",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "fixtures",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/scores/team/509673/sydney-sixers",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "videos",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/current/video_audio/index.html?object=509673",
+                    "text": "Videos",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/cricket/500/509673.png"
+              },
+              "linescores": [],
+              "leaders": {
+                "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/8044/events/1324648/competitions/1324648/competitors/509673/leaders"
+              },
+              "statistics": [],
+              "records": [
+                {
+                  "name": "Total",
+                  "abbreviation": "Total",
+                  "type": "total",
+                  "summary": ""
+                }
+              ]
+            }
+          ],
+          "status": {
+            "clock": 0,
+            "displayClock": "0'",
+            "period": 0,
+            "featuredAthletes": [],
+            "summary": "Starts at 18:15 local time",
+            "type": {
+              "id": "0",
+              "description": "Scheduled",
+              "detail": "Scheduled",
+              "shortDetail": "Scheduled",
+              "state": "pre"
+            }
+          },
+          "odds": [
+            {
+              "provider": {
+                "id": 1,
+                "name": "Bet 365",
+                "priority": 0
+              },
+              "awayTeamOdds": {
+                "odds": {
+                  "handicap": 0,
+                  "summary": "4/6",
+                  "value": 0
+                },
+                "team": {
+                  "id": "509673",
+                  "abbreviation": "SS",
+                  "displayName": "Sydney Sixers",
+                  "shortDisplayName": "SS"
+                }
+              },
+              "homeTeamOdds": {
+                "odds": {
+                  "handicap": 0,
+                  "summary": "6/5",
+                  "value": 0
+                },
+                "team": {
+                  "id": "509668",
+                  "abbreviation": "BH",
+                  "displayName": "Brisbane Heat",
+                  "shortDisplayName": "BH"
+                }
+              },
+              "drawOdds": {},
+              "links": [
+                {
+                  "language": "en",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "hometeamodds",
+                    "bet-365",
+                    "desktop"
+                  ],
+                  "href": "https://www.bet365.com/dl/sportsbookredirect?affiliate=365_307576&bs=130196626-2032066399~6/5&bet=1",
+                  "text": "homeTeamOdds",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false
+                },
+                {
+                  "language": "en",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "awayteamodds",
+                    "bet-365",
+                    "desktop"
+                  ],
+                  "href": "https://www.bet365.com/dl/sportsbookredirect?affiliate=365_307576&bs=130196626-2032066400~4/6&bet=1",
+                  "text": "awayTeamOdds",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false
+                }
+              ]
+            }
+          ],
+          "broadcasts": [],
+          "notes": [],
+          "startDate": "2023-01-01T08:15Z",
+          "geoBroadcasts": []
+        }
+      ],
+      "links": [
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "boxscore",
+            "match",
+            "live",
+            "summary",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/8044/game/1324648/brisbane-heat-vs-sydney-sixers-25th-match-big-bash-league-2022-23",
+          "text": "Summary",
+          "shortText": "Summary",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "league",
+            "serieshome",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/_/id/8044/season/2022/big-bash-league",
+          "text": "Series Home",
+          "shortText": "Series Home",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0,
+        "displayClock": "0'",
+        "period": 0,
+        "summary": "Starts at 18:15 local time",
+        "type": {
+          "id": "0",
+          "description": "Scheduled",
+          "detail": "Scheduled",
+          "shortDetail": "Scheduled",
+          "state": "pre"
+        }
+      }
+    },
+    {
+      "id": "1340849",
+      "uid": "s:200~e:1340849",
+      "date": "2022-12-22T03:30Z",
+      "endDate": "2022-12-26T23:59Z",
+      "name": "Bangladesh v India",
+      "shortName": "BAN v IND",
+      "description": "2nd Test, India tour of Bangladesh at Dhaka, Dec 22-25 2022",
+      "season": {
+        "year": 2022,
+        "type": 21108
+      },
+      "competitions": [
+        {
+          "id": "1340849",
+          "uid": "s:200~e:1340849~c:1340849",
+          "description": "2nd Test",
+          "shortDescription": "2nd Test,  at Dhaka",
+          "date": "2022-12-22T03:30Z",
+          "endDate": "2022-12-26T23:59Z",
+          "timeValid": true,
+          "neutralSite": true,
+          "attendance": 0,
+          "conferenceCompetition": false,
+          "fastcastAvailable": false,
+          "recent": false,
+          "class": {
+            "internationalClassId": "1",
+            "generalClassId": "4",
+            "generalClassCard": "Test",
+            "name": "Test matches",
+            "eventType": "Test"
+          },
+          "venue": {
+            "id": "236761",
+            "fullName": "Shere Bangla National Stadium, Mirpur, Dhaka",
+            "address": {
+              "city": "Dhaka",
+              "state": "",
+              "country": "Bangladesh",
+              "summary": ""
+            },
+            "capacity": 25000,
+            "indoor": false
+          },
+          "competitors": [
+            {
+              "id": "25",
+              "uid": "s:200~e:1340849~c:1340849~t:25",
+              "type": "team",
+              "order": 1,
+              "homeAway": "home",
+              "winner": "false",
+              "score": "227 & 231",
+              "team": {
+                "id": "25",
+                "uid": "s:200~t:25",
+                "location": "Bangladesh",
+                "name": "Bangladesh",
+                "abbreviation": "BAN",
+                "displayName": "Bangladesh",
+                "shortDisplayName": "BAN",
+                "isActive": true,
+                "countryCode": "BD",
+                "color": "#006a4e",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/team/_/id/25/bangladesh",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "fixtures",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/scores/team/25/bangladesh",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "statistics",
+                      "desktop"
+                    ],
+                    "href": "https://stats.espncricinfo.com/ci/engine/records/index.html?id=25;type=team",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "players",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/player/country.html?country=25",
+                    "text": "Players",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "videos",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/current/video_audio/index.html?object=25",
+                    "text": "Videos",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/cricket/500/25.png"
+              },
+              "linescores": [
+                {
+                  "value": 1,
+                  "wickets": 10,
+                  "runs": 227,
+                  "overs": 73.5,
+                  "isBatting": true,
+                  "description": "all out",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 2,
+                  "wickets": 0,
+                  "runs": 0,
+                  "overs": 86.3,
+                  "isBatting": false,
+                  "description": "all out",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 3,
+                  "wickets": 10,
+                  "runs": 231,
+                  "overs": 70.2,
+                  "isBatting": true,
+                  "description": "all out",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 4,
+                  "wickets": 0,
+                  "runs": 0,
+                  "overs": 47,
+                  "isBatting": false,
+                  "description": "target reached",
+                  "isCurrent": 1
+                }
+              ],
+              "leaders": {
+                "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/21108/events/1340849/competitions/1340849/competitors/25/leaders"
+              },
+              "statistics": []
+            },
+            {
+              "id": "6",
+              "uid": "s:200~e:1340849~c:1340849~t:6",
+              "type": "team",
+              "order": 2,
+              "homeAway": "away",
+              "winner": "true",
+              "score": "314 & 145/7 (47 ov, target 145)",
+              "team": {
+                "id": "6",
+                "uid": "s:200~t:6",
+                "location": "India",
+                "name": "India",
+                "abbreviation": "IND",
+                "displayName": "India",
+                "shortDisplayName": "IND",
+                "isActive": true,
+                "countryCode": "IN",
+                "color": "#137dd2",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/team/_/id/6/india",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "fixtures",
+                      "desktop"
+                    ],
+                    "href": "https://www.espn.in/cricket/scores/team/6/india",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "statistics",
+                      "desktop"
+                    ],
+                    "href": "https://stats.espncricinfo.com/ci/engine/records/index.html?id=6;type=team",
+                    "text": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "players",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/player/country.html?country=6",
+                    "text": "Players",
+                    "isExternal": false,
+                    "isPremium": false
+                  },
+                  {
+                    "rel": [
+                      "videos",
+                      "desktop"
+                    ],
+                    "href": "https://www.espncricinfo.com/ci/content/current/video_audio/index.html?object=6",
+                    "text": "Videos",
+                    "isExternal": false,
+                    "isPremium": false
+                  }
+                ],
+                "logo": "https://a.espncdn.com/i/teamlogos/cricket/500/6.png"
+              },
+              "linescores": [
+                {
+                  "value": 1,
+                  "wickets": 0,
+                  "runs": 0,
+                  "overs": 73.5,
+                  "isBatting": false,
+                  "description": "all out",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 2,
+                  "wickets": 10,
+                  "runs": 314,
+                  "overs": 86.3,
+                  "isBatting": true,
+                  "description": "all out",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 3,
+                  "wickets": 0,
+                  "runs": 0,
+                  "overs": 70.2,
+                  "isBatting": false,
+                  "description": "all out",
+                  "isCurrent": 0
+                },
+                {
+                  "value": 4,
+                  "wickets": 7,
+                  "runs": 145,
+                  "overs": 47,
+                  "isBatting": true,
+                  "description": "target reached",
+                  "isCurrent": 1
+                }
+              ],
+              "leaders": {
+                "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/21108/events/1340849/competitions/1340849/competitors/6/leaders"
+              },
+              "statistics": []
+            }
+          ],
+          "status": {
+            "clock": 0,
+            "displayClock": "0'",
+            "period": 4,
+            "featuredAthletes": [
+              {
+                "abbreviation": "POTM",
+                "athlete": {
+                  "id": "26421",
+                  "name": "Ravichandran Ashwin",
+                  "shortName": "Ashwin",
+                  "fullName": "Ravichandran Ashwin",
+                  "displayName": "Ravichandran Ashwin",
+                  "position": "BLA",
+                  "headshot": "https://a.espncdn.com/i/headshots/cricket/players/full/26421.png",
+                  "team": {
+                    "id": "6"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop"
+                      ],
+                      "href": "https://www.espncricinfo.com/ci/content/player/26421.html"
+                    }
+                  ]
+                },
+                "displayName": "Player Of The Match",
+                "linescores": {
+                  "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/21108/events/1340849/competitions/1340849/competitors/6/roster/26421/linescores"
+                },
+                "name": "playerOfTheMatch",
+                "playerId": "26421",
+                "shortDisplayName": "POTM",
+                "team": {
+                  "id": "6"
+                },
+                "statistics": []
+              },
+              {
+                "abbreviation": "POTS",
+                "athlete": {
+                  "id": "32540",
+                  "name": "Cheteshwar Pujara",
+                  "shortName": "Pujara",
+                  "fullName": "Cheteshwar Arvind Pujara",
+                  "displayName": "Cheteshwar Pujara",
+                  "position": "TBT",
+                  "headshot": "https://a.espncdn.com/i/headshots/cricket/players/default-player-logo-500.png",
+                  "team": {
+                    "id": "6"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop"
+                      ],
+                      "href": "https://www.espncricinfo.com/ci/content/player/32540.html"
+                    }
+                  ]
+                },
+                "displayName": "Player Of The Series",
+                "linescores": {
+                  "$ref": "http://new.core.espnuk.org/v2/sports/cricket/leagues/21108/events/1340849/competitions/1340849/competitors/6/roster/32540/linescores"
+                },
+                "name": "playerOfTheSeries",
+                "playerId": "32540",
+                "shortDisplayName": "POTS",
+                "team": {
+                  "id": "6"
+                },
+                "statistics": []
+              }
+            ],
+            "summary": "India won by 3 wkts",
+            "type": {
+              "id": "1",
+              "description": "Result",
+              "detail": "Final",
+              "shortDetail": "Final",
+              "state": "post"
+            }
+          },
+          "broadcasts": [],
+          "notes": [],
+          "startDate": "2022-12-22T03:30Z",
+          "geoBroadcasts": [],
+          "highlights": []
+        }
+      ],
+      "links": [
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "boxscore",
+            "scorecard",
+            "match",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/21108/scorecard/1340849/bangladesh-vs-india-2nd-test-india-in-bangladesh-2022-23",
+          "text": "Scorecard",
+          "shortText": "Scorecard",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "recap",
+            "report",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/21108/report/1340849/bangladesh-vs-india-2nd-test-india-in-bangladesh-2022-23",
+          "text": "Report",
+          "shortText": "Report",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "boxscore",
+            "match",
+            "live",
+            "summary",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/21108/game/1340849/bangladesh-vs-india-2nd-test-india-in-bangladesh-2022-23",
+          "text": "Summary",
+          "shortText": "Summary",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en",
+          "rel": [
+            "event",
+            "league",
+            "serieshome",
+            "desktop"
+          ],
+          "href": "https://www.espn.in/cricket/series/_/id/21108/india-in-bangladesh-2022-23",
+          "text": "Series Home",
+          "shortText": "Series Home",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "status": {
+        "clock": 0,
+        "displayClock": "0'",
+        "period": 4,
+        "summary": "India won by 3 wkts",
+        "type": {
+          "id": "1",
+          "description": "Result",
+          "detail": "Final",
+          "shortDetail": "Final",
+          "state": "post"
+        }
+      }
     }
   ]
 }
