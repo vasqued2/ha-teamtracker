@@ -5,3 +5,4 @@ pytest-cov
 pytest-homeassistant-custom-component
 arrow
 aiofiles
+locale

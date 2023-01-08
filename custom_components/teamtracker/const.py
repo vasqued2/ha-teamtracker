@@ -37,11 +37,13 @@ SPORT_LIST = [
     ["australian-football", "mdi:football-australian"],
     ["baseball", "mdi:baseball"],
     ["basketball", "mdi:basketball"],
+    ["cricket", "mdi:cricket"],
     ["football", "mdi:football"],
     ["golf", "mdi:golf-tee"],
     ["hockey", "mdi:hockey-puck"],
     ["mma", "mdi:karate"],
     ["racing", "mdi:flag-checkered"],
+    ["rugby", "mdi:rugby"],
     ["soccer", "mdi:soccer"],
     ["tennis", "mdi:tennis"],
     ["volleyball", "mdi:volleyball"]
