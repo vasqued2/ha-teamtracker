@@ -47,6 +47,7 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
         default=DEFAULT_LOGO)
 
     for event in data["events"]:
+        event_state = "NOT_FOUND"
 #        _LOGGER.debug("%s: event() Processing event: %s", sensor_name, str(await async_get_value(event, "shortName")))
         competition_index = -1
         for competition_index in range (0, len(await async_get_value(event, "competitions", default=[]))):
@@ -76,6 +77,11 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
                 if matched_index != -1:
                         found_competitor = True
                         prev_values = values.copy()
+
+                        #
+                        # Capture the event state because in sports like tennis, it can be different that the competition state
+                        #
+                        event_state = str(await async_get_value(event, "status", "type", "state", default="NOT_FOUND")).upper()
                         rc = await async_set_values(values, event, competition_index, matched_index, lang, sensor_name)
                         if rc == False:
                             _LOGGER.debug("%s: event() Error occurred setting event values: %s", sensor_name, values)
@@ -107,7 +113,11 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
                 _LOGGER.debug("%s: async_process_event() No competitors in this competition: %s", sensor_name, str(await async_get_value(competition, "id", default="{id}")))
             if stop_flag:
                 break;
-        if values["state"] == "POST" and str(await async_get_value(event, "status", "type", "state", default="NOT_FOUND")).upper() == "IN":
+        #
+        #  if the competition state is POST but the event state is IN, stop looking
+        #    this happens in tennis where an event has many competitions
+        #
+        if values["state"] == "POST" and event_state == "IN":
             stop_flag = True;
         if stop_flag:
             break;
