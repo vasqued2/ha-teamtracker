@@ -210,17 +210,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         league_path = config[CONF_LEAGUE_PATH]
         conference_id = config[CONF_CONFERENCE_ID]
 
-        lang, enc = locale.getlocale()
-        lang = lang or "en_US"
-        enc = enc or "UTF-8"
-
         try:
-            for t in hass.data["frontend_storage"]:
-                for k, v in t.items():
-                    if "dict" in str(type(v)):
-                        lang = value["language"]["language"]
+            lang = hass.config.language
         except:
-            lang = lang 
+            lang, enc = locale.getlocale()
+            lang = lang or "en_US"
 
         key = sport_path + ":" + league_path + ":" + conference_id
 
