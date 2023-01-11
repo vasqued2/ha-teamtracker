@@ -3,6 +3,7 @@ import logging
 from datetime import date, datetime, timedelta
 
 from .const import (
+    API_LIMIT,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -46,7 +47,7 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
     values["league_logo"] = await async_get_value(data, "leagues", 0, "logos", 0, "href",
         default=DEFAULT_LOGO)
 
-    if len(data["events"]) == 25:
+    if len(data["events"]) == API_LIMIT:
         limit_hit = True
     else:
         limit_hit = False
