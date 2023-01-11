@@ -46,6 +46,11 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
     values["league_logo"] = await async_get_value(data, "leagues", 0, "logos", 0, "href",
         default=DEFAULT_LOGO)
 
+    if len(data["events"]) == 25:
+        limit_hit = True
+    else:
+        limit_hit = False
+
     for event in data["events"]:
         event_state = "NOT_FOUND"
 #        _LOGGER.debug("%s: event() Processing event: %s", sensor_name, str(await async_get_value(event, "shortName")))
@@ -125,9 +130,13 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
             _LOGGER.debug("%s: async_process_event() No competitions for this event: %s", sensor_name, await async_get_value(event, "shortName", default="{shortName}"))
 
     if found_competitor == False:
-        first_date = (date.today() - timedelta(days = 1)).strftime("%Y-%m-%dT%H:%MZ")
-        last_date =  (date.today() + timedelta(days = 5)).strftime("%Y-%m-%dT%H:%MZ")
-        values["api_message"] = "No competition scheduled for '" + team_id + "' between " + first_date + " and " + last_date
-        _LOGGER.debug("%s: No competitor information '%s' returned by API", sensor_name, search_key)
+        if limit_hit:
+            values["api_message"] = "API_LIMIT hit.  No competition found for '" + team_id + "'"
+            _LOGGER.debug("%s: API_LIMIT(%s) hit.  No competitor information '%s' returned by API", sensor_name, API_LIMIT, search_key)
+        else:
+            first_date = (date.today() - timedelta(days = 1)).strftime("%Y-%m-%dT%H:%MZ")
+            last_date =  (date.today() + timedelta(days = 5)).strftime("%Y-%m-%dT%H:%MZ")
+            values["api_message"] = "No competition scheduled for '" + team_id + "' between " + first_date + " and " + last_date
+            _LOGGER.debug("%s: No competitor information '%s' returned by API", sensor_name, search_key)
 
     return values

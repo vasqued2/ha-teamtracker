@@ -34,6 +34,7 @@ from .set_volleyball import async_set_volleyball_values
 from .utils import async_get_value
 
 from .const import (
+    API_LIMIT,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -274,7 +275,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         league_id = config[CONF_LEAGUE_ID].upper()
         sport_path = config[CONF_SPORT_PATH]
         league_path = config[CONF_LEAGUE_PATH]
-        url_parms = "?lang=" + lang[:2]
+        url_parms = "?lang=" + lang[:2] + "?limit=" + str(API_LIMIT)
 
         d1 = (date.today() - timedelta(days = 1)).strftime("%Y%m%d")
         d2 = (date.today() + timedelta(days = 5)).strftime("%Y%m%d")
