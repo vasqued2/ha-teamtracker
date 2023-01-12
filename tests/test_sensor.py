@@ -5,7 +5,7 @@ from custom_components.teamtracker.const import DOMAIN
 from tests.const import CONFIG_DATA
 
 
-async def test_sensor(hass):
+async def test_sensor(hass, mocker):
 
     entry = MockConfigEntry(
         domain=DOMAIN,
