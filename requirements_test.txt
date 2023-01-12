@@ -2,6 +2,7 @@ black
 isort
 pytest
 pytest-cov
+pytest-mock
 pytest-homeassistant-custom-component
 arrow
 aiofiles
