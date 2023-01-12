@@ -2,7 +2,6 @@ from .utils import async_get_value
 
 async def async_set_baseball_values(new_values, event, competition_index, team_index, sensor_name) -> bool:
     """Get IN event values"""
-#    new_values = {}
 
     new_values["clock"] = await async_get_value(event, "status", "type", "detail") # Inning
     if new_values["clock"][:3].lower() in ['bot','mid']:

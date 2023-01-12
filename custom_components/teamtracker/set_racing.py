@@ -7,7 +7,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_racing_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
 #        new_values = {}
 
-    _LOGGER.debug("%s: async_set_racing_values() 0: %s", sensor_name, new_values)
+#    _LOGGER.debug("%s: async_set_racing_values() 0: %s", sensor_name, new_values)
 
     if team_index == 0:
         oppo_index = 1
@@ -23,7 +23,7 @@ async def async_set_racing_values(new_values, event, competition_index, team_ind
 
     city = await async_get_value(event, "circuit", "address", "city")
     country = await async_get_value(event, "circuit", "address", "country")
-    _LOGGER.debug("%s: async_set_racing_values() 1: %s", sensor_name, new_values)
+#    _LOGGER.debug("%s: async_set_racing_values() 1: %s", sensor_name, new_values)
 
     if city != None:
         new_values["location"] = "%s, %s" % (city, country)
@@ -32,16 +32,16 @@ async def async_set_racing_values(new_values, event, competition_index, team_ind
 
     new_values["team_score"] = team_index + 1
     new_values["opponent_score"] = oppo_index + 1
-    _LOGGER.debug("%s: async_set_racing_values() 2: %s", sensor_name, new_values)
+#    _LOGGER.debug("%s: async_set_racing_values() 2: %s", sensor_name, new_values)
 
     if new_values["state"] == "PRE":
         new_values["team_rank"] = team_index + 1
         new_values["opponent_rank"] = oppo_index + 1
-    _LOGGER.debug("%s: async_set_racing_values() 3: %s", sensor_name, new_values)
+#    _LOGGER.debug("%s: async_set_racing_values() 3: %s", sensor_name, new_values)
 
     new_values["team_total_shots"] = await async_get_value(competition, "status", "period")
     new_values["quarter"] = await async_get_value(competition, "type", "abbreviation")
-    _LOGGER.debug("%s: async_set_racing_values() 4: %s", sensor_name, new_values)
+#    _LOGGER.debug("%s: async_set_racing_values() 4: %s", sensor_name, new_values)
 
     new_values["last_play"] = ""
     for x in range (0, 10):

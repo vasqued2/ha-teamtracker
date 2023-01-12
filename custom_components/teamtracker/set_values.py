@@ -29,7 +29,7 @@ oppo_prob = {}
 async def async_set_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
 #    new_values = {}
 
-    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
 
     if team_index == 0:
         oppo_index = 1
@@ -91,7 +91,7 @@ async def async_set_values(new_values, event, competition_index, team_index, lan
         _LOGGER.debug("%s: Event is within 20 minutes, setting refresh rate to 5 seconds.", sensor_name)
         new_values["private_fast_refresh"] = True
 
-    _LOGGER.debug("%s: async_set_values() 5: %s", sensor_name, new_values)
+#    _LOGGER.debug("%s: async_set_values() 5: %s", sensor_name, new_values)
 
     return True
 
@@ -101,7 +101,7 @@ async def async_set_values(new_values, event, competition_index, team_index, lan
 async def async_set_universal_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
     """Traverse JSON for universal values"""
 
-    _LOGGER.debug("%s: async_set_universal_values() 1: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_universal_values() 1: %s", sensor_name, sensor_name)
 
     if team_index == 0:
         oppo_index = 1
@@ -207,7 +207,7 @@ async def async_set_universal_values(new_values, event, competition_index, team_
 #
 async def async_set_team_values(new_values, event, competition_index, team_index, lang, sensor_name) -> bool:
 
-    _LOGGER.debug("%s: async_set_team_values() 1: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_team_values() 1: %s", sensor_name, sensor_name)
 
     if team_index == 0:
         oppo_index = 1
@@ -268,7 +268,7 @@ async def async_set_in_values(new_values, event, competition_index, team_index, 
     global team_prob
     global oppo_prob
 
-    _LOGGER.debug("%s: async_set_in_values() 1: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_in_values() 1: %s", sensor_name, sensor_name)
 
     if team_index == 0:
         oppo_index = 1

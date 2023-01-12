@@ -22,7 +22,7 @@ async def async_set_soccer_values(new_values, event, competition_index, team_ind
         _LOGGER.debug("%s: async_set_soccer_values() 0: %s", sensor_name, sensor_name)
         return False
 
-    _LOGGER.debug("%s: async_set_soccer_values() 1: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_soccer_values() 1: %s", sensor_name, sensor_name)
 
     new_values["team_shots_on_target"] = 0
     new_values["team_total_shots"] = 0
@@ -34,7 +34,7 @@ async def async_set_soccer_values(new_values, event, competition_index, team_ind
         if "possessionPct" in await async_get_value(statistic, "name", default=[]):
             teamPP = await async_get_value(statistic, "displayValue")
 
-    _LOGGER.debug("%s: async_set_soccer_values() 2: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_soccer_values() 2: %s", sensor_name, sensor_name)
 
     new_values["opponent_shots_on_target"] = 0
     new_values["opponent_total_shots"] = 0
@@ -46,7 +46,7 @@ async def async_set_soccer_values(new_values, event, competition_index, team_ind
         if "possessionPct" in await async_get_value(statistic, "name", default=[]):
             oppoPP = await async_get_value(statistic, "displayValue")
 
-    _LOGGER.debug("%s: async_set_soccer_values() 3: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_set_soccer_values() 3: %s", sensor_name, sensor_name)
 
     new_values["last_play"] = ''
     if teamPP and oppoPP:

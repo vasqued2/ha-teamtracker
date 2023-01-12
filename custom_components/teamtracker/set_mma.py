@@ -55,7 +55,7 @@ async def async_set_mma_values(new_values, event, competition_index, team_index,
 async def async_get_prior_fights(event, sensor_name) -> str:
     prior_fights = ""
 
-    _LOGGER.debug("%s: async_get_prior_fights() 1: %s", sensor_name, sensor_name)
+#    _LOGGER.debug("%s: async_get_prior_fights() 1: %s", sensor_name, sensor_name)
     c = 1
     for competition in await async_get_value(event, "competitions", default=[]):
 #        _LOGGER.debug("%s: async_get_prior_fights() 2: %s", sensor_name, sensor_name)
@@ -78,7 +78,7 @@ async def async_get_prior_fights(event, sensor_name) -> str:
             t = 0
 #            _LOGGER.debug("%s: async_get_prior_fights() 2.2: %s", sensor_name, len(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", default=[])))
             for ls in range(0, len(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", default=[]))):
-                _LOGGER.debug("%s: async_get_prior_fights() 2.3: %s %s %s %s", sensor_name, ls, f1, f2, t)
+#                _LOGGER.debug("%s: async_get_prior_fights() 2.3: %s %s %s %s", sensor_name, ls, f1, f2, t)
                 if int(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", ls, "value", default=0)) > int(await async_get_value(competition, "competitors", 1, "linescores", 0, "linescores", ls, "value", default=0)):
                     f1= f1 + 1
                 elif int(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", ls, "value", default=0)) < int (await async_get_value(competition, "competitors", 1, "linescores", 0, "linescores", ls, "value", default=0)):

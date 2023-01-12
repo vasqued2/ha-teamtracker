@@ -18,7 +18,7 @@ async def async_set_golf_values(new_values, event, competition_index, team_index
 #        _LOGGER.debug("%s: async_set_golf_values() 0: %s", sensor_name, sensor_name)
         return(False)
 
-    _LOGGER.debug("%s: async_set_golf_values() 1: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
+#    _LOGGER.debug("%s: async_set_golf_values() 1: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
     if new_values["state"] in ["IN","POST"]:
 #       _LOGGER.debug("%s: async_set_golf_values() 1.1: %s", sensor_name, sensor_name)
