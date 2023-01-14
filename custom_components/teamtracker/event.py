@@ -63,7 +63,7 @@ async def async_process_event(values, sensor_name, data, sport_path, league_id, 
                 competitor = await async_get_value(competition, "competitors", team_index)
                 matched_index = -1
                 if competitor["type"] == "team":
-                    if search_key == await async_get_value(competitor, "team", "abbreviation", default=""):
+                    if search_key == await async_get_value(competitor, "team", "abbreviation", default="") or (search_key == "*"):
                         matched_index = team_index
                         _LOGGER.debug("%s: Found competition for '%s' in team abbreviation; parsing data.", sensor_name, search_key)
                     else: # Abbreviations in event_name can be different than team_abbr so try that too
