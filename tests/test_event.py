@@ -23,7 +23,7 @@ from tests.const import CONFIG_DATA, TEST_DATA
 
 async def test_event(hass):
 
-    async with aiofiles.open('tests/tt/all.json', mode='r') as f:
+    async with aiofiles.open("tests/tt/all.json", mode="r") as f:
         contents = await f.read()
     data = json.loads(contents)
     if data is None:
@@ -49,12 +49,21 @@ async def test_event(hass):
         url = "tests/tt/all.json"
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
-        values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
+        values = await async_process_event(
+            values,
+            sensor_name,
+            data,
+            sport_path,
+            league_id,
+            DEFAULT_LOGO,
+            team_id,
+            lang,
+        )
 
         assert values
 
         file = "tests/tt/results/" + sensor_name + ".json"
-        async with aiofiles.open(file, mode='r') as f:
+        async with aiofiles.open(file, mode="r") as f:
             contents = await f.read()
         expected_results = json.loads(contents)
 

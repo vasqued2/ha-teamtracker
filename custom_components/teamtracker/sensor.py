@@ -47,6 +47,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     }
 )
 
+
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Configuration from yaml"""
 
@@ -100,7 +101,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             if SPORT_LIST[x][0] == sport:
                 icon = SPORT_LIST[x][1]
         if icon == DEFAULT_ICON:
-            _LOGGER.debug("%s:  Setting up sensor from YAML.  Sport '%s' not found.", entry.data[CONF_NAME], sport)
+            _LOGGER.debug(
+                "%s:  Setting up sensor from YAML.  Sport '%s' not found.",
+                entry.data[CONF_NAME],
+                sport,
+            )
 
         self.coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
         self._config = entry
@@ -169,7 +174,6 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._last_update = None
         self._api_message = None
 
-
     @property
     def unique_id(self):
         """
@@ -229,7 +233,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_homeaway"] = self.coordinator.data["team_homeaway"]
         attrs["team_logo"] = self.coordinator.data["team_logo"]
         attrs["team_colors"] = self.coordinator.data["team_colors"]
-#        attrs["team_colors_rbg"] = self.colors2rgb(self.coordinator.data["team_colors"])
+        #        attrs["team_colors_rbg"] = self.colors2rgb(self.coordinator.data["team_colors"])
         attrs["team_score"] = self.coordinator.data["team_score"]
         attrs["team_win_probability"] = self.coordinator.data["team_win_probability"]
         attrs["team_timeouts"] = self.coordinator.data["team_timeouts"]
@@ -241,9 +245,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_homeaway"] = self.coordinator.data["opponent_homeaway"]
         attrs["opponent_logo"] = self.coordinator.data["opponent_logo"]
         attrs["opponent_colors"] = self.coordinator.data["opponent_colors"]
-#        attrs["opponent_colors_rgb"] = self.colors2rgb(self.coordinator.data["opponent_colors"])
+        #        attrs["opponent_colors_rgb"] = self.colors2rgb(self.coordinator.data["opponent_colors"])
         attrs["opponent_score"] = self.coordinator.data["opponent_score"]
-        attrs["opponent_win_probability"] = self.coordinator.data["opponent_win_probability"]
+        attrs["opponent_win_probability"] = self.coordinator.data[
+            "opponent_win_probability"
+        ]
         attrs["opponent_timeouts"] = self.coordinator.data["opponent_timeouts"]
 
         attrs["quarter"] = self.coordinator.data["quarter"]
@@ -261,7 +267,9 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         attrs["team_shots_on_target"] = self.coordinator.data["team_shots_on_target"]
         attrs["team_total_shots"] = self.coordinator.data["team_total_shots"]
-        attrs["opponent_shots_on_target"] = self.coordinator.data["opponent_shots_on_target"]
+        attrs["opponent_shots_on_target"] = self.coordinator.data[
+            "opponent_shots_on_target"
+        ]
         attrs["opponent_total_shots"] = self.coordinator.data["opponent_total_shots"]
 
         attrs["team_sets_won"] = self.coordinator.data["team_sets_won"]
@@ -276,7 +284,6 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     def available(self) -> bool:
         """Return if entity is available."""
         return self.coordinator.last_update_success
-
 
     def colors2rgb(self, colors) -> tuple:
         if colors is None:

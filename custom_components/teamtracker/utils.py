@@ -13,6 +13,6 @@ async def async_get_value(json, *keys, default=None):
     try:
         for k in keys:
             j = j[k]
-        return(j)
+        return j
     except:
-        return(default)
+        return default

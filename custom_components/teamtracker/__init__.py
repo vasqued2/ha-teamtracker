@@ -60,18 +60,23 @@ from .set_volleyball import async_set_volleyball_values
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
-#team_prob = {}
-#oppo_prob = {}
+# team_prob = {}
+# oppo_prob = {}
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
     # Print startup message
-    _LOGGER.info("TeamTracker version %s is starting, if you have any issues please report them here: %s", VERSION, ISSUE_URL,)
+    _LOGGER.info(
+        "TeamTracker version %s is starting, if you have any issues please report them here: %s",
+        VERSION,
+        ISSUE_URL,
+    )
     hass.data.setdefault(DOMAIN, {})
 
-#
-#  No support for an Options flow at this time.  Uncomment line below if ever added.
-#    entry.add_update_listener(update_listener)
+    #
+    #  No support for an Options flow at this time.  Uncomment line below if ever added.
+    #    entry.add_update_listener(update_listener)
 
     if entry.unique_id is not None:
         hass.config_entries.async_update_entry(entry, unique_id=None)
@@ -82,9 +87,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     # Setup the data coordinator
     coordinator = TeamTrackerDataUpdateCoordinator(
-        hass,
-        entry.data,
-        entry.data.get(CONF_TIMEOUT)
+        hass, entry.data, entry.data.get(CONF_TIMEOUT)
     )
 
     # Fetch initial data so we have data when entities subscribe
@@ -118,10 +121,11 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
     return unload_ok
 
+
 #
 #  Only needed if Options Flow is added
 #
-#async def update_listener(hass, entry):
+# async def update_listener(hass, entry):
 #    """Update listener."""
 #    entry.data = entry.options
 #    await hass.config_entries.async_forward_entry_unload(entry, "sensor")
@@ -142,7 +146,9 @@ async def async_migrate_entry(hass, config_entry):
             updated_config[CONF_TIMEOUT] = DEFAULT_TIMEOUT
         if CONF_LEAGUE_ID not in updated_config.keys():
             updated_config[CONF_LEAGUE_ID] = DEFAULT_LEAGUE
-        if (CONF_SPORT_PATH not in updated_config.keys()) or (CONF_LEAGUE_PATH not in updated_config.keys()):
+        if (CONF_SPORT_PATH not in updated_config.keys()) or (
+            CONF_LEAGUE_PATH not in updated_config.keys()
+        ):
             league_id = updated_config[CONF_LEAGUE_ID].upper()
             updated_config[CONF_SPORT_PATH] = DEFAULT_SPORT_PATH
             updated_config[CONF_LEAGUE_PATH] = DEFAULT_LEAGUE_PATH
@@ -175,13 +181,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
 
-        _LOGGER.debug("%s: Data will be updated every %s minutes", self.name, self.interval)
+        _LOGGER.debug(
+            "%s: Data will be updated every %s minutes", self.name, self.interval
+        )
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=self.interval)
 
-#
-#  Top-level method called from HA to update data for all teamtracker sensors
-#
+    #
+    #  Top-level method called from HA to update data for all teamtracker sensors
+    #
     async def _async_update_data(self):
         file_override = False
 
@@ -198,9 +206,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 raise UpdateFailed(error) from error
             return data
 
-#
-#  Update game data from data_cache or the API (if expired)
-#
+    #
+    #  Update game data from data_cache or the API (if expired)
+    #
     async def async_update_game_data(self, config, hass) -> dict:
 
         sensor_name = config[CONF_NAME]
@@ -216,13 +224,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         key = sport_path + ":" + league_path + ":" + conference_id
 
-#
-#  Use cache if not expired
-#
+        #
+        #  Use cache if not expired
+        #
         if key in self.data_cache:
-            expiration = datetime.fromisoformat(self.last_update[key]) + self.update_interval
+            expiration = (
+                datetime.fromisoformat(self.last_update[key]) + self.update_interval
+            )
             now = datetime.now(timezone.utc)
-                
+
             time_diff = now - expiration
 
             if now < expiration:
@@ -234,32 +244,34 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     values["api_message"] = "Cached data"
                 return values
 
-#
-#  Call the API
-#  Get the language based on the locale
-#    Then override it if there is a value in frontend_storage for the selected language
-#      (it usually takes about a minute after reboot for frontend_storage to be populated)
-#
+        #
+        #  Call the API
+        #  Get the language based on the locale
+        #    Then override it if there is a value in frontend_storage for the selected language
+        #      (it usually takes about a minute after reboot for frontend_storage to be populated)
+        #
 
         data, file_override = await self.async_call_api(config, hass, lang)
         values = await self.async_update_values(config, hass, data, lang)
         self.data_cache[key] = data
         self.last_update[key] = values["last_update"]
 
-        if (file_override):
+        if file_override:
             path = "/share/tt/results/" + sensor_name + ".json"
             if not os.path.exists(path):
                 _LOGGER.debug("%s: Creating results file '%s'", sensor_name, path)
-                values["last_update"] = DEFAULT_LAST_UPDATE # set to fixed time for compares
+                values[
+                    "last_update"
+                ] = DEFAULT_LAST_UPDATE  # set to fixed time for compares
                 values["kickoff_in"] = DEFAULT_KICKOFF_IN
-                with open(path, 'w') as convert_file:
+                with open(path, "w") as convert_file:
                     convert_file.write(json.dumps(values, indent=4))
 
         return values
 
-#
-#  Call the API (or file override) and get the data returned by it
-#
+    #
+    #  Call the API (or file override) and get the data returned by it
+    #
     async def async_call_api(self, config, hass, lang) -> dict:
         """Query API for status."""
 
@@ -274,27 +286,29 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         league_path = config[CONF_LEAGUE_PATH]
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
 
-        d1 = (date.today() - timedelta(days = 1)).strftime("%Y%m%d")
-        d2 = (date.today() + timedelta(days = 5)).strftime("%Y%m%d")
+        d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
+        d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
         url_parms = url_parms + "&dates=" + d1 + "-" + d2
 
         if CONF_CONFERENCE_ID in config.keys():
-                if (len(config[CONF_CONFERENCE_ID]) > 0):
-                    url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
-                    if (config[CONF_CONFERENCE_ID] == '9999'):
-                        file_override = True
+            if len(config[CONF_CONFERENCE_ID]) > 0:
+                url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
+                if config[CONF_CONFERENCE_ID] == "9999":
+                    file_override = True
         team_id = config[CONF_TEAM_ID].upper()
         url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
-    
-        if (file_override):
+
+        if file_override:
             _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
-            async with aiofiles.open('/share/tt/test.json', mode='r') as f:
+            async with aiofiles.open("/share/tt/test.json", mode="r") as f:
                 contents = await f.read()
             data = json.loads(contents)
         else:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, headers=headers) as r:
-                    _LOGGER.debug("%s: Getting state for '%s' from %s", sensor_name, team_id, url)
+                    _LOGGER.debug(
+                        "%s: Getting state for '%s' from %s", sensor_name, team_id, url
+                    )
                     if r.status == 200:
                         data = await r.json()
 
@@ -308,23 +322,28 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if num_events == 0:
                 url_parms = "?lang=" + lang[:2]
                 if CONF_CONFERENCE_ID in config.keys():
-                        if (len(config[CONF_CONFERENCE_ID]) > 0):
-                            url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
-                            if (config[CONF_CONFERENCE_ID] == '9999'):
-                                file_override = True
+                    if len(config[CONF_CONFERENCE_ID]) > 0:
+                        url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
+                        if config[CONF_CONFERENCE_ID] == "9999":
+                            file_override = True
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url, headers=headers) as r:
-                        _LOGGER.debug("%s: Getting state without date constraint for '%s' from %s", sensor_name, team_id, url)
+                        _LOGGER.debug(
+                            "%s: Getting state without date constraint for '%s' from %s",
+                            sensor_name,
+                            team_id,
+                            url,
+                        )
                         if r.status == 200:
                             data = await r.json()
 
         return data, file_override
 
-#
-#  Return values based on the data passed into method
-#
+    #
+    #  Return values based on the data passed into method
+    #
     async def async_update_values(self, config, hass, data, lang) -> dict:
         values = {}
         prev_values = {}
@@ -351,9 +370,20 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if data is None:
             values["api_message"] = "API error, no data returned"
-            _LOGGER.warn("%s: API did not return any data for team '%s'", sensor_name, team_id)
+            _LOGGER.warn(
+                "%s: API did not return any data for team '%s'", sensor_name, team_id
+            )
             return values
 
-        values = await async_process_event(values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang)
+        values = await async_process_event(
+            values,
+            sensor_name,
+            data,
+            sport_path,
+            league_id,
+            DEFAULT_LOGO,
+            team_id,
+            lang,
+        )
 
         return values
