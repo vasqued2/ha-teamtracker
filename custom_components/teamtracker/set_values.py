@@ -38,32 +38,43 @@ async def async_set_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
-        _LOGGER.debug("%s: async_set_values() 1.1: %s", sensor_name, sensor_name)
+    if competition is None or competitor is None or opponent is None:
+        _LOGGER.debug("%s: async_set_values() Invalid competition, competitor, or opponent: %s", sensor_name, sensor_name)
         return False
 
     rc = await async_set_universal_values(
         new_values, event, competition_index, team_index, lang, sensor_name
     )
-    #    _LOGGER.debug("%s: async_set_values() 2: %s", sensor_name, rc)
+    if not rc:
+        _LOGGER.debug("%s: async_set_values() Bad rc from async_set_universal_values(): %s", sensor_name, sensor_name)
+        return False
 
     #
     #  Additional values only needed for team sports
     #
     if await async_get_value(competitor, "type") == "team":
-        #        _LOGGER.debug("%s: async_set_values() 2.1: %s", sensor_name, sensor_name)
         rc = await async_set_team_values(
             new_values, event, competition_index, team_index, lang, sensor_name
         )
+        if not rc:
+            _LOGGER.debug("%s: async_set_values() Bad rc from async_set_team_values(): %s", sensor_name, sensor_name)
+            return False
 
     #    _LOGGER.debug("%s: async_set_values() 3: %s", sensor_name, new_values)
 
     if new_values["state"] == "PRE":
         rc = await async_set_pre_values(new_values, event)
+        if not rc:
+            _LOGGER.debug("%s: async_set_values() Bad rc from async_set_pre_values(): %s", sensor_name, sensor_name)
+            return False
+
     if new_values["state"] == "IN":
         rc = await async_set_in_values(
             new_values, event, competition_index, team_index, sensor_name
         )
+        if not rc:
+            _LOGGER.debug("%s: async_set_values() Bad rc from async_set_in_values(): %s", sensor_name, sensor_name)
+            return False
         #        _LOGGER.debug("%s: async_set_values() 3.1: %s", sensor_name, new_values)
         #
         #   Sport Specific Values
@@ -105,6 +116,9 @@ async def async_set_values(
             new_values, event, competition_index, team_index, lang, sensor_name
         )
     #    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
+    if not rc:
+        _LOGGER.debug("%s: async_set_values() Bad rc from async_set_SPORT_values(): %s", sensor_name, sensor_name)
+        return False
 
     new_values["private_fast_refresh"] = False
     if new_values["state"] == "IN":
@@ -123,7 +137,7 @@ async def async_set_values(
 
     #    _LOGGER.debug("%s: async_set_values() 5: %s", sensor_name, new_values)
 
-    return True
+    return rc
 
 
 #
@@ -144,7 +158,7 @@ async def async_set_universal_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
+    if competition is None or competitor is None or opponent is None:
         _LOGGER.debug(
             "%s: async_set_universal_values() 1.1: %s", sensor_name, sensor_name
         )
@@ -317,7 +331,7 @@ async def async_set_team_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
+    if competition is None or competitor is None or opponent is None:
         #        _LOGGER.debug("%s: async_set_team_values() 1.1: %s", sensor_name, sensor_name)
         return False
 
@@ -389,7 +403,7 @@ async def async_set_in_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
+    if competition is None or competitor is None or opponent is None:
         #        _LOGGER.debug("%s: async_set_in_values() 1.1: %s", sensor_name, sensor_name)
         return False
 

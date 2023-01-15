@@ -1,14 +1,9 @@
 """Tests for init."""
-from unittest.mock import patch
 
-import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.teamtracker.const import CONF_TEAM_ID, DOMAIN
+from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from homeassistant.const import CONF_NAME
-from homeassistant.helpers.entity_registry import async_get
-from homeassistant.setup import async_setup_component
 
 from tests.const import CONFIG_DATA
 

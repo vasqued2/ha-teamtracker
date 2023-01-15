@@ -1,6 +1,5 @@
 """ TeamTracker Team Status """
 import asyncio
-import codecs
 from datetime import date, datetime, timedelta, timezone
 import json
 import locale
@@ -12,7 +11,6 @@ import aiohttp
 import arrow
 from async_timeout import timeout
 
-from homeassistant import config_entries
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
@@ -32,32 +30,23 @@ from .const import (
     CONF_TEAM_ID,
     CONF_TIMEOUT,
     COORDINATOR,
-    DEFAULT_CONFERENCE_ID,
     DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LEAGUE,
     DEFAULT_LEAGUE_PATH,
     DEFAULT_LOGO,
-    DEFAULT_PROB,
     DEFAULT_SPORT_PATH,
     DEFAULT_TIMEOUT,
     DOMAIN,
     ISSUE_URL,
     LEAGUE_LIST,
     PLATFORMS,
-    SPORT_LIST,
     URL_HEAD,
     URL_TAIL,
     USER_AGENT,
     VERSION,
 )
 from .event import async_process_event
-from .set_baseball import async_set_baseball_values
-from .set_hockey import async_set_hockey_values
-from .set_soccer import async_set_soccer_values
-from .set_values import async_set_in_values, async_set_values
-from .set_volleyball import async_set_volleyball_values
-from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -191,14 +180,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #  Top-level method called from HA to update data for all teamtracker sensors
     #
     async def _async_update_data(self):
-        file_override = False
 
         async with timeout(self.timeout):
             try:
                 data = await self.async_update_game_data(self.config, self.hass)
 
                 # update the interval based on flag
-                if data["private_fast_refresh"] == True:
+                if data["private_fast_refresh"]:
                     self.update_interval = timedelta(seconds=5)
                 else:
                     self.update_interval = timedelta(minutes=10)
@@ -232,8 +220,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 datetime.fromisoformat(self.last_update[key]) + self.update_interval
             )
             now = datetime.now(timezone.utc)
-
-            time_diff = now - expiration
 
             if now < expiration:
                 data = self.data_cache[key]
@@ -281,7 +267,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         data = None
         file_override = False
 
-        league_id = config[CONF_LEAGUE_ID].upper()
         sport_path = config[CONF_SPORT_PATH]
         league_path = config[CONF_LEAGUE_PATH]
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
@@ -346,18 +331,12 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #
     async def async_update_values(self, config, hass, data, lang) -> dict:
         values = {}
-        prev_values = {}
         sensor_name = config[CONF_NAME]
 
         league_id = config[CONF_LEAGUE_ID].upper()
         sport_path = config[CONF_SPORT_PATH]
-        league_path = config[CONF_LEAGUE_PATH]
 
         team_id = config[CONF_TEAM_ID].upper()
-
-        search_key = team_id
-        sport = sport_path
-        found_competitor = False
 
         values = await async_clear_values()
         values["sport"] = sport_path

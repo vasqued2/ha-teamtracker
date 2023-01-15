@@ -1,33 +1,11 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 import logging
 
 import arrow
 
-from .clear_values import async_clear_values
 from .const import (
     API_LIMIT,
-    CONF_CONFERENCE_ID,
-    CONF_LEAGUE_ID,
-    CONF_LEAGUE_PATH,
-    CONF_SPORT_PATH,
-    CONF_TEAM_ID,
-    CONF_TIMEOUT,
-    COORDINATOR,
-    DEFAULT_CONFERENCE_ID,
-    DEFAULT_LEAGUE,
-    DEFAULT_LEAGUE_PATH,
     DEFAULT_LOGO,
-    DEFAULT_PROB,
-    DEFAULT_SPORT_PATH,
-    DEFAULT_TIMEOUT,
-    DOMAIN,
-    ISSUE_URL,
-    LEAGUE_LIST,
-    PLATFORMS,
-    URL_HEAD,
-    URL_TAIL,
-    USER_AGENT,
-    VERSION,
 )
 from .set_values import async_set_values
 from .utils import async_get_value
@@ -36,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_process_event(
-    values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang
+    values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
 ) -> bool:
     #    values = {}
     prev_values = {}
@@ -190,7 +168,7 @@ async def async_process_event(
                         lang,
                         sensor_name,
                     )
-                    if rc == False:
+                    if not rc:
                         _LOGGER.debug(
                             "%s: event() Error occurred setting event values: %s",
                             sensor_name,
@@ -266,7 +244,7 @@ async def async_process_event(
                 await async_get_value(event, "shortName", default="{shortName}"),
             )
 
-    if found_competitor == False:
+    if not found_competitor:
         first_date = (date.today() - timedelta(days=1)).strftime("%Y-%m-%dT%H:%MZ")
         last_date = (date.today() + timedelta(days=5)).strftime("%Y-%m-%dT%H:%MZ")
 

@@ -5,13 +5,11 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, Optional
 
-import aiohttp
 import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
-from homeassistant.core import HomeAssistant, callback
-from homeassistant.data_entry_flow import FlowResult
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 
 from .const import (
@@ -23,13 +21,10 @@ from .const import (
     CONF_TIMEOUT,
     DEFAULT_CONFERENCE_ID,
     DEFAULT_LEAGUE,
-    DEFAULT_LEAGUE_PATH,
     DEFAULT_NAME,
-    DEFAULT_SPORT_PATH,
     DEFAULT_TIMEOUT,
     DOMAIN,
     LEAGUE_LIST,
-    USER_AGENT,
 )
 
 JSON_FEATURES = "features"

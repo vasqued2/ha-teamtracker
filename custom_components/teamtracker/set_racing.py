@@ -20,7 +20,7 @@ async def async_set_racing_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
+    if competition is None or competitor is None or opponent is None:
         _LOGGER.debug("%s: async_set_racing_values() 0: %s", sensor_name, sensor_name)
         return False
 
@@ -28,7 +28,7 @@ async def async_set_racing_values(
     country = await async_get_value(event, "circuit", "address", "country")
     #    _LOGGER.debug("%s: async_set_racing_values() 1: %s", sensor_name, new_values)
 
-    if city != None:
+    if city is not None:
         new_values["location"] = "%s, %s" % (city, country)
     else:
         new_values["location"] = country

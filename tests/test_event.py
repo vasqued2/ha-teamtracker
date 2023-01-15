@@ -1,11 +1,8 @@
 """Test NFL Sensor"""
-import asyncio
 import json
 import logging
 
 import aiofiles
-import aiohttp
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -14,11 +11,10 @@ from custom_components.teamtracker.const import (
     DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
-    DOMAIN,
 )
 from custom_components.teamtracker.event import async_process_event
 
-from tests.const import CONFIG_DATA, TEST_DATA
+from tests.const import TEST_DATA
 
 
 async def test_event(hass):
@@ -27,7 +23,6 @@ async def test_event(hass):
         contents = await f.read()
     data = json.loads(contents)
     if data is None:
-        values["api_message"] = "Test file error, no data returned"
         _LOGGER.warn("test_event(): Error with test file '%s'", "tests/tt/all.json")
         assert False
 
@@ -46,7 +41,6 @@ async def test_event(hass):
         league_id = values["league"]
         team_id = values["team_abbr"]
         lang = "en"
-        url = "tests/tt/all.json"
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await async_process_event(

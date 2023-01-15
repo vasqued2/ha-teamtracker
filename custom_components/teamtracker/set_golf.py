@@ -17,7 +17,7 @@ async def async_set_golf_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
+    if competition is None or competitor is None or opponent is None:
         #        _LOGGER.debug("%s: async_set_golf_values() 0: %s", sensor_name, sensor_name)
         return False
 

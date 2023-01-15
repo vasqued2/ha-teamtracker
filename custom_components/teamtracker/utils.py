@@ -2,6 +2,7 @@ import logging
 
 _LOGGER = logging.getLogger(__name__)
 
+
 #
 # Traverse json and return the value at the end of the chain of keys.
 #    json - json to be traversed

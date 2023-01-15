@@ -20,7 +20,7 @@ async def async_set_mma_values(
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
-    if competition == None or competitor == None or opponent == None:
+    if competition is None or competitor is None or opponent is None:
         #        _LOGGER.debug("%s: async_set_mma_values() 1.1: %s", sensor_name, sensor_name)
         return False
 
@@ -55,10 +55,10 @@ async def async_set_mma_values(
         new_values["opponent_score"] = o
     if t == o:
         #        _LOGGER.debug("%s: async_set_mma_values() 3: %s", sensor_name, sensor_name)
-        if await async_get_value(competitor, "winner", default=False) == True:
+        if await async_get_value(competitor, "winner", default=False):
             new_values["team_score"] = "W"
             new_values["opponent_score"] = "L"
-        if await async_get_value(opponent, "winner", default=False) == True:
+        if await async_get_value(opponent, "winner", default=False):
             new_values["team_score"] = "L"
             new_values["opponent_score"] = "W"
 
