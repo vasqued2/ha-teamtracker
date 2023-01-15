@@ -1,11 +1,12 @@
 """Test NFL Sensor"""
 import asyncio
-import aiohttp
-import aiofiles
 
+import aiofiles
+import aiohttp
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.teamtracker.const import DOMAIN
+
 from tests.const import CONFIG_DATA
 
 

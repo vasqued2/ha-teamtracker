@@ -1,17 +1,24 @@
 """Test NFL Sensor"""
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 import asyncio
-import aiohttp
-import aiofiles
 import json
 import logging
 
+import aiofiles
+import aiohttp
+from pytest_homeassistant_custom_component.common import MockConfigEntry
+
 _LOGGER = logging.getLogger(__name__)
 
-from custom_components.teamtracker.const import DOMAIN, DEFAULT_LOGO, DEFAULT_LAST_UPDATE, DEFAULT_KICKOFF_IN
-from tests.const import CONFIG_DATA, TEST_DATA
 from custom_components.teamtracker.clear_values import async_clear_values
+from custom_components.teamtracker.const import (
+    DEFAULT_KICKOFF_IN,
+    DEFAULT_LAST_UPDATE,
+    DEFAULT_LOGO,
+    DOMAIN,
+)
 from custom_components.teamtracker.event import async_process_event
+
+from tests.const import CONFIG_DATA, TEST_DATA
 
 
 async def test_event(hass):

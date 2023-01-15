@@ -2,6 +2,7 @@ import logging
 import uuid
 
 import voluptuous as vol
+
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
@@ -9,16 +10,16 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
-from . import TeamTrackerDataUpdateCoordinator
 
+from . import TeamTrackerDataUpdateCoordinator
 from .const import (
     ATTRIBUTION,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
     CONF_SPORT_PATH,
-    CONF_TIMEOUT,
     CONF_TEAM_ID,
+    CONF_TIMEOUT,
     COORDINATOR,
     DEFAULT_CONFERENCE_ID,
     DEFAULT_ICON,

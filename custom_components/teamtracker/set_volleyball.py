@@ -1,6 +1,4 @@
-from .utils import (
-    async_get_value,
-)
+from .utils import async_get_value
 
 
 async def async_set_volleyball_values(new_values, event, competition_index, team_index, sensor_name) -> bool:
