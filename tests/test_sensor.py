@@ -8,6 +8,7 @@ from tests.const import CONFIG_DATA
 
 
 async def test_sensor(hass, mocker):
+    """ Make sure sensor gets added """
 
     entry = MockConfigEntry(
         domain=DOMAIN,

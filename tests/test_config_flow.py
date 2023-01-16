@@ -34,7 +34,7 @@ from homeassistant import config_entries, setup
     ],
 )
 async def test_form(
-    input,
+    input,  # pylint: disable=redefined-builtin
     step_id,
     title,
     description,

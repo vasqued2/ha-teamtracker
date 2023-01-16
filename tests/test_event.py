@@ -1,10 +1,7 @@
 """Test NFL Sensor"""
 import json
 import logging
-
 import aiofiles
-
-_LOGGER = logging.getLogger(__name__)
 
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import (
@@ -13,17 +10,19 @@ from custom_components.teamtracker.const import (
     DEFAULT_LOGO,
 )
 from custom_components.teamtracker.event import async_process_event
-
 from tests.const import TEST_DATA
+
+_LOGGER = logging.getLogger(__name__)
 
 
 async def test_event(hass):
+    """ Use file w/ test json and loop through test cases and compare to expected results """
 
     async with aiofiles.open("tests/tt/all.json", mode="r") as f:
         contents = await f.read()
     data = json.loads(contents)
     if data is None:
-        _LOGGER.warn("test_event(): Error with test file '%s'", "tests/tt/all.json")
+        _LOGGER.warning("test_event(): Error with test file '%s'", "tests/tt/all.json")
         assert False
 
     for t in TEST_DATA:
