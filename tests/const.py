@@ -178,3 +178,97 @@ TEST_DATA = [
         "team_abbr": "IND",
     },
 ]
+
+MULTIGAME_DATA = [
+    {
+        "sensor_name": "test_tt_all_test01",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "CLE",  #PRE, PRE
+        "expected_event_name": "BAL @ CLE"
+    },
+    {
+        "sensor_name": "test_tt_all_test02",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "CIN", # PRE, IN
+        "expected_event_name": "PIT @ CIN"
+    },
+    {
+        "sensor_name": "test_tt_all_test03",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "BAL", # PRE, POST
+        "expected_event_name": "BAL @ CLE"
+    },
+    {
+        "sensor_name": "test_tt_all_test04",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "PIT",  #IN, PRE
+        "expected_event_name": "PIT @ CIN"
+    },
+    {
+        "sensor_name": "test_tt_all_test05",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "GB", # IN, IN
+        "expected_event_name": "GB @ ATL"
+    },
+    {
+        "sensor_name": "test_tt_all_test06",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "TB", # IN, POST
+        "expected_event_name": "TB @ BAL"
+    },
+    {
+        "sensor_name": "test_tt_all_test07",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "NE",  #POST, PRE
+        "expected_event_name": "SF @ NE"
+    },
+    {
+        "sensor_name": "test_tt_all_test08",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "JAX", # POST, IN
+        "expected_event_name": "JAX @ WSH"
+    },
+    {
+        "sensor_name": "test_tt_all_test09",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "BUF", # POST, POST
+        "expected_event_name": "IND @ BUF"
+    },
+    {
+        "sensor_name": "test_tt_all_test10",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "*",  #PRE, PRE
+        "expected_event_name": "GB @ ATL"
+    },
+    {
+        "sensor_name": "test_tt_all_test11",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "KNC", # PRE, IN
+        "expected_event_name": "KNC @ ARI"
+    },
+    {
+        "sensor_name": "test_tt_all_test12",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "TNT", # PRE, POST
+        "expected_event_name": "NYG @ TNT"
+    },
+    {
+        "sensor_name": "test_tt_all_test13",
+        "sport": "football",
+        "league": "NFL",
+        "team_abbr": "NOT_FOUND", # PRE, POST
+        "expected_event_name": None
+    },
+]
