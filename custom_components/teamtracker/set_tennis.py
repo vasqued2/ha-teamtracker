@@ -1,3 +1,5 @@
+""" Tennis specific functionality"""
+
 import logging
 
 from .utils import async_get_value
@@ -8,6 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_tennis_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
+    """ Set tennis specific values"""
 
     #    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, len(event["competitions"]), competition_index)
 

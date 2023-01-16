@@ -1,3 +1,5 @@
+""" Clear all sensor values """
+
 async def async_clear_values() -> dict:
     """Clear all state attributes"""
     new_values = {}

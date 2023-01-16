@@ -1,3 +1,5 @@
+""" Miscellaneous Utilities """
+
 import logging
 
 _LOGGER = logging.getLogger(__name__)
@@ -10,6 +12,8 @@ _LOGGER = logging.getLogger(__name__)
 #    default - default value to be returned if a key is missing
 #
 async def async_get_value(json, *keys, default=None):
+    """ Traverse the json using keys to return the associated value, or default if invalid keys """
+
     j = json
     try:
         for k in keys:

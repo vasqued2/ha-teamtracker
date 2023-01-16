@@ -1,3 +1,5 @@
+""" Constants for teamtracker sensor"""
+
 # API
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
 URL_TAIL = "/scoreboard"

@@ -1,3 +1,5 @@
+""" Racing specific functionality"""
+
 import logging
 
 from .utils import async_get_value
@@ -8,7 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_racing_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    #        new_values = {}
+    """ Set racing specific values"""
 
     #    _LOGGER.debug("%s: async_set_racing_values() 0: %s", sensor_name, new_values)
 

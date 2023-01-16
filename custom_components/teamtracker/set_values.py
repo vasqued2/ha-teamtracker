@@ -1,3 +1,5 @@
+""" Set non-sport specific values """
+
 import codecs
 import logging
 
@@ -26,7 +28,7 @@ oppo_prob = {}
 async def async_set_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    #    new_values = {}
+    """ Function to set all new_values for the specified event/competition/team """
 
     #    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
 
@@ -146,7 +148,7 @@ async def async_set_values(
 async def async_set_universal_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """Traverse JSON for universal values"""
+    """ Function to set new_values common for all sports """
 
     #    _LOGGER.debug("%s: async_set_universal_values() 1: %s", sensor_name, sensor_name)
 
@@ -320,6 +322,7 @@ async def async_set_universal_values(
 async def async_set_team_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
+    """ Function to set new_values for team sports """
 
     #    _LOGGER.debug("%s: async_set_team_values() 1: %s", sensor_name, sensor_name)
 
@@ -372,6 +375,7 @@ async def async_set_team_values(
 #  PRE
 #
 async def async_set_pre_values(new_values, event) -> bool:
+    """ Function to set new_values common for PRE state """
 
     new_values["odds"] = await async_get_value(
         event, "competitions", 0, "odds", 0, "details"
@@ -389,9 +393,13 @@ async def async_set_pre_values(new_values, event) -> bool:
 async def async_set_in_values(
     new_values, event, competition_index, team_index, sensor_name
 ) -> dict:
-    """Get IN event values"""
-    global team_prob
-    global oppo_prob
+    """ Function to set new_values common for IN state """
+
+#
+#  Pylint doesn't recognize values set by setdefault() method
+#
+    global team_prob  # pylint: disable=global-variable-not-assigned
+    global oppo_prob  # pylint: disable=global-variable-not-assigned
 
     #    _LOGGER.debug("%s: async_set_in_values() 1: %s", sensor_name, sensor_name)
 

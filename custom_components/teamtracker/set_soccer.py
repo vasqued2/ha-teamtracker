@@ -1,3 +1,5 @@
+""" Soccer specific functionality"""
+
 import logging
 
 from .utils import async_get_value
@@ -8,8 +10,9 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_soccer_values(
     new_values, event, competition_index, team_index, sensor_name
 ) -> bool:
-    """Get IN event values"""
-    #    new_values = {}
+    """ Set soccer specific values"""
+
+
     teamPP = None
     oppoPP = None
 

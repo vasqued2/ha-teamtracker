@@ -141,10 +141,10 @@ async def async_migrate_entry(hass, config_entry):
             league_id = updated_config[CONF_LEAGUE_ID].upper()
             updated_config[CONF_SPORT_PATH] = DEFAULT_SPORT_PATH
             updated_config[CONF_LEAGUE_PATH] = DEFAULT_LEAGUE_PATH
-            for x in range(len(LEAGUE_LIST)):
-                if LEAGUE_LIST[x][0] == league_id:
-                    updated_config[CONF_SPORT_PATH] = LEAGUE_LIST[x][1]
-                    updated_config[CONF_LEAGUE_PATH] = LEAGUE_LIST[x][2]
+            for league in LEAGUE_LIST:
+                if league[0] == league_id:
+                    updated_config[CONF_SPORT_PATH] = league[1]
+                    updated_config[CONF_LEAGUE_PATH] = league[2]
 
         if updated_config != config_entry.data:
             hass.config_entries.async_update_entry(config_entry, data=updated_config)
@@ -194,10 +194,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 raise UpdateFailed(error) from error
             return data
 
-    #
-    #  Update game data from data_cache or the API (if expired)
-    #
+
     async def async_update_game_data(self, config, hass) -> dict:
+        """Update game data from data_cache or the API (if expired)"""
 
         sensor_name = config[CONF_NAME]
         sport_path = config[CONF_SPORT_PATH]
@@ -207,7 +206,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         try:
             lang = hass.config.language
         except:
-            lang, enc = locale.getlocale()
+            lang, _ = locale.getlocale()
             lang = lang or "en_US"
 
         key = sport_path + ":" + league_path + ":" + conference_id
@@ -250,7 +249,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     "last_update"
                 ] = DEFAULT_LAST_UPDATE  # set to fixed time for compares
                 values["kickoff_in"] = DEFAULT_KICKOFF_IN
-                with open(path, "w") as convert_file:
+                with open(path, "w", encoding="utf-8") as convert_file:
                     convert_file.write(json.dumps(values, indent=4))
 
         return values
@@ -326,10 +325,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         return data, file_override
 
-    #
-    #  Return values based on the data passed into method
-    #
+
     async def async_update_values(self, config, hass, data, lang) -> dict:
+        """Return values based on the data passed into method"""
+
         values = {}
         sensor_name = config[CONF_NAME]
 
@@ -349,7 +348,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if data is None:
             values["api_message"] = "API error, no data returned"
-            _LOGGER.warn(
+            _LOGGER.warning(
                 "%s: API did not return any data for team '%s'", sensor_name, team_id
             )
             return values

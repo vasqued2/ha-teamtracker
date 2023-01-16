@@ -1,3 +1,5 @@
+""" Home Assistant sensor processing """
+
 import logging
 
 import voluptuous as vol
@@ -53,10 +55,10 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
 
     league_id = config[CONF_LEAGUE_ID].upper()
-    for x in range(len(LEAGUE_LIST)):
-        if LEAGUE_LIST[x][0] == league_id:
-            config.update({CONF_SPORT_PATH: LEAGUE_LIST[x][1]})
-            config.update({CONF_LEAGUE_PATH: LEAGUE_LIST[x][2]})
+    for league in LEAGUE_LIST:
+        if league[0] == league_id:
+            config.update({CONF_SPORT_PATH: league[1]})
+            config.update({CONF_LEAGUE_PATH: league[2]})
 
     if DOMAIN not in hass.data.keys():
         hass.data.setdefault(DOMAIN, {})
@@ -94,11 +96,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         """Initialize the sensor."""
         super().__init__(hass.data[DOMAIN][entry.entry_id][COORDINATOR])
 
-        sport = entry.data[CONF_SPORT_PATH]
+        sport_path = entry.data[CONF_SPORT_PATH]
         icon = DEFAULT_ICON
-        for x in range(len(SPORT_LIST)):
-            if SPORT_LIST[x][0] == sport:
-                icon = SPORT_LIST[x][1]
+        for sport in SPORT_LIST:
+            if sport[0] == sport_path:
+                icon = sport[1]
         if icon == DEFAULT_ICON:
             _LOGGER.debug(
                 "%s:  Setting up sensor from YAML.  Sport '%s' not found.",
@@ -195,10 +197,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         """Return the state of the sensor."""
         if self.coordinator.data is None:
             return None
-        elif "state" in self.coordinator.data.keys():
+
+        if "state" in self.coordinator.data.keys():
             return self.coordinator.data["state"]
-        else:
-            return None
+
+        return None
 
     @property
     def extra_state_attributes(self):
@@ -283,15 +286,3 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     def available(self) -> bool:
         """Return if entity is available."""
         return self.coordinator.last_update_success
-
-    def colors2rgb(self, colors) -> tuple:
-        if colors is None:
-            return None
-        color_list = []
-        color_list.append(list(self.hex_to_rgb(colors[0])))
-        color_list.append(list(self.hex_to_rgb(colors[1])))
-        return color_list
-
-    def hex_to_rgb(self, hexa) -> tuple:
-        hexa = hexa.lstrip("#")
-        return tuple(int(hexa[i : i + 2], 16) for i in (0, 2, 4))

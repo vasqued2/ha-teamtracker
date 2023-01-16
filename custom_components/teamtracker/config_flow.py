@@ -40,7 +40,11 @@ def _get_schema(
     default_dict: Dict[str, Any],
     entry_id: str = None,
 ) -> vol.Schema:
+    # pylint: disable=deprecated-typing-alias
+    # pylint: disable=consider-alternative-union-syntax
     """Gets a schema using the default_dict as a backup."""
+
+
     if user_input is None:
         user_input = {}
 
@@ -92,7 +96,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._data = {}
         self._errors = {}
 
-    async def async_step_user(self, user_input={}):
+    async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
         self._errors = {}
 
@@ -101,10 +105,10 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             if league_id == "XXX":
                 self._data.update(user_input)
                 return await self.async_step_path()
-            for x in range(len(LEAGUE_LIST)):
-                if LEAGUE_LIST[x][0] == league_id:
-                    user_input.update({CONF_SPORT_PATH: LEAGUE_LIST[x][1]})
-                    user_input.update({CONF_LEAGUE_PATH: LEAGUE_LIST[x][2]})
+            for league in LEAGUE_LIST:
+                if league[0] == league_id:
+                    user_input.update({CONF_SPORT_PATH: league[1]})
+                    user_input.update({CONF_LEAGUE_PATH: league[2]})
                     self._data.update(user_input)
                     return self.async_create_entry(
                         title=self._data[CONF_NAME], data=self._data
@@ -113,6 +117,9 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return await self._show_config_form(user_input)
 
     async def async_step_path(self, user_input: Optional[Dict[str, Any]] = None):
+        # pylint: disable=deprecated-typing-alias
+        # pylint: disable=consider-alternative-union-syntax
+
         """Handle a flow initialized by the user."""
         self._errors = {}
 

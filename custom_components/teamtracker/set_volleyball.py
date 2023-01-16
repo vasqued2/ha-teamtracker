@@ -1,3 +1,5 @@
+""" Volleyball specific functionality"""
+
 import logging
 
 from .utils import async_get_value
@@ -8,8 +10,8 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_volleyball_values(
     new_values, event, competition_index, team_index, sensor_name
 ) -> bool:
-    """Get IN event values"""
-    #    new_values = {}
+    """ Set volleyball specific values"""
+
 
     if team_index == 0:
         oppo_index = 1

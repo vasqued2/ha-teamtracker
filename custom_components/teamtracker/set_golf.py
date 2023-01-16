@@ -1,3 +1,5 @@
+""" Golf specific functionality"""
+
 import logging
 
 from .utils import async_get_value
@@ -8,6 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_golf_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
+    """ Set golf specific values"""
 
     if team_index == 0:
         oppo_index = 1
@@ -38,27 +41,27 @@ async def async_set_golf_values(
     #    _LOGGER.debug("%s: async_set_golf_values() 1.3: %s", sensor_name, new_values)
 
     if new_values["state"] in ["IN", "POST"]:
-        round = new_values["quarter"] - 1
-        #        _LOGGER.debug("%s: async_set_golf_values() 2: %s", sensor_name, round)
+        golf_round = new_values["quarter"] - 1
+        #        _LOGGER.debug("%s: async_set_golf_values() 2: %s", sensor_name, golf_round)
 
         new_values["team_total_shots"] = await async_get_value(
-            competitor, "linescores", round, "value", default=0
+            competitor, "linescores", golf_round, "value", default=0
         )
         new_values["team_shots_on_target"] = len(
             await async_get_value(
-                competitor, "linescores", round, "linescores", default=[]
+                competitor, "linescores", golf_round, "linescores", default=[]
             )
         )
         new_values["opponent_total_shots"] = await async_get_value(
-            opponent, "linescores", round, "value", default=0
+            opponent, "linescores", golf_round, "value", default=0
         )
         new_values["opponent_shots_on_target"] = len(
             await async_get_value(
-                opponent, "linescores", round, "linescores", default=[]
+                opponent, "linescores", golf_round, "linescores", default=[]
             )
         )
 
-        #        _LOGGER.debug("%s: async_set_golf_values() 3: %s", sensor_name, round)
+        #        _LOGGER.debug("%s: async_set_golf_values() 3: %s", sensor_name, golf_round)
 
         new_values["last_play"] = ""
         for x in range(0, 10):
@@ -85,6 +88,8 @@ async def async_set_golf_values(
 
 
 async def async_get_golf_position(competition, index) -> str:
+    """ Determine the position of index considering ties if score matches leading or trailing position"""
+
 
     t = 0
     tie = ""

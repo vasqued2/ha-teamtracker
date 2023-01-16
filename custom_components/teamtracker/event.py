@@ -1,3 +1,5 @@
+""" Parse throught the API data and find the right event/competition"""
+
 from datetime import date, timedelta
 import logging
 
@@ -16,7 +18,9 @@ _LOGGER = logging.getLogger(__name__)
 async def async_process_event(
     values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
 ) -> bool:
-    #    values = {}
+    # pylint: disable=too-many-nested-blocks
+    """ Loop throught the json data returned by the API to find the right event and set values"""
+
     prev_values = {}
 
     stop_flag = False
@@ -29,10 +33,7 @@ async def async_process_event(
         data, "leagues", 0, "logos", 0, "href", default=DEFAULT_LOGO
     )
 
-    if len(data["events"]) == API_LIMIT:
-        limit_hit = True
-    else:
-        limit_hit = False
+    limit_hit = (len(data["events"]) == API_LIMIT)
 
     for event in data["events"]:
         event_state = "NOT_FOUND"
@@ -53,9 +54,9 @@ async def async_process_event(
                 )
                 matched_index = -1
                 if competitor["type"] == "team":
-                    if search_key == await async_get_value(
+                    if search_key in ["*", await async_get_value(
                         competitor, "team", "abbreviation", default=""
-                    ) or (search_key == "*"):
+                    )]:
                         matched_index = team_index
                         _LOGGER.debug(
                             "%s: Found competition for '%s' in team abbreviation; parsing data.",
@@ -95,7 +96,7 @@ async def async_process_event(
                                 + search_key
                                 + "' does not match team_abbr.  Matched on event_name."
                             )
-                            _LOGGER.warn(
+                            _LOGGER.warning(
                                 "%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.",
                                 sensor_name,
                                 search_key,
@@ -131,7 +132,7 @@ async def async_process_event(
                                 + search_key
                                 + "' does not match team_abbr.  Matched on event_name."
                             )
-                            _LOGGER.warn(
+                            _LOGGER.warning(
                                 "%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.",
                                 sensor_name,
                                 search_key,
