@@ -5,7 +5,6 @@ import aiofiles
 
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import (
-    DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
@@ -15,10 +14,10 @@ from tests.const import MULTIGAME_DATA
 _LOGGER = logging.getLogger(__name__)
 
 
-async def test_exceptions(hass):
+async def test_multigame(hass):
     """ Use file w/ test json and loop through test cases and compare to expected results """
 
-    async with aiofiles.open("tests/tt/exceptions.json", mode="r") as f:
+    async with aiofiles.open("tests/tt/multigame.json", mode="r") as f:
         contents = await f.read()
     data = json.loads(contents)
     if data is None:
