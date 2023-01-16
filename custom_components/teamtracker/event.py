@@ -15,7 +15,6 @@ _LOGGER = logging.getLogger(__name__)
 async def async_process_event(
     values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
 ) -> bool:
-    # pylint: disable=too-many-nested-blocks
     """Loop throught the json data returned by the API to find the right event and set values"""
 
     prev_values = {}
@@ -49,107 +48,17 @@ async def async_process_event(
                 competitor = await async_get_value(
                     competition, "competitors", team_index
                 )
-                matched_index = -1
-                if competitor["type"] == "team":
-                    if search_key in [
-                        "*",
-                        await async_get_value(
-                            competitor, "team", "abbreviation", default=""
-                        ),
-                    ]:
-                        matched_index = team_index
-                        _LOGGER.debug(
-                            "%s: Found competition for '%s' in team abbreviation; parsing data.",
-                            sensor_name,
-                            search_key,
-                        )
-                    else:  # Abbreviations in event_name can be different than team_abbr so try that too
-                        sn = await async_get_value(event, "shortName", default="")
-                        if (
-                            sn.startswith(search_key + " ")
-                            and str(
-                                await async_get_value(
-                                    competition,
-                                    "competitors",
-                                    0,
-                                    "team",
-                                    "abbreviation",
-                                    default="",
-                                )
-                            )
-                            != search_key
-                            and str(
-                                await async_get_value(
-                                    competition,
-                                    "competitors",
-                                    1,
-                                    "team",
-                                    "abbreviation",
-                                    default="",
-                                )
-                            )
-                            != search_key
-                        ):
-                            matched_index = 1  # Lazy, but assumes first team in short_name is always team_index 1.
-                            values["api_message"] = (
-                                "team_id '"
-                                + search_key
-                                + "' does not match team_abbr.  Matched on event_name."
-                            )
-                            _LOGGER.warning(
-                                "%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.",
-                                sensor_name,
-                                search_key,
-                            )
-                        if (
-                            sn.endswith(" " + search_key)
-                            and str(
-                                await async_get_value(
-                                    competition,
-                                    "competitors",
-                                    0,
-                                    "team",
-                                    "abbreviation",
-                                    default="",
-                                )
-                            )
-                            != search_key
-                            and str(
-                                await async_get_value(
-                                    competition,
-                                    "competitors",
-                                    1,
-                                    "team",
-                                    "abbreviation",
-                                    default="",
-                                )
-                            )
-                            != search_key
-                        ):
-                            matched_index = 0  # Lazy, but assumes second team in short_name is always team_index 0.
-                            values["api_message"] = (
-                                "team_id '"
-                                + search_key
-                                + "' does not match team_abbr.  Matched on event_name."
-                            )
-                            _LOGGER.warning(
-                                "%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.",
-                                sensor_name,
-                                search_key,
-                            )
-                if competitor["type"] == "athlete":
-                    if search_key in str(
-                        await async_get_value(
-                            competitor, "athlete", "displayName", default=""
-                        )
-                    ).upper() or (search_key == "*"):
-                        matched_index = team_index
-                        _LOGGER.debug(
-                            "%s: Found competition for '%s' in athlete name; parsing data",
-                            sensor_name,
-                            search_key,
-                        )
-                if matched_index != -1:
+                matched_index = await async_find_search_key(
+                    values,
+                    sensor_name,
+                    search_key,
+                    event,
+                    competition,
+                    competitor,
+                    team_index,
+                )
+
+                if matched_index is not None:
                     found_competitor = True
                     prev_values = values.copy()
 
@@ -280,3 +189,69 @@ async def async_process_event(
             )
 
     return values
+
+
+async def async_find_search_key(
+    values, sensor_name, search_key, event, competition, competitor, team_index
+):
+    """Check if there is a match on wildcard, team_abbreviation, event_name, or athlete_name"""
+
+    if search_key == "*":
+        _LOGGER.debug(
+            "%s: Found competitor using wildcard '%s'; parsing data.",
+            sensor_name,
+            search_key,
+        )
+        return team_index
+
+    if competitor["type"] == "team":
+        team_abbreviation = await async_get_value(
+            competitor, "team", "abbreviation", default=""
+        )
+        if search_key == team_abbreviation:
+            _LOGGER.debug(
+                "%s: Found competition for '%s' in team abbreviation; parsing data.",
+                sensor_name,
+                search_key,
+            )
+            return team_index
+
+        # Abbreviations in event_name can be different than team_abbr so look there if we've checked both team abbrevations already
+        if team_index == 1:
+            event_shortname = await async_get_value(event, "shortName", default="")
+            if event_shortname.startswith(search_key + " ") or event_shortname.endswith(
+                " " + search_key
+            ):
+                values["api_message"] = (
+                    "team_id '"
+                    + search_key
+                    + "' does not match team_abbr.  Found in event_name."
+                )
+                _LOGGER.warning(
+                    "%s: Found competition for '%s' in event_name; parsing data.  Rebuild sensor using team_abbr for better performance.",
+                    sensor_name,
+                    search_key,
+                )
+                return team_index  # Don't know what team to match so use this one
+        return None
+
+    if competitor["type"] == "athlete":
+        athlete_name = str(
+            await async_get_value(competitor, "athlete", "displayName", default="")
+        ).upper()
+        if search_key in athlete_name:
+            _LOGGER.debug(
+                "%s: Found competition for '%s' in athlete name; parsing data",
+                sensor_name,
+                search_key,
+            )
+            return team_index
+        return None
+
+    _LOGGER.debug(
+        "%s: Unexpected competitor type found '%s'",
+        sensor_name,
+        competitor["type"],
+    )
+
+    return None
