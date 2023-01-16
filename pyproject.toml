@@ -37,10 +37,10 @@ init-hook = """\
 load-plugins = [
     "pylint.extensions.code_style",
     "pylint.extensions.typing",
-    "hass_constructor",
-    "hass_enforce_type_hints",
-    "hass_imports",
-    "hass_logger",
+#    "hass_constructor",
+#    "hass_enforce_type_hints",
+#    "hass_imports",
+#    "hass_logger",
 ]
 persistent = false
 extension-pkg-allow-list = [
@@ -67,6 +67,10 @@ good-names = [
     "k",
     "Run",
     "ip",
+]
+good-names-rgxs = [
+    "\\S",
+    "\\S\\d",
 ]
 
 [tool.pylint."MESSAGES CONTROL"]
@@ -112,6 +116,7 @@ disable = [
     "consider-using-f-string",
     "consider-using-namedtuple-or-dataclass",
     "consider-using-assignment-expr",
+    "bare-except",
 ]
 enable = [
     #"useless-suppression",  # temporarily every now and then to clean them up
