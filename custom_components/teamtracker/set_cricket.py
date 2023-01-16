@@ -10,8 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_cricket_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """ Set cricket specific values"""
-
+    """Set cricket specific values"""
 
     if team_index == 0:
         oppo_index = 1

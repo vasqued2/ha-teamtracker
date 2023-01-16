@@ -10,8 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_hockey_values(
     new_values, event, competition_index, team_index, sensor_name
 ) -> bool:
-    """ Set hockey specific values"""
-
+    """Set hockey specific values"""
 
     if team_index == 0:
         oppo_index = 1

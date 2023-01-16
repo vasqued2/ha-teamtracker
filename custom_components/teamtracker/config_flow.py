@@ -44,7 +44,6 @@ def _get_schema(
     # pylint: disable=consider-alternative-union-syntax
     """Gets a schema using the default_dict as a backup."""
 
-
     if user_input is None:
         user_input = {}
 

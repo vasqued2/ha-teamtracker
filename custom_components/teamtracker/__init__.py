@@ -194,7 +194,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 raise UpdateFailed(error) from error
             return data
 
-
     async def async_update_game_data(self, config, hass) -> dict:
         """Update game data from data_cache or the API (if expired)"""
 
@@ -324,7 +323,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                             data = await r.json()
 
         return data, file_override
-
 
     async def async_update_values(self, config, hass, data, lang) -> dict:
         """Return values based on the data passed into method"""

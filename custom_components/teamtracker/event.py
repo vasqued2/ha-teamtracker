@@ -5,10 +5,7 @@ import logging
 
 import arrow
 
-from .const import (
-    API_LIMIT,
-    DEFAULT_LOGO,
-)
+from .const import API_LIMIT, DEFAULT_LOGO
 from .set_values import async_set_values
 from .utils import async_get_value
 
@@ -19,7 +16,7 @@ async def async_process_event(
     values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
 ) -> bool:
     # pylint: disable=too-many-nested-blocks
-    """ Loop throught the json data returned by the API to find the right event and set values"""
+    """Loop throught the json data returned by the API to find the right event and set values"""
 
     prev_values = {}
 
@@ -33,7 +30,7 @@ async def async_process_event(
         data, "leagues", 0, "logos", 0, "href", default=DEFAULT_LOGO
     )
 
-    limit_hit = (len(data["events"]) == API_LIMIT)
+    limit_hit = len(data["events"]) == API_LIMIT
 
     for event in data["events"]:
         event_state = "NOT_FOUND"
@@ -54,9 +51,12 @@ async def async_process_event(
                 )
                 matched_index = -1
                 if competitor["type"] == "team":
-                    if search_key in ["*", await async_get_value(
-                        competitor, "team", "abbreviation", default=""
-                    )]:
+                    if search_key in [
+                        "*",
+                        await async_get_value(
+                            competitor, "team", "abbreviation", default=""
+                        ),
+                    ]:
                         matched_index = team_index
                         _LOGGER.debug(
                             "%s: Found competition for '%s' in team abbreviation; parsing data.",

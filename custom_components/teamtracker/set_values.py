@@ -28,7 +28,7 @@ oppo_prob = {}
 async def async_set_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """ Function to set all new_values for the specified event/competition/team """
+    """Function to set all new_values for the specified event/competition/team"""
 
     #    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
 
@@ -41,14 +41,22 @@ async def async_set_values(
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
     if competition is None or competitor is None or opponent is None:
-        _LOGGER.debug("%s: async_set_values() Invalid competition, competitor, or opponent: %s", sensor_name, sensor_name)
+        _LOGGER.debug(
+            "%s: async_set_values() Invalid competition, competitor, or opponent: %s",
+            sensor_name,
+            sensor_name,
+        )
         return False
 
     rc = await async_set_universal_values(
         new_values, event, competition_index, team_index, lang, sensor_name
     )
     if not rc:
-        _LOGGER.debug("%s: async_set_values() Bad rc from async_set_universal_values(): %s", sensor_name, sensor_name)
+        _LOGGER.debug(
+            "%s: async_set_values() Bad rc from async_set_universal_values(): %s",
+            sensor_name,
+            sensor_name,
+        )
         return False
 
     #
@@ -59,7 +67,11 @@ async def async_set_values(
             new_values, event, competition_index, team_index, lang, sensor_name
         )
         if not rc:
-            _LOGGER.debug("%s: async_set_values() Bad rc from async_set_team_values(): %s", sensor_name, sensor_name)
+            _LOGGER.debug(
+                "%s: async_set_values() Bad rc from async_set_team_values(): %s",
+                sensor_name,
+                sensor_name,
+            )
             return False
 
     #    _LOGGER.debug("%s: async_set_values() 3: %s", sensor_name, new_values)
@@ -67,7 +79,11 @@ async def async_set_values(
     if new_values["state"] == "PRE":
         rc = await async_set_pre_values(new_values, event)
         if not rc:
-            _LOGGER.debug("%s: async_set_values() Bad rc from async_set_pre_values(): %s", sensor_name, sensor_name)
+            _LOGGER.debug(
+                "%s: async_set_values() Bad rc from async_set_pre_values(): %s",
+                sensor_name,
+                sensor_name,
+            )
             return False
 
     if new_values["state"] == "IN":
@@ -75,7 +91,11 @@ async def async_set_values(
             new_values, event, competition_index, team_index, sensor_name
         )
         if not rc:
-            _LOGGER.debug("%s: async_set_values() Bad rc from async_set_in_values(): %s", sensor_name, sensor_name)
+            _LOGGER.debug(
+                "%s: async_set_values() Bad rc from async_set_in_values(): %s",
+                sensor_name,
+                sensor_name,
+            )
             return False
         #        _LOGGER.debug("%s: async_set_values() 3.1: %s", sensor_name, new_values)
         #
@@ -119,7 +139,11 @@ async def async_set_values(
         )
     #    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
     if not rc:
-        _LOGGER.debug("%s: async_set_values() Bad rc from async_set_SPORT_values(): %s", sensor_name, sensor_name)
+        _LOGGER.debug(
+            "%s: async_set_values() Bad rc from async_set_SPORT_values(): %s",
+            sensor_name,
+            sensor_name,
+        )
         return False
 
     new_values["private_fast_refresh"] = False
@@ -148,7 +172,7 @@ async def async_set_values(
 async def async_set_universal_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """ Function to set new_values common for all sports """
+    """Function to set new_values common for all sports"""
 
     #    _LOGGER.debug("%s: async_set_universal_values() 1: %s", sensor_name, sensor_name)
 
@@ -322,7 +346,7 @@ async def async_set_universal_values(
 async def async_set_team_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """ Function to set new_values for team sports """
+    """Function to set new_values for team sports"""
 
     #    _LOGGER.debug("%s: async_set_team_values() 1: %s", sensor_name, sensor_name)
 
@@ -375,7 +399,7 @@ async def async_set_team_values(
 #  PRE
 #
 async def async_set_pre_values(new_values, event) -> bool:
-    """ Function to set new_values common for PRE state """
+    """Function to set new_values common for PRE state"""
 
     new_values["odds"] = await async_get_value(
         event, "competitions", 0, "odds", 0, "details"
@@ -393,11 +417,11 @@ async def async_set_pre_values(new_values, event) -> bool:
 async def async_set_in_values(
     new_values, event, competition_index, team_index, sensor_name
 ) -> dict:
-    """ Function to set new_values common for IN state """
+    """Function to set new_values common for IN state"""
 
-#
-#  Pylint doesn't recognize values set by setdefault() method
-#
+    #
+    #  Pylint doesn't recognize values set by setdefault() method
+    #
     global team_prob  # pylint: disable=global-variable-not-assigned
     global oppo_prob  # pylint: disable=global-variable-not-assigned
 

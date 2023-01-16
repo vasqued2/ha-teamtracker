@@ -10,7 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_golf_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """ Set golf specific values"""
+    """Set golf specific values"""
 
     if team_index == 0:
         oppo_index = 1
@@ -88,8 +88,7 @@ async def async_set_golf_values(
 
 
 async def async_get_golf_position(competition, index) -> str:
-    """ Determine the position of index considering ties if score matches leading or trailing position"""
-
+    """Determine the position of index considering ties if score matches leading or trailing position"""
 
     t = 0
     tie = ""

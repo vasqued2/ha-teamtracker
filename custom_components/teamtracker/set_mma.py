@@ -10,8 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_set_mma_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
-    """ Set MMA specific values"""
-
+    """Set MMA specific values"""
 
     _LOGGER.debug("%s: async_set_mma_values() 1: %s", sensor_name, sensor_name)
 
@@ -74,8 +73,7 @@ async def async_set_mma_values(
 
 
 async def async_get_prior_fights(event, sensor_name) -> str:
-    """ Get the results of the prior fights """
-
+    """Get the results of the prior fights"""
 
     prior_fights = ""
 
