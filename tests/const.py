@@ -199,7 +199,7 @@ MULTIGAME_DATA = [
         "sport": "football",
         "league": "NFL",
         "team_abbr": "BAL", # PRE, POST
-        "expected_event_name": "BAL @ CLE"
+        "expected_event_name": "TB @ BAL"
     },
     {
         "sensor_name": "test_tt_all_test04",
