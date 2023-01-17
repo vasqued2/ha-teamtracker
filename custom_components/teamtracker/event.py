@@ -216,8 +216,9 @@ async def async_find_search_key(
             )
             return team_index
 
-        # Abbreviations in event_name can be different than team_abbr so look there if we've checked both team abbrevations already
-        if team_index == 1:
+        # Abbreviations in event_name can be different than team_abbr so look there if neither team abbrevations match
+        team0_abbreviation =str(await async_get_value(competition, "competitors", 0, "team", "abbreviation", default=""))
+        if team_index == 1 and search_key != team0_abbreviation:
             event_shortname = await async_get_value(event, "shortName", default="")
             if event_shortname.startswith(search_key + " ") or event_shortname.endswith(
                 " " + search_key
