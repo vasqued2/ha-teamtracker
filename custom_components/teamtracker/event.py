@@ -87,50 +87,20 @@ async def async_process_event(
 
                     if values["state"] == "IN":
                         stop_flag = True
-                    if (values["state"] == "PRE") and (
-                        abs((arrow.get(values["date"]) - arrow.now()).total_seconds())
-                        < 1200
-                    ):
+                    time_diff = abs(
+                        (arrow.get(values["date"]) - arrow.now()).total_seconds()
+                    )
+                    if values["state"] == "PRE" and time_diff < 1200:
                         stop_flag = True
                     if stop_flag:
                         break
 
-                    if prev_values["state"] == "POST":
-                        if (
-                            values["state"] == "PRE"
-                        ):  # Use POST if PRE is more than 18 hours in future
-                            if (
-                                arrow.get(values["date"]) - arrow.now()
-                            ).total_seconds() > 64800:
-                                values = prev_values
-                        elif values["state"] == "POST":  # use POST w/ latest date
-                            if arrow.get(prev_values["date"]) > arrow.get(
-                                values["date"]
-                            ):
-                                values = prev_values
-                            if (
-                                arrow.get(prev_values["date"])
-                                == arrow.get(values["date"])
-                            ) and sport in ["golf", "racing"]:
-                                values = prev_values
-                    if prev_values["state"] == "PRE":
-                        if values["state"] == "PRE":  # use PRE w/ earliest date
-                            if arrow.get(prev_values["date"]) <= arrow.get(
-                                values["date"]
-                            ):
-                                values = prev_values
-                        elif (
-                            values["state"] == "POST"
-                        ):  # Use PRE if less than 18 hours in future
-                            if (
-                                abs(
-                                    (
-                                        arrow.get(prev_values["date"]) - arrow.now()
-                                    ).total_seconds()
-                                )
-                                < 64800
-                            ):
-                                values = prev_values
+                    prev_flag = await async_use_prev_values_flag(
+                        prev_values, values, sensor_name, sport
+                    )
+                    if prev_flag:
+                        values = prev_values
+
             if team_index == -1:
                 _LOGGER.debug(
                     "%s: async_process_event() No competitors in this competition: %s",
@@ -217,7 +187,11 @@ async def async_find_search_key(
             return team_index
 
         # Abbreviations in event_name can be different than team_abbr so look there if neither team abbrevations match
-        team0_abbreviation =str(await async_get_value(competition, "competitors", 0, "team", "abbreviation", default=""))
+        team0_abbreviation = str(
+            await async_get_value(
+                competition, "competitors", 0, "team", "abbreviation", default=""
+            )
+        )
         if team_index == 1 and search_key != team0_abbreviation:
             event_shortname = await async_get_value(event, "shortName", default="")
             if event_shortname.startswith(search_key + " ") or event_shortname.endswith(
@@ -256,3 +230,36 @@ async def async_find_search_key(
     )
 
     return None
+
+
+async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
+    """Determine if prev_values should be saved"""
+
+    if prev_values["state"] == "POST":
+        if values["state"] == "PRE":
+            # Use POST if PRE is more than 18 hours in future
+            time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
+            if time_diff > 64800:
+                return True
+        elif values["state"] == "POST":
+            # use POST w/ latest date
+            if arrow.get(prev_values["date"]) > arrow.get(values["date"]):
+                return True
+            if sport in ["golf", "racing"] and (
+                arrow.get(prev_values["date"]) == arrow.get(values["date"])
+            ):
+                return True
+    if prev_values["state"] == "PRE":
+        if values["state"] == "PRE":
+            # use PRE w/ earliest date
+            if arrow.get(prev_values["date"]) <= arrow.get(values["date"]):
+                return True
+        elif values["state"] == "POST":
+            # Use PRE if less than 18 hours in future
+            time_diff = abs(
+                arrow.get(prev_values["date"]) - arrow.now()
+            ).total_seconds()
+            if time_diff < 64800:
+                return True
+
+    return False
