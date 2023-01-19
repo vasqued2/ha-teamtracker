@@ -322,6 +322,34 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         if r.status == 200:
                             data = await r.json()
 
+            num_events = 0
+            if data is not None:
+                try:
+                    num_events = len(data["events"])
+                except:
+                    num_events = 0
+
+            if num_events == 0:
+                url_parms = ""
+                if CONF_CONFERENCE_ID in config.keys():
+                    if len(config[CONF_CONFERENCE_ID]) > 0:
+                        url_parms = url_parms + "?groups=" + config[CONF_CONFERENCE_ID]
+                        if config[CONF_CONFERENCE_ID] == "9999":
+                            file_override = True
+                url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url, headers=headers) as r:
+                        _LOGGER.debug(
+                            "%s: Getting state without date constraint for '%s' from %s",
+                            sensor_name,
+                            team_id,
+                            url,
+                        )
+                        if r.status == 200:
+                            data = await r.json()
+
+
         return data, file_override
 
     async def async_update_values(self, config, hass, data, lang) -> dict:
