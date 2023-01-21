@@ -341,7 +341,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url, headers=headers) as r:
                         _LOGGER.debug(
-                            "%s: Getting state without date constraint for '%s' from %s",
+                            "%s: Getting state without language for '%s' from %s",
                             sensor_name,
                             team_id,
                             url,
