@@ -297,11 +297,23 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
             num_events = 0
             if data is not None:
+                _LOGGER.debug(
+                    "%s: Data returned for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                    )
                 try:
                     num_events = len(data["events"])
                 except:
                     num_events = 0
 
+            _LOGGER.debug(
+                "%s: Num_events '%d' from %s",
+                sensor_name,
+                num_events,
+                url,
+                )
             if num_events == 0:
                 url_parms = "?lang=" + lang[:2]
                 if CONF_CONFERENCE_ID in config.keys():
@@ -309,6 +321,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
                         if config[CONF_CONFERENCE_ID] == "9999":
                             file_override = True
+
+                _LOGGER.debug(
+                    "%s: new url_parms '%s' from %s",
+                    sensor_name,
+                    url_parms,
+                    url,
+                    )
+
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
                 async with aiohttp.ClientSession() as session:
@@ -324,10 +344,24 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
             num_events = 0
             if data is not None:
+                _LOGGER.debug(
+                    "%s: Data returned for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                    )
+
                 try:
                     num_events = len(data["events"])
                 except:
                     num_events = 0
+
+            _LOGGER.debug(
+                "%s: Num_events '%d' from %s",
+                sensor_name,
+                num_events,
+                url,
+                )
 
             if num_events == 0:
                 url_parms = ""
@@ -336,6 +370,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         url_parms = url_parms + "?groups=" + config[CONF_CONFERENCE_ID]
                         if config[CONF_CONFERENCE_ID] == "9999":
                             file_override = True
+
+                _LOGGER.debug(
+                    "%s: new url_parms '%s' from %s",
+                    sensor_name,
+                    url_parms,
+                    url,
+                    )
+
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
                 async with aiohttp.ClientSession() as session:
