@@ -267,6 +267,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         sport_path = config[CONF_SPORT_PATH]
         league_path = config[CONF_LEAGUE_PATH]
+
+#
+#  For some reason, the tennis API has behaves inconsistently when language is french so
+#    override it to 'en' to get consistent behavior ¯\_(ツ)_/¯
+#
+        if lang == "fr" and sport_path == "tennis":
+            _LOGGER.debug("%s: Overriding language '%s' to 'en' for '%s'", sensor_name, lang, sport_path)
+            lang = "en"
+
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
 
         d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
