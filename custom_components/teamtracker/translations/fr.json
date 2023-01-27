@@ -1,0 +1,49 @@
+{
+    "config": {
+        "error": {
+        "league": "Entrée du championnat invalide."
+        },
+        "step": {
+        "user": {
+            "description": "Entrée le championnat et l'équipe pour créer le sensor.\n\nChampionnat: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL\n\nEquipe: Abréviation de l'équipe en 2-4 lettres comme utilisé sur le tableau des scores ESPN et la page des statistiques\n\nNuméro de Conference: Pour NCAA football et basketball seulement.  voir README.md pour les bonnes valeurs.  Laissez le champs videpour inclure uniquement des sports avec classements d'équipes.",
+            "data": {
+            "league_id": "Championnat",
+            "team_id": "Equipe/Athlète",  
+            "name": "Nom du sensor",
+            "timeout": "Délai d'attente de la mise a jour (en secondes)",
+            "conference_id": "Numéro de la Conférence"
+            }
+        },
+        "path": {
+            "title": "API Configuration",
+            "description": "Entrez la partie du 'sport' et du 'championnat' de l'API ESPN pour utilisé une auto-configuration de l'API",
+            "data": {
+            "sport_path": "Choix du sport", 
+            "league_path": "Choix du championnat"
+            }
+        }
+        }
+    },
+    "options": {
+        "step": {
+        "init": {
+            "title": "Options Team Tracker",
+            "description": "Entrée le championnat et l'équipe pour créer le sensor.\n\nChampionnat: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL\n\nEquipe: Abréviation de l'équipe en 2-4 lettres comme utilisé sur le tableau des scores ESPN et la page des statistiques",
+            "data": {
+            "league_id": "Championnat",
+            "team_id": "Equipe/Athlète",  
+            "name": "Nom du sensor",
+            "timeout": "Délai d'attente de la mise a jour (en secondes)"
+            }
+        },
+        "path": {
+            "title": "Options personnalisée de l'API",
+            "description": "Entrez la partie du 'sport' et du 'championnat' de l'API ESPN pour utilisé une auto-configuration de l'API",
+            "data": {
+            "sport_path": "Choix du sport", 
+            "league_path": "Choix du championnat"
+            }
+        }
+        }
+    }
+}
