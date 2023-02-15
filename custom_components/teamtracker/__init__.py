@@ -278,9 +278,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
 
-        d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
-        d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
-        url_parms = url_parms + "&dates=" + d1 + "-" + d2
+        if sport_path != 'tennis':
+            d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
+            d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
+            url_parms = url_parms + "&dates=" + d1 + "-" + d2
 
         if CONF_CONFERENCE_ID in config.keys():
             if len(config[CONF_CONFERENCE_ID]) > 0:
