@@ -137,6 +137,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._team_logo = None
         self._team_colors = None
         self._team_score = None
+        self._team_linescores = None
         self._team_win_probability = None
         self._team_timeouts = None
 
@@ -148,6 +149,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._opponent_logo = None
         self._opponent_colors = None
         self._opponent_score = None
+        self._opponent_linescores = None
         self._opponent_win_probability = None
         self._opponent_timeouts = None
 
@@ -237,6 +239,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_colors"] = self.coordinator.data["team_colors"]
         #        attrs["team_colors_rbg"] = self.colors2rgb(self.coordinator.data["team_colors"])
         attrs["team_score"] = self.coordinator.data["team_score"]
+        attrs["team_linescores"] = self.coordinator.data["team_linescores"]
         attrs["team_win_probability"] = self.coordinator.data["team_win_probability"]
         attrs["team_timeouts"] = self.coordinator.data["team_timeouts"]
 
@@ -249,6 +252,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_colors"] = self.coordinator.data["opponent_colors"]
         #        attrs["opponent_colors_rgb"] = self.colors2rgb(self.coordinator.data["opponent_colors"])
         attrs["opponent_score"] = self.coordinator.data["opponent_score"]
+        attrs["opponent_linescores"] = self.coordinator.data["opponent_linescores"]
         attrs["opponent_win_probability"] = self.coordinator.data[
             "opponent_win_probability"
         ]
