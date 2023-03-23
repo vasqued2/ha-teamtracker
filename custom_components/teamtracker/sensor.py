@@ -153,6 +153,8 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         self._quarter = None
         self._clock = None
+        self._summary = None
+        self._detail = None
         self._possession = None
         self._last_play = None
         self._down_distance_text = None
@@ -256,6 +258,8 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         attrs["quarter"] = self.coordinator.data["quarter"]
         attrs["clock"] = self.coordinator.data["clock"]
+        attrs["summary"] = self.coordinator.data["summary"]
+        attrs["detail"] = self.coordinator.data["detail"]
         attrs["possession"] = self.coordinator.data["possession"]
         attrs["last_play"] = self.coordinator.data["last_play"]
         attrs["down_distance_text"] = self.coordinator.data["down_distance_text"]
