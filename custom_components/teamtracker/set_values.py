@@ -300,9 +300,22 @@ async def async_set_universal_values(
     new_values["clock"] = await async_get_value(
         competition,
         "status",
+        "displayClock",
+        default=await async_get_value(event, "status", "displayClock"),
+    )
+    new_values["summary"] = await async_get_value(
+        competition,
+        "status",
         "type",
         "shortDetail",
         default=await async_get_value(event, "status", "type", "shortDetail"),
+    )
+    new_values["detail"] = await async_get_value(
+        competition,
+        "status",
+        "type",
+        "detail",
+        default=await async_get_value(event, "status", "type", "detail"),
     )
     try:
         new_values["team_score"] = (
