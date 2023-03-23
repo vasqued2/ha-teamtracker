@@ -42,6 +42,8 @@ async def async_clear_values() -> dict:
         "opponent_timeouts": None,
         "quarter": None,
         "clock": None,
+        "summary": None,
+        "detail": None,
         "possession": None,
         "last_play": None,
         "down_distance_text": None,
