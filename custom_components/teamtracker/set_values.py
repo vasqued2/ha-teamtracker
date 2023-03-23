@@ -323,6 +323,15 @@ async def async_set_universal_values(
     except:
         new_values["opponent_score"] = await async_get_value(opponent, "score")
 
+    team_linescores = map(lambda x: str(x["value"]),
+        await async_get_value(competitor, "linescores")
+    )
+    new_values["team_linescores"] = ",".join(team_linescores)
+    opponent_linescores = map(lambda x: str(x["value"]),
+        await async_get_value(opponent, "linescores")
+    )
+    new_values["opponent_linescores"] = ",".join(opponent_linescores)
+        
     new_values["team_rank"] = await async_get_value(
         competitor, "curatedRank", "current"
     )
