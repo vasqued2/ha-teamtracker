@@ -28,6 +28,7 @@ jobs:
         run: |
           python -m pytest --asyncio-mode=auto
           pip install pytest-cov
+          export PYTHONASYNCIODEBUG=""
           pytest ./tests/ --cov=custom_components/teamtracker/ --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3

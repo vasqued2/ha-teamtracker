@@ -18,7 +18,7 @@ async def test_sensor(hass, mocker):
         data=CONFIG_DATA,
     )
 
-#    mocker.patch("locale.getlocale", return_value=("en", 0))
+    mocker.patch("locale.getlocale", return_value=("en", 0))
 
     #    contents = "{}"
     #    mocker.patch('aiofiles.open', return_value=mocker.mock_open(read_data=contents).return_value)
