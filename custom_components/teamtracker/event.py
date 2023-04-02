@@ -1,6 +1,6 @@
 """ Parse throught the API data and find the right event/competition"""
 
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 import logging
 
 import arrow
@@ -30,6 +30,8 @@ async def async_process_event(
     )
 
     limit_hit = len(data["events"]) == API_LIMIT
+    first_date = datetime(9999, 12, 31, 1, 0, 0)
+    last_date = datetime(1900, 1, 31, 1, 0, 0)
 
     for event in data["events"]:
         event_state = "NOT_FOUND"
@@ -42,6 +44,15 @@ async def async_process_event(
                 event, "competitions", competition_index
             )
             team_index = -1
+
+            competition_date_str = await async_get_value(
+                competition, "date", default=(await async_get_value(event, "date"))
+            )
+            competition_date = datetime.strptime(competition_date_str, "%Y-%m-%dT%H:%Mz")
+            if competition_date > last_date:
+                last_date = competition_date
+            if competition_date < first_date:
+                first_date = competition_date
             for team_index in range(
                 0, len(await async_get_value(competition, "competitors", default=[]))
             ):
@@ -126,17 +137,14 @@ async def async_process_event(
             )
 
     if not found_competitor:
-        first_date = (date.today() - timedelta(days=1)).strftime("%Y-%m-%dT%H:%MZ")
-        last_date = (date.today() + timedelta(days=5)).strftime("%Y-%m-%dT%H:%MZ")
-
         if limit_hit:
             values["api_message"] = (
                 "API_LIMIT hit.  No competition found for '"
                 + team_id
                 + "' between "
-                + first_date
+                + first_date.strftime("%Y-%m-%dT%H:%MZ")
                 + " and "
-                + last_date
+                + last_date.strftime("%Y-%m-%dT%H:%MZ")
             )
             _LOGGER.debug(
                 "%s: API_LIMIT hit (%s).  No competitor information '%s' returned by API",
@@ -149,9 +157,9 @@ async def async_process_event(
                 "No competition scheduled for '"
                 + team_id
                 + "' between "
-                + first_date
+                + first_date.strftime("%Y-%m-%dT%H:%MZ")
                 + " and "
-                + last_date
+                + last_date.strftime("%Y-%m-%dT%H:%MZ")
             )
             _LOGGER.debug(
                 "%s: No competitor information '%s' returned by API",
