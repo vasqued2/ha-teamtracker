@@ -1,6 +1,6 @@
 """ Parse throught the API data and find the right event/competition"""
 
-from datetime import date, datetime, timedelta
+from datetime import datetime
 import logging
 
 import arrow
