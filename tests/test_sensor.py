@@ -8,8 +8,7 @@ from custom_components.teamtracker.const import DOMAIN
 
 from tests.const import CONFIG_DATA
 
-#pytest.mark.skip(reason="Temporarily skipping this test")
-@pytest.mark.parametrize("expected_lingering_timers", [True])
+@pytest.mark.asyncio
 async def test_sensor(hass, mocker):
     """ Make sure sensor gets added """
 
