@@ -26,7 +26,7 @@ jobs:
           pip install --upgrade -r requirements_test.txt
       - name: Generate coverage report
         run: |
-          python -m pytest --asyncio-mode=auto
+          python -m pytest --asyncio-mode=legacy
           pip install pytest-cov
           export PYTHONASYNCIODEBUG=""
           pytest ./tests/ --cov=custom_components/teamtracker/ --cov-report=xml
