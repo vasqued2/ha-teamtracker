@@ -15,11 +15,6 @@ def expected_lingering_timers() -> bool:
     @pytest.mark.parametrize("expected_lingering_timers", [True])
     This should be removed when all lingering timers have been cleaned up.
     """
-    # Check if this is a component test
-    current_test = os.getenv("PYTEST_CURRENT_TEST")
-    if current_test and current_test.startswith("tests/components"):
-        # As a starting point, we ignore components
-        return True
     return True
 
     
