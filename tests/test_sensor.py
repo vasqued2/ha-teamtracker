@@ -1,6 +1,6 @@
 """Test NFL Sensor"""
 
-import pytest
+#import pytest
 
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
@@ -8,7 +8,7 @@ from custom_components.teamtracker.const import DOMAIN
 
 from tests.const import CONFIG_DATA
 
-@pytest.mark.skip(reason="Temporarily skipping this test")
+pytest.mark.skip(reason="Temporarily skipping this test")
 async def test_sensor(hass, mocker):
     """ Make sure sensor gets added """
 
