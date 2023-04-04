@@ -8,7 +8,7 @@ from custom_components.teamtracker.const import DOMAIN
 
 from tests.const import CONFIG_DATA
 
-@pytest.mark.asyncio
+@pytest.mark.usefixtures("expected_lingering_timers")
 async def test_sensor(hass, mocker):
     """ Make sure sensor gets added """
 
