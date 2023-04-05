@@ -8,6 +8,7 @@ from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 
 from tests.const import CONFIG_DATA
 
+
 @pytest.fixture(autouse=True)
 def expected_lingering_timers() -> bool:
     """Temporary ability to bypass test failures.
@@ -36,6 +37,7 @@ async def test_setup_entry(
     assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
+
 
 @pytest.mark.usefixtures("expected_lingering_timers")
 async def test_unload_entry(hass):

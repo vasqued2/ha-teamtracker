@@ -8,6 +8,7 @@ from custom_components.teamtracker.const import DOMAIN
 
 from tests.const import CONFIG_DATA
 
+
 @pytest.fixture(autouse=True)
 def expected_lingering_timers() -> bool:
     """Temporary ability to bypass test failures.
