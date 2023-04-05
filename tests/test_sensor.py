@@ -19,7 +19,6 @@ def expected_lingering_timers() -> bool:
     return False
 
     
-#@pytest.mark.usefixtures("expected_lingering_timers")
 @pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_sensor(hass, mocker):
     """ Make sure sensor gets added """
