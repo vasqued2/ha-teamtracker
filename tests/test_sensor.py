@@ -16,7 +16,7 @@ def expected_lingering_timers() -> bool:
     @pytest.mark.parametrize("expected_lingering_timers", [True])
     This should be removed when all lingering timers have been cleaned up.
     """
-    return True
+    return False
 
     
 #@pytest.mark.usefixtures("expected_lingering_timers")
