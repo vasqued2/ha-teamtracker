@@ -11,7 +11,7 @@ from tests.const import CONFIG_DATA
 
 @pytest.fixture(autouse=True)
 def expected_lingering_timers() -> bool:
-    """Temporary ability to bypass test failures.
+    """Temporary ability to bypass test failures due to lingering timers.
     Parametrize to True to bypass the pytest failure.
     @pytest.mark.parametrize("expected_lingering_timers", [True])
     This should be removed when all lingering timers have been cleaned up.
@@ -19,7 +19,7 @@ def expected_lingering_timers() -> bool:
     return True
 
     
-@pytest.mark.usefixtures("expected_lingering_timers")
+#@pytest.mark.usefixtures("expected_lingering_timers")
 async def test_sensor(hass, mocker):
     """ Make sure sensor gets added """
 
