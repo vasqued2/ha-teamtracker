@@ -9,18 +9,18 @@ from custom_components.teamtracker.const import DOMAIN
 from tests.const import CONFIG_DATA
 
 
-#@pytest.fixture(autouse=True)
-#def expected_lingering_timers() -> bool:
-#    """Temporary ability to bypass test failures due to lingering timers.
-#    Parametrize to True to bypass the pytest failure.
-#    @pytest.mark.parametrize("expected_lingering_timers", [True])
-#    This should be removed when all lingering timers have been cleaned up.
-#    """
-#    return False
+@pytest.fixture(autouse=True)
+def expected_lingering_timers() -> bool:
+    """Temporary ability to bypass test failures due to lingering timers.
+    Parametrize to True to bypass the pytest failure.
+    @pytest.mark.parametrize("expected_lingering_timers", [True])
+    This should be removed when all lingering timers have been cleaned up.
+    """
+    return False
 
     
 #@pytest.mark.usefixtures("expected_lingering_timers")
-@pytest.mark.parametrize("expected_lingering_timers", [True], indirect=True)
+@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_sensor(hass, mocker, expected_lingering_timers):
     """ Make sure sensor gets added """
 
