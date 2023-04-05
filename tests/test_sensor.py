@@ -20,8 +20,8 @@ from tests.const import CONFIG_DATA
 
     
 #@pytest.mark.usefixtures("expected_lingering_timers")
-@pytest.mark.parametrize("expected_lingering_timers", [True])
-async def test_sensor(hass, mocker):
+@pytest.mark.parametrize("expected_lingering_timers", [True], indirect=True)
+async def test_sensor(hass, mocker, expected_lingering_timers):
     """ Make sure sensor gets added """
 
     entry = MockConfigEntry(
