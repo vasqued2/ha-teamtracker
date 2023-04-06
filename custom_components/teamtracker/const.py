@@ -77,7 +77,7 @@ DEFAULT_KICKOFF_IN = "{test} days"
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.7.1"
+VERSION = "v0.7.3"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 PLATFORM = "sensor"
