@@ -1,6 +1,6 @@
 """Test NFL Sensor"""
 
-import pytest
+#import pytest
 
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
