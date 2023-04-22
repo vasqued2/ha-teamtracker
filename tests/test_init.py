@@ -4,6 +4,7 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
+from homeassistant.helpers import async_get
 from homeassistant.setup import async_setup_component
 from tests.const import CONFIG_DATA
 from unittest.mock import patch
