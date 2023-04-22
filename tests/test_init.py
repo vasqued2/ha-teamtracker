@@ -1,4 +1,4 @@
-# Tests for init
+""" Tests for TeamTracker """
 
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -6,16 +6,18 @@ from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA
 
-# Temporary ability to bypass test failures due to lingering timers.
-#   Parametrize to True to bypass the pytest failure.
-#   @pytest.mark.parametrize("expected_lingering_timers", [True])
-#   This should be removed when all lingering timers have been cleaned up.
+
 @pytest.fixture(autouse=True)
 def expected_lingering_timers() -> bool:
+    """  Temporary ability to bypass test failures due to lingering timers.
+    Parametrize to True to bypass the pytest failure.
+    @pytest.mark.parametrize("expected_lingering_timers", [True])
+    This should be removed when all lingering timers have been cleaned up.
+    """
     return False
 
     
-@pytest.mark.parametrize("expected_lingering_timers", [True])
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_entry(
     hass,
 ):
@@ -24,6 +26,7 @@ async def test_setup_entry(
         title="team_tracker",
         data=CONFIG_DATA,
     )
+    """ test setup """
 
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -37,8 +40,9 @@ async def test_setup_entry(
     await hass.async_block_till_done()
 
 
-@pytest.mark.parametrize("expected_lingering_timers", [True])
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_unload_entry(hass):
+    """ test unload """
 
     entry = MockConfigEntry(
         domain=DOMAIN,
