@@ -72,25 +72,27 @@ async def test_unload_entry(hass):
     await hass.async_block_till_done()
 
 
-# async def test_import(hass):
-#     """Test importing a config."""
-#     entry = MockConfigEntry(
-#         domain=DOMAIN,
-#         title="NFL",
-#         data=CONFIG_DATA,
-#     )
-#     await async_setup_component(hass, "persistent_notification", {})
-#     with patch(
-#         "custom_components.teamtracker.async_setup_entry",
-#         return_value=True,
-#     ) as mock_setup_entry:
+async def test_import(hass):
+    """Test importing a config."""
 
-#         ent_reg = async_get(hass)
-#         ent_entry = ent_reg.async_get_or_create(
-#             "sensor", DOMAIN, unique_id="replaceable_unique_id", config_entry=entry
-#         )
-#         entity_id = ent_entry.entity_id
-#         entry.add_to_hass(hass)
-#         await hass.config_entries.async_setup(entry.entry_id)
-#         assert entry.unique_id is None
-#         assert ent_reg.async_get(entity_id).unique_id == entry.entry_id
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA,
+    )
+
+    await async_setup_component(hass, "persistent_notification", {})
+    with patch(
+        "custom_components.teamtracker.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+
+        ent_reg = async_get(hass)
+        ent_entry = ent_reg.async_get_or_create(
+            "sensor", DOMAIN, unique_id="replaceable_unique_id", config_entry=entry
+        )
+        entity_id = ent_entry.entity_id
+        entry.add_to_hass(hass)
+        await hass.config_entries.async_setup(entry.entry_id)
+        assert entry.unique_id is None
+        assert ent_reg.async_get(entity_id).unique_id == entry.entry_id
