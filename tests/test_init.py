@@ -6,6 +6,7 @@ from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from homeassistant.setup import async_setup_component
 from tests.const import CONFIG_DATA
+from unittest.mock import patch
 
 @pytest.fixture(autouse=False)
 def expected_lingering_timers() -> bool:
@@ -82,7 +83,7 @@ async def test_import(hass):
     )
 
     await async_setup_component(hass, "persistent_notification", {})
-    with mocker.patch(
+    with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
     ) as mock_setup_entry:
