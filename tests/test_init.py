@@ -21,12 +21,13 @@ def expected_lingering_timers() -> bool:
 async def test_setup_entry(
     hass,
 ):
+    """ test setup """
+
     entry = MockConfigEntry(
         domain=DOMAIN,
         title="team_tracker",
         data=CONFIG_DATA,
     )
-    """ test setup """
 
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
