@@ -15,7 +15,7 @@ def expected_lingering_timers() -> bool:
     return False
 
     
-#@pytest.mark.parametrize("expected_lingering_timers", [True])
+@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_entry(
     hass,
 ):
@@ -37,7 +37,7 @@ async def test_setup_entry(
     await hass.async_block_till_done()
 
 
-#@pytest.mark.parametrize("expected_lingering_timers", [True])
+@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_unload_entry(hass):
 
     entry = MockConfigEntry(
