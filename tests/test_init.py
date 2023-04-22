@@ -82,7 +82,7 @@ async def test_import(hass):
     )
 
     await async_setup_component(hass, "persistent_notification", {})
-    with patch(
+    with mocker.patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
     ) as mock_setup_entry:
