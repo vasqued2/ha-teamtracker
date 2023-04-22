@@ -7,7 +7,7 @@ from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=False)
 def expected_lingering_timers() -> bool:
     """  Temporary ability to bypass test failures due to lingering timers.
     Parametrize to True to bypass the pytest failure.
