@@ -41,7 +41,7 @@ async def test_setup_entry(
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
-async def test_unload_entry(hass):
+async def test_unload_entry(hass, mocker):
     """ test unload """
 
     entry = MockConfigEntry(
