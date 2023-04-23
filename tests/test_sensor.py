@@ -1,6 +1,7 @@
 """ Test TeamTracker Sensor """
 
 import pytest
+from unittest.mock import Mock, patch
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
 from tests.const import CONFIG_DATA
