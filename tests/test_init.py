@@ -50,6 +50,9 @@ async def test_unload_entry(hass):
         data=CONFIG_DATA,
     )
 
+    mocker.patch("locale.getlocale", return_value=("en", 0))
+    mocker.patch("aiofiles.open", return_value=open("tests/tt/all.json", "r"))
+
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
     await hass.async_block_till_done()
