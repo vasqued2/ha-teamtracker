@@ -41,7 +41,7 @@ async def test_setup_entry(
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
-async def test_unload_entry(hass, mocker):
+async def test_unload_entry(hass):
     """ test unload """
 
     entry = MockConfigEntry(
@@ -49,9 +49,6 @@ async def test_unload_entry(hass, mocker):
         title="team_tracker",
         data=CONFIG_DATA,
     )
-
-    mocker.patch("locale.getlocale", return_value=("en", 0))
-    mocker.patch("aiofiles.open", return_value=open("tests/tt/all.json", "r"))
 
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
