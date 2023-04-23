@@ -49,16 +49,15 @@ async def test_sensor(hass, mocker):
 async def test_team_tracker_scores_sensor():
     """Test the TeamTrackerScoresSensor class."""
 
-    # Set up the test data.
-    config = {
-        "name": "Test Sensor",
-        "sport_path": "football",
-        "league_path": "premier-league",
-        "team_id": "123456",
-    }
+    # create a mock HomeAssistant object
+    hass = Mock()
 
-    # Mock the coordinator.
+    # create a mock ConfigEntry object
+    config_entry = Mock()
+
+    # create a mock Coordinator object
     coordinator = Mock()
+
     coordinator.data = {
         "sport": "football",
         "league": "premier-league",
@@ -122,8 +121,11 @@ async def test_team_tracker_scores_sensor():
         "api_message": None,
     }
 
-    # Create the sensor.
-    sensor = TeamTrackerScoresSensor(None, config)
+    # assign the Coordinator to the HomeAssistant data object
+    hass.data = {"team_tracker_scores": {config_entry.entry_id: {"coordinator": coordinator}}}
+
+    # create the sensor object
+    sensor = TeamTrackerScoresSensor(hass, config_entry)
 
     # Set the coordinator on the sensor.
     sensor.coordinator = coordinator
