@@ -175,7 +175,7 @@ async def async_find_search_key(
 ):
     """Check if there is a match on wildcard, team_abbreviation, event_name, or athlete_name"""
 
-    if search_key == "*" and (competitor["type"] == "athlete" or sport_path != "tennis"):
+    if search_key == "*" and (competitor["type"] == "athlete" or (sport_path != "tennis" and sport_path != "golf")):
         _LOGGER.debug(
             "%s: Found competitor using wildcard '%s'; parsing data.",
             sensor_name,
