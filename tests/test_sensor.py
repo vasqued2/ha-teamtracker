@@ -42,10 +42,10 @@ async def test_sensor(hass, mocker):
 
 
 @pytest.fixture
-def hass():
-    return HomeAssistant()
+def hass_mock(mocker):
+    return mocker.Mock()
 
-def test_team_tracker_scores_sensor(hass):
+def test_team_tracker_scores_sensor(hass_mock):
     entry = {
         'entry_id': 'test_entry_id',
         'data': {
@@ -54,7 +54,7 @@ def test_team_tracker_scores_sensor(hass):
         },
     }
 
-    sensor = TeamTrackerScoresSensor(hass, entry)
+    sensor = TeamTrackerScoresSensor(hass_mock, entry)
     assert sensor._name == 'Test Sensor'
     assert sensor._icon == 'default_icon'
     assert sensor._state == 'PRE'
