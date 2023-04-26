@@ -3,7 +3,6 @@
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
-from custom_components.teamtracker.sensor import TeamTrackerScoresSensor
 from tests.const import CONFIG_DATA
 
 
