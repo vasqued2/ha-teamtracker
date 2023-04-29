@@ -402,15 +402,18 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
                 async with aiohttp.ClientSession() as session:
-                    async with session.get(url, headers=headers) as r:
-                        _LOGGER.debug(
-                            "%s: Getting state without language for '%s' from %s",
-                            sensor_name,
-                            team_id,
-                            url,
-                        )
-                        if r.status == 200:
-                            data = await r.json()
+                    try:
+                        async with session.get(url, headers=headers) as r:
+                            _LOGGER.debug(
+                                "%s: Getting state without language for '%s' from %s",
+                                sensor_name,
+                                team_id,
+                                url,
+                            )
+                            if r.status == 200:
+                                data = await r.json()
+                    except:
+                        data = None
 
         return data, file_override
         
