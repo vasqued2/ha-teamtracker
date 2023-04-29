@@ -17,8 +17,6 @@ from homeassistant import config_entries, setup
                 "name": "team_tracker",
                 "timeout": 120,
                 "conference_id": "9999",
-                "league_path": "nfl",
-                "sport_path": "football",
             },
             "user",
             "team_tracker",
