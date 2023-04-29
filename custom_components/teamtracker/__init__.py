@@ -293,7 +293,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if file_override:
             _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
-            async with aiofiles.open("/share/tt/test.json", mode="r") as f:
+            file_path = "/share/tt/test.json"
+            if not os.path.exists(file_path):
+                file_path = "tests/tt/all.json"
+            async with aiofiles.open(file_path, mode="r") as f:
                 contents = await f.read()
             data = json.loads(contents)
         else:
