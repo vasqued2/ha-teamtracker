@@ -177,6 +177,24 @@ TEST_DATA = [
         "league": "XXX",
         "team_abbr": "IND",
     },
+    {
+        "sensor_name": "test_tt_all_test29",
+        "sport": "racing",
+        "league": "F1",
+        "team_abbr": "SAINTZ",
+    },
+    {
+        "sensor_name": "test_tt_all_test30",
+        "sport": "racing",
+        "league": "F1",
+        "team_abbr": "VERSTAPPEN",
+    },
+    {
+        "sensor_name": "test_tt_all_test31",
+        "sport": "racing",
+        "league": "F1",
+        "team_abbr": "STROLLZ",
+    },
 ]
 
 MULTIGAME_DATA = [
