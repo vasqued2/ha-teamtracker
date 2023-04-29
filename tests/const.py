@@ -9,11 +9,11 @@ CONFIG_DATA = {
 }
 
 CONFIG_DATA2 = {
-    "league_id": "NFL",
-    "team_id": "CLE",
+    "league_id": "NCAAF",
+    "team_id": "OSU",
     "name": "test_tt_all_test02",
     "timeout": 120,
-    "conference_id": "",
+    "conference_id": "5",
 }
 
 TEST_DATA = [
