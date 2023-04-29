@@ -4,7 +4,7 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from tests.const import CONFIG_DATA
+from tests.const import CONFIG_DATA, CONFIG_DATA2
 
 @pytest.fixture(autouse=False)
 def expected_lingering_timers() -> bool:
