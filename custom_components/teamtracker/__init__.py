@@ -248,9 +248,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     "last_update"
                 ] = DEFAULT_LAST_UPDATE  # set to fixed time for compares
                 values["kickoff_in"] = DEFAULT_KICKOFF_IN
-                with open(path, "w", encoding="utf-8") as convert_file:
-                    convert_file.write(json.dumps(values, indent=4))
-
+                try:
+                    with open(path, "w", encoding="utf-8") as convert_file:
+                        convert_file.write(json.dumps(values, indent=4))
+                except:
+                    _LOGGER.debug("%s: Error creating results file '%s'", sensor_name, path)
         return values
 
     #
