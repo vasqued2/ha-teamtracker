@@ -12,7 +12,7 @@ from homeassistant import config_entries, setup
     [
         (
             {
-                "league_id": "XXX",
+                "league_id": "NFL",
                 "team_id": "SEA",
                 "name": "team_tracker",
                 "timeout": 120,
@@ -22,7 +22,7 @@ from homeassistant import config_entries, setup
             "team_tracker",
             "description",
             {
-                "league_id": "XXX",
+                "league_id": "NFL",
                 "team_id": "SEA",
                 "name": "team_tracker",
                 "timeout": 120,
