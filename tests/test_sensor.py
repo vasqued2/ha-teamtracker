@@ -6,7 +6,6 @@ from custom_components.teamtracker.const import DOMAIN
 #from custom_components.teamtracker.sensor import TeamTrackerScoresSensor
 from tests.const import CONFIG_DATA
 
-from homeassistant.core import HomeAssistant
 
 @pytest.fixture(autouse=False)
 def expected_lingering_timers() -> bool:
