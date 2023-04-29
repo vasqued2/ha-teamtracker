@@ -8,6 +8,14 @@ CONFIG_DATA = {
     "conference_id": "9999",
 }
 
+CONFIG_DATA2 = {
+    "league_id": "NFL",
+    "team_id": "CLE",
+    "name": "test_tt_all_test02",
+    "timeout": 120,
+    "conference_id": "",
+}
+
 TEST_DATA = [
     {
         "sensor_name": "test_tt_all_test01",

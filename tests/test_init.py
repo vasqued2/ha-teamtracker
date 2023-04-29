@@ -47,7 +47,7 @@ async def test_unload_entry(hass):
     entry = MockConfigEntry(
         domain=DOMAIN,
         title="team_tracker",
-        data=CONFIG_DATA,
+        data=CONFIG_DATA2,
     )
 
     entry.add_to_hass(hass)
