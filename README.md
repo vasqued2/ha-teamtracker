@@ -27,7 +27,7 @@ The following leagues are supported natively:
 - Australian Football - AFL (beta)
 - Baseball - MLB
 - Basketball - NBA, WNBA, NCAAM, NCAAW, WNBA
-- Football - NFL, NCAAF
+- Football - NFL, NCAAF, XFL
 - Golf - PGA
 - Hockey - NHL
 - MMA - UFC
@@ -230,6 +230,7 @@ For the League, the following values are valid:
 - PGA (Professional Golfers' Assc.)
 - SERA (Italian Serie A)
 - UFC (Ultimate Fighting Championship)
+- XFL (XFL)
 - WC (World Cup)
 - WNBA (Women's NBA)
 - WTA (Women's Tennis Assc.)

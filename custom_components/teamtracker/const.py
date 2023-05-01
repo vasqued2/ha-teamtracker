@@ -15,6 +15,7 @@ LEAGUE_LIST = [
     ["NCAAW", "basketball", "womens-college-basketball"],
     ["NCAAF", "football", "college-football"],
     ["NFL", "football", "nfl"],
+    ["XFL", "football", "xfl"],
     ["PGA", "golf", "pga"],
     ["NHL", "hockey", "nhl"],
     ["UFC", "mma", "ufc"],

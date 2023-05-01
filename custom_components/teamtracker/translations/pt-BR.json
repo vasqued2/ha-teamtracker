@@ -6,7 +6,7 @@
     "step": {
       "user": {
         "title": "Rastreador de equipe",
-        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL\n\nEquipe : abreviação de equipe de 2 a 4 letras usada nos placares e nas páginas de estatísticas da ESPN\n\nNúmero da conferência: somente para futebol e basquete da NCAA. Consulte README.md para valores válidos. Deixe em branco para incluir apenas jogos com equipes classificadas.",
+        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nEquipe : abreviação de equipe de 2 a 4 letras usada nos placares e nas páginas de estatísticas da ESPN\n\nNúmero da conferência: somente para futebol e basquete da NCAA. Consulte README.md para valores válidos. Deixe em branco para incluir apenas jogos com equipes classificadas.",
         "data": {
           "league_id": "Liga",
           "team_id": "Time",  
@@ -29,7 +29,7 @@
     "step": {
       "init": {
         "title": "Opções do Rastreador de Equipe",
-        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL\n\nEquipe: 2-4 abreviação da equipe de letras usada nos placares da ESPN e nas páginas de estatísticas",
+        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nEquipe: 2-4 abreviação da equipe de letras usada nos placares da ESPN e nas páginas de estatísticas",
         "data": {
           "league_id": "Liga",
           "team_id": "Time",  
