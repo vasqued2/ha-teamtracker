@@ -8,6 +8,7 @@ from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
@@ -25,26 +26,26 @@ from .const import (
     DEFAULT_CONFERENCE_ID,
     DEFAULT_ICON,
     DEFAULT_LEAGUE,
-    DEFAULT_LEAGUE_PATH,
     DEFAULT_NAME,
-    DEFAULT_SPORT_PATH,
     DEFAULT_TIMEOUT,
     DOMAIN,
-    LEAGUE_LIST,
-    SPORT_LIST,
+    LEAGUE_MAP,
+    SPORT_ICON_MAP,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
-        vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): cv.string,
+        vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): vol.In(
+            [*LEAGUE_MAP, "XXX"]
+        ),
         vol.Required(CONF_TEAM_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Optional(CONF_TIMEOUT, default=DEFAULT_TIMEOUT): int,
         vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
-        vol.Optional(CONF_SPORT_PATH, default=DEFAULT_SPORT_PATH): cv.string,
-        vol.Optional(CONF_LEAGUE_PATH, default=DEFAULT_LEAGUE_PATH): cv.string,
+        vol.Optional(CONF_SPORT_PATH): cv.string,
+        vol.Optional(CONF_LEAGUE_PATH): cv.string,
     }
 )
 
@@ -54,11 +55,28 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
 
+    # Raise an exception if the league ID is XXX and the sport or league path is not
+    # specified
+    if config[CONF_LEAGUE_ID] == "XXX" and not (
+        CONF_SPORT_PATH in config and CONF_LEAGUE_PATH in config
+    ):
+        raise PlatformNotReady(
+            "Must specify sport and league path for custom league (league_id = XXX)"
+        )
+
     league_id = config[CONF_LEAGUE_ID].upper()
-    for league in LEAGUE_LIST:
-        if league[0] == league_id:
-            config.update({CONF_SPORT_PATH: league[1]})
-            config.update({CONF_LEAGUE_PATH: league[2]})
+    # If the league ID is not in the map, it must be XXX and therefore we get the path
+    # and league from the config
+    config.update(
+        LEAGUE_MAP.get(
+            league_id,
+            {
+                k: v
+                for k, v in config.items()
+                if k in (CONF_SPORT_PATH, CONF_LEAGUE_PATH)
+            },
+        )
+    )
 
     if DOMAIN not in hass.data.keys():
         hass.data.setdefault(DOMAIN, {})
@@ -97,15 +115,12 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         super().__init__(hass.data[DOMAIN][entry.entry_id][COORDINATOR])
 
         sport_path = entry.data[CONF_SPORT_PATH]
-        icon = DEFAULT_ICON
-        for sport in SPORT_LIST:
-            if sport[0] == sport_path:
-                icon = sport[1]
+        icon = SPORT_ICON_MAP.get(sport_path, DEFAULT_ICON)
         if icon == DEFAULT_ICON:
             _LOGGER.debug(
                 "%s:  Setting up sensor from YAML.  Sport '%s' not found.",
                 entry.data[CONF_NAME],
-                sport,
+                sport_path,
             )
 
         self.coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]

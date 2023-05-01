@@ -24,7 +24,7 @@ from .const import (
     DEFAULT_NAME,
     DEFAULT_TIMEOUT,
     DOMAIN,
-    LEAGUE_LIST,
+    LEAGUE_MAP,
 )
 
 JSON_FEATURES = "features"
@@ -53,9 +53,12 @@ def _get_schema(
 
     return vol.Schema(
         {
-            vol.Required(
-                CONF_LEAGUE_ID, default=_get_default(CONF_LEAGUE_ID)
-            ): cv.string,
+            vol.Required(CONF_LEAGUE_ID, default=_get_default(CONF_LEAGUE_ID)): vol.In(
+                {
+                    **{k: k for k in sorted(LEAGUE_MAP)},
+                    "XXX": "Custom: Specify sport and league path",
+                }
+            ),
             vol.Required(CONF_TEAM_ID, default=_get_default(CONF_TEAM_ID)): cv.string,
             vol.Optional(CONF_NAME, default=_get_default(CONF_NAME)): cv.string,
             vol.Optional(CONF_TIMEOUT, default=_get_default(CONF_TIMEOUT)): int,
@@ -104,14 +107,12 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             if league_id == "XXX":
                 self._data.update(user_input)
                 return await self.async_step_path()
-            for league in LEAGUE_LIST:
-                if league[0] == league_id:
-                    user_input.update({CONF_SPORT_PATH: league[1]})
-                    user_input.update({CONF_LEAGUE_PATH: league[2]})
-                    self._data.update(user_input)
-                    return self.async_create_entry(
-                        title=self._data[CONF_NAME], data=self._data
-                    )
+            if paths := LEAGUE_MAP.get(league_id):
+                user_input.update(paths)
+                self._data.update(user_input)
+                return self.async_create_entry(
+                    title=self._data[CONF_NAME], data=self._data
+                )
             self._errors["base"] = "league"
         return await self._show_config_form(user_input)
 
