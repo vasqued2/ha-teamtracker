@@ -98,10 +98,8 @@ DEFAULT_LEAGUE = "NFL"
 DEFAULT_LOGO = (
     "https://cdn0.iconfinder.com/data/icons/shift-interfaces/32/Error-512.png"
 )
-DEFAULT_LEAGUE_PATH = "league_not_found"
 DEFAULT_NAME = "team_tracker"
 DEFAULT_PROB = 0.0
-DEFAULT_SPORT_PATH = "sport_not_found"
 DEFAULT_TIMEOUT = 120
 DEFAULT_LAST_UPDATE = "2022-02-02 02:02:02-05:00"
 DEFAULT_KICKOFF_IN = "{test} days"

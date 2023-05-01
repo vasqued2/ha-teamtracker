@@ -1,6 +1,6 @@
 """ Home Assistant sensor processing """
-
 import logging
+from typing import Any
 
 import voluptuous as vol
 
@@ -10,7 +10,9 @@ from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.util import slugify
 
 from . import TeamTrackerDataUpdateCoordinator
@@ -50,7 +52,12 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 )
 
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(
+    hass: HomeAssistant,
+    config: ConfigType,
+    async_add_entities: AddEntitiesCallback,
+    discovery_info=None,
+) -> None:
     """Configuration from yaml"""
 
     _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
@@ -102,7 +109,9 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     async_add_entities([TeamTrackerScoresSensor(hass, config)], True)
 
 
-async def async_setup_entry(hass, entry, async_add_entities):
+async def async_setup_entry(
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+) -> None:
     """Setup the sensor platform."""
     async_add_entities([TeamTrackerScoresSensor(hass, entry)], True)
 
@@ -191,24 +200,24 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._api_message = None
 
     @property
-    def unique_id(self):
+    def unique_id(self) -> str:
         """
         Return a unique, Home Assistant friendly identifier for this entity.
         """
         return f"{slugify(self._name)}_{self._config.entry_id}"
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Return the name of the sensor."""
         return self._name
 
     @property
-    def icon(self):
+    def icon(self) -> str:
         """Return the icon to use in the frontend, if any."""
         return self._icon
 
     @property
-    def state(self):
+    def state(self) -> str:
         """Return the state of the sensor."""
         if self.coordinator.data is None:
             return None
@@ -219,7 +228,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         return None
 
     @property
-    def extra_state_attributes(self):
+    def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state message."""
         attrs = {}
 
