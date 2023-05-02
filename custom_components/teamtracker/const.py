@@ -34,10 +34,22 @@ VOLLEYBALL = "volleyball"
 
 # Maps
 LEAGUE_MAP = {
-    "AFL": {CONF_SPORT_PATH: AUSTRALIAN_FOOTBALL, CONF_LEAGUE_PATH: "afl"},
-    "MLB": {CONF_SPORT_PATH: BASEBALL, CONF_LEAGUE_PATH: "mlb"},
-    "NBA": {CONF_SPORT_PATH: BASKETBALL, CONF_LEAGUE_PATH: "nba"},
-    "WNBA": {CONF_SPORT_PATH: BASKETBALL, CONF_LEAGUE_PATH: "wnba"},
+    "AFL": {
+        CONF_SPORT_PATH: AUSTRALIAN_FOOTBALL,
+        CONF_LEAGUE_PATH: "afl",
+    },
+    "MLB": {
+        CONF_SPORT_PATH: BASEBALL,
+        CONF_LEAGUE_PATH: "mlb",
+    },
+    "NBA": {
+        CONF_SPORT_PATH: BASKETBALL,
+        CONF_LEAGUE_PATH: "nba",
+    },
+    "WNBA": {
+        CONF_SPORT_PATH: BASKETBALL,
+        CONF_LEAGUE_PATH: "wnba",
+    },
     "NCAAM": {
         CONF_SPORT_PATH: BASKETBALL,
         CONF_LEAGUE_PATH: "mens-college-basketball",
@@ -46,25 +58,82 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: BASKETBALL,
         CONF_LEAGUE_PATH: "womens-college-basketball",
     },
-    "NCAAF": {CONF_SPORT_PATH: FOOTBALL, CONF_LEAGUE_PATH: "college-football"},
-    "NFL": {CONF_SPORT_PATH: FOOTBALL, CONF_LEAGUE_PATH: "nfl"},
-    "PGA": {CONF_SPORT_PATH: GOLF, CONF_LEAGUE_PATH: "pga"},
-    "NHL": {CONF_SPORT_PATH: HOCKEY, CONF_LEAGUE_PATH: "nhl"},
-    "UFC": {CONF_SPORT_PATH: MMA, CONF_LEAGUE_PATH: "ufc"},
-    "F1": {CONF_SPORT_PATH: RACING, CONF_LEAGUE_PATH: "f1"},
-    "IRL": {CONF_SPORT_PATH: RACING, CONF_LEAGUE_PATH: "irl"},
-    "NASCAR": {CONF_SPORT_PATH: RACING, CONF_LEAGUE_PATH: "nascar-premier"},
-    "BUND": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "ger.1"},
-    "CL": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "uefa.champions"},
-    "EPL": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "eng.1"},
-    "LIGA": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "esp.1"},
-    "LIG1": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "fra.1"},
-    "MLS": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "usa.1"},
-    "NWSL": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "usa.nwsl"},
-    "SERA": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "ita.1"},
-    "WC": {CONF_SPORT_PATH: SOCCER, CONF_LEAGUE_PATH: "fifa.world"},
-    "ATP": {CONF_SPORT_PATH: TENNIS, CONF_LEAGUE_PATH: "atp"},
-    "WTA": {CONF_SPORT_PATH: TENNIS, CONF_LEAGUE_PATH: "wta"},
+    "NCAAF": {
+        CONF_SPORT_PATH: FOOTBALL,
+        CONF_LEAGUE_PATH: "college-football",
+    },
+    "NFL": {
+        CONF_SPORT_PATH: FOOTBALL,
+        CONF_LEAGUE_PATH: "nfl",
+    },
+    "PGA": {
+        CONF_SPORT_PATH: GOLF,
+        CONF_LEAGUE_PATH: "pga",
+    },
+    "NHL": {
+        CONF_SPORT_PATH: HOCKEY,
+        CONF_LEAGUE_PATH: "nhl",
+    },
+    "UFC": {
+        CONF_SPORT_PATH: MMA,
+        CONF_LEAGUE_PATH: "ufc",
+    },
+    "F1": {
+        CONF_SPORT_PATH: RACING,
+        CONF_LEAGUE_PATH: "f1",
+    },
+    "IRL": {
+        CONF_SPORT_PATH: RACING,
+        CONF_LEAGUE_PATH: "irl",
+    },
+    "NASCAR": {
+        CONF_SPORT_PATH: RACING,
+        CONF_LEAGUE_PATH: "nascar-premier",
+    },
+    "BUND": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "ger.1",
+    },
+    "CL": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "uefa.champions",
+    },
+    "EPL": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "eng.1",
+    },
+    "LIGA": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "esp.1",
+    },
+    "LIG1": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "fra.1",
+    },
+    "MLS": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "usa.1",
+    },
+    "NWSL": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "usa.nwsl",
+    },
+    "SERA": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "ita.1",
+    },
+    "WC": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "fifa.world",
+    },
+    "ATP": {
+        CONF_SPORT_PATH: TENNIS,
+        CONF_LEAGUE_PATH: "atp",
+    },
+    "WTA": {
+        CONF_SPORT_PATH: TENNIS,
+        CONF_LEAGUE_PATH: "wta",
+    },
     "NCAAVB": {
         CONF_SPORT_PATH: VOLLEYBALL,
         CONF_LEAGUE_PATH: "mens-college-volleyball",
