@@ -4,11 +4,11 @@ from typing import Any
 
 import voluptuous as vol
 
+from homeassistant.components.persistent_notification import async_create
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -67,9 +67,12 @@ async def async_setup_platform(
     if config[CONF_LEAGUE_ID] == "XXX" and not (
         CONF_SPORT_PATH in config and CONF_LEAGUE_PATH in config
     ):
-        raise PlatformNotReady(
+        error_msg = (
             "Must specify sport and league path for custom league (league_id = XXX)"
         )
+        _LOGGER.error(error_msg)
+        async_create(hass, f"Error: {error_msg}", "Team Tracker", DOMAIN)
+        return
 
     league_id = config[CONF_LEAGUE_ID].upper()
     # If the league ID is not in the map, it must be XXX and therefore we get the path
