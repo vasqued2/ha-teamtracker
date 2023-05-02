@@ -1,4 +1,5 @@
 """ Constants for teamtracker sensor"""
+from homeassistant.const import Platform
 
 # API
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
@@ -178,7 +179,6 @@ TEAM_ID = ""
 VERSION = "v0.7.4"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
-PLATFORM = "sensor"
 ATTRIBUTION = "Data provided by ESPN"
 COORDINATOR = "coordinator"
-PLATFORMS = ["sensor"]
+PLATFORMS = [Platform.SENSOR]
