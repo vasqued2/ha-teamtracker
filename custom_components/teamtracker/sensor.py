@@ -57,18 +57,22 @@ async def async_setup_platform(
     discovery_info=None,
 ) -> None:
     """Configuration from yaml"""
+    name = config[CONF_NAME]
 
-    _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
+    _LOGGER.debug("%s: Setting up sensor from YAML", name)
 
     league_ids = [*LEAGUE_MAP.keys(), "XXX"]
-    error_msg = f"`league_id` must be one of the following values: {league_ids}"
-
     try:
         vol.In(league_ids)(config[CONF_LEAGUE_ID])
     except vol.Invalid:
-        _LOGGER.error("%s: %s", config[CONF_NAME], error_msg)
+        _LOGGER.error(
+            "%s: `league_id` must be valid (one of %s)", name, league_ids
+        )
         async_create(
-            hass, f"{config[CONF_NAME]} Error: {error_msg}", "Team Tracker", DOMAIN
+            hass,
+            f"{name} Error: `league_id` must be valid (one of {league_ids})",
+            "Team Tracker",
+            DOMAIN,
         )
         return
 
@@ -80,9 +84,9 @@ async def async_setup_platform(
         error_msg = (
             "Must specify sport and league path for custom league (league_id = XXX)"
         )
-        _LOGGER.error("%s: %s", config[CONF_NAME], error_msg)
+        _LOGGER.error("%s: %s", name, error_msg)
         async_create(
-            hass, f"{config[CONF_NAME]} Error: {error_msg}", "Team Tracker", DOMAIN
+            hass, f"{name} Error: {error_msg}", "Team Tracker", DOMAIN
         )
         return
 
