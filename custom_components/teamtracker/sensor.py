@@ -60,7 +60,17 @@ async def async_setup_platform(
 
     _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
 
-    vol.In([*LEAGUE_MAP.keys(), "XXX"])(config[CONF_LEAGUE_ID])
+    league_ids = [*LEAGUE_MAP.keys(), "XXX"]
+    error_msg = f"`league_id` must be one of the following values: {league_ids}"
+
+    try:
+        vol.In(league_ids)(config[CONF_LEAGUE_ID])
+    except vol.Invalid:
+        _LOGGER.error("%s: %s", config[CONF_NAME], error_msg)
+        async_create(
+            hass, f"{config[CONF_NAME]} Error: {error_msg}", "Team Tracker", DOMAIN
+        )
+        return
 
     # Raise an exception if the league ID is XXX and the sport or league path is not
     # specified
