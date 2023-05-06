@@ -70,8 +70,10 @@ async def async_setup_platform(
         error_msg = (
             "Must specify sport and league path for custom league (league_id = XXX)"
         )
-        _LOGGER.error(error_msg)
-        async_create(hass, f"Error: {error_msg}", "Team Tracker", DOMAIN)
+        _LOGGER.error("%s: %s", config[CONF_NAME], error_msg)
+        async_create(
+            hass, f"{config[CONF_NAME]} Error: {error_msg}", "Team Tracker", DOMAIN
+        )
         return
 
     league_id = config[CONF_LEAGUE_ID].upper()
