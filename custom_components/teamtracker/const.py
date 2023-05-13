@@ -67,6 +67,10 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: FOOTBALL,
         CONF_LEAGUE_PATH: "nfl",
     },
+    "XFL": {
+        CONF_SPORT_PATH: FOOTBALL,
+        CONF_LEAGUE_PATH: "xfl",
+    },
     "PGA": {
         CONF_SPORT_PATH: GOLF,
         CONF_LEAGUE_PATH: "pga",
