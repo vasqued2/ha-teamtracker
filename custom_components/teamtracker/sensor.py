@@ -1,15 +1,18 @@
 """ Home Assistant sensor processing """
-
 import logging
+from typing import Any
 
 import voluptuous as vol
 
+from homeassistant.components.persistent_notification import async_create
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.util import slugify
 
 from . import TeamTrackerDataUpdateCoordinator
@@ -25,40 +28,78 @@ from .const import (
     DEFAULT_CONFERENCE_ID,
     DEFAULT_ICON,
     DEFAULT_LEAGUE,
-    DEFAULT_LEAGUE_PATH,
     DEFAULT_NAME,
-    DEFAULT_SPORT_PATH,
     DEFAULT_TIMEOUT,
     DOMAIN,
-    LEAGUE_LIST,
-    SPORT_LIST,
+    LEAGUE_MAP,
+    SPORT_ICON_MAP,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
-        vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): cv.string,
+        vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): vol.Upper,
         vol.Required(CONF_TEAM_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Optional(CONF_TIMEOUT, default=DEFAULT_TIMEOUT): int,
         vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
-        vol.Optional(CONF_SPORT_PATH, default=DEFAULT_SPORT_PATH): cv.string,
-        vol.Optional(CONF_LEAGUE_PATH, default=DEFAULT_LEAGUE_PATH): cv.string,
+        vol.Optional(CONF_SPORT_PATH): cv.string,
+        vol.Optional(CONF_LEAGUE_PATH): cv.string,
     }
 )
 
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(
+    hass: HomeAssistant,
+    config: ConfigType,
+    async_add_entities: AddEntitiesCallback,
+    discovery_info=None,
+) -> None:
     """Configuration from yaml"""
+    name = config[CONF_NAME]
 
-    _LOGGER.debug("%s: Setting up sensor from YAML", config[CONF_NAME])
+    _LOGGER.debug("%s: Setting up sensor from YAML", name)
+
+    league_ids = [*LEAGUE_MAP.keys(), "XXX"]
+    try:
+        vol.In(league_ids)(config[CONF_LEAGUE_ID])
+    except vol.Invalid:
+        _LOGGER.error("%s: `league_id` must be valid (one of %s)", name, league_ids)
+        _LOGGER.error("%s: Support for invalid `league_id` in YAML will be deprecated in v0.7.6.  Correct config prior to next upgrade.", name)
+        async_create(
+            hass,
+            f"{name} Error: `league_id` must be valid (one of {league_ids})",
+            "Team Tracker",
+            DOMAIN,
+        )
+        return
+
+    # Raise an exception if the league ID is XXX and the sport or league path is not
+    # specified
+    if config[CONF_LEAGUE_ID] == "XXX" and not (
+        CONF_SPORT_PATH in config and CONF_LEAGUE_PATH in config
+    ):
+        error_msg = (
+            "Must specify sport and league path for custom league (league_id = XXX)"
+        )
+        _LOGGER.error("%s: %s", name, error_msg)
+        async_create(hass, f"{name} Error: {error_msg}", "Team Tracker", DOMAIN)
+        return
 
     league_id = config[CONF_LEAGUE_ID].upper()
-    for league in LEAGUE_LIST:
-        if league[0] == league_id:
-            config.update({CONF_SPORT_PATH: league[1]})
-            config.update({CONF_LEAGUE_PATH: league[2]})
+    # If the league ID is not in the map, it must be XXX and therefore we get the path
+    # and league from the config
+    config.update(
+        LEAGUE_MAP.get(
+            league_id,
+            {
+                k: v
+                for k, v in config.items()
+                if k in (CONF_SPORT_PATH, CONF_LEAGUE_PATH)
+            },
+        )
+    )
 
     if DOMAIN not in hass.data.keys():
         hass.data.setdefault(DOMAIN, {})
@@ -84,7 +125,9 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     async_add_entities([TeamTrackerScoresSensor(hass, config)], True)
 
 
-async def async_setup_entry(hass, entry, async_add_entities):
+async def async_setup_entry(
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+) -> None:
     """Setup the sensor platform."""
     async_add_entities([TeamTrackerScoresSensor(hass, entry)], True)
 
@@ -97,15 +140,12 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         super().__init__(hass.data[DOMAIN][entry.entry_id][COORDINATOR])
 
         sport_path = entry.data[CONF_SPORT_PATH]
-        icon = DEFAULT_ICON
-        for sport in SPORT_LIST:
-            if sport[0] == sport_path:
-                icon = sport[1]
+        icon = SPORT_ICON_MAP.get(sport_path, DEFAULT_ICON)
         if icon == DEFAULT_ICON:
             _LOGGER.debug(
                 "%s:  Setting up sensor from YAML.  Sport '%s' not found.",
                 entry.data[CONF_NAME],
-                sport,
+                sport_path,
             )
 
         self.coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
@@ -176,24 +216,24 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._api_message = None
 
     @property
-    def unique_id(self):
+    def unique_id(self) -> str:
         """
         Return a unique, Home Assistant friendly identifier for this entity.
         """
         return f"{slugify(self._name)}_{self._config.entry_id}"
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Return the name of the sensor."""
         return self._name
 
     @property
-    def icon(self):
+    def icon(self) -> str:
         """Return the icon to use in the frontend, if any."""
         return self._icon
 
     @property
-    def state(self):
+    def state(self) -> str:
         """Return the state of the sensor."""
         if self.coordinator.data is None:
             return None
@@ -204,7 +244,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         return None
 
     @property
-    def extra_state_attributes(self):
+    def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state message."""
         attrs = {}
 

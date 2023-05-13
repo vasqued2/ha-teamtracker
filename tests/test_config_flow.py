@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from custom_components.teamtracker.const import DOMAIN
-from homeassistant import config_entries, setup
+from homeassistant import setup
 
 
 @pytest.mark.parametrize(
@@ -33,7 +33,7 @@ from homeassistant import config_entries, setup
         ),
     ],
 )
-async def test_form(
+async def test_user_form(
     input,  # pylint: disable=redefined-builtin
     step_id,
     title,
@@ -44,11 +44,10 @@ async def test_form(
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
     result = await hass.config_entries.flow.async_init(
-        DOMAIN, context={"source": config_entries.SOURCE_USER}
+        DOMAIN, context={"source": step_id}
     )
     assert result["type"] == "form"
     assert result["errors"] == {}
-    # assert result["title"] == title_1
 
     with patch(
         "custom_components.teamtracker.async_setup_entry",
@@ -67,28 +66,13 @@ async def test_form(
         assert len(mock_setup_entry.mock_calls) == 1
 
 
-# @pytest.mark.parametrize(
-#     "user_input",
-#     [
-#         {
-#             DOMAIN: {
-#                 CONF_NAME: "NFL",
-#                 CONF_TEAM_ID: "SEA",
-#             },
-#         },
-#     ],
-# )
-# async def test_import(hass, user_input):
-#     """Test importing a gateway."""
-#     await setup.async_setup_component(hass, "persistent_notification", {})
-
-#     with patch(
-#         "custom_components.teamtracker.async_setup_entry",
-#         return_value=True,
-#     ):
-#         result = await hass.config_entries.flow.async_init(
-#             DOMAIN, data=user_input, context={"source": config_entries.SOURCE_IMPORT}
-#         )
-#         await hass.async_block_till_done()
-
-#     assert result["type"] == "create_entry"
+async def test_path_form(
+    hass,
+):
+    """Test we get the form."""
+    await setup.async_setup_component(hass, "persistent_notification", {})
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": "path"}
+    )
+    assert result["type"] == "form"
+    assert result["errors"] == {}
