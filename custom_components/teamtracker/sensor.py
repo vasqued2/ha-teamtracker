@@ -66,6 +66,7 @@ async def async_setup_platform(
         vol.In(league_ids)(config[CONF_LEAGUE_ID])
     except vol.Invalid:
         _LOGGER.error("%s: `league_id` must be valid (one of %s)", name, league_ids)
+        _LOGGER.error("%s: Support for invalid `league_id` in YAML will be deprecated in v0.7.6.  Correct config prior to next upgrade.", name)
         async_create(
             hass,
             f"{name} Error: `league_id` must be valid (one of {league_ids})",
