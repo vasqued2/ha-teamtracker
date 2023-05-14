@@ -65,7 +65,7 @@ async def async_setup_platform(
     try:
         vol.In(league_ids)(config[CONF_LEAGUE_ID])
     except vol.Invalid:
-        _LOGGER.error("%s: `league_id` must be valid (one of %s)", name, league_ids)
+        _LOGGER.warning("%s: `league_id` must be valid (one of %s)", name, league_ids)
         _LOGGER.error("%s: Support for invalid `league_id` in YAML will be deprecated in v0.7.6.  Correct config prior to next upgrade.", name)
         async_create(
             hass,
@@ -83,7 +83,7 @@ async def async_setup_platform(
         error_msg = (
             "Must specify sport and league path for custom league (league_id = XXX)"
         )
-        _LOGGER.error("%s: %s", name, error_msg)
+        _LOGGER.warning("%s: %s", name, error_msg)
         async_create(hass, f"{name} Error: {error_msg}", "Team Tracker", DOMAIN)
         return
 
