@@ -39,7 +39,9 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
-        vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): vol.Upper,
+        vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): vol.All(
+            vol.Upper, vol.In([*LEAGUE_MAP.keys(), "XXX"])
+        ),
         vol.Required(CONF_TEAM_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Optional(CONF_TIMEOUT, default=DEFAULT_TIMEOUT): int,
