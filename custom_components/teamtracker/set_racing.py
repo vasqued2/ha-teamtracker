@@ -5,12 +5,18 @@ import logging
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
-
+race_laps = {}
 
 async def async_set_racing_values(
     new_values, event, competition_index, team_index, lang, sensor_name
 ) -> bool:
     """Set racing specific values"""
+
+
+    #
+    #  Pylint doesn't recognize values set by setdefault() method
+    #
+    global race_laps  # pylint: disable=global-variable-not-assigned
 
     #    _LOGGER.debug("%s: async_set_racing_values() 0: %s", sensor_name, new_values)
 
@@ -44,9 +50,17 @@ async def async_set_racing_values(
         new_values["opponent_rank"] = oppo_index + 1
     #    _LOGGER.debug("%s: async_set_racing_values() 3: %s", sensor_name, new_values)
 
-    new_values["team_total_shots"] = await async_get_value(
-        competition, "status", "period"
+    race_key = (
+        str(new_values["league"])
+        + "-"
+        + str(new_values["event_name"])
     )
+    new_values["team_total_shots"] = await async_get_value(
+        competition, "status", "period",
+        default=race_laps.setdefault(race_key, 0),
+    )
+    race_laps.update({race_key: new_values["team_total_shots"]})
+
     new_values["quarter"] = await async_get_value(competition, "type", "abbreviation")
     #    _LOGGER.debug("%s: async_set_racing_values() 4: %s", sensor_name, new_values)
 
