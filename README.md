@@ -103,6 +103,7 @@ Some attributes are only available for certain sports.
 | `team_colors` | An array with two hex colors. The first is your team's primary color, and the second is their secondary color. Unless you're the Browns, in which case they are the same. | `PRE` `IN` `POST` |
 | `team_score` | Your team's score. An integer. | `IN` `POST` |
 | `team_win_probability` | The real-time chance your team has to win, according to ESPN. A percentage, but presented as a float. Note that this value can become null in between posession changes. | `IN` |
+| `team_winner` | Flag indicating whether the team has won the competition or not. | `POST` |
 | `team_timeouts` | The number of remaining timeouts your team has. | `PRE` `IN` `POST` |
 | `opponent_abbr` | The abbreviation for your opponent (ie. `SEA` for the Seahawks). | `PRE` `IN` `POST` `BYE` |
 | `opponent_id` | A numeric ID for your opponent, used to match `possession` above. | `PRE` `IN` `POST` |
@@ -114,6 +115,7 @@ Some attributes are only available for certain sports.
 | `opponent_colors` | An array with two hex colors. The first is your opponent's primary color, and the second is their secondary color. | `PRE` `IN` `POST` |
 | `opponent_score` | Your opponent's score. An integer. | `IN` `POST` |
 | `opponent_win_probability` | The real-time chance your opponent has to win, according to ESPN. A percentage, but presented as a float. Note that this value can become null in between posession changes. | `IN` |
+| `opponent_winner` | Flag indicating whether the opponent has won the competition or not. | `POST` |
 | `opponent_timeouts` | The number of remaining timeouts your opponent has. | `PRE` `IN` `POST` |
 | `last_update` | A timestamp for the last time data was fetched for the game. If you watch this in real-time, you should notice it updating every 10 minutes, except for during the game (and for the ~20 minutes pre-game) when it updates every 5 seconds. | `PRE` `IN` `POST` `BYE` |
 | `api_message` | A message giving information to help troubleshoot when the sensor is state `NOT_FOUND` | `NOT_FOUND` |
@@ -153,7 +155,7 @@ When using the Home Assistant UI to set up a Custom API Configuration, simply en
 
 #### Use of a Wild Card In Place of Athlete's Name
 
-For individual sports, you can use the single `*` character as a Wild Card in place of the athlete's name.  This will cause the sensor to match an athlete using sport-specific logic.
+You can use the single `*` character as a Wild Card in place of the team or athlete's name.  This will cause the sensor to match a team or athlete using sport-specific logic.
 
 The Wild Card acts in the following manner
 | Sport | Behavior |
@@ -162,6 +164,7 @@ The Wild Card acts in the following manner
 | MMA | Displays the current active fight or the next upcoming fight if none are active |
 | Racing | Displays the current leader and competitor in second place |
 | Tennis | Results will be unpredictable due to multiple tournaments and matches in progress at once |
+| Team Sports | Most useful for playoffs.  Will continually reset to display whatever team competition is in progress in the league.  Results will be unpredictable if multiple competitions are in progress at once |
 
 ### Manual Configuration in your `configuration.yaml` file
 
