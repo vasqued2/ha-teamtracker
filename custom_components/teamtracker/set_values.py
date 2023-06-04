@@ -323,9 +323,20 @@ async def async_set_universal_values(
     except:
         new_values["opponent_score"] = await async_get_value(opponent, "score")
 
+    # Some APIs return boolean values as strings, so we need to convert them
+
     new_values["team_winner"] = await async_get_value(competitor, "winner")
+    if new_values["team_winner"] == "true":
+        new_values["team_winner"] = True;
+    elif new_values["team_winner"] == "false":
+        new_values["team_winner"] = False;
+
     new_values["opponent_winner"] = await async_get_value(opponent, "winner")
-    
+    if new_values["opponent_winner"] == "true":
+        new_values["opponent_winner"] = True;
+    elif new_values["opponent_winner"] == "false":
+        new_values["opponent_winner"] = False;
+
     new_values["team_rank"] = await async_get_value(
         competitor, "curatedRank", "current"
     )
