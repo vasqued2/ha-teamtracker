@@ -323,6 +323,9 @@ async def async_set_universal_values(
     except:
         new_values["opponent_score"] = await async_get_value(opponent, "score")
 
+    new_values["team_winner"] = await async_get_value(competitor, "winner")
+    new_values["opponent_winner"] = await async_get_value(opponent, "winner")
+    
     new_values["team_rank"] = await async_get_value(
         competitor, "curatedRank", "current"
     )
