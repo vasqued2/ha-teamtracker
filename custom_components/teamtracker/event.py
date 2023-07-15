@@ -206,6 +206,25 @@ async def async_find_search_key(
             )
             return team_index
 
+        team_id = str(await async_get_value(
+            competitor, "team", "id", default=""
+        ))
+
+        _LOGGER.debug(
+            "%s: search_key '%s' team_id '%s'.",
+            sensor_name,
+            search_key,
+            team_id
+        )
+
+        if search_key == team_id:
+            _LOGGER.debug(
+                "%s: Found competition for team '%s' in team id; parsing data.",
+                sensor_name,
+                search_key,
+            )
+            return team_index
+            
         # Abbreviations in event_name can be different than team_abbr so look there if neither team abbrevations match
         team0_abbreviation = str(
             await async_get_value(

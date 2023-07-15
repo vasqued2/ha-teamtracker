@@ -131,6 +131,10 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fifa.world",
     },
+    "WWC": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "fifa.wwc",
+    },
     "ATP": {
         CONF_SPORT_PATH: TENNIS,
         CONF_LEAGUE_PATH: "atp",
@@ -180,7 +184,7 @@ DEFAULT_KICKOFF_IN = "{test} days"
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.8.1"
+VERSION = "v0.9.0"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"

@@ -149,9 +149,20 @@ type: Javascript Module
 
 ### Configuration via the "Configuration->Integrations" section of the Home Assistant UI
 
-Search for the integration labeled "Team Tracker" and select it.  Enter the desired League from the League List below and your team's ID in the UI prompt. If NCAA football or basketball, enter the Conference ID from Conference ID Numbers below if desired.  You can also enter a friendly name. If you keep the default, your sensor will be `sensor.team_tracker`, otherwise it will be `sensor.friendly_name_you_picked`. 
+1. Search for the integration labeled "Team Tracker" and select it.  
+2. Enter the desired League from the League List.
+3. Enter the team's ID in the UI prompt. 
+4. If NCAA football or basketball, enter the Conference ID from Conference ID Numbers below if desired.  
+5. You can also enter a friendly name. If you keep the default, your sensor will be `sensor.team_tracker`, otherwise it will be `sensor.friendly_name_you_picked`. 
 
 When using the Home Assistant UI to set up a Custom API Configuration, simply enter 'XXX' in the League field.  This will trigger a second dialogue box which will allow you to enter the values for the {SPORT_PATH} and {LEAGUE_PATH}.
+
+#### Determining the Team ID
+For the Team ID, you'll need to know the team abbreviation ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.
+
+Alternate Method:  ESPN assigns a unique number to identify a team.  This unique number shows up in URLs and other locations.  This value can also be used to specify the team ID.  If used, TeamTracker will also search for this number to uniquely identify a team.
+
+For sports involving individual athletes, you should use the athlete's name as the search string.  You should use as much as is needed to uniquely identify the desired athlete.
 
 #### Use of a Wild Card In Place of Athlete's Name
 
@@ -239,6 +250,8 @@ For the League, the following values are valid:
 - WTA (Women's Tennis Assc.)
 - XXX (Custom API Configuration)
     
+### Team ID
+
 For the Team, you'll need to know the team ID ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.  
 
 NOTE:  In rare instances, the team ID will vary based on your local language.  While rare, changing the language after a sensor is set up can cause it to stop working.
