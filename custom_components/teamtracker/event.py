@@ -210,13 +210,6 @@ async def async_find_search_key(
             competitor, "team", "id", default=""
         ))
 
-        _LOGGER.debug(
-            "%s: search_key '%s' team_id '%s'.",
-            sensor_name,
-            search_key,
-            team_id
-        )
-
         if search_key == team_id:
             _LOGGER.debug(
                 "%s: Found competition for team '%s' in team id; parsing data.",
