@@ -21,7 +21,7 @@ TEST_DATA = [
         "sensor_name": "test_tt_all_test01",
         "sport": "baseball",
         "league": "MLB",
-        "team_abbr": "28",
+        "team_abbr": "MIA",
     },
     {
         "sensor_name": "test_tt_all_test02",
