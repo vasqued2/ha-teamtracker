@@ -111,7 +111,7 @@ TEST_DATA = [
         "sensor_name": "test_tt_all_test16",
         "sport": "volleyball",
         "league": "NCAAVBW",
-        "team_abbr": "PEPP",
+        "team_abbr": "2492", #PEPP
     },
     {
         "sensor_name": "test_tt_all_test17",
