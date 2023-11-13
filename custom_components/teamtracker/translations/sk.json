@@ -1,0 +1,49 @@
+{
+  "config": {
+    "error": {
+      "league": "Bola zadaná neplatná liga."
+    },
+    "step": {
+      "user": {
+        "description": "Zadajte ligu a tím a vytvorte senzor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4-písmenová skratka tímu používaná na výsledkovej tabuli ESPN a na stránkach so štatistikami\n\nKonferenčné číslo: Len pre futbal a basketbal NCAA. Platné hodnoty nájdete v súbore README.md. Ak chcete zahrnúť iba hry s hodnotenými tímami, nechajte pole prázdne.",
+        "data": {
+          "league_id": "Liga",
+          "team_id": "Tím/Športovec",  
+          "name": "Priateľské meno",
+          "timeout": "Časový limit aktualizácie (v sekundách)",
+          "conference_id": "Číslo konferencie"
+        }
+      },
+      "path": {
+        "title": "Vlastný konfigurátor API",
+        "description": "Zadajte 'šport' a 'ligu' časť cesty ESPN API na použitie samokonfigurovaného API",
+        "data": {
+          "sport_path": "Športová cesta", 
+          "league_path": "Ligová cesta"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Možnosti Team Tracker",
+        "description": "Zadajte ligu a tím a vytvorte senzor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4-písmenová skratka tímu používaná na výsledkovej tabuli ESPN a na stránkach so štatistikami",
+        "data": {
+          "league_id": "Liga",
+          "team_id": "Tím/Športovec",  
+          "name": "Priateľské meno",
+            "timeout": "Časový limit aktualizácie (v sekundách)"
+        }
+      },
+      "path": {
+        "title": "Možnosti Vlastný konfigurátor API",
+        "description": "Zadajte 'šport' a 'ligu' časť cesty ESPN API na použitie samokonfigurovaného API",
+        "data": {
+          "sport_path": "Športová cesta", 
+          "league_path": "Ligová cesta"
+        }
+      }
+    }
+  }
+}
