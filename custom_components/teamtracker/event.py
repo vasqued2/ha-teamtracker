@@ -78,21 +78,21 @@ async def async_process_event(
                             event, "status", "type", "state", default="NOT_FOUND"
                         )
                     ).upper()
-                    rc = await async_set_values(
-                        values,
-                        event,
-                        competition_index,
-                        matched_index,
-                        lang,
-                        sensor_name,
-                    )
-                    if not rc:
-                        _LOGGER.debug(
-                            "%s: event() Error occurred setting event values: %s",
-                            sensor_name,
-                            values,
-                        )
-
+#                    rc = await async_set_values(
+#                        values,
+#                        event,
+#                        competition_index,
+#                        matched_index,
+#                        lang,
+#                        sensor_name,
+#                    )
+#                    if not rc:
+#                        _LOGGER.debug(
+#                            "%s: event() Error occurred setting event values: %s",
+#                            sensor_name,
+#                            values,
+#                        )
+#
 #                    if values["state"] == "IN":
 #                        stop_flag = True
 #                    time_diff = abs(
@@ -109,7 +109,17 @@ async def async_process_event(
 #                    if prev_flag:
 #                        values = prev_values
 
-                    values, stop_flag = await async_process_name_match(prev_values, values, sensor_name, sport, stop_flag)
+                    values, stop_flag = await async_process_name_match(
+                        prev_values, 
+                        values, 
+                        sensor_name, 
+                        event,
+                        competition_index,
+                        matched_index,
+                        lang,
+                        sport, 
+                        stop_flag
+                    )
                     if stop_flag:
                         break
 
@@ -170,8 +180,33 @@ async def async_process_event(
     return values
 
 
-async def async_process_name_match(prev_values, values, sensor_name, sport, stop_flag)-> (dict, bool):
+async def async_process_name_match(
+    prev_values, 
+    values, 
+    sensor_name, 
+    event,
+    competition_index,
+    matched_index,
+    lang,
+    sport, 
+    stop_flag
+)-> (dict, bool):
     """Process a name match"""
+
+    rc = await async_set_values(
+        values,
+        event,
+        competition_index,
+        matched_index,
+        lang,
+        sensor_name,
+    )
+    if not rc:
+        _LOGGER.debug(
+            "%s: event() Error occurred setting event values: %s",
+            sensor_name,
+            values,
+        )
 
     if values["state"] == "IN":
         stop_flag = True
