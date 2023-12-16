@@ -115,36 +115,6 @@ async def async_process_event(
             sensor_name,
             search_key
         )
-#        
-#        if limit_hit:
-#            values["api_message"] = (
-#                "API_LIMIT hit.  No competition found for '"
-#                + team_id
-#                + "' between "
-#                + first_date.strftime("%Y-%m-%dT%H:%MZ")
-#                + " and "
-#                + last_date.strftime("%Y-%m-%dT%H:%MZ")
-#            )
-#            _LOGGER.debug(
-#                "%s: API_LIMIT hit (%s).  No competitor information '%s' returned by API",
-#                sensor_name,
-#                API_LIMIT,
-#                search_key,
-#            )
-#        else:
-#            values["api_message"] = (
-#                "No competition scheduled for '"
-#                + team_id
-#                + "' between "
-#                + first_date.strftime("%Y-%m-%dT%H:%MZ")
-#                + " and "
-#                + last_date.strftime("%Y-%m-%dT%H:%MZ")
-#            )
-#            _LOGGER.debug(
-#                "%s: No competitor information '%s' returned by API",
-#                sensor_name,
-#                search_key,
-#            )
 
     return values
 
