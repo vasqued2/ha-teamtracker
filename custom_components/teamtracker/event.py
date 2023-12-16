@@ -82,12 +82,18 @@ async def async_process_event(
                     if stop_flag:
                         break
 
-            if competitor_index == -1:
-                _LOGGER.debug(
-                    "%s: async_process_event() No competitors in this competition: %s",
-                    sensor_name,
-                    str(await async_get_value(competition, "id", default="{id}")),
-                )
+#            if competitor_index == -1:
+#                _LOGGER.debug(
+#                    "%s: async_process_event() No competitors in this competition: %s",
+#                    sensor_name,
+#                    str(await async_get_value(competition, "id", default="{id}")),
+#                )
+
+            await async_process_competition(
+                competitor_index,
+                sensor_name,
+                competition
+            )
             if stop_flag:
                 break
         #
@@ -117,6 +123,22 @@ async def async_process_event(
         )
 
     return values
+
+
+async def async_process_competition(
+    competitor_index,
+    sensor_name,
+    competition
+):
+    """Process a name match"""
+
+    if competitor_index == -1:
+        _LOGGER.debug(
+            "%s: async_process_event() No competitors in this competition: %s",
+            sensor_name,
+            str(await async_get_value(competition, "id", default="{id}")),
+        )
+    return
 
 
 async def async_process_name_match(
