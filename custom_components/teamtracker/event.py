@@ -37,13 +37,10 @@ async def async_process_event(
         event_state = "NOT_FOUND"
         #        _LOGGER.debug("%s: event() Processing event: %s", sensor_name, str(await async_get_value(event, "shortName")))
         competition_index = -1
-        for competition_index in range(
-            0, len(await async_get_value(event, "competitions", default=[]))
+        for competition_index, competition in enumerate(
+            await async_get_value(event, "competitions", default=[])
         ):
-            competition = await async_get_value(
-                event, "competitions", competition_index
-            )
-            team_index = -1
+            competitor_index = -1
 
             competition_date_str = await async_get_value(
                 competition, "date", default=(await async_get_value(event, "date"))
@@ -55,12 +52,9 @@ async def async_process_event(
                 last_date = competition_date
             if competition_date < first_date:
                 first_date = competition_date
-            for team_index in range(
-                0, len(await async_get_value(competition, "competitors", default=[]))
+            for competitor_index, competitor in enumerate(
+                await async_get_value(competition, "competitors", default=[])
             ):
-                competitor = await async_get_value(
-                    competition, "competitors", team_index
-                )
                 matched_index = await async_find_search_key(
                     values,
                     sensor_name,
@@ -68,7 +62,7 @@ async def async_process_event(
                     event,
                     competition,
                     competitor,
-                    team_index,
+                    competitor_index,
                     sport_path,
                 )
 
@@ -115,7 +109,7 @@ async def async_process_event(
                     if prev_flag:
                         values = prev_values
 
-            if team_index == -1:
+            if competitor_index == -1:
                 _LOGGER.debug(
                     "%s: async_process_event() No competitors in this competition: %s",
                     sensor_name,
