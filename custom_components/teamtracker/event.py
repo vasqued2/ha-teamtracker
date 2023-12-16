@@ -67,12 +67,12 @@ async def async_process_event(
                 )
 
                 if matched_index is not None:
-                    found_competitor = True
-                    prev_values = values.copy()
-
-                    #
-                    # Capture the event state because in sports like tennis, it can be different that the competition state
-                    #
+#                    found_competitor = True
+#                    prev_values = values.copy()
+#
+#                    #
+#                    # Capture the event state because in sports like tennis, it can be different that the competition state
+#                    #
 #                    event_state = str(
 #                        await async_get_value(
 #                            event, "status", "type", "state", default="NOT_FOUND"
@@ -109,7 +109,7 @@ async def async_process_event(
 #                    if prev_flag:
 #                        values = prev_values
 
-                    values, event_state, stop_flag = await async_process_name_match(
+                    values, event_state, found_competitor, stop_flag = await async_process_name_match(
                         prev_values, 
                         values, 
                         sensor_name, 
@@ -118,6 +118,7 @@ async def async_process_event(
                         matched_index,
                         lang,
                         sport, 
+                        found_competitor,
                         stop_flag
                     )
                     if stop_flag:
@@ -189,9 +190,13 @@ async def async_process_name_match(
     matched_index,
     lang,
     sport, 
+    found_competitor, 
     stop_flag
-)-> (dict, str, bool):
+)-> (dict, str, bool, bool):
     """Process a name match"""
+
+    found_competitor = True
+    prev_values = values.copy()
 
     event_state = str(
         await async_get_value(
@@ -221,7 +226,7 @@ async def async_process_name_match(
     if values["state"] == "PRE" and time_diff < 1200:
         stop_flag = True
     if stop_flag:
-        return values, event_state, stop_flag
+        return values, event_state, found_competitor, stop_flag
 
     prev_flag = await async_use_prev_values_flag(
         prev_values, values, sensor_name, sport
@@ -229,7 +234,7 @@ async def async_process_name_match(
     if prev_flag:
         values = prev_values
 
-    return values, event_state, stop_flag
+    return values, event_state, found_competitor, stop_flag
 
 
 async def async_find_search_key(
