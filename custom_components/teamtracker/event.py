@@ -67,48 +67,6 @@ async def async_process_event(
                 )
 
                 if matched_index is not None:
-#                    found_competitor = True
-#                    prev_values = values.copy()
-#
-#                    #
-#                    # Capture the event state because in sports like tennis, it can be different that the competition state
-#                    #
-#                    event_state = str(
-#                        await async_get_value(
-#                            event, "status", "type", "state", default="NOT_FOUND"
-#                        )
-#                    ).upper()
-#                    rc = await async_set_values(
-#                        values,
-#                        event,
-#                        competition_index,
-#                        matched_index,
-#                        lang,
-#                        sensor_name,
-#                    )
-#                    if not rc:
-#                        _LOGGER.debug(
-#                            "%s: event() Error occurred setting event values: %s",
-#                            sensor_name,
-#                            values,
-#                        )
-#
-#                    if values["state"] == "IN":
-#                        stop_flag = True
-#                    time_diff = abs(
-#                        (arrow.get(values["date"]) - arrow.now()).total_seconds()
-#                    )
-#                    if values["state"] == "PRE" and time_diff < 1200:
-#                        stop_flag = True
-#                    if stop_flag:
-#                        break
-#
-#                    prev_flag = await async_use_prev_values_flag(
-#                        prev_values, values, sensor_name, sport
-#                    )
-#                    if prev_flag:
-#                        values = prev_values
-
                     values, event_state, found_competitor, stop_flag = await async_process_name_match(
                         prev_values, 
                         values, 
