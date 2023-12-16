@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_process_event(
     values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
-) -> bool:
+) -> dict:
     """Loop throught the json data returned by the API to find the right event and set values"""
 
     prev_values = {}
