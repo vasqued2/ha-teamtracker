@@ -41,17 +41,25 @@ async def async_process_event(
             await async_get_value(event, "competitions", default=[])
         ):
 #            competitor_index = -1
+#
+#            competition_date_str = await async_get_value(
+#                competition, "date", default=(await async_get_value(event, "date"))
+#            )
+#            competition_date = datetime.strptime(
+#                competition_date_str, "%Y-%m-%dT%H:%Mz"
+#            )
+#            if competition_date > last_date:
+#                last_date = competition_date
+#            if competition_date < first_date:
+#                first_date = competition_date
+                
+            first_date, last_date = await  async_process_competition_dates(
+                event,
+                competition,
+                first_date,
+                last_date
+            )
 
-            competition_date_str = await async_get_value(
-                competition, "date", default=(await async_get_value(event, "date"))
-            )
-            competition_date = datetime.strptime(
-                competition_date_str, "%Y-%m-%dT%H:%Mz"
-            )
-            if competition_date > last_date:
-                last_date = competition_date
-            if competition_date < first_date:
-                first_date = competition_date
 #            for competitor_index, competitor in enumerate(
 #                await async_get_value(competition, "competitors", default=[])
 #            ):
@@ -412,3 +420,25 @@ async def competitor_not_found(
             search_key,
         )
     return
+
+
+async def async_process_competition_dates(
+    event,
+    competition,
+    first_date,
+    last_date
+) -> (datetime, datetime):
+    """Process dates"""
+
+    competition_date_str = await async_get_value(
+        competition, "date", default=(await async_get_value(event, "date"))
+    )
+    competition_date = datetime.strptime(
+        competition_date_str, "%Y-%m-%dT%H:%Mz"
+    )
+    if competition_date > last_date:
+        last_date = competition_date
+    if competition_date < first_date:
+        first_date = competition_date
+
+    return first_date, last_date
