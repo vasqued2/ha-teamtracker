@@ -59814,6 +59814,5088 @@
           "shortDetail": "Final"
         }
       }
+    },
+    {
+      "id": "504-2023",
+      "uid": "s:850~l:900~e:504-2023",
+      "date": "2023-12-10T05:00Z",
+      "endDate": "2023-12-18T04:59Z",
+      "major": false,
+      "name": "Open BLS de Limoges",
+      "shortName": "Open BLS de Limoges",
+      "season": {
+        "year": 2023,
+        "type": 2
+      },
+      "groupings": [
+        {
+          "grouping": {
+            "id": "2",
+            "slug": "womens-singles",
+            "displayName": "Women's Singles"
+          },
+          "competitions": [
+            {
+              "id": "141074",
+              "uid": "s:850~l:900~e:504-2023~c:141074",
+              "date": "2023-12-10T11:00Z",
+              "startDate": "2023-12-10T11:00Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Susan Bandecchi (Sui) bt Tiphanie Lemaitre (Fra) 6-4 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "4104",
+                  "uid": "s:850~l:900~a:4104",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "969fb920-541b-3fce-b281-f9dd532fed01",
+                    "displayName": "Susan Bandecchi",
+                    "shortName": "S. Bandecchi",
+                    "fullName": "Susan Bandecchi",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
+                      "alt": "Switzerland",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/4104/susan-bandecchi",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "13746",
+                  "uid": "s:850~l:900~a:13746",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "3630ca38-df7b-35f2-9724-ed46b38a23db",
+                    "displayName": "Tiphanie Lemaitre",
+                    "shortName": "T. Lemaitre",
+                    "fullName": "Tiphanie Lemaitre",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/13746/tiphanie-lemaitre",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141075",
+              "uid": "s:850~l:900~e:504-2023~c:141075",
+              "date": "2023-12-10T13:05Z",
+              "startDate": "2023-12-10T13:05Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Aravane Rezai (Fra) bt Nahia Berecoechea (Fra) 7-6 (7-1) 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "14079",
+                  "uid": "s:850~l:900~a:14079",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "tiebreak": 1,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "50eeb0fc-be05-36b2-906a-0207311d196a",
+                    "displayName": "Nahia Berecoechea",
+                    "shortName": "N. Berecoechea",
+                    "fullName": "Nahia Berecoechea",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/14079/nahia-berecoechea",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "401",
+                  "uid": "s:850~l:900~a:401",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "fdf17aa9-667f-3bcb-9d01-8011f61e84a7",
+                    "displayName": "Aravane Rezai",
+                    "shortName": "A. Rezai",
+                    "fullName": "Aravane Rezai",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/401/aravane-rezai",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141072",
+              "uid": "s:850~l:900~e:504-2023~c:141072",
+              "date": "2023-12-10T15:20Z",
+              "startDate": "2023-12-10T15:20Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Veronika Podrez (Ukr) bt Alana Smith (USA) 6-4 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "4720",
+                  "uid": "s:850~l:900~a:4720",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "d4581196-5fd1-3e0c-b1c7-6d2743824c77",
+                    "displayName": "Alana Smith",
+                    "shortName": "A. Smith",
+                    "fullName": "Alana Smith",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                      "alt": "USA",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/4720/alana-smith",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "14080",
+                  "uid": "s:850~l:900~a:14080",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "ef22a58c-09c7-316d-abf2-3e4efd758900",
+                    "displayName": "Veronika Podrez",
+                    "shortName": "V. Podrez",
+                    "fullName": "Veronika Podrez",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ukr.png",
+                      "alt": "Ukraine",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/14080/veronika-podrez",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "14",
+                "displayName": "Qualifying Final"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140268",
+              "uid": "s:850~l:900~e:504-2023~c:140268",
+              "date": "2023-12-11T09:10Z",
+              "startDate": "2023-12-11T09:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(8) Rebecca Peterson (Swe) bt Mona Barthel (Ger) 7-6 (7-3) 7-5",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "1913",
+                  "uid": "s:850~l:900~a:1913",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "tiebreak": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 5,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "0d9a7b85-0bee-e8a1-4f21-bafdca647671",
+                    "displayName": "Mona Barthel",
+                    "shortName": "M. Barthel",
+                    "fullName": "Mona Barthel",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
+                      "alt": "Germany",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/1913/mona-barthel",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2269",
+                  "uid": "s:850~l:900~a:2269",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 8
+                  },
+                  "linescores": [
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 7,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "c2bcf7b3-3345-5c12-2f82-ff4c58735851",
+                    "displayName": "Rebecca Peterson",
+                    "shortName": "R. Peterson",
+                    "fullName": "Rebecca Peterson",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/swe.png",
+                      "alt": "Sweden",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2269/rebecca-peterson",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140267",
+              "uid": "s:850~l:900~e:504-2023~c:140267",
+              "date": "2023-12-11T11:20Z",
+              "startDate": "2023-12-11T11:20Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Anastasija Sevastova (Lat) bt Patricia Maria Tig (Rom) 6-4 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "756",
+                  "uid": "s:850~l:900~a:756",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "a3d04a64-5601-05f7-7315-4f0f2f522b22",
+                    "displayName": "Anastasija Sevastova",
+                    "shortName": "A. Sevastova",
+                    "fullName": "Anastasija Sevastova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/lat.png",
+                      "alt": "Latvia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/756/anastasija-sevastova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2511",
+                  "uid": "s:850~l:900~a:2511",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "56548f92-e193-920f-bbab-9661de4cdac8",
+                    "displayName": "Patricia Maria Tig",
+                    "shortName": "P. Tig",
+                    "fullName": "Patricia Maria Tig",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rom.png",
+                      "alt": "Romania",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2511/patricia-maria-tig",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140274",
+              "uid": "s:850~l:900~e:504-2023~c:140274",
+              "date": "2023-12-11T12:50Z",
+              "startDate": "2023-12-11T12:50Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Mccartney Kessler (USA) bt Margaux Rouvroy (Fra) 4-6 6-1 6-0",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "13476",
+                  "uid": "s:850~l:900~a:13476",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "6ca50ee5-448a-38f0-9a1d-f18f58cd086b",
+                    "displayName": "Mccartney Kessler",
+                    "shortName": "M. Kessler",
+                    "fullName": "Mccartney Kessler",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                      "alt": "USA",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/13476/mccartney-kessler",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "5682",
+                  "uid": "s:850~l:900~a:5682",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    },
+                    {
+                      "value": 0,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "b9224d73-f18e-3801-b8ef-b43edc75f768",
+                    "displayName": "Margaux Rouvroy",
+                    "shortName": "M. Rouvroy",
+                    "fullName": "Margaux Rouvroy",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/5682/margaux-rouvroy",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140277",
+              "uid": "s:850~l:900~e:504-2023~c:140277",
+              "date": "2023-12-11T14:55Z",
+              "startDate": "2023-12-11T14:55Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(3) Arantxa Rus (Ned) bt Gabriela Knutson (Cze) 6-3 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "810",
+                  "uid": "s:850~l:900~a:810",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 3
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "d43006ae-43ca-11e3-3c0e-dc136f5ba92e",
+                    "displayName": "Arantxa Rus",
+                    "shortName": "A. Rus",
+                    "fullName": "Arantxa Rus",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
+                      "alt": "Netherlands",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/810/arantxa-rus",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "13314",
+                  "uid": "s:850~l:900~a:13314",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "769d1701-f945-3c08-ba5c-b8a58196a2a6",
+                    "displayName": "Gabriela Knutson",
+                    "shortName": "G. Knutson",
+                    "fullName": "Gabriela Knutson",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+                      "alt": "Czechia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/13314/gabriela-knutson",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140271",
+              "uid": "s:850~l:900~e:504-2023~c:140271",
+              "date": "2023-12-11T17:50Z",
+              "startDate": "2023-12-11T17:50Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Harmony Tan (Fra) bt Fanny Stollar (Hun) 6-3 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "2581",
+                  "uid": "s:850~l:900~a:2581",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "22c4d7d9-e01e-0251-8436-c74e3f88d585",
+                    "displayName": "Fanny Stollar",
+                    "shortName": "F. Stollar",
+                    "fullName": "Fanny Stollar",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
+                      "alt": "Hungary",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2581/fanny-stollar",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "3330",
+                  "uid": "s:850~l:900~a:3330",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "250c5cb2-206e-09ef-2c09-252a5719d08b",
+                    "displayName": "Harmony Tan",
+                    "shortName": "H. Tan",
+                    "fullName": "Harmony Tan",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3330/harmony-tan",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140284",
+              "uid": "s:850~l:900~e:504-2023~c:140284",
+              "date": "2023-12-11T19:05Z",
+              "startDate": "2023-12-11T19:05Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Elsa Jacquemot (Fra) bt Berfu Cengiz (Tur) 7-5 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "6061",
+                  "uid": "s:850~l:900~a:6061",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "950bb889-e4d2-33ec-9ff6-3b0f34ec4168",
+                    "displayName": "Elsa Jacquemot",
+                    "shortName": "E. Jacquemot",
+                    "fullName": "Elsa Jacquemot",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6061/elsa-jacquemot",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "3141",
+                  "uid": "s:850~l:900~a:3141",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 5,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "e7853125-abd0-0b00-5a96-702d856958b2",
+                    "displayName": "Berfu Cengiz",
+                    "shortName": "B. Cengiz",
+                    "fullName": "Berfu Cengiz",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/tur.png",
+                      "alt": "Turkey",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3141/berfu-cengiz",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140266",
+              "uid": "s:850~l:900~e:504-2023~c:140266",
+              "date": "2023-12-12T09:00Z",
+              "startDate": "2023-12-12T09:00Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Darja Semenistaja (Lat) bt Noma Noha Akugue (Ger) 4-6 6-4 6-3",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "6769",
+                  "uid": "s:850~l:900~a:6769",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "01c412fd-3167-3c78-88da-b5ebbfcd226d",
+                    "displayName": "Darja Semenistaja",
+                    "shortName": "D. Semenistaja",
+                    "fullName": "Darja Semenistaja",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/lat.png",
+                      "alt": "Latvia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6769/darja-semenistaja",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "7849",
+                  "uid": "s:850~l:900~a:7849",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "4ab578c9-deeb-3f76-a06f-15ef9c3959b5",
+                    "displayName": "Noma Noha Akugue",
+                    "shortName": "N. Noha Akugue",
+                    "fullName": "Noma Noha Akugue",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
+                      "alt": "Germany",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/7849/noma-noha-akugue",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140275",
+              "uid": "s:850~l:900~e:504-2023~c:140275",
+              "date": "2023-12-12T11:30Z",
+              "startDate": "2023-12-12T11:30Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(7) Erika Andreeva (Rus) bt Zeynep Sonmez (Tur) 6-3 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "5604",
+                  "uid": "s:850~l:900~a:5604",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "6622e0f6-f237-3a2d-a338-313771d30b51",
+                    "displayName": "Zeynep Sonmez",
+                    "shortName": "Z. Sonmez",
+                    "fullName": "Zeynep Sonmez",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/tur.png",
+                      "alt": "Turkey",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/5604/zeynep-sonmez",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "7438",
+                  "uid": "s:850~l:900~a:7438",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 7
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "8e005233-d8c1-36d0-880f-efd108e2ec52",
+                    "displayName": "Erika Andreeva",
+                    "shortName": "E. Andreeva",
+                    "fullName": "Erika Andreeva",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/7438/erika-andreeva",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140270",
+              "uid": "s:850~l:900~e:504-2023~c:140270",
+              "date": "2023-12-12T13:10Z",
+              "startDate": "2023-12-12T13:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Lois Boisson (Fra) bt Kristina Mladenovic (Fra) 6-2 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "6403",
+                  "uid": "s:850~l:900~a:6403",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "e74291d7-baf0-370f-85ef-028ec9cc0f36",
+                    "displayName": "Lois Boisson",
+                    "shortName": "L. Boisson",
+                    "fullName": "Lois Boisson",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6403/lois-boisson",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "1273",
+                  "uid": "s:850~l:900~a:1273",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "549b9c79-8dc2-b381-96be-1ba46ede0811",
+                    "displayName": "Kristina Mladenovic",
+                    "shortName": "K. Mladenovic",
+                    "fullName": "Kristina Mladenovic",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/1273/kristina-mladenovic",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140281",
+              "uid": "s:850~l:900~e:504-2023~c:140281",
+              "date": "2023-12-12T14:40Z",
+              "startDate": "2023-12-12T14:40Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(1) Elisabetta Cocciaretto (Ita) bt Amandine Hesse (Fra) 1-6 6-2 6-3",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3831",
+                  "uid": "s:850~l:900~a:3831",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 1
+                  },
+                  "linescores": [
+                    {
+                      "value": 1,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "12345577-a685-4a27-0375-b9eb2f426d7f",
+                    "displayName": "Elisabetta Cocciaretto",
+                    "shortName": "E. Cocciaretto",
+                    "fullName": "Elisabetta Cocciaretto",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+                      "alt": "Italy",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3831/elisabetta-cocciaretto",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "1272",
+                  "uid": "s:850~l:900~a:1272",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "2791896c-ae81-a8a2-d79c-a865aeb49af4",
+                    "displayName": "Amandine Hesse",
+                    "shortName": "A. Hesse",
+                    "fullName": "Amandine Hesse",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/1272/amandine-hesse",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140279",
+              "uid": "s:850~l:900~e:504-2023~c:140279",
+              "date": "2023-12-12T17:00Z",
+              "startDate": "2023-12-12T17:00Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Audrey Albie (Fra) bt Aravane Rezai (Fra) 6-1 6-0",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3329",
+                  "uid": "s:850~l:900~a:3329",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "7124cfed-764d-ea1c-1085-743095a88fc4",
+                    "displayName": "Audrey Albie",
+                    "shortName": "A. Albie",
+                    "fullName": "Audrey Albie",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3329/audrey-albie",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "401",
+                  "uid": "s:850~l:900~a:401",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 1,
+                      "winner": false
+                    },
+                    {
+                      "value": 0,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "fdf17aa9-667f-3bcb-9d01-8011f61e84a7",
+                    "displayName": "Aravane Rezai",
+                    "shortName": "A. Rezai",
+                    "fullName": "Aravane Rezai",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/401/aravane-rezai",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140283",
+              "uid": "s:850~l:900~e:504-2023~c:140283",
+              "date": "2023-12-12T17:50Z",
+              "startDate": "2023-12-12T17:50Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(2) Anna Blinkova (Rus) bt Veronika Podrez (Ukr) 6-3 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "14080",
+                  "uid": "s:850~l:900~a:14080",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "ef22a58c-09c7-316d-abf2-3e4efd758900",
+                    "displayName": "Veronika Podrez",
+                    "shortName": "V. Podrez",
+                    "fullName": "Veronika Podrez",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ukr.png",
+                      "alt": "Ukraine",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/14080/veronika-podrez",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2902",
+                  "uid": "s:850~l:900~a:2902",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 2
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "593f9215-e57e-b6d2-5985-26405c504503",
+                    "displayName": "Anna Blinkova",
+                    "shortName": "A. Blinkova",
+                    "fullName": "Anna Blinkova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2902/anna-blinkova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140276",
+              "uid": "s:850~l:900~e:504-2023~c:140276",
+              "date": "2023-12-13T09:00Z",
+              "startDate": "2023-12-13T09:00Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "38",
+                  "name": "STATUS_RETIRED",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Retired",
+                  "detail": "Retired",
+                  "shortDetail": "Retired"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Nigina Abduraimova (Uzb) bt Susan Bandecchi (Sui) 6-4 3-1 ret",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "4104",
+                  "uid": "s:850~l:900~a:4104",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "969fb920-541b-3fce-b281-f9dd532fed01",
+                    "displayName": "Susan Bandecchi",
+                    "shortName": "S. Bandecchi",
+                    "fullName": "Susan Bandecchi",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
+                      "alt": "Switzerland",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/4104/susan-bandecchi",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "1492",
+                  "uid": "s:850~l:900~a:1492",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "563aefca-d761-27e6-2724-d613a6660d66",
+                    "displayName": "Nigina Abduraimova",
+                    "shortName": "N. Abduraimova",
+                    "fullName": "Nigina Abduraimova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/uzb.png",
+                      "alt": "Uzbekistan",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/1492/nigina-abduraimova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140278",
+              "uid": "s:850~l:900~e:504-2023~c:140278",
+              "date": "2023-12-13T10:45Z",
+              "startDate": "2023-12-13T10:45Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(5) Cristina Bucsa (ESP) bt Nahia Berecoechea (Fra) 6-3 6-1",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3157",
+                  "uid": "s:850~l:900~a:3157",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 5
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "f1a3f8c2-748d-dce9-dd7f-6aae162f47b7",
+                    "displayName": "Cristina Bucsa",
+                    "shortName": "C. Bucsa",
+                    "fullName": "Cristina Bucsa",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
+                      "alt": "Spain",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3157/cristina-bucsa",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "14079",
+                  "uid": "s:850~l:900~a:14079",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 1,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "50eeb0fc-be05-36b2-906a-0207311d196a",
+                    "displayName": "Nahia Berecoechea",
+                    "shortName": "N. Berecoechea",
+                    "fullName": "Nahia Berecoechea",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/14079/nahia-berecoechea",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140273",
+              "uid": "s:850~l:900~e:504-2023~c:140273",
+              "date": "2023-12-13T12:40Z",
+              "startDate": "2023-12-13T12:40Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(6) Alize Cornet (Fra) bt Kathinka von Deichmann (Lie) 6-2 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "476",
+                  "uid": "s:850~l:900~a:476",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 6
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "120508d9-171f-2f2c-09b3-6b97fed13143",
+                    "displayName": "Alize Cornet",
+                    "shortName": "A. Cornet",
+                    "fullName": "Alize Cornet",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/476/alize-cornet",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2180",
+                  "uid": "s:850~l:900~a:2180",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "443427c2-9b07-f0fb-6ff4-24390ab0da30",
+                    "displayName": "Kathinka von Deichmann",
+                    "shortName": "K. von Deichmann",
+                    "fullName": "Kathinka von Deichmann",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/lie.png",
+                      "alt": "Liechtenstein",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2180/kathinka-von-deichmann",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140282",
+              "uid": "s:850~l:900~e:504-2023~c:140282",
+              "date": "2023-12-13T14:10Z",
+              "startDate": "2023-12-13T14:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Alana Smith (USA) bt Alice Robbe (Fra) 4-6 6-3 7-6 (7-5)",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "4908",
+                  "uid": "s:850~l:900~a:4908",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "tiebreak": 5,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "396113d0-e579-3601-aa3f-8c465bd03dac",
+                    "displayName": "Alice Robbe",
+                    "shortName": "A. Robbe",
+                    "fullName": "Alice Robbe",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/4908/alice-robbe",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "4720",
+                  "uid": "s:850~l:900~a:4720",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "d4581196-5fd1-3e0c-b1c7-6d2743824c77",
+                    "displayName": "Alana Smith",
+                    "shortName": "A. Smith",
+                    "fullName": "Alana Smith",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                      "alt": "USA",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/4720/alana-smith",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "1",
+                "displayName": "Round 1"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141078",
+              "uid": "s:850~l:900~e:504-2023~c:141078",
+              "date": "2023-12-13T17:05Z",
+              "startDate": "2023-12-13T17:05Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Anastasija Sevastova (Lat) bt (8) Rebecca Peterson (Swe) 6-2 6-3",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "756",
+                  "uid": "s:850~l:900~a:756",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "a3d04a64-5601-05f7-7315-4f0f2f522b22",
+                    "displayName": "Anastasija Sevastova",
+                    "shortName": "A. Sevastova",
+                    "fullName": "Anastasija Sevastova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/lat.png",
+                      "alt": "Latvia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/756/anastasija-sevastova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2269",
+                  "uid": "s:850~l:900~a:2269",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "curatedRank": {
+                    "current": 8
+                  },
+                  "linescores": [
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "c2bcf7b3-3345-5c12-2f82-ff4c58735851",
+                    "displayName": "Rebecca Peterson",
+                    "shortName": "R. Peterson",
+                    "fullName": "Rebecca Peterson",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/swe.png",
+                      "alt": "Sweden",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2269/rebecca-peterson",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141079",
+              "uid": "s:850~l:900~e:504-2023~c:141079",
+              "date": "2023-12-13T18:30Z",
+              "startDate": "2023-12-13T18:30Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Elsa Jacquemot (Fra) bt (3) Arantxa Rus (Ned) 6-4 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "810",
+                  "uid": "s:850~l:900~a:810",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "curatedRank": {
+                    "current": 3
+                  },
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "d43006ae-43ca-11e3-3c0e-dc136f5ba92e",
+                    "displayName": "Arantxa Rus",
+                    "shortName": "A. Rus",
+                    "fullName": "Arantxa Rus",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
+                      "alt": "Netherlands",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/810/arantxa-rus",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "6061",
+                  "uid": "s:850~l:900~a:6061",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "950bb889-e4d2-33ec-9ff6-3b0f34ec4168",
+                    "displayName": "Elsa Jacquemot",
+                    "shortName": "E. Jacquemot",
+                    "fullName": "Elsa Jacquemot",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6061/elsa-jacquemot",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141080",
+              "uid": "s:850~l:900~e:504-2023~c:141080",
+              "date": "2023-12-14T09:10Z",
+              "startDate": "2023-12-14T09:10Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(5) Cristina Bucsa (ESP) bt Audrey Albie (Fra) 6-3 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3157",
+                  "uid": "s:850~l:900~a:3157",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 5
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "f1a3f8c2-748d-dce9-dd7f-6aae162f47b7",
+                    "displayName": "Cristina Bucsa",
+                    "shortName": "C. Bucsa",
+                    "fullName": "Cristina Bucsa",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
+                      "alt": "Spain",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3157/cristina-bucsa",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "3329",
+                  "uid": "s:850~l:900~a:3329",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "7124cfed-764d-ea1c-1085-743095a88fc4",
+                    "displayName": "Audrey Albie",
+                    "shortName": "A. Albie",
+                    "fullName": "Audrey Albie",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3329/audrey-albie",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141081",
+              "uid": "s:850~l:900~e:504-2023~c:141081",
+              "date": "2023-12-14T10:40Z",
+              "startDate": "2023-12-14T10:40Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Lois Boisson (Fra) bt Alana Smith (USA) 6-4 6-0",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "6403",
+                  "uid": "s:850~l:900~a:6403",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "e74291d7-baf0-370f-85ef-028ec9cc0f36",
+                    "displayName": "Lois Boisson",
+                    "shortName": "L. Boisson",
+                    "fullName": "Lois Boisson",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6403/lois-boisson",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "4720",
+                  "uid": "s:850~l:900~a:4720",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 0,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "d4581196-5fd1-3e0c-b1c7-6d2743824c77",
+                    "displayName": "Alana Smith",
+                    "shortName": "A. Smith",
+                    "fullName": "Alana Smith",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                      "alt": "USA",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/4720/alana-smith",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141083",
+              "uid": "s:850~l:900~e:504-2023~c:141083",
+              "date": "2023-12-14T12:55Z",
+              "startDate": "2023-12-14T12:55Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 1,
+                "type": {
+                  "id": "40",
+                  "name": "STATUS_WALKOVER",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Walkover",
+                  "detail": "Walkover",
+                  "shortDetail": "Walkover"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(6) Alize Cornet (Fra) bt Harmony Tan (Fra) w/o",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "476",
+                  "uid": "s:850~l:900~a:476",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "curatedRank": {
+                    "current": 6
+                  },
+                  "athlete": {
+                    "guid": "120508d9-171f-2f2c-09b3-6b97fed13143",
+                    "displayName": "Alize Cornet",
+                    "shortName": "A. Cornet",
+                    "fullName": "Alize Cornet",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/476/alize-cornet",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "3330",
+                  "uid": "s:850~l:900~a:3330",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "athlete": {
+                    "guid": "250c5cb2-206e-09ef-2c09-252a5719d08b",
+                    "displayName": "Harmony Tan",
+                    "shortName": "H. Tan",
+                    "fullName": "Harmony Tan",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3330/harmony-tan",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141082",
+              "uid": "s:850~l:900~e:504-2023~c:141082",
+              "date": "2023-12-14T13:00Z",
+              "startDate": "2023-12-14T13:00Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(2) Anna Blinkova (Rus) bt Nigina Abduraimova (Uzb) 6-4 6-0",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "1492",
+                  "uid": "s:850~l:900~a:1492",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 0,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "563aefca-d761-27e6-2724-d613a6660d66",
+                    "displayName": "Nigina Abduraimova",
+                    "shortName": "N. Abduraimova",
+                    "fullName": "Nigina Abduraimova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/uzb.png",
+                      "alt": "Uzbekistan",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/1492/nigina-abduraimova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2902",
+                  "uid": "s:850~l:900~a:2902",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 2
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "593f9215-e57e-b6d2-5985-26405c504503",
+                    "displayName": "Anna Blinkova",
+                    "shortName": "A. Blinkova",
+                    "fullName": "Anna Blinkova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2902/anna-blinkova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141076",
+              "uid": "s:850~l:900~e:504-2023~c:141076",
+              "date": "2023-12-14T16:05Z",
+              "startDate": "2023-12-14T16:05Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(1) Elisabetta Cocciaretto (Ita) bt Darja Semenistaja (Lat) 6-3 6-4",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3831",
+                  "uid": "s:850~l:900~a:3831",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 1
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "12345577-a685-4a27-0375-b9eb2f426d7f",
+                    "displayName": "Elisabetta Cocciaretto",
+                    "shortName": "E. Cocciaretto",
+                    "fullName": "Elisabetta Cocciaretto",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+                      "alt": "Italy",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3831/elisabetta-cocciaretto",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "6769",
+                  "uid": "s:850~l:900~a:6769",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 4,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "01c412fd-3167-3c78-88da-b5ebbfcd226d",
+                    "displayName": "Darja Semenistaja",
+                    "shortName": "D. Semenistaja",
+                    "fullName": "Darja Semenistaja",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/lat.png",
+                      "alt": "Latvia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6769/darja-semenistaja",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "141077",
+              "uid": "s:850~l:900~e:504-2023~c:141077",
+              "date": "2023-12-14T17:40Z",
+              "startDate": "2023-12-14T17:40Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(7) Erika Andreeva (Rus) bt Mccartney Kessler (USA) 4-6 7-5 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "13476",
+                  "uid": "s:850~l:900~a:13476",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 5,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "6ca50ee5-448a-38f0-9a1d-f18f58cd086b",
+                    "displayName": "Mccartney Kessler",
+                    "shortName": "M. Kessler",
+                    "fullName": "Mccartney Kessler",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+                      "alt": "USA",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/13476/mccartney-kessler",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "7438",
+                  "uid": "s:850~l:900~a:7438",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 7
+                  },
+                  "linescores": [
+                    {
+                      "value": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "8e005233-d8c1-36d0-880f-efd108e2ec52",
+                    "displayName": "Erika Andreeva",
+                    "shortName": "E. Andreeva",
+                    "fullName": "Erika Andreeva",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/7438/erika-andreeva",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "2",
+                "displayName": "Round 2"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140287",
+              "uid": "s:850~l:900~e:504-2023~c:140287",
+              "date": "2023-12-15T11:50Z",
+              "startDate": "2023-12-15T11:50Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(5) Cristina Bucsa (ESP) bt Lois Boisson (Fra) 7-6 (7-3) 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3157",
+                  "uid": "s:850~l:900~a:3157",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 5
+                  },
+                  "linescores": [
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "f1a3f8c2-748d-dce9-dd7f-6aae162f47b7",
+                    "displayName": "Cristina Bucsa",
+                    "shortName": "C. Bucsa",
+                    "fullName": "Cristina Bucsa",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
+                      "alt": "Spain",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3157/cristina-bucsa",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "6403",
+                  "uid": "s:850~l:900~a:6403",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "tiebreak": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "e74291d7-baf0-370f-85ef-028ec9cc0f36",
+                    "displayName": "Lois Boisson",
+                    "shortName": "L. Boisson",
+                    "fullName": "Lois Boisson",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6403/lois-boisson",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140269",
+              "uid": "s:850~l:900~e:504-2023~c:140269",
+              "date": "2023-12-15T13:30Z",
+              "startDate": "2023-12-15T13:30Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(2) Anna Blinkova (Rus) bt Harmony Tan (Fra) 6-3 5-7 7-6 (7-3)",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3330",
+                  "uid": "s:850~l:900~a:3330",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 3,
+                      "winner": false
+                    },
+                    {
+                      "value": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "tiebreak": 3,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "250c5cb2-206e-09ef-2c09-252a5719d08b",
+                    "displayName": "Harmony Tan",
+                    "shortName": "H. Tan",
+                    "fullName": "Harmony Tan",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3330/harmony-tan",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2902",
+                  "uid": "s:850~l:900~a:2902",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 2
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 5,
+                      "winner": false
+                    },
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "593f9215-e57e-b6d2-5985-26405c504503",
+                    "displayName": "Anna Blinkova",
+                    "shortName": "A. Blinkova",
+                    "fullName": "Anna Blinkova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2902/anna-blinkova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140286",
+              "uid": "s:850~l:900~e:504-2023~c:140286",
+              "date": "2023-12-15T16:15Z",
+              "startDate": "2023-12-15T16:15Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 3,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "Elsa Jacquemot (Fra) bt Anastasija Sevastova (Lat) 7-6 (7-4) 2-6 7-5",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "6061",
+                  "uid": "s:850~l:900~a:6061",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": true,
+                  "linescores": [
+                    {
+                      "value": 7,
+                      "tiebreak": 7,
+                      "winner": true
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    },
+                    {
+                      "value": 7,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "950bb889-e4d2-33ec-9ff6-3b0f34ec4168",
+                    "displayName": "Elsa Jacquemot",
+                    "shortName": "E. Jacquemot",
+                    "fullName": "Elsa Jacquemot",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6061/elsa-jacquemot",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "756",
+                  "uid": "s:850~l:900~a:756",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": false,
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "tiebreak": 4,
+                      "winner": false
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 5,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "a3d04a64-5601-05f7-7315-4f0f2f522b22",
+                    "displayName": "Anastasija Sevastova",
+                    "shortName": "A. Sevastova",
+                    "fullName": "Anastasija Sevastova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/lat.png",
+                      "alt": "Latvia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/756/anastasija-sevastova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140285",
+              "uid": "s:850~l:900~e:504-2023~c:140285",
+              "date": "2023-12-15T19:00Z",
+              "startDate": "2023-12-15T19:00Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 2,
+                "type": {
+                  "id": "3",
+                  "name": "STATUS_FINAL",
+                  "state": "post",
+                  "completed": true,
+                  "description": "Final",
+                  "detail": "Final",
+                  "shortDetail": "Final"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(7) Erika Andreeva (Rus) bt (1) Elisabetta Cocciaretto (Ita) 6-0 6-2",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3831",
+                  "uid": "s:850~l:900~a:3831",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "winner": false,
+                  "curatedRank": {
+                    "current": 1
+                  },
+                  "linescores": [
+                    {
+                      "value": 0,
+                      "winner": false
+                    },
+                    {
+                      "value": 2,
+                      "winner": false
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "12345577-a685-4a27-0375-b9eb2f426d7f",
+                    "displayName": "Elisabetta Cocciaretto",
+                    "shortName": "E. Cocciaretto",
+                    "fullName": "Elisabetta Cocciaretto",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+                      "alt": "Italy",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3831/elisabetta-cocciaretto",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "7438",
+                  "uid": "s:850~l:900~a:7438",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "winner": true,
+                  "curatedRank": {
+                    "current": 7
+                  },
+                  "linescores": [
+                    {
+                      "value": 6,
+                      "winner": true
+                    },
+                    {
+                      "value": 6,
+                      "winner": true
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "8e005233-d8c1-36d0-880f-efd108e2ec52",
+                    "displayName": "Erika Andreeva",
+                    "shortName": "E. Andreeva",
+                    "fullName": "Erika Andreeva",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/7438/erika-andreeva",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "5",
+                "displayName": "Quarterfinal"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140272",
+              "uid": "s:850~l:900~e:504-2023~c:140272",
+              "date": "2023-12-16T15:40Z",
+              "startDate": "2023-12-16T15:40Z",
+              "timeValid": true,
+              "recent": true,
+              "status": {
+                "period": 1,
+                "type": {
+                  "id": "2",
+                  "name": "STATUS_IN_PROGRESS",
+                  "state": "in",
+                  "completed": false,
+                  "description": "In Progress",
+                  "detail": "1st Set",
+                  "shortDetail": "1st"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [
+                {
+                  "text": "(5) Cristina Bucsa (ESP) leads (2) Anna Blinkova (Rus) 0-0",
+                  "type": "event"
+                }
+              ],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "3157",
+                  "uid": "s:850~l:900~a:3157",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "possession": false,
+                  "curatedRank": {
+                    "current": 5
+                  },
+                  "linescores": [
+                    {
+                      "value": 0
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "f1a3f8c2-748d-dce9-dd7f-6aae162f47b7",
+                    "displayName": "Cristina Bucsa",
+                    "shortName": "C. Bucsa",
+                    "fullName": "Cristina Bucsa",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
+                      "alt": "Spain",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/3157/cristina-bucsa",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "2902",
+                  "uid": "s:850~l:900~a:2902",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "possession": true,
+                  "curatedRank": {
+                    "current": 2
+                  },
+                  "linescores": [
+                    {
+                      "value": 0
+                    }
+                  ],
+                  "athlete": {
+                    "guid": "593f9215-e57e-b6d2-5985-26405c504503",
+                    "displayName": "Anna Blinkova",
+                    "shortName": "A. Blinkova",
+                    "fullName": "Anna Blinkova",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/2902/anna-blinkova",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "situation": {
+                "onFirst": false,
+                "onSecond": false,
+                "onThird": false
+              },
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140280",
+              "uid": "s:850~l:900~e:504-2023~c:140280",
+              "date": "2023-12-16T17:30Z",
+              "startDate": "2023-12-16T17:30Z",
+              "timeValid": true,
+              "recent": false,
+              "status": {
+                "period": 1,
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Sat, December 16th at 12:30 PM EST",
+                  "shortDetail": "12/16 - 12:30 PM EST"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": "Centre"
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "7438",
+                  "uid": "s:850~l:900~a:7438",
+                  "type": "athlete",
+                  "order": 1,
+                  "homeAway": "home",
+                  "curatedRank": {
+                    "current": 7
+                  },
+                  "athlete": {
+                    "guid": "8e005233-d8c1-36d0-880f-efd108e2ec52",
+                    "displayName": "Erika Andreeva",
+                    "shortName": "E. Andreeva",
+                    "fullName": "Erika Andreeva",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+                      "alt": "Russia",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/7438/erika-andreeva",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "6061",
+                  "uid": "s:850~l:900~a:6061",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "athlete": {
+                    "guid": "950bb889-e4d2-33ec-9ff6-3b0f34ec4168",
+                    "displayName": "Elsa Jacquemot",
+                    "shortName": "E. Jacquemot",
+                    "fullName": "Elsa Jacquemot",
+                    "flag": {
+                      "href": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+                      "alt": "France",
+                      "rel": [
+                        "country-flag"
+                      ]
+                    },
+                    "links": [
+                      {
+                        "language": "en-US",
+                        "rel": [
+                          "playercard",
+                          "desktop",
+                          "athlete"
+                        ],
+                        "href": "https://www.espn.com/tennis/player/_/id/6061/elsa-jacquemot",
+                        "text": "Player Card",
+                        "shortText": "Player Card",
+                        "isExternal": false,
+                        "isPremium": false,
+                        "isHidden": false
+                      }
+                    ]
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "6",
+                "displayName": "Semifinal"
+              },
+              "wasSuspended": false
+            },
+            {
+              "id": "140288",
+              "uid": "s:850~l:900~e:504-2023~c:140288",
+              "date": "2023-12-17T05:00Z",
+              "startDate": "2023-12-17T05:00Z",
+              "timeValid": false,
+              "recent": false,
+              "status": {
+                "period": 1,
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "M/d - 'TBD'",
+                  "shortDetail": "TBD"
+                }
+              },
+              "venue": {
+                "fullName": "Limoges, France",
+                "court": ""
+              },
+              "format": {
+                "regulation": {
+                  "periods": 3
+                }
+              },
+              "notes": [],
+              "geoBroadcasts": [],
+              "broadcasts": [],
+              "competitors": [
+                {
+                  "id": "-3",
+                  "uid": "s:850~l:900~a:-3",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "athlete": {
+                    "displayName": "TBD",
+                    "shortName": "TBD",
+                    "fullName": "TBD",
+                    "links": []
+                  },
+                  "statistics": []
+                },
+                {
+                  "id": "-4",
+                  "uid": "s:850~l:900~a:-4",
+                  "type": "athlete",
+                  "order": 2,
+                  "homeAway": "away",
+                  "athlete": {
+                    "displayName": "TBD",
+                    "shortName": "TBD",
+                    "fullName": "TBD",
+                    "links": []
+                  },
+                  "statistics": []
+                }
+              ],
+              "tournamentId": 504,
+              "type": {
+                "id": "2",
+                "text": "Women's Singles",
+                "slug": "womens-singles"
+              },
+              "round": {
+                "id": "7",
+                "displayName": "Final"
+              },
+              "wasSuspended": false
+            }
+          ]
+        }
+      ],
+      "status": {
+        "period": 2,
+        "type": {
+          "id": "3",
+          "name": "STATUS_FINAL",
+          "state": "post",
+          "completed": true,
+          "description": "Final",
+          "detail": "Final",
+          "shortDetail": "Final"
+        }
+      },
+      "venue": {
+        "displayName": "Centre, Limoges, France"
+      },
+      "links": [
+        {
+          "language": "en-US",
+          "rel": [
+            "summary",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/tennis/scoreboard/tournament/_/eventId/504-2023/competitionType/2",
+          "text": "Summary",
+          "shortText": "Summary",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/tennis/bracket/_/year/2023/tournamentId/504/type/2",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        }
+      ],
+      "previousWinners": [
+        {
+          "displayName": "Anhelina Kalinina",
+          "shortDisplayName": "A. Kalinina",
+          "type": {
+            "id": "2",
+            "text": "Women's Singles",
+            "slug": "womens-singles"
+          },
+          "links": [
+            {
+              "language": "en-US",
+              "rel": [
+                "playercard",
+                "desktop",
+                "athlete"
+              ],
+              "href": "https://www.espn.com/tennis/player/_/id/2411/anhelina-kalinina",
+              "text": "Player Card",
+              "shortText": "Player Card",
+              "isExternal": false,
+              "isPremium": false,
+              "isHidden": false
+            }
+          ]
+        }
+      ],
+      "calendar": {
+        "type": "day",
+        "timeZone": "America/New_York",
+        "startDate": "2023-12-10T05:00Z",
+        "endDate": "2023-12-17T05:00Z",
+        "calendar": [
+          "2023-12-10T05:00Z",
+          "2023-12-11T05:00Z",
+          "2023-12-12T05:00Z",
+          "2023-12-13T05:00Z",
+          "2023-12-14T05:00Z",
+          "2023-12-15T05:00Z",
+          "2023-12-16T05:00Z",
+          "2023-12-17T05:00Z"
+        ]
+      }
     }
   ]
 }
