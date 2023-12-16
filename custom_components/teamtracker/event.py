@@ -106,35 +106,45 @@ async def async_process_event(
             )
 
     if not found_competitor:
-        if limit_hit:
-            values["api_message"] = (
-                "API_LIMIT hit.  No competition found for '"
-                + team_id
-                + "' between "
-                + first_date.strftime("%Y-%m-%dT%H:%MZ")
-                + " and "
-                + last_date.strftime("%Y-%m-%dT%H:%MZ")
-            )
-            _LOGGER.debug(
-                "%s: API_LIMIT hit (%s).  No competitor information '%s' returned by API",
-                sensor_name,
-                API_LIMIT,
-                search_key,
-            )
-        else:
-            values["api_message"] = (
-                "No competition scheduled for '"
-                + team_id
-                + "' between "
-                + first_date.strftime("%Y-%m-%dT%H:%MZ")
-                + " and "
-                + last_date.strftime("%Y-%m-%dT%H:%MZ")
-            )
-            _LOGGER.debug(
-                "%s: No competitor information '%s' returned by API",
-                sensor_name,
-                search_key,
-            )
+        await competitor_not_found(
+            values,
+            limit_hit,
+            first_date,
+            last_date,
+            team_id,
+            sensor_name,
+            search_key
+        )
+#        
+#        if limit_hit:
+#            values["api_message"] = (
+#                "API_LIMIT hit.  No competition found for '"
+#                + team_id
+#                + "' between "
+#                + first_date.strftime("%Y-%m-%dT%H:%MZ")
+#                + " and "
+#                + last_date.strftime("%Y-%m-%dT%H:%MZ")
+#            )
+#            _LOGGER.debug(
+#                "%s: API_LIMIT hit (%s).  No competitor information '%s' returned by API",
+#                sensor_name,
+#                API_LIMIT,
+#                search_key,
+#            )
+#        else:
+#            values["api_message"] = (
+#                "No competition scheduled for '"
+#                + team_id
+#                + "' between "
+#                + first_date.strftime("%Y-%m-%dT%H:%MZ")
+#                + " and "
+#                + last_date.strftime("%Y-%m-%dT%H:%MZ")
+#            )
+#            _LOGGER.debug(
+#                "%s: No competitor information '%s' returned by API",
+#                sensor_name,
+#                search_key,
+#            )
 
     return values
 
@@ -318,3 +328,45 @@ async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
                 return True
 
     return False
+
+async def competitor_not_found(
+    values,
+    limit_hit,
+    first_date,
+    last_date,
+    team_id,
+    sensor_name,
+    search_key
+):
+    """Handle messaging if competitor was not found"""
+
+    if limit_hit:
+        values["api_message"] = (
+            "API_LIMIT hit.  No competition found for '"
+            + team_id
+            + "' between "
+            + first_date.strftime("%Y-%m-%dT%H:%MZ")
+            + " and "
+            + last_date.strftime("%Y-%m-%dT%H:%MZ")
+        )
+        _LOGGER.debug(
+            "%s: API_LIMIT hit (%s).  No competitor information '%s' returned by API",
+            sensor_name,
+            API_LIMIT,
+            search_key,
+        )
+    else:
+        values["api_message"] = (
+            "No competition scheduled for '"
+            + team_id
+            + "' between "
+            + first_date.strftime("%Y-%m-%dT%H:%MZ")
+            + " and "
+            + last_date.strftime("%Y-%m-%dT%H:%MZ")
+        )
+        _LOGGER.debug(
+            "%s: No competitor information '%s' returned by API",
+            sensor_name,
+            search_key,
+        )
+return
