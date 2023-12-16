@@ -40,7 +40,7 @@ async def async_process_event(
         for competition_index, competition in enumerate(
             await async_get_value(event, "competitions", default=[])
         ):
-            competitor_index = -1
+#            competitor_index = -1
 
             competition_date_str = await async_get_value(
                 competition, "date", default=(await async_get_value(event, "date"))
@@ -96,7 +96,6 @@ async def async_process_event(
                 event,
                 competition,
                 competition_index,
-                competitor_index,
                 search_key,
                 lang,
                 sport, 
@@ -142,14 +141,15 @@ async def async_process_competition(
     event,
     competition,
     competition_index,
-    competitor_index,
     search_key,
     lang,
     sport, 
     found_competitor,
     stop_flag
-) -> (values, event_state, found_competitor, stop_flag):
+) -> (dict, str, bool, bool):
     """Process a competition"""
+
+    competitor_index = -1
 
     for competitor_index, competitor in enumerate(
         await async_get_value(competition, "competitors", default=[])
