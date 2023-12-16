@@ -26,7 +26,7 @@ oppo_prob = {}
 #  Set Values
 #
 async def async_set_values(
-    new_values, event, competition_index, team_index, lang, sensor_name
+    new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
 ) -> bool:
     """Function to set all new_values for the specified event/competition/team"""
 
@@ -36,7 +36,11 @@ async def async_set_values(
         oppo_index = 1
     else:
         oppo_index = 0
-    competition = await async_get_value(event, "competitions", competition_index)
+    grouping = await async_get_value(event, "groupings", grouping_index)
+    if grouping is None:
+        competition = await async_get_value(event, "competitions", competition_index)
+    else:
+        competition = await async_get_value(grouping, "competitions", competition_index)
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
@@ -49,7 +53,7 @@ async def async_set_values(
         return False
 
     rc = await async_set_universal_values(
-        new_values, event, competition_index, team_index, lang, sensor_name
+        new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
     )
     if not rc:
         _LOGGER.debug(
@@ -123,7 +127,7 @@ async def async_set_values(
         )
     elif new_values["sport"] == "tennis":
         rc = await async_set_tennis_values(
-            new_values, event, competition_index, team_index, lang, sensor_name
+            new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
         )
     elif new_values["sport"] == "mma":
         rc = await async_set_mma_values(
@@ -170,7 +174,7 @@ async def async_set_values(
 #  Set Universal Values
 #
 async def async_set_universal_values(
-    new_values, event, competition_index, team_index, lang, sensor_name
+    new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
 ) -> bool:
     """Function to set new_values common for all sports"""
 
@@ -180,7 +184,11 @@ async def async_set_universal_values(
         oppo_index = 1
     else:
         oppo_index = 0
-    competition = await async_get_value(event, "competitions", competition_index)
+    grouping = await async_get_value(event, "groupings", grouping_index)
+    if grouping is None:
+        competition = await async_get_value(event, "competitions", competition_index)
+    else:
+        competition = await async_get_value(grouping, "competitions", competition_index)
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 

@@ -35,36 +35,94 @@ async def async_process_event(
 
     for event in data["events"]:
         event_state = "NOT_FOUND"
-        competition_index = -1
 
-        for competition_index, competition in enumerate(
-            await async_get_value(event, "competitions", default=[])
+        grouping_index = -1
+        for grouping_index, grouping in enumerate(
+            await async_get_value(event, "groupings", default=[])
         ):
-                
-            first_date, last_date = await  async_process_competition_dates(
-                event,
-                competition,
-                first_date,
-                last_date
-            )
-
-            values, event_state, found_competitor, stop_flag = await async_process_competition(
-                prev_values, 
-                values,
+            _LOGGER.debug(
+                "%s: async_process_event() Found a grouping for this event: %s",
                 sensor_name,
-                event,
-                event_state,
-                competition,
-                competition_index,
-                search_key,
-                lang,
-                sport, 
-                found_competitor,
-                stop_flag
+                grouping_index,
             )
+            competition_index = -1
+            for competition_index, competition in enumerate(
+                await async_get_value(grouping, "competitions", default=[])
+            ):
+                _LOGGER.debug(
+                    "%s: async_process_event() Looping through groupings/competitions for this event: %s, %s",
+                    sensor_name,
+                    grouping_index,
+                    competition_index
+                )
+                first_date, last_date = await  async_process_competition_dates(
+                    event,
+                    competition,
+                    first_date,
+                    last_date
+                )
+                _LOGGER.debug(
+                    "%s: async_process_event() Dates for this event: %s, %s",
+                    sensor_name,
+                    first_date,
+                    last_date
+                )
+                values, event_state, found_competitor, stop_flag = await async_process_competition(
+                    prev_values, 
+                    values,
+                    sensor_name,
+                    event,
+                    event_state,
+                    grouping_index,
+                    competition,
+                    competition_index,
+                    search_key,
+                    lang,
+                    sport, 
+                    found_competitor,
+                    stop_flag
+                )
+                _LOGGER.debug(
+                    "%s: async_process_event() stop_flag, found_competitor: %s, %s",
+                    sensor_name,
+                    stop_flag,
+                    found_competitor
+                )
+                if stop_flag:
+                    break
+            
 
-            if stop_flag:
-                break
+        if grouping_index == -1:
+            competition_index = -1
+            for competition_index, competition in enumerate(
+                await async_get_value(event, "competitions", default=[])
+            ):
+                
+                first_date, last_date = await  async_process_competition_dates(
+                    event,
+                    competition,
+                    first_date,
+                    last_date
+                )
+
+                values, event_state, found_competitor, stop_flag = await async_process_competition(
+                    prev_values, 
+                    values,
+                    sensor_name,
+                    event,
+                    event_state,
+                    grouping_index,
+                    competition,
+                    competition_index,
+                    search_key,
+                    lang,
+                    sport, 
+                    found_competitor,
+                    stop_flag
+                )
+
+                if stop_flag:
+                    break
         #
         #  if the competition state is POST but the event state is IN, stop looking
         #    this happens in tennis where an event has many competitions
@@ -100,6 +158,7 @@ async def async_process_competition(
     sensor_name,
     event,
     event_state,
+    grouping_index,
     competition,
     competition_index,
     search_key,
@@ -132,6 +191,7 @@ async def async_process_competition(
                 values, 
                 sensor_name, 
                 event,
+                grouping_index,
                 competition_index,
                 matched_index,
                 lang,
@@ -155,6 +215,7 @@ async def async_process_name_match(
     values, 
     sensor_name, 
     event,
+    grouping_index,
     competition_index,
     matched_index,
     lang,
@@ -175,6 +236,7 @@ async def async_process_name_match(
     rc = await async_set_values(
         values,
         event,
+        grouping_index,
         competition_index,
         matched_index,
         lang,

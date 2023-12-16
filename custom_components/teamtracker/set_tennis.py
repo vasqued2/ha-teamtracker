@@ -8,17 +8,22 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_set_tennis_values(
-    new_values, event, competition_index, team_index, lang, sensor_name
+    new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
 ) -> bool:
     """Set tennis specific values"""
 
-    #    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, len(event["competitions"]), competition_index)
+    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, len(event["competitions"]), competition_index)
 
     if team_index == 0:
         oppo_index = 1
     else:
         oppo_index = 0
-    competition = await async_get_value(event, "competitions", competition_index)
+        
+    grouping = await async_get_value(event, "groupings", grouping_index)
+    if grouping is None:
+        competition = await async_get_value(event, "competitions", competition_index)
+    else:
+        competition = await async_get_value(grouping, "competitions", competition_index)
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 
