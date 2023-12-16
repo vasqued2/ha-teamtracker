@@ -103,11 +103,13 @@ async def async_process_event(
                     if stop_flag:
                         break
 
-                    prev_flag = await async_use_prev_values_flag(
-                        prev_values, values, sensor_name, sport
-                    )
-                    if prev_flag:
-                        values = prev_values
+#                    prev_flag = await async_use_prev_values_flag(
+#                        prev_values, values, sensor_name, sport
+#                    )
+#                    if prev_flag:
+#                        values = prev_values
+
+                    values = await async_process_name_match(prev_values, values, sensor_name, sport)
 
             if competitor_index == -1:
                 _LOGGER.debug(
@@ -162,6 +164,18 @@ async def async_process_event(
                 sensor_name,
                 search_key,
             )
+
+    return values
+
+
+async def async_process_name_match(prev_values, values, sensor_name, sport)-> dict:
+    """Process a name match"""
+
+    prev_flag = await async_use_prev_values_flag(
+        prev_values, values, sensor_name, sport
+    )
+    if prev_flag:
+        values = prev_values
 
     return values
 
