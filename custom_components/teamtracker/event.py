@@ -369,4 +369,4 @@ async def competitor_not_found(
             sensor_name,
             search_key,
         )
-return
+    return
