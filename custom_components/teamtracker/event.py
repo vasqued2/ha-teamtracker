@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_process_event(
     values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
-) -> dict:
+) -> (dict, bool):
     """Loop throught the json data returned by the API to find the right event and set values"""
 
     prev_values = {}
@@ -93,23 +93,25 @@ async def async_process_event(
                             values,
                         )
 
-                    if values["state"] == "IN":
-                        stop_flag = True
-                    time_diff = abs(
-                        (arrow.get(values["date"]) - arrow.now()).total_seconds()
-                    )
-                    if values["state"] == "PRE" and time_diff < 1200:
-                        stop_flag = True
-                    if stop_flag:
-                        break
-
+#                    if values["state"] == "IN":
+#                        stop_flag = True
+#                    time_diff = abs(
+#                        (arrow.get(values["date"]) - arrow.now()).total_seconds()
+#                    )
+#                    if values["state"] == "PRE" and time_diff < 1200:
+#                        stop_flag = True
+#                    if stop_flag:
+#                        break
+#
 #                    prev_flag = await async_use_prev_values_flag(
 #                        prev_values, values, sensor_name, sport
 #                    )
 #                    if prev_flag:
 #                        values = prev_values
 
-                    values = await async_process_name_match(prev_values, values, sensor_name, sport)
+                    values, stop_flag = await async_process_name_match(prev_values, values, sensor_name, sport, stop_flag)
+                    if stop_flag:
+                        break
 
             if competitor_index == -1:
                 _LOGGER.debug(
@@ -168,8 +170,18 @@ async def async_process_event(
     return values
 
 
-async def async_process_name_match(prev_values, values, sensor_name, sport)-> dict:
+async def async_process_name_match(prev_values, values, sensor_name, sport, stop_flag)-> (dict, bool):
     """Process a name match"""
+
+    if values["state"] == "IN":
+        stop_flag = True
+    time_diff = abs(
+        (arrow.get(values["date"]) - arrow.now()).total_seconds()
+    )
+    if values["state"] == "PRE" and time_diff < 1200:
+        stop_flag = True
+    if stop_flag:
+        return values, stop_flag
 
     prev_flag = await async_use_prev_values_flag(
         prev_values, values, sensor_name, sport
@@ -177,7 +189,7 @@ async def async_process_name_match(prev_values, values, sensor_name, sport)-> di
     if prev_flag:
         values = prev_values
 
-    return values
+    return values, stop_flag
 
 
 async def async_find_search_key(
