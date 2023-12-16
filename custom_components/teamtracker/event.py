@@ -73,11 +73,11 @@ async def async_process_event(
                     #
                     # Capture the event state because in sports like tennis, it can be different that the competition state
                     #
-                    event_state = str(
-                        await async_get_value(
-                            event, "status", "type", "state", default="NOT_FOUND"
-                        )
-                    ).upper()
+#                    event_state = str(
+#                        await async_get_value(
+#                            event, "status", "type", "state", default="NOT_FOUND"
+#                        )
+#                    ).upper()
 #                    rc = await async_set_values(
 #                        values,
 #                        event,
@@ -109,7 +109,7 @@ async def async_process_event(
 #                    if prev_flag:
 #                        values = prev_values
 
-                    values, stop_flag = await async_process_name_match(
+                    values, event_state, stop_flag = await async_process_name_match(
                         prev_values, 
                         values, 
                         sensor_name, 
@@ -190,9 +190,14 @@ async def async_process_name_match(
     lang,
     sport, 
     stop_flag
-)-> (dict, bool):
+)-> (dict, str, bool):
     """Process a name match"""
 
+    event_state = str(
+        await async_get_value(
+            event, "status", "type", "state", default="NOT_FOUND"
+        )
+    ).upper()
     rc = await async_set_values(
         values,
         event,
@@ -216,7 +221,7 @@ async def async_process_name_match(
     if values["state"] == "PRE" and time_diff < 1200:
         stop_flag = True
     if stop_flag:
-        return values, stop_flag
+        return values, event_state, stop_flag
 
     prev_flag = await async_use_prev_values_flag(
         prev_values, values, sensor_name, sport
@@ -224,7 +229,7 @@ async def async_process_name_match(
     if prev_flag:
         values = prev_values
 
-    return values, stop_flag
+    return values, event_state, stop_flag
 
 
 async def async_find_search_key(
