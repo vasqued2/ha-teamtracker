@@ -52,36 +52,36 @@ async def async_process_event(
                 last_date = competition_date
             if competition_date < first_date:
                 first_date = competition_date
-            for competitor_index, competitor in enumerate(
-                await async_get_value(competition, "competitors", default=[])
-            ):
-                matched_index = await async_find_search_key(
-                    values,
-                    sensor_name,
-                    search_key,
-                    event,
-                    competition,
-                    competitor,
-                    competitor_index,
-                    sport_path,
-                )
-
-                if matched_index is not None:
-                    values, event_state, found_competitor, stop_flag = await async_process_name_match(
-                        prev_values, 
-                        values, 
-                        sensor_name, 
-                        event,
-                        competition_index,
-                        matched_index,
-                        lang,
-                        sport, 
-                        found_competitor,
-                        stop_flag
-                    )
-                    if stop_flag:
-                        break
-
+#            for competitor_index, competitor in enumerate(
+#                await async_get_value(competition, "competitors", default=[])
+#            ):
+#                matched_index = await async_find_search_key(
+#                    values,
+#                    sensor_name,
+#                    search_key,
+#                    event,
+#                    competition,
+#                    competitor,
+#                    competitor_index,
+#                    sport_path,
+#                )
+#
+#                if matched_index is not None:
+#                    values, event_state, found_competitor, stop_flag = await async_process_name_match(
+#                        prev_values, 
+#                       values, 
+#                        sensor_name, 
+#                        event,
+#                        competition_index,
+#                        matched_index,
+#                        lang,
+#                        sport, 
+#                        found_competitor,
+#                        stop_flag
+#                    )
+#                    if stop_flag:
+#                       break
+#
 #            if competitor_index == -1:
 #                _LOGGER.debug(
 #                    "%s: async_process_event() No competitors in this competition: %s",
@@ -89,11 +89,24 @@ async def async_process_event(
 #                    str(await async_get_value(competition, "id", default="{id}")),
 #                )
 
-            await async_process_competition(
-                competitor_index,
+            values, event_state, found_competitor, stop_flag = await async_process_competition(
+                prev_values, 
+                values,
                 sensor_name,
-                competition
+                event,
+                competition,
+                competitor,
+                competition_index,
+                competitor_index,
+                matched_index,
+                search_key,
+                sensor_name, 
+                lang,
+                sport, 
+                found_competitor,
+                stop_flag
             )
+
             if stop_flag:
                 break
         #
@@ -126,19 +139,60 @@ async def async_process_event(
 
 
 async def async_process_competition(
-    competitor_index,
+    prev_values, 
+    values,
     sensor_name,
-    competition
-):
-    """Process a name match"""
+    event,
+    competition,
+    competitor,
+    competition_index,
+    competitor_index,
+    matched_index,
+    search_key,
+    sensor_name, 
+    lang,
+    sport, 
+    found_competitor,
+    stop_flag
+) -> (values, event_state, found_competitor, stop_flag):
+    """Process a competition"""
 
+    for competitor_index, competitor in enumerate(
+        await async_get_value(competition, "competitors", default=[])
+    ):
+        matched_index = await async_find_search_key(
+            values,
+            sensor_name,
+            search_key,
+            event,
+            competition,
+            competitor,
+            competitor_index,
+            sport,
+        )
+
+        if matched_index is not None:
+            values, event_state, found_competitor, stop_flag = await async_process_name_match(
+                prev_values, 
+                values, 
+                sensor_name, 
+                event,
+                competition_index,
+                matched_index,
+                lang,
+                sport, 
+                found_competitor,
+                stop_flag
+            )
+            if stop_flag:
+                break
     if competitor_index == -1:
         _LOGGER.debug(
             "%s: async_process_event() No competitors in this competition: %s",
             sensor_name,
             str(await async_get_value(competition, "id", default="{id}")),
         )
-    return
+    return values, event_state, found_competitor, stop_flag
 
 
 async def async_process_name_match(
