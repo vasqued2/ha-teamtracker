@@ -129,19 +129,19 @@ TEST_DATA = [
         "sensor_name": "test_tt_all_test19",
         "sport": "tennis",
         "league": "WTA",
-        "team_abbr": "KALININA",
+        "team_abbr": "JACQUEMOT",
     },
     {
         "sensor_name": "test_tt_all_test20",
         "sport": "tennis",
         "league": "WTA",
-        "team_abbr": "BOGDAN",
+        "team_abbr": "BUSCA",
     },
     {
         "sensor_name": "test_tt_all_test21",
         "sport": "tennis",
         "league": "WTA",
-        "team_abbr": "PARTAUD",
+        "team_abbr": "COCCIARETTO",
     },
     {
         "sensor_name": "test_tt_all_test22",
