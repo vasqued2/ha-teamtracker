@@ -12,7 +12,7 @@ async def async_set_tennis_values(
 ) -> bool:
     """Set tennis specific values"""
 
-    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, grouping_index, competition_index)
+    #    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, grouping_index, competition_index)
 
     if team_index == 0:
         oppo_index = 1
@@ -31,13 +31,28 @@ async def async_set_tennis_values(
         #        _LOGGER.debug("%s: async_set_tennis_values() 0.1: %s", sensor_name, sensor_name)
         return False
 
-    remaining_games = (
-        len(await async_get_value(event, "competitions", default=[]))
-        - competition_index
-    )
-    new_values["odds"] = 1 << remaining_games.bit_length()  # Game is in the round of X
-    #    _LOGGER.debug("%s: async_set_tennis_values() 1: %s %s %s", sensor_name, remaining_games, len(event["competitions"]), competition_index)
+#    remaining_games = (
+#        len(await async_get_value(event, "competitions", default=[]))
+#        - competition_index
+#    )
+#    new_values["odds"] = 1 << remaining_games.bit_length()  # Game is in the round of X
+#    #    _LOGGER.debug("%s: async_set_tennis_values() 1: %s %s %s", sensor_name, remaining_games, len(event["competitions"]), competition_index)
 
+    new_values["location"] = await async_get_value(
+        competition,
+        "venue",
+        "court"
+    )
+    new_values["down_distance_text"] = await async_get_value(
+        competition,
+        "round",
+        "displayName"
+    )
+    new_values["overunder"] = await async_get_value(
+        competition,
+        "type",
+        "text"
+    )
     new_values["team_rank"] = await async_get_value(competitor, "tournamentSeed")
     new_values["opponent_rank"] = await async_get_value(opponent, "tournamentSeed")
 
@@ -46,7 +61,7 @@ async def async_set_tennis_values(
         "status",
         "type",
         "detail",
-        default=await async_get_value(event, "status", "type", "detail"),
+        default=await async_get_value(event, "status", "type", "shortDetail"),
     )
 
     #    _LOGGER.debug("%s: async_set_tennis_values() 2: %s", sensor_name, sensor_name)

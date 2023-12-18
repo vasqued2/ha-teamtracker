@@ -40,33 +40,19 @@ async def async_process_event(
         for grouping_index, grouping in enumerate(
             await async_get_value(event, "groupings", default=[])
         ):
-            _LOGGER.debug(
-                "%s: async_process_event() Found a grouping for this event: %s",
-                sensor_name,
-                grouping_index,
-            )
+
             competition_index = -1
             for competition_index, competition in enumerate(
                 await async_get_value(grouping, "competitions", default=[])
             ):
-                _LOGGER.debug(
-                    "%s: async_process_event() Looping through groupings/competitions for this event: %s, %s",
-                    sensor_name,
-                    grouping_index,
-                    competition_index
-                )
+
                 first_date, last_date = await  async_process_competition_dates(
                     event,
                     competition,
                     first_date,
                     last_date
                 )
-                _LOGGER.debug(
-                    "%s: async_process_event() Dates for this event: %s, %s",
-                    sensor_name,
-                    first_date,
-                    last_date
-                )
+
                 values, event_state, found_competitor, stop_flag = await async_process_competition(
                     prev_values, 
                     values,
@@ -82,12 +68,7 @@ async def async_process_event(
                     found_competitor,
                     stop_flag
                 )
-                _LOGGER.debug(
-                    "%s: async_process_event() stop_flag, found_competitor: %s, %s",
-                    sensor_name,
-                    stop_flag,
-                    found_competitor
-                )
+
                 if stop_flag:
                     break
             
