@@ -135,7 +135,7 @@ TEST_DATA = [
         "sensor_name": "test_tt_all_test20",
         "sport": "tennis",
         "league": "WTA",
-        "team_abbr": "BUSCA",
+        "team_abbr": "BUCSA",
     },
     {
         "sensor_name": "test_tt_all_test21",
