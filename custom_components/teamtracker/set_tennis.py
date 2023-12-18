@@ -12,7 +12,7 @@ async def async_set_tennis_values(
 ) -> bool:
     """Set tennis specific values"""
 
-    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, len(event["competitions"]), competition_index)
+    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, grouping_index, competition_index)
 
     if team_index == 0:
         oppo_index = 1
