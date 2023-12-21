@@ -76,7 +76,7 @@ async def test_path_form(
     assert result["type"] == "form"
     assert result["errors"] == {}
 
-#@patch("custom_components.teamtracker.sensor.GitHubAPI")
+@patch("custom_components.teamtracker.sensor.async_add_entities")
 async def test_options_flow_init(m_github, hass):
     """Test config flow options."""
     m_instance = AsyncMock()
