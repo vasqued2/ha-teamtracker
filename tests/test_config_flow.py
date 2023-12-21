@@ -77,28 +77,29 @@ async def test_path_form(
     assert result["errors"] == {}
 
 #@patch("custom_components.teamtracker.sensor.async_add_entities")
-async def test_options_flow_init(hass):
-    """Test config flow options."""
-#    m_instance = AsyncMock()
-#    m_instance.getitem = AsyncMock()
-#    m_github.return_value = m_instance
+async def test_options_flow_init(
+    hass,
+):
+    """ Test config flow options """
 
-    config_entry = MockConfigEntry(
+    entry = MockConfigEntry(
         domain=DOMAIN,
-        unique_id="teamtracker_mock_config",
-        data={
-            "league_id": "MLB",
-            "team_id": "MIA",
-            "name": "test_tt_all_test01",
-            "timeout": 120,
-            "conference_id": "9999",
-        },
+        title="team_tracker",
+        data=CONFIG_DATA,
     )
-    config_entry.add_to_hass(hass)
-#    assert await hass.config_entries.async_setup(config_entry.entry_id)
-#    await hass.async_block_till_done()
 
-    # show initial form
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+    assert await entry.async_unload(hass)
+    await hass.async_block_till_done()
+
+
 #    result = await hass.config_entries.options.async_init(config_entry.entry_id)
 
 #    assert "form" == result["type"]
