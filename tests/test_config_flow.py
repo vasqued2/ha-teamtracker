@@ -1,5 +1,5 @@
 """Test for config flow"""
-from unittest.mock import AsyncMock, patch
+from unittest.mock import patch
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 import pytest
@@ -78,7 +78,7 @@ async def test_path_form(
 
 #@patch("custom_components.teamtracker.sensor.async_add_entities")
 async def test_options_flow_init(hass):
-#    """Test config flow options."""
+    """Test config flow options."""
 #    m_instance = AsyncMock()
 #    m_instance.getitem = AsyncMock()
 #    m_github.return_value = m_instance
