@@ -1,5 +1,7 @@
 """Test for config flow"""
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
+from pytest_homeassistant_custom_component.common import MockConfigEntry
+from const import CONF_API_LANGUAGE
 
 import pytest
 
@@ -84,10 +86,9 @@ async def test_options_flow_init(m_github, hass):
 
     config_entry = MockConfigEntry(
         domain=DOMAIN,
-        unique_id="kodi_recently_added_media",
+        unique_id="teamtracker_mock_config",
         data={
-            CONF_ACCESS_TOKEN: "access-token",
-            CONF_REPOS: [{"path": "home-assistant/core", "name": "HA Core"}],
+            CONF_API_LANGUAGE: "access-token",
         },
     )
 #    config_entry.add_to_hass(hass)
