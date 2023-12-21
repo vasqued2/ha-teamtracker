@@ -310,3 +310,22 @@ The following identifiers are also valid:
 | FCS (1-AA) | 81 |  | Subset of FCS games |
 | DIVII/III | 35 |  | Subset of D2/D3 games |
 | D1 |  | 50 | Subset of unranked D1 games |
+
+### Override the API Language
+
+TeamTracker will use your local language settings when callin the ESPN APIs.  Some languages are supported more robustly than others.  For example, one language may provide play-by-play updates while another will not.  For this reason, you can override your local language.
+
+If you set up the sensor using the Home Assistant UI.  You can add the override language code via the sensor's Configure button after it has been created.
+
+If you are setting up the sensor using YAML.  You can add it to your YAML configuration.
+
+You should use a [standard ISO language code](https://www.andiamo.co.uk/resources/iso-language-codes/) when specifying an override.
+
+Example
+```
+- platform: teamtracker
+  league_id: "NFL"
+  team_id: "NO"
+  name: "Saints"
+  api_language: en
+```

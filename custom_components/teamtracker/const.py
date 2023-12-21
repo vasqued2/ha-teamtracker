@@ -1,5 +1,6 @@
 """ Constants for teamtracker sensor"""
 from homeassistant.const import Platform
+from datetime import timedelta
 
 # API
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
@@ -11,6 +12,7 @@ USER_AGENT = (
 )
 
 # Config
+CONF_API_LANGUAGE = "api_language"
 CONF_CONFERENCE_ID = "conference_id"
 CONF_LEAGUE_ID = "league_id"
 CONF_LEAGUE_PATH = "league_path"
@@ -181,10 +183,12 @@ DEFAULT_PROB = 0.0
 DEFAULT_TIMEOUT = 120
 DEFAULT_LAST_UPDATE = "2022-02-02 02:02:02-05:00"
 DEFAULT_KICKOFF_IN = "{test} days"
+DEFAULT_REFRESH_RATE = timedelta(minutes=10)
+RAPID_REFRESH_RATE = timedelta(seconds=5)
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.9.0"
+VERSION = "v0.11.0"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"

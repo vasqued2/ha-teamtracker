@@ -18,6 +18,7 @@ from homeassistant.util import slugify
 from . import TeamTrackerDataUpdateCoordinator
 from .const import (
     ATTRIBUTION,
+    CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -31,8 +32,10 @@ from .const import (
     DEFAULT_NAME,
     DEFAULT_TIMEOUT,
     DOMAIN,
+    ISSUE_URL,
     LEAGUE_MAP,
     SPORT_ICON_MAP,
+    VERSION,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -44,8 +47,9 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         ),
         vol.Required(CONF_TEAM_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-        vol.Optional(CONF_TIMEOUT, default=DEFAULT_TIMEOUT): int,
+        vol.Optional(CONF_TIMEOUT): int,
         vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
+        vol.Optional(CONF_API_LANGUAGE): cv.string,
         vol.Optional(CONF_SPORT_PATH): cv.string,
         vol.Optional(CONF_LEAGUE_PATH): cv.string,
     }
@@ -58,20 +62,28 @@ async def async_setup_platform(
     async_add_entities: AddEntitiesCallback,
     discovery_info=None,
 ) -> None:
-    """Configuration from yaml"""
-    name = config[CONF_NAME]
+    """Set up the sensor from the YAML Configuration"""
+    sensor_name = config[CONF_NAME]
 
-    _LOGGER.debug("%s: Setting up sensor from YAML", name)
+    _LOGGER.info(
+        "%s: Setting up sensor from YAML using TeamTracker %s, if you have any issues please report them here: %s",
+        sensor_name, 
+        VERSION,
+        ISSUE_URL,
+    )
+
+    if CONF_TIMEOUT in config:
+        _LOGGER.warning("%s: Support for `timeout` in YAML config was deprecated in v0.11.0.  Remove prior to next upgrade.", sensor_name)
 
     league_ids = [*LEAGUE_MAP.keys(), "XXX"]
     try:
         vol.In(league_ids)(config[CONF_LEAGUE_ID])
     except vol.Invalid:
-        _LOGGER.warning("%s: `league_id` must be valid (one of %s)", name, league_ids)
-        _LOGGER.error("%s: Support for invalid `league_id` in YAML will be deprecated in v0.7.6.  Correct config prior to next upgrade.", name)
+        _LOGGER.warning("%s: `league_id` must be valid (one of %s)", sensor_name, league_ids)
+        _LOGGER.error("%s: Support for invalid `league_id` in YAML was deprecated in v0.7.6.  Correct config prior to next upgrade.", sensor_name)
         async_create(
             hass,
-            f"{name} Error: `league_id` must be valid (one of {league_ids})",
+            f"{sensor_name} Error: `league_id` must be valid (one of {league_ids})",
             "Team Tracker",
             DOMAIN,
         )
@@ -85,8 +97,8 @@ async def async_setup_platform(
         error_msg = (
             "Must specify sport and league path for custom league (league_id = XXX)"
         )
-        _LOGGER.warning("%s: %s", name, error_msg)
-        async_create(hass, f"{name} Error: {error_msg}", "Team Tracker", DOMAIN)
+        _LOGGER.warning("%s: %s", sensor_name, error_msg)
+        async_create(hass, f"{sensor_name} Error: {error_msg}", "Team Tracker", DOMAIN)
         return
 
     league_id = config[CONF_LEAGUE_ID].upper()
@@ -115,7 +127,6 @@ async def async_setup_platform(
     coordinator = TeamTrackerDataUpdateCoordinator(
         hass,
         config,
-        config[CONF_TIMEOUT],
     )
 
     # Fetch initial data so we have data when entities subscribe
@@ -130,7 +141,22 @@ async def async_setup_platform(
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    """Setup the sensor platform."""
+    """Setup sensors from a config entry created in the integrations UI."""
+
+    sensor_name = entry.data[CONF_NAME]
+
+    _LOGGER.info(
+        "%s: Updating sensor from UI using TeamTracker %s, if you have any issues please report them here: %s",
+        sensor_name, 
+        VERSION,
+        ISSUE_URL,
+    )
+
+    config = hass.data[DOMAIN][entry.entry_id]
+    # Update our config to include new repos and remove those that have been removed.
+    if entry.options:
+        config.update(entry.options)
+
     async_add_entities([TeamTrackerScoresSensor(hass, entry)], True)
 
 

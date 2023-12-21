@@ -27,21 +27,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Options Team Tracker",
-        "description": "Enter the League and Team to create the sensor.\n\nLeague: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4 letter team abreviation used on ESPN's scoreboards and stats pages",
+        "title": "Team Tracker Options",
+        "description": "Enter the 2-character language code to use for the API call.",
         "data": {
-          "league_id": "League",
-          "team_id": "Team/Athlete",  
-          "name": "Friendly Name",
-          "timeout": "Update Timeout (in seconds)"
-        }
-      },
-      "path": {
-        "title": "Options Custom API Configurator",
-        "description": "Enter the 'sport' and 'league' portion of the ESPN API path to use a self-configured API",
-        "data": {
-          "sport_path": "Sport Path", 
-          "league_path": "League Path"
+          "api_language": "API Language"
         }
       }
     }

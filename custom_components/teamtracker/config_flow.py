@@ -9,16 +9,16 @@ import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
 
 from .const import (
+    CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
-    CONF_TIMEOUT,
     DEFAULT_CONFERENCE_ID,
     DEFAULT_LEAGUE,
     DEFAULT_NAME,
@@ -61,7 +61,6 @@ def _get_schema(
             ),
             vol.Required(CONF_TEAM_ID, default=_get_default(CONF_TEAM_ID)): cv.string,
             vol.Optional(CONF_NAME, default=_get_default(CONF_NAME)): cv.string,
-            vol.Optional(CONF_TIMEOUT, default=_get_default(CONF_TIMEOUT)): int,
             vol.Optional(
                 CONF_CONFERENCE_ID, default=_get_default(CONF_CONFERENCE_ID)
             ): cv.string,
@@ -135,7 +134,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         defaults = {
             CONF_LEAGUE_ID: DEFAULT_LEAGUE,
             CONF_NAME: DEFAULT_NAME,
-            CONF_TIMEOUT: DEFAULT_TIMEOUT,
             CONF_TEAM_ID: "",
             CONF_CONFERENCE_ID: DEFAULT_CONFERENCE_ID,
         }
@@ -156,5 +154,47 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="path",
             data_schema=_get_path_schema(self.hass, user_input, defaults),
+            errors=self._errors,
+        )
+
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        return TeamTrackerScoresOptionsFlow(config_entry)
+
+class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
+    """Options flow for TeamTracker."""
+
+    def __init__(self, config_entry):
+        """Initialize."""
+        self.entry = config_entry
+        self._options = dict(config_entry.options)
+        self._errors = {}
+
+    async def async_step_init(self, user_input=None):
+        """Manage options."""
+
+        if user_input is not None:
+            self._options.update(user_input)
+            return self.async_create_entry(title="", data=self._options)
+        return await self._show_options_form(user_input)
+
+    async def _show_options_form(self, user_input):
+        """Show the options form to edit location data."""
+
+        lang = None
+        if self.entry and self.entry.options and CONF_API_LANGUAGE in self.entry.options:
+                lang = self.entry.options[CONF_API_LANGUAGE]
+
+        options_schema = vol.Schema(
+            {
+                vol.Optional(CONF_API_LANGUAGE, description={"suggested_value": lang}, default=""): cv.string,
+            }
+        )
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=options_schema,
             errors=self._errors,
         )

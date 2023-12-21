@@ -23,6 +23,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .clear_values import async_clear_values
 from .const import (
     API_LIMIT,
+    CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -39,6 +40,8 @@ from .const import (
     ISSUE_URL,
     LEAGUE_MAP,
     PLATFORMS,
+    DEFAULT_REFRESH_RATE,
+    RAPID_REFRESH_RATE,
     URL_HEAD,
     URL_TAIL,
     USER_AGENT,
@@ -54,16 +57,18 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
     # Print startup message
+
+    sensor_name = entry.data[CONF_NAME]
+
     _LOGGER.info(
-        "TeamTracker version %s is starting, if you have any issues please report them here: %s",
+        "%s: Setting up sensor from UI configuration using TeamTracker %s, if you have any issues please report them here: %s",
+        sensor_name, 
         VERSION,
         ISSUE_URL,
     )
     hass.data.setdefault(DOMAIN, {})
 
-    #
-    #  No support for an Options flow at this time.  Uncomment line below if ever added.
-    #    entry.add_update_listener(update_listener)
+    entry.add_update_listener(update_options_listener)
 
     if entry.unique_id is not None:
         hass.config_entries.async_update_entry(entry, unique_id=None)
@@ -74,7 +79,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     # Setup the data coordinator
     coordinator = TeamTrackerDataUpdateCoordinator(
-        hass, entry.data, entry.data.get(CONF_TIMEOUT)
+        hass, entry.data, entry
     )
 
     # Fetch initial data so we have data when entities subscribe
@@ -88,23 +93,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
-
-    _LOGGER.debug("Attempting to unload entities from the %s integration", DOMAIN)
 
     unload_ok = all(
         await asyncio.gather(
             *[
-                hass.config_entries.async_forward_entry_unload(config_entry, platform)
+                hass.config_entries.async_forward_entry_unload(entry, platform)
                 for platform in PLATFORMS
             ]
         )
     )
 
     if unload_ok:
-        _LOGGER.debug("Successfully removed entities from the %s integration", DOMAIN)
-        hass.data[DOMAIN].pop(config_entry.entry_id)
+        hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok
 
@@ -112,25 +114,23 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 #
 #  Only needed if Options Flow is added
 #
-# async def update_listener(hass, entry):
-#    """Update listener."""
-#    entry.data = entry.options
-#    await hass.config_entries.async_forward_entry_unload(entry, "sensor")
-#    hass.async_add_job(hass.config_entries.async_forward_entry_setup(entry, "sensor"))
+async def update_options_listener(hass, entry):
+    """Update listener."""
+
+    await hass.config_entries.async_reload(entry.entry_id)
 
 
-async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Migrate an old config entry."""
-    version = config_entry.version
+    sensor_name = entry.data[CONF_NAME]
+    version = entry.version
 
     # 1-> 2->3: Migration format
-    # Add CONF_TIMEOUT, CONF_LEAGUE_ID, CONF_SPORT_PATH, and CONF_LEAGUE_PATH if not already populated
+    # Add CONF_LEAGUE_ID, CONF_SPORT_PATH, and CONF_LEAGUE_PATH if not already populated
     if version < 3:
-        _LOGGER.debug("Migrating from version %s", version)
-        updated_config = config_entry.data.copy()
+        _LOGGER.debug("%s: Migrating from version %s", sensor_name, version)
+        updated_config = entry.data.copy()
 
-        if CONF_TIMEOUT not in updated_config.keys():
-            updated_config[CONF_TIMEOUT] = DEFAULT_TIMEOUT
         if CONF_LEAGUE_ID not in updated_config.keys():
             updated_config[CONF_LEAGUE_ID] = DEFAULT_LEAGUE
         if (CONF_SPORT_PATH not in updated_config.keys()) or (
@@ -139,11 +139,11 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             league_id = updated_config[CONF_LEAGUE_ID].upper()
             updated_config.update(LEAGUE_MAP[league_id])
 
-        if updated_config != config_entry.data:
-            hass.config_entries.async_update_entry(config_entry, data=updated_config)
+        if updated_config != entry.data:
+            hass.config_entries.async_update_entry(entry, data=updated_config)
 
-        config_entry.version = 3
-        _LOGGER.debug("Migration to version %s complete", config_entry.version)
+        entry.version = 3
+        _LOGGER.debug("%s: Migration to version %s complete", sensor_name, entry.version)
 
     return True
 
@@ -155,35 +155,46 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     last_update = {}
     c_cache = {}
 
-    def __init__(self, hass, config, the_timeout: int):
+    def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
-        self.interval = timedelta(minutes=10)
         self.name = config[CONF_NAME]
-        self.timeout = the_timeout
         self.config = config
         self.hass = hass
+        self.entry = entry #None if setup from YAML
 
+        super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
-            "%s: Data will be updated every %s minutes", self.name, self.interval
+            "%s: Using default refresh rate (%s)", self.name, self.update_interval
         )
 
-        super().__init__(hass, _LOGGER, name=self.name, update_interval=self.interval)
+
 
     #
     #  Top-level method called from HA to update data for all teamtracker sensors
     #
     async def _async_update_data(self):
         """Update data."""
-        async with timeout(self.timeout):
+        async with timeout(DEFAULT_TIMEOUT):
             try:
                 data = await self.async_update_game_data(self.config, self.hass)
 
                 # update the interval based on flag
                 if data["private_fast_refresh"]:
-                    self.update_interval = timedelta(seconds=5)
+                    if self.update_interval != RAPID_REFRESH_RATE:
+                        self.update_interval = RAPID_REFRESH_RATE
+                        _LOGGER.debug(
+                            "%s: Switching to rapid refresh rate (%s)", self.name, self.update_interval
+                        )
                 else:
-                    self.update_interval = timedelta(minutes=10)
+                    if self.update_interval != DEFAULT_REFRESH_RATE:
+                        self.update_interval = DEFAULT_REFRESH_RATE
+                        _LOGGER.debug(
+                            "%s: Switching to default refresh rate (%s)", self.name, self.update_interval
+                        )
             except Exception as error:
+                _LOGGER.debug(f"{self.name}: Error updating data: {error}")
+                _LOGGER.debug(f"{self.name}: Error type: {type(error).__name__}")
+                _LOGGER.debug(f"{self.name}: Additional information: {str(error)}")
                 raise UpdateFailed(error) from error
             return data
 
@@ -201,7 +212,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             lang, _ = locale.getlocale()
             lang = lang or "en_US"
 
-        key = sport_path + ":" + league_path + ":" + conference_id
+        # Override language if is set in the configuration or options
+
+        if CONF_API_LANGUAGE in config.keys():
+            lang = config[CONF_API_LANGUAGE].lower()
+        if self.entry and self.entry.options and CONF_API_LANGUAGE in self.entry.options and len(self.entry.options[CONF_API_LANGUAGE])>=2:
+                lang = self.entry.options[CONF_API_LANGUAGE].lower()
+
+        key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
 
         #
         #  Use cache if not expired
@@ -265,19 +283,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         sport_path = config[CONF_SPORT_PATH]
         league_path = config[CONF_LEAGUE_PATH]
 
-        #
-        #  For some reason, the tennis API has behaves inconsistently when language is french so
-        #    override it to 'en' to get consistent behavior ¯\_(ツ)_/¯
-        #
-        if lang == "fr" and sport_path == "tennis":
-            _LOGGER.debug(
-                "%s: Overriding language '%s' to 'en' for '%s'",
-                sensor_name,
-                lang,
-                sport_path,
-            )
-            lang = "en"
-
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
 
         if sport_path not in ("tennis", "baseball"):
@@ -306,7 +311,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 try:
                     async with session.get(url, headers=headers) as r:
                         _LOGGER.debug(
-                            "%s: Getting state for '%s' from %s",
+                            "%s: Calling API for '%s' from %s",
                             sensor_name,
                             team_id,
                             url,
@@ -343,20 +348,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         if config[CONF_CONFERENCE_ID] == "9999":
                             file_override = True
 
-                _LOGGER.debug(
-                    "%s: new url_parms '%s' from %s",
-                    sensor_name,
-                    url_parms,
-                    url,
-                )
-
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
                 async with aiohttp.ClientSession() as session:
                     try:
                         async with session.get(url, headers=headers) as r:
                             _LOGGER.debug(
-                                "%s: Getting state without date constraint for '%s' from %s",
+                                "%s: Calling API without date constraint for '%s' from %s",
                                 sensor_name,
                                 team_id,
                                 url,
@@ -366,26 +364,26 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     except:
                         data = None
 
-            num_events = 0
-            if data is not None:
+                num_events = 0
+                if data is not None:
+                    _LOGGER.debug(
+                        "%s: Data returned for '%s' from %s",
+                        sensor_name,
+                        team_id,
+                        url,
+                    )
+
+                    try:
+                        num_events = len(data["events"])
+                    except:
+                        num_events = 0
+
                 _LOGGER.debug(
-                    "%s: Data returned for '%s' from %s",
+                    "%s: Num_events '%d' from %s",
                     sensor_name,
-                    team_id,
+                    num_events,
                     url,
                 )
-
-                try:
-                    num_events = len(data["events"])
-                except:
-                    num_events = 0
-
-            _LOGGER.debug(
-                "%s: Num_events '%d' from %s",
-                sensor_name,
-                num_events,
-                url,
-            )
 
             if num_events == 0:
                 url_parms = ""
@@ -395,20 +393,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         if config[CONF_CONFERENCE_ID] == "9999":
                             file_override = True
 
-                _LOGGER.debug(
-                    "%s: new url_parms '%s' from %s",
-                    sensor_name,
-                    url_parms,
-                    url,
-                )
-
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
                 async with aiohttp.ClientSession() as session:
                     try:
                         async with session.get(url, headers=headers) as r:
                             _LOGGER.debug(
-                                "%s: Getting state without language for '%s' from %s",
+                                "%s: Calling API without language for '%s' from %s",
                                 sensor_name,
                                 team_id,
                                 url,
