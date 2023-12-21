@@ -22,7 +22,6 @@ from .const import (
     DEFAULT_CONFERENCE_ID,
     DEFAULT_LEAGUE,
     DEFAULT_NAME,
-    DEFAULT_TIMEOUT,
     DOMAIN,
     LEAGUE_MAP,
 )

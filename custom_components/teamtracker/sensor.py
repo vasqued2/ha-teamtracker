@@ -30,7 +30,6 @@ from .const import (
     DEFAULT_ICON,
     DEFAULT_LEAGUE,
     DEFAULT_NAME,
-    DEFAULT_TIMEOUT,
     DOMAIN,
     ISSUE_URL,
     LEAGUE_MAP,
