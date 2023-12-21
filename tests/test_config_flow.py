@@ -87,7 +87,11 @@ async def test_options_flow_init(hass):
         domain=DOMAIN,
         unique_id="teamtracker_mock_config",
         data={
-            CONF_API_LANGUAGE: "access-token",
+            "league_id": "MLB",
+            "team_id": "MIA",
+            "name": "test_tt_all_test01",
+            "timeout": 120,
+            "conference_id": "9999",
         },
     )
     config_entry.add_to_hass(hass)
