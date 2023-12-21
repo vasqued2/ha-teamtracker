@@ -313,7 +313,7 @@ The following identifiers are also valid:
 
 ### Override the API Language
 
-TeamTracker will use your local language settings when callin the ESPN APIs.  Some languages are supported more robustly than others.  For example, one language may provide play-by-play updates while another will not.  For this reason, you can override your local language.
+TeamTracker will use your local language settings when calling the ESPN APIs.  Some languages are supported more robustly than others.  For example, one language may provide play-by-play updates while another will not.  For this reason, you can override your local language.  English appears to be the most robustly supported language.
 
 If you set up the sensor using the Home Assistant UI.  You can add the override language code via the sensor's Configure button after it has been created.
 
