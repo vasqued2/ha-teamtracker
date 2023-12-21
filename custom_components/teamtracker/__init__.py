@@ -68,7 +68,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
     hass.data.setdefault(DOMAIN, {})
 
-    entry.add_update_listener(update_options_listener)
+    entry.async_on_unload(entry.add_update_listener(update_listener))
 
     if entry.unique_id is not None:
         hass.config_entries.async_update_entry(entry, unique_id=None)
