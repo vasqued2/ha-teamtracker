@@ -15,7 +15,6 @@ from homeassistant import setup
                 "league_id": "NFL",
                 "team_id": "SEA",
                 "name": "team_tracker",
-#                "timeout": 120,
                 "conference_id": "9999",
             },
             "user",
@@ -25,7 +24,6 @@ from homeassistant import setup
                 "league_id": "NFL",
                 "team_id": "SEA",
                 "name": "team_tracker",
-#                "timeout": 120,
                 "conference_id": "9999",
                 "league_path": "nfl",
                 "sport_path": "football",
@@ -76,3 +74,28 @@ async def test_path_form(
     )
     assert result["type"] == "form"
     assert result["errors"] == {}
+
+@patch("custom_components.github_custom.sensor.GitHubAPI")
+async def test_options_flow_init(m_github, hass):
+    """Test config flow options."""
+    m_instance = AsyncMock()
+    m_instance.getitem = AsyncMock()
+    m_github.return_value = m_instance
+
+    config_entry = MockConfigEntry(
+        domain=DOMAIN,
+        unique_id="kodi_recently_added_media",
+        data={
+            CONF_ACCESS_TOKEN: "access-token",
+            CONF_REPOS: [{"path": "home-assistant/core", "name": "HA Core"}],
+        },
+    )
+#    config_entry.add_to_hass(hass)
+#    assert await hass.config_entries.async_setup(config_entry.entry_id)
+#    await hass.async_block_till_done()
+
+    # show initial form
+#    result = await hass.config_entries.options.async_init(config_entry.entry_id)
+#    assert "form" == result["type"]
+#    assert "init" == result["step_id"]
+#    assert {} == result["errors"]
