@@ -98,12 +98,17 @@ async def test_options_flow_init(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
-    # Test Options Flow
+    # Show Options Flow Form
 
     result = await hass.config_entries.options.async_init(entry.entry_id)
     assert "form" == result["type"]
     assert "init" == result["step_id"]
     assert {} == result["errors"]
+
+    # submit form with options
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"], user_input={"api_language": "en"}
+    )
 
     # Unload
     assert await entry.async_unload(hass)
