@@ -98,11 +98,12 @@ async def test_options_flow_init(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
+    result = await hass.config_entries.options.async_init(entry.entry_id)
+
     assert await entry.async_unload(hass)
     await hass.async_block_till_done()
 
 
-#    result = await hass.config_entries.options.async_init(config_entry.entry_id)
 
 #    assert "form" == result["type"]
 #    assert "init" == result["step_id"]
