@@ -4,7 +4,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 import pytest
 
-from custom_components.teamtracker.const import DOMAIN
+from custom_components.teamtracker.const import DOMAIN, CONF_API_LANGUAGE
 from homeassistant import setup
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA
