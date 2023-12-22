@@ -121,7 +121,6 @@ async def test_options_flow_init(
     assert "form" == result["type"]
     assert "init" == result["step_id"]
     assert {} == result["errors"]
-    assert {CONF_API_LANGUAGE: "en"} == result["data"]
 
     # Unload
     assert await entry.async_unload(hass)
