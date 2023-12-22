@@ -28,21 +28,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Opções do Rastreador de Equipe",
-        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nEquipe: 2-4 abreviação da equipe de letras usada nos placares da ESPN e nas páginas de estatísticas",
+        "title": "Opções do rastreador de equipe",
+        "description": "Digite o código de idioma de dois caracteres a ser usado para a chamada de API.",
         "data": {
-          "league_id": "Liga",
-          "team_id": "Time",  
-          "name": "Nome amigável",
-          "timeout": "Tempo limite de atualização (em segundos)"
-        }
-      },
-      "path": {
-        "title": "Opções Custom API Configurator",
-        "description": "Insira a parte 'sport' e 'league' do caminho da API ESPN para usar uma API autoconfigurada",
-        "data": {
-          "sport_path": "Caminho do esporte", 
-          "league_path": "Caminho da Liga"
+          "api_language": "Linguagem API"
         }
       }
     }

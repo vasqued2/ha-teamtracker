@@ -192,10 +192,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                             "%s: Switching to default refresh rate (%s)", self.name, self.update_interval
                         )
             except Exception as error:
-                _LOGGER.debug(
-                    "%s: Switching to default refresh rate (%s)", self.name, self.update_interval
-                )
-
                 _LOGGER.debug("%s: Error updating data: %s", self.name, error)
                 _LOGGER.debug("%s: Error type: %s", self.name, type(error).__name__)
                 _LOGGER.debug("%s: Additional information: %s", self.name, str(error))

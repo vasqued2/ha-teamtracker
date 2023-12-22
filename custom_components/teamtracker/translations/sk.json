@@ -27,21 +27,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Možnosti Team Tracker",
-        "description": "Zadajte ligu a tím a vytvorte senzor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4-písmenová skratka tímu používaná na výsledkovej tabuli ESPN a na stránkach so štatistikami",
+        "title": "Možnosti sledovania tímu",
+        "description": "Zadajte 2-miestny kód jazyka, ktorý sa má použiť pre volanie API.",
         "data": {
-          "league_id": "Liga",
-          "team_id": "Tím/Športovec",  
-          "name": "Priateľské meno",
-            "timeout": "Časový limit aktualizácie (v sekundách)"
-        }
-      },
-      "path": {
-        "title": "Možnosti Vlastný konfigurátor API",
-        "description": "Zadajte 'šport' a 'ligu' časť cesty ESPN API na použitie samokonfigurovaného API",
-        "data": {
-          "sport_path": "Športová cesta", 
-          "league_path": "Ligová cesta"
+          "api_language": "Jazyk API"
         }
       }
     }
