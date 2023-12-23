@@ -5,7 +5,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from typing import Any
 from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
-from tests.const import CONFIG_DATA, PLATFORM_CONFIG
+from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 
 
 @pytest.fixture(autouse=False)
@@ -51,11 +51,15 @@ async def test_setup_platform(hass):
         entity_list.extend(entities)
         print(f"Adding entities: {entity_list}")
 
-    await async_setup_platform(
-        hass,
-        PLATFORM_CONFIG,
-        mock_async_add_entities_callback,
-        discovery_info=None,
-    )
+    for test in PLATFORM_TEST_DATA:
+        await async_setup_platform(
+            hass,
+            test[0],
+            mock_async_add_entities_callback,
+            discovery_info=None,
+        )
 
-    assert DOMAIN in hass.data
+        assert (DOMAIN in hass.data) == test[1]
+
+        assert await entry.async_unload(hass)
+        await hass.async_block_till_done()
