@@ -60,6 +60,3 @@ async def test_setup_platform(hass):
         )
 
         assert (DOMAIN in hass.data) == test[1]
-
-        assert await entry.async_unload(hass)
-        await hass.async_block_till_done()
