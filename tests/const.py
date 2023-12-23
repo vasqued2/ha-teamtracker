@@ -1,5 +1,24 @@
 """Constants for tests."""
 
+class PlatformConfigType(dict):
+    """Wrapper class to be able to add attributes on a dict."""
+
+    def __init__(self, data=None, entry_id=None, **kwargs):
+        super().__init__(**kwargs)
+        self.data = data
+        self.entry_id = entry_id
+
+# Create the mock object
+PLATFORM_CONFIG = PlatformConfigType(
+    platform='teamtracker',
+    league_id="MLB",
+    team_id="MIA",
+    name="test_tt_all_test01",
+    conference_id="9999",
+    entry_id={},
+    data={}
+)
+
 CONFIG_DATA = {
     "league_id": "MLB",
     "team_id": "MIA",
