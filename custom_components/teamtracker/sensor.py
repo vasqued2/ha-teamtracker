@@ -30,6 +30,7 @@ from .const import (
     DEFAULT_ICON,
     DEFAULT_LEAGUE,
     DEFAULT_NAME,
+    DEFAULT_SPORT_PATH,
     DOMAIN,
     ISSUE_URL,
     LEAGUE_MAP,
@@ -166,17 +167,17 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         """Initialize the sensor."""
         super().__init__(hass.data[DOMAIN][entry.entry_id][COORDINATOR])
 
-        sport_path = entry.data.get(CONF_SPORT_PATH, "SPORT_NOT_SPECIFIED")
-        if sport_path == "SPORT_NOT_SPECIFIED":
+        sport_path = entry.data.get(CONF_SPORT_PATH, DEFAULT_SPORT_PATH)
+        if sport_path == DEFAULT_SPORT_PATH:
             _LOGGER.debug(
-                "%s:  Initializing sensor values.  Sport not found.",
+                "%s:  Initializing sensor values.  SPORT_PATH not set.",
                 entry.data[CONF_NAME],
             )
 
         icon = SPORT_ICON_MAP.get(sport_path, DEFAULT_ICON)
         if icon == DEFAULT_ICON:
             _LOGGER.debug(
-                "%s:  Initializing sensor values.  Sport icon not found.",
+                "%s:  Initializing sensor values.  Sport icon not found for sport '%s'",
                 entry.data[CONF_NAME],
                 sport_path,
             )
