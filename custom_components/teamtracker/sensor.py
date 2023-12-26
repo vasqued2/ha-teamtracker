@@ -166,11 +166,17 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         """Initialize the sensor."""
         super().__init__(hass.data[DOMAIN][entry.entry_id][COORDINATOR])
 
-        sport_path = entry.data[CONF_SPORT_PATH]
+        sport_path = entry.data.get(CONF_SPORT_PATH, "SPORT_NOT_SPECIFIED")
+        if sport_path == "SPORT_NOT_SPECIFIED":
+            _LOGGER.debug(
+                "%s:  Initializing sensor values.  Sport not found.",
+                entry.data[CONF_NAME],
+            )
+
         icon = SPORT_ICON_MAP.get(sport_path, DEFAULT_ICON)
         if icon == DEFAULT_ICON:
             _LOGGER.debug(
-                "%s:  Setting up sensor from YAML.  Sport '%s' not found.",
+                "%s:  Initializing sensor values.  Sport icon not found.",
                 entry.data[CONF_NAME],
                 sport_path,
             )
