@@ -17,7 +17,6 @@ CONF_CONFERENCE_ID = "conference_id"
 CONF_LEAGUE_ID = "league_id"
 CONF_LEAGUE_PATH = "league_path"
 CONF_SPORT_PATH = "sport_path"
-CONF_TIMEOUT = "timeout"
 CONF_TEAM_ID = "team_id"
 
 # Sports
