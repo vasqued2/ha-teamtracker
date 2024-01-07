@@ -88,7 +88,7 @@ def _get_path_schema(hass: Any, user_input: list, default_dict: list) -> Any:
 class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for TeamTracker."""
 
-    VERSION = 3
+#    VERSION = 3
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
     def __init__(self):
