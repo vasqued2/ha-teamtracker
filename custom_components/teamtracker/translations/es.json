@@ -1,0 +1,38 @@
+{
+  "config": {
+    "error": {
+      "league": "Se ha introducido una liga no válida."
+    },
+    "step": {
+      "user": {
+        "description": "Introduce la Liga y el Equipo para crear el sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4 letter team abreviation used on ESPN's scoreboards and stats pages\n\nConference Number: For NCAA football and basketball only.  See README.md for valid values.  Leave blank to only include games with ranked teams.",
+        "data": {
+          "league_id": "Liga",
+          "team_id": "Equipo/Atleta",  
+          "name": "Nombre descriptivo",
+          "timeout": "Tiempo de espera de actualización (en segundos)",
+          "conference_id": "Número de conferencia"
+        }
+      },
+      "path": {
+        "title": "Configurador personalizado de API",
+        "description": "Introduzca la parte "deporte" y "liga" de la ruta de la API de ESPN para utilizar una API autoconfigurada",
+        "data": {
+          "sport_path": "Ruta deporte", 
+          "league_path": "Ruta liga"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opciones de Team Tracker",
+        "description": "Ingrese el código de idioma de 2 caracteres que se usará para la llamada API.",
+        "data": {
+          "api_language": "Lenguaje API"
+        }
+      }
+    }
+  }
+}
