@@ -16,7 +16,7 @@
       },
       "path": {
         "title": "Configurador personalizado de API",
-        "description": "Introduzca la parte "deporte" y "liga" de la ruta de la API de ESPN para utilizar una API autoconfigurada",
+        "description": "Introduzca la parte 'deporte' y 'liga' de la ruta de la API de ESPN para utilizar una API autoconfigurada",
         "data": {
           "sport_path": "Ruta deporte", 
           "league_path": "Ruta liga"
