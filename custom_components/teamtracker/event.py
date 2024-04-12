@@ -430,9 +430,7 @@ async def async_process_competition_dates(
     competition_date = datetime.strptime(
         competition_date_str, "%Y-%m-%dT%H:%Mz"
     )
-    if competition_date > last_date:
-        last_date = competition_date
-    if competition_date < first_date:
-        first_date = competition_date
+    last_date = max(last_date, competition_date)
+    first_date = min(first_date, competition_date)
 
     return first_date, last_date
