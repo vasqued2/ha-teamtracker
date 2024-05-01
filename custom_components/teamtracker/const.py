@@ -104,6 +104,10 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "uefa.champions",
     },
+    "CLA": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "conmebol.libertadores",
+    },
     "EPL": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.1",
