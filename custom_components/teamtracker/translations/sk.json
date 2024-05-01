@@ -5,7 +5,7 @@
     },
     "step": {
       "user": {
-        "description": "Zadajte ligu a tím a vytvorte senzor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4-písmenová skratka tímu používaná na výsledkovej tabuli ESPN a na stránkach so štatistikami\n\nKonferenčné číslo: Len pre futbal a basketbal NCAA. Platné hodnoty nájdete v súbore README.md. Ak chcete zahrnúť iba hry s hodnotenými tímami, nechajte pole prázdne.",
+        "description": "Zadajte ligu a tím a vytvorte senzor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4-písmenová skratka tímu používaná na výsledkovej tabuli ESPN a na stránkach so štatistikami\n\nKonferenčné číslo: Len pre futbal a basketbal NCAA. Platné hodnoty nájdete v súbore README.md. Ak chcete zahrnúť iba hry s hodnotenými tímami, nechajte pole prázdne.",
         "data": {
           "league_id": "Liga",
           "team_id": "Tím/Športovec",  
