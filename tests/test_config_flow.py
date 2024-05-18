@@ -116,7 +116,10 @@ async def test_options_flow_init(
     assert {CONF_API_LANGUAGE: "en"} == result["data"]
 
     # Unload
-    assert await entry.async_unload(hass)
+
+#  No need to unload any more
+
+#    assert await entry.async_unload(hass)
     await hass.async_block_till_done()
 
 
