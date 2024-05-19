@@ -32,7 +32,7 @@ The following leagues are supported natively:
 - Hockey - NHL
 - MMA - UFC
 - U.S. Soccer - MLS, NWSL
-- International Soccer - BUND (German Bundesliga), CL (Champions League), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup), WWC (Women's World Cup)
+- International Soccer - BUND (German Bundesliga), CL (Champions League), CLA (Conmebol Libertadores), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup), WWC (Women's World Cup)
 - Racing - F1, IRL
 - Tennis - ATP, WTA
 - Volleyball - NCAAVB, NCAAVBW
@@ -226,6 +226,7 @@ For the League, the following values are valid:
 - ATP (Assc. of Tennis Professionals)
 - BUND (German Bundesliga)
 - CL (Champions League)
+- CLA (Conmebol Libertadores)
 - EPL (English Premiere League)
 - F1 (Formula 1 Racing)
 - IRL (Indy Racing League)
