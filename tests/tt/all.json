@@ -16600,6 +16600,29 @@
             }
           },
           "startDate": "2022-10-01T23:00Z",
+          "series": {
+            "type": "playoff",
+            "title": "Playoff Series",
+            "summary": "CBJ leads series 3-2",
+            "completed": false,
+            "totalCompetitions": 7,
+            "competitors": [
+              {
+                "id": "9",
+                "uid": "s:70~l:90~t:9",
+                "wins": 2,
+                "ties": 0,
+                "href": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/seasons/2024/teams/9?lang=en&region=us"
+              },
+              {
+                "id": "6",
+                "uid": "s:70~l:90~t:6",
+                "wins": 3,
+                "ties": 0,
+                "href": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/seasons/2024/teams/6?lang=en&region=us"
+              }
+            ]
+          },
           "geoBroadcasts": []
         }
       ],
