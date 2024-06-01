@@ -7,6 +7,7 @@
     "event_name": "UFC Fight Night",
     "date": "2022-12-18T00:00Z",
     "kickoff_in": "{test} days",
+    "series_summary": null,
     "venue": "UFC APEX",
     "location": "Las Vegas, NV, USA",
     "tv_network": "ESPN+",

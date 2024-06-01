@@ -7,6 +7,7 @@
     "event_name": "Azerbaijan GP",
     "date": "2023-04-30T11:00Z",
     "kickoff_in": "{test} days",
+    "series_summary": null,
     "venue": "Baku City Circuit",
     "location": "Baku, Azerbaijan",
     "tv_network": "ESPN",
