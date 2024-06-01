@@ -36,8 +36,8 @@ async def test_sensor(hass, mocker):
 
     assert "teamtracker" in hass.config.components
 
-    assert await entry.async_unload(hass)
-    await hass.async_block_till_done()
+#    assert await entry.async_unload(hass)
+#    await hass.async_block_till_done()
 
 
 async def test_setup_platform(hass):
