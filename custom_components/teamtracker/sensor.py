@@ -208,6 +208,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._event_name = None
         self._date = None
         self._kickoff_in = None
+        self._series_summary = None
         self._venue = None
         self._location = None
         self._tv_network = None
@@ -309,6 +310,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["event_name"] = self.coordinator.data["event_name"]
         attrs["date"] = self.coordinator.data["date"]
         attrs["kickoff_in"] = self.coordinator.data["kickoff_in"]
+        attrs["series_summary"] = self.coordinator.data["series_summary"]
         attrs["venue"] = self.coordinator.data["venue"]
         attrs["location"] = self.coordinator.data["location"]
         attrs["tv_network"] = self.coordinator.data["tv_network"]

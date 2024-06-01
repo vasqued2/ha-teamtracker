@@ -224,6 +224,12 @@ async def async_set_universal_values(
         except:
             new_values["kickoff_in"] = arrow.get(new_values["date"]).humanize()
 
+    new_values["series_summary"] = await async_get_value(
+        competition,
+        "series",
+        "summary",
+    )
+
     new_values["venue"] = await async_get_value(
         competition,
         "venue",

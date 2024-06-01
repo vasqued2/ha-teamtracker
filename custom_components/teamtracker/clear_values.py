@@ -15,6 +15,7 @@ async def async_clear_values() -> dict:
         "event_name": None,
         "date": None,
         "kickoff_in": None,
+        "series_summary": None,
         "venue": None,
         "location": None,
         "tv_network": None,
