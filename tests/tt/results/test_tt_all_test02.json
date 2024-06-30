@@ -5,6 +5,7 @@
     "team_abbr": "MIL",
     "opponent_abbr": "SF",
     "event_name": "SF @ MIL",
+    "event_url": "http://www.espn.com/mlb/game?gameId=401423258",
     "date": "2022-09-08T20:10Z",
     "kickoff_in": "{test} days",
     "series_summary": null,
@@ -19,6 +20,7 @@
     "team_rank": null,
     "team_homeaway": "home",
     "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png",
+    "team_url": "https://www.espn.com/mlb/team/_/name/mil/milwaukee-brewers",
     "team_colors": [
         "#050C33",
         "#f1f2f3"
@@ -33,6 +35,7 @@
     "opponent_rank": null,
     "opponent_homeaway": "away",
     "opponent_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sf.png",
+    "opponent_url": "https://www.espn.com/mlb/team/_/name/sf/san-francisco-giants",
     "opponent_colors": [
         "#161415",
         "#000000"

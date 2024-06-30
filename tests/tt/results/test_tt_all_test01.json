@@ -5,6 +5,7 @@
     "team_abbr": "MIA",
     "opponent_abbr": "PHI",
     "event_name": "MIA @ PHI",
+    "event_url": "http://www.espn.com/mlb/game/_/gameId/401356264",
     "date": "2022-09-08T22:45Z",
     "kickoff_in": "{test} days",
     "series_summary": null,
@@ -19,6 +20,7 @@
     "team_rank": null,
     "team_homeaway": "away",
     "team_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mia.png",
+    "team_url": "https://www.espn.com/mlb/team/_/name/mia/miami-marlins",
     "team_colors": [
         "#0081c7",
         "#0077c8"
@@ -33,6 +35,7 @@
     "opponent_rank": null,
     "opponent_homeaway": "home",
     "opponent_logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png",
+    "opponent_url": "https://www.espn.com/mlb/team/_/name/phi/philadelphia-phillies",
     "opponent_colors": [
         "#be0011",
         "#284898"

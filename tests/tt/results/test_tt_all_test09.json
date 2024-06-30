@@ -5,6 +5,7 @@
     "team_abbr": "ARG",
     "opponent_abbr": "FRA",
     "event_name": "FRA @ ARG",
+    "event_url": "http://www.espn.com/soccer/match/_/gameId/633850",
     "date": "2022-12-18T15:00Z",
     "kickoff_in": "{test} days",
     "series_summary": null,
@@ -19,6 +20,7 @@
     "team_rank": null,
     "team_homeaway": "home",
     "team_logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+    "team_url": "http://www.espn.com/soccer/team/_/id/202/argentina",
     "team_colors": [
         "#43A1D5",
         "#43A1D5"
@@ -33,6 +35,7 @@
     "opponent_rank": null,
     "opponent_homeaway": "away",
     "opponent_logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+    "opponent_url": "http://www.espn.com/soccer/team/_/id/478/france",
     "opponent_colors": [
         "#112855",
         "#112855"
