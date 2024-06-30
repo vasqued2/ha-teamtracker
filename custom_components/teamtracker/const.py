@@ -188,11 +188,12 @@ DEFAULT_TIMEOUT = 120
 DEFAULT_LAST_UPDATE = "2022-02-02 02:02:02-05:00"
 DEFAULT_KICKOFF_IN = "{test} days"
 DEFAULT_REFRESH_RATE = timedelta(minutes=10)
+DEFAULT_URL = "https://www.espn.com"
 RAPID_REFRESH_RATE = timedelta(seconds=5)
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.13.0"
+VERSION = "v0.14.0"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"

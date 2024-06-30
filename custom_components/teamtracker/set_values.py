@@ -208,6 +208,7 @@ async def async_set_universal_values(
         )
     ).upper()
     new_values["event_name"] = await async_get_value(event, "shortName")
+    new_values["event_url"] = await async_get_value(event, "links", 0, "href")
     new_values["date"] = await async_get_value(
         competition, "date", default=(await async_get_value(event, "date"))
     )
@@ -303,6 +304,20 @@ async def async_set_universal_values(
             opponent, "athlete", "flag", "href", default=DEFAULT_LOGO
         ),
     )
+    new_values["team_url"] = await async_get_value(
+        competitor,
+        "team",
+        "links",
+        0,
+        "href",
+        )
+    new_values["opponent_url"] = await async_get_value(
+        opponent,
+        "team",
+        "links",
+        0,
+        "href",
+        )
     #    _LOGGER.debug("%s: async_set_universal_values() 4: %s", sensor_name, sensor_name)
 
     new_values["quarter"] = await async_get_value(

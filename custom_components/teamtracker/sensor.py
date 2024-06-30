@@ -206,6 +206,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._opponent_abbr = None
 
         self._event_name = None
+        self._event_url = None
         self._date = None
         self._kickoff_in = None
         self._series_summary = None
@@ -221,6 +222,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._team_rank = None
         self._team_homeaway = None
         self._team_logo = None
+        self._team_url = None
         self._team_colors = None
         self._team_score = None
         self._team_win_probability = None
@@ -233,6 +235,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._opponent_rank = None
         self._opponent_homeaway = None
         self._opponent_logo = None
+        self._opponent_url = None
         self._opponent_colors = None
         self._opponent_score = None
         self._opponent_win_probability = None
@@ -308,6 +311,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_abbr"] = self.coordinator.data["opponent_abbr"]
 
         attrs["event_name"] = self.coordinator.data["event_name"]
+        attrs["event_url"] = self.coordinator.data["event_url"]
         attrs["date"] = self.coordinator.data["date"]
         attrs["kickoff_in"] = self.coordinator.data["kickoff_in"]
         attrs["series_summary"] = self.coordinator.data["series_summary"]
@@ -323,6 +327,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_rank"] = self.coordinator.data["team_rank"]
         attrs["team_homeaway"] = self.coordinator.data["team_homeaway"]
         attrs["team_logo"] = self.coordinator.data["team_logo"]
+        attrs["team_url"] = self.coordinator.data["team_url"]
         attrs["team_colors"] = self.coordinator.data["team_colors"]
         #        attrs["team_colors_rbg"] = self.colors2rgb(self.coordinator.data["team_colors"])
         attrs["team_score"] = self.coordinator.data["team_score"]
@@ -336,6 +341,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_rank"] = self.coordinator.data["opponent_rank"]
         attrs["opponent_homeaway"] = self.coordinator.data["opponent_homeaway"]
         attrs["opponent_logo"] = self.coordinator.data["opponent_logo"]
+        attrs["opponent_url"] = self.coordinator.data["opponent_url"]
         attrs["opponent_colors"] = self.coordinator.data["opponent_colors"]
         #        attrs["opponent_colors_rgb"] = self.colors2rgb(self.coordinator.data["opponent_colors"])
         attrs["opponent_score"] = self.coordinator.data["opponent_score"]
