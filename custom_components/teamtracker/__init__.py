@@ -18,7 +18,9 @@ from homeassistant.helpers.entity_registry import (
     async_entries_for_config_entry,
     async_get,
 )
+from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers import config_validation as cv, entity_platform, service
 
 from .clear_values import async_clear_values
 from .const import (
@@ -55,12 +57,83 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
-    # Print startup message
+
+
+    async def async_call_api_service(call):
+        """Handle the service action call."""
+
+        _LOGGER.info(
+            "teamtracker.call_api() call: %s", call,
+        )
+
+        sport_path = call.data.get(CONF_SPORT_PATH, "football")
+        league_path = call.data.get(CONF_LEAGUE_PATH, "nfl")
+        team_id = call.data.get(CONF_TEAM_ID, "cle")
+        conference_id = call.data.get(CONF_CONFERENCE_ID, "")
+        entity_id = call.data.get("entity_id", "none")
+        
+        if entry is not None:  # GUI setup
+            _LOGGER.info(
+                "teamtracker.call_api() entity_id: %s", 
+                entity_id[0],
+            )
+
+            # Get the entity registry
+#            entity_registry = await async_get_entity_registry(hass)
+    
+            # Find the entry associated with the given entity_id
+#            entry_id = entity_registry.async_get(entity_id[0]).config_entry_id
+#            _LOGGER.info(
+#                "teamtracker.call_api() entry_id from registry: %s", 
+#                entry_id,
+#            )
+
+
+            entry_id = entry.entry_id
+            sensor_coordinator = hass.data[DOMAIN][entry_id][COORDINATOR]
+
+            _LOGGER.info(
+                "teamtracker.call_api() entity_id: %s", 
+                entity_id,
+            )
+            _LOGGER.info(
+                "teamtracker.call_api() entry: %s", 
+                entry,
+            )
+            _LOGGER.info(
+                "teamtracker.call_api() entry_id: %s", 
+                entry_id,
+            )
+#            _LOGGER.info(
+#                "teamtracker.call_api() hass.data= %s", 
+#                hass.data, 
+#            )
+            _LOGGER.info(
+                "teamtracker.call_api() [DOMAIN]= %s", 
+                hass.data[DOMAIN], 
+            )
+            _LOGGER.info(
+                "teamtracker.call_api() [entry_id]= %s", 
+                hass.data[DOMAIN][entry_id], 
+            )
+            _LOGGER.info(
+                "teamtracker.call_api() coordinator: %s", 
+                sensor_coordinator,
+            )
+
+            sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
+            await sensor_coordinator.async_refresh()
+
+        _LOGGER.info(
+            "teamtracker.call_api() 3 service call: %s, entry: %s", call, entry,
+        )
+
+
 
     sensor_name = entry.data[CONF_NAME]
 
     _LOGGER.info(
-        "%s: Setting up sensor from UI configuration using TeamTracker %s, if you have any issues please report them here: %s",
+        "%s: call_api - Setting up sensor from __init__.py UI configuration using TeamTracker %s, if you have any issues please report them here: %s",
         sensor_name, 
         VERSION,
         ISSUE_URL,
@@ -70,11 +143,30 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 
     if entry.unique_id is not None:
+        _LOGGER.info(
+            "%s: call_api - entry.unique_id is not None: %s",
+            sensor_name, 
+            entry.unique_id,
+        )
         hass.config_entries.async_update_entry(entry, unique_id=None)
 
         ent_reg = async_get(hass)
         for entity in async_entries_for_config_entry(ent_reg, entry.entry_id):
+            _LOGGER.info(
+                "%s: call_api - looping each entity: %s",
+                sensor_name, 
+                entity.entity_id,
+            )
             ent_reg.async_update_entity(entity.entity_id, new_unique_id=entry.entry_id)
+    else:
+        _LOGGER.info(
+            "%s: call_api - entry.unique_id is None: %s",
+            sensor_name, 
+            entry.unique_id,
+        )
+
+
+
 
     # Setup the data coordinator
     coordinator = TeamTrackerDataUpdateCoordinator(
@@ -89,6 +181,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     }
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
+#    platform = entity_platform.async_get_current_platform()
+## This will call Entity.set_sleep_timer(sleep_time=VALUE)
+#    platform.async_register_entity_service(
+#        SERVICE_SET_TIMER,
+#        {
+#            vol.Required('sleep_time'): cv.time_period,
+#        },
+#        "set_sleep_timer",
+#    )
+
+    hass.services.async_register(DOMAIN, "call_api", async_call_api_service,)
+
     return True
 
 
@@ -157,6 +262,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
         self.name = config[CONF_NAME]
+        self.league_id = config[CONF_LEAGUE_ID]
+        self.league_path = config[CONF_LEAGUE_PATH]
+        self.sport_path = config[CONF_SPORT_PATH]
+        self.team_id = config[CONF_TEAM_ID]
+        self.conference_id = ""
+        if CONF_CONFERENCE_ID in config.keys():
+            if len(config[CONF_CONFERENCE_ID]) > 0:
+                self.conference_id = config[CONF_CONFERENCE_ID]
+
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
@@ -166,6 +280,47 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             "%s: Using default refresh rate (%s)", self.name, self.update_interval
         )
 
+
+    #
+    #  Set team info from service call
+    #
+    def get_lang(self):
+
+        try:
+            lang = self.hass.config.language
+        except:
+            lang, _ = locale.getlocale()
+            lang = lang or "en_US"
+
+        # Override language if is set in the configuration or options
+
+        if CONF_API_LANGUAGE in self.config.keys():
+            lang = self.config[CONF_API_LANGUAGE].lower()
+        if self.entry and self.entry.options and CONF_API_LANGUAGE in self.entry.options and len(self.entry.options[CONF_API_LANGUAGE])>=2:
+                lang = self.entry.options[CONF_API_LANGUAGE].lower()
+
+        return lang
+
+
+    #
+    #  Set team info from service call
+    #
+    def update_team_info(self, sport_path, league_path, team_id, conference_id=""):
+
+        _LOGGER.debug(
+            "%s: update_team_info (%s to %s)", self.name, self.team_id, team_id,
+        )
+
+        self.sport_path = sport_path
+        self.league_path = league_path
+        self.team_id = team_id
+        self.conference_id = conference_id
+
+        lang = self.get_lang()
+        key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
+
+        if key in TeamTrackerDataUpdateCoordinator.data_cache:
+            del TeamTrackerDataUpdateCoordinator.data_cache[key]
 
 
     #
@@ -200,10 +355,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     async def async_update_game_data(self, config, hass) -> dict:
         """Update game data from data_cache or the API (if expired)"""
 
-        sensor_name = config[CONF_NAME]
-        sport_path = config[CONF_SPORT_PATH]
-        league_path = config[CONF_LEAGUE_PATH]
-        conference_id = config[CONF_CONFERENCE_ID]
+        sensor_name = self.name
+        sport_path = self.sport_path
+        league_path = self.league_path
+        conference_id = self.conference_id
 
         try:
             lang = hass.config.language
@@ -274,13 +429,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         """Query API for status."""
 
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
-        sensor_name = config[CONF_NAME]
+        sensor_name = self.name
 
         data = None
         file_override = False
 
-        sport_path = config[CONF_SPORT_PATH]
-        league_path = config[CONF_LEAGUE_PATH]
+        sport_path = self.sport_path
+        league_path = self.league_path
 
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
 
@@ -289,12 +444,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
             url_parms = url_parms + "&dates=" + d1 + "-" + d2
 
-        if CONF_CONFERENCE_ID in config.keys():
-            if len(config[CONF_CONFERENCE_ID]) > 0:
-                url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
-                if config[CONF_CONFERENCE_ID] == "9999":
-                    file_override = True
-        team_id = config[CONF_TEAM_ID].upper()
+        if self.conference_id:
+            url_parms = url_parms + "&groups=" + self.conference_id
+            if self.conference_id == "9999":
+                file_override = True
+        team_id = self.team_id.upper()
         url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
         if file_override:
@@ -341,11 +495,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             )
             if num_events == 0:
                 url_parms = "?lang=" + lang[:2]
-                if CONF_CONFERENCE_ID in config.keys():
-                    if len(config[CONF_CONFERENCE_ID]) > 0:
-                        url_parms = url_parms + "&groups=" + config[CONF_CONFERENCE_ID]
-                        if config[CONF_CONFERENCE_ID] == "9999":
-                            file_override = True
+                if self.conference_id:
+                    url_parms = url_parms + "&groups=" + self.conference_id
+                    if self.conference_id == "9999":
+                        file_override = True
 
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
@@ -386,11 +539,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
             if num_events == 0:
                 url_parms = ""
-                if CONF_CONFERENCE_ID in config.keys():
-                    if len(config[CONF_CONFERENCE_ID]) > 0:
-                        url_parms = url_parms + "?groups=" + config[CONF_CONFERENCE_ID]
-                        if config[CONF_CONFERENCE_ID] == "9999":
-                            file_override = True
+                if self.conference_id:
+                    url_parms = url_parms + "?groups=" + self.conference_id
+                    if self.conference_id == "9999":
+                        file_override = True
 
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
@@ -413,13 +565,16 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     async def async_update_values(self, config, hass, data, lang) -> dict:
         """Return values based on the data passed into method"""
 
+        _LOGGER.debug(
+            "%s: async_update_values 1 (%s)", self.name, self.update_interval
+        )
         values = {}
-        sensor_name = config[CONF_NAME]
+        sensor_name = self.name
 
-        league_id = config[CONF_LEAGUE_ID].upper()
-        sport_path = config[CONF_SPORT_PATH]
+        league_id = self.league_id.upper()
+        sport_path = self.sport_path
 
-        team_id = config[CONF_TEAM_ID].upper()
+        team_id = self.team_id.upper()
 
         values = await async_clear_values()
         values["sport"] = sport_path

@@ -1,0 +1,36 @@
+call_api:
+  name: Teamtracker Call API
+  description: Sets the teamtracker sensor based on the input parameters, calls the ESPN API, and populates the sensor attributes.
+  target:
+    entity:
+      domain: sensor
+      integration: teamtracker
+  fields:
+    sport_path:
+      name: Sport
+      description: Sport path
+      required: true
+      example: 'football'
+      selector:
+        text:
+    league_path:
+      name: League
+      description: League path
+      required: true
+      example: 'nfl'
+      selector:
+        text:
+    team_id:
+      name: Team
+      description: Team ID
+      required: true
+      example: 'CLE'
+      selector:
+        text:
+    conference_id:
+      name: Conference
+      description: Conference ID (only for NCAA)
+      required: false
+      example: '5'
+      selector:
+        text:
