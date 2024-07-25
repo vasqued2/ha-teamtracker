@@ -192,7 +192,7 @@ RAPID_REFRESH_RATE = timedelta(seconds=5)
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.14.0"
+VERSION = "v0.14.1"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"
