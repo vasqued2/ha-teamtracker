@@ -14,9 +14,9 @@ from async_timeout import timeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_registry import (
+from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
-    async_get, # pylint: disable=reimported
+    async_get,
     async_get as async_get_entity_registry,
 )
 
