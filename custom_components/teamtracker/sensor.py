@@ -14,6 +14,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.util import slugify
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import TeamTrackerDataUpdateCoordinator
 from .const import (
@@ -265,6 +266,56 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         self._last_update = None
         self._api_message = None
+
+
+#    async def async_added_to_hass(self):
+#        """Register the service when the entity is added to hass."""
+#
+#        _LOGGER.debug(
+#                "%s:  call_api async_added_to_hass",
+#                self._name,
+#        )
+#
+#        platform = self.hass.helpers.entity_platform.async_get_current_platform()
+#
+#        # Wrapping the schema in vol.Schema() breaks entity_id passing
+#        platform.async_register_entity_service(
+#            "call_api",
+#            {
+#                vol.Required(CONF_SPORT_PATH): cv.string,
+#                vol.Required(CONF_LEAGUE_PATH): cv.string,
+#                vol.Required(CONF_TEAM_ID): cv.string,
+#                vol.Optional(CONF_CONFERENCE_ID, default=""): cv.string,
+#            },
+#            "async_call_api_service"
+#        )
+#
+#    async def async_call_api_service(self, **kwargs):
+#        """Handle the service action call."""
+#        sport_path = kwargs[CONF_SPORT_PATH]
+#        league_path = kwargs[CONF_LEAGUE_PATH]
+#        team_id = kwargs[CONF_TEAM_ID]
+#        conference_id = kwargs.get(CONF_CONFERENCE_ID, "")
+#
+#        _LOGGER.info(
+#            "teamtracker.call_api() entity_id: %s, sport_path: %s, league_path: %s, team_id: %s, conference_id: %s",
+#            self.entity_id, sport_path, league_path, team_id, conference_id,
+#        )
+#
+#        t = self.coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
+#
+#        _LOGGER.info(
+#            "teamtracker.call_api() after update_team_info t: %s",
+#            t,
+#        )
+#
+#        await self.coordinator.async_refresh()
+#
+#        _LOGGER.info(
+#            "teamtracker.call_api() after async_refresh t: %s",
+#            t,
+#        )
+
 
     @property
     def unique_id(self) -> str:

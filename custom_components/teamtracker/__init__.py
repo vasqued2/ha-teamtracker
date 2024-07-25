@@ -18,9 +18,16 @@ from homeassistant.helpers.entity_registry import (
     async_entries_for_config_entry,
     async_get,
 )
+
 from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.helpers import config_validation as cv, entity_platform, service
+from homeassistant.helpers.entity_platform import async_get_current_platform
+
+import voluptuous as vol
+from homeassistant.helpers import config_validation as cv
+
+
 
 from .clear_values import async_clear_values
 from .const import (
@@ -54,80 +61,81 @@ _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
 # oppo_prob = {}
 
+SERVICE_CALL_API_SCHEMA = vol.Schema({
+    vol.Required(CONF_SPORT_PATH): cv.string,
+    vol.Required(CONF_LEAGUE_PATH): cv.string,
+    vol.Required(CONF_TEAM_ID): cv.string,
+    vol.Optional(CONF_CONFERENCE_ID, default=""): cv.string,
+})
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
 
 
-    async def async_call_api_service(call):
-        """Handle the service action call."""
+    async def get_entry_id_from_entity_id(hass: HomeAssistant, entity_id: str):
+        """Retrieve entry_id from entity_id."""
+        # Get the entity registry
+        entity_registry = async_get_entity_registry(hass)
+
+        # Find the entry associated with the given entity_id
+        entry = entity_registry.async_get(entity_id)
+
+        if entry:
+            return entry.config_entry_id
+        else:
+            return None
+
+    async def get_entity_id_from_entry_id(hass: HomeAssistant, entry_id: str):
+        """Retrieve entity_id from entry_id."""
+        # Get the entity registry
+        entity_registry = async_get(hass)
+
+        # Get the entities associated with the config entry
+        entities = async_entries_for_config_entry(entity_registry, entry_id)
+
+        # Extract the entity_id(s)
+        entity_ids = [entity.entity_id for entity in entities]
+
+        return entity_ids
+
+
+
+    def create_async_call_api_service(entry: ConfigEntry):
+        """Create the service action call with the captured entry."""
+
+        async def async_call_api_service(call):
+            """Handle the service action call."""
+
+            _LOGGER.info(
+                "teamtracker.call_api() call: %s", call,
+            )
+
+            sport_path = call.data.get(CONF_SPORT_PATH, "football")
+            league_path = call.data.get(CONF_LEAGUE_PATH, "nfl")
+            team_id = call.data.get(CONF_TEAM_ID, "cle")
+            conference_id = call.data.get(CONF_CONFERENCE_ID, "")
+            entity_id = call.data.get("entity_id", "none")
+
+            if entry is not None:  # GUI setup
+                _LOGGER.info(
+                    "teamtracker.call_api() service entity_id: %s", 
+                    entity_id[0],
+                )
+
+            reverse_entry_id = await get_entry_id_from_entity_id(hass, entity_id[0])
+            if reverse_entry_id:
+                sensor_coordinator = hass.data[DOMAIN][reverse_entry_id][COORDINATOR]
+                sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
+                await sensor_coordinator.async_refresh()
+            else:
+                _LOGGER.info(f"teamtracker.call_api() service call_api No reverse_entry_id found for entity_id: {entity_id}")
+
 
         _LOGGER.info(
-            "teamtracker.call_api() call: %s", call,
+            "teamtracker.return call_api() entry: %s", 
+            entry,
         )
-
-        sport_path = call.data.get(CONF_SPORT_PATH, "football")
-        league_path = call.data.get(CONF_LEAGUE_PATH, "nfl")
-        team_id = call.data.get(CONF_TEAM_ID, "cle")
-        conference_id = call.data.get(CONF_CONFERENCE_ID, "")
-        entity_id = call.data.get("entity_id", "none")
-        
-        if entry is not None:  # GUI setup
-            _LOGGER.info(
-                "teamtracker.call_api() entity_id: %s", 
-                entity_id[0],
-            )
-
-            # Get the entity registry
-#            entity_registry = await async_get_entity_registry(hass)
-    
-            # Find the entry associated with the given entity_id
-#            entry_id = entity_registry.async_get(entity_id[0]).config_entry_id
-#            _LOGGER.info(
-#                "teamtracker.call_api() entry_id from registry: %s", 
-#                entry_id,
-#            )
-
-
-            entry_id = entry.entry_id
-            sensor_coordinator = hass.data[DOMAIN][entry_id][COORDINATOR]
-
-            _LOGGER.info(
-                "teamtracker.call_api() entity_id: %s", 
-                entity_id,
-            )
-            _LOGGER.info(
-                "teamtracker.call_api() entry: %s", 
-                entry,
-            )
-            _LOGGER.info(
-                "teamtracker.call_api() entry_id: %s", 
-                entry_id,
-            )
-#            _LOGGER.info(
-#                "teamtracker.call_api() hass.data= %s", 
-#                hass.data, 
-#            )
-            _LOGGER.info(
-                "teamtracker.call_api() [DOMAIN]= %s", 
-                hass.data[DOMAIN], 
-            )
-            _LOGGER.info(
-                "teamtracker.call_api() [entry_id]= %s", 
-                hass.data[DOMAIN][entry_id], 
-            )
-            _LOGGER.info(
-                "teamtracker.call_api() coordinator: %s", 
-                sensor_coordinator,
-            )
-
-            sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
-            await sensor_coordinator.async_refresh()
-
-        _LOGGER.info(
-            "teamtracker.call_api() 3 service call: %s, entry: %s", call, entry,
-        )
-
+        return async_call_api_service  # Return the service handler function
 
 
     sensor_name = entry.data[CONF_NAME]
@@ -152,21 +160,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         ent_reg = async_get(hass)
         for entity in async_entries_for_config_entry(ent_reg, entry.entry_id):
-            _LOGGER.info(
-                "%s: call_api - looping each entity: %s",
-                sensor_name, 
-                entity.entity_id,
-            )
             ent_reg.async_update_entity(entity.entity_id, new_unique_id=entry.entry_id)
-    else:
-        _LOGGER.info(
-            "%s: call_api - entry.unique_id is None: %s",
-            sensor_name, 
-            entry.unique_id,
-        )
-
-
-
 
     # Setup the data coordinator
     coordinator = TeamTrackerDataUpdateCoordinator(
@@ -176,23 +170,41 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Fetch initial data so we have data when entities subscribe
     await coordinator.async_refresh()
 
+    _LOGGER.info(f"call_api: before coordinator assignment {entry.entry_id} with type: {type(entry.entry_id)}")
+
     hass.data[DOMAIN][entry.entry_id] = {
         COORDINATOR: coordinator,
     }
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
-#    platform = entity_platform.async_get_current_platform()
-## This will call Entity.set_sleep_timer(sleep_time=VALUE)
-#    platform.async_register_entity_service(
-#        SERVICE_SET_TIMER,
-#        {
-#            vol.Required('sleep_time'): cv.time_period,
-#        },
-#        "set_sleep_timer",
-#    )
+    entity_ids = await get_entity_id_from_entry_id(hass, entry.entry_id)
+    for entity_id in entity_ids:
+        _LOGGER.info(f"call_api Found entity_id: {entity_id} for entry_id: {entry.entry_id}")
+        reverse_entry_id = await get_entry_id_from_entity_id(hass, entity_id)
+        if reverse_entry_id:
+            _LOGGER.info(f"call_api Found reverse_entry_id: {reverse_entry_id} for entity_id: {entity_id}")
+        else:
+            _LOGGER.info(f"call_api No reverse_entry_id found for entity_id: {entity_id}")
 
-    hass.services.async_register(DOMAIN, "call_api", async_call_api_service,)
+
+    hass.services.async_register(DOMAIN, "call_api", create_async_call_api_service(entry),)
+#
+# OR
+#
+#    platform = self.hass.helpers.entity_platform.async_get_current_platform()
+#
+    # Wrapping the schema in vol.Schema() breaks entity_id passing
+#    platform.async_register_entity_service(
+#        "call_api",
+#        {
+#            vol.Required(CONF_SPORT_PATH): cv.string,
+#            vol.Required(CONF_LEAGUE_PATH): cv.string,
+#            vol.Required(CONF_TEAM_ID): cv.string,
+#            vol.Optional(CONF_CONFERENCE_ID, default=""): cv.string,
+#        },
+#        "async_call_api_service"
+#    )
 
     return True
 
@@ -308,7 +320,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     def update_team_info(self, sport_path, league_path, team_id, conference_id=""):
 
         _LOGGER.debug(
-            "%s: update_team_info (%s to %s)", self.name, self.team_id, team_id,
+            "%s: call_api - update_team_info (%s to %s)", self.name, self.team_id, team_id,
         )
 
         self.sport_path = sport_path
@@ -321,6 +333,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if key in TeamTrackerDataUpdateCoordinator.data_cache:
             del TeamTrackerDataUpdateCoordinator.data_cache[key]
+
+        _LOGGER.info(
+            "update_team_info teamtracker.call_api() name: %s, sport_path: %s, league_path: %s, team_id: %s, conference_id: %s",
+            self.name, self.sport_path, self.league_path, self.team_id, self.conference_id,
+        )
+
+        return team_id
 
 
     #
