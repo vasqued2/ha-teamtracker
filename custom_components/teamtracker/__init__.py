@@ -16,18 +16,15 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_registry import (
     async_entries_for_config_entry,
+    async_get as async_get_entity_registry,
     async_get,
 )
 
-from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.helpers import config_validation as cv, entity_platform, service
 from homeassistant.helpers.entity_platform import async_get_current_platform
 
 import voluptuous as vol
-from homeassistant.helpers import config_validation as cv
-
-
 
 from .clear_values import async_clear_values
 from .const import (
@@ -82,24 +79,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         if entry:
             return entry.config_entry_id
-        else:
-            return None
 
-    async def get_entity_id_from_entry_id(hass: HomeAssistant, entry_id: str):
-        """Retrieve entity_id from entry_id."""
-        # Get the entity registry
-        entity_registry = async_get(hass)
-
-        # Get the entities associated with the config entry
-        entities = async_entries_for_config_entry(entity_registry, entry_id)
-
-        # Extract the entity_id(s)
-        entity_ids = [entity.entity_id for entity in entities]
-
-        return entity_ids
-
-
-
+        return None
 
 
     async def async_call_api_service(call):

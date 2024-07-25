@@ -14,7 +14,6 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.util import slugify
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import TeamTrackerDataUpdateCoordinator
 from .const import (
