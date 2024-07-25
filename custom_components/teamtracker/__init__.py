@@ -118,7 +118,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
                 await sensor_coordinator.async_refresh()
             else:
-                _LOGGER.info(f"{entity_id}: Service call_api No entry_id found for entity_id: {entity_id}")
+                _LOGGER.info(f"{entity_id}: [service=call_api] No entry_id found for entity_id: {entity_id}")
 
 
 
