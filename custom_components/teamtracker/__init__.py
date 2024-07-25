@@ -16,8 +16,8 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_registry import (
     async_entries_for_config_entry,
+    async_get, # pylint: disable=reimported
     async_get as async_get_entity_registry,
-    async_get,
 )
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -99,8 +99,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
                 await sensor_coordinator.async_refresh()
             else:
-                _LOGGER.info(f"{entity_id}: [service=call_api] No entry_id found for entity_id: {entity_id}")
-
+                _LOGGER.info(
+                    "%s: [service=call_api] No entry_id found for entity_id: %s",
+                    entity_id, 
+                    entity_id,
+                )
 
 
 
@@ -232,9 +235,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
 
     #
-    #  Set team info from service call
+    #  Return the language to use for the API
     #
     def get_lang(self):
+        """Return language to use for API."""
 
         try:
             lang = self.hass.config.language
@@ -256,6 +260,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #  Set team info from service call
     #
     def update_team_info(self, sport_path, league_path, team_id, conference_id=""):
+        """update team information when call_api service is called."""
 
         self.sport_path = sport_path
         self.league_path = league_path
@@ -306,18 +311,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         league_path = self.league_path
         conference_id = self.conference_id
 
-        try:
-            lang = hass.config.language
-        except:
-            lang, _ = locale.getlocale()
-            lang = lang or "en_US"
-
-        # Override language if is set in the configuration or options
-
-        if CONF_API_LANGUAGE in config.keys():
-            lang = config[CONF_API_LANGUAGE].lower()
-        if self.entry and self.entry.options and CONF_API_LANGUAGE in self.entry.options and len(self.entry.options[CONF_API_LANGUAGE])>=2:
-                lang = self.entry.options[CONF_API_LANGUAGE].lower()
+        lang = self.get_lang()
 
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
 
