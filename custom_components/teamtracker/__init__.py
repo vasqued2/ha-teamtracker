@@ -94,17 +94,23 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         for entity_id in entity_ids:
             entry_id = await get_entry_id_from_entity_id(hass, entity_id)
-            if entry_id:
+
+            if entry_id: # Set up from UI
                 sensor_coordinator = hass.data[DOMAIN][entry_id][COORDINATOR]
                 sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
                 await sensor_coordinator.async_refresh()
-            else:
-                _LOGGER.info(
-                    "%s: [service=call_api] No entry_id found for entity_id: %s",
-                    entity_id, 
-                    entity_id,
-                )
-
+            else: # Set up from YAML
+                entry_id = entity_id.split('.')[-1]
+                if entry_id in hass.data[DOMAIN] and COORDINATOR in hass.data[DOMAIN][entry_id]:
+                    sensor_coordinator = hass.data[DOMAIN][entry_id][COORDINATOR]
+                    sensor_coordinator.update_team_info(sport_path, league_path, team_id, conference_id)
+                    await sensor_coordinator.async_refresh()
+                else: # YAML had duplicate names so it doesn't match the name
+                    _LOGGER.info(
+                        "%s: [service=call_api] No entry_id found (likely because of non-unique names) for entry_id: %s",
+                        entity_id, 
+                        entry_id,
+                    )
 
 
     sensor_name = entry.data[CONF_NAME]

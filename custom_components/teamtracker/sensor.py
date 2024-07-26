@@ -128,7 +128,7 @@ async def async_setup_platform(
     # Fetch initial data so we have data when entities subscribe
     await coordinator.async_refresh()
 
-    hass.data[DOMAIN][entry_id] = {
+    hass.data[DOMAIN][sensor_name] = {
         COORDINATOR: coordinator,
     }
     async_add_entities([TeamTrackerScoresSensor(hass, None, config)], True)
@@ -170,14 +170,14 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             sensor_name = entry.data[CONF_NAME]
             
         else:  # YAML setup
+            sensor_name = config[CONF_NAME]
             entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
-            sensor_coordinator = hass.data[DOMAIN][entry_id][COORDINATOR]
+            sensor_coordinator = hass.data[DOMAIN][sensor_name][COORDINATOR]
             super().__init__(sensor_coordinator)
             try:
                 sport_path = config[CONF_SPORT_PATH]
             except:
                 sport_path = DEFAULT_SPORT_PATH
-            sensor_name = config[CONF_NAME]
 
         if sport_path == DEFAULT_SPORT_PATH:
             _LOGGER.debug(
