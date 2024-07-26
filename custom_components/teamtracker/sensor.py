@@ -136,7 +136,7 @@ async def async_setup_entry(
     sensor_name = entry.data[CONF_NAME]
 
     _LOGGER.info(
-        "%s: Updating sensor from sensor.py UI using TeamTracker %s, if you have any issues please report them here: %s",
+        "%s: Updating sensor from UI using TeamTracker %s, if you have any issues please report them here: %s",
         sensor_name, 
         VERSION,
         ISSUE_URL,
@@ -259,8 +259,6 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         self._last_update = None
         self._api_message = None
-
-
 
     @property
     def unique_id(self) -> str:
