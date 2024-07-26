@@ -16,12 +16,10 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
+    async_get,
     async_get as async_get_entity_registry,
-    async_get
 )
-
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-
 
 from .clear_values import async_clear_values
 from .const import (
@@ -44,6 +42,7 @@ from .const import (
     PLATFORMS,
     DEFAULT_REFRESH_RATE,
     RAPID_REFRESH_RATE,
+    SERVICE_NAME_CALL_API,
     URL_HEAD,
     URL_TAIL,
     USER_AGENT,
@@ -119,7 +118,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     if entry.unique_id is not None:
         _LOGGER.info(
-            "%s: call_api - entry.unique_id is not None: %s",
+            "%s: async_setup_entry() - entry.unique_id is not None: %s",
             sensor_name, 
             entry.unique_id,
         )
@@ -137,13 +136,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Fetch initial data so we have data when entities subscribe
     await coordinator.async_refresh()
 
+    # For UI, use entry_id as index
     hass.data[DOMAIN][entry.entry_id] = {
         COORDINATOR: coordinator,
     }
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-
-    hass.services.async_register(DOMAIN, "call_api", async_call_api_service,)
+#
+#  Register services for sensor
+#
+    hass.services.async_register(DOMAIN, SERVICE_NAME_CALL_API, async_call_api_service,)
 
     return True
 

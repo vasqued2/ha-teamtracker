@@ -122,6 +122,7 @@ async def async_setup_platform(
     # Fetch initial data so we have data when entities subscribe
     await coordinator.async_refresh()
 
+    # For YAML, use sensor name for index.  Assumes sensor_name = entity_name
     hass.data[DOMAIN][sensor_name] = {
         COORDINATOR: coordinator,
     }
@@ -156,14 +157,14 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry, config: ConfigType) -> None:
         """Initialize the sensor."""
 
-        if entry is not None:  # GUI setup
+        if entry is not None:  # GUI setup, use entry_id as index
             entry_id = entry.entry_id
             sensor_coordinator = hass.data[DOMAIN][entry_id][COORDINATOR]
             super().__init__(sensor_coordinator)
             sport_path = entry.data.get(CONF_SPORT_PATH, DEFAULT_SPORT_PATH)
             sensor_name = entry.data[CONF_NAME]
             
-        else:  # YAML setup
+        else:  # YAML setup, use sensor_name as index (assumes sensor_name = entity_id)
             sensor_name = config[CONF_NAME]
             entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
             sensor_coordinator = hass.data[DOMAIN][sensor_name][COORDINATOR]
