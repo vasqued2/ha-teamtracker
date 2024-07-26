@@ -16,7 +16,8 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
-    async_get as async_get, async_get_entity_registry,
+    async_get as async_get_entity_registry,
+    async_get
 )
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
