@@ -112,12 +112,6 @@ async def async_setup_platform(
 
     if DOMAIN not in hass.data.keys():
         hass.data.setdefault(DOMAIN, {})
-#        config.entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
-#        config.data = config
-#    else:
-#        config.entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
-#        config.data = config
-    entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
 
     # Setup the data coordinator
     coordinator = TeamTrackerDataUpdateCoordinator(
