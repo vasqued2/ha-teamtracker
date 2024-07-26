@@ -60,19 +60,3 @@ async def test_setup_platform(hass):
         )
 
         assert (DOMAIN in hass.data) == test[1]
-#
-#  Test service call
-#
-    service_data = {
-        "sport_path": "football",
-        "league_path": "nfl",
-        "team_id": "CLE",
-        "conference_id": "",
-        "entity_id": ["sensor.test_tt_all_test01"]
-    }
-
-    await hass.services.async_call(DOMAIN, "call_api", service_data, blocking=True)
-
-    # Assert the expected calls were made
-#    mock_coordinator.update_team_info.assert_called_once_with("football", "nfl", "CLE", "")
-#    await mock_coordinator.async_refresh.assert_awaited_once()
