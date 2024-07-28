@@ -167,6 +167,8 @@ Alternate Method:  ESPN assigns a unique number to identify a team.  This unique
 
 For sports involving individual athletes, you should use the athlete's name as the search string.  You should use as much as is needed to uniquely identify the desired athlete.
 
+For doubles in tennis, rosters are used instead of team names and are in the format of `{Player 1} / {Player 2}`.  You can use a regular expression to match the roster.  As an example, the regular expression `.*(?:NADAL|ALCARAZ).*/.*(?:NADAL|ALCARAZ).*` will match a doubles match with Nadal and Alcaraz as doubles partners.  The names are not case sensitive.
+
 #### Use of a Wild Card In Place of Athlete's Name
 
 You can use the single `*` character as a Wild Card in place of the team or athlete's name.  This will cause the sensor to match a team or athlete using sport-specific logic.
