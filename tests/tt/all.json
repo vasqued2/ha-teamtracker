@@ -65760,9 +65760,9 @@
                   ],
                   "athlete": {
                     "guid": "d977d8a8-0fe9-3057-9ad6-efc456b0e397",
-                    "displayName": "Linda Noskova",
+                    "displayName": "Lxnda Noskova",
                     "shortName": "L. Noskova",
-                    "fullName": "Linda Noskova",
+                    "fullName": "Lxnda Noskova",
                     "flag": {
                       "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
                       "alt": "Czechia",
@@ -89735,7 +89735,7 @@
                   "order": 2,
                   "homeAway": "away",
                   "roster": {
-                    "displayName": "Karolina Muchova / Linda Noskova",
+                    "displayName": "Karolina Muchova / Lxnda Noskova",
                     "shortDisplayName": "K. Muchova / L. Noskova",
                     "athletes": [
                       {
@@ -89769,9 +89769,9 @@
                       },
                       {
                         "guid": "d977d8a8-0fe9-3057-9ad6-efc456b0e397",
-                        "displayName": "Linda Noskova",
+                        "displayName": "Lxnda Noskova",
                         "shortName": "L. Noskova",
-                        "fullName": "Linda Noskova",
+                        "fullName": "Lxnda Noskova",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
                           "alt": "Czechia",
@@ -97384,7 +97384,7 @@
           ]
         },
         {
-          "displayName": "Belinda Bencic",
+          "displayName": "Belxnda Bencic",
           "shortDisplayName": "B. Bencic",
           "type": {
             "id": "2",
