@@ -308,9 +308,10 @@ async def async_find_search_key(
                 return team_index
         except re.error as e:
             _LOGGER.warning(
-                "%s: Invalid regular expression '%s' in search key",
+                "%s: Invalid regular expression '%s' in search key (exception %s)",
                 sensor_name,
                 search_key,
+                e,
             )
             return None
 
@@ -328,9 +329,10 @@ async def async_find_search_key(
                 return team_index
         except re.error as e:
             _LOGGER.warning(
-                "%s: Invalid regular expression '%s' in search key",
+                "%s: Invalid regular expression '%s' in search key (exception %s)",
                 sensor_name,
                 search_key,
+                e,
             )
             return None
 
@@ -372,9 +374,10 @@ async def async_find_search_key(
                 return team_index
         except re.error as e:
             _LOGGER.warning(
-                "%s: Invalid regular expression '%s' in search key",
+                "%s: Invalid regular expression '%s' in search key (exception %s)",
                 sensor_name,
                 search_key,
+                e,
             )
         return None
 
