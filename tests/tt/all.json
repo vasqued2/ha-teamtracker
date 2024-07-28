@@ -78396,9 +78396,9 @@
                   ],
                   "athlete": {
                     "guid": "58f555e2-4484-a162-83a7-ac86793d4ea7",
-                    "displayName": "Tomas Machac",
-                    "shortName": "T. Machac",
-                    "fullName": "Tomas Machac",
+                    "displayName": "Tomas Machc",
+                    "shortName": "T. Machc",
+                    "fullName": "Tomas Machc",
                     "flag": {
                       "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
                       "alt": "Czechia",
@@ -81284,9 +81284,9 @@
                   "homeAway": "away",
                   "athlete": {
                     "guid": "58f555e2-4484-a162-83a7-ac86793d4ea7",
-                    "displayName": "Tomas Machac",
-                    "shortName": "T. Machac",
-                    "fullName": "Tomas Machac",
+                    "displayName": "Tomas Machc",
+                    "shortName": "T. Machc",
+                    "fullName": "Tomas Machc",
                     "flag": {
                       "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
                       "alt": "Czechia",
@@ -85690,14 +85690,14 @@
                   "order": 2,
                   "homeAway": "away",
                   "roster": {
-                    "displayName": "Tomas Machac / Adam Pavlasek",
-                    "shortDisplayName": "T. Machac / A. Pavlasek",
+                    "displayName": "Tomas Machc / Adam Pavlasek",
+                    "shortDisplayName": "T. Machc / A. Pavlasek",
                     "athletes": [
                       {
                         "guid": "58f555e2-4484-a162-83a7-ac86793d4ea7",
-                        "displayName": "Tomas Machac",
-                        "shortName": "T. Machac",
-                        "fullName": "Tomas Machac",
+                        "displayName": "Tomas Machc",
+                        "shortName": "T. Machc",
+                        "fullName": "Tomas Machc",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
                           "alt": "Czechia",
@@ -91945,14 +91945,14 @@
                   "order": 1,
                   "homeAway": "home",
                   "roster": {
-                    "displayName": "Hao-Ching Chan / Latisha Chan",
-                    "shortDisplayName": "H. Chan / L. Chan",
+                    "displayName": "Hao-Ching Chxn / Latisha Chxn",
+                    "shortDisplayName": "H. Chxn / L. Chxn",
                     "athletes": [
                       {
                         "guid": "dbd23f94-fbdd-bd07-5361-ecd2b8ffe41f",
-                        "displayName": "Hao-Ching Chan",
-                        "shortName": "H. Chan",
-                        "fullName": "Hao-Ching Chan",
+                        "displayName": "Hao-Ching Chxn",
+                        "shortName": "H. Chxn",
+                        "fullName": "Hao-Ching Chxn",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/tpo.png",
                           "alt": "Taipei",
@@ -91979,9 +91979,9 @@
                       },
                       {
                         "guid": "f175f7c6-1759-99f0-6767-0de5f58e9625",
-                        "displayName": "Latisha Chan",
-                        "shortName": "L. Chan",
-                        "fullName": "Latisha Chan",
+                        "displayName": "Latisha Chxn",
+                        "shortName": "L. Chxn",
+                        "fullName": "Latisha Chxn",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/tpo.png",
                           "alt": "Taipei",
@@ -92160,14 +92160,14 @@
                   "order": 1,
                   "homeAway": "home",
                   "roster": {
-                    "displayName": "Despina Papamichail / Maria Sakkari",
-                    "shortDisplayName": "D. Papamichail / M. Sakkari",
+                    "displayName": "Despina Papamichl / Maria Sakkari",
+                    "shortDisplayName": "D. Papamichl / M. Sakkari",
                     "athletes": [
                       {
                         "guid": "1f1b9b85-9aef-39c4-8a06-b3b234a67cbe",
-                        "displayName": "Despina Papamichail",
-                        "shortName": "D. Papamichail",
-                        "fullName": "Despina Papamichail",
+                        "displayName": "Despina Papamichl",
+                        "shortName": "D. Papamichl",
+                        "fullName": "Despina Papamichl",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/gre.png",
                           "alt": "Greece",
@@ -94914,8 +94914,8 @@
                   "order": 2,
                   "homeAway": "away",
                   "roster": {
-                    "displayName": "Katerina Siniakova / Tomas Machac",
-                    "shortDisplayName": "K. Siniakova / T. Machac",
+                    "displayName": "Katerina Siniakova / Tomas Machc",
+                    "shortDisplayName": "K. Siniakova / T. Machc",
                     "athletes": [
                       {
                         "guid": "fe013c03-6a8a-a745-4e09-e2bc7adc74bc",
@@ -94948,9 +94948,9 @@
                       },
                       {
                         "guid": "58f555e2-4484-a162-83a7-ac86793d4ea7",
-                        "displayName": "Tomas Machac",
-                        "shortName": "T. Machac",
-                        "fullName": "Tomas Machac",
+                        "displayName": "Tomas Machc",
+                        "shortName": "T. Machc",
+                        "fullName": "Tomas Machc",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
                           "alt": "Czechia",
