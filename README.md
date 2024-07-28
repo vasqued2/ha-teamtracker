@@ -88,7 +88,7 @@ The following configuration keys are available when setting up a Team Tracker se
 | league_path | League Path | No | If `league_id` is XXX | See below |
 
 
-#### Specify the League (leauge_id)
+#### Specify the League (league_id)
 
 The `league_id` configuration key is used the specify the league for the sensor.  The following values are valid:
 - ATP (Assc. of Tennis Professionals)
