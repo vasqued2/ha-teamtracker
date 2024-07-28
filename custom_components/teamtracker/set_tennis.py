@@ -118,8 +118,9 @@ async def async_set_tennis_values(
         new_values["last_play"] = (
             new_values["last_play"]
             + str(
-                await async_get_value(
-                    competitor, "athlete", "shortName", default="{shortName}"
+                await async_get_value(competitor, "athlete", "shortName", 
+                        default=await async_get_value(competitor, "roster", "shortDisplayName", 
+                            default="{shortName}")
                 )
             )
             + " "
@@ -138,8 +139,9 @@ async def async_set_tennis_values(
         new_values["last_play"] = (
             new_values["last_play"]
             + str(
-                await async_get_value(
-                    opponent, "athlete", "shortName", default="{shortName}"
+                await async_get_value(opponent, "athlete", "shortName",
+                        default=await async_get_value(opponent, "roster", "shortDisplayName", 
+                            default="{shortName}")
                 )
             )
             + " "

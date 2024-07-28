@@ -68,7 +68,7 @@ async def async_set_values(
     #
     if await async_get_value(competitor, "type") == "team":
         rc = await async_set_team_values(
-            new_values, event, competition_index, team_index, lang, sensor_name
+            new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
         )
         if not rc:
             _LOGGER.debug(
@@ -273,13 +273,17 @@ async def async_set_universal_values(
         competitor,
         "team",
         "shortDisplayName",
-        default=await async_get_value(competitor, "athlete", "displayName"),
+        default=await async_get_value(competitor, "athlete", "displayName",
+            default=await async_get_value(competitor, "roster", "shortDisplayName")
+        ),
     )
     new_values["opponent_name"] = await async_get_value(
         opponent,
         "team",
         "shortDisplayName",
-        default=await async_get_value(opponent, "athlete", "displayName"),
+        default=await async_get_value(opponent, "athlete", "displayName",
+            default=await async_get_value(opponent, "roster", "shortDisplayName"),
+        ),
     )
 
     new_values["team_record"] = await async_get_value(
@@ -387,7 +391,7 @@ async def async_set_universal_values(
 #  Set Team Values
 #
 async def async_set_team_values(
-    new_values, event, competition_index, team_index, lang, sensor_name
+    new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
 ) -> bool:
     """Function to set new_values for team sports"""
 
@@ -397,7 +401,12 @@ async def async_set_team_values(
         oppo_index = 1
     else:
         oppo_index = 0
-    competition = await async_get_value(event, "competitions", competition_index)
+    grouping = await async_get_value(event, "groupings", grouping_index)
+    if grouping is None:
+        competition = await async_get_value(event, "competitions", competition_index)
+    else:
+        competition = await async_get_value(grouping, "competitions", competition_index)
+
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)
 

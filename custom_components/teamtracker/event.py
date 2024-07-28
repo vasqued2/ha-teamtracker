@@ -4,6 +4,7 @@ from datetime import datetime
 import logging
 
 import arrow
+import re
 
 from .const import API_LIMIT, DEFAULT_LOGO
 from .set_values import async_set_values
@@ -261,9 +262,7 @@ async def async_find_search_key(
 ):
     """Check if there is a match on wildcard, team_abbreviation, event_name, or athlete_name"""
 
-    if search_key == "*" and (
-        competitor["type"] == "athlete" or sport_path not in ["tennis", "golf"]
-    ):
+    if search_key == "*":
         _LOGGER.debug(
             "%s: Found competitor using wildcard '%s'; parsing data.",
             sensor_name,
@@ -295,6 +294,46 @@ async def async_find_search_key(
             )
             return team_index
             
+        team_name = str(await async_get_value(
+            competitor, "team", "displayName", default=""
+        )).upper()
+
+        try:
+            if team_name and re.fullmatch(search_key, team_name):
+                _LOGGER.debug(
+                    "%s: Found competition for regex '%s' in team.displayName; parsing data.",
+                    sensor_name,
+                    search_key,
+                )
+                return team_index
+        except re.error as e:
+            _LOGGER.warning(
+                "%s: Invalid regular expression '%s' in search key",
+                sensor_name,
+                search_key,
+            )
+            return None
+
+        roster = str(await async_get_value(
+            competitor, "roster", "displayName", default=""
+        )).upper()
+
+        try:
+            if roster and re.fullmatch(search_key, roster):
+                _LOGGER.debug(
+                    "%s: Found competition for regex '%s' in roster.displayName; parsing data.",
+                    sensor_name,
+                    search_key,
+                )
+                return team_index
+        except re.error as e:
+            _LOGGER.warning(
+                "%s: Invalid regular expression '%s' in search key",
+                sensor_name,
+                search_key,
+            )
+            return None
+
         # Abbreviations in event_name can be different than team_abbr so look there if neither team abbrevations match
         team0_abbreviation = str(
             await async_get_value(
@@ -323,13 +362,20 @@ async def async_find_search_key(
         athlete_name = str(
             await async_get_value(competitor, "athlete", "displayName", default="")
         ).upper()
-        if search_key in athlete_name:
-            _LOGGER.debug(
-                "%s: Found competition for '%s' in athlete name; parsing data",
+        try:
+            if search_key in athlete_name or re.fullmatch(search_key, athlete_name):
+                _LOGGER.debug(
+                    "%s: Found competition for '%s' in athlete name; parsing data",
+                    sensor_name,
+                    search_key,
+                )
+                return team_index
+        except re.error as e:
+            _LOGGER.warning(
+                "%s: Invalid regular expression '%s' in search key",
                 sensor_name,
                 search_key,
             )
-            return team_index
         return None
 
     _LOGGER.debug(
