@@ -19,7 +19,7 @@ TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN
 
 A small subset of the most popular teams/leagues have been pre-configured to simplify their setup.  This is referred to as native support.  Unfortunately, given the large number of teams/leagues for which APIs exist, it is impossible to provide native support for all of them.  
 
-The remaining teams/leagues are still supported, however they require a couple extra steps to set up.  This is referred to as setting up a Custom API Configuration.  Custom API Configurations require more steps to set up, however once set up, they behave the same way that a natively supported sensor does.  There is no difference, for example, between a team playing in a natively supported soccer league or a non-natively supported soccer league other than the extra steps needed to initially set up the non-natively supported one.
+The remaining teams/leagues are still supported, however they require a couple extra steps to set up.  This is referred to as setting up a Custom API Configuration.  
 
 ### Natively Supported (Pre-Configured) Sports / Leagues
 
@@ -39,19 +39,11 @@ The following leagues are supported natively:
 
 ### Sports / Leagues Supported via Custom API Configurations
 
-It is possible to configure Team Tracker to use a custom API beyond those for the pre-configured leagues.  
+It is possible to configure Team Tracker to use any existing ESPN Scoreboard API, not just the pre-configured leagues.  This is done by using a Custom API Configuration. 
 
-All ESPN APIs use a URL in the following format:
-https://site.api.espn.com/apis/site/v2/sports/{SPORT_PATH}/{LEAGUE_PATH}/scoreboard
-where {SPORT_PATH} is the sport and {LEAGUE_PATH} is the league that the team plays in.
+Custom API Configurations require more steps to set up, however once set up, they behave the same way a natively supported sensor does.  There is no difference, for example, between a team playing in a natively supported soccer league or a non-natively supported soccer league other than the extra steps needed to initially set up the non-natively supported one.
 
-For example, for the NFL, the URL is https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard
-
-Once you know the URL with the scoreboard of your team, it is possible to configure Team Tracker to use it.  the [Custom API Configuration section of the Wiki](https://github.com/vasqued2/ha-teamtracker/wiki/Custom-API-Configurations) contains more details on how to determine the {SPORT_PATH} and {LEAGUE_PATH} as well as some that have been verified to work and some that are known to not be compatible.  Please update the Wiki if you try others.
-
-The [FAQ in the Wiki](https://github.com/vasqued2/ha-teamtracker/wiki/Frequently-Asked-Questions) also contains an explanation of the types of sports that work with the teamtracker integration and those that currently do not.
-
-The Configuration Keys section below provides more details for configuring both types of sensors.
+The [Custom API Configurations](https://github.com/vasqued2/ha-teamtracker/blob/Tennis-Doubles/README.md#custom-api-configurations--how-to-determine-the-sport-path-and-league-path) Section below provides more details for setting up Custom API Configurations.
 
 
 ## Installation
