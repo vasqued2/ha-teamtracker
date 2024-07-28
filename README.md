@@ -24,7 +24,7 @@ The remaining teams/leagues are still supported, however they require a couple e
 ### Natively Supported (Pre-Configured) Sports / Leagues
 
 The following leagues are supported natively:
-- Australian Football - AFL (beta)
+- Australian Football - AFL
 - Baseball - MLB
 - Basketball - NBA, WNBA, NCAAM, NCAAW, WNBA
 - Football - NFL, NCAAF, XFL
@@ -60,7 +60,7 @@ Use this button:
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=vasqued2&repository=ha-teamtracker&category=integration)
 
-OR manually perform the followng:
+OR manually perform the followng steps:
 
 1. Open the HACS section of Home Assistant.
 2. In Integrations, click the "+ EXPLORE & DOWNLOAD REPOSITORIES" button in the bottom right corner.
@@ -75,7 +75,7 @@ OR manually perform the followng:
 
 ### Configuration Keys
 
-The following configuration keys are available with setting up a Team Tracker sensor.
+The following configuration keys are available when setting up a Team Tracker sensor.
 
 | YAML Name | UI Label | Required | Description | Valid Values |
 | --- | --- | --- | --- | --- |
@@ -88,7 +88,7 @@ The following configuration keys are available with setting up a Team Tracker se
 | league_path | League Path | No | If `league_id` is XXX | See below |
 
 
-#### Specify the League
+#### Specify the League (leauge_id)
 
 The `league_id` configuration key is used the specify the league for the sensor.  The following values are valid:
 - ATP (Assc. of Tennis Professionals)
@@ -121,7 +121,7 @@ The `league_id` configuration key is used the specify the league for the sensor.
 
 Using `XXX` or selecting "Custom: Specify Sport and League Path" from the UI enables the creation of a Custom API Configuration and requires the `sport_path` and `league_path` configuration keys to be defined.
 
-#### Specify the Team
+#### Specify the Team (team_id)
 
 The `team_id` key is used the specifiy the team for the sensor.  It can take the form of a Team Abbreviation, Team ID, Athlete Name, Regular Expression, or a Wildcard (`*`).
 
@@ -144,7 +144,7 @@ The Wildcard acts in the following manner
 | Tennis | Results will be unpredictable due to multiple tournaments and matches in progress at once |
 | Team Sports | Most useful for playoffs.  Will continually reset to display whatever team competition is in progress in the league.  Results will be unpredictable if multiple competitions are in progress at once |
 
-#### Override the API Language
+#### Override the API Language (api_lang)
 
 NOTE:  Team Abbreviations and Names may vary based on your local language.  While rare, changing the language after a sensor is set up can cause it to stop working.
 
@@ -156,7 +156,7 @@ If you are setting up the sensor using YAML.  You can add it to your YAML config
 
 You should use a [standard ISO language code](https://www.andiamo.co.uk/resources/iso-language-codes/) when specifying an override.
 
-#### Specify the Conference (for NCAA Sports only)
+#### Specify the Conference - for NCAA Sports only (conference_id)
 
 The `conference_id` key is used the specifiy the Conference for the sensor.  It should only be used for NCAA football and basketball.  Using it for other leagues or sports will cause a `NOT_FOUND` state.
 
@@ -211,7 +211,7 @@ The following identifiers are also valid:
 | DIVII/III | 35 |  | Subset of D2/D3 games |
 | D1 |  | 50 | Subset of unranked D1 games |
 
-#### Custom API Configurations:  How to Determine the Sport Path and League Path
+#### Custom API Configurations:  How to Determine the Sport Path and League Path (sport_path, league_path)
 
 Setting the `league_id` configuration key to `XXX` or selecting "Custom: Specify Sport and League Path" from the UI, invokes the Custom API Configuration mode. 
  This requires you to set the `sport_path` and `league_path` configuration keys.  This section explains how to determine the correct values for these keys.
