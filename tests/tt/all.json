@@ -66273,9 +66273,9 @@
                   ],
                   "athlete": {
                     "guid": "12345577-a685-4a27-0375-b9eb2f426d7f",
-                    "displayName": "Elisabetta Cocciaretto",
-                    "shortName": "E. Cocciaretto",
-                    "fullName": "Elisabetta Cocciaretto",
+                    "displayName": "Elisabetta Cxcciaretto",
+                    "shortName": "E. Cxcciaretto",
+                    "fullName": "Elisabetta Cxcciaretto",
                     "flag": {
                       "href": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
                       "alt": "Italy",
@@ -90798,8 +90798,8 @@
                   "order": 2,
                   "homeAway": "away",
                   "roster": {
-                    "displayName": "Lucia Bronzetti / Elisabetta Cocciaretto",
-                    "shortDisplayName": "L. Bronzetti / E. Cocciaretto",
+                    "displayName": "Lucia Bronzetti / Elisabetta Cxcciaretto",
+                    "shortDisplayName": "L. Bronzetti / E. Cxcciaretto",
                     "athletes": [
                       {
                         "guid": "b89e8ea6-ef2c-32e6-b209-74cd0a5d6f1c",
@@ -90832,9 +90832,9 @@
                       },
                       {
                         "guid": "12345577-a685-4a27-0375-b9eb2f426d7f",
-                        "displayName": "Elisabetta Cocciaretto",
-                        "shortName": "E. Cocciaretto",
-                        "fullName": "Elisabetta Cocciaretto",
+                        "displayName": "Elisabetta Cxcciaretto",
+                        "shortName": "E. Cxcciaretto",
+                        "fullName": "Elisabetta Cxcciaretto",
                         "flag": {
                           "href": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
                           "alt": "Italy",
