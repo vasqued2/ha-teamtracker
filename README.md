@@ -65,9 +65,10 @@ Clone or download this repository and copy the "teamtracker" directory to your "
 ### Installation via HACS
 
 Use this button:
+
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=vasqued2&repository=ha-teamtracker&category=integration)
 
-OR Manually
+OR manually perform the followng:
 
 1. Open the HACS section of Home Assistant.
 2. In Integrations, click the "+ EXPLORE & DOWNLOAD REPOSITORIES" button in the bottom right corner.
@@ -86,16 +87,18 @@ The following configuration keys are available with setting up a Team Tracker se
 
 | YAML Name | UI Label | Required | Description | Valid Values |
 | --- | --- | --- | --- | --- |
+| name | Friendly Name| No | Friendly name for the sensor | Any valid friendly name |
 | league_id | League | Yes | League ID | See below |
 | team_id | Team / Athlete | Yes | Team Team ID, Athlete Name, Regular Expression | See below |
-| name | Friendly Name| No | Friendly name for the sensor | Any valid friendly name |
-| conference_id | Conference Number | No | Conference ID required for NCAA teams | See below |
-| sport_path | Sport Path | No | Sport path | See below |
-| league_path | League Path | No | League Path | See below |
+| api_lang | None | No | Overrides default API language | [ISO language code](https://www.andiamo.co.uk/resources/iso-language-codes/) |
+| conference_id | Conference Number | Only if `league_id` is a NCAA sport | Conference ID  | See below |
+| sport_path | Sport Path | If `league_id` is XXX | Sport path | See below |
+| league_path | League Path | No | If `league_id` is XXX | See below |
 
-#### League ID
 
-For the League ID, the following values are valid:
+#### Specify the League
+
+The `league_id` configuration key is used the specify the league for the sensor.  The following values are valid:
 - ATP (Assc. of Tennis Professionals)
 - BUND (German Bundesliga)
 - CL (Champions League)
@@ -122,21 +125,25 @@ For the League ID, the following values are valid:
 - WC (World Cup)
 - WNBA (Women's NBA)
 - WTA (Women's Tennis Assc.)
-- XXX (Custom API Configuration)
-#### Determining the Team ID
-For the Team ID, you'll need to know the team abbreviation ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.
+- XXX (Custom: Specify Sport and League Path)
 
-Alternate Method:  ESPN assigns a unique number to identify a team.  This unique number shows up in URLs and other locations.  This value can also be used to specify the team ID.  If used, TeamTracker will also search for this number to uniquely identify a team.
+Using `XXX` or selecting "Custom: Specify Sport and League Path" from the UI enables the creation of a Custom API Configuration and requires the `sport_path` and `league_path` configuration keys to be defined.
 
-For sports involving individual athletes, you should use the athlete's name as the search string.  You should use as much as is needed to uniquely identify the desired athlete.
+#### Specify the Team
 
-For doubles in tennis, rosters are used instead of team names and are in the format of `{Player 1} / {Player 2}`.  You can use a regular expression to match the roster.  As an example, the regular expression `.*(?:NADAL|ALCARAZ).*/.*(?:NADAL|ALCARAZ).*` will match a doubles match with Nadal and Alcaraz as doubles partners.  The names are not case sensitive.
+The `team_id` key is used the specifiy the team for the sensor.  It can take the form of a Team Abbreviation, Team ID, Athlete Name, Regular Expression, or a Wildcard (`*`).
 
-#### Use of a Wild Card In Place of Athlete's Name
+| Form | Description |
+| --- | --- |
+| Team Abbreviation | This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well. |
+| Team ID | ESPN assigns a unique number to identify a team.  This unique number shows up in URLs and other locations. |
+| Athlete Name | For sports involving individual athletes, you should use the athlete's name as the search string.  You should use as much as is needed to uniquely identify the desired athlete. |
+| RegEx | Regular expressions can be used to match team names, athlete names, and rosters in competitions like Doubles Tennis.  See below for an example. |
+| Wildcard | You can use the single `*` character as a Wildcard.  This will cause the sensor to match a team or athlete using sport-specific logic outlined below. |
 
-You can use the single `*` character as a Wild Card in place of the team or athlete's name.  This will cause the sensor to match a team or athlete using sport-specific logic.
+For doubles in tennis, rosters are used instead of team names and are in the format of `{Player 1} / {Player 2}`.  You can use a regular expression to match the roster.  As an example, if you do not know the order in which the players are listed on the roster, the regular expression `.*(?:NADAL|ALCARAZ).*/.*(?:NADAL|ALCARAZ).*` will match a doubles match with Nadal and Alcaraz regardless of which player is listed first.  The names are not case sensitive.
 
-The Wild Card acts in the following manner
+The Wildcard acts in the following manner
 | Sport | Behavior |
 | --- | --- |
 | Golf | Displays the current leader and competitor in second place |
@@ -145,18 +152,9 @@ The Wild Card acts in the following manner
 | Tennis | Results will be unpredictable due to multiple tournaments and matches in progress at once |
 | Team Sports | Most useful for playoffs.  Will continually reset to display whatever team competition is in progress in the league.  Results will be unpredictable if multiple competitions are in progress at once |
 
-
-#### Team ID
-
-For the Team, you'll need to know the team ID ESPN uses for your team.  This is the 2-, 3- or 4-letter abbreviation (eg. "SEA" for Seattle or "NE" for New England) ESPN uses when space is limited.  You can generally find them at https://espn.com/ in the top scores UI, but they can also be found in other pages with team stats as well.  
-
-NOTE:  In rare instances, the team ID will vary based on your local language.  While rare, changing the language after a sensor is set up can cause it to stop working.
-
-For individual sports, you should specify the althlete's name in `team_id` field.  This will cause the sensor to track the competitions matching the name of the specified athlete.  You should use as much of the name (i.e. last name, full name) as needed to uniquely identify the athlete.
-
-See [https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#use-of-a-wild-card-in-place-of-athletes-name](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#use-of-a-wild-card-in-place-of-athletes-name) for the use of a wild card in the Team ID field.
-
 #### Override the API Language
+
+NOTE:  Team Abbreviations and Names may vary based on your local language.  While rare, changing the language after a sensor is set up can cause it to stop working.
 
 TeamTracker will use your local language settings when calling the ESPN APIs.  Some languages are supported more robustly than others.  For example, one language may provide play-by-play updates while another will not.  For this reason, you can override your local language.  English appears to be the most robustly supported language.
 
@@ -166,7 +164,9 @@ If you are setting up the sensor using YAML.  You can add it to your YAML config
 
 You should use a [standard ISO language code](https://www.andiamo.co.uk/resources/iso-language-codes/) when specifying an override.
 
-#### Conference ID Numbers
+#### Specify the Conference (for NCAA Sports only)
+
+The `conference_id` key is used the specifiy the Conference for the sensor.  It should only be used for NCAA football and basketball.  Using it for other leagues or sports will cause a `NOT_FOUND` state.
 
 By default, NCAA football and basketball will only find a game if at least one of the teams playing is ranked.  In order to find games in which both teams are unranked, you must specify a Conference ID, which is a number used by ESPN to identify college conferences and other groups of teams.  Conferences ID's are not consistent across football and basketball.
 
@@ -218,6 +218,23 @@ The following identifiers are also valid:
 | FCS (1-AA) | 81 |  | Subset of FCS games |
 | DIVII/III | 35 |  | Subset of D2/D3 games |
 | D1 |  | 50 | Subset of unranked D1 games |
+
+#### Custom API Configurations:  How to Determine the Sport Path and League Path
+
+Setting the `league_id` configuration key to `XXX` or selecting "Custom: Specify Sport and League Path" from the UI, invokes the Custom API Configuration mode. 
+ This requires you to set the `sport_path` and `league_path` configuration keys.  This section explains how to determine the correct values for these keys.
+
+All ESPN APIs use a URL in the following format:
+https://site.api.espn.com/apis/site/v2/sports/{SPORT_PATH}/{LEAGUE_PATH}/scoreboard
+where {SPORT_PATH} is the sport and {LEAGUE_PATH} is the league that the team plays in.
+
+For example, for the NFL, the URL is https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard
+
+The [Custom API Configuration section of the Wiki](https://github.com/vasqued2/ha-teamtracker/wiki/Custom-API-Configurations) contains more details on how to determine the {SPORT_PATH} and {LEAGUE_PATH} as well as some that have been verified to work and some that are known to not be compatible.  Please update the Wiki if you try others.
+
+The [FAQ in the Wiki](https://github.com/vasqued2/ha-teamtracker/wiki/Frequently-Asked-Questions) also contains an explanation of the types of sports that work with the teamtracker integration and those that currently do not.
+
+Once you have used the resources referenced above to determine the correct values to use for `sport_path` and `league_path`, you should use those values in the YAML or UI configuration.
 
 
 ### Configuration via the "Configuration->Integrations" section of the Home Assistant UI
