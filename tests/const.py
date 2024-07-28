@@ -179,20 +179,20 @@ TEST_DATA = [
     {
         "sensor_name": "test_tt_all_test19",
         "sport": "tennis",
-        "league": "WTA",
-        "team_abbr": "JACQUEMOT",
+        "league": "ATP",
+        "team_abbr": "STRUFF",
     },
     {
         "sensor_name": "test_tt_all_test20",
         "sport": "tennis",
         "league": "WTA",
-        "team_abbr": "BUCSA",
+        "team_abbr": ".*(?:FUCSOVICS|MAROZSAN).*/.*(?:FUCSOVICS|MAROZSAN).*",
     },
     {
         "sensor_name": "test_tt_all_test21",
         "sport": "tennis",
         "league": "WTA",
-        "team_abbr": "COCCIARETTO",
+        "team_abbr": "PAOLINI",
     },
     {
         "sensor_name": "test_tt_all_test22",
