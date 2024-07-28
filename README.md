@@ -231,18 +231,22 @@ Once you have used the resources referenced above to determine the correct value
 
 ### Configuration via the "Configuration->Integrations" section of the Home Assistant UI
 
-1. Search for the integration labeled "Team Tracker" and select it.  
-2. Enter the desired League from the League List.
-3. Enter the team's ID in the UI prompt. 
-4. If NCAA football or basketball, enter the Conference ID from Conference ID Numbers below if desired.  
-5. You can also enter a friendly name. If you keep the default, your sensor will be `sensor.team_tracker`, otherwise it will be `sensor.friendly_name_you_picked`. 
+1. On the Integrations page, select the "+ Add Integration" button.
+2. Search for the integration labeled "Team Tracker" and select it.  
+3. Select the desired League from the League List.  Select "Custom:  Specific sport and league path" to create a Custom API Configuration.
+4. Enter a value for team's ID in the UI prompt. This can be a the team abbreviation, team ID, athlete name, wildcard, or a regex as explained in the Team ID section.
+5. If NCAA football or basketball, enter the Conference ID from Conference ID Numbers below if desired.  
+6. You can also enter a friendly name. If you keep the default, your sensor will be `sensor.team_tracker`, otherwise it will be `sensor.friendly_name_you_entered`.
+7. If you are setting up a Custom API Configuration, a second window will be displayed.
+8. Enter the value for the Sport Path for the Custom API.
+9. Enter the value for the League Path for the Custom API.
 
-When using the Home Assistant UI to set up a Custom API Configuration, simply enter 'XXX' in the League field.  This will trigger a second dialogue box which will allow you to enter the values for the {SPORT_PATH} and {LEAGUE_PATH}.
+Once the sensor is set up with the UI, you can use the Options Menu to override the API language if desired.
 
 
 ### Manual Configuration in your `configuration.yaml` file
 
-To create a sensor instance add the following configuration to your sensor definitions using the team_id found above.  Enclose the values in quotes to avoid unrealized conflicts w/ predefined terms in YAML (i.e. NO being interpreted as No):
+To create a sensor via YAML, add the following configuration to your sensor definitions.  Enclose the values in quotes to avoid unrealized conflicts w/ predefined terms in YAML (i.e. NO being interpreted as No):
 
 ```
 - platform: teamtracker
