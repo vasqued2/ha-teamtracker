@@ -60,3 +60,20 @@ async def test_setup_platform(hass):
         )
 
         assert (DOMAIN in hass.data) == test[1]
+
+    await hass.services.async_call(
+        domain="teamtracker",
+        service="call_api",
+        service_data={
+            "sport_path": "basketball",
+            "league_path": "nba",
+            "team_id": "bos"
+        },
+        target={
+            "entity_id": [
+                "sensor.test_tt_all_test01",
+            ]
+        },
+        blocking=True
+    )
+
