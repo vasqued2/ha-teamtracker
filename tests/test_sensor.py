@@ -6,6 +6,7 @@ from typing import Any
 from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
 from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
+from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 
 
 @pytest.fixture(autouse=False)
