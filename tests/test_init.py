@@ -53,6 +53,17 @@ async def test_setup_entry(
         blocking=True
     )
 
+    sensor_state = hass.states.get("sensor.test_tt_all_test01")
+    assert sensor_state
+
+    # Retrieve specific attributes
+    team_id = sensor_state.attributes.get("team_id")
+    sport_path = sensor_state.attributes.get("sport_path")
+    league_path = sensor_state.attributes.get("league_path")
+
+    assert team_id == "bos"
+    assert league_path == "nba"
+    assert sport_path == "basketball"
 
 
 #    assert await entry.async_unload(hass)
