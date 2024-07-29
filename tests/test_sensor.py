@@ -55,7 +55,7 @@ async def test_setup_platform(hass):
         await async_setup_platform(
             hass,
             test[0],
-            mock_async_add_entities_callback,
+            await mock_async_add_entities_callback, # Take out await if issues
             discovery_info=None,
         )
 
