@@ -43,6 +43,27 @@ async def test_sensor(hass, mocker):
 async def test_setup_platform(hass):
     """test platform setup"""
 
+#
+# Create entry first
+#
+
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+
+
+
 # Mock implementation of async_add_entities callback
     entity_list = []
     async def mock_async_add_entities_callback(entities: list[Any], update_before_add: bool = False) -> None:
@@ -55,7 +76,7 @@ async def test_setup_platform(hass):
         await async_setup_platform(
             hass,
             test[0],
-            await mock_async_add_entities_callback, # Take out await if issues
+            mock_async_add_entities_callback,
             discovery_info=None,
         )
 
