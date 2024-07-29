@@ -63,7 +63,7 @@ async def test_setup_entry(
             sensor_state, 
     )
 
-    assert sensor_state 
+    assert sensor_state == "NOT_FOUND"
 
 
 #    assert await entry.async_unload(hass)
