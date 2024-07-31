@@ -39,6 +39,18 @@ async def test_setup_entry(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
+#
+# Validate sensor state and attributes based on CONFIG_DATA
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test01")
+
+    assert sensor_state.state == "NOT_FOUND"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "MIA"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "baseball"
+
 
     await hass.services.async_call(
         domain="teamtracker",
