@@ -56,15 +56,17 @@ async def test_setup_entry(
         blocking=True
     )
 
+#
+# Validate sensor state and attributes changed based on API call
+#
+
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
-    _LOGGER.info(
-        "sensor_state: %s",
-            sensor_state, 
-    )
-
     assert sensor_state.state == "NOT_FOUND"
-
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "BOS"
+    sport = sensor_state.attributes.get("sport")
+    assert team_abbr == "basketball"
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
