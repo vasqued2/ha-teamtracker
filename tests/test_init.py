@@ -83,6 +83,28 @@ async def test_setup_entry(
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
 
+#
+# Test Platform API
+#
+    entity_list = []
+    async def mock_async_add_entities_callback(entities: list[Any], update_before_add: bool = False) -> None:
+        """Mock implementation of the async_add_entities callback."""
+        # Simulate async_add_entities callback behavior
+        entity_list.extend(entities)
+        print(f"Adding entities: {entity_list}")
+
+    for test in PLATFORM_TEST_DATA:
+        await async_setup_platform(
+            hass,
+            test[0],
+            mock_async_add_entities_callback,
+            discovery_info=None,
+        )
+
+        assert (DOMAIN in hass.data) == test[1]
+
+
+
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_unload_entry(hass):
