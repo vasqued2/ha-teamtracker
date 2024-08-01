@@ -6,6 +6,7 @@ from typing import Any
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
@@ -103,7 +104,8 @@ async def test_setup_entry(
         await async_setup_platform(
             hass,
             test[0],
-            mock_async_add_entities_callback,
+#            mock_async_add_entities_callback,
+            async_add_entities_callback,
             discovery_info=None,
         )
 
