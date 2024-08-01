@@ -63,4 +63,4 @@ async def test_setup_platform(hass):
             discovery_info=None,
         )
 
-#        assert (DOMAIN in hass.data) == test[1]
+        assert (DOMAIN in hass.data) == test[1]
