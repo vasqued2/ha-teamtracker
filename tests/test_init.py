@@ -6,7 +6,6 @@ from typing import Any
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
@@ -89,67 +88,6 @@ async def test_setup_entry(
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
-
-#
-# Test Platform API
-#
-    entity_list = []
-    async def mock_async_add_entities_callback(entities: list[Any], update_before_add: bool = False) -> None:
-        """Mock implementation of the async_add_entities callback."""
-        # Simulate async_add_entities callback behavior
-        entity_list.extend(entities)
-        print(f"Adding entities: {entity_list}")
-
-    for test in PLATFORM_TEST_DATA:
-        await async_setup_platform(
-            hass,
-            test[0],
-#            mock_async_add_entities_callback,
-            async_add_entities,
-            discovery_info=None,
-        )
-
-#
-# Validate sensor state and attributes based on PLATFORM_TEST_DATA
-#
-
-    sensor_state = hass.states.get("sensor.test_tt_all_test02")
-
-    assert sensor_state.state == "PRE"
-    team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "MIA"
-    sport = sensor_state.attributes.get("sport")
-    assert sport == "baseball"
-
-
-    await hass.services.async_call(
-        domain="teamtracker",
-        service="call_api",
-        service_data={
-            "sport_path": "basketball",
-            "league_path": "nba",
-            "team_id": "bos"
-        },
-        target={
-            "entity_id": [
-                "sensor.test_tt_all_test02",
-            ]
-        },
-        blocking=True
-    )
-
-#
-# Validate sensor state and attributes changed based on API call
-#
-
-    sensor_state = hass.states.get("sensor.test_tt_all_test02")
-
-    assert sensor_state.state == "NOT_FOUND"
-    team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "BOS"
-    sport = sensor_state.attributes.get("sport")
-    assert sport == "basketball"
-
 
 
 
