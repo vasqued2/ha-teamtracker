@@ -105,7 +105,7 @@ async def test_setup_entry(
             hass,
             test[0],
 #            mock_async_add_entities_callback,
-            async_add_entities_callback,
+            async_add_entities,
             discovery_info=None,
         )
 
