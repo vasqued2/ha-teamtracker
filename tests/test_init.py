@@ -1,17 +1,12 @@
 """ Tests for TeamTracker """
 
 import pytest
-
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-
 from custom_components.teamtracker.const import DOMAIN
-
+from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA, CONFIG_DATA2
 import logging
 _LOGGER = logging.getLogger(__name__)
-
 
 @pytest.fixture(autouse=False)
 def expected_lingering_timers() -> bool:
@@ -86,7 +81,6 @@ async def test_setup_entry(
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
-
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
