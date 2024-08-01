@@ -2,9 +2,12 @@
 
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+from typing import Any
+
 from custom_components.teamtracker.const import DOMAIN
-from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from tests.const import CONFIG_DATA, CONFIG_DATA2
+from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN, async_setup_platform
+
+from tests.const import CONFIG_DATA, CONFIG_DATA2, PLATFORM_TEST_DATA
 import logging
 _LOGGER = logging.getLogger(__name__)
 
