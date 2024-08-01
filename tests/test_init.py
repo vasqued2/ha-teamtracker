@@ -1,7 +1,6 @@
 """ Tests for TeamTracker """
 
 import pytest
-from typing import Any
 
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
