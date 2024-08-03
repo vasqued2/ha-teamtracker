@@ -19,6 +19,8 @@ from custom_components.teamtracker.set_racing import async_set_racing_values
 from custom_components.teamtracker.set_soccer import async_set_soccer_values
 from custom_components.teamtracker.set_tennis import async_set_tennis_values
 from custom_components.teamtracker.set_volleyball import async_set_volleyball_values
+from custom_components.teamtracker.set_values import async_set_values, async_set_universal_values, async_set_team_values, async_set_in_values
+
 from custom_components.teamtracker.utils import async_get_value
 
 from tests.const import TEST_DATA
@@ -46,3 +48,11 @@ async def test_error_conditions(hass):
     rc = await async_set_volleyball_values({}, {}, 0, 0, "sensor_name")
     assert rc == False
 
+    rc = await async_set_values({}, {}, 0, 0, 0, "en", "sensor_name")
+    assert rc == False
+    rc = await async_set_universal_values({}, {}, 0, 0, 0, "en", "sensor_name")
+    assert rc == False
+    rc = await async_set_team_values({}, {}, 0, 0, 0, "en", "sensor_name")
+    assert rc == False
+    rc = await async_set_in_values({}, {}, 0, 0, 0, "sensor_name")
+    assert rc == False
