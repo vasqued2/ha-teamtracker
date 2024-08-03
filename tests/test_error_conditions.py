@@ -31,6 +31,6 @@ async def test_error_conditions(hass):
 
     competition = await async_get_value({}, "competitions", 0)
 
-    rc = async_set_volleyball_values({}, {}, 0, 0, "sensor_name")
+    rc = await async_set_volleyball_values({}, {}, 0, 0, "sensor_name")
     assert rc == False
 
