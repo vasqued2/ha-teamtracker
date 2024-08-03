@@ -32,10 +32,7 @@ async def async_set_values(
 
     #    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
 
-    if team_index == 0:
-        oppo_index = 1
-    else:
-        oppo_index = 0
+    oppo_index = 1 if team_index == 0 else 0
     grouping = await async_get_value(event, "groupings", grouping_index)
     if grouping is None:
         competition = await async_get_value(event, "competitions", competition_index)
@@ -180,10 +177,7 @@ async def async_set_universal_values(
 
     #    _LOGGER.debug("%s: async_set_universal_values() 1: %s", sensor_name, sensor_name)
 
-    if team_index == 0:
-        oppo_index = 1
-    else:
-        oppo_index = 0
+    oppo_index = 1 if team_index == 0 else 0
     grouping = await async_get_value(event, "groupings", grouping_index)
     if grouping is None:
         competition = await async_get_value(event, "competitions", competition_index)
