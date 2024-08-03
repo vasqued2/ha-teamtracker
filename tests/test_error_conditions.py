@@ -19,7 +19,6 @@ from custom_components.teamtracker.set_racing import async_set_racing_values
 from custom_components.teamtracker.set_soccer import async_set_soccer_values
 from custom_components.teamtracker.set_tennis import async_set_tennis_values
 from custom_components.teamtracker.set_volleyball import async_set_volleyball_values
-from .utils import async_get_value
 
 from tests.const import TEST_DATA
 
