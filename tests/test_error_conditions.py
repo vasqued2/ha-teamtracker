@@ -1,16 +1,6 @@
 """Test NFL Sensor"""
-import json
 import logging
-import aiofiles
 
-from custom_components.teamtracker.clear_values import async_clear_values
-from custom_components.teamtracker.const import (
-    DEFAULT_KICKOFF_IN,
-    DEFAULT_LAST_UPDATE,
-    DEFAULT_LOGO,
-)
-from custom_components.teamtracker.event import async_process_event
-from custom_components.teamtracker.set_baseball import async_set_baseball_values
 from custom_components.teamtracker.set_cricket import async_set_cricket_values
 from custom_components.teamtracker.set_golf import async_set_golf_values
 from custom_components.teamtracker.set_hockey import async_set_hockey_values
@@ -20,10 +10,6 @@ from custom_components.teamtracker.set_soccer import async_set_soccer_values
 from custom_components.teamtracker.set_tennis import async_set_tennis_values
 from custom_components.teamtracker.set_volleyball import async_set_volleyball_values
 from custom_components.teamtracker.set_values import async_set_values, async_set_universal_values, async_set_team_values, async_set_in_values
-
-from custom_components.teamtracker.utils import async_get_value
-
-from tests.const import TEST_DATA
 
 _LOGGER = logging.getLogger(__name__)
 
