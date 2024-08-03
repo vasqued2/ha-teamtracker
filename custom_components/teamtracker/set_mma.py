@@ -14,10 +14,7 @@ async def async_set_mma_values(
 
     _LOGGER.debug("%s: async_set_mma_values() 1: %s", sensor_name, sensor_name)
 
-    if team_index == 0:
-        oppo_index = 1
-    else:
-        oppo_index = 0
+    oppo_index = 1 - team_index
     competition = await async_get_value(event, "competitions", competition_index)
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)

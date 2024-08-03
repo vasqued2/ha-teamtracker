@@ -12,10 +12,7 @@ async def async_set_golf_values(
 ) -> bool:
     """Set golf specific values"""
 
-    if team_index == 0:
-        oppo_index = 1
-    else:
-        oppo_index = 0
+    oppo_index = 1 if team_index == 0 else 0
     competition = await async_get_value(event, "competitions", competition_index)
     competitor = await async_get_value(competition, "competitors", team_index)
     opponent = await async_get_value(competition, "competitors", oppo_index)

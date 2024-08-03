@@ -14,10 +14,7 @@ async def async_set_tennis_values(
 
     #    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, grouping_index, competition_index)
 
-    if team_index == 0:
-        oppo_index = 1
-    else:
-        oppo_index = 0
+    oppo_index = 1 - team_index
         
     grouping = await async_get_value(event, "groupings", grouping_index)
     if grouping is None:
