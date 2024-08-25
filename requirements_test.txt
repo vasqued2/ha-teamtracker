@@ -3,8 +3,8 @@ black
 isort
 pytest
 pytest-asyncio
-pytest-cov>=4.1.0
+pytest-cov==3.0.0
 pytest-mock
-pytest-homeassistant-custom-component>=0.0.34
+pytest-homeassistant-custom-component
 arrow
 aiofiles
