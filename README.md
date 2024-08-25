@@ -380,3 +380,6 @@ TeamTracker supports the following services.
 NOTE: The functionality and input parameters of the `call_api` service are subject to change as new uses emerge. If you have ideas or suggestions for specific use cases, open an Issue so they can be tracked.
 
 Additional details available on the Services tab in Developer Tools.
+
+## Tutorials
+You will find a german tutorial how to use this integration here: https://youtu.be/CYK7JrNmvfg, and https://youtu.be/hh3kCk-f2vY (Created by Tristan's Smartes Heim)
