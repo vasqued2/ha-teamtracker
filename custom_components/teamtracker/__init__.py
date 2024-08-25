@@ -264,6 +264,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         self.sport_path = sport_path
         self.league_path = league_path
+        self.league_id = "XXX"
         self.team_id = team_id
         self.conference_id = conference_id
 
