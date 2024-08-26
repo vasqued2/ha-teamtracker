@@ -1,10 +1,10 @@
 async-timeout
 black
 isort
-pytest
-pytest-asyncio
+pytest==8.3.2
+pytest-asyncio==0.23.8
 pytest-cov==5.0.0
-pytest-mock
-pytest-homeassistant-custom-component
+pytest-mock==3.14.0
+pytest-homeassistant-custom-component==0.13.109
 arrow
 aiofiles
