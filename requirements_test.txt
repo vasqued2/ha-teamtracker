@@ -2,7 +2,7 @@ async-timeout
 black
 isort
 pytest==8.3.2
-pytest-asyncio==0.23.8
+pytest-asyncio==0.23.5
 pytest-cov==5.0.0
 pytest-mock==3.14.0
 pytest-homeassistant-custom-component==0.13.109
