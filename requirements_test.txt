@@ -3,7 +3,7 @@ black
 isort
 pytest
 pytest-asyncio
-pytest-cov==3.0.0
+pytest-cov==2.1.0
 pytest-mock
 pytest-homeassistant-custom-component
 arrow
