@@ -1,7 +1,7 @@
 async-timeout
 black
 isort
-pytest==8.3.2
+pytest==8.0.2
 pytest-asyncio==0.23.5
 pytest-cov==4.1.0
 pytest-mock==3.14.0
