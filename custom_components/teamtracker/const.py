@@ -108,13 +108,13 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: RACING,
         CONF_LEAGUE_PATH: "nhra",
     },
-    "Bundesliga": {
-        CONF_SPORT_PATH: SOCCER,
-        CONF_LEAGUE_PATH: "ger.1",
-    },
     "Champions League": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "uefa.champions",
+    },
+    "Champions League Qualifiers": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "uefa.champions_qual",
     },
     "Club Friendlies": {
         CONF_SPORT_PATH: SOCCER,
@@ -152,6 +152,10 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.charity",
     },
+    "Bundesliga": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "ger.1",
+    },
     "Spanish LALIGA": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "esp.1",
@@ -159,6 +163,10 @@ LEAGUE_MAP = {
     "French Ligue 1": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fra.1",
+    },
+    "Italian Serie A": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "ita.1",
     },
     "MLS": {
         CONF_SPORT_PATH: SOCCER,
@@ -168,13 +176,13 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "usa.nwsl",
     },
-    "Italian Serie A": {
-        CONF_SPORT_PATH: SOCCER,
-        CONF_LEAGUE_PATH: "ita.1",
-    },
     "World Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fifa.world",
+    },
+    "International Friendlies": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "fifa.friendly",
     },
     "Women's World Cup": {
         CONF_SPORT_PATH: SOCCER,
