@@ -92,59 +92,71 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: RACING,
         CONF_LEAGUE_PATH: "irl",
     },
-    "NASCAR": {
+    "NASCAR Cup Series": {
         CONF_SPORT_PATH: RACING,
         CONF_LEAGUE_PATH: "nascar-premier",
     },
-    "BUND": {
+    "NASCAR Xfinity Series": {
+        CONF_SPORT_PATH: RACING,
+        CONF_LEAGUE_PATH: "nascar-secondary",
+    },
+    "NASCAR Truck Series": {
+        CONF_SPORT_PATH: RACING,
+        CONF_LEAGUE_PATH: "nascar-truck",
+    },
+    "NHRA": {
+        CONF_SPORT_PATH: RACING,
+        CONF_LEAGUE_PATH: "nhra",
+    },
+    "Bundesliga": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "ger.1",
     },
-    "CL": {
+    "Champions League": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "uefa.champions",
     },
-    "CF": {
+    "Club Friendlies": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "club.friendly",
     },
-    "UEL": {
+    "Europa League": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "uefa.europa",
     },
-    "USC": {
+    "Super Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "uefa.super_cup",
     },
-    "FCWC": {
+    "FIFA Club World Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fifa.cwc",
     },
-    "CLA": {
+    "CONMEBOL Libertadores": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "conmebol.libertadores",
     },
-    "EPL": {
+    "Premier League": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.1",
     },
-    "ELC": {
+    "Carabao Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.league_cup",
     },
-    "EFA": {
+    "FA Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.fa",
     },
-    "ECS": {
+    "Community Shield": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.charity",
     },
-    "LIGA": {
+    "Spanish LALIGA": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "esp.1",
     },
-    "LIG1": {
+    "French Ligue 1": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fra.1",
     },
@@ -156,15 +168,15 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "usa.nwsl",
     },
-    "SERA": {
+    "Italian Serie A": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "ita.1",
     },
-    "WC": {
+    "World Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fifa.world",
     },
-    "WWC": {
+    "Women's World Cup": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "fifa.wwc",
     },
