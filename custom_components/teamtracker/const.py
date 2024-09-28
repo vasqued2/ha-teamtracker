@@ -104,6 +104,22 @@ LEAGUE_MAP = {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "uefa.champions",
     },
+    "CF": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "club.friendly",
+    },
+    "UEL": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "uefa.europa",
+    },
+    "USC": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "uefa.super_cup",
+    },
+    "FCWC": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "fifa.cwc",
+    },
     "CLA": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "conmebol.libertadores",
@@ -111,6 +127,18 @@ LEAGUE_MAP = {
     "EPL": {
         CONF_SPORT_PATH: SOCCER,
         CONF_LEAGUE_PATH: "eng.1",
+    },
+    "ELC": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "eng.league_cup",
+    },
+    "EFA": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "eng.fa",
+    },
+    "ECS": {
+        CONF_SPORT_PATH: SOCCER,
+        CONF_LEAGUE_PATH: "eng.charity",
     },
     "LIGA": {
         CONF_SPORT_PATH: SOCCER,
