@@ -197,9 +197,8 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             updated_config.update(LEAGUE_MAP[league_id])
 
         if updated_config != entry.data:
-            hass.config_entries.async_update_entry(entry, data=updated_config)
+            hass.config_entries.async_update_entry(entry, data=updated_config, version=3)
 
-        entry.version = 3
         _LOGGER.debug("%s: Migration to version %s complete", sensor_name, entry.version)
 
     return True
