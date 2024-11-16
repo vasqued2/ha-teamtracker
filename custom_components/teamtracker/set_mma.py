@@ -25,6 +25,8 @@ async def async_set_mma_values(
 
     #    _LOGGER.debug("%s: async_set_mma_values() 2: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
+    new_values["event_name"] = await async_get_value(event, "name")
+
     t = 0
     o = 0
     for ls in range(
