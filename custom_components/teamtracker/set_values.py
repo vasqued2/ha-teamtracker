@@ -271,12 +271,28 @@ async def async_set_universal_values(
             default=await async_get_value(competitor, "roster", "shortDisplayName")
         ),
     )
+    new_values["team_long_name"] = await async_get_value(
+        competitor,
+        "team",
+        "displayName",
+        default=await async_get_value(competitor, "athlete", "displayName",
+            default=await async_get_value(competitor, "roster", "DisplayName")
+        ),
+    )
     new_values["opponent_name"] = await async_get_value(
         opponent,
         "team",
         "shortDisplayName",
         default=await async_get_value(opponent, "athlete", "displayName",
             default=await async_get_value(opponent, "roster", "shortDisplayName"),
+        ),
+    )
+    new_values["opponent_long_name"] = await async_get_value(
+        opponent,
+        "team",
+        "displayName",
+        default=await async_get_value(opponent, "athlete", "displayName",
+            default=await async_get_value(opponent, "roster", "DisplayName")
         ),
     )
 
