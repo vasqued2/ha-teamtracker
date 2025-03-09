@@ -2,6 +2,7 @@
     "sport": "tennis",
     "league": "ATP",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "season": null,
     "team_abbr": "STRUFF",
     "opponent_abbr": null,
     "event_name": "Olympics",
