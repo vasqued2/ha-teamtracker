@@ -2,6 +2,7 @@
     "sport": "basketball",
     "league": "NBA",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "season": "preseason",
     "team_abbr": "CHA",
     "opponent_abbr": "BOS",
     "event_name": "CHA @ BOS",

@@ -2,6 +2,7 @@
     "sport": "soccer",
     "league": "NWSL",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "season": "regular-season",
     "team_abbr": "ORL",
     "opponent_abbr": "POR",
     "event_name": "POR @ ORL",

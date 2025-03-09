@@ -2,6 +2,7 @@
     "sport": "football",
     "league": "NCAAF",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "season": "regular-season",
     "team_abbr": "ALA",
     "opponent_abbr": "TEX",
     "event_name": "ALA @ TEX",

@@ -2,6 +2,7 @@
     "sport": "soccer",
     "league": "MLS",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "season": "regular-season",
     "team_abbr": "CLB",
     "opponent_abbr": "MTL",
     "event_name": "CLB @ MTL",
