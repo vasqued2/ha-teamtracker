@@ -201,6 +201,8 @@ async def async_set_universal_values(
             default=await async_get_value(event, "status", "type", "state"),
         )
     ).upper()
+    new_values["season"] = await async_get_value(event, "season", "slug")
+
     new_values["event_name"] = await async_get_value(event, "shortName")
     new_values["event_url"] = await async_get_value(event, "links", 0, "href")
     new_values["date"] = await async_get_value(

@@ -197,6 +197,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._sport = None
         self._league = None
         self._league_logo = None
+        self._season = None
         self._team_abbr = None
         self._opponent_abbr = None
 
@@ -304,6 +305,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["sport"] = self.coordinator.data["sport"]
         attrs["league"] = self.coordinator.data["league"]
         attrs["league_logo"] = self.coordinator.data["league_logo"]
+        attrs["season"] = self.coordinator.data["season"]
         attrs["team_abbr"] = self.coordinator.data["team_abbr"]
         attrs["opponent_abbr"] = self.coordinator.data["opponent_abbr"]
 
