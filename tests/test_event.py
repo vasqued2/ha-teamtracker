@@ -60,5 +60,12 @@ async def test_event(hass):
             contents = await f.read()
         expected_results = json.loads(contents)
 
+# Ignore expected values not set in the async_process_event() function
+
+        expected_results["api_url"] = None
+        expected_results["sport_path"] = None
+        expected_results["league_path"] = None
+        expected_results["conference_id"] = None
+
         values["kickoff_in"] = DEFAULT_KICKOFF_IN  # set to default value for compare
         assert values == expected_results
