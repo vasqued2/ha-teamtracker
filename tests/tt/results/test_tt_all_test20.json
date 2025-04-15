@@ -1,7 +1,10 @@
 {
     "sport": "tennis",
+    "sport_path": "tennis",
     "league": "WTA",
+    "league_path": "wta",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "conference_id": "9999",
     "season": null,
     "team_abbr": null,
     "opponent_abbr": null,
@@ -66,6 +69,7 @@
     "opponent_sets_won": 1,
     "last_update": "2022-02-02 02:02:02-05:00",
     "api_message": null,
+    "api_url": "http://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard?lang=en&limit=25&groups=9999",
     "private_fast_refresh": true,
     "state": "IN"
 }
