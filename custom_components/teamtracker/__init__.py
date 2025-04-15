@@ -214,6 +214,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
         self.name = config[CONF_NAME]
+        self.api_url = ""
         self.league_id = config[CONF_LEAGUE_ID]
         self.league_path = config[CONF_LEAGUE_PATH]
         self.sport_path = config[CONF_SPORT_PATH]
@@ -499,7 +500,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                                 data = await r.json()
                     except:
                         data = None
-
+        self.api_url = url
+        
         return data, file_override
 
     async def async_update_values(self, config, hass, data, lang) -> dict:
@@ -515,12 +517,16 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         values = await async_clear_values()
         values["sport"] = sport_path
+        values["sport_path"] = self.sport_path
         values["league"] = league_id
+        values["league_path"] = self.league_path
         values["league_logo"] = DEFAULT_LOGO
+        values["conference_id"] = self.conference_id
         values["team_abbr"] = team_id
         values["state"] = "NOT_FOUND"
         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
         values["private_fast_refresh"] = False
+        values["api_url"] = self.api_url
 
         if data is None:
             values["api_message"] = "API error, no data returned"

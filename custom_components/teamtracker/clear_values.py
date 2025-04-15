@@ -8,8 +8,11 @@ async def async_clear_values() -> dict:
     # Reset values
     new_values = {
         "sport": None,
+        "sport_path": None,
         "league": None,
+        "league_path": None,
         "league_logo": None,
+        "conference_id": None,
         "season": None,
         "team_abbr": None,
         "opponent_abbr": None,
@@ -68,6 +71,7 @@ async def async_clear_values() -> dict:
         "opponent_sets_won": None,
         "last_update": None,
         "api_message": None,
+        "api_url": None,
         "private_fast_refresh": False,
     }
 

@@ -195,7 +195,7 @@ SERVICE_NAME_CALL_API = "call_api"
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.14.7"
+VERSION = "v0.14.8"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"

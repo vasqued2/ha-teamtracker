@@ -195,8 +195,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._state = "PRE"
 
         self._sport = None
+        self._sport_path = None
         self._league = None
+        self._league_path = None
         self._league_logo = None
+        self._conference_id = None
         self._season = None
         self._team_abbr = None
         self._opponent_abbr = None
@@ -263,6 +266,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         self._last_update = None
         self._api_message = None
+        self._api_url = None
 
     @property
     def unique_id(self) -> str:
@@ -303,8 +307,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs[ATTR_ATTRIBUTION] = ATTRIBUTION
 
         attrs["sport"] = self.coordinator.data["sport"]
+        attrs["sport_path"] = self.coordinator.data["sport_path"]
         attrs["league"] = self.coordinator.data["league"]
+        attrs["league_path"] = self.coordinator.data["league_path"]
         attrs["league_logo"] = self.coordinator.data["league_logo"]
+        attrs["conference_id"] = self.coordinator.data["conference_id"]
         attrs["season"] = self.coordinator.data["season"]
         attrs["team_abbr"] = self.coordinator.data["team_abbr"]
         attrs["opponent_abbr"] = self.coordinator.data["opponent_abbr"]
@@ -379,6 +386,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         attrs["last_update"] = self.coordinator.data["last_update"]
         attrs["api_message"] = self.coordinator.data["api_message"]
+        attrs["api_url"] = self.coordinator.data["api_url"]
 
         return attrs
 
