@@ -521,7 +521,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         values["league"] = league_id
         values["league_path"] = self.league_path
         values["league_logo"] = DEFAULT_LOGO
-        values["conference_id"] = self.conference_id
         values["team_abbr"] = team_id
         values["state"] = "NOT_FOUND"
         values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)

@@ -12,7 +12,6 @@ async def async_clear_values() -> dict:
         "league": None,
         "league_path": None,
         "league_logo": None,
-        "conference_id": None,
         "season": None,
         "team_abbr": None,
         "opponent_abbr": None,
