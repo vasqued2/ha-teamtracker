@@ -4,7 +4,6 @@
     "league": "XXX",
     "league_path": "1324623",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
-    "conference_id": "9999",
     "season": null,
     "team_abbr": "MR",
     "opponent_abbr": "PS",
@@ -23,6 +22,7 @@
     "team_id": "509671",
     "team_record": "",
     "team_rank": null,
+    "team_conference_id": null,
     "team_homeaway": "home",
     "team_logo": "https://a.espncdn.com/i/teamlogos/cricket/500/509671.png",
     "team_url": "https://www.espn.in/cricket/team/_/id/509671/melbourne-renegades",
@@ -39,6 +39,7 @@
     "opponent_id": "509670",
     "opponent_record": "",
     "opponent_rank": null,
+    "opponent_conference_id": null,
     "opponent_homeaway": "away",
     "opponent_logo": "https://a.espncdn.com/i/teamlogos/cricket/500/509670.png",
     "opponent_url": "https://www.espn.in/cricket/team/_/id/509670/perth-scorchers",
@@ -69,7 +70,7 @@
     "opponent_sets_won": null,
     "last_update": "2022-02-02 02:02:02-05:00",
     "api_message": null,
-    "api_url": "http://site.api.espn.com/apis/site/v2/sports/cricket/1324623/scoreboard?lang=en&limit=25&dates=20250414-20250420&groups=9999",
+    "api_url": "http://site.api.espn.com/apis/site/v2/sports/cricket/1324623/scoreboard?lang=en&limit=25&dates=20250417-20250423&groups=9999",
     "private_fast_refresh": true,
     "state": "IN"
 }

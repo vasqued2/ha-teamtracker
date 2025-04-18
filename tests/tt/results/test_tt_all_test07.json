@@ -4,7 +4,6 @@
     "league": "NWSL",
     "league_path": "usa.nwsl",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
-    "conference_id": "9999",
     "season": "regular-season",
     "team_abbr": "ORL",
     "opponent_abbr": "POR",
@@ -23,6 +22,7 @@
     "team_id": "18206",
     "team_record": "5-6-6",
     "team_rank": null,
+    "team_conference_id": null,
     "team_homeaway": "home",
     "team_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18206.png",
     "team_url": "http://www.espn.com/soccer/club/_/id/18206/orlando-pride",
@@ -39,6 +39,7 @@
     "opponent_id": "15362",
     "opponent_record": "7-7-3",
     "opponent_rank": null,
+    "opponent_conference_id": null,
     "opponent_homeaway": "away",
     "opponent_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/15362.png",
     "opponent_url": "http://www.espn.com/soccer/club/_/id/15362/portland-thorns-fc",
@@ -69,7 +70,7 @@
     "opponent_sets_won": null,
     "last_update": "2022-02-02 02:02:02-05:00",
     "api_message": null,
-    "api_url": "http://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?lang=en&limit=25&dates=20250414-20250420&groups=9999",
+    "api_url": "http://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?lang=en&limit=25&dates=20250417-20250423&groups=9999",
     "private_fast_refresh": false,
     "state": "PRE"
 }
