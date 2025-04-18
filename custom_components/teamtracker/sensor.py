@@ -219,6 +219,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._team_id = None
         self._team_record = None
         self._team_rank = None
+        self._team_conference_id = None
         self._team_homeaway = None
         self._team_logo = None
         self._team_url = None
@@ -233,6 +234,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._opponent_id = None
         self._opponent_record = None
         self._opponent_rank = None
+        self._opponent_conference_id = None
         self._opponent_homeaway = None
         self._opponent_logo = None
         self._opponent_url = None
@@ -330,6 +332,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_id"] = self.coordinator.data["team_id"]
         attrs["team_record"] = self.coordinator.data["team_record"]
         attrs["team_rank"] = self.coordinator.data["team_rank"]
+        attrs["team_conference_id"] = self.coordinator.data["team_conference_id"]
         attrs["team_homeaway"] = self.coordinator.data["team_homeaway"]
         attrs["team_logo"] = self.coordinator.data["team_logo"]
         attrs["team_url"] = self.coordinator.data["team_url"]
@@ -345,6 +348,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["opponent_id"] = self.coordinator.data["opponent_id"]
         attrs["opponent_record"] = self.coordinator.data["opponent_record"]
         attrs["opponent_rank"] = self.coordinator.data["opponent_rank"]
+        attrs["opponent_conference_id"] = self.coordinator.data["opponent_conference_id"]
         attrs["opponent_homeaway"] = self.coordinator.data["opponent_homeaway"]
         attrs["opponent_logo"] = self.coordinator.data["opponent_logo"]
         attrs["opponent_url"] = self.coordinator.data["opponent_url"]
