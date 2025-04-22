@@ -380,7 +380,7 @@ Some attributes are only available for certain sports.
 | `opponent_winner` | Flag indicating whether the opponent has won the competition or not. | `POST` |
 | `opponent_timeouts` | The number of remaining timeouts your opponent has. | `PRE` `IN` `POST` |
 | `last_update` | A timestamp for the last time data was fetched for the game. If you watch this in real-time, you should notice it updating every 10 minutes, except for during the game (and for the ~20 minutes pre-game) when it updates every 5 seconds. | `PRE` `IN` `POST` `BYE` |
-| `api_message` | A message giving information to help troubleshoot when the sensor is state | `PRE` `IN` `POST` `BYE` `NOT_FOUND` |
+| `api_message` | A message giving information to help troubleshoot when the sensor is state  | `PRE` `IN` `POST` `BYE` `NOT_FOUND` |
 | `api_url` | The URL of the ESPN API call | `PRE` `IN` `POST` `BYE` `NOT_FOUND` |
 
 
