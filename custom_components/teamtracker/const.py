@@ -5,7 +5,7 @@ from datetime import timedelta
 # API
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
 URL_TAIL = "/scoreboard"
-API_LIMIT = 25
+API_LIMIT = 50
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like "
     "Gecko) Version/15.0 Safari/605.1.15"
@@ -195,7 +195,7 @@ SERVICE_NAME_CALL_API = "call_api"
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.14.8"
+VERSION = "v0.14.9"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"
