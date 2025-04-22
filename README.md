@@ -316,11 +316,18 @@ Some attributes are only available for certain sports.
 
 | Name | Value | Relevant States |
 | --- | --- | --- |
+| `sport` | Name of the sport for the sensor | `PRE` `IN` `POST` |
+| `sport_path` | The `sport_path` for the sensor used to generate the API URL | `PRE` `IN` `POST` |
+| `league` | Name of the league for the sensor | `PRE` `IN` `POST` |
+| `league_path` | The `league_path` for the sensor used to generate the API URL | `PRE` `IN` `POST` |
+| `league_logo` | URL for the logo of the league | `PRE` `IN` `POST` |
+| `season` | Identifies the type of season (i.e. pre, regular, post) | `PRE` `IN` `POST` |
 | `date` | Date and time of the game | `PRE` `IN` `POST` |
 | `kickoff_in` | Human-readable string for how far away the game is (eg. "in 30 minutes" or "tomorrow") |  `PRE` `IN` `POST` |
 | `quarter` | The current quarter of gameplay | `IN` |
 | `clock` | The clock value within the quarter (should never be higher than 15:00).  Inning (MLB only). | `IN` |
 | `event_name` | The name of the event being played (eg. "The Masters") | `PRE` `IN` `POST` |
+| `series_summary` | If event is part of a series, provides a summary of the series | `PRE` `IN` `POST` |
 | `event_url` | An ESPN URL for the event | `PRE` `IN` `POST` |
 | `venue` | The name of the stadium where the game is being played (eg. "Arrowhead Stadium") | `PRE` `IN` `POST` |
 | `location` | The city and state where the game is being played (eg. "Pittsburgh, PA") | `PRE` `IN` `POST` |
@@ -338,13 +345,17 @@ Some attributes are only available for certain sports.
 | `on_third` | Baserunner on third base (MLB only). | `IN` |
 | `team_total_shots` | Total shots by team (MLS only). | `IN` |
 | `team_shots_on_target` | Shots on net by team (MLS only). | `IN` |
-| `opponent_total_shots` | Total shots by team (MLS only). | `IN` |
-| `opponent_shots_on_target` | Shots on net by team (MLS only). | `IN` |
+| `team_sets_won` | Sets won by team. | `IN` |
+| `opponent_total_shots` | Total shots by opponent (MLS only). | `IN` |
+| `opponent_shots_on_target` | Shots on net by opponent (MLS only). | `IN` |
+| `opponent_sets_won` | Sets won by opponent. | `IN` |
 | `team_abbr` | The abbreviation for your team (ie. `SEA` for the Seahawks). | `PRE` `IN` `POST` `BYE` |
 | `team_id` | A numeric ID for your team, used to match `possession` above. | `PRE` `IN` `POST` |
 | `team_name` | Your team's name (eg. "Seahawks"). Note this does not include the city name. | `PRE` `IN` `POST` `BYE` |
+| `team_long_name` | Your team's long name (eg. "Seatle Seahawks"). Note this includes the city name. | `PRE` `IN` `POST` `BYE` |
 | `team_record` | Your team's current record (eg. "2-3"). | `PRE` `IN` `POST` |
 | `team_rank` | Your team's current rank (null if unranked or does not apply). | `PRE` `IN` `POST` |
+| `team_conference_id` | Your team's conference ID. | `PRE` `IN` `POST` |
 | `team_homeaway` | Your team's home/away status. Either `home` or `away`. | `PRE` `IN` `POST` |
 | `team_logo` | A URL for a 500px wide PNG logo for the team. | `PRE` `IN` `POST` `BYE` |
 | `team_url` | An ESPN URL for the team. | `PRE` `IN` `POST` `BYE` |
@@ -356,8 +367,10 @@ Some attributes are only available for certain sports.
 | `opponent_abbr` | The abbreviation for your opponent (ie. `SEA` for the Seahawks). | `PRE` `IN` `POST` `BYE` |
 | `opponent_id` | A numeric ID for your opponent, used to match `possession` above. | `PRE` `IN` `POST` |
 | `opponent_name` | Your opponent's name (eg. "Seahawks"). Note this does not include the city name. | `PRE` `IN` `POST` `BYE` |
+| `opponent_long_name` | Your opponent's long name (eg. "Seatle Seahawks"). Note this includes the city name. | `PRE` `IN` `POST` `BYE` |
 | `opponent_record` | Your opponent's current record (eg. "2-3"). | `PRE` `IN` `POST` |
 | `opponent_rank` | Your opponent's current rank (null if unranked or does not apply). | `PRE` `IN` `POST` |
+| `opponent_conference_id` | Your opponent's conference ID. | `PRE` `IN` `POST` |
 | `opponent_homeaway` | Your opponent's home/away status. Either `home` or `away`. | `PRE` `IN` `POST` |
 | `opponent_logo` | A URL for a 500px wide PNG logo for the opponent. | `PRE` `IN` `POST` `BYE` |
 | `opponent_url` | An ESPN URL for the opponent. | `PRE` `IN` `POST` `BYE` |
@@ -368,6 +381,7 @@ Some attributes are only available for certain sports.
 | `opponent_timeouts` | The number of remaining timeouts your opponent has. | `PRE` `IN` `POST` |
 | `last_update` | A timestamp for the last time data was fetched for the game. If you watch this in real-time, you should notice it updating every 10 minutes, except for during the game (and for the ~20 minutes pre-game) when it updates every 5 seconds. | `PRE` `IN` `POST` `BYE` |
 | `api_message` | A message giving information to help troubleshoot when the sensor is state `NOT_FOUND` | `NOT_FOUND` |
+| `api_url` | The URL of the ESPN API call | `NOT_FOUND` | `NOT_FOUND` |
 
 
 ## Services
