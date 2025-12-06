@@ -112,7 +112,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         VERSION,
         ISSUE_URL,
     )
-    hass.data.setdefault(DOMAIN, {})
+
+    # Initialize DOMAIN in hass.data if it doesn't exist
+    if DOMAIN not in hass.data:
+        hass.data[DOMAIN] = {}
+        
+        # Register service only once, when first entry is set up
+        hass.services.async_register(
+            DOMAIN, 
+            SERVICE_NAME_CALL_API, 
+            async_call_api_service
+        )
+        _LOGGER.debug("Registered %s service", SERVICE_NAME_CALL_API)
 
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 
