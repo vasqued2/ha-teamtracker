@@ -153,6 +153,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
 
+    # Shut down the coordinator first to close aiohttp session
+    if entry.entry_id in hass.data[DOMAIN]:
+        coordinator = hass.data[DOMAIN][entry.entry_id].get(COORDINATOR)
+        if coordinator:
+            await coordinator.async_shutdown()
+    
+    # Unload platforms
     unload_ok = all(
         await asyncio.gather(
             *[
@@ -164,6 +171,10 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
+        
+        # Only remove service if this is the last entry
+        if not hass.data[DOMAIN]:
+            hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
 
     return unload_ok
 
@@ -227,11 +238,26 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
+        self._session = None  # ADD: Track aiohttp session
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
             "%s: Using default refresh rate (%s)", self.name, self.update_interval
         )
+
+    # ADD: New method to get or create session
+    async def _get_session(self):
+        """Get or create aiohttp session."""
+        if self._session is None or self._session.closed:
+            self._session = aiohttp.ClientSession()
+        return self._session
+
+    # ADD: New method to cleanup
+    async def async_shutdown(self):
+        """Cleanup coordinator resources."""
+        if self._session and not self._session.closed:
+            await self._session.close()
+            _LOGGER.debug("%s: Closed aiohttp session", self.name)
 
 
     #
@@ -401,19 +427,20 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 contents = await f.read()
             data = json.loads(contents)
         else:
-            async with aiohttp.ClientSession() as session:
-                try:
-                    async with session.get(url, headers=headers) as r:
-                        _LOGGER.debug(
-                            "%s: Calling API for '%s' from %s",
-                            sensor_name,
-                            team_id,
-                            url,
-                        )
-                        if r.status == 200:
-                            data = await r.json()
-                except:
-                    data = None
+            session = await self._get_session()
+            try:
+                async with session.get(url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Calling API for '%s' from %s",
+                        sensor_name,
+                        team_id,
+                        url,
+                    )
+                    if r.status == 200:
+                        data = await r.json()
+            except Exception as e:
+                _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+                data = None
 
             num_events = 0
             if data is not None:
@@ -434,6 +461,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 num_events,
                 url,
             )
+            
+            # First fallback - without date constraint
             if num_events == 0:
                 url_parms = "?lang=" + lang[:2]
                 if self.conference_id:
@@ -443,19 +472,19 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
-                async with aiohttp.ClientSession() as session:
-                    try:
-                        async with session.get(url, headers=headers) as r:
-                            _LOGGER.debug(
-                                "%s: Calling API without date constraint for '%s' from %s",
-                                sensor_name,
-                                team_id,
-                                url,
-                            )
-                            if r.status == 200:
-                                data = await r.json()
-                    except:
-                        data = None
+                try:
+                    async with session.get(url, headers=headers) as r:
+                        _LOGGER.debug(
+                            "%s: Calling API without date constraint for '%s' from %s",
+                            sensor_name,
+                            team_id,
+                            url,
+                        )
+                        if r.status == 200:
+                            data = await r.json()
+                except Exception as e:
+                    _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+                    data = None
 
                 num_events = 0
                 if data is not None:
@@ -465,7 +494,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         team_id,
                         url,
                     )
-
                     try:
                         num_events = len(data["events"])
                     except:
@@ -478,6 +506,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     url,
                 )
 
+            # Second fallback - without language
             if num_events == 0:
                 url_parms = ""
                 if self.conference_id:
@@ -487,22 +516,24 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
-                async with aiohttp.ClientSession() as session:
-                    try:
-                        async with session.get(url, headers=headers) as r:
-                            _LOGGER.debug(
-                                "%s: Calling API without language for '%s' from %s",
-                                sensor_name,
-                                team_id,
-                                url,
-                            )
-                            if r.status == 200:
-                                data = await r.json()
-                    except:
-                        data = None
+                try:
+                    async with session.get(url, headers=headers) as r:
+                        _LOGGER.debug(
+                            "%s: Calling API without language for '%s' from %s",
+                            sensor_name,
+                            team_id,
+                            url,
+                        )
+                        if r.status == 200:
+                            data = await r.json()
+                except Exception as e:
+                    _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+                    data = None
+                    
         self.api_url = url
         
         return data, file_override
+
 
     async def async_update_values(self, config, hass, data, lang) -> dict:
         """Return values based on the data passed into method"""
