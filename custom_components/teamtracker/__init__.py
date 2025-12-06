@@ -438,7 +438,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     )
                     if r.status == 200:
                         data = await r.json()
-            except Exception as e:
+            except Exception as e: # pylint: disable=broad-exception-caught
                 _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
                 data = None
 
@@ -482,7 +482,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         )
                         if r.status == 200:
                             data = await r.json()
-                except Exception as e:
+                except Exception as e: # pylint: disable=broad-exception-caught
                     _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
                     data = None
 
@@ -526,7 +526,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         )
                         if r.status == 200:
                             data = await r.json()
-                except Exception as e:
+                except Exception as e: # pylint: disable=broad-exception-caught
                     _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
                     data = None
                     
