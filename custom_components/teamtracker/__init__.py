@@ -175,6 +175,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Only remove service if this is the last entry
         if not hass.data[DOMAIN]:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
+            TeamTrackerDataUpdateCoordinator.data_cache.clear()
+            TeamTrackerDataUpdateCoordinator.last_update.clear()
+            TeamTrackerDataUpdateCoordinator.c_cache.clear()
 
     return unload_ok
 
