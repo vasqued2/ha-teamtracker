@@ -82,6 +82,8 @@ async def test_setup_entry(
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
 
+    assert await hass.config_entries.async_unload(entry.entry_id)
+    await hass.async_block_till_done()
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_unload_entry(hass):
