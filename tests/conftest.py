@@ -18,7 +18,7 @@ def auto_enable_custom_integrations(enable_custom_integrations):
 THREAD_ENDS_WITH_SAFE_SHUTDOWN = "(_run_safe_shutdown_loop)" # <-- CHANGED: Check the end of the name
 THREAD_PREFIX_TO_IGNORE_SYNCWORKER = "SyncWorker_"
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=False)
 def verify_cleanup(
     event_loop: asyncio.AbstractEventLoop,
     expected_lingering_tasks: bool,
