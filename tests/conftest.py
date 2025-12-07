@@ -30,9 +30,9 @@ def verify_cleanup(
     to filter out known lingering threads that appear in Python 3.12.
     '''
     # --- Start of the Test (Setup) ---
+    event_loop = asyncio.get_event_loop()
     threads_before = frozenset(threading.enumerate())
     tasks_before = asyncio.all_tasks(event_loop)
-    event_loop = asyncio.get_event_loop()
 
     
     # The test runs here
