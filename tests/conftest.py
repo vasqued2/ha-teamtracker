@@ -21,7 +21,7 @@ THREAD_PREFIX_TO_IGNORE_SYNCWORKER = "SyncWorker_"
 
 @pytest.fixture(autouse=False)
 def verify_cleanup(
-    event_loop: asyncio.AbstractEventLoop,
+#    event_loop: asyncio.AbstractEventLoop,
     expected_lingering_tasks: bool,
     expected_lingering_timers: bool,
 ) -> Generator[None]:
@@ -32,6 +32,8 @@ def verify_cleanup(
     # --- Start of the Test (Setup) ---
     threads_before = frozenset(threading.enumerate())
     tasks_before = asyncio.all_tasks(event_loop)
+    event_loop = asyncio.get_event_loop()
+
     
     # The test runs here
     yield
