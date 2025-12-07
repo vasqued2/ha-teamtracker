@@ -6,6 +6,6 @@ pytest-asyncio>=0.23.5
 pytest-cov>=4.1.0
 pytest-mock>=3.14.0
 #pytest-homeassistant-custom-component>=0.13.109
-pytest-homeassistant-custom-component<0.13.150
+pytest-homeassistant-custom-component<0.13.120
 arrow
 aiofiles
