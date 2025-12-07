@@ -79,8 +79,8 @@ async def test_setup_entry(
     sport = sensor_state.attributes.get("sport")
     assert sport == "basketball"
 
-#    assert await entry.async_unload(hass)
-#    await hass.async_block_till_done()
+    assert await entry.async_unload(hass)
+    await hass.async_block_till_done()
 
     assert await hass.config_entries.async_unload(entry.entry_id)
     await hass.async_block_till_done()
