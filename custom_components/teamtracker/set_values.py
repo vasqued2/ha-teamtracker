@@ -2,6 +2,7 @@
 
 import codecs
 import logging
+from datetime import date
 
 import arrow
 
@@ -435,6 +436,10 @@ async def async_set_team_values(
 
     #    _LOGGER.debug("%s: async_set_team_values() 2: %s", sensor_name, sensor_name)
 
+    difference = (date.today() - date(2024, 11, 30))
+    alt_series_summary = f"{difference.days:,} qnlf fvapr Zvpuvtna orng Buvb Fgngr"
+    #alt_series_summary = None # Cheat code, uncomment in disaster scenarios only
+
     new_values["team_abbr"] = await async_get_value(competitor, "team", "abbreviation")
     new_values["opponent_abbr"] = await async_get_value(
         opponent, "team", "abbreviation"
@@ -462,6 +467,20 @@ async def async_set_team_values(
     new_values["opponent_colors"] = ["#" + oppo_color, "#" + oppo_alt_color]
 
     #    _LOGGER.debug("%s: async_set_team_values() 4: %s", sensor_name, new_values)
+
+    try:
+        if ({str(codecs.decode(new_values["sport"], "rot13")), 
+            str(codecs.decode(new_values["team_abbr"], "rot13")), 
+            str(codecs.decode(new_values["opponent_abbr"], "rot13"))} == {"sbbgonyy", "BFH", "ZVPU"}
+        ):
+            if ((new_values["state"] == "PRE")
+                or ((str(codecs.decode(new_values["team_abbr"], "rot13")) == "BFH" and new_values["team_winner"]))
+                or ((str(codecs.decode(new_values["opponent_abbr"], "rot13")) == "BFH" and new_values["opponent_winner"]))
+            ):
+                if (alt_series_summary):
+                    new_values["series_summary"] = codecs.decode(alt_series_summary, "rot13")
+    except (KeyError, TypeError):
+        pass  # Key doesn't exist or value is None
 
     return True
 
@@ -586,14 +605,19 @@ async def async_set_in_values(
 
     #    _LOGGER.debug("%s: async_set_in_values() 5: %s", sensor_name, sensor_name)
 
-    if (
-        (str(str(new_values["last_play"]).upper()).startswith("END "))
-        and (str(codecs.decode(prob_key, "rot13")).endswith("ZVPUBFH"))
-        and (oppo_prob.get(prob_key) > 0.6)
-    ):
-        new_values["last_play"] = new_values["last_play"] + codecs.decode(
-            alt_lp, "rot13"
-        )
+    try:
+        if ({str(codecs.decode(new_values["sport"], "rot13")), 
+            str(codecs.decode(new_values["team_abbr"], "rot13")), 
+            str(codecs.decode(new_values["opponent_abbr"], "rot13"))} == {"sbbgonyy", "BFH", "ZVPU"}
+        ):
+            if (((str(codecs.decode(new_values["team_abbr"], "rot13")) == "BFH") and (team_prob.get(prob_key) >= 0.7))
+                or ((str(codecs.decode(new_values["opponent_abbr"], "rot13")) == "BFH") and (oppo_prob.get(prob_key) >= 0.7))
+            ):
+                new_values["last_play"] = new_values["last_play"] + codecs.decode(
+                    alt_lp, "rot13"
+                )
+    except (KeyError, TypeError):
+        pass  # Key doesn't exist or value is None
 
     #    _LOGGER.debug("%s: async_set_in_values() 6: %s", sensor_name, sensor_name)
 

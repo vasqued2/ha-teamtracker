@@ -169,9 +169,11 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
             sensor_coordinator = hass.data[DOMAIN][sensor_name][COORDINATOR]
             super().__init__(sensor_coordinator)
+            self._yaml_coordinator = sensor_coordinator  # Store reference for cleanup
+
             try:
                 sport_path = config[CONF_SPORT_PATH]
-            except:
+            except (KeyError, AttributeError):  # pylint: disable=broad-exception-caught
                 sport_path = DEFAULT_SPORT_PATH
 
         if sport_path == DEFAULT_SPORT_PATH:
@@ -396,3 +398,10 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     def available(self) -> bool:
         """Return if entity is available."""
         return self.coordinator.last_update_success
+
+    async def async_will_remove_from_hass(self) -> None:
+        """Clean up when entity is being removed."""
+        # Only cleanup for YAML setup (entry is None)
+        if hasattr(self, '_yaml_coordinator'):
+            await self._yaml_coordinator.async_shutdown()
+            _LOGGER.debug("%s: Cleaned up YAML coordinator", self._name)

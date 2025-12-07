@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
 
 import voluptuous as vol
 
@@ -26,27 +26,20 @@ from .const import (
     LEAGUE_MAP,
 )
 
-JSON_FEATURES = "features"
-JSON_PROPERTIES = "properties"
-JSON_ID = "id"
-
 _LOGGER = logging.getLogger(__name__)
 
 
 def _get_schema(
     hass: HomeAssistant,
-    user_input: Optional[Dict[str, Any]],
-    default_dict: Dict[str, Any],
-    entry_id: str = None,
+    user_input: dict[str, Any] | None,
+    default_dict: dict[str, Any],
 ) -> vol.Schema:
-    # pylint: disable=deprecated-typing-alias
-    # pylint: disable=consider-alternative-union-syntax
     """Gets a schema using the default_dict as a backup."""
 
     if user_input is None:
         user_input = {}
 
-    def _get_default(key: str, fallback_default: Any = None) -> None:
+    def _get_default(key: str, fallback_default: Any = None) -> Any:
         """Gets default value for key."""
         return user_input.get(key, default_dict.get(key, fallback_default))
 
@@ -67,12 +60,16 @@ def _get_schema(
     )
 
 
-def _get_path_schema(hass: Any, user_input: list, default_dict: list) -> Any:
+def _get_path_schema(
+    hass: HomeAssistant, 
+    user_input: dict[str, Any] | None, 
+    default_dict: dict[str, Any]
+) -> vol.Schema:
     """Gets a schema using the default_dict as a backup."""
     if user_input is None:
         user_input = {}
 
-    def _get_default(key):
+    def _get_default(key: str) -> Any:
         """Gets default value for key."""
         return user_input.get(key, default_dict.get(key))
 
@@ -84,19 +81,19 @@ def _get_path_schema(hass: Any, user_input: list, default_dict: list) -> Any:
     )
 
 
-@config_entries.HANDLERS.register(DOMAIN)
 class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for TeamTracker."""
 
     VERSION = 3
-#    CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize."""
-        self._data = {}
-        self._errors = {}
+        self._data: dict[str, Any] = {}
+        self._errors: dict[str, str] = {}
 
-    async def async_step_user(self, user_input=None):
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
         """Handle a flow initialized by the user."""
         self._errors = {}
 
@@ -114,11 +111,10 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             self._errors["base"] = "league"
         return await self._show_config_form(user_input)
 
-    async def async_step_path(self, user_input: Optional[Dict[str, Any]] = None):
-        # pylint: disable=deprecated-typing-alias
-        # pylint: disable=consider-alternative-union-syntax
-
-        """Handle a flow initialized by the user."""
+    async def async_step_path(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle custom sport/league path configuration."""
         self._errors = {}
 
         if user_input is not None:
@@ -126,7 +122,9 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             return self.async_create_entry(title=self._data[CONF_NAME], data=self._data)
         return await self._show_path_form(user_input)
 
-    async def _show_config_form(self, user_input):
+    async def _show_config_form(
+        self, user_input: dict[str, Any] | None
+    ) -> config_entries.FlowResult:
         """Show the configuration form to edit location data."""
 
         # Defaults
@@ -142,7 +140,9 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=self._errors,
         )
 
-    async def _show_path_form(self, user_input):
+    async def _show_path_form(
+        self, user_input: dict[str, Any] | None
+    ) -> config_entries.FlowResult:
         """Show the path form to edit path data."""
 
         # Defaults
@@ -156,22 +156,27 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=self._errors,
         )
 
-
     @staticmethod
     @callback
-    def async_get_options_flow(config_entry):
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> config_entries.OptionsFlow:
+        """Get the options flow for this handler."""
         return TeamTrackerScoresOptionsFlow(config_entry)
+
 
 class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
     """Options flow for TeamTracker."""
 
-    def __init__(self, config_entry):
+    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize."""
         self.entry = config_entry
-        self._options = dict(config_entry.options)
-        self._errors = {}
+        self._options: dict[str, Any] = dict(config_entry.options)
+        self._errors: dict[str, str] = {}
 
-    async def async_step_init(self, user_input=None):
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
         """Manage options."""
 
         if user_input is not None:
@@ -179,16 +184,26 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
             return self.async_create_entry(title="", data=self._options)
         return await self._show_options_form(user_input)
 
-    async def _show_options_form(self, user_input):
+    async def _show_options_form(
+        self, user_input: dict[str, Any] | None
+    ) -> config_entries.FlowResult:
         """Show the options form to edit location data."""
 
         lang = None
-        if self.entry and self.entry.options and CONF_API_LANGUAGE in self.entry.options:
-                lang = self.entry.options[CONF_API_LANGUAGE]
+        if (
+            self.entry
+            and self.entry.options
+            and CONF_API_LANGUAGE in self.entry.options
+        ):
+            lang = self.entry.options[CONF_API_LANGUAGE]
 
         options_schema = vol.Schema(
             {
-                vol.Optional(CONF_API_LANGUAGE, description={"suggested_value": lang}, default=""): cv.string,
+                vol.Optional(
+                    CONF_API_LANGUAGE,
+                    description={"suggested_value": lang},
+                    default="",
+                ): cv.string,
             }
         )
 
