@@ -25,10 +25,10 @@ def verify_cleanup(
     expected_lingering_tasks: bool,
     expected_lingering_timers: bool,
 ) -> Generator[None]:
-
-#    Overrides the default Home Assistant 'verify_cleanup' fixture 
-#    to filter out known lingering threads that appear in Python 3.12.
-    
+    '''
+    Overrides the default Home Assistant 'verify_cleanup' fixture 
+    to filter out known lingering threads that appear in Python 3.12.
+    '''
     # --- Start of the Test (Setup) ---
     threads_before = frozenset(threading.enumerate())
     tasks_before = asyncio.all_tasks(event_loop)
