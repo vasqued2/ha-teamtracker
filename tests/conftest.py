@@ -15,7 +15,7 @@ def auto_enable_custom_integrations(enable_custom_integrations):
 #
 # Ignore the specified lingering threads (Compatible w/ Python 3.12 and earlier only)
 #
-'''
+
 THREAD_ENDS_WITH_SAFE_SHUTDOWN = "(_run_safe_shutdown_loop)" # <-- CHANGED: Check the end of the name
 THREAD_PREFIX_TO_IGNORE_SYNCWORKER = "SyncWorker_"
 
@@ -71,4 +71,3 @@ def verify_cleanup(
     assert (
         not timers or expected_lingering_timers
     ), f"Lingering timers found: {timers}"
-'''
