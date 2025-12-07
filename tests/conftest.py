@@ -12,10 +12,9 @@ def auto_enable_custom_integrations(enable_custom_integrations):
     """ enable custom integrations """
     yield
 
-
-
-# The name of the thread that Home Assistant's test harness is failing on 
-# in Python 3.12, which we need to filter out for the test to pass.
+#
+# Ignore the specified lingering threads
+#
 THREAD_ENDS_WITH_SAFE_SHUTDOWN = "(_run_safe_shutdown_loop)" # <-- CHANGED: Check the end of the name
 THREAD_PREFIX_TO_IGNORE_SYNCWORKER = "SyncWorker_"
 
@@ -50,8 +49,8 @@ def verify_cleanup(
         if not (
             isinstance(thread, threading._DummyThread) # pylint: disable=protected-access
             or thread.name.startswith("waitpid-")
-            or thread.name.endswith(THREAD_ENDS_WITH_SAFE_SHUTDOWN)  # <-- UPDATED CHECK
-            or thread.name.startswith(THREAD_PREFIX_TO_IGNORE_SYNCWORKER)  # <-- NEW: Ignore SyncWorkers
+            or thread.name.endswith(THREAD_ENDS_WITH_SAFE_SHUTDOWN)
+            or thread.name.startswith(THREAD_PREFIX_TO_IGNORE_SYNCWORKER)
         )
     }
 
