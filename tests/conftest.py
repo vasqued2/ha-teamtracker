@@ -1,7 +1,7 @@
 """Fixtures for tests"""
 import asyncio
 import threading
-from typing import Generator
+from collections.abc import Generator # <-- New import
 import pytest
 
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
@@ -48,7 +48,7 @@ def verify_cleanup(
         thread
         for thread in lingering_threads
         if not (
-            isinstance(thread, threading._DummyThread)
+            isinstance(thread, threading._DummyThread) # pylint: disable=protected-access
             or thread.name.startswith("waitpid-")
             or thread.name.endswith(THREAD_ENDS_WITH_SAFE_SHUTDOWN)  # <-- UPDATED CHECK
             or thread.name.startswith(THREAD_PREFIX_TO_IGNORE_SYNCWORKER)  # <-- NEW: Ignore SyncWorkers
@@ -68,7 +68,7 @@ def verify_cleanup(
     ), f"Lingering tasks found: {lingering_tasks}"
 
     # 3. Timer Cleanup Check (Kept from HA fixture)
-    timers = event_loop._scheduled
+    timers = event_loop._scheduled # pylint: disable=protected-access
     assert (
         not timers or expected_lingering_timers
     ), f"Lingering timers found: {timers}"
