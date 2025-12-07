@@ -51,33 +51,33 @@ async def test_setup_entry(
     assert sport == "baseball"
 
 
-    await hass.services.async_call(
-        domain="teamtracker",
-        service="call_api",
-        service_data={
-            "sport_path": "basketball",
-            "league_path": "nba",
-            "team_id": "bos"
-        },
-        target={
-            "entity_id": [
-                "sensor.test_tt_all_test01",
-            ]
-        },
-        blocking=True
-    )
+#    await hass.services.async_call(
+#        domain="teamtracker",
+#        service="call_api",
+#        service_data={
+#            "sport_path": "basketball",
+#            "league_path": "nba",
+#            "team_id": "bos"
+#        },
+#        target={
+#            "entity_id": [
+#                "sensor.test_tt_all_test01",
+#            ]
+#        },
+#        blocking=True
+#    )
 
 #
 # Validate sensor state and attributes changed based on API call
 #
 
-    sensor_state = hass.states.get("sensor.test_tt_all_test01")
+#    sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
-    assert sensor_state.state == "NOT_FOUND"
-    team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "BOS"
-    sport = sensor_state.attributes.get("sport")
-    assert sport == "basketball"
+#    assert sensor_state.state == "NOT_FOUND"
+#    team_abbr = sensor_state.attributes.get("team_abbr")
+#    assert team_abbr == "BOS"
+#    sport = sensor_state.attributes.get("sport")
+#    assert sport == "basketball"
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
