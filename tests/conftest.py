@@ -3,6 +3,10 @@ import asyncio
 import threading
 from collections.abc import Generator # <-- New import
 import pytest
+import logging
+
+_LOGGER = logging.getLogger(__name__)
+
 
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
 
