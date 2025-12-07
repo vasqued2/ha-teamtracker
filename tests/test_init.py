@@ -95,7 +95,7 @@ async def test_unload_entry(hass):
         data=CONFIG_DATA2,
     )
 
-#    entry.add_to_hass(hass)
+    entry.add_to_hass(hass)
 #    assert await hass.config_entries.async_setup(entry.entry_id)
 #    await hass.async_block_till_done()
 
