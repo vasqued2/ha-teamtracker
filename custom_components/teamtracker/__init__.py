@@ -168,8 +168,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if entry.entry_id in hass.data[DOMAIN]:
         coordinator = hass.data[DOMAIN][entry.entry_id].get(COORDINATOR)
         if coordinator:
-            await coordinator.async_shutdown()
-    
+            if hasattr(coordinator, "async_unload"):
+                await coordinator.async_unload()
+                
     # Unload platforms
     unload_ok = all(
         await asyncio.gather(
