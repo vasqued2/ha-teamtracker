@@ -13,21 +13,21 @@ def auto_enable_custom_integrations(enable_custom_integrations):
     yield
 
 #
-# Ignore the specified lingering threads
+# Ignore the specified lingering threads (Compatible w/ Python 3.12 and earlier only)
 #
+'''
 THREAD_ENDS_WITH_SAFE_SHUTDOWN = "(_run_safe_shutdown_loop)" # <-- CHANGED: Check the end of the name
 THREAD_PREFIX_TO_IGNORE_SYNCWORKER = "SyncWorker_"
 
-@pytest.fixture(autouse=False)
+@pytest.fixture(autouse=True)
 def verify_cleanup(
     event_loop: asyncio.AbstractEventLoop,
     expected_lingering_tasks: bool,
     expected_lingering_timers: bool,
 ) -> Generator[None]:
-    """
-    Overrides the default Home Assistant 'verify_cleanup' fixture 
-    to filter out known lingering threads that appear in Python 3.12.
-    """
+
+#    Overrides the default Home Assistant 'verify_cleanup' fixture 
+#    to filter out known lingering threads that appear in Python 3.12.
     
     # --- Start of the Test (Setup) ---
     threads_before = frozenset(threading.enumerate())
@@ -71,3 +71,4 @@ def verify_cleanup(
     assert (
         not timers or expected_lingering_timers
     ), f"Lingering timers found: {timers}"
+'''
