@@ -15,14 +15,15 @@ jobs:
       - name: Get integration name from hacs.json
         id: integration
         run: |
-          # Extract the name field from hacs.json if it exists
+          # Extract the filename from hacs.json (without .zip extension)
           if [ -f "hacs.json" ]; then
-            INTEGRATION_NAME=$(jq -r '.name' hacs.json | tr '[:upper:]' '[:lower:]' | tr ' ' '_')
+            FILENAME=$(jq -r '.filename' hacs.json)
+            ZIP_NAME="${FILENAME}"
           else
             # Fallback to repository name
-            INTEGRATION_NAME="${GITHUB_REPOSITORY#*/}"
+            ZIP_NAME="${GITHUB_REPOSITORY#*/}.zip"
           fi
-          echo "name=${INTEGRATION_NAME}" >> $GITHUB_OUTPUT
+          echo "zip_name=${ZIP_NAME}" >> $GITHUB_OUTPUT
           
           # Find the custom_components directory
           COMPONENT_DIR=$(find custom_components -maxdepth 1 -mindepth 1 -type d | head -n 1)
@@ -32,9 +33,9 @@ jobs:
       - name: Create release zip
         run: |
           cd custom_components
-          zip -r ../${{ steps.integration.outputs.name }}.zip ${{ steps.integration.outputs.component_name }}
+          zip -r ../${{ steps.integration.outputs.zip_name }} ${{ steps.integration.outputs.component_name }}
           cd ..
-          ls -lh ${{ steps.integration.outputs.name }}.zip
+          ls -lh ${{ steps.integration.outputs.zip_name }}
 
       - name: Upload release asset
         if: github.event_name == 'release'  # Only upload on actual releases
@@ -43,8 +44,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./${{ steps.integration.outputs.name }}.zip
-          asset_name: ${{ steps.integration.outputs.name }}.zip
+          asset_path: ./${{ steps.integration.outputs.zip_name }}
+          asset_name: ${{ steps.integration.outputs.zip_name }}
           asset_content_type: application/zip
       
       - name: Upload artifact for testing
@@ -52,4 +53,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hacs-component-zip
-          path: ${{ steps.integration.outputs.name }}.zip
+          path: ${{ steps.integration.outputs.zip_name }}
