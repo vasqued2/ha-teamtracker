@@ -1,5 +1,8 @@
 {
     "name": "Team Tracker",
     "homeassistant": "0.95.4",
-    "render_readme": true
+    "render_readme": true,
+    "zip_release": true,
+    "filename": "team_tracker.zip",
+    "hide_default_branch": false
 }
