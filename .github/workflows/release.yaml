@@ -32,9 +32,9 @@ jobs:
 
       - name: Create release zip
         run: |
-          cd custom_components
-          zip -r ../${{ steps.integration.outputs.zip_name }} ${{ steps.integration.outputs.component_name }}
-          cd ..
+          cd custom_components/${{ steps.integration.outputs.component_name }}
+          zip -r ../../${{ steps.integration.outputs.zip_name }} .
+          cd ../..
           ls -lh ${{ steps.integration.outputs.zip_name }}
 
       - name: Upload release asset
