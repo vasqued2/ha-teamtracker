@@ -1,0 +1,55 @@
+name: Create HACS Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:  # Allows manual testing
+
+jobs:
+  build-and-attach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get integration name from hacs.json
+        id: integration
+        run: |
+          # Extract the name field from hacs.json if it exists
+          if [ -f "hacs.json" ]; then
+            INTEGRATION_NAME=$(jq -r '.name' hacs.json | tr '[:upper:]' '[:lower:]' | tr ' ' '_')
+          else
+            # Fallback to repository name
+            INTEGRATION_NAME="${GITHUB_REPOSITORY#*/}"
+          fi
+          echo "name=${INTEGRATION_NAME}" >> $GITHUB_OUTPUT
+          
+          # Find the custom_components directory
+          COMPONENT_DIR=$(find custom_components -maxdepth 1 -mindepth 1 -type d | head -n 1)
+          COMPONENT_NAME=$(basename "$COMPONENT_DIR")
+          echo "component_name=${COMPONENT_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Create release zip
+        run: |
+          cd custom_components
+          zip -r ../${{ steps.integration.outputs.name }}.zip ${{ steps.integration.outputs.component_name }}
+          cd ..
+          ls -lh ${{ steps.integration.outputs.name }}.zip
+
+      - name: Upload release asset
+        if: github.event_name == 'release'  # Only upload on actual releases
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ steps.integration.outputs.name }}.zip
+          asset_name: ${{ steps.integration.outputs.name }}.zip
+          asset_content_type: application/zip
+      
+      - name: Upload artifact for testing
+        if: github.event_name == 'workflow_dispatch'  # Only for manual runs
+        uses: actions/upload-artifact@v4
+        with:
+          name: hacs-component-zip
+          path: ${{ steps.integration.outputs.name }}.zip
