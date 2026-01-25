@@ -416,7 +416,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if sport_path not in ("tennis", "baseball"):
             d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
-            d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
+            d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
             url_parms = url_parms + "&dates=" + d1 + "-" + d2
 
         if self.conference_id:
