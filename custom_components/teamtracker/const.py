@@ -189,6 +189,8 @@ DEFAULT_LAST_UPDATE = "2022-02-02 02:02:02-05:00"
 DEFAULT_KICKOFF_IN = "{test} days"
 DEFAULT_REFRESH_RATE = timedelta(minutes=10)
 RAPID_REFRESH_RATE = timedelta(seconds=5)
+POST_REFRESH_RATE = timedelta(minutes=2)
+OFFSEASON_REFRESH_RATE = timedelta(minutes=30)
 
 # Services
 SERVICE_NAME_CALL_API = "call_api"

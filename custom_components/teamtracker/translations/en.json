@@ -1,24 +1,46 @@
 {
   "config": {
     "error": {
-      "league": "Invalid league entered."
+      "league": "Invalid league entered.",
+      "cannot_fetch_teams": "Could not fetch teams from ESPN. Check your connection and try again.",
+      "no_teams_found": "No teams found for that search term. Try a different name or leave blank for manual entry."
     },
     "step": {
       "user": {
-        "description": "Enter the League and Team to create the sensor.\n\nLeague: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4 letter team abreviation used on ESPN's scoreboards and stats pages\n\nConference Number: For NCAA football and basketball only.  See README.md for valid values.  Leave blank to only include games with ranked teams.",
+        "description": "Select a league, then optionally type a team name to search. Leave the search field empty to enter the team ID manually.",
         "data": {
           "league_id": "League",
-          "team_id": "Team/Athlete",  
+          "search_team": "Search team name (optional)",
+          "team_id": "Team/Athlete",
           "name": "Friendly Name",
           "timeout": "Update Timeout (in seconds)",
           "conference_id": "Conference Number"
+        }
+      },
+      "select_team": {
+        "title": "Select Team",
+        "description": "Choose your team from the search results.",
+        "data": {
+          "team_selection": "Team"
+        }
+      },
+      "manual": {
+        "title": "Manual Entry",
+        "description": "Enter the team abbreviation as shown on ESPN scoreboards (e.g. NE, LAL, BVB).\n\nConference Number: For NCAA football and basketball only. See README.md for valid values.",
+        "data": {
+          "team_id": "Team/Athlete ID",
+          "conference_id": "Conference Number",
+          "name": "Friendly Name"
         }
       },
       "path": {
         "title": "Custom API Configurator",
         "description": "Enter the 'sport' and 'league' portion of the ESPN API path to use a self-configured API",
         "data": {
-          "sport_path": "Sport Path", 
+          "team_id": "Team/Athlete ID",
+          "conference_id": "Conference Number",
+          "name": "Friendly Name",
+          "sport_path": "Sport Path",
           "league_path": "League Path"
         }
       }

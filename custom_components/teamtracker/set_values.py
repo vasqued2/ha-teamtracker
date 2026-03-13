@@ -259,7 +259,7 @@ async def async_set_universal_values(
     #    _LOGGER.debug("%s: async_set_universal_values() 3: %s", sensor_name, sensor_name)
 
     new_values["tv_network"] = await async_get_value(
-        competition, "broadcasts", 0, "names", 0
+        competition, "broadcasts", 0, "names", 0, default=""
     )
 
     new_values["team_id"] = await async_get_value(competitor, "id")

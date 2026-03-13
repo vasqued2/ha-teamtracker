@@ -1,0 +1,60 @@
+{
+  "config": {
+    "error": {
+      "league": "Ungültige Liga eingegeben.",
+      "cannot_fetch_teams": "Teams konnten nicht von ESPN geladen werden. Bitte Verbindung prüfen und erneut versuchen.",
+      "no_teams_found": "Keine Teams für diesen Suchbegriff gefunden. Anderen Namen versuchen oder Feld leer lassen für manuelle Eingabe."
+    },
+    "step": {
+      "user": {
+        "description": "Liga auswählen und optional einen Teamnamen eingeben. Suchfeld leer lassen für manuelle Team-ID-Eingabe.",
+        "data": {
+          "league_id": "Liga",
+          "search_team": "Teamnamen suchen (optional)",
+          "team_id": "Team/Athlet",
+          "name": "Anzeigename",
+          "timeout": "Update-Timeout (in Sekunden)",
+          "conference_id": "Conference-Nummer"
+        }
+      },
+      "select_team": {
+        "title": "Team auswählen",
+        "description": "Team aus den Suchergebnissen auswählen.",
+        "data": {
+          "team_selection": "Team"
+        }
+      },
+      "manual": {
+        "title": "Manuelle Eingabe",
+        "description": "Team-Kürzel wie auf ESPN-Anzeigetafeln eingeben (z.B. NE, LAL, BVB).\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md.",
+        "data": {
+          "team_id": "Team/Athlet-Kürzel",
+          "conference_id": "Conference-Nummer",
+          "name": "Anzeigename"
+        }
+      },
+      "path": {
+        "title": "Eigene API-Konfiguration",
+        "description": "Den 'sport'- und 'league'-Teil des ESPN-API-Pfads für eine eigene API eingeben.",
+        "data": {
+          "team_id": "Team/Athlet-Kürzel",
+          "conference_id": "Conference-Nummer",
+          "name": "Anzeigename",
+          "sport_path": "Sport-Pfad",
+          "league_path": "Liga-Pfad"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TeamTracker Optionen",
+        "description": "Zweistelligen Sprachcode für den API-Aufruf eingeben (z.B. de, en).",
+        "data": {
+          "api_language": "API-Sprache"
+        }
+      }
+    }
+  }
+}

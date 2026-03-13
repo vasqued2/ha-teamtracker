@@ -131,6 +131,8 @@ async def async_process_event(
             search_key
         )
 
+    values["next_games"] = await async_collect_next_games(data, search_key)
+
     return values
 
 
@@ -465,6 +467,56 @@ async def competitor_not_found(
     return
 
 
+async def async_collect_next_games(data, search_key) -> list:
+    """Collect the next 3 upcoming games for the team from all events."""
+    next_games = []
+
+    for event in data.get("events", []):
+        event_state = str(
+            await async_get_value(event, "status", "type", "state", default="")
+        ).lower()
+        if event_state != "pre":
+            continue
+
+        # Check all competitions in this event for our team
+        competitions = await async_get_value(event, "competitions", default=[])
+        for competition in competitions:
+            competitors = await async_get_value(competition, "competitors", default=[])
+            team_index = None
+            opp_index = None
+            for idx, competitor in enumerate(competitors):
+                abbr = str(await async_get_value(competitor, "team", "abbreviation", default="")).upper()
+                team_id_val = str(await async_get_value(competitor, "team", "id", default=""))
+                if search_key in (abbr, team_id_val):
+                    team_index = idx
+                    opp_index = 1 - idx if len(competitors) == 2 else None
+                    break
+
+            if team_index is None:
+                continue
+
+            opp = competitors[opp_index] if opp_index is not None else {}
+            home_away = str(await async_get_value(competitors[team_index], "homeAway", default=""))
+            game = {
+                "date":          await async_get_value(competition, "date", default=await async_get_value(event, "date", default="")),
+                "event_name":    await async_get_value(event, "shortName", default=""),
+                "opponent":      await async_get_value(opp, "team", "displayName", default=""),
+                "opponent_abbr": await async_get_value(opp, "team", "abbreviation", default=""),
+                "opponent_logo": await async_get_value(opp, "team", "logo", default=""),
+                "home_away":     home_away,
+                "venue":         await async_get_value(competition, "venue", "fullName", default=""),
+            }
+            next_games.append(game)
+            break  # one game entry per event is enough
+
+    # Sort by date and return at most 3
+    try:
+        next_games.sort(key=lambda g: g["date"])
+    except Exception:
+        pass
+    return next_games[:3]
+
+
 async def async_process_competition_dates(
     event,
     competition,
@@ -476,10 +528,13 @@ async def async_process_competition_dates(
     competition_date_str = await async_get_value(
         competition, "date", default=(await async_get_value(event, "date"))
     )
-    competition_date = datetime.strptime(
-        competition_date_str, "%Y-%m-%dT%H:%Mz"
-    )
-    last_date = max(last_date, competition_date)
-    first_date = min(first_date, competition_date)
+    try:
+        competition_date = datetime.fromisoformat(
+            str(competition_date_str).replace("Z", "+00:00")
+        ).replace(tzinfo=None)
+        last_date = max(last_date, competition_date)
+        first_date = min(first_date, competition_date)
+    except (ValueError, TypeError):
+        pass
 
     return first_date, last_date

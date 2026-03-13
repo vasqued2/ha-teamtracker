@@ -241,14 +241,11 @@ Once you have used the resources referenced above to determine the correct value
 ### Configuration via the "Configuration->Integrations" section of the Home Assistant UI
 
 1. On the Integrations page, select the "+ Add Integration" button.
-2. Search for the integration labeled "Team Tracker" and select it.  
-3. Select the desired League from the League List.  Select "Custom:  Specific sport and league path" to create a Custom API.
-4. Enter a value for team's ID in the UI prompt. This can be a the team abbreviation, team ID, athlete name, wildcard, or a regex as explained in the [Team ID](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#specify-the-team-team_id) section.
-5. If NCAA football or basketball, enter the Conference ID from [Conference ID](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#specify-the-conference---for-ncaa-sports-only-conference_id) section if desired.  
-6. You can also enter a friendly name. If you keep the default, your sensor will be `sensor.team_tracker`, otherwise it will be `sensor.friendly_name_you_entered`.
-7. If you are setting up a Custom API, a second window will be displayed.
-8. Enter the value for the Sport Path for the Custom API.
-9. Enter the value for the League Path for the Custom API.
+2. Search for the integration labeled "Team Tracker" and select it.
+3. Select the desired League from the League List. Select `XXX – Custom API` to create a Custom API.
+4. **Optional:** Enter a team name in the search field to search ESPN for matching teams and select from the results. Leave the search field empty to enter the team ID manually.
+5. If using manual entry: Enter the team abbreviation, team ID, athlete name, wildcard, or regex as explained in the [Team ID](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#specify-the-team-team_id) section. If NCAA football or basketball, enter the Conference ID if desired.
+6. If you are setting up a Custom API (`XXX`), an additional window will be displayed. Enter the Sport Path and League Path for the Custom API.
 
 Once the sensor is set up with the UI, you can use the Options Menu to override the API language if desired.
 
@@ -384,10 +381,30 @@ Some attributes are only available for certain sports.
 | `opponent_win_probability` | The real-time chance your opponent has to win, according to ESPN. A percentage, but presented as a float. Note that this value can become null in between posession changes. | `IN` |
 | `opponent_winner` | Flag indicating whether the opponent has won the competition or not. | `POST` |
 | `opponent_timeouts` | The number of remaining timeouts your opponent has. | `PRE` `IN` `POST` |
-| `last_update` | A timestamp for the last time data was fetched for the game. If you watch this in real-time, you should notice it updating every 10 minutes, except for during the game (and for the ~20 minutes pre-game) when it updates every 5 seconds. | `PRE` `IN` `POST` `BYE` |
+| `next_games` | Array of up to 3 upcoming scheduled games for your team. Each entry contains `date`, `event_name`, `opponent`, `opponent_abbr`, `opponent_logo`, `home_away`, and `venue`. Default: `[]`. | `PRE` `IN` `POST` `NOT_FOUND` |
+| `team_season_stats` | Current season statistics fetched from ESPN (cached for 6 hours). Contains `wins`, `losses`, `win_streak`, and `points_per_game` where available. Not populated for golf, racing, tennis, or MMA. Default: `{}`. | `PRE` `IN` `POST` |
 | `api_message` | A message giving information to help troubleshoot when the sensor is state  | `PRE` `IN` `POST` `BYE` `NOT_FOUND` |
 | `api_url` | The URL of the ESPN API call | `PRE` `IN` `POST` `BYE` `NOT_FOUND` |
 
+
+## Events
+
+TeamTracker fires the following Home Assistant events.
+
+| Event | Description |
+| --- | --- |
+| `teamtracker.score_change` | Fired during a live game (`state == IN`) whenever the team or opponent score changes. Useful for automations that react to goals or points without polling the sensor state. |
+
+The `teamtracker.score_change` event payload contains the following fields:
+
+| Field | Description |
+| --- | --- |
+| `entity_id` | The entity ID of the sensor that detected the score change |
+| `team_name` | Name of the tracked team |
+| `team_score` | New score of the tracked team |
+| `opponent_score` | New score of the opponent |
+| `prev_team_score` | Previous score of the tracked team |
+| `prev_opponent_score` | Previous score of the opponent |
 
 ## Services
 

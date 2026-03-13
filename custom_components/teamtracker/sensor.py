@@ -271,6 +271,10 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         self._api_message = None
         self._api_url = None
 
+        self._prev_team_score = None
+        self._prev_opponent_score = None
+        self._score_initialized = False
+
     @property
     def unique_id(self) -> str:
         """
@@ -388,9 +392,10 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_sets_won"] = self.coordinator.data["team_sets_won"]
         attrs["opponent_sets_won"] = self.coordinator.data["opponent_sets_won"]
 
-        attrs["last_update"] = self.coordinator.data["last_update"]
         attrs["api_message"] = self.coordinator.data["api_message"]
         attrs["api_url"] = self.coordinator.data["api_url"]
+        attrs["next_games"] = self.coordinator.data["next_games"]
+        attrs["team_season_stats"] = self.coordinator.data["team_season_stats"]
 
         return attrs
 
@@ -398,6 +403,32 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     def available(self) -> bool:
         """Return if entity is available."""
         return self.coordinator.last_update_success
+
+    def _handle_coordinator_update(self) -> None:
+        """Fire score_change event when team or opponent score changes during a live game."""
+        data = self.coordinator.data
+        if data:
+            new_team = data.get("team_score")
+            new_opp = data.get("opponent_score")
+            if self._score_initialized and (
+                data.get("state") == "IN"
+                and (new_team != self._prev_team_score or new_opp != self._prev_opponent_score)
+            ):
+                self.hass.bus.async_fire(
+                    "teamtracker.score_change",
+                    {
+                        "entity_id":           self.entity_id,
+                        "team_name":           data.get("team_name"),
+                        "team_score":          new_team,
+                        "opponent_score":      new_opp,
+                        "prev_team_score":     self._prev_team_score,
+                        "prev_opponent_score": self._prev_opponent_score,
+                    },
+                )
+            self._prev_team_score = new_team
+            self._prev_opponent_score = new_opp
+            self._score_initialized = True
+        super()._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Clean up when entity is being removed."""
