@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(cat \"C:/Users/Tower/OneDrive/Desktop/Github-Repo/ha-teamtracker/- Vorarbeit/Textdokument \\(neu\\).rtf\")",
-      "Bash(python3 -c \":*)",
-      "Bash(python3 \"C:/Users/Tower/OneDrive/Desktop/Github-Repo/ha-teamtracker/- Vorarbeit/extract_rtf.py\")"
-    ]
-  }
-}
