@@ -22,51 +22,86 @@ from .const import (
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
     DEFAULT_CONFERENCE_ID,
-    DEFAULT_LEAGUE,
     DOMAIN,
     LEAGUE_MAP,
+    SOCCER,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
-_LEAGUE_NAMES: dict[str, str] = {
-    "AFL":      "Australian Football League",
-    "ATP":      "ATP Tour",
-    "BUND":     "Bundesliga",
-    "CL":       "UEFA Champions League",
-    "CLA":      "Copa Libertadores",
-    "EPL":      "Premier League",
-    "F1":       "Formula 1",
-    "IRL":      "IndyCar Series",
-    "LIGA":     "La Liga",
-    "LIG1":     "Ligue 1",
-    "MLB":      "Major League Baseball",
-    "MLS":      "Major League Soccer",
-    "NASCAR":   "NASCAR Cup Series",
-    "NBA":      "National Basketball Association",
-    "NCAAF":    "College Football",
-    "NCAAM":    "NCAA Men's Basketball",
-    "NCAAVB":   "NCAA Men's Volleyball",
-    "NCAAVBW":  "NCAA Women's Volleyball",
-    "NCAAW":    "NCAA Women's Basketball",
-    "NFL":      "National Football League",
-    "NHL":      "National Hockey League",
-    "NWSL":     "National Women's Soccer League",
-    "PGA":      "PGA Tour",
-    "SERA":     "Serie A",
-    "UFC":      "Ultimate Fighting Championship",
-    "WC":       "FIFA World Cup",
-    "WNBA":     "Women's National Basketball Association",
-    "WTA":      "WTA Tour",
-    "WWC":      "FIFA Women's World Cup",
-    "XFL":      "XFL",
+
+# Sport groups: key → (display_name, {league_id: display_label})
+_SPORT_GROUPS: dict[str, tuple[str, dict[str, str]]] = {
+    "australian-football": ("Australian Football", {
+        "AFL": "AFL",
+    }),
+    "baseball": ("Baseball", {
+        "MLB": "MLB",
+    }),
+    "basketball": ("Basketball", {
+        "NBA": "NBA",
+        "NCAAM": "NCAAM Men's",
+        "NCAAW": "NCAAW Women's",
+        "WNBA": "WNBA",
+    }),
+    "football": ("Football", {
+        "NCAAF": "NCAAF College",
+        "NFL": "NFL",
+        "XFL": "XFL",
+    }),
+    "golf": ("Golf", {
+        "PGA": "PGA Tour",
+    }),
+    "hockey": ("Hockey", {
+        "NHL": "NHL",
+    }),
+    "mma": ("MMA", {
+        "UFC": "UFC",
+    }),
+    "racing": ("Racing", {
+        "F1": "Formula 1",
+        "IRL": "IndyCar",
+        "NASCAR": "NASCAR Cup Series",
+    }),
+    "soccer-us": ("Soccer (U.S.)", {
+        "MLS": "MLS",
+        "NWSL": "NWSL Women's",
+    }),
+    "soccer-intl": ("Soccer (International)", {
+        "BUND": "Bundesliga",
+        "CL": "Champions League",
+        "CLA": "Copa Libertadores",
+        "EPL": "Premier League",
+        "LIGA": "La Liga",
+        "LIG1": "Ligue 1",
+        "SERA": "Serie A",
+        "WC": "World Cup",
+        "WWC": "Women's World Cup",
+    }),
+    "tennis": ("Tennis", {
+        "ATP": "ATP",
+        "WTA": "WTA",
+    }),
+    "volleyball": ("Volleyball", {
+        "NCAAVB": "NCAAVB Men's",
+        "NCAAVBW": "NCAAVBW Women's",
+    }),
 }
 
-LEAGUE_OPTIONS = {
-    k: f"{k} \u2013 {_LEAGUE_NAMES.get(k, k)}"
-    for k in sorted(LEAGUE_MAP)
-}
-LEAGUE_OPTIONS["XXX"] = "XXX \u2013 Custom API"
+SPORT_OPTIONS: dict[str, str] = {k: v[0] for k, v in _SPORT_GROUPS.items()}
+SPORT_OPTIONS["XXX"] = "Custom API"
+
+
+def _league_browse_url(league_id: str) -> str:
+    """Return an ESPN URL where users can browse teams for a given league."""
+    if league_id not in LEAGUE_MAP:
+        return "https://www.espn.com"
+    paths = LEAGUE_MAP[league_id]
+    sport = paths[CONF_SPORT_PATH]
+    league = paths[CONF_LEAGUE_PATH]
+    if sport == SOCCER:
+        return f"https://www.espn.co.uk/football/league/_/name/{league}"
+    return f"https://www.espn.com/{league}/teams"
 
 
 async def _fetch_teams(hass: HomeAssistant, league_id: str) -> list[dict]:
@@ -137,14 +172,15 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     def __init__(self) -> None:
         """Initialize."""
+        self._sport_key: str = ""
         self._league_id: str = ""
         self._all_teams: list[dict] = []
-        self._search_results: dict[str, str] = {}  # label -> abbreviation
-        self._team_meta: dict[str, dict] = {}       # abbreviation -> full info
+        self._search_results: dict[str, str] = {}
+        self._team_meta: dict[str, dict] = {}
         self._errors: dict[str, str] = {}
 
     # ------------------------------------------------------------------ #
-    #  Step 1: choose league + optional search term                       #
+    #  Step 1: choose sport group                                         #
     # ------------------------------------------------------------------ #
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -153,11 +189,61 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._errors = {}
 
         if user_input is not None:
-            self._league_id = user_input[CONF_LEAGUE_ID].upper()
-
-            if self._league_id == "XXX":
+            sport_key = user_input["sport_key"]
+            if sport_key == "XXX":
                 return await self.async_step_path()
+            self._sport_key = sport_key
+            leagues = _SPORT_GROUPS[sport_key][1]
+            if len(leagues) == 1:
+                # Only one league for this sport — skip league step
+                self._league_id = next(iter(leagues))
+                return await self.async_step_search()
+            return await self.async_step_league()
 
+        schema = vol.Schema(
+            {vol.Required("sport_key"): vol.In(SPORT_OPTIONS)}
+        )
+        return self.async_show_form(
+            step_id="user",
+            data_schema=schema,
+            errors=self._errors,
+        )
+
+    # ------------------------------------------------------------------ #
+    #  Step 2: choose league within sport                                 #
+    # ------------------------------------------------------------------ #
+    async def async_step_league(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle league selection within the chosen sport."""
+        self._errors = {}
+
+        if user_input is not None:
+            self._league_id = user_input[CONF_LEAGUE_ID]
+            return await self.async_step_search()
+
+        league_options = _SPORT_GROUPS[self._sport_key][1]
+        sport_name = _SPORT_GROUPS[self._sport_key][0]
+        schema = vol.Schema(
+            {vol.Required(CONF_LEAGUE_ID): vol.In(league_options)}
+        )
+        return self.async_show_form(
+            step_id="league",
+            data_schema=schema,
+            errors=self._errors,
+            description_placeholders={"sport_name": sport_name},
+        )
+
+    # ------------------------------------------------------------------ #
+    #  Step 3: search team (ESPN link always correct here)                #
+    # ------------------------------------------------------------------ #
+    async def async_step_search(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle team search step."""
+        self._errors = {}
+
+        if user_input is not None:
             search_term = user_input.get("search_team", "").strip().lower()
 
             if search_term:
@@ -184,19 +270,17 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 return await self.async_step_manual()
 
         schema = vol.Schema(
-            {
-                vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): vol.In(LEAGUE_OPTIONS),
-                vol.Optional("search_team", default=""): str,
-            }
+            {vol.Optional("search_team", default=""): str}
         )
         return self.async_show_form(
-            step_id="user",
+            step_id="search",
             data_schema=schema,
             errors=self._errors,
+            description_placeholders={"league_url": _league_browse_url(self._league_id)},
         )
 
     # ------------------------------------------------------------------ #
-    #  Step 2a: pick from search results                                  #
+    #  Step 4a: pick from search results                                  #
     # ------------------------------------------------------------------ #
     async def async_step_select_team(
         self, user_input: dict[str, Any] | None = None
@@ -209,7 +293,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             paths = LEAGUE_MAP[self._league_id]
             name = meta.get("displayName", abbr)
             return self.async_create_entry(
-                title=name,
+                title=f"{self._league_id} \u2013 {name}",
                 data={
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
@@ -230,7 +314,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     # ------------------------------------------------------------------ #
-    #  Step 2b: manual team_id entry (no search / fallback)              #
+    #  Step 4b: manual team_id entry (no search / fallback)              #
     # ------------------------------------------------------------------ #
     async def async_step_manual(
         self, user_input: dict[str, Any] | None = None
@@ -240,7 +324,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
             return self.async_create_entry(
-                title=name,
+                title=f"{self._league_id} \u2013 {name}",
                 data={
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
@@ -265,7 +349,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     # ------------------------------------------------------------------ #
-    #  Step 2c: Custom API (league_id = XXX)                             #
+    #  Step 4c: Custom API (sport_key = XXX)                             #
     # ------------------------------------------------------------------ #
     async def async_step_path(
         self, user_input: dict[str, Any] | None = None

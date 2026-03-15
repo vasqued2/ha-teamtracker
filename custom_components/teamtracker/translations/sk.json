@@ -1,24 +1,56 @@
 {
   "config": {
     "error": {
-      "league": "Bola zadaná neplatná liga."
+      "league": "Bola zadaná neplatná liga.",
+      "cannot_fetch_teams": "Nepodarilo sa načítať tímy z ESPN. Skontrolujte pripojenie a skúste znova.",
+      "no_teams_found": "Pre daný výraz sa nenašli žiadne tímy. Skúste iný názov alebo nechajte pole prázdne pre manuálne zadanie."
     },
     "step": {
       "user": {
-        "description": "Zadajte ligu a tím a vytvorte senzor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2-4-písmenová skratka tímu používaná na výsledkovej tabuli ESPN a na stránkach so štatistikami\n\nKonferenčné číslo: Len pre futbal a basketbal NCAA. Platné hodnoty nájdete v súbore README.md. Ak chcete zahrnúť iba hry s hodnotenými tímami, nechajte pole prázdne.",
+        "title": "Vybrať šport",
+        "description": "Vyberte šport pre váš tím alebo športovca.",
         "data": {
-          "league_id": "Liga",
-          "team_id": "Tím/Športovec",  
-          "name": "Priateľské meno",
-          "timeout": "Časový limit aktualizácie (v sekundách)",
-          "conference_id": "Číslo konferencie"
+          "sport_key": "Šport"
+        }
+      },
+      "league": {
+        "title": "Vybrať ligu",
+        "description": "Vyberte ligu {sport_name}.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Hľadať tím",
+        "description": "Zadajte názov tímu pre vyhľadávanie alebo nechajte prázdne pre manuálne zadanie ID.\n\n[Prehľadať tímy na ESPN]({league_url})",
+        "data": {
+          "search_team": "Hľadať názov tímu (voliteľné)"
+        }
+      },
+      "select_team": {
+        "title": "Vybrať tím",
+        "description": "Vyberte svoj tím z výsledkov vyhľadávania.",
+        "data": {
+          "team_selection": "Tím"
+        }
+      },
+      "manual": {
+        "title": "Manuálne zadanie",
+        "description": "Zadajte skratku tímu ako je zobrazená na výsledkových tabuliach ESPN (napr. NE, LAL, BVB).\n\nČíslo konferencie: Len pre futbal a basketbal NCAA. Platné hodnoty nájdete v súbore README.md.",
+        "data": {
+          "team_id": "ID tímu/športovca",
+          "conference_id": "Číslo konferencie",
+          "name": "Priateľské meno"
         }
       },
       "path": {
         "title": "Vlastný konfigurátor API",
         "description": "Zadajte 'šport' a 'ligu' časť cesty ESPN API na použitie samokonfigurovaného API",
         "data": {
-          "sport_path": "Športová cesta", 
+          "team_id": "ID tímu/športovca",
+          "conference_id": "Číslo konferencie",
+          "name": "Priateľské meno",
+          "sport_path": "Športová cesta",
           "league_path": "Ligová cesta"
         }
       }

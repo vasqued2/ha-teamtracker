@@ -7,14 +7,24 @@
     },
     "step": {
       "user": {
-        "description": "Liga auswählen und optional einen Teamnamen eingeben. Suchfeld leer lassen für manuelle Team-ID-Eingabe.",
+        "title": "Sportart auswählen",
+        "description": "Sportart für dein Team oder Athleten auswählen.",
         "data": {
-          "league_id": "Liga",
-          "search_team": "Teamnamen suchen (optional)",
-          "team_id": "Team/Athlet",
-          "name": "Anzeigename",
-          "timeout": "Update-Timeout (in Sekunden)",
-          "conference_id": "Conference-Nummer"
+          "sport_key": "Sportart"
+        }
+      },
+      "league": {
+        "title": "Liga auswählen",
+        "description": "{sport_name}-Liga auswählen.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Team suchen",
+        "description": "Teamnamen eingeben oder leer lassen für manuelle Team-ID-Eingabe.\n\n[Teams auf ESPN durchsuchen]({league_url})",
+        "data": {
+          "search_team": "Teamnamen suchen (optional)"
         }
       },
       "select_team": {

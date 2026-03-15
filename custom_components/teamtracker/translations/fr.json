@@ -1,38 +1,70 @@
 {
-    "config": {
-        "error": {
-        "league": "Entrée du championnat invalide."
-        },
-        "step": {
-        "user": {
-            "description": "Entrée le championnat et l'équipe pour créer le sensor.\n\nChampionnat: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nEquipe: Abréviation de l'équipe en 2-4 lettres comme utilisé sur le tableau des scores ESPN et la page des statistiques\n\nNuméro de Conference: Pour NCAA football et basketball seulement.  voir README.md pour les bonnes valeurs.  Laissez le champs videpour inclure uniquement des sports avec classements d'équipes.",
-            "data": {
-            "league_id": "Championnat",
-            "team_id": "Equipe/Athlète",  
-            "name": "Nom du sensor",
-            "timeout": "Délai d'attente de la mise a jour (en secondes)",
-            "conference_id": "Numéro de la Conférence"
-            }
-        },
-        "path": {
-            "title": "API Configuration",
-            "description": "Entrez la partie du 'sport' et du 'championnat' de l'API ESPN pour utilisé une auto-configuration de l'API",
-            "data": {
-            "sport_path": "Choix du sport", 
-            "league_path": "Choix du championnat"
-            }
-        }
-        }
+  "config": {
+    "error": {
+      "league": "Entrée du championnat invalide.",
+      "cannot_fetch_teams": "Impossible de récupérer les équipes depuis ESPN. Vérifiez votre connexion et réessayez.",
+      "no_teams_found": "Aucune équipe trouvée pour ce terme de recherche. Essayez un autre nom ou laissez le champ vide pour une saisie manuelle."
     },
-    "options": {
-        "step": {
-        "init": {
-            "title": "Options de suivi d'équipe",
-            "description": "Saisissez le code de langue à 2 caractères à utiliser pour l'appel API.",
-            "data": {
-                "api_language": "Langage API"
-            }
+    "step": {
+      "user": {
+        "title": "Sélectionner le sport",
+        "description": "Choisissez le sport pour votre équipe ou athlète.",
+        "data": {
+          "sport_key": "Sport"
         }
+      },
+      "league": {
+        "title": "Sélectionner le championnat",
+        "description": "Choisissez le championnat {sport_name}.",
+        "data": {
+          "league_id": "Championnat"
         }
+      },
+      "search": {
+        "title": "Rechercher une équipe",
+        "description": "Tapez un nom d'équipe pour rechercher, ou laissez vide pour saisir l'ID manuellement.\n\n[Parcourir les équipes sur ESPN]({league_url})",
+        "data": {
+          "search_team": "Rechercher une équipe (optionnel)"
+        }
+      },
+      "select_team": {
+        "title": "Sélectionner une équipe",
+        "description": "Choisissez votre équipe parmi les résultats de recherche.",
+        "data": {
+          "team_selection": "Équipe"
+        }
+      },
+      "manual": {
+        "title": "Saisie manuelle",
+        "description": "Entrez l'abréviation de l'équipe telle qu'elle apparaît sur les tableaux de scores ESPN (ex. NE, LAL, BVB).\n\nNuméro de Conférence : Pour le football américain et le basketball NCAA uniquement. Voir README.md pour les valeurs valides.",
+        "data": {
+          "team_id": "ID de l'équipe/athlète",
+          "conference_id": "Numéro de la Conférence",
+          "name": "Nom du sensor"
+        }
+      },
+      "path": {
+        "title": "API Configuration",
+        "description": "Entrez la partie du 'sport' et du 'championnat' de l'API ESPN pour utiliser une auto-configuration de l'API",
+        "data": {
+          "team_id": "ID de l'équipe/athlète",
+          "conference_id": "Numéro de la Conférence",
+          "name": "Nom du sensor",
+          "sport_path": "Choix du sport",
+          "league_path": "Choix du championnat"
+        }
+      }
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options de suivi d'équipe",
+        "description": "Saisissez le code de langue à 2 caractères à utiliser pour l'appel API.",
+        "data": {
+          "api_language": "Langage API"
+        }
+      }
+    }
+  }
 }

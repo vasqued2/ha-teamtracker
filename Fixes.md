@@ -1,4 +1,4 @@
-## Bug Fixes, Performance, Config Flow Team Search & New Sensor Attributes
+## Bug Fixes, Performance, Config Flow Overhaul & New Sensor Attributes
 
 ### 🐛 Bug Fixes
 
@@ -35,6 +35,11 @@ Fix: `(t.get("groups") or {}).get("id", "")`.
 #### `config_flow.py` — Team-Dropdown zeigte nur Abkürzungen (z.B. "MUN" statt "FC Bayern München")
 `vol.In(dict)` in HA: Keys = submitted Value, Values = angezeigtes Label.
 Das Dict war invertiert → Abkürzungen wurden als Label angezeigt statt der vollständigen Teamnamen.
+
+#### `strings.json` — Formularfelder zeigten rohe Schlüsselnamen (z.B. "search_team" statt "Teamnamen suchen")
+HA Custom Components lesen Übersetzungen aus `strings.json` im Komponentenverzeichnis.
+Ohne diese Datei zeigt HA die rohen Feldschlüssel (`search_team`, `team_selection`) als Labels.
+`strings.json` wurde neu angelegt (identisch mit `translations/en.json`).
 
 #### `config_flow.py` — `async_step_path` (XXX Custom API): `KeyError` beim Submit
 Schema zeigte nur `sport_path` und `league_path`, aber der Handler griff auf `team_id` und `name` zu.
@@ -77,18 +82,27 @@ Verhindert Fehlauslösung von Automationen bei kurzen Verbindungsunterbrechungen
 
 ### 🖥️ Config Flow & UX
 
-#### Team-Suche im Setup-Dialog — `config_flow.py`, `translations/en.json`
-Neuer 3-Schritt-Flow:
-1. Liga auswählen + optionalen Teamnamen eingeben
-2. Dropdown mit Suchergebnissen aus der ESPN Teams-API **oder** manuelle Eingabe
-3. Fallback auf Custom API (XXX) unverändert
+#### Komplett-Überarbeitung des Setup-Dialogs — `config_flow.py`, alle Übersetzungsdateien
 
-#### Liga-Dropdown mit vollständigen Namen — `config_flow.py`
-Zeigt jetzt `"BUND – Bundesliga"`, `"NFL – National Football League"` etc.
-statt nur der Abkürzungen. Der gespeicherte Wert bleibt die Abkürzung (kein Breaking Change).
+Neuer mehrstufiger Flow mit hierarchischer Sport-/Liga-Auswahl:
+
+1. **Sportart wählen** — gruppiertes Dropdown (Australian Football / Baseball / Basketball / Football / Golf / Hockey / MMA / Racing / Soccer (U.S.) / Soccer (International) / Tennis / Volleyball / Custom API)
+2. **Liga wählen** — nur Ligen der gewählten Sportart. Sportarten mit nur einer Liga (AFL, MLB, PGA, NHL, UFC) überspringen diesen Schritt automatisch.
+3. **Team suchen** — optionales Suchfeld + direkter ESPN-Link für die ausgewählte Liga (immer korrekt, da Liga vor dem Rendern bekannt ist)
+4. **Ergebnis** — Team aus Dropdown wählen **oder** leer lassen für manuelle ID-Eingabe
+
+Ersetzt die frühere Flat-Liste aller 30+ Ligen in einem einzigen Dropdown.
+
+#### Integrationseintrag trägt Liga-Prefix im Namen
+Statt nur `"FC Bayern München"` wird der Eintrag jetzt als `"BUND – FC Bayern München"` angelegt.
+Relevant wenn mehrere Sensoren für dasselbe Team in verschiedenen Ligen existieren (z.B. BUND + CL + WC).
+`CONF_NAME` (Sensor-Attribut) bleibt unverändert — kein Breaking Change.
 
 #### Deutsche Übersetzung — `translations/de.json` *(neue Datei)*
 Vollständige Übersetzung aller Config Flow Schritte und Fehlermeldungen.
+
+#### Alle Übersetzungsdateien aktualisiert
+`es.json`, `fr.json`, `pt-BR.json`, `sk.json` — neue Steps (`league`, `search`), neue Error-Keys (`cannot_fetch_teams`, `no_teams_found`), alte Liga-Liste aus Beschreibungen entfernt.
 
 ---
 
@@ -148,5 +162,10 @@ prev_opponent_score: "1"
 | `__init__.py` | Bugfix + Performance + Feature |
 | `config_flow.py` | Bugfix + UX (Komplett-Überarbeitung) |
 | `clear_values.py` | Feature |
+| `strings.json` | Bugfix (neue Datei) |
 | `translations/en.json` | UX |
 | `translations/de.json` | UX (neue Datei) |
+| `translations/es.json` | UX |
+| `translations/fr.json` | UX |
+| `translations/pt-BR.json` | UX |
+| `translations/sk.json` | UX |
