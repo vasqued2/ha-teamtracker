@@ -1,25 +1,56 @@
 {
   "config": {
     "error": {
-      "league": "Liga inválida inserida."
+      "league": "Liga inválida inserida.",
+      "cannot_fetch_teams": "Não foi possível obter as equipes da ESPN. Verifique sua conexão e tente novamente.",
+      "no_teams_found": "Nenhuma equipe encontrada para esse termo de pesquisa. Tente outro nome ou deixe o campo em branco para entrada manual."
     },
     "step": {
       "user": {
-        "title": "Rastreador de equipe",
-        "description": "Digite a Liga e a Equipe para criar o sensor.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nEquipe : abreviação de equipe de 2 a 4 letras usada nos placares e nas páginas de estatísticas da ESPN\n\nNúmero da conferência: somente para futebol e basquete da NCAA. Consulte README.md para valores válidos. Deixe em branco para incluir apenas jogos com equipes classificadas.",
+        "title": "Selecionar esporte",
+        "description": "Escolha o esporte para sua equipe ou atleta.",
         "data": {
-          "league_id": "Liga",
-          "team_id": "Time",  
-          "name": "Nome amigável",
-          "timeout": "Tempo limite de atualização (em segundos)",
-          "conference_id": "Número da Conferência"
+          "sport_key": "Esporte"
+        }
+      },
+      "league": {
+        "title": "Selecionar liga",
+        "description": "Escolha a liga de {sport_name}.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Pesquisar equipe",
+        "description": "Digite um nome de equipe para pesquisar, ou deixe em branco para inserir o ID manualmente.\n\n[Ver equipes na ESPN]({league_url})",
+        "data": {
+          "search_team": "Pesquisar nome da equipe (opcional)"
+        }
+      },
+      "select_team": {
+        "title": "Selecionar equipe",
+        "description": "Escolha sua equipe nos resultados da pesquisa.",
+        "data": {
+          "team_selection": "Equipe"
+        }
+      },
+      "manual": {
+        "title": "Entrada manual",
+        "description": "Insira a abreviatura da equipe conforme exibida nos placares da ESPN (ex. NE, LAL, BVB).\n\nNúmero da Conferência: Apenas para futebol americano e basquete da NCAA. Consulte README.md para valores válidos.",
+        "data": {
+          "team_id": "ID da equipe/atleta",
+          "conference_id": "Número da Conferência",
+          "name": "Nome amigável"
         }
       },
       "path": {
         "title": "Configurador de API personalizado",
         "description": "Insira a parte 'sport' e 'league' do caminho da API ESPN para usar uma API autoconfigurada",
         "data": {
-          "sport_path": "Caminho do esporte", 
+          "team_id": "ID da equipe/atleta",
+          "conference_id": "Número da Conferência",
+          "name": "Nome amigável",
+          "sport_path": "Caminho do esporte",
           "league_path": "Caminho da Liga"
         }
       }

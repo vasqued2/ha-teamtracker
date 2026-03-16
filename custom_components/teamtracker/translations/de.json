@@ -1,17 +1,47 @@
 {
   "config": {
     "error": {
-      "league": "Ungültige Liga eingegeben."
+      "league": "Ungültige Liga eingegeben.",
+      "cannot_fetch_teams": "Teams konnten nicht von ESPN geladen werden. Bitte Verbindung prüfen und erneut versuchen.",
+      "no_teams_found": "Keine Teams für diesen Suchbegriff gefunden. Anderen Namen versuchen oder Feld leer lassen für manuelle Eingabe."
     },
     "step": {
       "user": {
-        "title": "TeamTracker",
-        "description": "Liga und Team eingeben, um den Sensor zu erstellen.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2–4-stelliges Teamkürzel wie auf ESPN-Anzeigetafeln\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md. Leer lassen, um nur Spiele mit platzierten Teams anzuzeigen.",
+        "title": "Sportart auswählen",
+        "description": "Sportart für dein Team oder Athleten auswählen.",
         "data": {
-          "league_id": "Liga",
-          "team_id": "Team/Athlet",
-          "name": "Anzeigename",
-          "conference_id": "Conference-Nummer"
+          "sport_key": "Sportart"
+        }
+      },
+      "league": {
+        "title": "Liga auswählen",
+        "description": "{sport_name}-Liga auswählen.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Team suchen",
+        "description": "Teamnamen eingeben oder leer lassen für manuelle Team-ID-Eingabe.\n\n[Teams auf ESPN durchsuchen]({league_url})",
+        "data": {
+          "search_team": "Teamnamen suchen (optional)"
+        }
+      },
+      "select_team": {
+        "title": "Team auswählen",
+        "description": "Team aus den Suchergebnissen auswählen. Optional einen eigenen Anzeigenamen eingeben.",
+        "data": {
+          "team_selection": "Team",
+          "name": "Anzeigename (optional)"
+        }
+      },
+      "manual": {
+        "title": "Manuelle Eingabe",
+        "description": "Team-Kürzel wie auf ESPN-Anzeigetafeln eingeben (z.B. NE, LAL, BVB).\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md.",
+        "data": {
+          "team_id": "Team/Athlet-Kürzel",
+          "conference_id": "Conference-Nummer (nur NCAA)",
+          "name": "Anzeigename"
         }
       },
       "path": {
