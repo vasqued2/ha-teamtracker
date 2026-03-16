@@ -388,7 +388,6 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_sets_won"] = self.coordinator.data["team_sets_won"]
         attrs["opponent_sets_won"] = self.coordinator.data["opponent_sets_won"]
 
-        attrs["last_update"] = self.coordinator.data["last_update"]
         attrs["api_message"] = self.coordinator.data["api_message"]
         attrs["api_url"] = self.coordinator.data["api_url"]
 

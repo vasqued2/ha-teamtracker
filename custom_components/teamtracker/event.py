@@ -476,10 +476,13 @@ async def async_process_competition_dates(
     competition_date_str = await async_get_value(
         competition, "date", default=(await async_get_value(event, "date"))
     )
-    competition_date = datetime.strptime(
-        competition_date_str, "%Y-%m-%dT%H:%Mz"
-    )
-    last_date = max(last_date, competition_date)
-    first_date = min(first_date, competition_date)
+    try:
+        competition_date = datetime.fromisoformat(
+            str(competition_date_str).replace("Z", "+00:00")
+        ).replace(tzinfo=None)
+        last_date = max(last_date, competition_date)
+        first_date = min(first_date, competition_date)
+    except (ValueError, TypeError):
+        pass
 
     return first_date, last_date

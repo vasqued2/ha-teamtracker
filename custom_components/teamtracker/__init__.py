@@ -161,8 +161,8 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if entry.entry_id in hass.data[DOMAIN]:
         coordinator = hass.data[DOMAIN][entry.entry_id].get(COORDINATOR)
         if coordinator:
-            if hasattr(coordinator, "async_unload"):
-                await coordinator.async_unload()
+            if hasattr(coordinator, "async_shutdown"):
+                await coordinator.async_shutdown()
                 
     # Unload platforms
     unload_ok = all(
@@ -377,8 +377,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         data, file_override = await self.async_call_api(config, hass, lang)
         values = await self.async_update_values(config, hass, data, lang)
-        self.data_cache[key] = data
-        self.last_update[key] = values["last_update"]
+        if data is not None:
+            self.data_cache[key] = data
+            self.last_update[key] = values["last_update"]
 
         if file_override:
             path = "/share/tt/results/" + sensor_name + ".json"
