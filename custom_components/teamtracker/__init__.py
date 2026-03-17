@@ -362,6 +362,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
+                if values["state"] == "NOT_FOUND" and league_path == "all":
+                    values = await self.async_try_team_schedule(config, hass, lang, values)
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
                 else:
@@ -377,6 +379,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         data, file_override = await self.async_call_api(config, hass, lang)
         values = await self.async_update_values(config, hass, data, lang)
+        if values["state"] == "NOT_FOUND" and league_path == "all" and not file_override:
+            values = await self.async_try_team_schedule(config, hass, lang, values)
         self.data_cache[key] = data
         self.last_update[key] = values["last_update"]
 
@@ -396,6 +400,47 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         "%s: Error creating results file '%s'", sensor_name, path
                     )
         return values
+
+    async def async_try_team_schedule(self, config, hass, lang, prev_values) -> dict:
+        """Fallback: fetch team-specific schedule when team not found in 'all' scoreboard."""
+
+        team_id = self.team_id
+        sport_path = self.sport_path
+        league_path = self.league_path
+        sensor_name = self.name
+
+        url = (
+            URL_HEAD
+            + sport_path
+            + "/"
+            + league_path
+            + "/teams/"
+            + team_id
+            + "/schedule"
+        )
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+
+        session = await self._get_session()
+        try:
+            async with session.get(url, headers=headers) as r:
+                _LOGGER.debug(
+                    "%s: Calling team schedule API for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                )
+                if r.status == 200:
+                    schedule_data = await r.json()
+                    if schedule_data and "events" in schedule_data:
+                        self.api_url = url
+                        values = await self.async_update_values(
+                            config, hass, schedule_data, lang
+                        )
+                        return values
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug("%s: Team schedule API call failed: %s", sensor_name, e)
+
+        return prev_values
 
     #
     #  Call the API (or file override) and get the data returned by it
