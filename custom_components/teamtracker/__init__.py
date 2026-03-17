@@ -583,7 +583,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         # Enrich league name from the competition the matched game belongs to.
         # Extract the game ID from the event URL (format: .../gameId/XXXXXXX/...)
         event_url = values.get("event_url", "") or ""
-        match = re.search(r"/gameId/(\d+)/", event_url)
+        match = re.search(r"/gameId/(\d+)", event_url)
         if match:
             game_id = match.group(1)
             competition = id_to_competition.get(game_id)
