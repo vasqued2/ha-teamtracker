@@ -402,43 +402,99 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         return values
 
     async def async_try_team_schedule(self, config, hass, lang, prev_values) -> dict:
-        """Fallback: fetch team-specific schedule when team not found in 'all' scoreboard."""
+        """Fallback for 'all' league: make targeted scoreboard calls so returned data
+        is identical in format to the primary scoreboard path.
+
+        Two narrow-window calls are made and their events combined:
+          1. yesterday–today: captures any POST/IN game (few events, no limit issue)
+          2. day-before–day-of next game (from nextEvent): captures the PRE game
+
+        The existing 18-hour transition rule then handles POST→PRE naturally,
+        matching the behaviour of teams found in the primary scoreboard.
+        """
 
         team_id = self.team_id
         sport_path = self.sport_path
         league_path = self.league_path
         sensor_name = self.name
 
-        url = (
-            URL_HEAD
-            + sport_path
-            + "/"
-            + league_path
-            + "/teams/"
-            + team_id
-            + "/schedule"
+        scoreboard_base = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+        team_url = (
+            URL_HEAD + sport_path + "/" + league_path + "/teams/" + team_id
         )
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
-
         session = await self._get_session()
+
+        all_events = []
+        seen_ids = set()
+
+        def _merge(new_events):
+            for e in new_events:
+                eid = e.get("id")
+                if eid not in seen_ids:
+                    seen_ids.add(eid)
+                    all_events.append(e)
+
+        async def _scoreboard_call(d1_str, d2_str):
+            url = (
+                scoreboard_base
+                + "?lang=" + lang[:2]
+                + "&limit=" + str(API_LIMIT)
+                + "&dates=" + d1_str + "-" + d2_str
+            )
+            try:
+                async with session.get(url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Targeted scoreboard call for '%s' from %s",
+                        sensor_name, team_id, url,
+                    )
+                    if r.status == 200:
+                        data = await r.json()
+                        if data and "events" in data:
+                            _merge(data["events"])
+                            return url
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: Targeted scoreboard call failed: %s", sensor_name, e)
+            return None
+
+        # Call 1: recent window (yesterday–today) — catches POST/IN games
+        today = date.today()
+        used_url = await _scoreboard_call(
+            (today - timedelta(days=1)).strftime("%Y%m%d"),
+            today.strftime("%Y%m%d"),
+        )
+
+        # Call 2: upcoming game window — catches the PRE game.
+        # Use nextEvent to find the exact game date so the window stays narrow.
         try:
-            async with session.get(url, headers=headers) as r:
+            async with session.get(team_url, headers=headers) as r:
                 _LOGGER.debug(
-                    "%s: Calling team schedule API for '%s' from %s",
-                    sensor_name,
-                    team_id,
-                    url,
+                    "%s: Team info call for '%s' from %s",
+                    sensor_name, team_id, team_url,
                 )
                 if r.status == 200:
-                    schedule_data = await r.json()
-                    if schedule_data and "events" in schedule_data:
-                        self.api_url = url
-                        values = await self.async_update_values(
-                            config, hass, schedule_data, lang
+                    team_data = await r.json()
+                    next_events = team_data.get("team", {}).get("nextEvent", [])
+                    if next_events:
+                        next_date = datetime.fromisoformat(
+                            next_events[0]["date"][:10]
+                        ).date()
+                        upcoming_url = await _scoreboard_call(
+                            (next_date - timedelta(days=1)).strftime("%Y%m%d"),
+                            next_date.strftime("%Y%m%d"),
                         )
-                        return values
+                        if upcoming_url:
+                            used_url = upcoming_url
         except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team schedule API call failed: %s", sensor_name, e)
+            _LOGGER.debug("%s: Team info call failed: %s", sensor_name, e)
+
+        if all_events:
+            self.api_url = used_url or scoreboard_base
+            values = await self.async_update_values(
+                config, hass, {"events": all_events}, lang
+            )
+            if values["state"] != "NOT_FOUND":
+                return values
 
         return prev_values
 
