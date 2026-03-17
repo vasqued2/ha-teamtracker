@@ -6,6 +6,8 @@ import locale
 import logging
 import os
 
+import re
+
 import aiofiles
 import aiohttp
 import arrow
@@ -362,7 +364,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
-                if values["state"] == "NOT_FOUND" and league_path == "all":
+                if league_path == "all":
                     values = await self.async_try_team_schedule(config, hass, lang, values)
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
@@ -379,7 +381,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         data, file_override = await self.async_call_api(config, hass, lang)
         values = await self.async_update_values(config, hass, data, lang)
-        if values["state"] == "NOT_FOUND" and league_path == "all" and not file_override:
+        if league_path == "all" and not file_override:
             values = await self.async_try_team_schedule(config, hass, lang, values)
         self.data_cache[key] = data
         self.last_update[key] = values["last_update"]
@@ -402,15 +404,16 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         return values
 
     async def async_try_team_schedule(self, config, hass, lang, prev_values) -> dict:
-        """Fallback for 'all' league: make targeted scoreboard calls so returned data
-        is identical in format to the primary scoreboard path.
+        """Handle 'all' league enrichment and fallback.
 
-        Two narrow-window calls are made and their events combined:
-          1. yesterday–today: captures any POST/IN game (few events, no limit issue)
-          2. day-before–day-of next game (from nextEvent): captures the PRE game
-
-        The existing 18-hour transition rule then handles POST→PRE naturally,
-        matching the behaviour of teams found in the primary scoreboard.
+        Always runs for league_path=all to:
+          1. Resolve the active competition name from the team info and schedule
+             endpoints (which carry season.displayName) and store it in
+             values["league"], replacing the user-configured placeholder.
+          2. When the team was not found in the broad primary scoreboard (due to
+             the 50-event limit cutting off lesser-followed leagues), fall back to
+             two narrow targeted scoreboard calls so the data format stays
+             identical to the primary path (logos, odds, TV network included).
         """
 
         team_id = self.team_id
@@ -425,47 +428,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
         session = await self._get_session()
 
-        all_events = []
-        seen_ids = set()
+        # Build event_id → competition name mapping from team info and schedule.
+        # These endpoints carry season.displayName; the scoreboard does not.
+        id_to_competition = {}
 
-        def _merge(new_events):
-            for e in new_events:
-                eid = e.get("id")
-                if eid not in seen_ids:
-                    seen_ids.add(eid)
-                    all_events.append(e)
-
-        async def _scoreboard_call(d1_str, d2_str):
-            url = (
-                scoreboard_base
-                + "?lang=" + lang[:2]
-                + "&limit=" + str(API_LIMIT)
-                + "&dates=" + d1_str + "-" + d2_str
-            )
-            try:
-                async with session.get(url, headers=headers) as r:
-                    _LOGGER.debug(
-                        "%s: Targeted scoreboard call for '%s' from %s",
-                        sensor_name, team_id, url,
-                    )
-                    if r.status == 200:
-                        data = await r.json()
-                        if data and "events" in data:
-                            _merge(data["events"])
-                            return url
-            except Exception as e:  # pylint: disable=broad-exception-caught
-                _LOGGER.debug("%s: Targeted scoreboard call failed: %s", sensor_name, e)
-            return None
-
-        # Call 1: recent window (yesterday–today) — catches POST/IN games
-        today = date.today()
-        used_url = await _scoreboard_call(
-            (today - timedelta(days=1)).strftime("%Y%m%d"),
-            today.strftime("%Y%m%d"),
-        )
-
-        # Call 2: upcoming game window — catches the PRE game.
-        # Use nextEvent to find the exact game date so the window stays narrow.
         try:
             async with session.get(team_url, headers=headers) as r:
                 _LOGGER.debug(
@@ -475,26 +441,107 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 if r.status == 200:
                     team_data = await r.json()
                     next_events = team_data.get("team", {}).get("nextEvent", [])
-                    if next_events:
-                        next_date = datetime.fromisoformat(
-                            next_events[0]["date"][:10]
-                        ).date()
-                        upcoming_url = await _scoreboard_call(
-                            (next_date - timedelta(days=1)).strftime("%Y%m%d"),
-                            next_date.strftime("%Y%m%d"),
-                        )
-                        if upcoming_url:
-                            used_url = upcoming_url
+                    for ne in next_events:
+                        display = ne.get("season", {}).get("displayName")
+                        if ne.get("id") and display:
+                            id_to_competition[ne["id"]] = display
         except Exception as e:  # pylint: disable=broad-exception-caught
             _LOGGER.debug("%s: Team info call failed: %s", sensor_name, e)
+            next_events = []
 
-        if all_events:
-            self.api_url = used_url or scoreboard_base
-            values = await self.async_update_values(
-                config, hass, {"events": all_events}, lang
+        try:
+            schedule_url = team_url + "/schedule"
+            async with session.get(schedule_url, headers=headers) as r:
+                _LOGGER.debug(
+                    "%s: Team schedule call for '%s' from %s",
+                    sensor_name, team_id, schedule_url,
+                )
+                if r.status == 200:
+                    sched_data = await r.json()
+                    for e in sched_data.get("events", []):
+                        display = e.get("season", {}).get("displayName")
+                        if e.get("id") and display:
+                            id_to_competition[e["id"]] = display
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug("%s: Team schedule call failed: %s", sensor_name, e)
+
+        values = prev_values
+
+        # If the primary scoreboard already found the team, just enrich league name.
+        if prev_values["state"] != "NOT_FOUND":
+            values = prev_values
+        else:
+            # Primary scoreboard missed the team (50-event limit). Fall back to
+            # targeted narrow-window scoreboard calls that keep event count low.
+            all_events = []
+            seen_ids = set()
+
+            def _merge(new_events):
+                for e in new_events:
+                    eid = e.get("id")
+                    if eid not in seen_ids:
+                        seen_ids.add(eid)
+                        all_events.append(e)
+
+            async def _scoreboard_call(d1_str, d2_str):
+                url = (
+                    scoreboard_base
+                    + "?lang=" + lang[:2]
+                    + "&limit=" + str(API_LIMIT)
+                    + "&dates=" + d1_str + "-" + d2_str
+                )
+                try:
+                    async with session.get(url, headers=headers) as r:
+                        _LOGGER.debug(
+                            "%s: Targeted scoreboard call for '%s' from %s",
+                            sensor_name, team_id, url,
+                        )
+                        if r.status == 200:
+                            data = await r.json()
+                            if data and "events" in data:
+                                _merge(data["events"])
+                                return url
+                except Exception as e:  # pylint: disable=broad-exception-caught
+                    _LOGGER.debug(
+                        "%s: Targeted scoreboard call failed: %s", sensor_name, e
+                    )
+                return None
+
+            today = date.today()
+            used_url = await _scoreboard_call(
+                (today - timedelta(days=1)).strftime("%Y%m%d"),
+                today.strftime("%Y%m%d"),
             )
-            if values["state"] != "NOT_FOUND":
-                return values
+
+            if next_events:
+                next_date = datetime.fromisoformat(
+                    next_events[0]["date"][:10]
+                ).date()
+                upcoming_url = await _scoreboard_call(
+                    (next_date - timedelta(days=1)).strftime("%Y%m%d"),
+                    next_date.strftime("%Y%m%d"),
+                )
+                if upcoming_url:
+                    used_url = upcoming_url
+
+            if all_events:
+                self.api_url = used_url or scoreboard_base
+                values = await self.async_update_values(
+                    config, hass, {"events": all_events}, lang
+                )
+
+        # Enrich league name from the competition the matched game belongs to.
+        # Extract the game ID from the event URL (format: .../gameId/XXXXXXX/...)
+        event_url = values.get("event_url", "") or ""
+        match = re.search(r"/gameId/(\d+)/", event_url)
+        if match:
+            game_id = match.group(1)
+            competition = id_to_competition.get(game_id)
+            if competition:
+                values["league"] = re.sub(r"^\d{4}(-\d{2})?\s+", "", competition)
+
+        if values["state"] != "NOT_FOUND":
+            return values
 
         return prev_values
 
