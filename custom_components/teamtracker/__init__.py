@@ -231,6 +231,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     data_cache = {}
     last_update = {}
     c_cache = {}
+    all_team_cache = {}  # {"{sport}:{league}:{team_id}": {needs_fallback, next_events, id_to_competition, expires}}
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
@@ -373,6 +374,21 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 return values
 
         #
+        #  Fast path for 'all' league teams known to need the fallback:
+        #  the primary scoreboard never finds them, so skip it entirely and
+        #  go straight to targeted calls using the cached game date.
+        #
+        if league_path == "all":
+            tkey = f"{sport_path}:{league_path}:{self.team_id}"
+            tcached = TeamTrackerDataUpdateCoordinator.all_team_cache.get(tkey)
+            if tcached and date.today() <= tcached["expires"] and tcached.get("needs_fallback"):
+                values = await self.async_update_values(config, hass, {}, lang)
+                values = await self.async_try_team_schedule(config, hass, lang, values)
+                if values["state"] != "NOT_FOUND":
+                    return values
+                # all_team_cache was invalidated inside; fall through to full flow
+
+        #
         #  Call the API
         #  Get the language based on the locale
         #    Then override it if there is a value in frontend_storage for the selected language
@@ -428,42 +444,67 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
         session = await self._get_session()
 
-        # Build event_id → competition name mapping from team info and schedule.
-        # These endpoints carry season.displayName; the scoreboard does not.
-        id_to_competition = {}
+        # Check all_team_cache to avoid repeating the team info and schedule API
+        # calls on every update tick (especially during live games at 5-second
+        # intervals).  The cache expires after the next game's date passes, which
+        # triggers re-discovery so the competition name and game date stay current.
+        cache_key = f"{sport_path}:{league_path}:{team_id}"
+        today = date.today()
+        cached = TeamTrackerDataUpdateCoordinator.all_team_cache.get(cache_key)
+        cache_valid = cached is not None and today <= cached["expires"]
 
-        try:
-            async with session.get(team_url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Team info call for '%s' from %s",
-                    sensor_name, team_id, team_url,
-                )
-                if r.status == 200:
-                    team_data = await r.json()
-                    next_events = team_data.get("team", {}).get("nextEvent", [])
-                    for ne in next_events:
-                        display = ne.get("season", {}).get("displayName")
-                        if ne.get("id") and display:
-                            id_to_competition[ne["id"]] = display
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team info call failed: %s", sensor_name, e)
+        if cache_valid:
+            id_to_competition = cached["id_to_competition"]
+            next_events = cached["next_events"]
+            _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
+        else:
+            # Full discovery: build event_id → competition name mapping from the
+            # team info and schedule endpoints, which carry season.displayName.
+            # The scoreboard does not include this field.
+            id_to_competition = {}
             next_events = []
 
-        try:
-            schedule_url = team_url + "/schedule"
-            async with session.get(schedule_url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Team schedule call for '%s' from %s",
-                    sensor_name, team_id, schedule_url,
-                )
-                if r.status == 200:
-                    sched_data = await r.json()
-                    for e in sched_data.get("events", []):
-                        display = e.get("season", {}).get("displayName")
-                        if e.get("id") and display:
-                            id_to_competition[e["id"]] = display
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team schedule call failed: %s", sensor_name, e)
+            try:
+                async with session.get(team_url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Team info call for '%s' from %s",
+                        sensor_name, team_id, team_url,
+                    )
+                    if r.status == 200:
+                        team_data = await r.json()
+                        next_events = team_data.get("team", {}).get("nextEvent", [])
+                        for ne in next_events:
+                            display = ne.get("season", {}).get("displayName")
+                            if ne.get("id") and display:
+                                id_to_competition[ne["id"]] = display
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: Team info call failed: %s", sensor_name, e)
+
+            try:
+                schedule_url = team_url + "/schedule"
+                async with session.get(schedule_url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Team schedule call for '%s' from %s",
+                        sensor_name, team_id, schedule_url,
+                    )
+                    if r.status == 200:
+                        sched_data = await r.json()
+                        for e in sched_data.get("events", []):
+                            display = e.get("season", {}).get("displayName")
+                            if e.get("id") and display:
+                                id_to_competition[e["id"]] = display
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: Team schedule call failed: %s", sensor_name, e)
+
+            next_game_date = (
+                date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
+            )
+            TeamTrackerDataUpdateCoordinator.all_team_cache[cache_key] = {
+                "needs_fallback": prev_values["state"] == "NOT_FOUND",
+                "next_events": next_events,
+                "id_to_competition": id_to_competition,
+                "expires": next_game_date or today,
+            }
 
         values = prev_values
 
@@ -529,6 +570,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 values = await self.async_update_values(
                     config, hass, {"events": all_events}, lang
                 )
+
+            # Targeted calls returned NOT_FOUND — the cached game date is stale.
+            # Invalidate so the next tick does a full re-discovery.
+            if values["state"] == "NOT_FOUND" and cache_valid:
+                _LOGGER.debug(
+                    "%s: Invalidating stale all_team_cache for '%s'",
+                    sensor_name, team_id,
+                )
+                del TeamTrackerDataUpdateCoordinator.all_team_cache[cache_key]
 
         # Enrich league name from the competition the matched game belongs to.
         # Extract the game ID from the event URL (format: .../gameId/XXXXXXX/...)
