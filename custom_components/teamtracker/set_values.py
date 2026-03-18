@@ -263,7 +263,7 @@ async def async_set_universal_values(
     for b in broadcasts:
         b_names = await async_get_value(b, "names", default=[])
         names.extend(b_names)
-    new_values["tv_network"] = "/".join(names) if names else ""
+    new_values["tv_network"] = "/".join(names) if names else None
 
     new_values["team_id"] = await async_get_value(competitor, "id")
     new_values["opponent_id"] = await async_get_value(opponent, "id")
