@@ -121,7 +121,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str) -> list[dict]:
             if resp.status != 200:
                 return []
             data = await resp.json()
-    except Exception as err:
+    except (aiohttp.ClientError, TimeoutError) as err:
         _LOGGER.warning("ESPN teams fetch failed: %s", err)
         return []
 
