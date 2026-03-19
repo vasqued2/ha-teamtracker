@@ -516,7 +516,7 @@ async def async_collect_next_games(data, search_key) -> list:
     # Sort by date and return at most 3
     try:
         next_games.sort(key=lambda g: g["date"])
-    except Exception:
+    except (TypeError, ValueError):
         pass
     return next_games[:3]
 
