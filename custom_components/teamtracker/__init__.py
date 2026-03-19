@@ -550,11 +550,20 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 )
             return None
 
-        # Use UTC date so games played late local time (e.g. 11 PM PDT =
-        # next day UTC) are included in the recent window.
         today_utc = datetime.now(timezone.utc).date()
+        yesterday_utc = today_utc - timedelta(days=1)
+        day_before_yesterday = today_utc - timedelta(days=2)
+
+        # Always check two recent windows. ESPN categorizes games under a
+        # different date window than the UTC kickoff time from the schedule
+        # endpoint (e.g. a March 17 PDT game appears in 20260317-20260318, not
+        # 20260318-20260319), so a single window can miss recent results.
+        await _scoreboard_call(
+            day_before_yesterday.strftime("%Y%m%d"),
+            yesterday_utc.strftime("%Y%m%d"),
+        )
         used_url = await _scoreboard_call(
-            (today_utc - timedelta(days=1)).strftime("%Y%m%d"),
+            yesterday_utc.strftime("%Y%m%d"),
             today_utc.strftime("%Y%m%d"),
         )
 
@@ -562,8 +571,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             next_date = datetime.fromisoformat(
                 next_events[0]["date"][:10]
             ).date()
-            # Only make the upcoming call if its window differs from the recent window
-            # (e.g. avoid a duplicate call when the next game is today UTC).
+            # Only make the upcoming call if its window differs from the recent
+            # window (avoid a duplicate when the next game is today UTC).
             if next_date > today_utc:
                 upcoming_url = await _scoreboard_call(
                     (next_date - timedelta(days=1)).strftime("%Y%m%d"),
