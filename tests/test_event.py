@@ -67,4 +67,6 @@ async def test_event(hass):
         expected_results["league_path"] = None
 
         values["kickoff_in"] = DEFAULT_KICKOFF_IN  # set to default value for compare
+        values.pop("next_games", None)         # not compared here (runtime-dependent)
+        values.pop("team_season_stats", None)  # not compared here (fetched separately)
         assert values == expected_results
