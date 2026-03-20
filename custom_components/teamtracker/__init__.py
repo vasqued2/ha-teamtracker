@@ -15,6 +15,7 @@ from async_timeout import timeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
     async_get,
@@ -294,7 +295,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             f"{URL_HEAD}{self.sport_path}/{self.league_path}"
             f"/teams/{numeric_id}"
         )
-        session = await self._get_session()
+        session = async_get_clientsession(self.hass)
         try:
             async with session.get(url, headers={"User-Agent": USER_AGENT}) as resp:
                 if resp.status != 200:
