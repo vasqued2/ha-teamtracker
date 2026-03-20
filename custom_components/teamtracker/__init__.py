@@ -301,7 +301,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 if resp.status != 200:
                     return self._stats_cache
                 data = await resp.json()
-        except (aiohttp.ClientError, TimeoutError) as err:
+        except Exception as err:  # pylint: disable=broad-exception-caught
             _LOGGER.debug("%s: Stats fetch failed: %s", self.name, err)
             return self._stats_cache
 
