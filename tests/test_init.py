@@ -73,7 +73,7 @@ async def test_setup_entry(
 
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
-    assert sensor_state.state == "NOT_FOUND"
+    assert sensor_state.state == "POST"
     team_abbr = sensor_state.attributes.get("team_abbr")
     assert team_abbr == "BOS"
     sport = sensor_state.attributes.get("sport")
