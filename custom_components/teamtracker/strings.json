@@ -20,6 +20,13 @@
           "league_id": "League"
         }
       },
+      "sensor_type": {
+        "title": "Sensor Type",
+        "description": "What do you want to track?",
+        "data": {
+          "sensor_type": "Sensor Type"
+        }
+      },
       "search": {
         "title": "Search Team",
         "description": "Type name to search for the {league_name} team, or leave blank to enter the team ID manually.\n\n[Browse teams on ESPN]({league_url})",

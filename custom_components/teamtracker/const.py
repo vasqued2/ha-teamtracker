@@ -195,6 +195,16 @@ SERVICE_NAME_CALL_API = "call_api"
 
 INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
 
+# Standings
+STANDINGS_URL_BASE = "https://site.web.api.espn.com/apis/v2/sports"
+STANDINGS_REFRESH_RATE = timedelta(hours=1)
+SPORTS_WITHOUT_STANDINGS = {"golf", "tennis", "mma", "racing"}
+
+# Sensor types
+CONF_SENSOR_TYPE = "sensor_type"
+SENSOR_TYPE_TEAM = "team"
+SENSOR_TYPE_STANDINGS = "standings"
+
 # Misc
 TEAM_ID = ""
 VERSION = "v0.16.0"
