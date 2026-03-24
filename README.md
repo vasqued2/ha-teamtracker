@@ -1,5 +1,6 @@
 # Real-time Sports Scores in Home Assistant
 
+
 This integration provides real-time scores for teams and athletes in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer, golf, tennis, racing, cricket) sports using the ESPN Scoreboard APIs, and creates a sensor with detailed data for the competition. Services exist to change and interact with the sensor.
 
 This integration can be used with the [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) to display the game information in the Home Assistant dashboard.
