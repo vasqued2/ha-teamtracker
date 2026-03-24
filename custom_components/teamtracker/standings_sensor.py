@@ -2,18 +2,15 @@
 import logging
 from typing import Any
 
-from homeassistant.components.sensor import SensorEntity
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTRIBUTION, DEFAULT_ICON, DOMAIN, SPORT_ICON_MAP
+from .const import ATTRIBUTION, DEFAULT_ICON, SPORT_ICON_MAP
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class TeamTrackerStandingsSensor(CoordinatorEntity, SensorEntity):
+class TeamTrackerStandingsSensor(CoordinatorEntity):
     """Sensor that exposes a full league standings table via attributes.
 
     State  = abbreviation of the first-place team (or number of entries as fallback).

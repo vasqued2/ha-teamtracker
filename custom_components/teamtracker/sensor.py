@@ -149,7 +149,6 @@ async def async_setup_entry(
     sensor_type = entry.data.get(CONF_SENSOR_TYPE, "team")
 
     if sensor_type == SENSOR_TYPE_STANDINGS:
-        from .const import COORDINATOR  # already imported above, explicit for clarity
         coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
         async_add_entities(
             [TeamTrackerStandingsSensor(
