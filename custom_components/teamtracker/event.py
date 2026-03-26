@@ -30,11 +30,12 @@ async def async_process_event(
         data, "leagues", 0, "logos", 0, "href", default=DEFAULT_LOGO
     )
 
-    limit_hit = len(data["events"]) == API_LIMIT
+    events = data.get("events", [])
+    limit_hit = len(events) == API_LIMIT
     first_date = datetime(9999, 12, 31, 1, 0, 0)
     last_date = datetime(1900, 1, 31, 1, 0, 0)
 
-    for event in data["events"]:
+    for event in events:
         event_state = "NOT_FOUND"
 
         grouping_index = -1
