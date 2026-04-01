@@ -1,0 +1,38 @@
+{
+  "config": {
+    "error": {
+      "league": "Ungültige Liga eingegeben."
+    },
+    "step": {
+      "user": {
+        "title": "TeamTracker",
+        "description": "Liga und Team eingeben, um den Sensor zu erstellen.\n\nLiga: NFL, NCAAF, MLB, NBA, WNBA, NCAAM, NCAAW, NCAAVB, NCAAVBW, MLS, NWSL, BUND, CL, CLA, EPL, LIGA, LIG1, SERA, WC, PGA, ATP, WTA, F1, IRL, XFL\n\nTeam: 2–4-stelliges Teamkürzel wie auf ESPN-Anzeigetafeln\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md. Leer lassen, um nur Spiele mit platzierten Teams anzuzeigen.",
+        "data": {
+          "league_id": "Liga",
+          "team_id": "Team/Athlet",
+          "name": "Anzeigename",
+          "conference_id": "Conference-Nummer"
+        }
+      },
+      "path": {
+        "title": "Eigene API-Konfiguration",
+        "description": "Den 'sport'- und 'league'-Teil des ESPN-API-Pfads für eine eigene API eingeben.",
+        "data": {
+          "sport_path": "Sport-Pfad",
+          "league_path": "Liga-Pfad"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TeamTracker Optionen",
+        "description": "Zweistelligen Sprachcode für den API-Aufruf eingeben (z.B. de, en).",
+        "data": {
+          "api_language": "API-Sprache"
+        }
+      }
+    }
+  }
+}
