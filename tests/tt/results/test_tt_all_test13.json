@@ -4,6 +4,7 @@
     "league": "NHL",
     "league_path": "nhl",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "league_name": "Major League Baseball",
     "season": "regular-season",
     "team_abbr": "WPG",
     "opponent_abbr": "OTT",

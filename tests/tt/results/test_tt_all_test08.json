@@ -4,6 +4,7 @@
     "league": "MLS",
     "league_path": "usa.1",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "league_name": "Major League Baseball",
     "season": "regular-season",
     "team_abbr": "CLB",
     "opponent_abbr": "MTL",

@@ -4,6 +4,7 @@
     "league": "F1",
     "league_path": "f1",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "league_name": "Major League Baseball",
     "season": "regular-season",
     "team_abbr": "STROLLZ",
     "opponent_abbr": null,

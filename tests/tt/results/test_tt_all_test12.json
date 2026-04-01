@@ -4,6 +4,7 @@
     "league": "NBA",
     "league_path": "nba",
     "league_logo": "https://a.espncdn.com/i/teamlogos/leagues/500/mlb.png",
+    "league_name": "Major League Baseball",
     "season": "preseason",
     "team_abbr": "CHA",
     "opponent_abbr": "BOS",

@@ -11,6 +11,8 @@ async def async_set_baseball_values(
     new_values["clock"] = await async_get_value(
         event, "status", "type", "detail"
     )  # Inning
+    if not new_values["clock"]:
+        new_values["clock"] = ""
     if new_values["clock"][:3].lower() in ["bot", "mid"]:
         if new_values["team_homeaway"] in [
             "home"
