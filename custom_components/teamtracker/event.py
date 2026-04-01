@@ -29,7 +29,9 @@ async def async_process_event(
     values["league_logo"] = await async_get_value(
         data, "leagues", 0, "logos", 0, "href", default=DEFAULT_LOGO
     )
-
+    values["league_name"] = await async_get_value(
+        data, "leagues", 0, "name", default=""
+    )
     limit_hit = len(data["events"]) == API_LIMIT
     first_date = datetime(9999, 12, 31, 1, 0, 0)
     last_date = datetime(1900, 1, 31, 1, 0, 0)
