@@ -62,17 +62,17 @@ async def test_all_leagues_cold_start(hass):
 
     sensor_state = hass.states.get("sensor.test_tt_all_test99")
 
-    assert sensor_state.state == "IN"
+    assert sensor_state.state == "POST"
     team_abbr = sensor_state.attributes.get("team_abbr")
     assert team_abbr == "CLB"
     sport = sensor_state.attributes.get("sport")
     assert sport == "soccer"
     league_name = sensor_state.attributes.get("league_name")
-    assert league_name == "Major League Baseball" # Need to pull league_name from right API
+    assert league_name == "MLS"
     event_name = sensor_state.attributes.get("event_name")
-    assert event_name == "CLB @ MTL"
+    assert event_name == "CLB @ TOR"
     date = sensor_state.attributes.get("date")
-    assert date == "2022-09-09T23:30Z"
+    assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
     api_message = sensor_state.attributes.get("api_message")

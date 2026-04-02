@@ -563,7 +563,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 file_path = "/share/tt/teams.json"
                 if not os.path.exists(file_path):
                     file_path = "tests/tt/teams.json"
-            elif "all" in url:
+            elif "/all/" in url:
                 file_path = "/share/tt/scoreboard_all_leagues.json"
                 if not os.path.exists(file_path):
                     file_path = "tests/tt/scoreboard_all_leagues.json"
@@ -633,9 +633,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if file_override:
             _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
-            file_path = "/share/tt/all.json"
-            if not os.path.exists(file_path):
-                file_path = "tests/tt/all.json"
+
+            if "/all/" in url:
+                file_path = "/share/tt/scoreboard_all_leagues.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/scoreboard_all_leagues.json"
+            else:
+                file_path = "/share/tt/all.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/all.json"
             async with aiofiles.open(file_path, mode="r") as f:
                 contents = await f.read()
             data = json.loads(contents)
