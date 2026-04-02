@@ -482,8 +482,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             return cached
 
         team_url = URL_HEAD + sport_path + "/" + league_path + "/teams/" + team_id
-        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
-        session = await self._get_session()
 
         id_to_competition = {}
         next_events = []
