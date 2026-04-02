@@ -488,37 +488,22 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         id_to_competition = {}
         next_events = []
 
-        try:
-            async with session.get(team_url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Team info call for '%s' from %s",
-                    sensor_name, team_id, team_url,
-                )
-                if r.status == 200:
-                    team_data = await r.json()
-                    next_events = team_data.get("team", {}).get("nextEvent", [])
-                    for ne in next_events:
-                        display = ne.get("season", {}).get("displayName")
-                        if ne.get("id") and display:
-                            id_to_competition[ne["id"]] = display
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team info call failed: %s", sensor_name, e)
+        team_data = await self.async_call_espn_api(team_url)
+        if team_data:
+            next_events = team_data.get("team", {}).get("nextEvent", [])
+            for ne in next_events:
+                display = ne.get("season", {}).get("displayName")
+                if ne.get("id") and display:
+                    id_to_competition[ne["id"]] = display
 
-        try:
-            schedule_url = team_url + "/schedule"
-            async with session.get(schedule_url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Team schedule call for '%s' from %s",
-                    sensor_name, team_id, schedule_url,
-                )
-                if r.status == 200:
-                    sched_data = await r.json()
-                    for e in sched_data.get("events", []):
-                        display = e.get("season", {}).get("displayName")
-                        if e.get("id") and display:
-                            id_to_competition[e["id"]] = display
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team schedule call failed: %s", sensor_name, e)
+        schedule_url = team_url + "/schedule"
+        sched_data = await self.async_call_espn_api(schedule_url)
+        if sched_data:
+            for e in sched_data.get("events", []):
+                display = e.get("season", {}).get("displayName")
+                if e.get("id") and display:
+                    id_to_competition[e["id"]] = display
+
 
         next_game_date = (
             date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
@@ -551,6 +536,68 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 values["league"] = name
 
         return values
+
+
+    #
+    #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
+    #
+    async def async_call_espn_api(self, url) -> dict:
+        """Query API for status."""
+
+        team_id = self.team_id
+        sensor_name = self.name
+
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+        sensor_name = self.name
+        data = None
+        file_override = False
+        if self.conference_id:
+            if self.conference_id == "9999":
+                file_override = True
+
+        if file_override:
+            _LOGGER.debug("%s: Overriding ESPN API (%s) for '%s'", sensor_name, url, team_id)
+            if "schedule" in url:
+                file_path = "/share/tt/schedule.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/schedule.json"
+            elif "teams" in url:
+                file_path = "/share/tt/teams.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/teams.json"
+            elif "all" in url:
+                file_path = "/share/tt/scoreboard_all_leagues.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/scoreboard_all_leagues.json"
+            else:
+                file_path = "/share/tt/all.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/all.json"
+            try:
+                async with aiofiles.open(file_path, mode="r") as f:
+                    contents = await f.read()
+                data = json.loads(contents)
+            except Exception as e: # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: API file read failed: %s", sensor_name, e)
+                data = None                
+        else:
+            session = await self._get_session()
+            try:
+                async with session.get(url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Calling API for '%s' from %s",
+                        sensor_name,
+                        team_id,
+                        url,
+                    )
+                    if r.status == 200:
+                        data = await r.json()
+            except Exception as e: # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+                data = None
+            
+        return data
+
 
     #
     #  Call the API (or file override) and get the data returned by it
