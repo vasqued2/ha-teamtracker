@@ -77,6 +77,16 @@ CONFIG_DATA3 = {
     "conference_id": "9999",
 }
 
+CONFIG_DATA4 = {
+    "league_id": "XXX",
+    "league_path": "all",
+    "sport_path": "soccer",
+    "team_id": "CLB",
+    "name": "test_tt_all_test99",
+    "timeout": 120,
+    "conference_id": "9999",
+}
+
 TEST_DATA = [
     {
         "sensor_name": "test_tt_all_test01",

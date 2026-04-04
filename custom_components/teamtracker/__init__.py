@@ -50,6 +50,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
+from . utils import is_integer
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -306,7 +307,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         lang = self.get_lang()
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all":
+        if league_path == "all" and is_integer(self.team_id):
             key += ":" + team_id
 
         if key in TeamTrackerDataUpdateCoordinator.data_cache:
@@ -355,7 +356,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         # For "all" leagues, include team_id in cache key since each team
         # uses different narrow date windows for the scoreboard call.
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all":
+        if league_path == "all" and is_integer(self.team_id):
             key += ":" + self.team_id
 
         #
@@ -370,7 +371,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
-                if league_path == "all":
+                if league_path == "all" and is_integer(self.team_id):
                     values = await self._enrich_league_name(values)
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
@@ -384,7 +385,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         #  within the 50-event API limit across all competitions.
         #  For other leagues, use the default date computation.
         #
-        if league_path == "all":
+        if league_path == "all" and is_integer(self.team_id):
             schedule_info = await self.async_get_team_schedule(lang)
             next_game_date = schedule_info.get("next_game_date") if schedule_info else None
 

@@ -21,3 +21,11 @@ async def async_get_value(json, *keys, default=None):
         return j
     except:
         return default
+
+
+def is_integer(val):
+    try:
+        int(val)
+        return True
+    except ValueError:
+        return False

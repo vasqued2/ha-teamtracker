@@ -14,7 +14,7 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA3
+from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA3, CONFIG_DATA4
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -67,6 +67,8 @@ async def test_all_leagues_cold_start(hass):
     assert team_abbr == "CLB"
     sport = sensor_state.attributes.get("sport")
     assert sport == "soccer"
+    league = sensor_state.attributes.get("league")
+    assert league == "MLS"
     league_name = sensor_state.attributes.get("league_name")
     assert league_name == "MLS"
     event_name = sensor_state.attributes.get("event_name")
@@ -259,3 +261,133 @@ async def test_all_leagues_all_team_cache_hit(hass):
         assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
         api_message = sensor_state.attributes.get("api_message")
         assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Confirm "all" league API was called
+
+
+
+    
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
+@freeze_time("2026-03-21 10:00:00")
+async def test_all_leagues_cold_start(hass):
+    """Test Case 1: Cold start falls through to file-based discovery."""
+#
+#   Reset Caches
+#
+    TeamTrackerDataUpdateCoordinator.data_cache = {}
+    TeamTrackerDataUpdateCoordinator.last_update = {}
+    TeamTrackerDataUpdateCoordinator.all_team_cache = {}
+
+#
+#   Set up entry
+#
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA3,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA3
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test99")
+
+    assert sensor_state.state == "POST"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "CLB"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "soccer"
+    league_name = sensor_state.attributes.get("league_name")
+    assert league_name == "MLS"
+    event_name = sensor_state.attributes.get("event_name")
+    assert event_name == "CLB @ TOR"
+    date = sensor_state.attributes.get("date")
+    assert date == "2026-03-21T17:00Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "Cached data" # data refresh is called twice on setup, so 2nd time uses cache
+#
+# Validate the cache's are now populated
+#
+
+    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
+    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+
+    assert isinstance(data_cache, dict)
+    assert len(data_cache) > 0
+    assert isinstance(all_team_cache, dict)
+    assert len(all_team_cache) > 0
+
+
+    
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
+@freeze_time("2026-03-21 10:00:00")
+async def test_all_leagues_team_abbr(hass):
+    """Test Case 4: Cold start using team abbreviation instead of Team ID number."""
+    """  Special "all" league processing should be skipped when Team ID is not an integer """
+#
+#   Reset Caches
+#
+    TeamTrackerDataUpdateCoordinator.data_cache = {}
+    TeamTrackerDataUpdateCoordinator.last_update = {}
+    TeamTrackerDataUpdateCoordinator.all_team_cache = {}
+
+#
+#   Set up entry
+#
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA4,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA3
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test99")
+
+    assert sensor_state.state == "POST"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "CLB"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "soccer"
+    league = sensor_state.attributes.get("league")
+    assert league == "XXX" # Abbreviation should go through old processing
+    league_name = sensor_state.attributes.get("league_name")
+    assert league_name == "" # Abbreviation should go through old processing
+    event_name = sensor_state.attributes.get("event_name")
+    assert event_name == "CLB @ TOR"
+    date = sensor_state.attributes.get("date")
+    assert date == "2026-03-21T17:00Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260320-20260326&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "Cached data" # data refresh is called twice on setup, so 2nd time uses cache
+#
+# Validate the cache's are now populated
+#
+
+    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
+    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+
+    assert isinstance(data_cache, dict)
+    assert len(data_cache) > 0
+    assert isinstance(all_team_cache, dict)
+    assert len(all_team_cache) == 0 # all_team_cache should remain 0 because all league processing skipped
