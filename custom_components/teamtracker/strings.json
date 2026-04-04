@@ -21,25 +21,26 @@
         }
       },
       "search": {
-        "title": "Search Team",
+        "title": "Search Team — {league_id}",
         "description": "Type a team name to search, or leave blank to enter the team ID manually.\n\n[Browse teams on ESPN]({league_url})",
         "data": {
           "search_team": "Search team name (optional)"
         }
       },
       "select_team": {
-        "title": "Select Team",
-        "description": "Choose your team from the search results.",
+        "title": "Select Team — {league_id}",
+        "description": "Choose your team from the search results. Optionally enter a custom friendly name.",
         "data": {
-          "team_selection": "Team"
+          "team_selection": "Team",
+          "name": "Friendly Name (optional)"
         }
       },
       "manual": {
-        "title": "Manual Entry",
+        "title": "Manual Entry — {league_id}",
         "description": "Enter the team abbreviation as shown on ESPN scoreboards (e.g. NE, LAL, BVB).\n\nConference Number: For NCAA football and basketball only. See README.md for valid values.",
         "data": {
           "team_id": "Team/Athlete ID",
-          "conference_id": "Conference Number",
+          "conference_id": "Conference Number (NCAA only)",
           "name": "Friendly Name"
         }
       },
@@ -48,7 +49,7 @@
         "description": "Enter the 'sport' and 'league' portion of the ESPN API path to use a self-configured API",
         "data": {
           "team_id": "Team/Athlete ID",
-          "conference_id": "Conference Number",
+          "conference_id": "Conference Number (NCAA only)",
           "name": "Friendly Name",
           "sport_path": "Sport Path",
           "league_path": "League Path"

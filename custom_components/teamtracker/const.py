@@ -193,6 +193,8 @@ RAPID_REFRESH_RATE = timedelta(seconds=5)
 # Services
 SERVICE_NAME_CALL_API = "call_api"
 
+INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
+
 # Misc
 TEAM_ID = ""
 VERSION = "v0.15.1"

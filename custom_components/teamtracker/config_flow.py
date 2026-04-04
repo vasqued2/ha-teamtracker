@@ -23,6 +23,7 @@ from .const import (
     CONF_TEAM_ID,
     DEFAULT_CONFERENCE_ID,
     DOMAIN,
+    INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
     SOCCER,
 )
@@ -243,6 +244,12 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Handle team search step."""
         self._errors = {}
 
+        # Individual sports (golf, mma, tennis) have athletes, not teams —
+        # the ESPN teams API returns nothing useful, so skip straight to manual.
+        sport_path = LEAGUE_MAP.get(self._league_id, {}).get(CONF_SPORT_PATH, "")
+        if user_input is None and sport_path in INDIVIDUAL_SPORTS:
+            return await self.async_step_manual()
+
         if user_input is not None:
             search_term = user_input.get("search_team", "").strip().lower()
 
@@ -272,11 +279,16 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         schema = vol.Schema(
             {vol.Optional("search_team", default=""): str}
         )
+        sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
         return self.async_show_form(
             step_id="search",
             data_schema=schema,
             errors=self._errors,
-            description_placeholders={"league_url": _league_browse_url(self._league_id)},
+            description_placeholders={
+                "league_url": _league_browse_url(self._league_id),
+                "league_id": self._league_id,
+                "sport_name": sport_name,
+            },
         )
 
     # ------------------------------------------------------------------ #
@@ -291,26 +303,33 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             meta = self._team_meta.get(abbr, {})
             conf_id = str(meta.get("conference_id", ""))
             paths = LEAGUE_MAP[self._league_id]
-            name = meta.get("displayName", abbr)
+            name = user_input.get(CONF_NAME, "").strip() or meta.get("displayName", abbr)
+            team_id = meta.get("id", abbr)
             return self.async_create_entry(
                 title=f"{self._league_id} \u2013 {name}",
                 data={
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
-                    CONF_TEAM_ID:       abbr,
+                    CONF_TEAM_ID:       team_id,
                     CONF_CONFERENCE_ID: conf_id,
                     CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
                     CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
                 },
             )
 
-        schema = vol.Schema(
-            {vol.Required("team_selection"): vol.In(self._search_results)}
-        )
+        sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
+        schema = vol.Schema({
+            vol.Required("team_selection"): vol.In(self._search_results),
+            vol.Optional(CONF_NAME, default=""): cv.string,
+        })
         return self.async_show_form(
             step_id="select_team",
             data_schema=schema,
             errors={},
+            description_placeholders={
+                "league_id": self._league_id,
+                "sport_name": sport_name,
+            },
         )
 
     # ------------------------------------------------------------------ #
@@ -335,6 +354,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 },
             )
 
+        sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
         schema = vol.Schema(
             {
                 vol.Required(CONF_TEAM_ID): cv.string,
@@ -346,6 +366,10 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="manual",
             data_schema=schema,
             errors={},
+            description_placeholders={
+                "league_id": self._league_id,
+                "sport_name": sport_name,
+            },
         )
 
     # ------------------------------------------------------------------ #
