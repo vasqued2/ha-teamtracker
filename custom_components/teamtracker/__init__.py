@@ -5,6 +5,7 @@ import json
 import locale
 import logging
 import os
+import re
 
 import aiofiles
 import aiohttp
@@ -49,6 +50,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
+from . utils import is_integer
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -229,6 +231,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     data_cache = {}
     last_update = {}
     c_cache = {}
+    all_team_cache = {}  # {"{sport}:{league}:{team_id}": {next_game_date, id_to_competition, expires}}
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
@@ -304,6 +307,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         lang = self.get_lang()
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
+        if league_path == "all" and is_integer(self.team_id):
+            key += ":" + team_id
 
         if key in TeamTrackerDataUpdateCoordinator.data_cache:
             del TeamTrackerDataUpdateCoordinator.data_cache[key]
@@ -348,7 +353,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         lang = self.get_lang()
 
+        # For "all" leagues, include team_id in cache key since each team
+        # uses different narrow date windows for the scoreboard call.
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
+        if league_path == "all" and is_integer(self.team_id):
+            key += ":" + self.team_id
 
         #
         #  Use cache if not expired
@@ -362,6 +371,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
+                if league_path == "all" and is_integer(self.team_id):
+                    values = await self._enrich_league_name(values)
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
                 else:
@@ -370,16 +381,69 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         #
         #  Call the API
-        #  Get the language based on the locale
-        #    Then override it if there is a value in frontend_storage for the selected language
-        #      (it usually takes about a minute after reboot for frontend_storage to be populated)
+        #  For "all" leagues, use narrow dates from team schedule to stay
+        #  within the 50-event API limit across all competitions.
+        #  For other leagues, use the default date computation.
         #
+        if league_path == "all" and is_integer(self.team_id):
+            schedule_info = await self.async_get_team_schedule(lang)
+            next_game_date = schedule_info.get("next_game_date") if schedule_info else None
 
-        data, file_override = await self.async_call_api(config, hass, lang)
-        values = await self.async_update_values(config, hass, data, lang)
+            today_utc = datetime.now(timezone.utc).date()
+            day_before_yesterday = today_utc - timedelta(days=2)
+
+            # Narrow window: cover recent results and upcoming game if within 7 days
+            d1 = day_before_yesterday.strftime("%Y%m%d")
+            if next_game_date and next_game_date <= today_utc + timedelta(days=7):
+                d2 = next_game_date.strftime("%Y%m%d")
+            else:
+                d2 = today_utc.strftime("%Y%m%d")
+
+            _LOGGER.debug(
+                "%s: All-league scoreboard call 1/1 dates=%s-%s (next_game=%s)",
+                sensor_name, d1, d2,
+                next_game_date.isoformat() if next_game_date else "unknown",
+            )
+            scoreboard_calls = 1
+            data, file_override = await self.async_call_api(
+                config, hass, lang, d1_override=d1, d2_override=d2
+            )
+            values = await self.async_update_values(config, hass, data, lang)
+
+            # If not found in the recent window and next game is beyond it,
+            # try a narrow call around the next game date.
+            if (values["state"] == "NOT_FOUND" and not file_override
+                    and next_game_date and next_game_date > today_utc):
+                nd1 = (next_game_date - timedelta(days=1)).strftime("%Y%m%d")
+                nd2 = next_game_date.strftime("%Y%m%d")
+                if nd1 != d1 or nd2 != d2:  # avoid duplicate call
+                    _LOGGER.debug(
+                        "%s: All-league scoreboard call 2/2 dates=%s-%s (fallback to next game)",
+                        sensor_name, nd1, nd2,
+                    )
+                    scoreboard_calls = 2
+                    data2, _ = await self.async_call_api(
+                        config, hass, lang, d1_override=nd1, d2_override=nd2
+                    )
+                    values2 = await self.async_update_values(config, hass, data2, lang)
+                    if values2["state"] != "NOT_FOUND":
+                        data = data2
+                        values = values2
+
+            values = await self._enrich_league_name(values)
+            msg = values.get("api_message") or ""
+            values["api_message"] = (
+                f"All-league: {scoreboard_calls} scoreboard call(s), "
+                f"dates={d1}-{d2}"
+                + (f" | {msg}" if msg else "")
+            )
+        else:
+            data, file_override = await self.async_call_api(config, hass, lang)
+            values = await self.async_update_values(config, hass, data, lang)
+
         if data is not None:
             self.data_cache[key] = data
-            self.last_update[key] = values["last_update"]
+        self.last_update[key] = values["last_update"]
 
         if file_override:
             path = "/share/tt/results/" + sensor_name + ".json"
@@ -398,10 +462,146 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     )
         return values
 
+    async def async_get_team_schedule(self, lang):
+        """Fetch team schedule info for 'all' league date computation.
+
+        Calls the team info and schedule endpoints to discover the next game
+        date and build an event_id → competition name mapping.  Results are
+        cached in all_team_cache until the next game date passes.
+        """
+        team_id = self.team_id
+        sport_path = self.sport_path
+        league_path = self.league_path
+        sensor_name = self.name
+
+        cache_key = f"{sport_path}:{league_path}:{team_id}"
+        today = date.today()
+        cached = TeamTrackerDataUpdateCoordinator.all_team_cache.get(cache_key)
+
+        if cached is not None and today <= cached["expires"]:
+            _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
+            return cached
+
+        team_url = URL_HEAD + sport_path + "/" + league_path + "/teams/" + team_id
+
+        id_to_competition = {}
+        next_events = []
+
+        team_data = await self.async_call_espn_api(team_url)
+        if team_data:
+            next_events = team_data.get("team", {}).get("nextEvent", [])
+            for ne in next_events:
+                display = ne.get("season", {}).get("displayName")
+                if ne.get("id") and display:
+                    id_to_competition[ne["id"]] = display
+
+        schedule_url = team_url + "/schedule"
+        sched_data = await self.async_call_espn_api(schedule_url)
+        if sched_data:
+            for e in sched_data.get("events", []):
+                display = e.get("season", {}).get("displayName")
+                if e.get("id") and display:
+                    id_to_competition[e["id"]] = display
+
+
+        next_game_date = (
+            date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
+        )
+
+        result = {
+            "next_game_date": next_game_date,
+            "id_to_competition": id_to_competition,
+            "expires": next_game_date or today,
+        }
+        TeamTrackerDataUpdateCoordinator.all_team_cache[cache_key] = result
+        return result
+
+    async def _enrich_league_name(self, values):
+        """Set league_name from the competition the matched game belongs to."""
+        cache_key = f"{self.sport_path}:{self.league_path}:{self.team_id}"
+        cached = TeamTrackerDataUpdateCoordinator.all_team_cache.get(cache_key)
+        if not cached:
+            return values
+
+        id_to_competition = cached.get("id_to_competition", {})
+        event_url = values.get("event_url", "") or ""
+        match = re.search(r"/gameId/(\d+)", event_url)
+        if match:
+            game_id = match.group(1)
+            competition = id_to_competition.get(game_id)
+            if competition:
+                name = re.sub(r"^\d{4}(-\d{2})?\s+", "", competition)
+                values["league_name"] = name
+                values["league"] = name
+
+        return values
+
+
+    #
+    #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
+    #
+    async def async_call_espn_api(self, url) -> dict:
+        """Query API for status."""
+
+        team_id = self.team_id
+        sensor_name = self.name
+
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+        sensor_name = self.name
+        data = None
+        file_override = False
+        if self.conference_id:
+            if self.conference_id == "9999":
+                file_override = True
+
+        if file_override:
+            _LOGGER.debug("%s: Overriding ESPN API (%s) for '%s'", sensor_name, url, team_id)
+            if "schedule" in url:
+                file_path = "/share/tt/schedule.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/schedule.json"
+            elif "teams" in url:
+                file_path = "/share/tt/teams.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/teams.json"
+            elif "/all/" in url:
+                file_path = "/share/tt/scoreboard_all_leagues.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/scoreboard_all_leagues.json"
+            else:
+                file_path = "/share/tt/all.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/all.json"
+            try:
+                async with aiofiles.open(file_path, mode="r") as f:
+                    contents = await f.read()
+                data = json.loads(contents)
+            except Exception as e: # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: API file read failed: %s", sensor_name, e)
+                data = None                
+        else:
+            session = await self._get_session()
+            try:
+                async with session.get(url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Calling API for '%s' from %s",
+                        sensor_name,
+                        team_id,
+                        url,
+                    )
+                    if r.status == 200:
+                        data = await r.json()
+            except Exception as e: # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+                data = None
+            
+        return data
+
+
     #
     #  Call the API (or file override) and get the data returned by it
     #
-    async def async_call_api(self, config, hass, lang) -> dict:
+    async def async_call_api(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
         """Query API for status."""
 
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
@@ -415,7 +615,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
 
-        if sport_path not in ("tennis", "baseball"):
+        if d1_override is not None and d2_override is not None:
+            url_parms = url_parms + "&dates=" + d1_override + "-" + d2_override
+        elif sport_path not in ("tennis", "baseball"):
             d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
             if league_path == "all":
                 d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
@@ -432,9 +634,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if file_override:
             _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
-            file_path = "/share/tt/all.json"
-            if not os.path.exists(file_path):
-                file_path = "tests/tt/all.json"
+
+            if "/all/" in url:
+                file_path = "/share/tt/scoreboard_all_leagues.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/scoreboard_all_leagues.json"
+            else:
+                file_path = "/share/tt/all.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/all.json"
             async with aiofiles.open(file_path, mode="r") as f:
                 contents = await f.read()
             data = json.loads(contents)
@@ -475,7 +683,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             )
             
             # First fallback - without date constraint
-            if num_events == 0:
+            # Skip fallbacks when date overrides are provided (e.g. "all" league
+            # narrow-window calls) — the caller handles retry with different dates.
+            if num_events == 0 and d1_override is None:
                 url_parms = "?lang=" + lang[:2]
                 if self.conference_id:
                     url_parms = url_parms + "&groups=" + self.conference_id
@@ -519,7 +729,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 )
 
             # Second fallback - without language
-            if num_events == 0:
+            if num_events == 0 and d1_override is None:
                 url_parms = ""
                 if self.conference_id:
                     url_parms = url_parms + "?groups=" + self.conference_id

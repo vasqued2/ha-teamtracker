@@ -1,0 +1,1419 @@
+{
+  "team": {
+    "id": "183",
+    "uid": "s:600~t:183",
+    "slug": "usa.columbus",
+    "location": "Columbus Crew",
+    "name": "Columbus Crew",
+    "nickname": "Crew",
+    "abbreviation": "CLB",
+    "displayName": "Columbus Crew",
+    "shortDisplayName": "Columbus",
+    "color": "000000",
+    "alternateColor": "fedd00",
+    "isActive": true,
+    "logos": [
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/soccer/500/183.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "default"
+        ],
+        "lastUpdated": "2021-05-20T15:46Z"
+      },
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/183.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "dark"
+        ],
+        "lastUpdated": "2021-05-20T15:47Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_white_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_white_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_black_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_black_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_primary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_primary_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_secondary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_secondary_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_black.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_black"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_white.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_white"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_white_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_white_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_black_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_black_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_primary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_primary_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_secondary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_secondary_color"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_black.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_black"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_white.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_white"
+        ],
+        "lastUpdated": "2026-02-13T04:06Z"
+      }
+    ],
+    "record": {
+      "items": [
+        {
+          "description": "Overall Record",
+          "type": "total",
+          "summary": "0-2-3",
+          "stats": [
+            {
+              "name": "gamesPlayed",
+              "value": 5
+            },
+            {
+              "name": "losses",
+              "value": 3
+            },
+            {
+              "name": "pointDifferential",
+              "value": -3
+            },
+            {
+              "name": "points",
+              "value": 2
+            },
+            {
+              "name": "pointsAgainst",
+              "value": 8
+            },
+            {
+              "name": "pointsFor",
+              "value": 5
+            },
+            {
+              "name": "streak",
+              "value": 0
+            },
+            {
+              "name": "ties",
+              "value": 2
+            },
+            {
+              "name": "wins",
+              "value": 0
+            },
+            {
+              "name": "awayGamesPlayed",
+              "value": 3
+            },
+            {
+              "name": "awayLosses",
+              "value": 2
+            },
+            {
+              "name": "awayPointsAgainst",
+              "value": 7
+            },
+            {
+              "name": "awayPointsFor",
+              "value": 5
+            },
+            {
+              "name": "awayTies",
+              "value": 1
+            },
+            {
+              "name": "awayWins",
+              "value": 0
+            },
+            {
+              "name": "deductions",
+              "value": 0
+            },
+            {
+              "name": "homeGamesPlayed",
+              "value": 2
+            },
+            {
+              "name": "homeLosses",
+              "value": 1
+            },
+            {
+              "name": "homePointsAgainst",
+              "value": 1
+            },
+            {
+              "name": "homePointsFor",
+              "value": 0
+            },
+            {
+              "name": "homeTies",
+              "value": 1
+            },
+            {
+              "name": "homeWins",
+              "value": 0
+            },
+            {
+              "name": "ppg",
+              "value": 0.4
+            },
+            {
+              "name": "rank",
+              "value": 14
+            },
+            {
+              "name": "rankChange",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "groups": {
+      "id": "1"
+    },
+    "links": [
+      {
+        "language": "en-US",
+        "rel": [
+          "clubhouse",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/soccer/club/_/id/183/columbus-crew",
+        "text": "Clubhouse",
+        "shortText": "Clubhouse",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "stats",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/soccer/team/stats/_/id/183/columbus-crew",
+        "text": "Stats",
+        "shortText": "Stats",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "schedule",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/soccer/team/fixtures/_/id/183/columbus-crew",
+        "text": "Fixtures",
+        "shortText": "Fixtures",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "results",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/soccer/team/results/_/id/183/columbus-crew",
+        "text": "Results",
+        "shortText": "Results",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "standings",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/soccer/standings/_/league/usa.1",
+        "text": "Standings",
+        "shortText": "Standings",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "squad",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/soccer/team/squad/_/id/183/columbus-crew",
+        "text": "Squad",
+        "shortText": "Squad",
+        "isExternal": false,
+        "isPremium": false
+      }
+    ],
+    "defaultLeague": {
+      "id": "770",
+      "alternateId": "19",
+      "name": "MLS",
+      "abbreviation": "MLS",
+      "shortName": "MLS",
+      "midsizeName": "USA.1",
+      "slug": "usa.1",
+      "season": {
+        "type": {
+          "hasStandings": true
+        }
+      },
+      "links": [
+        {
+          "language": "en-US",
+          "rel": [
+            "index",
+            "desktop",
+            "league"
+          ],
+          "href": "https://www.espn.com/soccer/league/_/name/usa.1",
+          "text": "Index",
+          "shortText": "Index",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "schedule",
+            "desktop",
+            "league"
+          ],
+          "href": "https://www.espn.com/soccer/schedule/_/league/usa.1",
+          "text": "Schedule",
+          "shortText": "Schedule",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "schedule",
+            "sportscenter",
+            "app",
+            "league"
+          ],
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~l:770&section=scores",
+          "text": "Schedule",
+          "shortText": "Schedule",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "standings",
+            "desktop",
+            "league"
+          ],
+          "href": "https://www.espn.com/soccer/table/_/league/usa.1",
+          "text": "Standings",
+          "shortText": "Standings",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "scores",
+            "desktop",
+            "league"
+          ],
+          "href": "https://www.espn.com/soccer/scoreboard/_/league/usa.1",
+          "text": "Scores",
+          "shortText": "Scores",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "scores",
+            "sportscenter",
+            "app",
+            "league"
+          ],
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~l:770&section=scores",
+          "text": "Scores",
+          "shortText": "Scores",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "stats",
+            "desktop",
+            "league"
+          ],
+          "href": "https://www.espn.com/soccer/stats/_/league/usa.1",
+          "text": "Stats",
+          "shortText": "Stats",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "teams",
+            "desktop",
+            "league"
+          ],
+          "href": "https://www.espn.com/soccer/teams/_/league/usa.1",
+          "text": "Teams",
+          "shortText": "Teams",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "logos": [
+        {
+          "href": "https://a.espncdn.com/i/leaguelogos/soccer/500/19.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "default"
+          ],
+          "lastUpdated": "2019-05-08T16:07Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/leaguelogos/soccer/500-dark/19.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "dark"
+          ],
+          "lastUpdated": "2019-05-08T16:07Z"
+        }
+      ]
+    },
+    "leagueAbbrev": "usa.1",
+    "nextEvent": [
+      {
+        "id": "761521",
+        "date": "2026-04-04T23:30Z",
+        "name": "Columbus Crew at Atlanta United FC",
+        "shortName": "CLB @ ATL",
+        "season": {
+          "year": 2026,
+          "displayName": "2026 MLS"
+        },
+        "seasonType": {
+          "id": "1",
+          "type": 13846,
+          "name": "Regular Season",
+          "abbreviation": "2026 MLS"
+        },
+        "timeValid": true,
+        "competitions": [
+          {
+            "id": "761521",
+            "date": "2026-04-04T23:30Z",
+            "attendance": 0,
+            "timeValid": true,
+            "neutralSite": false,
+            "boxscoreAvailable": true,
+            "ticketsAvailable": true,
+            "venue": {
+              "fullName": "Mercedes-Benz Stadium",
+              "address": {
+                "city": "Atlanta, Georgia",
+                "country": "USA"
+              }
+            },
+            "competitors": [
+              {
+                "id": "18418",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "winner": false,
+                "team": {
+                  "id": "18418",
+                  "location": "Atlanta United FC",
+                  "abbreviation": "ATL",
+                  "displayName": "Atlanta United FC",
+                  "shortDisplayName": "Atlanta",
+                  "logos": [
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/soccer/500/18418.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "default"
+                      ],
+                      "lastUpdated": "2023-11-29T16:33Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/18418.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "dark"
+                      ],
+                      "lastUpdated": "2023-11-29T16:35Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/primary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/primary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/primary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/primary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/primary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_black"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/primary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_white"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/secondary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/secondary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/secondary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/secondary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/secondary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_black"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/7d8fa0c3-e69d-bffb-5d8b-c45f998f4a2b/logos/secondary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_white"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "rel": [
+                        "clubhouse",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/club/_/id/18418/atlanta-united-fc",
+                      "text": "Clubhouse"
+                    },
+                    {
+                      "rel": [
+                        "stats",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/stats/_/id/18418/atlanta-united-fc",
+                      "text": "Stats"
+                    },
+                    {
+                      "rel": [
+                        "schedule",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/fixtures/_/id/18418/atlanta-united-fc",
+                      "text": "Fixtures"
+                    },
+                    {
+                      "rel": [
+                        "results",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/results/_/id/18418/atlanta-united-fc",
+                      "text": "Results"
+                    },
+                    {
+                      "rel": [
+                        "standings",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/standings/_/league/usa.1",
+                      "text": "Standings"
+                    },
+                    {
+                      "rel": [
+                        "squad",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/squad/_/id/18418/atlanta-united-fc",
+                      "text": "Squad"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "183",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "winner": false,
+                "team": {
+                  "id": "183",
+                  "location": "Columbus Crew",
+                  "nickname": "Crew",
+                  "abbreviation": "CLB",
+                  "displayName": "Columbus Crew",
+                  "shortDisplayName": "Columbus",
+                  "logos": [
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/soccer/500/183.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "default"
+                      ],
+                      "lastUpdated": "2021-05-20T15:46Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/soccer/500-dark/183.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "dark"
+                      ],
+                      "lastUpdated": "2021-05-20T15:47Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_black"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/primary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_white"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_black"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/1b4f9abf-c0e1-39ea-ce15-d3892274e0aa/logos/secondary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_white"
+                      ],
+                      "lastUpdated": "2026-02-13T04:06Z"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "rel": [
+                        "clubhouse",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/club/_/id/183/columbus-crew",
+                      "text": "Clubhouse"
+                    },
+                    {
+                      "rel": [
+                        "stats",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/stats/_/id/183/columbus-crew",
+                      "text": "Stats"
+                    },
+                    {
+                      "rel": [
+                        "schedule",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/fixtures/_/id/183/columbus-crew",
+                      "text": "Fixtures"
+                    },
+                    {
+                      "rel": [
+                        "results",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/results/_/id/183/columbus-crew",
+                      "text": "Results"
+                    },
+                    {
+                      "rel": [
+                        "standings",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/standings/_/league/usa.1",
+                      "text": "Standings"
+                    },
+                    {
+                      "rel": [
+                        "squad",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/soccer/team/squad/_/id/183/columbus-crew",
+                      "text": "Squad"
+                    }
+                  ]
+                }
+              }
+            ],
+            "notes": [],
+            "odds": [
+              {
+                "awayTeamOdds": {
+                  "favorite": true,
+                  "underdog": false,
+                  "moneyLine": 125,
+                  "spreadOdds": 120,
+                  "open": {
+                    "favorite": true,
+                    "pointSpread": {
+                      "alternateDisplayValue": "-0.5",
+                      "american": "-0.5"
+                    },
+                    "spread": {
+                      "value": 2.15,
+                      "displayValue": "23/20",
+                      "alternateDisplayValue": "+115",
+                      "decimal": 2.15,
+                      "fraction": "23/20",
+                      "american": "+115"
+                    },
+                    "moneyLine": {
+                      "value": 2.25,
+                      "displayValue": "5/4",
+                      "alternateDisplayValue": "+125",
+                      "decimal": 2.25,
+                      "fraction": "5/4",
+                      "american": "+125"
+                    }
+                  },
+                  "current": {
+                    "pointSpread": {
+                      "alternateDisplayValue": "-0.5",
+                      "american": "-0.5"
+                    },
+                    "spread": {
+                      "value": 2.2,
+                      "displayValue": "6/5",
+                      "alternateDisplayValue": "+120",
+                      "decimal": 2.2,
+                      "fraction": "6/5",
+                      "american": "+120"
+                    },
+                    "moneyLine": {
+                      "value": 2.25,
+                      "displayValue": "5/4",
+                      "alternateDisplayValue": "+125",
+                      "decimal": 2.25,
+                      "fraction": "5/4",
+                      "american": "+125"
+                    }
+                  },
+                  "team": {
+                    "id": "183",
+                    "name": "Columbus Crew",
+                    "abbreviation": "CLB"
+                  }
+                },
+                "homeTeamOdds": {
+                  "favorite": false,
+                  "underdog": true,
+                  "moneyLine": 180,
+                  "spreadOdds": -175,
+                  "open": {
+                    "favorite": false,
+                    "pointSpread": {
+                      "alternateDisplayValue": "+0.5",
+                      "american": "+0.5"
+                    },
+                    "spread": {
+                      "value": 1.55,
+                      "displayValue": "5/9",
+                      "alternateDisplayValue": "-180",
+                      "decimal": 1.55,
+                      "fraction": "5/9",
+                      "american": "-180"
+                    },
+                    "moneyLine": {
+                      "value": 2.75,
+                      "displayValue": "7/4",
+                      "alternateDisplayValue": "+175",
+                      "decimal": 2.75,
+                      "fraction": "7/4",
+                      "american": "+175"
+                    }
+                  },
+                  "current": {
+                    "pointSpread": {
+                      "alternateDisplayValue": "+0.5",
+                      "american": "+0.5"
+                    },
+                    "spread": {
+                      "value": 1.57,
+                      "displayValue": "4/7",
+                      "alternateDisplayValue": "-175",
+                      "decimal": 1.57,
+                      "fraction": "4/7",
+                      "american": "-175"
+                    },
+                    "moneyLine": {
+                      "value": 2.8,
+                      "displayValue": "9/5",
+                      "alternateDisplayValue": "+180",
+                      "decimal": 2.8,
+                      "fraction": "9/5",
+                      "american": "+180"
+                    }
+                  },
+                  "team": {
+                    "id": "18418",
+                    "name": "Atlanta United FC",
+                    "abbreviation": "ATL"
+                  }
+                },
+                "links": [
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "home",
+                      "desktop",
+                      "bets",
+                      "draftkings"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0ML83988338_1",
+                    "text": "Home Bet",
+                    "shortText": "Home Bet",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "away",
+                      "desktop",
+                      "bets",
+                      "draftkings"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0ML83988338_3",
+                    "text": "Away Bet",
+                    "shortText": "Away Bet",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "draw",
+                      "desktop",
+                      "bets",
+                      "draftkings"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0ML83988338_2",
+                    "text": "Draw Bet",
+                    "shortText": "Draw Bet",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "homeSpread",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0HC83988699P50_1",
+                    "text": "Home Point Spread",
+                    "shortText": "Home Point Spread",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "awaySpread",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0HC83988699N50_3",
+                    "text": "Away Point Spread",
+                    "shortText": "Away Point Spread",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "over",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0OU83988694O250_1",
+                    "text": "Over Odds",
+                    "shortText": "Over Odds",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "under",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030%3Foutcomes%3D0OU83988694U250_3",
+                    "text": "Under Odds",
+                    "shortText": "Under Odds",
+                    "isExternal": true,
+                    "isPremium": false
+                  },
+                  {
+                    "language": "en-US",
+                    "rel": [
+                      "game",
+                      "desktop",
+                      "bets"
+                    ],
+                    "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33862030",
+                    "text": "Game",
+                    "shortText": "Game",
+                    "isExternal": true,
+                    "isPremium": false
+                  }
+                ]
+              }
+            ],
+            "broadcasts": [
+              {
+                "type": {
+                  "id": "4",
+                  "shortName": "STREAMING"
+                },
+                "media": {
+                  "shortName": "Apple TV"
+                },
+                "lang": "en",
+                "region": "us"
+              }
+            ],
+            "tickets": [
+              {
+                "id": "6324888",
+                "summary": "Tickets as low as $32",
+                "description": "Columbus Crew at Atlanta United",
+                "maxPrice": 4450.49,
+                "startingPrice": 32.85,
+                "numberAvailable": 1184,
+                "totalPostings": 319,
+                "links": [
+                  {
+                    "rel": [
+                      "tickets",
+                      "desktop",
+                      "event"
+                    ],
+                    "href": "https://www.vividseats.com/atlanta-united-tickets-mercedes-benz-stadium-4-4-2026--sports-mls/production/6324888?wsUser=717"
+                  },
+                  {
+                    "rel": [
+                      "tickets",
+                      "desktop",
+                      "venue"
+                    ],
+                    "href": "https://www.vividseats.com/mercedesbenz-stadium-tickets/venue/14188?wsUser=717"
+                  }
+                ]
+              }
+            ],
+            "status": {
+              "clock": 0,
+              "addedClock": 0,
+              "displayClock": "0'",
+              "period": 0,
+              "type": {
+                "id": "1",
+                "name": "STATUS_SCHEDULED",
+                "state": "pre",
+                "completed": false,
+                "description": "Scheduled",
+                "detail": "Sat, April 4th at 7:30 PM EDT",
+                "shortDetail": "4/4 - 7:30 PM EDT"
+              }
+            }
+          }
+        ],
+        "links": [
+          {
+            "language": "en-US",
+            "rel": [
+              "summary",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/soccer/match/_/gameId/761521/columbus-crew-atlanta-united-fc",
+            "text": "Summary",
+            "shortText": "Summary",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "summary",
+              "mobile",
+              "event"
+            ],
+            "href": "https://m.espn.com/soccer/match?gameId=761521&action=summary",
+            "text": "Summary",
+            "shortText": "Summary",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "summary",
+              "sportscenter",
+              "app",
+              "event"
+            ],
+            "href": "sportscenter://x-callback-url/showGame?sportName=soccer&leagueAbbrev=usa.1&gameId=761521",
+            "text": "Summary",
+            "shortText": "Summary",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "videos",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/soccer/video/_/gameId/761521",
+            "text": "Videos",
+            "shortText": "Videos",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "standings",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/soccer/table/_/league/usa.1",
+            "text": "Table",
+            "shortText": "Table",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "livestandings",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/soccer/table/_/gameId/761521",
+            "text": "Live Table",
+            "shortText": "Live Table",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "stats",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/soccer/matchstats/_/gameId/761521",
+            "text": "Statistics",
+            "shortText": "Statistics",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "commentary",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/soccer/commentary/_/gameId/761521",
+            "text": "Commentary",
+            "shortText": "Commentary",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "bet365",
+              "desktop",
+              "event"
+            ],
+            "href": "http://www.bet365.com/home/?affiliate=365_351846",
+            "text": "Bet 365",
+            "shortText": "Bet 365",
+            "isExternal": true,
+            "isPremium": false
+          }
+        ],
+        "league": {
+          "id": "770",
+          "alternateId": "19",
+          "name": "MLS",
+          "abbreviation": "MLS",
+          "shortName": "MLS",
+          "midsizeName": "USA.1",
+          "slug": "usa.1",
+          "isTournament": false
+        }
+      }
+    ],
+    "standingSummary": "14th in MLS"
+  }
+}
