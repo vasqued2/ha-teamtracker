@@ -22,30 +22,14 @@
       },
       "search": {
         "title": "Team suchen",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "description": "Teamnamen eingeben oder leer lassen für manuelle Team-ID-Eingabe.\n\n[Teams auf ESPN durchsuchen]({league_url})",
-=======
-        "description": "**{league_id}** — Teamnamen eingeben oder leer lassen für manuelle Team-ID-Eingabe.\n\n[Teams auf ESPN durchsuchen]({league_url})",
->>>>>>> 6c3d909 (fix: move league_id context from title to description to pass HA placeholder validation)
-=======
-        "description": "Teamnamen eingeben oder leer lassen für manuelle Team-ID-Eingabe.\n\n[Teams auf ESPN durchsuchen]({league_url})",
->>>>>>> b21187d (fix: remove league_id placeholder from descriptions to pass HA translation validation)
         "data": {
           "search_team": "Teamnamen suchen (optional)"
         }
       },
       "select_team": {
         "title": "Team auswählen",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "description": "Team aus den Suchergebnissen auswählen. Optional einen eigenen Anzeigenamen eingeben.",
-=======
-        "description": "**{league_id}** — Team aus den Suchergebnissen auswählen. Optional einen eigenen Anzeigenamen eingeben.",
->>>>>>> 6c3d909 (fix: move league_id context from title to description to pass HA placeholder validation)
-=======
-        "description": "Team aus den Suchergebnissen auswählen. Optional einen eigenen Anzeigenamen eingeben.",
->>>>>>> b21187d (fix: remove league_id placeholder from descriptions to pass HA translation validation)
         "data": {
           "team_selection": "Team",
           "name": "Anzeigename (optional)"
@@ -53,15 +37,7 @@
       },
       "manual": {
         "title": "Manuelle Eingabe",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "description": "Team-Kürzel wie auf ESPN-Anzeigetafeln eingeben (z.B. NE, LAL, BVB).\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md.",
-=======
-        "description": "**{league_id}** — Team-Kürzel wie auf ESPN-Anzeigetafeln eingeben (z.B. NE, LAL, BVB).\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md.",
->>>>>>> 6c3d909 (fix: move league_id context from title to description to pass HA placeholder validation)
-=======
-        "description": "Team-Kürzel wie auf ESPN-Anzeigetafeln eingeben (z.B. NE, LAL, BVB).\n\nConference-Nummer: Nur für NCAA Football und Basketball. Gültige Werte siehe README.md.",
->>>>>>> b21187d (fix: remove league_id placeholder from descriptions to pass HA translation validation)
         "data": {
           "team_id": "Team/Athlet-Kürzel",
           "conference_id": "Conference-Nummer (nur NCAA)",
