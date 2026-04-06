@@ -22,24 +22,33 @@
       },
       "search": {
         "title": "Search Team",
-        "description": "Type a team name to search, or leave blank to enter the team ID manually.\n\n[Browse teams on ESPN]({league_url})",
+        "description": "Type name to search for the {league_name} team, or leave blank to enter the team ID manually.\n\n[Browse teams on ESPN]({league_url})",
         "data": {
           "search_team": "Search team name (optional)"
         }
       },
       "select_team": {
         "title": "Select Team",
-        "description": "Choose your team from the search results. Optionally enter a custom friendly name.",
+        "description": "Choose your {league_name} team from the search results.",
         "data": {
           "team_selection": "Team",
           "name": "Friendly Name (optional)"
         }
       },
       "manual": {
-        "title": "Manual Entry",
-        "description": "Enter the team abbreviation as shown on ESPN scoreboards (e.g. NE, LAL, BVB).\n\nConference Number: For NCAA football and basketball only. See README.md for valid values.",
+        "title": "Manual Team Entry",
+        "description": "Enter the {league_name} team abbreviation or ID number as shown on ESPN, or '*' to match the active/most recent game.",
         "data": {
-          "team_id": "Team/Athlete ID",
+          "team_id": "Team ID",
+          "conference_id": "Conference Number",
+          "name": "Friendly Name"
+        }
+      },
+      "manual_athlete": {
+        "title": "Manual Athlete Entry",
+        "description": "Enter the {league_name} athlete name, a regular expression, or '*' to match the active/most recent game.",
+        "data": {
+          "team_id": "Athlete ID",
           "conference_id": "Conference Number (NCAA only)",
           "name": "Friendly Name"
         }

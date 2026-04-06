@@ -41,12 +41,12 @@ _SPORT_GROUPS: dict[str, tuple[str, dict[str, str]]] = {
     }),
     "basketball": ("Basketball", {
         "NBA": "NBA",
-        "NCAAM": "NCAAM Men's",
-        "NCAAW": "NCAAW Women's",
+        "NCAAM": "NCAA Men's Basketball",
+        "NCAAW": "NCAA Women's Basketball",
         "WNBA": "WNBA",
     }),
     "football": ("Football", {
-        "NCAAF": "NCAAF College",
+        "NCAAF": "NCAA Football",
         "NFL": "NFL",
         "XFL": "XFL",
     }),
@@ -66,7 +66,7 @@ _SPORT_GROUPS: dict[str, tuple[str, dict[str, str]]] = {
     }),
     "soccer-us": ("Soccer (U.S.)", {
         "MLS": "MLS",
-        "NWSL": "NWSL Women's",
+        "NWSL": "NWSL",
     }),
     "soccer-intl": ("Soccer (International)", {
         "BUND": "Bundesliga",
@@ -84,14 +84,15 @@ _SPORT_GROUPS: dict[str, tuple[str, dict[str, str]]] = {
         "WTA": "WTA",
     }),
     "volleyball": ("Volleyball", {
-        "NCAAVB": "NCAAVB Men's",
-        "NCAAVBW": "NCAAVBW Women's",
+        "NCAAVB": "NCAA Men's Volleyball",
+        "NCAAVBW": "NCAA Women's Volleyball",
     }),
 }
 
-SPORT_OPTIONS: dict[str, str] = {k: v[0] for k, v in _SPORT_GROUPS.items()}
-SPORT_OPTIONS["XXX"] = "Custom API"
-
+SPORT_OPTIONS: dict[str, str] = {
+    "XXX": "Custom API",
+    **{k: v[0] for k, v in _SPORT_GROUPS.items()}
+}
 
 def _league_browse_url(league_id: str) -> str:
     """Return an ESPN URL where users can browse teams for a given league."""
@@ -248,7 +249,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         # the ESPN teams API returns nothing useful, so skip straight to manual.
         sport_path = LEAGUE_MAP.get(self._league_id, {}).get(CONF_SPORT_PATH, "")
         if user_input is None and sport_path in INDIVIDUAL_SPORTS:
-            return await self.async_step_manual()
+            return await self.async_step_manual_athlete(user_input=None)
 
         if user_input is not None:
             search_term = user_input.get("search_team", "").strip().lower()
@@ -280,6 +281,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             {vol.Optional("search_team", default=""): str}
         )
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
+        league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
         return self.async_show_form(
             step_id="search",
             data_schema=schema,
@@ -287,6 +289,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             description_placeholders={
                 "league_url": _league_browse_url(self._league_id),
                 "league_id": self._league_id,
+                "league_name": league_name,
                 "sport_name": sport_name,
             },
         )
@@ -318,6 +321,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             )
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
+        league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
         schema = vol.Schema({
             vol.Required("team_selection"): vol.In(self._search_results),
             vol.Optional(CONF_NAME, default=""): cv.string,
@@ -329,6 +333,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             description_placeholders={
                 "league_id": self._league_id,
                 "sport_name": sport_name,
+                "league_name": league_name,
             },
         )
 
@@ -339,36 +344,45 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self, user_input: dict[str, Any] | None = None
     ) -> config_entries.FlowResult:
         """Handle manual team ID entry."""
+
+        ncaa_flag = "NCAA" in self._league_id
         if user_input is not None:
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
+            entry_data = {
+                CONF_NAME:          name,
+                CONF_LEAGUE_ID:     self._league_id,
+                CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
+                CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
+                CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
+            }
+            if ncaa_flag:
+                entry_data[CONF_CONFERENCE_ID] = user_input.get(
+                    CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID
+                )
             return self.async_create_entry(
                 title=f"{self._league_id} \u2013 {name}",
-                data={
-                    CONF_NAME:          name,
-                    CONF_LEAGUE_ID:     self._league_id,
-                    CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
-                    CONF_CONFERENCE_ID: user_input.get(CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID),
-                    CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
-                    CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
-                },
+                data=entry_data,
             )
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
-        schema = vol.Schema(
-            {
-                vol.Required(CONF_TEAM_ID): cv.string,
-                vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
-                vol.Optional(CONF_NAME, default=""): cv.string,
-            }
-        )
+        league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
+
+        schema_dict = {
+            vol.Required(CONF_TEAM_ID): cv.string,
+        }
+        if ncaa_flag:
+            schema_dict[vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID)] = cv.string
+        schema_dict[vol.Optional(CONF_NAME, default="")] = cv.string
+
         return self.async_show_form(
             step_id="manual",
-            data_schema=schema,
+            data_schema=vol.Schema(schema_dict),
             errors={},
             description_placeholders={
                 "league_id": self._league_id,
                 "sport_name": sport_name,
+                "league_name": league_name,
             },
         )
 
@@ -400,6 +414,48 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="path",
             data_schema=_get_path_schema(user_input, defaults),
             errors=self._errors,
+        )
+
+    # ------------------------------------------------------------------ #
+    #  Step 4d: manual athlete entry (no search / fallback)              #
+    # ------------------------------------------------------------------ #
+    async def async_step_manual_athlete(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle manual team ID entry."""
+        if user_input is not None:
+            paths = LEAGUE_MAP[self._league_id]
+            name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
+            return self.async_create_entry(
+                title=f"{self._league_id} \u2013 {name}",
+                data={
+                    CONF_NAME:          name,
+                    CONF_LEAGUE_ID:     self._league_id,
+                    CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
+#                    CONF_CONFERENCE_ID: user_input.get(CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID),
+                    CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
+                    CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
+                },
+            )
+
+        sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
+        league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
+        schema = vol.Schema(
+            {
+                vol.Required(CONF_TEAM_ID): cv.string,
+#                vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
+                vol.Optional(CONF_NAME, default=""): cv.string,
+            }
+        )
+        return self.async_show_form(
+            step_id="manual_athlete",
+            data_schema=schema,
+            errors={},
+            description_placeholders={
+                "league_id": self._league_id,
+                "sport_name": sport_name,
+                "league_name": league_name,
+            },
         )
 
     # ------------------------------------------------------------------ #

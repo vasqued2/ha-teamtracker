@@ -8,7 +8,7 @@ from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA
 
 
-async def test_user_form(hass):
+async def test_user_form_team(hass):
     """Test the multi-step config flow: sport → league → search → manual."""
     await setup.async_setup_component(hass, "persistent_notification", {})
 
@@ -50,7 +50,6 @@ async def test_user_form(hass):
             result["flow_id"],
             {
                 "team_id": "SEA",
-                "conference_id": "9999",
                 "name": "team_tracker",
             },
         )
@@ -61,9 +60,54 @@ async def test_user_form(hass):
             "name": "team_tracker",
             "league_id": "NFL",
             "team_id": "SEA",
-            "conference_id": "9999",
             "league_path": "nfl",
             "sport_path": "football",
+        }
+
+        await hass.async_block_till_done()
+        assert len(mock_setup_entry.mock_calls) == 1
+
+
+async def test_user_form_athlete(hass):
+    """Test the multi-step config flow: sport → league → search → manual."""
+    await setup.async_setup_component(hass, "persistent_notification", {})
+
+    # Step 1: init flow, expect sport selection form
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": "user"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "user"
+    assert result["errors"] == {}
+
+    # Step 2: choose sport → expect manual athlete form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"sport_key": "golf"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "manual_athlete"
+
+    # Step 3: enter team details → expect entry created
+    with patch(
+        "custom_components.teamtracker.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {
+                "team_id": "Scheffler",
+                "name": "team_tracker",
+            },
+        )
+
+        assert result["type"] == "create_entry"
+        assert result["title"] == "PGA \u2013 team_tracker"
+        assert result["data"] == {
+            "name": "team_tracker",
+            "league_id": "PGA",
+            "team_id": "Scheffler",
+            "league_path": "pga",
+            "sport_path": "golf",
         }
 
         await hass.async_block_till_done()
