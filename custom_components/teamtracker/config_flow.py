@@ -115,7 +115,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str) -> list[dict]:
     league = paths[CONF_LEAGUE_PATH]
     url = (
         f"https://site.api.espn.com/apis/site/v2/sports"
-        f"/{sport}/{league}/teams?limit=200"
+        f"/{sport}/{league}/teams?limit=1000"
     )
     session = async_get_clientsession(hass)
     try:
@@ -143,6 +143,32 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str) -> list[dict]:
             "conference_id": (t.get("groups") or {}).get("id", ""),
         })
     return teams
+
+
+async def _fetch_team_conference_id(
+    hass: HomeAssistant, league_id: str, team_id: str
+) -> str:
+    """Fetch conference/group ID for a single team from the ESPN team detail API."""
+    if league_id not in LEAGUE_MAP:
+        return ""
+    paths = LEAGUE_MAP[league_id]
+    sport = paths[CONF_SPORT_PATH]
+    league = paths[CONF_LEAGUE_PATH]
+    url = (
+        f"https://site.api.espn.com/apis/site/v2/sports"
+        f"/{sport}/{league}/teams/{team_id}"
+    )
+    session = async_get_clientsession(hass)
+    try:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+            if resp.status != 200:
+                return ""
+            data = await resp.json()
+    except (aiohttp.ClientError, TimeoutError) as err:
+        _LOGGER.warning("ESPN team detail fetch failed: %s", err)
+        return ""
+    groups = data.get("team", {}).get("groups") or {}
+    return str(groups.get("id", ""))
 
 
 def _get_path_schema(
@@ -304,10 +330,10 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             abbr = user_input["team_selection"]
             meta = self._team_meta.get(abbr, {})
-            conf_id = str(meta.get("conference_id", ""))
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME, "").strip() or meta.get("displayName", abbr)
             team_id = meta.get("id", abbr)
+            conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
             return self.async_create_entry(
                 title=f"{self._league_id} \u2013 {name}",
                 data={
