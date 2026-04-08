@@ -55,7 +55,7 @@ async def test_user_form_team(hass):
         )
 
         assert result["type"] == "create_entry"
-        assert result["title"] == "NFL \u2013 team_tracker"
+        assert result["title"] == "NFL - team_tracker"
         assert result["data"] == {
             "name": "team_tracker",
             "league_id": "NFL",
@@ -101,7 +101,7 @@ async def test_user_form_athlete(hass):
         )
 
         assert result["type"] == "create_entry"
-        assert result["title"] == "PGA \u2013 team_tracker"
+        assert result["title"] == "PGA - team_tracker"
         assert result["data"] == {
             "name": "team_tracker",
             "league_id": "PGA",

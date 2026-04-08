@@ -327,6 +327,8 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self, user_input: dict[str, Any] | None = None
     ) -> config_entries.FlowResult:
         """Handle team selection from search results."""
+
+        ncaa_flag = "NCAA" in self._league_id
         if user_input is not None:
             abbr = user_input["team_selection"]
             meta = self._team_meta.get(abbr, {})
@@ -334,16 +336,21 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             name = user_input.get(CONF_NAME, "").strip() or meta.get("displayName", abbr)
             team_id = meta.get("id", abbr)
             conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
-            return self.async_create_entry(
-                title=f"{self._league_id} \u2013 {name}",
-                data={
+
+            entry_data = {
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
                     CONF_TEAM_ID:       team_id,
-                    CONF_CONFERENCE_ID: conf_id,
                     CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
                     CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
-                },
+                }
+            if ncaa_flag:
+                conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
+                entry_data[CONF_CONFERENCE_ID] = conf_id
+
+            return self.async_create_entry(
+                title=f"{self._league_id} - {name}",
+                data=entry_data,
             )
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
@@ -375,19 +382,19 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
+            team_id = user_input[CONF_TEAM_ID]
             entry_data = {
                 CONF_NAME:          name,
                 CONF_LEAGUE_ID:     self._league_id,
-                CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
+                CONF_TEAM_ID:       team_id,
                 CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
                 CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
             }
             if ncaa_flag:
-                entry_data[CONF_CONFERENCE_ID] = user_input.get(
-                    CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID
-                )
+                conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
+                entry_data[CONF_CONFERENCE_ID] = conf_id
             return self.async_create_entry(
-                title=f"{self._league_id} \u2013 {name}",
+                title=f"{self._league_id} - {name}",
                 data=entry_data,
             )
 
@@ -397,8 +404,8 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         schema_dict = {
             vol.Required(CONF_TEAM_ID): cv.string,
         }
-        if ncaa_flag:
-            schema_dict[vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID)] = cv.string
+#        if ncaa_flag:
+#            schema_dict[vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID)] = cv.string
         schema_dict[vol.Optional(CONF_NAME, default="")] = cv.string
 
         return self.async_show_form(
@@ -453,7 +460,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
             return self.async_create_entry(
-                title=f"{self._league_id} \u2013 {name}",
+                title=f"{self._league_id} - {name}",
                 data={
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
