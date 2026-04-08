@@ -39,7 +39,7 @@ async def test_user_form_team(hass):
         result["flow_id"], {"search_team": ""}
     )
     assert result["type"] == "form"
-    assert result["step_id"] == "manual"
+    assert result["step_id"] == "manual_team"
 
     # Step 5: enter team details → expect entry created
     with patch(
@@ -114,11 +114,11 @@ async def test_user_form_athlete(hass):
         assert len(mock_setup_entry.mock_calls) == 1
 
 
-async def test_path_form(hass):
+async def test_custom_api_form(hass):
     """Test we get the path form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
     result = await hass.config_entries.flow.async_init(
-        DOMAIN, context={"source": "path"}
+        DOMAIN, context={"source": "custom_api"}
     )
     assert result["type"] == "form"
     assert result["errors"] == {}

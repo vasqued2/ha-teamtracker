@@ -219,7 +219,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             sport_key = user_input["sport_key"]
             if sport_key == "XXX":
-                return await self.async_step_path()
+                return await self.async_step_custom_api()
             self._sport_key = sport_key
             leagues = _SPORT_GROUPS[sport_key][1]
             if len(leagues) == 1:
@@ -238,7 +238,38 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     # ------------------------------------------------------------------ #
-    #  Step 2: choose league within sport                                 #
+    #  Step 2a: Set Up Custom API (sport_key = XXX)                      #
+    # ------------------------------------------------------------------ #
+    async def async_step_custom_api(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle custom sport/league path configuration."""
+        self._errors = {}
+
+        if user_input is not None:
+            name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
+            return self.async_create_entry(
+                title=name,
+                data={
+                    CONF_NAME:          name,
+                    CONF_LEAGUE_ID:     "XXX",
+                    CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
+                    CONF_CONFERENCE_ID: user_input.get(CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID),
+                    CONF_SPORT_PATH:    user_input[CONF_SPORT_PATH],
+                    CONF_LEAGUE_PATH:   user_input[CONF_LEAGUE_PATH],
+                },
+            )
+
+        defaults = {CONF_SPORT_PATH: "", CONF_LEAGUE_PATH: ""}
+        return self.async_show_form(
+            step_id="custom_api",
+            data_schema=_get_path_schema(user_input, defaults),
+            errors=self._errors,
+        )
+
+
+    # ------------------------------------------------------------------ #
+    #  Step 2b: choose league within sport                               #
     # ------------------------------------------------------------------ #
     async def async_step_league(
         self, user_input: dict[str, Any] | None = None
@@ -301,7 +332,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         self._team_meta = {t["abbreviation"]: t for t in filtered}
                         return await self.async_step_select_team()
             else:
-                return await self.async_step_manual()
+                return await self.async_step_manual_team()
 
         schema = vol.Schema(
             {vol.Optional("search_team", default=""): str}
@@ -372,7 +403,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     # ------------------------------------------------------------------ #
     #  Step 4b: manual team_id entry (no search / fallback)              #
     # ------------------------------------------------------------------ #
-    async def async_step_manual(
+    async def async_step_manual_team(
         self, user_input: dict[str, Any] | None = None
     ) -> config_entries.FlowResult:
         """Handle manual team ID entry."""
@@ -408,7 +439,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         schema_dict[vol.Optional(CONF_NAME, default="")] = cv.string
 
         return self.async_show_form(
-            step_id="manual",
+            step_id="manual_team",
             data_schema=vol.Schema(schema_dict),
             errors={},
             description_placeholders={
@@ -419,37 +450,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     # ------------------------------------------------------------------ #
-    #  Step 4c: Custom API (sport_key = XXX)                             #
-    # ------------------------------------------------------------------ #
-    async def async_step_path(
-        self, user_input: dict[str, Any] | None = None
-    ) -> config_entries.FlowResult:
-        """Handle custom sport/league path configuration."""
-        self._errors = {}
-
-        if user_input is not None:
-            name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
-            return self.async_create_entry(
-                title=name,
-                data={
-                    CONF_NAME:          name,
-                    CONF_LEAGUE_ID:     "XXX",
-                    CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
-                    CONF_CONFERENCE_ID: user_input.get(CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID),
-                    CONF_SPORT_PATH:    user_input[CONF_SPORT_PATH],
-                    CONF_LEAGUE_PATH:   user_input[CONF_LEAGUE_PATH],
-                },
-            )
-
-        defaults = {CONF_SPORT_PATH: "", CONF_LEAGUE_PATH: ""}
-        return self.async_show_form(
-            step_id="path",
-            data_schema=_get_path_schema(user_input, defaults),
-            errors=self._errors,
-        )
-
-    # ------------------------------------------------------------------ #
-    #  Step 4d: manual athlete entry (no search / fallback)              #
+    #  Step 4c: manual athlete entry (no search / fallback)              #
     # ------------------------------------------------------------------ #
     async def async_step_manual_athlete(
         self, user_input: dict[str, Any] | None = None
