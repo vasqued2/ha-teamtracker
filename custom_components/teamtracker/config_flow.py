@@ -335,7 +335,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME, "").strip() or meta.get("displayName", abbr)
             team_id = meta.get("id", abbr)
-            conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
 
             entry_data = {
                     CONF_NAME:          name,
