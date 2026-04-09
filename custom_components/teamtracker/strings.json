@@ -55,6 +55,14 @@
       },
       "custom_api": {
         "title": "Custom API Configurator",
+        "description": "Enter the 'sport_path' and 'league_path' portion of the ESPN API to configure a custom API",
+        "data": {
+          "sport_path": "Sport Path",
+          "league_path": "League Path"
+        }
+      },
+      "custom_api2": {
+        "title": "Custom API Configurator 2",
         "description": "Enter the 'sport' and 'league' portion of the ESPN API path to use a self-configured API",
         "data": {
           "team_id": "Team/Athlete ID",

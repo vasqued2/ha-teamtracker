@@ -106,13 +106,15 @@ def _league_browse_url(league_id: str) -> str:
     return f"https://www.espn.com/{league}/teams"
 
 
-async def _fetch_teams(hass: HomeAssistant, league_id: str) -> list[dict]:
+async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
     """Fetch teams from ESPN API for a given league."""
     if league_id not in LEAGUE_MAP:
-        return []
-    paths = LEAGUE_MAP[league_id]
-    sport = paths[CONF_SPORT_PATH]
-    league = paths[CONF_LEAGUE_PATH]
+        sport = sport_path
+        league = league_path
+    else:
+        paths = LEAGUE_MAP[league_id]
+        sport = paths[CONF_SPORT_PATH]
+        league = paths[CONF_LEAGUE_PATH]
     url = (
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams?limit=1000"
@@ -202,6 +204,8 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Initialize."""
         self._sport_key: str = ""
         self._league_id: str = ""
+        self._sport_path: str = ""
+        self._league_path: str = ""
         self._all_teams: list[dict] = []
         self._search_results: dict[str, str] = {}
         self._team_meta: dict[str, dict] = {}
@@ -247,6 +251,13 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._errors = {}
 
         if user_input is not None:
+            self._league_id = "XXX"
+            self._sport_path = user_input[CONF_SPORT_PATH]
+            self._league_path = user_input[CONF_LEAGUE_PATH]
+            return await self.async_step_search()
+
+        """
+        if user_input is not None:
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
             return self.async_create_entry(
                 title=name,
@@ -259,11 +270,17 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     CONF_LEAGUE_PATH:   user_input[CONF_LEAGUE_PATH],
                 },
             )
+        """
 
-        defaults = {CONF_SPORT_PATH: "", CONF_LEAGUE_PATH: ""}
+        schema = vol.Schema(
+            {
+                vol.Required(CONF_SPORT_PATH, default=""): cv.string,
+                vol.Required(CONF_LEAGUE_PATH, default=""): cv.string,
+            }
+        )
         return self.async_show_form(
             step_id="custom_api",
-            data_schema=_get_path_schema(user_input, defaults),
+            data_schema=schema,
             errors=self._errors,
         )
 
@@ -312,7 +329,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             search_term = user_input.get("search_team", "").strip().lower()
 
             if search_term:
-                self._all_teams = await _fetch_teams(self.hass, self._league_id)
+                self._all_teams = await _fetch_teams(self.hass, self._league_id, self._sport_path, self._league_path)
                 if not self._all_teams:
                     self._errors["base"] = "cannot_fetch_teams"
                 else:
@@ -363,7 +380,15 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             abbr = user_input["team_selection"]
             meta = self._team_meta.get(abbr, {})
-            paths = LEAGUE_MAP[self._league_id]
+
+            if self._league_id == "XXX":
+                sport_path = self._sport_path
+                league_path = self._league_path
+            else:
+                paths = LEAGUE_MAP.get(self._league_id, {})
+                sport_path = paths.get(CONF_SPORT_PATH, "")
+                league_path = paths.get(CONF_LEAGUE_PATH, "")
+
             name = user_input.get(CONF_NAME, "").strip() or meta.get("displayName", abbr)
             team_id = meta.get("id", abbr)
 
@@ -371,8 +396,8 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
                     CONF_TEAM_ID:       team_id,
-                    CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
-                    CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
+                    CONF_SPORT_PATH:    sport_path,
+                    CONF_LEAGUE_PATH:   league_path,
                 }
             if ncaa_flag:
                 conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
@@ -410,15 +435,21 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         ncaa_flag = "NCAA" in self._league_id
         if user_input is not None:
-            paths = LEAGUE_MAP[self._league_id]
+            if self._league_id == "XXX":
+                sport_path = self._sport_path
+                league_path = self._league_path
+            else:
+                paths = LEAGUE_MAP.get(self._league_id, {})
+                sport_path = paths.get(CONF_SPORT_PATH, "")
+                league_path = paths.get(CONF_LEAGUE_PATH, "")
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
             team_id = user_input[CONF_TEAM_ID]
             entry_data = {
                 CONF_NAME:          name,
                 CONF_LEAGUE_ID:     self._league_id,
                 CONF_TEAM_ID:       team_id,
-                CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
-                CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
+                CONF_SPORT_PATH:    sport_path,
+                CONF_LEAGUE_PATH:   league_path,
             }
             if ncaa_flag:
                 conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id)
