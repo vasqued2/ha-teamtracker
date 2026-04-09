@@ -21,7 +21,6 @@ from .const import (
     CONF_LEAGUE_PATH,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
-    DEFAULT_CONFERENCE_ID,
     DOMAIN,
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
@@ -255,22 +254,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             self._sport_path = user_input[CONF_SPORT_PATH]
             self._league_path = user_input[CONF_LEAGUE_PATH]
             return await self.async_step_search()
-
-        """
-        if user_input is not None:
-            name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
-            return self.async_create_entry(
-                title=name,
-                data={
-                    CONF_NAME:          name,
-                    CONF_LEAGUE_ID:     "XXX",
-                    CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
-                    CONF_CONFERENCE_ID: user_input.get(CONF_CONFERENCE_ID, DEFAULT_CONFERENCE_ID),
-                    CONF_SPORT_PATH:    user_input[CONF_SPORT_PATH],
-                    CONF_LEAGUE_PATH:   user_input[CONF_LEAGUE_PATH],
-                },
-            )
-        """
 
         schema = vol.Schema(
             {
