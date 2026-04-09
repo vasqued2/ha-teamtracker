@@ -5,7 +5,6 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-import aiohttp
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -24,6 +23,7 @@ from .const import (
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
     SOCCER,
+    USER_AGENT,
 )
 from .utils import async_call_espn_api2
 
@@ -118,7 +118,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams?limit=1000"
     )
-    data = async_call_espn_api2("ConfigFlow-teams", team_id, url)
+    data = async_call_espn_api2("ConfigFlow-teams", league, url)
 
     raw = (
         data.get("sports", [{}])[0]

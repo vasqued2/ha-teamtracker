@@ -1,4 +1,7 @@
 """ Miscellaneous Utilities """
+import json
+import aiofiles
+import os
 
 import logging
 
@@ -46,7 +49,7 @@ async def async_call_espn_api2(sensor_name, team_id, url, file_override=False) -
         data = async_override_espn_api2(sensor_name, team_id, url)
     else:
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
-        session = await self._get_session()
+        session = await self.get_session()
         try:
             async with session.get(url, headers=headers) as r:
                 _LOGGER.debug(
