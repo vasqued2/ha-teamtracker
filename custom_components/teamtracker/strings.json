@@ -60,17 +60,6 @@
           "sport_path": "Sport Path",
           "league_path": "League Path"
         }
-      },
-      "custom_api2": {
-        "title": "Custom API Configurator 2",
-        "description": "Enter the 'sport' and 'league' portion of the ESPN API path to use a self-configured API",
-        "data": {
-          "team_id": "Team/Athlete ID",
-          "conference_id": "Conference Number (NCAA only)",
-          "name": "Friendly Name",
-          "sport_path": "Sport Path",
-          "league_path": "League Path"
-        }
       }
     }
   },
