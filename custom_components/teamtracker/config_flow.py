@@ -12,7 +12,6 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
     CONF_API_LANGUAGE,
@@ -26,6 +25,7 @@ from .const import (
     LEAGUE_MAP,
     SOCCER,
 )
+from .utils import async_call_espn_api2
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -118,15 +118,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams?limit=1000"
     )
-    session = async_get_clientsession(hass)
-    try:
-        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-            if resp.status != 200:
-                return []
-            data = await resp.json()
-    except (aiohttp.ClientError, TimeoutError) as err:
-        _LOGGER.warning("ESPN teams fetch failed: %s", err)
-        return []
+    data = async_call_espn_api2("ConfigFlow-teams", team_id, url)
 
     raw = (
         data.get("sports", [{}])[0]
@@ -159,15 +151,7 @@ async def _fetch_team_conference_id(
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams/{team_id}"
     )
-    session = async_get_clientsession(hass)
-    try:
-        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-            if resp.status != 200:
-                return ""
-            data = await resp.json()
-    except (aiohttp.ClientError, TimeoutError) as err:
-        _LOGGER.warning("ESPN team detail fetch failed: %s", err)
-        return ""
+    data = async_call_espn_api2("ConfigFlow-teamGroup", team_id, url)
     groups = data.get("team", {}).get("groups") or {}
     return str(groups.get("id", ""))
 
