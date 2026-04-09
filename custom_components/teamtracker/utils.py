@@ -5,7 +5,9 @@ import os
 
 import logging
 
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from .const import (
+    USER_AGENT,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -16,10 +18,10 @@ _LOGGER = logging.getLogger(__name__)
 #    *keys - list of keys to use to retrieve the value
 #    default - default value to be returned if a key is missing
 #
-async def async_get_value(json, *keys, default=None):
+async def async_get_value(json_input, *keys, default=None):
     """Traverse the json using keys to return the associated value, or default if invalid keys"""
 
-    j = json
+    j = json_input
     try:
         for k in keys:
             j = j[k]
@@ -42,14 +44,13 @@ def is_integer(val):
 #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
 #    This utility will eventually replace/wrap all API calls
 #
-async def async_call_espn_api2(sensor_name, team_id, url, file_override=False) -> dict:
+async def async_call_espn_api2(sensor_name, team_id, session, url, file_override=False) -> dict:
     """Call the specified ESPN API."""
 
     if file_override:
         data = async_override_espn_api2(sensor_name, team_id, url)
     else:
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
-        session = await self.get_session()
         try:
             async with session.get(url, headers=headers) as r:
                 _LOGGER.debug(
