@@ -1,0 +1,77 @@
+{
+  "config": {
+    "error": {
+      "league": "Ogiltig liga angiven.",
+      "cannot_fetch_teams": "Kunde inte hämta lag från ESPN. Kontrollera din anslutning och försök igen.",
+      "no_teams_found": "Inga lag hittades för det sökordet. Prova ett annat namn eller lämna tomt för manuell inmatning."
+    },
+    "step": {
+      "user": {
+        "title": "Välj Sport",
+        "description": "Välj sport för ditt lag eller din idrottare.",
+        "data": {
+          "sport_key": "Sport"
+        }
+      },
+      "league": {
+        "title": "Välj Liga",
+        "description": "Välj {sport_name}-ligan.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Sök Lag",
+        "description": "Skriv in ett namn för att söka efter {league_name}-laget, eller lämna tomt för att ange lag-ID manuellt.\n\n[Bläddra bland lag på ESPN]({league_url})",
+        "data": {
+          "search_team": "Sök lagnamn (valfritt)"
+        }
+      },
+      "select_team": {
+        "title": "Välj Lag",
+        "description": "Välj ditt {league_name}-lag från sökresultaten.",
+        "data": {
+          "team_selection": "Lag",
+          "name": "Visningsnamn (valfritt)"
+        }
+      },
+      "manual_team": {
+        "title": "Manuell Laginmatning",
+        "description": "Ange {league_name}-lagets förkortning eller ID-nummer som det visas på ESPN, eller '*' för att matcha den aktiva/senaste matchen.",
+        "data": {
+          "team_id": "Lag ID",
+          "conference_id": "Konferensnummer",
+          "name": "Visningsnamn"
+        }
+      },
+      "manual_athlete": {
+        "title": "Manuell Idrottarinmatning",
+        "description": "Ange namnet på {league_name}-idrottaren, ett reguljärt uttryck eller '*' för att matcha den aktiva/senaste matchen.",
+        "data": {
+          "team_id": "Idrottar-ID",
+          "conference_id": "Konferensnummer (endast NCAA)",
+          "name": "Visningsnamn"
+        }
+      },
+      "custom_api": {
+        "title": "Anpassad API-konfiguration",
+        "description": "Ange 'sport_path' och 'league_path' från ESPN API för να konfigurera ett anpassat API",
+        "data": {
+          "sport_path": "Sport-sökväg",
+          "league_path": "Liga-sökväg"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker Alternativ",
+        "description": "Ange den 2-ställiga språkkoden som ska användas för API-anropet.",
+        "data": {
+          "api_language": "API Språk"
+        }
+      }
+    }
+  }
+}

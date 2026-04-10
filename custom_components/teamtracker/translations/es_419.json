@@ -2,8 +2,8 @@
   "config": {
     "error": {
       "league": "Liga ingresada no válida.",
-      "cannot_fetch_teams": "No se pudieron obtener los equipos de ESPN. Compruebe su conexión e inténtelo de nuevo.",
-      "no_teams_found": "No se encontraron equipos para ese término de búsqueda. Pruebe con un nombre diferente o déjelo en blanco para la entrada manual."
+      "cannot_fetch_teams": "No se pudieron obtener los equipos de ESPN. Verifique su conexión e intente de nuevo.",
+      "no_teams_found": "No se encontraron equipos para ese término de búsqueda. Intente con un nombre diferente o deje en blanco para la entrada manual."
     },
     "step": {
       "user": {
@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Buscar Equipo",
-        "description": "Escriba el nombre para buscar el equipo de {league_name}, o déjelo en blanco para ingresar el ID del equipo manualmente.\n\n[Explorar equipos en ESPN]({league_url})",
+        "description": "Escriba el nombre para buscar el equipo de {league_name}, o deje en blanco para ingresar el ID del equipo manualmente.\n\n[Explorar equipos en ESPN]({league_url})",
         "data": {
           "search_team": "Buscar nombre del equipo (opcional)"
         }

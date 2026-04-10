@@ -1,57 +1,64 @@
 {
   "config": {
     "error": {
-      "league": "Entrée du championnat invalide.",
-      "cannot_fetch_teams": "Impossible de récupérer les équipes depuis ESPN. Vérifiez votre connexion et réessayez.",
-      "no_teams_found": "Aucune équipe trouvée pour ce terme de recherche. Essayez un autre nom ou laissez le champ vide pour une saisie manuelle."
+      "league": "Ligue saisie non valide.",
+      "cannot_fetch_teams": "Impossible de récupérer les équipes d'ESPN. Vérifiez votre connexion et réessayez.",
+      "no_teams_found": "Aucune équipe trouvée pour ce terme de recherche. Essayez un autre nom ou laissez vide pour une saisie manuelle."
     },
     "step": {
       "user": {
-        "title": "Sélectionner le sport",
+        "title": "Sélectionner le Sport",
         "description": "Choisissez le sport pour votre équipe ou athlète.",
         "data": {
           "sport_key": "Sport"
         }
       },
       "league": {
-        "title": "Sélectionner le championnat",
-        "description": "Choisissez le championnat {sport_name}.",
+        "title": "Sélectionner la Ligue",
+        "description": "Choisissez la ligue {sport_name}.",
         "data": {
-          "league_id": "Championnat"
+          "league_id": "Ligue"
         }
       },
       "search": {
-        "title": "Rechercher une équipe",
-        "description": "Tapez un nom d'équipe pour rechercher, ou laissez vide pour saisir l'ID manuellement.\n\n[Parcourir les équipes sur ESPN]({league_url})",
+        "title": "Rechercher une Équipe",
+        "description": "Tapez le nom pour rechercher l'équipe {league_name}, ou laissez vide pour saisir l'ID de l'équipe manuellement.\n\n[Parcourir les équipes sur ESPN]({league_url})",
         "data": {
-          "search_team": "Rechercher une équipe (optionnel)"
+          "search_team": "Rechercher le nom de l'équipe (optionnel)"
         }
       },
       "select_team": {
-        "title": "Sélectionner une équipe",
-        "description": "Choisissez votre équipe parmi les résultats de recherche.",
+        "title": "Sélectionner l'Équipe",
+        "description": "Choisissez votre équipe {league_name} parmi les résultats de recherche.",
         "data": {
-          "team_selection": "Équipe"
+          "team_selection": "Équipe",
+          "name": "Nom convivial (optionnel)"
         }
       },
-      "manual": {
-        "title": "Saisie manuelle",
-        "description": "Entrez l'abréviation de l'équipe telle qu'elle apparaît sur les tableaux de scores ESPN (ex. NE, LAL, BVB).\n\nNuméro de Conférence : Pour le football américain et le basketball NCAA uniquement. Voir README.md pour les valeurs valides.",
+      "manual_team": {
+        "title": "Saisie Manuelle de l'Équipe",
+        "description": "Saisissez l'abréviation de l'équipe {league_name} ou le numéro d'ID tel qu'indiqué sur ESPN, ou '*' pour correspondre au match actif/le plus récent.",
         "data": {
-          "team_id": "ID de l'équipe/athlète",
-          "conference_id": "Numéro de la Conférence",
-          "name": "Nom du sensor"
+          "team_id": "ID de l'Équipe",
+          "conference_id": "Numéro de Conférence",
+          "name": "Nom convivial"
         }
       },
-      "path": {
-        "title": "API Configuration",
-        "description": "Entrez la partie du 'sport' et du 'championnat' de l'API ESPN pour utiliser une auto-configuration de l'API",
+      "manual_athlete": {
+        "title": "Saisie Manuelle de l'Athlète",
+        "description": "Saisissez le nom de l'athlète {league_name}, une expression régulière, ou '*' pour correspondre au match actif/le plus récent.",
         "data": {
-          "team_id": "ID de l'équipe/athlète",
-          "conference_id": "Numéro de la Conférence",
-          "name": "Nom du sensor",
-          "sport_path": "Choix du sport",
-          "league_path": "Choix du championnat"
+          "team_id": "ID de l'Athlète",
+          "conference_id": "Numéro de Conférence (NCAA uniquement)",
+          "name": "Nom convivial"
+        }
+      },
+      "custom_api": {
+        "title": "Configurateur d'API Personnalisée",
+        "description": "Saisissez la partie 'sport_path' et 'league_path' de l'API ESPN pour configurer une API personnalisée",
+        "data": {
+          "sport_path": "Chemin du sport (Sport Path)",
+          "league_path": "Chemin de la ligue (League Path)"
         }
       }
     }
@@ -59,10 +66,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Options de suivi d'équipe",
+        "title": "Options de Team Tracker",
         "description": "Saisissez le code de langue à 2 caractères à utiliser pour l'appel API.",
         "data": {
-          "api_language": "Langage API"
+          "api_language": "Langue de l'API"
         }
       }
     }
