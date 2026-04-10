@@ -108,7 +108,7 @@ async def test_team_from_league_list(hass, mock_espn_api):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_selection": "OHIO",  # Must be the abbreviation from your JSON
+                "team_selection": "195",  # Must be the team ID from JSON
                 "name": "Ohio Bobcats",    # Optional name field
             },
         )
@@ -278,7 +278,7 @@ async def test_custom_api_team_list(hass, mock_espn_api):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_selection": "OHIO",  # Must be the abbreviation from your JSON
+                "team_selection": "195",  # Must be the abbreviation from your JSON
                 "name": "Ohio Bobcats",    # Optional name field
             },
         )
