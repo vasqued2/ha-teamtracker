@@ -158,8 +158,7 @@ async def _fetch_team_conference_id(
     if data:
         groups = data.get("team", {}).get("groups") or {}
         return str(groups.get("id", ""))
-    else:
-        return str("")
+    return str("")
 
 
 def _get_path_schema(
