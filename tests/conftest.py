@@ -4,11 +4,56 @@ import threading
 from collections.abc import Generator # <-- New import
 import pytest
 import logging
+import json
+import aiofiles
+from unittest.mock import AsyncMock, patch
 
 _LOGGER = logging.getLogger(__name__)
 
-
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
+
+
+@pytest.fixture
+async def mock_espn_api(hass):
+    """Global fixture to mock the ESPN API and return local JSON data."""
+    
+    # Path to your test data
+    DATA_PATH = "tests/tt/"
+
+    async def _get_mock_data(hass, sensor_name, team_id, url, file_override=False):
+        """Helper to load local files based on URL logic."""
+
+        clean_url = url.split('?')[0]
+
+        if "schedule" in clean_url:
+            file_name = "schedule.json"
+        elif "teams" in clean_url:
+            if clean_url[-1].isdigit(): # if there is any team identifier, use team 194
+                file_name = "teams-194.json"
+            elif "football" in clean_url:
+                file_name = "teams-college-football.json"
+            else:
+                file_name = "teams.json"
+        elif "/all/" in clean_url:
+            file_name = "scoreboard_all_leagues.json"
+        else:
+            file_name = "all.json"
+
+#        return None
+
+        try:
+            with open(f"{DATA_PATH}{file_name}", "r") as f:
+                data = json.load(f)
+                return data
+        except FileNotFoundError:
+            return None
+
+    # Patch the actual utility function
+    with patch("custom_components.teamtracker.config_flow.async_call_espn_api2", new_callable=AsyncMock) as mock:        # Define the side effect to mimic your original file-override logic
+#        mock.side_effect = lambda hass, name, tid, url, override=False: _get_mock_data(url)
+        mock.side_effect = _get_mock_data
+        yield mock
+
 
 
 @pytest.fixture(autouse=True)

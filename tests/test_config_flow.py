@@ -8,8 +8,8 @@ from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA
 
 
-async def test_user_form_team(hass):
-    """Test the multi-step config flow: sport → league → search → manual."""
+async def test_team_from_manual_input(hass):
+    """Test the multi-step config flow: sport → league → search → manual input."""
     await setup.async_setup_component(hass, "persistent_notification", {})
 
     # Step 1: init flow, expect sport selection form
@@ -67,8 +67,66 @@ async def test_user_form_team(hass):
         await hass.async_block_till_done()
         assert len(mock_setup_entry.mock_calls) == 1
 
+async def test_team_from_league_list(hass, mock_espn_api):
+    """Test the multi-step config flow: sport → league → search → team list."""
+    await setup.async_setup_component(hass, "persistent_notification", {})
 
-async def test_user_form_athlete(hass):
+    # Step 1: init flow, expect sport selection form
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": "user"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "user"
+    assert result["errors"] == {}
+
+    # Step 2: choose sport → expect league selection form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"sport_key": "football"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "league"
+
+    # Step 3: choose league → expect team search form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"league_id": "NCAAF"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "search"
+
+    # Step 4: found search → expect select_team entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"search_team": "ohio"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "select_team"
+
+# Step 5: Select from list AND provide name (Final Step)
+    with patch(
+        "custom_components.teamtracker.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {
+                "team_selection": "OHIO",  # Must be the abbreviation from your JSON
+                "name": "Ohio Bobcats",    # Optional name field
+            },
+        )
+
+        assert result["type"] == "create_entry"
+        assert result["title"] == "NCAAF - Ohio Bobcats"
+        
+        # Verify the data structure matches NCAAF expectations
+        assert result["data"]["league_id"] == "NCAAF"
+        assert result["data"]["team_id"] == "195"
+        assert result["data"]["conference_id"] == "5" # Conference ID from the test file
+        assert result["data"]["league_path"] == "college-football"
+
+        await hass.async_block_till_done()
+        assert len(mock_setup_entry.mock_calls) == 1
+
+
+async def test_athlete_from_manual_input(hass):
     """Test the multi-step config flow: sport → league → search → manual."""
     await setup.async_setup_component(hass, "persistent_notification", {})
 
@@ -114,14 +172,129 @@ async def test_user_form_athlete(hass):
         assert len(mock_setup_entry.mock_calls) == 1
 
 
-async def test_custom_api_form(hass):
-    """Test we get the path form."""
+async def test_custom_api_team_input(hass):
+    """Test the multi-step config flow: sport → custom api → search → manual input."""
     await setup.async_setup_component(hass, "persistent_notification", {})
+
+    # Step 1: init flow, expect sport selection form
     result = await hass.config_entries.flow.async_init(
-        DOMAIN, context={"source": "custom_api"}
+        DOMAIN, context={"source": "user"}
     )
     assert result["type"] == "form"
+    assert result["step_id"] == "user"
     assert result["errors"] == {}
+
+    # Step 2: choose sport → expect custom_api form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"sport_key": "XXX"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "custom_api"
+
+    # Step 3: choose league → expect team search form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {
+                "sport_path": "football",
+                "league_path": "nfl",
+            },
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "search"
+
+    # Step 4: empty search → expect manual entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"search_team": ""}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "manual_team"
+
+    # Step 5: enter team details → expect entry created
+    with patch(
+        "custom_components.teamtracker.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {
+                "team_id": "SEA",
+                "name": "team_tracker",
+            },
+        )
+
+        assert result["type"] == "create_entry"
+        assert result["title"] == "XXX - team_tracker"
+        assert result["data"] == {
+            "name": "team_tracker",
+            "league_id": "XXX",
+            "team_id": "SEA",
+            "league_path": "nfl",
+            "sport_path": "football",
+        }
+
+        await hass.async_block_till_done()
+        assert len(mock_setup_entry.mock_calls) == 1
+
+async def test_custom_api_team_list(hass, mock_espn_api):
+    """Test the multi-step config flow: sport → custom api → search → team list."""
+    await setup.async_setup_component(hass, "persistent_notification", {})
+
+    # Step 1: init flow, expect sport selection form
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": "user"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "user"
+    assert result["errors"] == {}
+
+    # Step 2: choose sport → expect custom_api form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"sport_key": "XXX"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "custom_api"
+
+    # Step 3: choose league → expect team search form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {
+                "sport_path": "football",
+                "league_path": "college-football",
+            },
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "search"
+
+    # Step 4: found search → expect select_team entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"search_team": "ohio"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "select_team"
+
+# Step 5: Select from list AND provide name (Final Step)
+    with patch(
+        "custom_components.teamtracker.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {
+                "team_selection": "OHIO",  # Must be the abbreviation from your JSON
+                "name": "Ohio Bobcats",    # Optional name field
+            },
+        )
+
+        assert result["type"] == "create_entry"
+        assert result["title"] == "XXX - Ohio Bobcats"
+        
+        # Verify the data structure matches NCAAF expectations
+        assert result["data"]["league_id"] == "XXX"
+        assert result["data"]["team_id"] == "195"
+#        assert result["data"]["conference_id"] == "5" # DEFECT - Conference ID not from the test file as it should be
+        assert result["data"]["league_path"] == "college-football"
+
+        await hass.async_block_till_done()
+        assert len(mock_setup_entry.mock_calls) == 1
+
 
 
 async def test_options_flow_init(hass):

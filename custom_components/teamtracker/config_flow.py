@@ -117,13 +117,17 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams?limit=1000"
     )
-    data = async_call_espn_api2(hass, "ConfigFlow-teams", league, url)
+    data = await async_call_espn_api2(hass, "ConfigFlow-teams", league, url)
 
-    raw = (
-        data.get("sports", [{}])[0]
-        .get("leagues", [{}])[0]
-        .get("teams", [])
-    )
+    if data:
+        raw = (
+            data.get("sports", [{}])[0]
+            .get("leagues", [{}])[0]
+            .get("teams", [])
+        )
+    else:
+        raw = []
+        
     teams = []
     for entry in raw:
         t = entry.get("team", {})
@@ -150,9 +154,12 @@ async def _fetch_team_conference_id(
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams/{team_id}"
     )
-    data = async_call_espn_api2(hass, "ConfigFlow-teamGroup", team_id, url)
-    groups = data.get("team", {}).get("groups") or {}
-    return str(groups.get("id", ""))
+    data = await async_call_espn_api2(hass, "ConfigFlow-teamGroup", team_id, url)
+    if data:
+        groups = data.get("team", {}).get("groups") or {}
+        return str(groups.get("id", ""))
+    else:
+        return str("")
 
 
 def _get_path_schema(

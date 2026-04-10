@@ -49,7 +49,7 @@ async def async_call_espn_api2(hass, sensor_name, team_id, url, file_override=Fa
     """Call the specified ESPN API."""
 
     if file_override:
-        data = async_override_espn_api2(sensor_name, team_id, url)
+        data = await async_override_espn_api2(sensor_name, team_id, url)
     else:
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
         session = async_get_clientsession(hass)
