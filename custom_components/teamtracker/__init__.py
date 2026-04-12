@@ -257,7 +257,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         )
 
     # ADD: New method to get or create session
-    async def _get_session(self):
+    async def get_session(self):
         """Get or create aiohttp session."""
         if self._session is None or self._session.closed:
             self._session = aiohttp.ClientSession()
@@ -580,7 +580,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 _LOGGER.debug("%s: API file read failed: %s", sensor_name, e)
                 data = None                
         else:
-            session = await self._get_session()
+            session = await self.get_session()
             try:
                 async with session.get(url, headers=headers) as r:
                     _LOGGER.debug(
@@ -647,7 +647,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 contents = await f.read()
             data = json.loads(contents)
         else:
-            session = await self._get_session()
+            session = await self.get_session()
             try:
                 async with session.get(url, headers=headers) as r:
                     _LOGGER.debug(

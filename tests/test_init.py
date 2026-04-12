@@ -4,7 +4,7 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from tests.const import CONFIG_DATA, CONFIG_DATA2
+from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA5, CONFIG_DATA6
 import logging
 _LOGGER = logging.getLogger(__name__)
 
@@ -78,6 +78,107 @@ async def test_setup_entry(
     assert team_abbr == "BOS"
     sport = sensor_state.attributes.get("sport")
     assert sport == "basketball"
+
+#    assert await entry.async_unload(hass)
+#    await hass.async_block_till_done()
+
+
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
+async def test_setup_entry_team_id_NOT_FOUND(
+    hass,
+):
+    """ Test when team_id is a digit and is NOT_FOUND, should eventually set abbr to abbr instead of ID """
+
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA5,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test99")
+
+    assert sensor_state.state == "NOT_FOUND"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "195"    # Change to team abbreviation (OHIO) when fix implemented
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "football"
+#    date = sensor_state.attributes.get("date")
+#    assert date == "2022-09-08T22:45Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=15"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "API error, no data returned" # Need to track down why it's cached data
+
+
+#    assert await entry.async_unload(hass)
+#    await hass.async_block_till_done()
+
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
+async def test_setup_recreate_blank_api_url(
+    hass,
+):
+    """ test setup """
+
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test01")
+
+    assert sensor_state.state == "PRE"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "MIA"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "baseball"
+    date = sensor_state.attributes.get("date")
+    assert date == "2022-09-08T22:45Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "Cached data" # Need to track down why it's cached data
+
+    await coordinator.async_refresh()
+
+    assert sensor_state.state == "PRE"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "MIA"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "baseball"
+    date = sensor_state.attributes.get("date")
+    assert date == "2022-09-08T22:45Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "Cached data" # Need to track down why it's cached data
+
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()

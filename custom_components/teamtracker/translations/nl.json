@@ -1,0 +1,77 @@
+{
+  "config": {
+    "error": {
+      "league": "Ongeldige competitie ingevoerd.",
+      "cannot_fetch_teams": "Kon geen teams ophalen van ESPN. Controleer je verbinding en probeer het opnieuw.",
+      "no_teams_found": "Geen teams gevonden voor die zoekterm. Probeer een andere naam of laat leeg voor handmatige invoer."
+    },
+    "step": {
+      "user": {
+        "title": "Selecteer Sport",
+        "description": "Kies de sport voor je team of atleet.",
+        "data": {
+          "sport_key": "Sport"
+        }
+      },
+      "league": {
+        "title": "Selecteer Competitie",
+        "description": "Kies de {sport_name} competitie.",
+        "data": {
+          "league_id": "Competitie"
+        }
+      },
+      "search": {
+        "title": "Zoek Team",
+        "description": "Typ een naam om naar het {league_name} team te zoeken, of laat leeg om het team-ID handmatig in te voeren.\n\n[Blader door teams op ESPN]({league_url})",
+        "data": {
+          "search_team": "Zoek teamnaam (optioneel)"
+        }
+      },
+      "select_team": {
+        "title": "Selecteer Team",
+        "description": "Kies je {league_name} team uit de zoekresultaten.",
+        "data": {
+          "team_selection": "Team",
+          "name": "Vriendelijke naam (optioneel)"
+        }
+      },
+      "manual_team": {
+        "title": "Handmatige Team Invoer",
+        "description": "Voer de afkorting van het {league_name} team of het ID-nummer in zoals weergegeven op ESPN, of '*' voor de actieve/meest recente wedstrijd.",
+        "data": {
+          "team_id": "Team ID",
+          "conference_id": "Conferentie Nummer",
+          "name": "Vriendelijke naam"
+        }
+      },
+      "manual_athlete": {
+        "title": "Handmatige Atleet Invoer",
+        "description": "Voer de naam van de {league_name} atleet in, een reguliere expressie, of '*' voor de actieve/meest recente wedstrijd.",
+        "data": {
+          "team_id": "Atleet ID",
+          "conference_id": "Conferentie Nummer (alleen NCAA)",
+          "name": "Vriendelijke naam"
+        }
+      },
+      "custom_api": {
+        "title": "Aangepaste API Configurator",
+        "description": "Voer het gedeelte 'sport_path' and 'league_path' van de ESPN API in om een aangepaste API te configureren",
+        "data": {
+          "sport_path": "Sport Pad",
+          "league_path": "Competitie Pad"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker Opties",
+        "description": "Voer de taalcode van 2 tekens in die moet worden gebruikt voor de API-aanroep.",
+        "data": {
+          "api_language": "API Taal"
+        }
+      }
+    }
+  }
+}
