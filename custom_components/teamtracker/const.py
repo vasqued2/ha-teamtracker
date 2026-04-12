@@ -197,7 +197,7 @@ INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.15.1"
+VERSION = "v0.16.0"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"
