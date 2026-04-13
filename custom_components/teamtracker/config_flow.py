@@ -22,7 +22,6 @@ from .const import (
     DOMAIN,
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
-    SOCCER,
 )
 from .utils import async_call_espn_api2
 
