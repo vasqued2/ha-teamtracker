@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Buscar Equipo",
-        "description": "Escriba el nombre para buscar el equipo de {league_name}, o deje en blanco para ingresar el ID del equipo manualmente.\n\n[Explorar equipos en ESPN]({league_url})",
+        "description": "Escriba el nombre para buscar el equipo de {league_name}, o deje en blanco para ingresar el ID del equipo manualmente.",
         "data": {
           "search_team": "Buscar nombre del equipo (opcional)"
         }

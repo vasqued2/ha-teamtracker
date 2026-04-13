@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Hľadať tím",
-        "description": "Zadajte názov pre vyhľadanie tímu v lige {league_name} alebo ponechajte prázdne pre manuálne zadanie ID tímu.\n\n[Prehliadať tímy na ESPN]({league_url})",
+        "description": "Zadajte názov pre vyhľadanie tímu v lige {league_name} alebo ponechajte prázdne pre manuálne zadanie ID tímu.",
         "data": {
           "search_team": "Hľadať názov tímu (voliteľné)"
         }

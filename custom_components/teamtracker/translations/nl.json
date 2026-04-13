@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Zoek Team",
-        "description": "Typ een naam om naar het {league_name} team te zoeken, of laat leeg om het team-ID handmatig in te voeren.\n\n[Blader door teams op ESPN]({league_url})",
+        "description": "Typ een naam om naar het {league_name} team te zoeken, of laat leeg om het team-ID handmatig in te voeren.",
         "data": {
           "search_team": "Zoek teamnaam (optioneel)"
         }

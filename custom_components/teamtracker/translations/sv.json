@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Sök Lag",
-        "description": "Skriv in ett namn för att söka efter {league_name}-laget, eller lämna tomt för att ange lag-ID manuellt.\n\n[Bläddra bland lag på ESPN]({league_url})",
+        "description": "Skriv in ett namn för att söka efter {league_name}-laget, eller lämna tomt för att ange lag-ID manuellt.",
         "data": {
           "search_team": "Sök lagnamn (valfritt)"
         }

@@ -92,17 +92,6 @@ SPORT_OPTIONS: dict[str, str] = {
     **{k: v[0] for k, v in _SPORT_GROUPS.items()}
 }
 
-def _league_browse_url(league_id: str) -> str:
-    """Return an ESPN URL where users can browse teams for a given league."""
-    if league_id not in LEAGUE_MAP:
-        return "https://www.espn.com"
-    paths = LEAGUE_MAP[league_id]
-    sport = paths[CONF_SPORT_PATH]
-    league = paths[CONF_LEAGUE_PATH]
-    if sport == SOCCER:
-        return f"https://www.espn.co.uk/football/league/_/name/{league}"
-    return f"https://www.espn.com/{league}/teams"
-
 
 async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
     """Fetch teams from ESPN API for a given league."""
@@ -336,7 +325,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=schema,
             errors=self._errors,
             description_placeholders={
-                "league_url": _league_browse_url(self._league_id),
                 "league_id": self._league_id,
                 "league_name": league_name,
                 "sport_name": sport_name,
