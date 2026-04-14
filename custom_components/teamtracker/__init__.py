@@ -15,6 +15,7 @@ from async_timeout import timeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
     async_get,
@@ -29,6 +30,7 @@ from .const import (
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
+    CONF_SENSOR_TYPE,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
     COORDINATOR,
@@ -43,7 +45,10 @@ from .const import (
     PLATFORMS,
     DEFAULT_REFRESH_RATE,
     RAPID_REFRESH_RATE,
+    SENSOR_TYPE_STANDINGS,
     SERVICE_NAME_CALL_API,
+    STANDINGS_URL_BASE,
+    SPORTS_WITHOUT_STANDINGS,
     URL_HEAD,
     URL_TAIL,
     USER_AGENT,
@@ -51,6 +56,7 @@ from .const import (
 )
 from .event import async_process_event
 from . utils import is_integer
+from .standings_coordinator import TeamTrackerStandingsCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -108,10 +114,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Print startup message
 
     sensor_name = entry.data[CONF_NAME]
+    sensor_type = entry.data.get(CONF_SENSOR_TYPE, "team")
 
     _LOGGER.info(
         "%s: Setting up sensor from UI configuration using TeamTracker %s, if you have any issues please report them here: %s",
-        sensor_name, 
+        sensor_name,
         VERSION,
         ISSUE_URL,
     )
@@ -119,25 +126,33 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Initialize DOMAIN in hass.data if it doesn't exist
     if DOMAIN not in hass.data:
         hass.data[DOMAIN] = {}
-        
+
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 
-    if entry.unique_id is not None:
-        _LOGGER.info(
-            "%s: async_setup_entry() - entry.unique_id is not None: %s",
-            sensor_name, 
-            entry.unique_id,
+    if sensor_type == SENSOR_TYPE_STANDINGS:
+        coordinator = TeamTrackerStandingsCoordinator(
+            hass,
+            entry.data[CONF_SPORT_PATH],
+            entry.data[CONF_LEAGUE_PATH],
+            entry.data[CONF_LEAGUE_ID],
+            sensor_name,
         )
-        hass.config_entries.async_update_entry(entry, unique_id=None)
+    else:
+        if entry.unique_id is not None:
+            _LOGGER.info(
+                "%s: async_setup_entry() - entry.unique_id is not None: %s",
+                sensor_name,
+                entry.unique_id,
+            )
+            hass.config_entries.async_update_entry(entry, unique_id=None)
 
-        ent_reg = async_get(hass)
-        for entity in async_entries_for_config_entry(ent_reg, entry.entry_id):
-            ent_reg.async_update_entity(entity.entity_id, new_unique_id=entry.entry_id)
+            ent_reg = async_get(hass)
+            for entity in async_entries_for_config_entry(ent_reg, entry.entry_id):
+                ent_reg.async_update_entity(entity.entity_id, new_unique_id=entry.entry_id)
 
-    # Setup the data coordinator
-    coordinator = TeamTrackerDataUpdateCoordinator(
-        hass, entry.data, entry
-    )
+        coordinator = TeamTrackerDataUpdateCoordinator(
+            hass, entry.data, entry
+        )
 
     # Fetch initial data so we have data when entities subscribe
     await coordinator.async_refresh()
@@ -249,7 +264,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
-        self._session = None  # ADD: Track aiohttp session
+        self._session = None  # Track aiohttp session
+        self._last_valid_data = None  # Stale-data fallback on API errors
+        self._stats_cache: dict = {}  # team_season_stats cache
+        self._stats_last_update: datetime | None = None
+        self._stats_interval = timedelta(hours=6)
+        self._standing_cache: dict = {}  # league_standing cache
+        self._standing_last_update: datetime | None = None
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
@@ -270,6 +291,82 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             await self._session.close()
             _LOGGER.debug("%s: Closed aiohttp session", self.name)
 
+
+    async def async_fetch_season_stats(self) -> dict:
+        """Placeholder — implemented in feat/new-features."""
+        return {}
+
+    async def async_fetch_league_standing(self) -> dict:
+        """Fetch this team's row from the ESPN standings table (cached for 6 h)."""
+        if self.sport_path in SPORTS_WITHOUT_STANDINGS:
+            return {}
+
+        now = datetime.now(timezone.utc)
+        if self._standing_cache and self._standing_last_update:
+            if (now - self._standing_last_update) < self._stats_interval:
+                return self._standing_cache
+
+        url = f"{STANDINGS_URL_BASE}/{self.sport_path}/{self.league_path}/standings"
+        session = async_get_clientsession(self.hass)
+        try:
+            async with session.get(url, headers={"User-Agent": USER_AGENT}) as resp:
+                if resp.status != 200:
+                    return self._standing_cache
+                raw = await resp.json()
+        except Exception as err:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug("%s: Standings fetch failed: %s", self.name, err)
+            return self._standing_cache
+
+        team_abbr = self.team_id.upper()
+        numeric_id = str(self.data.get("team_id", "")) if self.data else ""
+
+        team_entry = None
+        children = raw.get("children") or [raw]
+        for child in children:
+            for entry in child.get("standings", {}).get("entries", []):
+                t = entry.get("team", {})
+                if t.get("abbreviation", "").upper() == team_abbr or (
+                    numeric_id and str(t.get("id", "")) == numeric_id
+                ):
+                    team_entry = entry
+                    break
+            if team_entry:
+                break
+
+        if not team_entry:
+            return self._standing_cache
+
+        stats_raw = team_entry.get("stats", [])
+        raw_by_abbr = {
+            (s.get("abbreviation") or s.get("name") or "").upper(): s.get("value")
+            for s in stats_raw
+            if s.get("value") is not None
+        }
+
+        _STAT_MAP = [
+            ("rank",            ["RK"]),
+            ("points",          ["PTS"]),
+            ("wins",            ["W"]),
+            ("losses",          ["L"]),
+            ("draws",           ["T", "D"]),
+            ("games_played",    ["GP"]),
+            ("goal_difference", ["DIFF"]),
+            ("points_for",      ["PF", "GF"]),
+            ("points_against",  ["PA", "GA"]),
+            ("win_percent",     ["PCT", "WPCT"]),
+            ("streak",          ["STRK"]),
+        ]
+        result = {}
+        for field, keys in _STAT_MAP:
+            for k in keys:
+                if k in raw_by_abbr:
+                    v = raw_by_abbr[k]
+                    result[field] = int(v) if isinstance(v, float) and v == int(v) else v
+                    break
+
+        self._standing_cache = result
+        self._standing_last_update = now
+        return result
 
     #
     #  Return the language to use for the API
@@ -797,5 +894,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             team_id,
             lang,
         )
+
+        values["team_season_stats"] = await self.async_fetch_season_stats()
+        values["league_standing"] = await self.async_fetch_league_standing()
 
         return values

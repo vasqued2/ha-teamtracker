@@ -17,12 +17,16 @@ from .const import (
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
+    CONF_SENSOR_TYPE,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
     DOMAIN,
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
+    SENSOR_TYPE_STANDINGS,
+    SENSOR_TYPE_TEAM,
     SOCCER,
+    SPORTS_WITHOUT_STANDINGS,
 )
 from .utils import async_call_espn_api2
 
@@ -219,7 +223,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             if len(leagues) == 1:
                 # Only one league for this sport — skip league step
                 self._league_id = next(iter(leagues))
-                return await self.async_step_search()
+                return await self.async_step_sensor_type()
             return await self.async_step_league()
 
         schema = vol.Schema(
@@ -270,7 +274,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             self._league_id = user_input[CONF_LEAGUE_ID]
-            return await self.async_step_search()
+            return await self.async_step_sensor_type()
 
         league_options = _SPORT_GROUPS[self._sport_key][1]
         sport_name = _SPORT_GROUPS[self._sport_key][0]
@@ -285,7 +289,53 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     # ------------------------------------------------------------------ #
-    #  Step 3: search team (ESPN link always correct here)                #
+    #  Step 3: choose sensor type — team tracker or standings             #
+    # ------------------------------------------------------------------ #
+    async def async_step_sensor_type(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Ask whether to track a team or the full league standings."""
+        # Sports without standings go straight to team search
+        sport_path = LEAGUE_MAP.get(self._league_id, {}).get(CONF_SPORT_PATH, "")
+        if sport_path in SPORTS_WITHOUT_STANDINGS:
+            return await self.async_step_search()
+
+        if user_input is not None:
+            if user_input[CONF_SENSOR_TYPE] == SENSOR_TYPE_STANDINGS:
+                return self._create_standings_entry()
+            return await self.async_step_search()
+
+        sensor_type_options = {
+            SENSOR_TYPE_TEAM:      "Track a team",
+            SENSOR_TYPE_STANDINGS: "Track league standings",
+        }
+        schema = vol.Schema({vol.Required(CONF_SENSOR_TYPE, default=SENSOR_TYPE_TEAM): vol.In(sensor_type_options)})
+        return self.async_show_form(
+            step_id="sensor_type",
+            data_schema=schema,
+            errors={},
+        )
+
+    def _create_standings_entry(self) -> config_entries.FlowResult:
+        """Create a standings config entry directly."""
+        paths = LEAGUE_MAP[self._league_id]
+        league_display = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(
+            self._league_id, self._league_id
+        )
+        name = f"{league_display} Standings"
+        return self.async_create_entry(
+            title=name,
+            data={
+                CONF_NAME:          name,
+                CONF_LEAGUE_ID:     self._league_id,
+                CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
+                CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
+                CONF_SENSOR_TYPE:   SENSOR_TYPE_STANDINGS,
+            },
+        )
+
+    # ------------------------------------------------------------------ #
+    #  Step 4: search team (ESPN link always correct here)                #
     # ------------------------------------------------------------------ #
     async def async_step_search(
         self, user_input: dict[str, Any] | None = None

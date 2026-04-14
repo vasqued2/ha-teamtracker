@@ -22,6 +22,7 @@ from .const import (
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
+    CONF_SENSOR_TYPE,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
     COORDINATOR,
@@ -33,9 +34,11 @@ from .const import (
     DOMAIN,
     ISSUE_URL,
     LEAGUE_MAP,
+    SENSOR_TYPE_STANDINGS,
     SPORT_ICON_MAP,
     VERSION,
 )
+from .standings_sensor import TeamTrackerStandingsSensor
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -138,10 +141,25 @@ async def async_setup_entry(
 
     _LOGGER.info(
         "%s: Updating sensor from UI using TeamTracker %s, if you have any issues please report them here: %s",
-        sensor_name, 
+        sensor_name,
         VERSION,
         ISSUE_URL,
     )
+
+    sensor_type = entry.data.get(CONF_SENSOR_TYPE, "team")
+
+    if sensor_type == SENSOR_TYPE_STANDINGS:
+        coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
+        async_add_entities(
+            [TeamTrackerStandingsSensor(
+                coordinator,
+                entry.entry_id,
+                sensor_name,
+                entry.data.get(CONF_SPORT_PATH, ""),
+            )],
+            True,
+        )
+        return
 
     config = hass.data[DOMAIN][entry.entry_id]
     # Update our config to include new repos and remove those that have been removed.
@@ -393,6 +411,9 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["last_update"] = self.coordinator.data["last_update"]
         attrs["api_message"] = self.coordinator.data["api_message"]
         attrs["api_url"] = self.coordinator.data["api_url"]
+        attrs["next_games"] = self.coordinator.data["next_games"]
+        attrs["team_season_stats"] = self.coordinator.data["team_season_stats"]
+        attrs["league_standing"] = self.coordinator.data["league_standing"]
 
         return attrs
 

@@ -75,6 +75,9 @@ async def async_clear_values() -> dict:
         "api_message": None,
         "api_url": None,
         "private_fast_refresh": False,
+        "next_games": [],
+        "team_season_stats": {},
+        "league_standing": {},
     }
 
     return new_values
