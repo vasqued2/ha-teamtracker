@@ -27,28 +27,21 @@ async def test_team_from_manual_input(hass):
     assert result["type"] == "form"
     assert result["step_id"] == "league"
 
-    # Step 3: choose league → expect sensor type form
+    # Step 3: choose league → expect team search form
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"], {"league_id": "NFL"}
     )
     assert result["type"] == "form"
-    assert result["step_id"] == "sensor_type"
-
-    # Step 4: choose team sensor → expect team search form
-    result = await hass.config_entries.flow.async_configure(
-        result["flow_id"], {"sensor_type": "team"}
-    )
-    assert result["type"] == "form"
     assert result["step_id"] == "search"
 
-    # Step 5: empty search → expect manual entry form
+    # Step 4: empty search → expect manual entry form
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"], {"search_team": ""}
     )
     assert result["type"] == "form"
     assert result["step_id"] == "manual_team"
 
-    # Step 6: enter team details → expect entry created
+    # Step 5: enter team details → expect entry created
     with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
