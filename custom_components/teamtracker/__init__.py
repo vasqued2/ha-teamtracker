@@ -15,6 +15,7 @@ from async_timeout import timeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
     async_get,
@@ -40,7 +41,9 @@ from .const import (
     DOMAIN,
     ISSUE_URL,
     LEAGUE_MAP,
+    OFFSEASON_REFRESH_RATE,
     PLATFORMS,
+    POST_REFRESH_RATE,
     DEFAULT_REFRESH_RATE,
     RAPID_REFRESH_RATE,
     SERVICE_NAME_CALL_API,
@@ -249,7 +252,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
-        self._session = None  # ADD: Track aiohttp session
+        self._session = None  # Track aiohttp session
+        self._last_valid_data = None  # Stale-data fallback on API errors
+        self._stats_cache: dict = {}  # team_season_stats cache
+        self._stats_last_update: datetime | None = None
+        self._stats_interval = timedelta(hours=6)
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
@@ -263,13 +270,64 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             self._session = aiohttp.ClientSession()
         return self._session
 
-    # ADD: New method to cleanup
     async def async_shutdown(self):
         """Cleanup coordinator resources."""
         if self._session and not self._session.closed:
             await self._session.close()
             _LOGGER.debug("%s: Closed aiohttp session", self.name)
 
+    async def async_fetch_season_stats(self) -> dict:
+        """Fetch season stats for the team from ESPN (cached for 6h)."""
+        now = datetime.now(timezone.utc)
+        if self._stats_cache and self._stats_last_update:
+            if (now - self._stats_last_update) < self._stats_interval:
+                return self._stats_cache
+
+        if self.sport_path in ("golf", "racing", "tennis", "mma"):
+            return {}
+
+        # Use numeric ESPN team ID from coordinator data (not the abbreviation)
+        numeric_id = self.data.get("team_id") if self.data else None
+        if not numeric_id:
+            return self._stats_cache or {}
+
+        url = (
+            f"{URL_HEAD}{self.sport_path}/{self.league_path}"
+            f"/teams/{numeric_id}"
+        )
+        session = async_get_clientsession(self.hass)
+        try:
+            async with session.get(url, headers={"User-Agent": USER_AGENT}) as resp:
+                if resp.status != 200:
+                    return self._stats_cache
+                data = await resp.json()
+        except Exception as err:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug("%s: Stats fetch failed: %s", self.name, err)
+            return self._stats_cache
+
+        team = (
+            data.get("team", {})
+        )
+        record_items = (
+            team.get("record", {})
+            .get("items", [{}])[0]
+            .get("stats", [])
+        )
+        stats_map = {s["name"]: s["value"] for s in record_items if "name" in s and "value" in s}
+
+        wins  = int(stats_map.get("wins", 0))
+        losses = int(stats_map.get("losses", 0))
+        streak_val = int(stats_map.get("streak", 0))
+        streak = streak_val  # positive = win streak, negative = loss streak
+
+        self._stats_cache = {
+            "wins":             wins,
+            "losses":           losses,
+            "win_streak":       streak,
+            "points_per_game":  round(float(stats_map.get("avgPointsFor", 0)), 1),
+        }
+        self._stats_last_update = now
+        return self._stats_cache
 
     #
     #  Return the language to use for the API
@@ -323,19 +381,23 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             try:
                 data = await self.async_update_game_data(self.config, self.hass)
 
-                # update the interval based on flag
+                # Adaptive polling: 4 rates depending on game state
+                state = data.get("state", "NOT_FOUND")
                 if data["private_fast_refresh"]:
-                    if self.update_interval != RAPID_REFRESH_RATE:
-                        self.update_interval = RAPID_REFRESH_RATE
-                        _LOGGER.debug(
-                            "%s: Switching to rapid refresh rate (%s)", self.name, self.update_interval
-                        )
+                    new_rate = RAPID_REFRESH_RATE       # IN (or PRE close to kickoff): 5s
+                elif state == "POST":
+                    new_rate = POST_REFRESH_RATE        # just finished: 2min
+                elif state == "NOT_FOUND":
+                    new_rate = OFFSEASON_REFRESH_RATE   # no game found / offseason: 30min
                 else:
-                    if self.update_interval != DEFAULT_REFRESH_RATE:
-                        self.update_interval = DEFAULT_REFRESH_RATE
-                        _LOGGER.debug(
-                            "%s: Switching to default refresh rate (%s)", self.name, self.update_interval
-                        )
+                    new_rate = DEFAULT_REFRESH_RATE     # PRE (>20min before game): 10min
+
+                if self.update_interval != new_rate:
+                    self.update_interval = new_rate
+                    _LOGGER.debug(
+                        "%s: Switching to refresh rate (%s) for state '%s'",
+                        self.name, self.update_interval, state,
+                    )
             except Exception as error:
                 _LOGGER.debug("%s: Error updating data: %s", self.name, error)
                 _LOGGER.debug("%s: Error type: %s", self.name, type(error).__name__)
@@ -619,10 +681,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             url_parms = url_parms + "&dates=" + d1_override + "-" + d2_override
         elif sport_path not in ("tennis", "baseball"):
             d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
-            if league_path == "all":
-                d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
-            else:
-                d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
+            d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
             url_parms = url_parms + "&dates=" + d1 + "-" + d2
 
         if self.conference_id:
@@ -781,6 +840,16 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         values["api_url"] = self.api_url
 
         if data is None:
+            if self._last_valid_data is not None:
+                _LOGGER.debug(
+                    "%s: API unavailable, using last known data for '%s'", sensor_name, team_id
+                )
+                data = self._last_valid_data
+                values = await async_process_event(
+                    values, sensor_name, data, sport_path, league_id, DEFAULT_LOGO, team_id, lang,
+                )
+                values["api_message"] = "Stale data (API unavailable)"
+                return values
             values["api_message"] = "API error, no data returned"
             _LOGGER.warning(
                 "%s: API did not return any data for team '%s'", sensor_name, team_id
@@ -797,5 +866,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             team_id,
             lang,
         )
+
+        values["team_season_stats"] = await self.async_fetch_season_stats()
 
         return values
