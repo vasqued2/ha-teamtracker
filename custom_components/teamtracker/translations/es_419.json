@@ -60,6 +60,13 @@
           "sport_path": "Ruta del Deporte (Sport Path)",
           "league_path": "Ruta de la Liga (League Path)"
         }
+      },
+      "finalize": {
+        "title": "Confirmar nombre",
+        "description": "Confirmar/cambiar el nombre del sensor para {league_name} {team_name}",
+        "data": {
+          "name": "Nombre amigable"
+        }
       }
     }
   },

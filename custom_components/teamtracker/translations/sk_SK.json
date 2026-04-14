@@ -60,6 +60,13 @@
           "sport_path": "Cesta k športu (Sport Path)",
           "league_path": "Cesta k lige (League Path)"
         }
+      },
+      "finalize": {
+        "title": "Potvrdiť názov",
+        "description": "Potvrdiť/zmeniť názov snímača pre {league_name} {team_name}",
+        "data": {
+          "name": "Priateľský názov"
+        }
       }
     }
   },

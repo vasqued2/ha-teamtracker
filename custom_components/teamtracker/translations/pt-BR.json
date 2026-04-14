@@ -60,6 +60,13 @@
           "sport_path": "Caminho do Esporte (Sport Path)",
           "league_path": "Caminho da Liga (League Path)"
         }
+      },
+      "finalize": {
+        "title": "Confirmar Nome",
+        "description": "Confirmar/alterar o nome do sensor para {league_name} {team_name}",
+        "data": {
+          "name": "Nome amigável"
+        }
       }
     }
   },

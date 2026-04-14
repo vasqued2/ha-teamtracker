@@ -182,12 +182,14 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Initialize."""
         self._sport_key: str = ""
         self._league_id: str = ""
+        self._team_name: str = ""
         self._sport_path: str = ""
         self._league_path: str = ""
         self._all_teams: list[dict] = []
         self._search_results: dict[str, str] = {}
         self._team_meta: dict[str, dict] = {}
         self._errors: dict[str, str] = {}
+        self._entry_data: dict[str, Any] = {}
 
     # ------------------------------------------------------------------ #
     #  Step 1: choose sport group                                         #
@@ -350,10 +352,11 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 sport_path = paths.get(CONF_SPORT_PATH, "")
                 league_path = paths.get(CONF_LEAGUE_PATH, "")
 
+            self._team_name = meta.get("displayName", t_id)
             name = user_input.get(CONF_NAME, "").strip() or meta.get("displayName", t_id)
             team_id = meta.get("id", t_id)
 
-            entry_data = {
+            self._entry_data = {
                     CONF_NAME:          name,
                     CONF_LEAGUE_ID:     self._league_id,
                     CONF_TEAM_ID:       team_id,
@@ -362,18 +365,14 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             if "college" in league_path:
                 conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id, sport_path, league_path)
-                entry_data[CONF_CONFERENCE_ID] = conf_id
+                self._entry_data[CONF_CONFERENCE_ID] = conf_id
 
-            return self.async_create_entry(
-                title=f"{self._league_id} - {name}",
-                data=entry_data,
-            )
+            return await self.async_step_finalize()
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
         league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
         schema = vol.Schema({
             vol.Required("team_selection"): vol.In(self._search_results),
-            vol.Optional(CONF_NAME, default=""): cv.string,
         })
         return self.async_show_form(
             step_id="select_team",
@@ -402,9 +401,10 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 paths = LEAGUE_MAP.get(self._league_id, {})
                 sport_path = paths.get(CONF_SPORT_PATH, "")
                 league_path = paths.get(CONF_LEAGUE_PATH, "")
+            self._team_name = user_input[CONF_TEAM_ID]
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
             team_id = user_input[CONF_TEAM_ID]
-            entry_data = {
+            self._entry_data = {
                 CONF_NAME:          name,
                 CONF_LEAGUE_ID:     self._league_id,
                 CONF_TEAM_ID:       team_id,
@@ -413,11 +413,9 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             }
             if "college" in league_path:
                 conf_id = await _fetch_team_conference_id(self.hass, self._league_id, team_id, sport_path, league_path)
-                entry_data[CONF_CONFERENCE_ID] = conf_id
-            return self.async_create_entry(
-                title=f"{self._league_id} - {name}",
-                data=entry_data,
-            )
+                self._entry_data[CONF_CONFERENCE_ID] = conf_id
+
+            return await self.async_step_finalize()
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
         league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
@@ -425,7 +423,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         schema_dict = {
             vol.Required(CONF_TEAM_ID): cv.string,
         }
-        schema_dict[vol.Optional(CONF_NAME, default="")] = cv.string
+#        schema_dict[vol.Optional(CONF_NAME, default="")] = cv.string
 
         return self.async_show_form(
             step_id="manual_team",
@@ -448,16 +446,21 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             paths = LEAGUE_MAP[self._league_id]
             name = user_input.get(CONF_NAME) or user_input[CONF_TEAM_ID]
-            return self.async_create_entry(
-                title=f"{self._league_id} - {name}",
-                data={
-                    CONF_NAME:          name,
-                    CONF_LEAGUE_ID:     self._league_id,
-                    CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
-                    CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
-                    CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
-                },
-            )
+            self._team_name = user_input[CONF_TEAM_ID]
+            self._entry_data = {
+                CONF_NAME:          name,
+                CONF_LEAGUE_ID:     self._league_id,
+                CONF_TEAM_ID:       user_input[CONF_TEAM_ID],
+                CONF_SPORT_PATH:    paths[CONF_SPORT_PATH],
+                CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
+            }
+
+#            return self.async_create_entry(
+#                title=f"{self._league_id} - {user_input[CONF_TEAM_ID]}",
+#                data=self._entry_data,
+#            )
+
+            return await self.async_step_finalize()
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
         league_name = _SPORT_GROUPS.get(self._sport_key, ("", {}))[1].get(self._league_id, "")
@@ -465,7 +468,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             {
                 vol.Required(CONF_TEAM_ID): cv.string,
 #                vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
-                vol.Optional(CONF_NAME, default=""): cv.string,
+#                vol.Optional(CONF_NAME, default=""): cv.string,
             }
         )
         return self.async_show_form(
@@ -478,6 +481,39 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 "league_name": league_name,
             },
         )
+
+
+    # ------------------------------------------------------------------ #
+    #  Step 5: Finalize the configuration and choose a name              #
+    # ------------------------------------------------------------------ #
+    async def async_step_finalize(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.FlowResult:
+        """Step 5: Finalize the configuration and choose a name."""
+        if user_input is not None:
+            name = user_input[CONF_NAME]
+            self._entry_data[CONF_NAME] = name
+            
+            return self.async_create_entry(
+                title=name,
+                data=self._entry_data,
+            )
+
+        default_name = f"{self._league_id} - {self._team_name}"
+        # Use the league_id and team_name as the default name
+        schema = vol.Schema({
+            vol.Required(CONF_NAME, default=default_name): cv.string,
+        })
+
+        return self.async_show_form(
+            step_id="finalize",
+            data_schema=schema,
+            description_placeholders={
+                "team_name": self._team_name,
+                "league_name": self._league_id,
+            },
+        )
+
 
     # ------------------------------------------------------------------ #
     #  Options flow (reconfigure existing entry)                          #

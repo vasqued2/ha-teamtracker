@@ -60,6 +60,13 @@
           "sport_path": "Διαδρομή Αθλήματος (Sport Path)",
           "league_path": "Διαδρομή Πρωταθλήματος (League Path)"
         }
+      },
+      "finalize": {
+        "title": "Επιβεβαίωση ονόματος",
+        "description": "Επιβεβαίωση/αλλαγή του ονόματος για τον αισθητήρα {league_name} {team_name}",
+        "data": {
+          "name": "Φιλικό όνομα"
+        }
       }
     }
   },

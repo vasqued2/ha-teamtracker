@@ -60,6 +60,13 @@
           "sport_path": "Sport Path",
           "league_path": "League Path"
         }
+      },
+      "finalize": {
+        "title": "Confirm Name",
+        "description": "Confirm/change the name for the {league_name} {team_name} sensor",
+        "data": {
+          "name": "Friendly Name"
+        }
       }
     }
   },

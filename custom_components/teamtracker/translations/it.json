@@ -60,6 +60,13 @@
           "sport_path": "Percorso Sport",
           "league_path": "Percorso Campionato"
         }
+      },
+      "finalize": {
+        "title": "Conferma nome",
+        "description": "Conferma/modifica il nome del sensore per {league_name} {team_name}",
+        "data": {
+          "name": "Nome descrittivo"
+        }
       }
     }
   },

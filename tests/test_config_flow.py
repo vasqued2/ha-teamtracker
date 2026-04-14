@@ -41,7 +41,14 @@ async def test_team_from_manual_input(hass):
     assert result["type"] == "form"
     assert result["step_id"] == "manual_team"
 
-    # Step 5: enter team details → expect entry created
+    # Step 5: enter sensor name → expect finalize entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"team_id": "SEA"} # Must be the team ID from JSON
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "finalize"
+
+    # Step 6: Provide name (Final Step)
     with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
@@ -49,15 +56,14 @@ async def test_team_from_manual_input(hass):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_id": "SEA",
-                "name": "team_tracker",
+#                "name": "Override Team Name",    # Use default name
             },
         )
 
         assert result["type"] == "create_entry"
-        assert result["title"] == "NFL - team_tracker"
+        assert result["title"] == "NFL - SEA"
         assert result["data"] == {
-            "name": "team_tracker",
+            "name": "NFL - SEA",
             "league_id": "NFL",
             "team_id": "SEA",
             "league_path": "nfl",
@@ -100,7 +106,14 @@ async def test_team_from_league_list(hass, mock_espn_api):
     assert result["type"] == "form"
     assert result["step_id"] == "select_team"
 
-# Step 5: Select from list AND provide name (Final Step)
+    # Step 5: enter sensor name → expect finalize entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"team_selection": "195"} # Must be the team ID from JSON
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "finalize"
+
+    # Step 6: Provide name (Final Step)
     with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
@@ -108,8 +121,7 @@ async def test_team_from_league_list(hass, mock_espn_api):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_selection": "195",  # Must be the team ID from JSON
-                "name": "Ohio Bobcats",    # Optional name field
+#                "name": "Override Team Name",    # Use default name
             },
         )
 
@@ -145,7 +157,14 @@ async def test_athlete_from_manual_input(hass):
     assert result["type"] == "form"
     assert result["step_id"] == "manual_athlete"
 
-    # Step 3: enter team details → expect entry created
+    # Step 3: enter sensor name → expect finalize entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"team_id": "Scheffler"} # Must be the team ID from JSON
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "finalize"
+
+    # Step 4: Provide name (Final Step)
     with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
@@ -153,15 +172,14 @@ async def test_athlete_from_manual_input(hass):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_id": "Scheffler",
-                "name": "team_tracker",
+#                "name": "Override Team Name",    # Use default name
             },
         )
 
         assert result["type"] == "create_entry"
-        assert result["title"] == "PGA - team_tracker"
+        assert result["title"] == "PGA - Scheffler"
         assert result["data"] == {
-            "name": "team_tracker",
+            "name": "PGA - Scheffler",
             "league_id": "PGA",
             "team_id": "Scheffler",
             "league_path": "pga",
@@ -208,7 +226,14 @@ async def test_custom_api_team_input(hass):
     assert result["type"] == "form"
     assert result["step_id"] == "manual_team"
 
-    # Step 5: enter team details → expect entry created
+    # Step 5: enter sensor name → expect finalize entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"team_id": "SEA"} # Must be the team ID from JSON
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "finalize"
+
+    # Step 6: Provide name (Final Step)
     with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
@@ -216,15 +241,14 @@ async def test_custom_api_team_input(hass):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_id": "SEA",
-                "name": "team_tracker",
+#                "name": "Override Team Name",    # Use default name
             },
         )
 
         assert result["type"] == "create_entry"
-        assert result["title"] == "XXX - team_tracker"
+        assert result["title"] == "XXX - SEA"
         assert result["data"] == {
-            "name": "team_tracker",
+            "name": "XXX - SEA",
             "league_id": "XXX",
             "team_id": "SEA",
             "league_path": "nfl",
@@ -270,7 +294,14 @@ async def test_custom_api_team_list(hass, mock_espn_api):
     assert result["type"] == "form"
     assert result["step_id"] == "select_team"
 
-# Step 5: Select from list AND provide name (Final Step)
+    # Step 5: enter sensor name → expect finalize entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"team_selection": "195"} # Must be the team ID from JSON
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "finalize"
+
+    # Step 6: Provide name (Final Step)
     with patch(
         "custom_components.teamtracker.async_setup_entry",
         return_value=True,
@@ -278,24 +309,21 @@ async def test_custom_api_team_list(hass, mock_espn_api):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],
             {
-                "team_selection": "195",  # Must be the abbreviation from your JSON
-                "name": "Ohio Bobcats",    # Optional name field
+                "name": "Override Sensor Name",    # Override name
             },
         )
 
         assert result["type"] == "create_entry"
-        assert result["title"] == "XXX - Ohio Bobcats"
-        
+        assert result["title"] == "Override Sensor Name"
+
         # Verify the data structure matches NCAAF expectations
         assert result["data"]["league_id"] == "XXX"
         assert result["data"]["team_id"] == "195"
-#        assert result["data"]["conference_id"] == "5" # DEFECT - Conference ID not from the test file as it should be
+        assert result["data"]["conference_id"] == "5" # Conference ID from the test file as it should be
         assert result["data"]["league_path"] == "college-football"
 
         await hass.async_block_till_done()
         assert len(mock_setup_entry.mock_calls) == 1
-
-
 
 async def test_options_flow_init(hass):
     """ Test config flow options """

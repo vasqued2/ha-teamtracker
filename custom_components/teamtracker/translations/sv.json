@@ -60,6 +60,13 @@
           "sport_path": "Sport-sökväg",
           "league_path": "Liga-sökväg"
         }
+      },
+      "finalize": {
+        "title": "Bekräfta namn",
+        "description": "Bekräfta/ändra namnet för {league_name} {team_name}-sensorn",
+        "data": {
+          "name": "Vänligt namn"
+        }
       }
     }
   },

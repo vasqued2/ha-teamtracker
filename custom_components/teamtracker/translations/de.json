@@ -60,6 +60,13 @@
           "sport_path": "Sport-Pfad",
           "league_path": "Liga-Pfad"
         }
+      },
+      "finalize": {
+        "title": "Namen bestätigen",
+        "description": "Namen für den {league_name} {team_name} Sensor bestätigen/ändern",
+        "data": {
+          "name": "Anzeigename"
+        }
       }
     }
   },

@@ -60,6 +60,13 @@
           "sport_path": "Chemin du sport (Sport Path)",
           "league_path": "Chemin de la ligue (League Path)"
         }
+      },
+      "finalize": {
+        "title": "Confirmer le nom",
+        "description": "Confirmer/modifier le nom du capteur pour {league_name} {team_name}",
+        "data": {
+          "name": "Nom convivial"
+        }
       }
     }
   },

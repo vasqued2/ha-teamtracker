@@ -60,6 +60,13 @@
           "sport_path": "Sport Pad",
           "league_path": "Competitie Pad"
         }
+      },
+      "finalize": {
+        "title": "Naam bevestigen",
+        "description": "Bevestig/wijzig de naam voor de {league_name} {team_name} sensor",
+        "data": {
+          "name": "Vriendelijke naam"
+        }
       }
     }
   },

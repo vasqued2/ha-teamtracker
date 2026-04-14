@@ -1,5 +1,7 @@
 """ Tests for TeamTracker """
 
+from freezegun import freeze_time
+
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
@@ -84,7 +86,7 @@ async def test_setup_entry(
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
-async def test_setup_entry_team_id_NOT_FOUND(
+async def test_setup_NOT_FOUND_api_error(
     hass,
 ):
     """ Test when team_id is a digit and is NOT_FOUND, should eventually set abbr to abbr instead of ID """
@@ -124,6 +126,51 @@ async def test_setup_entry_team_id_NOT_FOUND(
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
+
+
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
+@freeze_time("2026-03-21 10:00:00")
+async def test_setup_NOT_FOUND_no_team_id(
+    hass,
+):
+    """ Test when team_id is a digit and is NOT_FOUND, should eventually set abbr to abbr instead of ID """
+
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA6,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test99")
+
+    assert sensor_state.state == "NOT_FOUND"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "195"    # Change to team abbreviation (OHIO) when fix implemented
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "football"
+    date = sensor_state.attributes.get("date")
+    assert date == None
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?lang=en&limit=50&dates=20260320-20260619&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "Cached data: No competition scheduled for '195' between 2022-09-08T18:20Z and 2024-08-04T04:00Z" # Need to track down why it's cached data
+
+
+#    assert await entry.async_unload(hass)
+#    await hass.async_block_till_done()
+
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_recreate_blank_api_url(
