@@ -99,7 +99,7 @@ async def async_override_espn_api2(sensor_name, team_id, url) -> dict:
             file_path = "/share/tt/teams.json"
             if not os.path.exists(file_path):
                 file_path = "tests/tt/team.json"
-    elif "/all/" in clear_url:
+    elif "/all/" in clean_url:
         file_path = "/share/tt/scoreboard_all_leagues.json"
         if not os.path.exists(file_path):
             file_path = "tests/tt/scoreboard_all_leagues.json"
