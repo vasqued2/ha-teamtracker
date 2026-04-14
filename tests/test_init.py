@@ -165,7 +165,7 @@ async def test_setup_NOT_FOUND_no_team_id(
     api_url = sensor_state.attributes.get("api_url")
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?lang=en&limit=50&dates=20260320-20260619&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "Cached data: No competition scheduled for '195' between 2022-09-08T18:20Z and 2024-08-04T04:00Z" # Need to track down why it's cached data
+    assert api_message == "No competition scheduled for '195' between 2022-09-08T18:20Z and 2024-08-04T04:00Z"
 
 
 #    assert await entry.async_unload(hass)
@@ -210,7 +210,7 @@ async def test_setup_recreate_blank_api_url(
     api_url = sensor_state.attributes.get("api_url")
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "Cached data" # Need to track down why it's cached data
+    assert api_message == None
 
     await coordinator.async_refresh()
 
@@ -224,7 +224,7 @@ async def test_setup_recreate_blank_api_url(
     api_url = sensor_state.attributes.get("api_url")
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "Cached data" # Need to track down why it's cached data
+    assert api_message == None
 
 
 #    assert await entry.async_unload(hass)

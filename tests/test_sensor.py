@@ -61,7 +61,7 @@ async def test_sensor(hass, mocker):
     api_url = sensor_state.attributes.get("api_url")
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "Cached data" # Need to track down why it's cached data
+    assert api_message == None
 
 
 #    assert await entry.async_unload(hass)

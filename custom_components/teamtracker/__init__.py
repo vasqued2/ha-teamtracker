@@ -140,7 +140,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
 
     # Fetch initial data so we have data when entities subscribe
-    await coordinator.async_refresh()
+#    await coordinator.async_refresh()
 
     # For UI, use entry_id as index
     hass.data[DOMAIN][entry.entry_id] = {
