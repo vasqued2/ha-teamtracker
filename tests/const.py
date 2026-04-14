@@ -90,7 +90,7 @@ CONFIG_DATA4 = {
 # Config w/ team_id = integer and NOT_FOUND
 CONFIG_DATA5 = {
     "league_id": "NCAAF",
-    "team_id": "195",
+    "team_id": "195",  # Bad Team ID
     "name": "test_tt_all_test99",
     "timeout": 120,
     "conference_id": "15", # Force API, which will fail

@@ -50,7 +50,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
-from . utils import is_integer
+from . utils import is_integer, async_call_espn_api2, async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -798,4 +798,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             lang,
         )
 
+        if (values["state"] == "NOT_FOUND" and is_integer(team_id)):
+            url = (
+                f"https://site.api.espn.com/apis/site/v2/sports"
+                f"/{self.sport_path}/{self.league_path}/teams/{team_id}"
+            )
+            file_override = (self.conference_id == "9999")
+            team_data = await async_call_espn_api2(hass, sensor_name, team_id, url, file_override)
+            if team_data:
+                values["team_id"] = team_id
+                values["team_abbr"] = await async_get_value(team_data, "team", "abbreviation", default=team_id)
+        
         return values

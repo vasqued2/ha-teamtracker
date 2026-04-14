@@ -113,7 +113,7 @@ async def test_setup_NOT_FOUND_api_error(
 
     assert sensor_state.state == "NOT_FOUND"
     team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "195"    # Change to team abbreviation (OHIO) when fix implemented
+    assert team_abbr == "195"    # Internet down so can't look up team_abbr
     sport = sensor_state.attributes.get("sport")
     assert sport == "football"
 #    date = sensor_state.attributes.get("date")
@@ -121,8 +121,7 @@ async def test_setup_NOT_FOUND_api_error(
     api_url = sensor_state.attributes.get("api_url")
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=15"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "API error, no data returned" # Need to track down why it's cached data
-
+    assert api_message == "API error, no data returned" 
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
@@ -156,8 +155,10 @@ async def test_setup_NOT_FOUND_no_team_id(
     sensor_state = hass.states.get("sensor.test_tt_all_test99")
 
     assert sensor_state.state == "NOT_FOUND"
+    team_id = sensor_state.attributes.get("team_id")
+    assert team_id == "195"    # Populate Team ID w/ provided team_id
     team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "195"    # Change to team abbreviation (OHIO) when fix implemented
+    assert team_abbr == "OSU"    # Change to team abbreviation (OSU)
     sport = sensor_state.attributes.get("sport")
     assert sport == "football"
     date = sensor_state.attributes.get("date")

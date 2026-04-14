@@ -79,16 +79,27 @@ async def async_call_espn_api2(hass, sensor_name, team_id, url, file_override=Fa
 async def async_override_espn_api2(sensor_name, team_id, url) -> dict:
     """Read a json file to mock the ESPN API."""
 
+    clean_url = url.split('?')[0]
+
     _LOGGER.debug("%s: Overriding ESPN API (%s) for '%s'", sensor_name, url, team_id)
-    if "schedule" in url:
+    if "schedule" in clean_url:
         file_path = "/share/tt/schedule.json"
         if not os.path.exists(file_path):
             file_path = "tests/tt/schedule.json"
-    elif "teams" in url:
-        file_path = "/share/tt/teams.json"
-        if not os.path.exists(file_path):
-            file_path = "tests/tt/teams.json"
-    elif "/all/" in url:
+    elif "teams" in clean_url:
+        if clean_url[-1].isdigit(): # if there is any team identifier, use team 194
+            file_path = "/share/tt/teams-194.json"
+            if not os.path.exists(file_path):
+                file_path = "tests/tt/teams-194.json"
+        elif "football" in clean_url:
+            file_path = "/share/tt/teams-ncaaf-small.json"
+            if not os.path.exists(file_path):
+                file_path = "tests/tt/teams-ncaaf-small.json"
+        else:
+            file_path = "/share/tt/teams.json"
+            if not os.path.exists(file_path):
+                file_path = "tests/tt/team.json"
+    elif "/all/" in clear_url:
         file_path = "/share/tt/scoreboard_all_leagues.json"
         if not os.path.exists(file_path):
             file_path = "tests/tt/scoreboard_all_leagues.json"
