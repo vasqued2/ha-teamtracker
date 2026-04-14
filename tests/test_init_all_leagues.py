@@ -377,7 +377,7 @@ async def test_all_leagues_team_abbr(hass):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260320-20260326&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260320-20260619&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == "Cached data" # data refresh is called twice on setup, so 2nd time uses cache
 #
