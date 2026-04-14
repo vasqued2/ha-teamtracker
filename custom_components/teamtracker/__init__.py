@@ -15,6 +15,7 @@ from async_timeout import timeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_entries_for_config_entry,
     async_get,
@@ -290,6 +291,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             await self._session.close()
             _LOGGER.debug("%s: Closed aiohttp session", self.name)
 
+
+    async def async_fetch_season_stats(self) -> dict:
+        """Placeholder — implemented in feat/new-features."""
+        return {}
 
     async def async_fetch_league_standing(self) -> dict:
         """Fetch this team's row from the ESPN standings table (cached for 6 h)."""
