@@ -50,7 +50,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
-from . utils import is_integer, async_call_espn_api2, async_get_value
+from .utils import is_integer, async_call_espn_api2, async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
