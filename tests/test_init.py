@@ -7,7 +7,7 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA5, CONFIG_DATA6
+from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA5, CONFIG_DATA6, CONFIG_DATA7
 import logging
 _LOGGER = logging.getLogger(__name__)
 
@@ -229,6 +229,43 @@ async def test_setup_recreate_blank_api_url(
     assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
+
+
+    """ test setup of 2nd MLB team """
+
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="team_tracker",
+        data=CONFIG_DATA7,
+    )
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 2
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 2
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA7
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test07")
+
+    assert sensor_state.state == "POST"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "CIN"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "baseball"
+    date = sensor_state.attributes.get("date")
+    assert date == "2022-09-08T18:20Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == ""
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "Cached data"
 
 
 #    assert await entry.async_unload(hass)
