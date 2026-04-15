@@ -8,7 +8,6 @@ import os
 import re
 
 import aiofiles
-import aiohttp
 import arrow
 from async_timeout import timeout
 
@@ -20,6 +19,7 @@ from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_get,
     async_get as async_get_entity_registry,
 )
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .clear_values import async_clear_values
@@ -159,13 +159,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
 
-    # Shut down the coordinator first to close aiohttp session
-    if entry.entry_id in hass.data[DOMAIN]:
-        coordinator = hass.data[DOMAIN][entry.entry_id].get(COORDINATOR)
-        if coordinator:
-            if hasattr(coordinator, "async_shutdown"):
-                await coordinator.async_shutdown()
-                
     # Unload platforms
     unload_ok = all(
         await asyncio.gather(
@@ -249,26 +242,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
-        self._session = None  # ADD: Track aiohttp session
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
             "%s: Using default refresh rate (%s)", self.name, self.update_interval
         )
-
-    # ADD: New method to get or create session
-    async def get_session(self):
-        """Get or create aiohttp session."""
-        if self._session is None or self._session.closed:
-            self._session = aiohttp.ClientSession()
-        return self._session
-
-    # ADD: New method to cleanup
-    async def async_shutdown(self):
-        """Cleanup coordinator resources."""
-        if self._session and not self._session.closed:
-            await self._session.close()
-            _LOGGER.debug("%s: Closed aiohttp session", self.name)
 
 
     #
@@ -580,7 +558,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 _LOGGER.debug("%s: API file read failed: %s", sensor_name, e)
                 data = None                
         else:
-            session = await self.get_session()
+            session = async_get_clientsession(self.hass)
             try:
                 async with session.get(url, headers=headers) as r:
                     _LOGGER.debug(
@@ -647,7 +625,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 contents = await f.read()
             data = json.loads(contents)
         else:
-            session = await self.get_session()
+            session = async_get_clientsession(self.hass)
             try:
                 async with session.get(url, headers=headers) as r:
                     _LOGGER.debug(
