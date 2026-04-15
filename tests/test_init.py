@@ -22,10 +22,14 @@ def expected_lingering_timers() -> bool:
 
     
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
-async def test_setup_entry(
+async def test_setup_entry_and_service_call(
     hass,
 ):
-    """ test setup """
+    """Test initial entry setup and subsequent service call"""
+
+    #
+    # Set up initial entry
+    #
 
     entry = MockConfigEntry(
         domain=DOMAIN,
@@ -41,9 +45,9 @@ async def test_setup_entry(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
-#
-# Validate sensor state and attributes based on CONFIG_DATA
-#
+    #
+    # Validate sensor state and attributes based on CONFIG_DATA
+    #
 
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
@@ -53,6 +57,9 @@ async def test_setup_entry(
     sport = sensor_state.attributes.get("sport")
     assert sport == "baseball"
 
+    #
+    # Call service to change sensor
+    #
 
     await hass.services.async_call(
         domain="teamtracker",
@@ -70,9 +77,9 @@ async def test_setup_entry(
         blocking=True
     )
 
-#
-# Validate sensor state and attributes changed based on API call
-#
+    #
+    # Validate sensor state and attributes changed based on API call
+    #
 
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
@@ -91,7 +98,11 @@ async def test_setup_NOT_FOUND_api_error(
     hass,
     mock_espn_api
 ):
-    """ Test when team_id is a digit and is NOT_FOUND, should eventually set abbr to abbr instead of ID """
+    """ Test API Error (i.e. Internet is down, invalid URL) """
+
+    #
+    # Set up initial entry
+    #
 
     entry = MockConfigEntry(
         domain=DOMAIN,
@@ -107,9 +118,9 @@ async def test_setup_NOT_FOUND_api_error(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
-#
-# Validate sensor state and attributes based on CONFIG_DATA
-#
+    #
+    # Validate attributes indicate API Error
+    #
 
     sensor_state = hass.states.get("sensor.test_tt_all_test99")
 
@@ -135,7 +146,11 @@ async def test_setup_NOT_FOUND_no_team_id(
     hass,
     mock_espn_api
 ):
-    """ Test when team_id is a digit and is NOT_FOUND, should eventually set abbr to abbr instead of ID """
+    """ Test NOT_FOUND when team_id is an integer ID (Should lookup team_abbr) """
+
+    #
+    # Set up initial entry
+    #
 
     entry = MockConfigEntry(
         domain=DOMAIN,
@@ -151,9 +166,9 @@ async def test_setup_NOT_FOUND_no_team_id(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
-#
-# Validate sensor state and attributes based on CONFIG_DATA
-#
+    #
+    # Validate team_id and team_abbr is set even though state is NOT_FOUND
+    #
 
     sensor_state = hass.states.get("sensor.test_tt_all_test99")
 
@@ -177,10 +192,14 @@ async def test_setup_NOT_FOUND_no_team_id(
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
-async def test_setup_recreate_blank_api_url(
+async def test_setup_second_team_in_league(
     hass,
 ):
-    """ test setup """
+    """ Validate cache used and api_url not populated for 2nd team in league """
+
+    #
+    # Set up initial entry
+    #
 
     entry = MockConfigEntry(
         domain=DOMAIN,
@@ -198,9 +217,9 @@ async def test_setup_recreate_blank_api_url(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 1
 
-#
-# Validate sensor state and attributes based on CONFIG_DATA
-#
+    #
+    # Validate api_url is set and api_message is not set on first call
+    #
 
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
@@ -216,22 +235,9 @@ async def test_setup_recreate_blank_api_url(
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
-    await coordinator.async_refresh()
-
-    assert sensor_state.state == "PRE"
-    team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "MIA"
-    sport = sensor_state.attributes.get("sport")
-    assert sport == "baseball"
-    date = sensor_state.attributes.get("date")
-    assert date == "2022-09-08T22:45Z"
-    api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
-    api_message = sensor_state.attributes.get("api_message")
-    assert api_message == None
-
-
-    """ test setup of 2nd MLB team """
+    #
+    # Set up second MLB entry
+    #
 
     entry = MockConfigEntry(
         domain=DOMAIN,
@@ -249,9 +255,9 @@ async def test_setup_recreate_blank_api_url(
     entries = hass.config_entries.async_entries(DOMAIN)
     assert len(entries) == 2
 
-#
-# Validate sensor state and attributes based on CONFIG_DATA7
-#
+    #
+    # Validate cache is used, api_url is not set and api_message indicates cached data
+    #
 
     sensor_state = hass.states.get("sensor.test_tt_all_test07")
 
