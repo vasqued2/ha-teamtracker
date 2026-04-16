@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Buscar Equipo",
-        "description": "Escriba el nombre para buscar el equipo de {league_name}, o deje en blanco para ingresar el ID del equipo manualmente.\n\n[Explorar equipos en ESPN]({league_url})",
+        "description": "Escriba el nombre para buscar el equipo de {league_name}, o deje en blanco para ingresar el ID del equipo manualmente.",
         "data": {
           "search_team": "Buscar nombre del equipo (opcional)"
         }
@@ -59,6 +59,13 @@
         "data": {
           "sport_path": "Ruta del Deporte (Sport Path)",
           "league_path": "Ruta de la Liga (League Path)"
+        }
+      },
+      "finalize": {
+        "title": "Confirmar nombre",
+        "description": "Confirmar/cambiar el nombre del sensor para {league_name} {team_name}",
+        "data": {
+          "name": "Nombre amigable"
         }
       }
     }

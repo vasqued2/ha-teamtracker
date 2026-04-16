@@ -22,7 +22,7 @@
       },
       "search": {
         "title": "Search Team",
-        "description": "Type name to search for the {league_name} team, or leave blank to enter the team ID manually.\n\n[Browse teams on ESPN]({league_url})",
+        "description": "Type name to search for the {league_name} team, or leave blank to enter the team ID manually.",
         "data": {
           "search_team": "Search team name (optional)"
         }
@@ -59,6 +59,13 @@
         "data": {
           "sport_path": "Sport Path",
           "league_path": "League Path"
+        }
+      },
+      "finalize": {
+        "title": "Confirm Name",
+        "description": "Confirm/change the name for the {league_name} {team_name} sensor",
+        "data": {
+          "name": "Friendly Name"
         }
       }
     }

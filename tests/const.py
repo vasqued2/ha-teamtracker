@@ -90,17 +90,25 @@ CONFIG_DATA4 = {
 # Config w/ team_id = integer and NOT_FOUND
 CONFIG_DATA5 = {
     "league_id": "NCAAF",
-    "team_id": "195",
+    "team_id": "195",  # Bad Team ID
     "name": "test_tt_all_test99",
     "timeout": 120,
-    "conference_id": "15",
+    "conference_id": "15", # Force API, which will fail
 }
 
 # Config w/ team_id = integer and NOT_FOUND
 CONFIG_DATA6 = {
     "league_id": "NCAAF",
-    "team_id": "OHIO",
+    "team_id": "195",
     "name": "test_tt_all_test99",
+    "timeout": 120,
+    "conference_id": "9999", # Team 195 will not be found in test data
+}
+
+CONFIG_DATA7 = {
+    "league_id": "MLB",
+    "team_id": "CIN",
+    "name": "test_tt_all_test07",
     "timeout": 120,
     "conference_id": "9999",
 }
