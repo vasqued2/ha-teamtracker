@@ -423,7 +423,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         schema_dict = {
             vol.Required(CONF_TEAM_ID): cv.string,
         }
-#        schema_dict[vol.Optional(CONF_NAME, default="")] = cv.string
 
         return self.async_show_form(
             step_id="manual_team",
@@ -455,11 +454,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_LEAGUE_PATH:   paths[CONF_LEAGUE_PATH],
             }
 
-#            return self.async_create_entry(
-#                title=f"{self._league_id} - {user_input[CONF_TEAM_ID]}",
-#                data=self._entry_data,
-#            )
-
             return await self.async_step_finalize()
 
         sport_name = _SPORT_GROUPS.get(self._sport_key, ("",))[0]
@@ -467,8 +461,6 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         schema = vol.Schema(
             {
                 vol.Required(CONF_TEAM_ID): cv.string,
-#                vol.Optional(CONF_CONFERENCE_ID, default=DEFAULT_CONFERENCE_ID): cv.string,
-#                vol.Optional(CONF_NAME, default=""): cv.string,
             }
         )
         return self.async_show_form(

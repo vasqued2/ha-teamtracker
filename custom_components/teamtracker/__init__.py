@@ -781,8 +781,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 f"https://site.api.espn.com/apis/site/v2/sports"
                 f"/{self.sport_path}/{self.league_path}/teams/{team_id}"
             )
-            file_override = (self.conference_id == "9999")
-            team_data = await async_call_espn_api2(hass, sensor_name, team_id, url, file_override)
+            team_data = await async_call_espn_api2(hass, sensor_name, team_id, url)
             if team_data:
                 values["team_id"] = team_id
                 values["team_abbr"] = await async_get_value(team_data, "team", "abbreviation", default=team_id)
