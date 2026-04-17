@@ -69,7 +69,8 @@
         "title": "Možnosti Team Tracker",
         "description": "Zadajte 2-miestny kód jazyka, ktorý sa má použiť pre volanie API.",
         "data": {
-          "api_language": "Jazyk API"
+          "api_language": "Jazyk API",
+          "show_last_update": "Zobrazit atribut last_update (moze sposobit spam v DB pocas zivych zapasov)"
         }
       }
     }

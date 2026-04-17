@@ -69,7 +69,8 @@
         "title": "Team Tracker Options",
         "description": "Enter the 2-character language code to use for the API call.",
         "data": {
-          "api_language": "API Language"
+          "api_language": "API Language",
+          "show_last_update": "Show last_update attribute (may cause DB spam during live games)"
         }
       }
     }

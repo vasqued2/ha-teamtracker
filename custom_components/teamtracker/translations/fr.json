@@ -69,7 +69,8 @@
         "title": "Options de Team Tracker",
         "description": "Saisissez le code de langue à 2 caractères à utiliser pour l'appel API.",
         "data": {
-          "api_language": "Langue de l'API"
+          "api_language": "Langue de l'API",
+          "show_last_update": "Afficher l'attribut last_update (peut causer du spam en BD pendant les matchs en direct)"
         }
       }
     }

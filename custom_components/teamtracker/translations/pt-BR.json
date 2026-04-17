@@ -69,7 +69,8 @@
         "title": "Opções do Team Tracker",
         "description": "Insira o código de idioma de 2 caracteres para usar na chamada da API.",
         "data": {
-          "api_language": "Idioma da API"
+          "api_language": "Idioma da API",
+          "show_last_update": "Mostrar atributo last_update (pode causar spam no BD durante jogos ao vivo)"
         }
       }
     }
