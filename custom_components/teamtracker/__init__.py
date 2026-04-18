@@ -595,10 +595,12 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if d1_override is not None and d2_override is not None:
             url_parms = url_parms + "&dates=" + d1_override + "-" + d2_override
-        elif sport_path not in ("tennis", "baseball"):
+        elif sport_path not in ("tennis"):
             d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
             if league_path == "all":
                 d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
+            elif sport_path in ("baseball"):
+                d2 = (date.today() + timedelta(days=1)).strftime("%Y%m%d")
             else:
                 d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
             url_parms = url_parms + "&dates=" + d1 + "-" + d2

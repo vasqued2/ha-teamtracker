@@ -1,4 +1,5 @@
 """ Test TeamTracker Sensor """
+from freezegun import freeze_time
 
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -20,6 +21,7 @@ def expected_lingering_timers() -> bool:
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
+@freeze_time("2026-03-21 10:00:00")
 async def test_sensor(hass, mocker):
     """ test sensor """
 
@@ -59,7 +61,7 @@ async def test_sensor(hass, mocker):
     date = sensor_state.attributes.get("date")
     assert date == "2022-09-08T22:45Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
