@@ -17,7 +17,7 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vasqued2)
 
 ## Supported Teams and Leagues
-TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN scoreboard API exists.  
+TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN scoreboard API exists. There is also support for PWHL games through the hockeytech API.
 
 A small subset of the most popular teams/leagues have been pre-configured to simplify their setup.  This is referred to as native support.  Unfortunately, given the large number of teams/leagues for which APIs exist, it is impossible to provide native support for all of them.  
 
@@ -31,7 +31,7 @@ The following leagues are supported natively:
 - Basketball - NBA, WNBA, NCAAM, NCAAW, WNBA
 - Football - NFL, NCAAF, XFL
 - Golf - PGA
-- Hockey - NHL
+- Hockey - NHL, PWHL
 - MMA - UFC
 - U.S. Soccer - MLS, NWSL
 - International Soccer - BUND (German Bundesliga), CL (Champions League), CLA (Conmebol Libertadores), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup), WWC (Women's World Cup)
@@ -114,6 +114,7 @@ The `league_id` configuration key is used the specify the league for the sensor.
 - NFL (National Football League)
 - NWSL (National Women's Soccer League)
 - PGA (Professional Golfers' Assc.)
+- PWHL (Professional Womens' Hockey League)
 - SERA (Italian Serie A)
 - UFC (Ultimate Fighting Championship)
 - XFL (XFL)
