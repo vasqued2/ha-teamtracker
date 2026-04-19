@@ -1,4 +1,5 @@
 """ Test TeamTracker Sensor """
+from freezegun import freeze_time
 
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -6,6 +7,7 @@ from typing import Any
 from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
 from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
+from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 
 
 @pytest.fixture(autouse=False)
@@ -19,6 +21,7 @@ def expected_lingering_timers() -> bool:
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
+@freeze_time("2026-03-21 10:00:00")
 async def test_sensor(hass, mocker):
     """ test sensor """
 
@@ -35,6 +38,33 @@ async def test_sensor(hass, mocker):
     await hass.async_block_till_done()
 
     assert "teamtracker" in hass.config.components
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA3
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test01")
+
+    assert sensor_state.state == "PRE"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "MIA"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "baseball"
+    league_name = sensor_state.attributes.get("league_name")
+    assert league_name == "Major League Baseball"
+    event_name = sensor_state.attributes.get("event_name")
+    assert event_name == "MIA @ PHI"
+    date = sensor_state.attributes.get("date")
+    assert date == "2022-09-08T22:45Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == None
+
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()

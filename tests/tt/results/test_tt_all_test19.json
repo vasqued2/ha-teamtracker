@@ -65,7 +65,7 @@
     "opponent_sets_won": 0,
     "last_update": "2022-02-02 02:02:02-05:00",
     "api_message": null,
-    "api_url": "http://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?lang=en&limit=25&groups=9999",
+    "api_url": "http://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?lang=en&limit=50&groups=9999",
     "private_fast_refresh": false,
     "state": "POST"
 }

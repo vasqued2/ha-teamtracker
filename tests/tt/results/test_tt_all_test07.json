@@ -71,7 +71,7 @@
     "opponent_sets_won": null,
     "last_update": "2022-02-02 02:02:02-05:00",
     "api_message": null,
-    "api_url": "http://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?lang=en&limit=25&dates=20250417-20250423&groups=9999",
+    "api_url": "http://site.api.espn.com/apis/site/v2/sports/soccer/usa.nwsl/scoreboard?lang=en&limit=50&dates=20260331-20260630&groups=9999",
     "private_fast_refresh": false,
     "state": "PRE"
 }

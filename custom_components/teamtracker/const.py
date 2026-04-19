@@ -193,9 +193,11 @@ RAPID_REFRESH_RATE = timedelta(seconds=5)
 # Services
 SERVICE_NAME_CALL_API = "call_api"
 
+INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
+
 # Misc
 TEAM_ID = ""
-VERSION = "v0.15.0"
+VERSION = "v0.16.1"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 ATTRIBUTION = "Data provided by ESPN"

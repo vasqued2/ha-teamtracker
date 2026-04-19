@@ -5,11 +5,11 @@ import json
 import locale
 import logging
 import os
+import re
 
 import re
 
 import aiofiles
-import aiohttp
 import arrow
 from async_timeout import timeout
 
@@ -21,6 +21,7 @@ from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
     async_get,
     async_get as async_get_entity_registry,
 )
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .clear_values import async_clear_values
@@ -51,6 +52,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
+from .utils import is_integer, async_call_espn_api2, async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -140,7 +142,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
 
     # Fetch initial data so we have data when entities subscribe
-    await coordinator.async_refresh()
+#    await coordinator.async_refresh()
 
     # For UI, use entry_id as index
     hass.data[DOMAIN][entry.entry_id] = {
@@ -159,13 +161,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
 
-    # Shut down the coordinator first to close aiohttp session
-    if entry.entry_id in hass.data[DOMAIN]:
-        coordinator = hass.data[DOMAIN][entry.entry_id].get(COORDINATOR)
-        if coordinator:
-            if hasattr(coordinator, "async_shutdown"):
-                await coordinator.async_shutdown()
-                
     # Unload platforms
     unload_ok = all(
         await asyncio.gather(
@@ -249,26 +244,11 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
-        self._session = None  # ADD: Track aiohttp session
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
             "%s: Using default refresh rate (%s)", self.name, self.update_interval
         )
-
-    # ADD: New method to get or create session
-    async def _get_session(self):
-        """Get or create aiohttp session."""
-        if self._session is None or self._session.closed:
-            self._session = aiohttp.ClientSession()
-        return self._session
-
-    # ADD: New method to cleanup
-    async def async_shutdown(self):
-        """Cleanup coordinator resources."""
-        if self._session and not self._session.closed:
-            await self._session.close()
-            _LOGGER.debug("%s: Closed aiohttp session", self.name)
 
 
     #
@@ -307,7 +287,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         lang = self.get_lang()
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all":
+        if league_path == "all" and is_integer(self.team_id):
             key += ":" + team_id
 
         if key in TeamTrackerDataUpdateCoordinator.data_cache:
@@ -356,7 +336,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         # For "all" leagues, include team_id in cache key since each team
         # uses different narrow date windows for the scoreboard call.
         key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all":
+        if league_path == "all" and is_integer(self.team_id):
             key += ":" + self.team_id
 
         #
@@ -371,7 +351,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             if now < expiration:
                 data = self.data_cache[key]
                 values = await self.async_update_values(config, hass, data, lang)
-                if league_path == "all":
+                if league_path == "all" and is_integer(self.team_id):
                     values = await self._enrich_league_name(values)
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
@@ -385,7 +365,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         #  within the 50-event API limit across all competitions.
         #  For other leagues, use the default date computation.
         #
-        if league_path == "all":
+        if league_path == "all" and is_integer(self.team_id):
             schedule_info = await self.async_get_team_schedule(lang)
             next_game_date = schedule_info.get("next_game_date") if schedule_info else None
 
@@ -483,43 +463,25 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             return cached
 
         team_url = URL_HEAD + sport_path + "/" + league_path + "/teams/" + team_id
-        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
-        session = await self._get_session()
 
         id_to_competition = {}
         next_events = []
 
-        try:
-            async with session.get(team_url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Team info call for '%s' from %s",
-                    sensor_name, team_id, team_url,
-                )
-                if r.status == 200:
-                    team_data = await r.json()
-                    next_events = team_data.get("team", {}).get("nextEvent", [])
-                    for ne in next_events:
-                        display = ne.get("season", {}).get("displayName")
-                        if ne.get("id") and display:
-                            id_to_competition[ne["id"]] = display
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team info call failed: %s", sensor_name, e)
+        team_data = await self.async_call_espn_api(team_url)
+        if team_data:
+            next_events = team_data.get("team", {}).get("nextEvent", [])
+            for ne in next_events:
+                display = ne.get("season", {}).get("displayName")
+                if ne.get("id") and display:
+                    id_to_competition[ne["id"]] = display
 
-        try:
-            schedule_url = team_url + "/schedule"
-            async with session.get(schedule_url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Team schedule call for '%s' from %s",
-                    sensor_name, team_id, schedule_url,
-                )
-                if r.status == 200:
-                    sched_data = await r.json()
-                    for e in sched_data.get("events", []):
-                        display = e.get("season", {}).get("displayName")
-                        if e.get("id") and display:
-                            id_to_competition[e["id"]] = display
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: Team schedule call failed: %s", sensor_name, e)
+        schedule_url = team_url + "/schedule"
+        sched_data = await self.async_call_espn_api(schedule_url)
+        if sched_data:
+            for e in sched_data.get("events", []):
+                display = e.get("season", {}).get("displayName")
+                if e.get("id") and display:
+                    id_to_competition[e["id"]] = display
 
         next_game_date = (
             date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
@@ -553,6 +515,67 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         return values
 
+
+    #
+    #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
+    #
+    async def async_call_espn_api(self, url) -> dict:
+        """Query API for status."""
+
+        team_id = self.team_id
+        sensor_name = self.name
+
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+        sensor_name = self.name
+        data = None
+        file_override = False
+        if self.conference_id:
+            if self.conference_id == "9999":
+                file_override = True
+
+        if file_override:
+            _LOGGER.debug("%s: Overriding ESPN API (%s) for '%s'", sensor_name, url, team_id)
+            if "schedule" in url:
+                file_path = "/share/tt/schedule.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/schedule.json"
+            elif "teams" in url:
+                file_path = "/share/tt/teams.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/teams.json"
+            elif "/all/" in url:
+                file_path = "/share/tt/scoreboard_all_leagues.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/scoreboard_all_leagues.json"
+            else:
+                file_path = "/share/tt/all.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/all.json"
+            try:
+                async with aiofiles.open(file_path, mode="r") as f:
+                    contents = await f.read()
+                data = json.loads(contents)
+            except Exception as e: # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: API file read failed: %s", sensor_name, e)
+                data = None                
+        else:
+            session = async_get_clientsession(self.hass)
+            try:
+                async with session.get(url, headers=headers) as r:
+                    _LOGGER.debug(
+                        "%s: Calling API for '%s' from %s",
+                        sensor_name,
+                        team_id,
+                        url,
+                    )
+                    if r.status == 200:
+                        data = await r.json()
+            except Exception as e: # pylint: disable=broad-exception-caught
+                _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+                data = None
+            
+        return data
+
     #
     #  Call the API (or file override) and get the data returned by it
     #
@@ -572,10 +595,12 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if d1_override is not None and d2_override is not None:
             url_parms = url_parms + "&dates=" + d1_override + "-" + d2_override
-        elif sport_path not in ("tennis", "baseball"):
+        elif sport_path not in ("tennis"):
             d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
             if league_path == "all":
                 d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
+            elif sport_path in ("baseball"):
+                d2 = (date.today() + timedelta(days=1)).strftime("%Y%m%d")
             else:
                 d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
             url_parms = url_parms + "&dates=" + d1 + "-" + d2
@@ -589,14 +614,20 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if file_override:
             _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
-            file_path = "/share/tt/all.json"
-            if not os.path.exists(file_path):
-                file_path = "tests/tt/all.json"
+
+            if "/all/" in url:
+                file_path = "/share/tt/scoreboard_all_leagues.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/scoreboard_all_leagues.json"
+            else:
+                file_path = "/share/tt/all.json"
+                if not os.path.exists(file_path):
+                    file_path = "tests/tt/all.json"
             async with aiofiles.open(file_path, mode="r") as f:
                 contents = await f.read()
             data = json.loads(contents)
         else:
-            session = await self._get_session()
+            session = async_get_clientsession(self.hass)
             try:
                 async with session.get(url, headers=headers) as r:
                     _LOGGER.debug(
@@ -747,4 +778,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             lang,
         )
 
+        if (values["state"] == "NOT_FOUND" and is_integer(team_id)):
+            url = (
+                f"https://site.api.espn.com/apis/site/v2/sports"
+                f"/{self.sport_path}/{self.league_path}/teams/{team_id}"
+            )
+            team_data = await async_call_espn_api2(hass, sensor_name, team_id, url)
+            if team_data:
+                values["team_id"] = team_id
+                values["team_abbr"] = await async_get_value(team_data, "team", "abbreviation", default=team_id)
+        
         return values
