@@ -70,7 +70,7 @@
         "description": "Voer de taalcode van 2 tekens in die moet worden gebruikt voor de API-aanroep.",
         "data": {
           "api_language": "API Taal",
-          "show_last_update": "Show last_update attribute (may cause DB spam during live games)"
+          "record_last_update": "Kenmerk last_update opslaan in de Recorder"
         }
       }
     }

@@ -70,7 +70,7 @@
         "description": "Geben Sie den 2-stelligen Sprachcode fÃ¼r den API-Aufruf ein.",
         "data": {
           "api_language": "API-Sprache",
-          "show_last_update": "last_update-Attribut anzeigen (kann waehrend Live-Spielen zu DB-Spam fuehren)"
+          "record_last_update": "Attribut last_update im Recorder speichern"
         }
       }
     }

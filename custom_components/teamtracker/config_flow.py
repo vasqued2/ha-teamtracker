@@ -15,7 +15,7 @@ from homeassistant.helpers.selector import BooleanSelector
 
 from .const import (
     CONF_API_LANGUAGE,
-    CONF_SHOW_LAST_UPDATE,
+    CONF_RECORD_LAST_UPDATE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -531,13 +531,13 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
         ):
             lang = self.entry.options[CONF_API_LANGUAGE]
 
-        show_last_update = False
+        record_last_update = False
         if (
             self.entry
             and self.entry.options
-            and CONF_SHOW_LAST_UPDATE in self.entry.options
+            and CONF_RECORD_LAST_UPDATE in self.entry.options
         ):
-            show_last_update = self.entry.options[CONF_SHOW_LAST_UPDATE]
+            record_last_update = self.entry.options[CONF_RECORD_LAST_UPDATE]
 
         options_schema = vol.Schema(
             {
@@ -547,8 +547,8 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
                     default="",
                 ): cv.string,
                 vol.Optional(
-                    CONF_SHOW_LAST_UPDATE,
-                    default=show_last_update,
+                    CONF_RECORD_LAST_UPDATE,
+                    default=record_last_update,
                 ): BooleanSelector(),
             }
         )

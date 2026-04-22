@@ -70,7 +70,7 @@
         "description": "Ingrese el código de idioma de 2 caracteres para usar en la llamada a la API.",
         "data": {
           "api_language": "Idioma de la API",
-          "show_last_update": "Mostrar atributo last_update (puede causar spam en la BD durante partidos en vivo)"
+          "record_last_update": "Guardar el atributo last_update en el Recorder"
         }
       }
     }

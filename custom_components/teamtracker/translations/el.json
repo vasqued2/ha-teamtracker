@@ -70,7 +70,7 @@
         "description": "Εισαγάγετε τον διψήφιο κωδικό γλώσσας για χρήση στην κλήση API.",
         "data": {
           "api_language": "Γλώσσα API",
-          "show_last_update": "Show last_update attribute (may cause DB spam during live games)"
+          "record_last_update": "Αποθήκευση του χαρακτηριστικού last_update στο Recorder"
         }
       }
     }

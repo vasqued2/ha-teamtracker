@@ -70,7 +70,7 @@
         "description": "Ange den 2-ställiga språkkoden som ska användas för API-anropet.",
         "data": {
           "api_language": "API Språk",
-          "show_last_update": "Show last_update attribute (may cause DB spam during live games)"
+          "record_last_update": "Spara attributet last_update i Recorder"
         }
       }
     }

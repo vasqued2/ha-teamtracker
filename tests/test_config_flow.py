@@ -2,7 +2,7 @@
 from unittest.mock import patch
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.teamtracker.const import DOMAIN, CONF_API_LANGUAGE, CONF_SHOW_LAST_UPDATE
+from custom_components.teamtracker.const import DOMAIN, CONF_API_LANGUAGE, CONF_RECORD_LAST_UPDATE
 from homeassistant import setup
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from tests.const import CONFIG_DATA
@@ -322,11 +322,11 @@ async def test_options_flow_init(hass):
 
     # Submit Form with Options
     result = await hass.config_entries.options.async_configure(
-        result["flow_id"], user_input={"api_language": "en", "show_last_update": False}
+        result["flow_id"], user_input={"api_language": "en", "record_last_update": False}
     )
 
     assert "create_entry" == result["type"]
     assert "" == result["title"]
-    assert {CONF_API_LANGUAGE: "en", CONF_SHOW_LAST_UPDATE: False} == result["data"]
+    assert {CONF_API_LANGUAGE: "en", CONF_RECORD_LAST_UPDATE: False} == result["data"]
 
     await hass.async_block_till_done()
