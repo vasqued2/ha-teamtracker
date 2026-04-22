@@ -13,6 +13,7 @@ USER_AGENT = (
 
 # Config
 CONF_API_LANGUAGE = "api_language"
+CONF_RECORD_LAST_UPDATE = "record_last_update"
 CONF_CONFERENCE_ID = "conference_id"
 CONF_LEAGUE_ID = "league_id"
 CONF_LEAGUE_PATH = "league_path"

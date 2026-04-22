@@ -76,7 +76,8 @@
         "title": "Možnosti Team Tracker",
         "description": "Zadajte 2-miestny kód jazyka, ktorý sa má použiť pre volanie API.",
         "data": {
-          "api_language": "Jazyk API"
+          "api_language": "Jazyk API",
+          "record_last_update": "Uložiť atribút last_update do Recordera"
         }
       }
     }

@@ -19,6 +19,7 @@ from . import TeamTrackerDataUpdateCoordinator
 from .const import (
     ATTRIBUTION,
     CONF_API_LANGUAGE,
+    CONF_RECORD_LAST_UPDATE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -50,6 +51,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_API_LANGUAGE): cv.string,
         vol.Optional(CONF_SPORT_PATH): cv.string,
         vol.Optional(CONF_LEAGUE_PATH): cv.string,
+        vol.Optional(CONF_RECORD_LAST_UPDATE, default=False): cv.boolean,
     }
 )
 
@@ -163,8 +165,13 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
             super().__init__(sensor_coordinator)
             sport_path = entry.data.get(CONF_SPORT_PATH, DEFAULT_SPORT_PATH)
             sensor_name = entry.data[CONF_NAME]
+            self._record_last_update = entry.options.get(CONF_RECORD_LAST_UPDATE, False) if entry.options else False
             
         else:  # YAML setup, use sensor_name as index (assumes sensor_name = entity_id)
+            try:
+                self._record_last_update = config[CONF_RECORD_LAST_UPDATE]
+            except (KeyError, AttributeError):  # pylint: disable=broad-exception-caught
+                self._record_last_update = False
             sensor_name = config[CONF_NAME]
             entry_id = slugify(f"{config.get(CONF_TEAM_ID)}")
             sensor_coordinator = hass.data[DOMAIN][sensor_name][COORDINATOR]
@@ -390,7 +397,10 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         attrs["team_sets_won"] = self.coordinator.data["team_sets_won"]
         attrs["opponent_sets_won"] = self.coordinator.data["opponent_sets_won"]
 
-        attrs["last_update"] = self.coordinator.data["last_update"]
+        if self._record_last_update:
+            attrs["last_update"] = self.coordinator.data["last_update"]
+        else:
+            attrs["last_update"] = ""
         attrs["api_message"] = self.coordinator.data["api_message"]
         attrs["api_url"] = self.coordinator.data["api_url"]
 

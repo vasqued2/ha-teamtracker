@@ -76,7 +76,8 @@
         "title": "Team Tracker Alternativ",
         "description": "Ange den 2-ställiga språkkoden som ska användas för API-anropet.",
         "data": {
-          "api_language": "API Språk"
+          "api_language": "API Språk",
+          "record_last_update": "Spara attributet last_update i Recorder"
         }
       }
     }

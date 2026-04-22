@@ -76,7 +76,8 @@
         "title": "Επιλογές Team Tracker",
         "description": "Εισαγάγετε τον διψήφιο κωδικό γλώσσας για χρήση στην κλήση API.",
         "data": {
-          "api_language": "Γλώσσα API"
+          "api_language": "Γλώσσα API",
+          "record_last_update": "Αποθήκευση του χαρακτηριστικού last_update στο Recorder"
         }
       }
     }

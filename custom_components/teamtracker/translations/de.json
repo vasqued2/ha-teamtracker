@@ -1,21 +1,21 @@
 {
   "config": {
     "error": {
-      "league": "Ungültige Liga eingegeben.",
-      "cannot_fetch_teams": "Teams konnten nicht von ESPN abgerufen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
-      "no_teams_found": "Keine Teams für diesen Suchbegriff gefunden. Versuchen Sie einen anderen Namen oder lassen Sie das Feld für eine manuelle Eingabe leer."
+      "league": "UngÃ¼ltige Liga eingegeben.",
+      "cannot_fetch_teams": "Teams konnten nicht von ESPN abgerufen werden. ÃberprÃ¼fen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "no_teams_found": "Keine Teams fÃ¼r diesen Suchbegriff gefunden. Versuchen Sie einen anderen Namen oder lassen Sie das Feld fÃ¼r eine manuelle Eingabe leer."
     },
     "step": {
       "user": {
-        "title": "Sportart auswählen",
-        "description": "Wählen Sie die Sportart für Ihr Team oder Ihren Athleten.",
+        "title": "Sportart auswÃ¤hlen",
+        "description": "WÃ¤hlen Sie die Sportart fÃ¼r Ihr Team oder Ihren Athleten.",
         "data": {
           "sport_key": "Sportart"
         }
       },
       "league": {
-        "title": "Liga auswählen",
-        "description": "Wählen Sie die {sport_name}-Liga.",
+        "title": "Liga auswÃ¤hlen",
+        "description": "WÃ¤hlen Sie die {sport_name}-Liga.",
         "data": {
           "league_id": "Liga"
         }
@@ -28,8 +28,8 @@
         }
       },
       "select_team": {
-        "title": "Team auswählen",
-        "description": "Wählen Sie Ihr {league_name}-Team aus den Suchergebnissen aus.",
+        "title": "Team auswÃ¤hlen",
+        "description": "WÃ¤hlen Sie Ihr {league_name}-Team aus den Suchergebnissen aus.",
         "data": {
           "team_selection": "Team",
           "name": "Anzeigename (optional)"
@@ -37,7 +37,7 @@
       },
       "manual_team": {
         "title": "Manuelle Teameingabe",
-        "description": "Geben Sie die {league_name}-Teamabkürzung oder die ID-Nummer wie auf ESPN angezeigt ein, oder '*' für das aktive/aktuellste Spiel.",
+        "description": "Geben Sie die {league_name}-TeamabkÃ¼rzung oder die ID-Nummer wie auf ESPN angezeigt ein, oder '*' fÃ¼r das aktive/aktuellste Spiel.",
         "data": {
           "team_id": "Team-ID",
           "conference_id": "Konferenz-Nummer",
@@ -46,7 +46,7 @@
       },
       "manual_athlete": {
         "title": "Manuelle Athleteneingabe",
-        "description": "Geben Sie den Namen des {league_name}-Athleten, einen regulären Ausdruck oder '*' für das aktive/aktuellste Spiel ein.",
+        "description": "Geben Sie den Namen des {league_name}-Athleten, einen regulÃ¤ren Ausdruck oder '*' fÃ¼r das aktive/aktuellste Spiel ein.",
         "data": {
           "team_id": "Athleten-ID",
           "conference_id": "Konferenz-Nummer (nur NCAA)",
@@ -74,9 +74,10 @@
     "step": {
       "init": {
         "title": "Team Tracker Optionen",
-        "description": "Geben Sie den 2-stelligen Sprachcode für den API-Aufruf ein.",
+        "description": "Geben Sie den 2-stelligen Sprachcode fÃ¼r den API-Aufruf ein.",
         "data": {
-          "api_language": "API-Sprache"
+          "api_language": "API-Sprache",
+          "record_last_update": "Attribut last_update im Recorder speichern"
         }
       }
     }

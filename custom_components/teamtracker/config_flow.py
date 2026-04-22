@@ -11,9 +11,11 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.selector import BooleanSelector
 
 from .const import (
     CONF_API_LANGUAGE,
+    CONF_RECORD_LAST_UPDATE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
     CONF_LEAGUE_PATH,
@@ -544,6 +546,14 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
         ):
             lang = self.entry.options[CONF_API_LANGUAGE]
 
+        record_last_update = False
+        if (
+            self.entry
+            and self.entry.options
+            and CONF_RECORD_LAST_UPDATE in self.entry.options
+        ):
+            record_last_update = self.entry.options[CONF_RECORD_LAST_UPDATE]
+
         options_schema = vol.Schema(
             {
                 vol.Optional(
@@ -551,6 +561,10 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
                     description={"suggested_value": lang},
                     default="",
                 ): cv.string,
+                vol.Optional(
+                    CONF_RECORD_LAST_UPDATE,
+                    default=record_last_update,
+                ): BooleanSelector(),
             }
         )
         return self.async_show_form(

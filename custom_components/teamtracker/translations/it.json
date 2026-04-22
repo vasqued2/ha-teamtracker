@@ -76,7 +76,8 @@
         "title": "Opzioni Team Tracker",
         "description": "Inserisci il codice lingua a 2 caratteri da utilizzare per la chiamata API.",
         "data": {
-          "api_language": "Lingua API"
+          "api_language": "Lingua API",
+          "record_last_update": "Salva l'attributo last_update nel Recorder"
         }
       }
     }
