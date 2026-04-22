@@ -57,6 +57,19 @@ _LOGGER = logging.getLogger(__name__)
 # oppo_prob = {}
 
 
+def _slug_to_name(slug: str) -> str:
+    """Convert a season slug like '2025-26-english-premier-league' to 'English Premier League'."""
+    if not slug:
+        return ""
+    body = re.sub(r"^\d{4}(-\d{2})?-", "", slug)
+    if body == slug:
+        return ""
+    def _fmt_word(w):
+        # Uppercase abbreviations (no vowels, e.g. "mls", "nfl"); title-case real words
+        return w.upper() if w.isalpha() and not re.search(r"[aeiou]", w, re.I) else w.title()
+    return " ".join(_fmt_word(w) for w in body.split("-"))
+
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
 
@@ -469,17 +482,27 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         if team_data:
             next_events = team_data.get("team", {}).get("nextEvent", [])
             for ne in next_events:
-                display = ne.get("season", {}).get("displayName")
-                if ne.get("id") and display:
-                    id_to_competition[ne["id"]] = display
+                eid = ne.get("id")
+                if not eid:
+                    continue
+                display = ne.get("season", {}).get("displayName") or _slug_to_name(
+                    ne.get("season", {}).get("slug", "")
+                )
+                if display:
+                    id_to_competition[str(eid)] = display
 
         schedule_url = team_url + "/schedule"
         sched_data = await self.async_call_espn_api(schedule_url)
         if sched_data:
             for e in sched_data.get("events", []):
-                display = e.get("season", {}).get("displayName")
-                if e.get("id") and display:
-                    id_to_competition[e["id"]] = display
+                eid = e.get("id")
+                if not eid:
+                    continue
+                display = e.get("season", {}).get("displayName") or _slug_to_name(
+                    e.get("season", {}).get("slug", "")
+                )
+                if display:
+                    id_to_competition[str(eid)] = display
 
 
         next_game_date = (
@@ -509,6 +532,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             competition = id_to_competition.get(game_id)
             if competition:
                 name = re.sub(r"^\d{4}(-\d{2})?\s+", "", competition)
+                values["league_name"] = name
+                values["league"] = name
+
+        # Fallback: derive from season slug already present in scoreboard data
+        if not values.get("league_name"):
+            name = _slug_to_name(values.get("season") or "")
+            if name:
                 values["league_name"] = name
                 values["league"] = name
 
