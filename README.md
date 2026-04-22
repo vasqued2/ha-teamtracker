@@ -85,10 +85,11 @@ The following configuration keys can be used when setting up a Team Tracker sens
 | name | Friendly Name| No | Friendly name for the sensor | Any valid friendly name |
 | league_id | League | Yes | League ID | [See below](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#specify-the-league-league_id)|
 | team_id | Team / Athlete | Yes | Team Abbreviation, Team ID, Athlete Name, Regular Expression, or Wildcard | [See below](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#specify-the-team-team_id) |
-| api_language | None | No | Overrides default API language | [ISO language code](https://www.andiamo.co.uk/resources/iso-language-codes/) |
+| api_language | Options Flow | No | Overrides default API language | [ISO language code](https://www.andiamo.co.uk/resources/iso-language-codes/) |
 | conference_id | Conference Number | Only if `league_id` is an NCAA football or basketball | Conference ID  | [See below](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#specify-the-conference---for-ncaa-sports-only-conference_id) |
 | sport_path | Sport Path | If `league_id` is `XXX` | Sport Path for Custom API | [See below](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#custom-apis--how-to-determine-the-sport-path-and-league-path-sport_path-league_path) |
 | league_path | League Path | If `league_id` is `XXX` | League Path for Custom API. The value `all` can be used for soccer teams to pull in all matches across all leagues and tournaments. The unique ESPN Team ID should be used for `team_id` when `all` is used. | [See below](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#custom-apis--how-to-determine-the-sport-path-and-league-path-sport_path-league_path) |
+| record_last_update | Options Flow | No | `last_update` atttribute updated and saved to Recorder when `True` | Boolean |
 
 
 #### Specify the League (league_id)
