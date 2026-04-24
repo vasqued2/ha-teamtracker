@@ -96,7 +96,7 @@ async def test_setup_entry_and_service_call(
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_NOT_FOUND_api_error(
     hass,
-    mock_espn_api
+    mock_call_espn_api
 ):
     """ Test API Error (i.e. Internet is down, invalid URL) """
 
@@ -144,7 +144,7 @@ async def test_setup_NOT_FOUND_api_error(
 @freeze_time("2026-03-21 10:00:00")
 async def test_setup_NOT_FOUND_no_team_id(
     hass,
-    mock_espn_api
+    mock_call_espn_api
 ):
     """ Test NOT_FOUND when team_id is an integer ID (Should lookup team_abbr) """
 

@@ -14,13 +14,13 @@ pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
 
 
 @pytest.fixture
-async def mock_espn_api(hass):
+async def mock_call_espn_api(hass):
     """Global fixture to mock the ESPN API and return local JSON data."""
     
     # Path to your test data
     DATA_PATH = "tests/tt/"
 
-    async def _get_mock_data(hass, sensor_name, team_id, url, file_override=False):
+    async def _get_mock_api_data(hass, sensor_name, team_id, url, file_override=False):
         """Helper to load local files based on URL logic."""
 
         if sensor_name == "api_error":
@@ -50,12 +50,12 @@ async def mock_espn_api(hass):
             return None
 
     # Patch the actual utility function
-    with patch("custom_components.teamtracker.utils.async_call_espn_api2", new_callable=AsyncMock) as mock_utils, \
-        patch("custom_components.teamtracker.config_flow.async_call_espn_api2", new_callable=AsyncMock) as mock_cf, \
-        patch("custom_components.teamtracker.async_call_espn_api2", new_callable=AsyncMock) as mock:
-        mock_utils.side_effect = _get_mock_data
-        mock_cf.side_effect = _get_mock_data
-        mock.side_effect = _get_mock_data
+    with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
+        patch("custom_components.teamtracker.config_flow.async_call_espn_api", new_callable=AsyncMock) as mock_cf, \
+        patch("custom_components.teamtracker.async_call_espn_api", new_callable=AsyncMock) as mock:
+        mock_utils.side_effect = _get_mock_api_data
+        mock_cf.side_effect = _get_mock_api_data
+        mock.side_effect = _get_mock_api_data
         yield mock
 
 

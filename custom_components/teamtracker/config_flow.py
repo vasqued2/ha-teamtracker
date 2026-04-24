@@ -23,7 +23,7 @@ from .const import (
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
 )
-from .utils import async_call_espn_api2
+from .utils import async_call_espn_api
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -105,7 +105,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams?limit=1000"
     )
-    data = await async_call_espn_api2(hass, "ConfigFlow-teams", league, url)
+    data = await async_call_espn_api(hass, "ConfigFlow-teams", league, url)
 
     if data:
         raw = (
@@ -144,7 +144,7 @@ async def _fetch_team_conference_id(
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams/{team_id}"
     )
-    data = await async_call_espn_api2(hass, "ConfigFlow-teamGroup", team_id, url)
+    data = await async_call_espn_api(hass, "ConfigFlow-teamGroup", team_id, url)
     if data:
         groups = data.get("team", {}).get("groups") or {}
         return str(groups.get("id", ""))

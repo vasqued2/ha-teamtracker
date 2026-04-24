@@ -94,7 +94,7 @@ async def test_all_leagues_cold_start(hass):
 
 
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_data_cache_hit(hass):
+async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     """Test Case 2: Use internal data_cache to skip API calls during a refresh."""
     
     # 1. INITIAL SETUP 
@@ -142,15 +142,15 @@ async def test_all_leagues_data_cache_hit(hass):
 
     # 4. PATCH AND REFRESH
     # We only patch the coordinator AFTER the setup is done
-    with patch.object(coordinator, "async_call_espn_api", side_effect=mock_snitch) as mock_espn_api:
-        
+    with patch("custom_components.teamtracker.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
+
         # This is the second update attempt
         await coordinator.async_refresh()
 
         # 5. ASSERTIONS
         # This must be 0. If it's > 0, the snitch will print the stack trace 
         # showing exactly which line in the coordinator "leaked" the call.
-        assert mock_espn_api.call_count == 0
+        assert snitch_espn_api.call_count == 0
         
         # Verify the sensor state reflects it used the cache
         sensor_state = hass.states.get("sensor.test_tt_all_test99")
@@ -159,7 +159,7 @@ async def test_all_leagues_data_cache_hit(hass):
 
 
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_all_team_cache_hit(hass):
+async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     """Test Case 3: Use internal all_team_cache to skip API call for league_name."""
     
     # 1. INITIAL SETUP 
@@ -232,7 +232,7 @@ async def test_all_leagues_all_team_cache_hit(hass):
 
     # 4. PATCH AND REFRESH
     # We only patch the coordinator AFTER the setup is done
-    with patch.object(coordinator, "async_call_espn_api", side_effect=mock_snitch) as mock_espn_api:
+    with patch("custom_components.teamtracker.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
         
         # This is the second update attempt
         await coordinator.async_refresh()
@@ -240,7 +240,7 @@ async def test_all_leagues_all_team_cache_hit(hass):
         # 5. ASSERTIONS
         # This must be 0. If it's > 0, the snitch will print the stack trace 
         # showing exactly which line in the coordinator "leaked" the call.
-        assert mock_espn_api.call_count == 0
+        assert snitch_espn_api.call_count == 0
         
         # Verify the sensor state reflects it used the cache
         sensor_state = hass.states.get("sensor.test_tt_all_test99")
@@ -267,7 +267,7 @@ async def test_all_leagues_all_team_cache_hit(hass):
     
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_cold_start(hass):
+async def test_all_leagues_cold_start(hass, mock_call_espn_api):
     """Test Case 1: Cold start falls through to file-based discovery."""
 #
 #   Reset Caches

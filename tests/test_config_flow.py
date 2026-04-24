@@ -81,7 +81,7 @@ async def test_team_from_manual_input(hass):
         await hass.async_block_till_done()
         assert len(mock_setup_entry.mock_calls) == 1
 
-async def test_team_from_league_list(hass, mock_espn_api):
+async def test_team_from_league_list(hass, mock_call_espn_api):
     """Test the multi-step config flow when team selected from list"""
     #
     # Step 1: Initiate the flow
@@ -288,7 +288,7 @@ async def test_custom_api_team_input(hass):
         await hass.async_block_till_done()
         assert len(mock_setup_entry.mock_calls) == 1
 
-async def test_custom_api_team_list(hass, mock_espn_api):
+async def test_custom_api_team_list(hass, mock_call_espn_api):
     """Test the multi-step config flow when team selected from list"""
     #
     # Step 1: Initiate the flow
