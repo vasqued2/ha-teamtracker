@@ -153,6 +153,7 @@ async def async_setup_entry(
 
 class TeamTrackerScoresSensor(CoordinatorEntity):
     """Representation of a Sensor."""
+    _unrecorded_attributes = frozenset({"last_update"})
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry, config: ConfigType) -> None:
         """Initialize the sensor."""
