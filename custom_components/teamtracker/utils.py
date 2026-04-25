@@ -79,6 +79,8 @@ async def async_call_espn_api(hass, sensor_name, team_id, url, file_override=Fal
 async def async_override_espn_api2(sensor_name, team_id, url) -> dict:
     """Read a json file to mock the ESPN API."""
 
+    _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
+
     if sensor_name == "api_error":
         return None
 

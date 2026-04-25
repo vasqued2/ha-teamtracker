@@ -581,36 +581,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         team_id = self.team_id.upper()
         url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
-        if file_override:
-            _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
+        _LOGGER.debug(
+            "%s: Calling API for '%s' from %s",
+            sensor_name,
+            team_id,
+            url,
+        )
 
-            if "/all/" in url:
-                file_path = "/share/tt/scoreboard_all_leagues.json"
-                if not os.path.exists(file_path):
-                    file_path = "tests/tt/scoreboard_all_leagues.json"
-            else:
-                file_path = "/share/tt/all.json"
-                if not os.path.exists(file_path):
-                    file_path = "tests/tt/all.json"
-            async with aiofiles.open(file_path, mode="r") as f:
-                contents = await f.read()
-            data = json.loads(contents)
-        else:
-            session = async_get_clientsession(self.hass)
-            try:
-                async with session.get(url, headers=headers) as r:
-                    _LOGGER.debug(
-                        "%s: Calling API for '%s' from %s",
-                        sensor_name,
-                        team_id,
-                        url,
-                    )
-                    if r.status == 200:
-                        data = await r.json()
-            except Exception as e: # pylint: disable=broad-exception-caught
-                _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
-                data = None
-
+        data = await async_call_espn_api(hass, sensor_name, team_id, url, file_override)
+        if True:
             num_events = 0
             if data is not None:
                 _LOGGER.debug(
@@ -630,11 +609,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 num_events,
                 url,
             )
-            
-            # First fallback - without date constraint
             # Skip fallbacks when date overrides are provided (e.g. "all" league
             # narrow-window calls) — the caller handles retry with different dates.
-            if num_events == 0 and d1_override is None:
+            if d1_override and d2_override:
+                self.api_url = url
+                return data, file_override
+                
+            # First fallback - without date constraint
+            if num_events == 0:
                 url_parms = "?lang=" + lang[:2]
                 if self.conference_id:
                     url_parms = url_parms + "&groups=" + self.conference_id
@@ -643,19 +625,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
-                try:
-                    async with session.get(url, headers=headers) as r:
-                        _LOGGER.debug(
-                            "%s: Calling API without date constraint for '%s' from %s",
-                            sensor_name,
-                            team_id,
-                            url,
-                        )
-                        if r.status == 200:
-                            data = await r.json()
-                except Exception as e: # pylint: disable=broad-exception-caught
-                    _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
-                    data = None
+                _LOGGER.debug(
+                    "%s: Calling API without date constraint for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                )
+
+                data = await async_call_espn_api(hass, sensor_name, team_id, url, file_override)
 
                 num_events = 0
                 if data is not None:
@@ -678,7 +655,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 )
 
             # Second fallback - without language
-            if num_events == 0 and d1_override is None:
+            if num_events == 0:
                 url_parms = ""
                 if self.conference_id:
                     url_parms = url_parms + "?groups=" + self.conference_id
@@ -686,20 +663,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         file_override = True
 
                 url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+                _LOGGER.debug(
+                    "%s: Calling API without language for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                )
 
-                try:
-                    async with session.get(url, headers=headers) as r:
-                        _LOGGER.debug(
-                            "%s: Calling API without language for '%s' from %s",
-                            sensor_name,
-                            team_id,
-                            url,
-                        )
-                        if r.status == 200:
-                            data = await r.json()
-                except Exception as e: # pylint: disable=broad-exception-caught
-                    _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
-                    data = None
+                data = await async_call_espn_api(hass, sensor_name, team_id, url, file_override)
                     
         self.api_url = url
         

@@ -91,7 +91,7 @@ CONFIG_DATA4 = {
 CONFIG_DATA5 = {
     "league_id": "NCAAF",
     "team_id": "195",  # Bad Team ID
-    "name": "test_tt_all_test99",
+    "name": "api_error",
     "timeout": 120,
     "conference_id": "15", # Force API, which will fail
 }

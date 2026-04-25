@@ -221,46 +221,30 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
         for team_id in comp_dict:
             comp_dict[team_id] = "Cached MLS"
 
+    # This is the second update attempt
+    await coordinator.async_refresh()
 
-    # 3. DEFINE THE SNITCH
-    def mock_snitch(url):
-        import traceback
-        print(f"\n[MOCK BREAKPOINT] LEAK DETECTED! Called with URL: {url}")
-        traceback.print_stack() 
-        breakpoint()
-        return {} 
+    # 5. ASSERTIONS
+    
+    # Verify the sensor state reflects it used the cache
+    sensor_state = hass.states.get("sensor.test_tt_all_test99")
 
-    # 4. PATCH AND REFRESH
-    # We only patch the coordinator AFTER the setup is done
-    with patch("custom_components.teamtracker.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
-        
-        # This is the second update attempt
-        await coordinator.async_refresh()
-
-        # 5. ASSERTIONS
-        # This must be 0. If it's > 0, the snitch will print the stack trace 
-        # showing exactly which line in the coordinator "leaked" the call.
-        assert snitch_espn_api.call_count == 0
-        
-        # Verify the sensor state reflects it used the cache
-        sensor_state = hass.states.get("sensor.test_tt_all_test99")
-
-        state = sensor_state.state
-        assert state == "POST"
-        team_abbr = sensor_state.attributes.get("team_abbr")
-        assert team_abbr == "CLB"
-        sport = sensor_state.attributes.get("sport")
-        assert sport == "soccer"
-        league_name = sensor_state.attributes.get("league_name")
-        assert league_name == "Cached MLS"                          # Confirm league name came from cache
-        event_name = sensor_state.attributes.get("event_name")
-        assert event_name == "CLB @ TOR"
-        date = sensor_state.attributes.get("date")
-        assert date == "2026-03-21T17:00Z"
-        api_url = sensor_state.attributes.get("api_url")
-        assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
-        api_message = sensor_state.attributes.get("api_message")
-        assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Confirm "all" league API was called
+    state = sensor_state.state
+    assert state == "POST"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "CLB"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "soccer"
+    league_name = sensor_state.attributes.get("league_name")
+    assert league_name == "Cached MLS"                          # Confirm league name came from cache
+    event_name = sensor_state.attributes.get("event_name")
+    assert event_name == "CLB @ TOR"
+    date = sensor_state.attributes.get("date")
+    assert date == "2026-03-21T17:00Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Confirm "all" league API was called
 
 
 

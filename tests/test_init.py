@@ -122,7 +122,7 @@ async def test_setup_NOT_FOUND_api_error(
     # Validate attributes indicate API Error
     #
 
-    sensor_state = hass.states.get("sensor.test_tt_all_test99")
+    sensor_state = hass.states.get("sensor.api_error")
 
     assert sensor_state.state == "NOT_FOUND"
     team_abbr = sensor_state.attributes.get("team_abbr")
