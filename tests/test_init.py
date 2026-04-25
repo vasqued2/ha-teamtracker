@@ -24,6 +24,7 @@ def expected_lingering_timers() -> bool:
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_entry_and_service_call(
     hass,
+    mock_call_espn_api
 ):
     """Test initial entry setup and subsequent service call"""
 
@@ -83,7 +84,7 @@ async def test_setup_entry_and_service_call(
 
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
-    assert sensor_state.state == "NOT_FOUND"
+    assert sensor_state.state == "POST"
     team_abbr = sensor_state.attributes.get("team_abbr")
     assert team_abbr == "BOS"
     sport = sensor_state.attributes.get("sport")
@@ -195,6 +196,7 @@ async def test_setup_NOT_FOUND_no_team_id(
 @freeze_time("2026-03-21 10:00:00")
 async def test_setup_second_team_in_league(
     hass,
+    mock_call_espn_api
 ):
     """ Validate cache used and api_url not populated for 2nd team in league """
 

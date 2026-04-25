@@ -314,7 +314,7 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
     
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_team_abbr(hass):
+async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
     """Test Case 4: Cold start using team abbreviation instead of Team ID number."""
     """  Special "all" league processing should be skipped when Team ID is not an integer """
 #

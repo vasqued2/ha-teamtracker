@@ -396,14 +396,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 next_game_date.isoformat() if next_game_date else "unknown",
             )
             scoreboard_calls = 1
-            data, file_override = await self.async_call_api(
+            data = await self.async_call_api(
                 config, hass, lang, d1_override=d1, d2_override=d2
             )
             values = await self.async_update_values(config, hass, data, lang)
 
             # If not found in the recent window and next game is beyond it,
             # try a narrow call around the next game date.
-            if (values["state"] == "NOT_FOUND" and not file_override
+            if (values["state"] == "NOT_FOUND"
                     and next_game_date and next_game_date > today_utc):
                 nd1 = (next_game_date - timedelta(days=1)).strftime("%Y%m%d")
                 nd2 = next_game_date.strftime("%Y%m%d")
@@ -429,14 +429,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 + (f" | {msg}" if msg else "")
             )
         else:
-            data, file_override = await self.async_call_api(config, hass, lang)
+            data = await self.async_call_api(config, hass, lang)
             values = await self.async_update_values(config, hass, data, lang)
 
         if data is not None:
             self.data_cache[key] = data
         self.last_update[key] = values["last_update"]
 
-        if file_override:
+        if conference_id == "9999": # if conference_id is 9999, create results file for tests
             path = "/share/tt/results/" + sensor_name + ".json"
             if not os.path.exists(path):
                 _LOGGER.debug("%s: Creating results file '%s'", sensor_name, path)
@@ -551,11 +551,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     async def async_call_api(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
         """Query API for status."""
 
-        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
         sensor_name = self.name
 
         data = None
-        file_override = False
 
         sport_path = self.sport_path
         league_path = self.league_path
@@ -574,10 +572,12 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
             url_parms = url_parms + "&dates=" + d1 + "-" + d2
 
+        file_override = False
         if self.conference_id:
             url_parms = url_parms + "&groups=" + self.conference_id
             if self.conference_id == "9999":
                 file_override = True
+
         team_id = self.team_id.upper()
         url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
 
@@ -589,7 +589,49 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         )
 
         data = await async_call_espn_api(hass, sensor_name, team_id, url, file_override)
-        if True:
+
+        num_events = 0
+        if data is not None:
+            _LOGGER.debug(
+                "%s: Data returned for '%s' from %s",
+                sensor_name,
+                team_id,
+                url,
+            )
+            try:
+                num_events = len(data["events"])
+            except:
+                num_events = 0
+
+        _LOGGER.debug(
+            "%s: Num_events '%d' from %s",
+            sensor_name,
+            num_events,
+            url,
+        )
+        # Skip fallbacks when date overrides are provided (e.g. "all" league
+        # narrow-window calls) — the caller handles retry with different dates.
+        if d1_override and d2_override:
+            self.api_url = url
+            return data
+            
+        # First fallback - without date constraint
+        if num_events == 0:
+            url_parms = "?lang=" + lang[:2]
+            if self.conference_id:
+                url_parms = url_parms + "&groups=" + self.conference_id
+
+            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+
+            _LOGGER.debug(
+                "%s: Calling API without date constraint for '%s' from %s",
+                sensor_name,
+                team_id,
+                url,
+            )
+
+            data = await async_call_espn_api(hass, sensor_name, team_id, url)
+
             num_events = 0
             if data is not None:
                 _LOGGER.debug(
@@ -609,72 +651,26 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 num_events,
                 url,
             )
-            # Skip fallbacks when date overrides are provided (e.g. "all" league
-            # narrow-window calls) — the caller handles retry with different dates.
-            if d1_override and d2_override:
-                self.api_url = url
-                return data, file_override
-                
-            # First fallback - without date constraint
-            if num_events == 0:
-                url_parms = "?lang=" + lang[:2]
-                if self.conference_id:
-                    url_parms = url_parms + "&groups=" + self.conference_id
-                    if self.conference_id == "9999":
-                        file_override = True
 
-                url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+        # Second fallback - without language
+        if num_events == 0:
+            url_parms = ""
+            if self.conference_id:
+                url_parms = url_parms + "?groups=" + self.conference_id
 
-                _LOGGER.debug(
-                    "%s: Calling API without date constraint for '%s' from %s",
-                    sensor_name,
-                    team_id,
-                    url,
-                )
+            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+            _LOGGER.debug(
+                "%s: Calling API without language for '%s' from %s",
+                sensor_name,
+                team_id,
+                url,
+            )
 
-                data = await async_call_espn_api(hass, sensor_name, team_id, url, file_override)
-
-                num_events = 0
-                if data is not None:
-                    _LOGGER.debug(
-                        "%s: Data returned for '%s' from %s",
-                        sensor_name,
-                        team_id,
-                        url,
-                    )
-                    try:
-                        num_events = len(data["events"])
-                    except:
-                        num_events = 0
-
-                _LOGGER.debug(
-                    "%s: Num_events '%d' from %s",
-                    sensor_name,
-                    num_events,
-                    url,
-                )
-
-            # Second fallback - without language
-            if num_events == 0:
-                url_parms = ""
-                if self.conference_id:
-                    url_parms = url_parms + "?groups=" + self.conference_id
-                    if self.conference_id == "9999":
-                        file_override = True
-
-                url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
-                _LOGGER.debug(
-                    "%s: Calling API without language for '%s' from %s",
-                    sensor_name,
-                    team_id,
-                    url,
-                )
-
-                data = await async_call_espn_api(hass, sensor_name, team_id, url, file_override)
+            data = await async_call_espn_api(hass, sensor_name, team_id, url)
                     
         self.api_url = url
         
-        return data, file_override
+        return data
 
 
     async def async_update_values(self, config, hass, data, lang) -> dict:
