@@ -12,6 +12,15 @@ _LOGGER = logging.getLogger(__name__)
 
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
 
+from syrupy.extensions.amber import AmberSnapshotExtension
+
+class CustomDirectoryExtension(AmberSnapshotExtension):
+    snapshot_dirname = "__snapshots__"
+
+@pytest.fixture
+def snapshot(snapshot):
+    return snapshot.use_extension(CustomDirectoryExtension)
+
 
 @pytest.fixture
 async def mock_call_espn_api(hass):
