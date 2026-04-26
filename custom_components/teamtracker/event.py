@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_process_event(
-    values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
+    values, sensor_name, data, sport_path, league_id, default_logo, team_id, league_map, lang
 ) -> (dict, bool):
     """Loop throught the json data returned by the API to find the right event and set values"""
 
@@ -68,6 +68,7 @@ async def async_process_event(
                     competition,
                     competition_index,
                     search_key,
+                    league_map,
                     lang,
                     sport, 
                     found_competitor,
@@ -101,6 +102,7 @@ async def async_process_event(
                     competition,
                     competition_index,
                     search_key,
+                    league_map,
                     lang,
                     sport, 
                     found_competitor,
@@ -148,6 +150,7 @@ async def async_process_competition(
     competition,
     competition_index,
     search_key,
+    league_map,
     lang,
     sport, 
     found_competitor,
@@ -180,6 +183,7 @@ async def async_process_competition(
                 grouping_index,
                 competition_index,
                 matched_index,
+                league_map,
                 lang,
                 sport, 
                 found_competitor,
@@ -204,6 +208,7 @@ async def async_process_name_match(
     grouping_index,
     competition_index,
     matched_index,
+    league_map,
     lang,
     sport, 
     found_competitor, 
@@ -225,6 +230,7 @@ async def async_process_name_match(
         grouping_index,
         competition_index,
         matched_index,
+        league_map,
         lang,
         sensor_name,
     )

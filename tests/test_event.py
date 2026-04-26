@@ -40,6 +40,7 @@ async def test_event(hass):
         league_id = values["league"]
         team_id = values["team_abbr"]
         lang = "en"
+        league_map= {}
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await async_process_event(
@@ -50,6 +51,7 @@ async def test_event(hass):
             league_id,
             DEFAULT_LOGO,
             team_id,
+            league_map,
             lang,
         )
 

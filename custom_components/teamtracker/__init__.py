@@ -50,7 +50,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
-from .utils import is_integer, async_call_espn_api, async_get_value
+from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 
 _LOGGER = logging.getLogger(__name__)
 # team_prob = {}
@@ -312,7 +312,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         """Update data."""
         async with timeout(DEFAULT_TIMEOUT):
             try:
-                data = await self.async_update_game_data(self.config, self.hass)
+                data = await self.async_update_sport_data(self.config, self.hass)
 
                 # update the interval based on flag
                 if data["private_fast_refresh"]:
@@ -334,7 +334,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 raise UpdateFailed(error) from error
             return data
 
-    async def async_update_game_data(self, config, hass) -> dict:
+#
+#  Get data from the correct API and return a dictionary populated with the values from it
+#
+    async def async_update_sport_data(self, config, hass) -> dict:
         """Update game data from data_cache or the API (if expired)"""
 
         sensor_name = self.name
@@ -376,7 +379,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         #  within the 50-event API limit across all competitions.
         #  For other leagues, use the default date computation.
         #
-        if league_path == "all" and is_integer(self.team_id):
+#        if league_path == "all" and is_integer(self.team_id):
+        if False:
             schedule_info = await self.async_get_team_schedule(lang)
             next_game_date = schedule_info.get("next_game_date") if schedule_info else None
 
@@ -396,7 +400,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 next_game_date.isoformat() if next_game_date else "unknown",
             )
             scoreboard_calls = 1
-            data = await self.async_call_api(
+            data = await self.async_call_sport_apis(
                 config, hass, lang, d1_override=d1, d2_override=d2
             )
             values = await self.async_update_values(config, hass, data, lang)
@@ -413,7 +417,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                         sensor_name, nd1, nd2,
                     )
                     scoreboard_calls = 2
-                    data2, _ = await self.async_call_api(
+                    data2, _ = await self.async_call_sport_apis(
                         config, hass, lang, d1_override=nd1, d2_override=nd2
                     )
                     values2 = await self.async_update_values(config, hass, data2, lang)
@@ -429,7 +433,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 + (f" | {msg}" if msg else "")
             )
         else:
-            data = await self.async_call_api(config, hass, lang)
+            data = await self.async_call_sport_apis(config, hass, lang)
             values = await self.async_update_values(config, hass, data, lang)
 
         if data is not None:
@@ -546,9 +550,129 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
 
     #
-    #  Call the API (or file override) and get the data returned by it
+    #  Call the correct sequence of APIs to populate to ensure the correct response data is returned for processing
     #
-    async def async_call_api(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
+    async def async_call_sport_apis(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
+        """Query API for status."""
+
+        sensor_name = self.name
+
+        data = None
+
+        sport_path = self.sport_path
+        league_path = self.league_path
+
+        if (league_path == "all") and is_integer(self.team_id):
+            data = await self.async_fetch_espn_all_leagues_data(config, hass, lang, d1_override, d2_override)
+        else:
+            data = await self.async_fetch_espn_data(config, hass, lang, d1_override, d2_override)
+
+        return data
+
+
+    #################################
+    #  Call the correct sequence of APIs to populate to ensure the correct response data is returned for processing
+    #################################
+    async def async_fetch_espn_all_leagues_data(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
+        """Query API for status."""
+
+        sensor_name = self.name
+
+        schedule_info = await self.async_get_team_schedule(lang)
+        next_game_date = schedule_info.get("next_game_date") if schedule_info else None
+
+        today_utc = datetime.now(timezone.utc).date()
+        day_before_yesterday = today_utc - timedelta(days=2)
+
+        # Narrow window: cover recent results and upcoming game if within 7 days
+        d1 = day_before_yesterday.strftime("%Y%m%d")
+        if next_game_date and next_game_date <= today_utc + timedelta(days=7):
+            d2 = next_game_date.strftime("%Y%m%d")
+        else:
+            d2 = today_utc.strftime("%Y%m%d")
+
+        _LOGGER.debug(
+            "%s: All-league scoreboard call 1/1 dates=%s-%s (next_game=%s)",
+            sensor_name, d1, d2,
+            next_game_date.isoformat() if next_game_date else "unknown",
+        )
+        scoreboard_calls = 1
+
+        data = None
+
+        sport_path = self.sport_path
+        league_path = self.league_path
+
+        url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
+        url_parms = url_parms + "&dates=" + d1 + "-" + d2
+
+        team_id = self.team_id.upper()
+        url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+
+        _LOGGER.debug(
+            "%s: Calling API for '%s' from %s",
+            sensor_name,
+            team_id,
+            url,
+        )
+
+        data = await async_call_espn_api(hass, sensor_name, team_id, url)
+        if has_team(data, team_id):
+            self.api_url = url
+            return data
+
+
+        if (next_game_date and next_game_date > today_utc):
+            nd1 = (next_game_date - timedelta(days=1)).strftime("%Y%m%d")
+            nd2 = next_game_date.strftime("%Y%m%d")
+            if nd1 != d1 or nd2 != d2:  # avoid duplicate call
+                _LOGGER.debug(
+                    "%s: All-league scoreboard call 2/2 dates=%s-%s (fallback to next game)",
+                    sensor_name, nd1, nd2,
+                )
+                scoreboard_calls = 2
+
+
+                url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
+                url_parms = url_parms + "&dates=" + nd1 + "-" + nd2
+
+                team_id = self.team_id.upper()
+                url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL + url_parms
+
+                _LOGGER.debug(
+                    "%s: Calling API for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                )
+
+                data = await async_call_espn_api(hass, sensor_name, team_id, url)
+                self.api_url = url
+
+                if has_team(data, team_id):
+                    return data
+                else:
+                    return None
+
+#
+# Still need to update league name somehow...
+#
+        values = await self._enrich_league_name(values)
+        msg = values.get("api_message") or ""
+        values["api_message"] = (
+            f"All-league: {scoreboard_calls} scoreboard call(s), "
+            f"dates={d1}-{d2}"
+            + (f" | {msg}" if msg else "")
+            )
+        return None
+
+
+
+
+    #
+    #  Call the correct sequence of APIs to populate to ensure the correct response data is returned for processing
+    #
+    async def async_fetch_espn_data(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
         """Query API for status."""
 
         sensor_name = self.name
@@ -703,6 +827,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             )
             return values
 
+        cache_key = f"{self.sport_path}:{self.league_path}:{self.team_id}"
+        team_cache = self.all_team_cache.get(cache_key)
+        if team_cache:
+            league_map = team_cache.get("id_to_competition", {})
+        else:
+            league_map = {}
+
         values = await async_process_event(
             values,
             sensor_name,
@@ -711,6 +842,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             league_id,
             DEFAULT_LOGO,
             team_id,
+            league_map,
             lang,
         )
 

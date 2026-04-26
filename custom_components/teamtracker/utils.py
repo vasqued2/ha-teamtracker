@@ -41,6 +41,14 @@ def is_integer(val):
         return False
 
 
+def has_team(data, target_team_id):
+    for event in data.get("events", []):
+        for comp in event.get("competitions", []):
+            for competitor in comp.get("competitors", []):
+                if competitor.get("team", {}).get("id") == target_team_id:
+                    return True
+    return False
+    
 #
 #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
 #    This utility will eventually replace/wrap all API calls

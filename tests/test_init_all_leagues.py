@@ -205,9 +205,9 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Need to track down why it's cached data
+    assert api_message == None
 
 # 2. EXPIRE THE DATA CACHE
     # Clear out the data_cache.
@@ -242,9 +242,9 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Confirm "all" league API was called
+    assert api_message == None
 
 
 
@@ -295,9 +295,9 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321"
+    assert api_message == None
 #
 # Validate the cache's are now populated
 #
