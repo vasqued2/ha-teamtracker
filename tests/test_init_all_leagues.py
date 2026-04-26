@@ -217,7 +217,7 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     # Update the league_name in the all_team_cache so we know we are reading it
     league_key = "soccer:all:183"
     if league_key in TeamTrackerDataUpdateCoordinator.all_team_cache:
-        comp_dict = TeamTrackerDataUpdateCoordinator.all_team_cache[league_key]["id_to_competition"]
+        comp_dict = TeamTrackerDataUpdateCoordinator.all_team_cache[league_key]["league_map"]
         for team_id in comp_dict:
             comp_dict[team_id] = "Cached MLS"
 
