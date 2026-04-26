@@ -55,6 +55,19 @@ from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 _LOGGER = logging.getLogger(__name__)
 
 
+def _slug_to_name(slug: str) -> str:
+    """Convert a season slug like '2025-26-english-premier-league' to 'English Premier League'."""
+    if not slug:
+        return ""
+    body = re.sub(r"^\d{4}(-\d{2})?-", "", slug)
+    if body == slug:
+        return ""
+    def _fmt_word(w):
+        # Uppercase abbreviations (no vowels, e.g. "mls", "nfl"); title-case real words
+        return w.upper() if w.isalpha() and not re.search(r"[aeiou]", w, re.I) else w.title()
+    return " ".join(_fmt_word(w) for w in body.split("-"))
+
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Load the saved entities."""
 
@@ -343,7 +356,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 )
                 if display:
                     league_map[str(eid)] = display
-
 
         next_game_date = (
             date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
@@ -648,7 +660,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         data = await async_call_espn_api(hass, sensor_name, team_id, url)
 
         # If event for team not returned, narrow date range and try again
-        if has_team(data, team_id) == False:
+        if has_team(data, team_id) is False:
             if (next_game_date and next_game_date > today_utc):
                 nd1 = (next_game_date - timedelta(days=1)).strftime("%Y%m%d")
                 nd2 = next_game_date.strftime("%Y%m%d")
