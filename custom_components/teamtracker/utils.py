@@ -42,6 +42,8 @@ def is_integer(val):
 
 
 def has_team(data, target_team_id):
+    """Search for team in json data"""
+
     for event in data.get("events", []):
         for comp in event.get("competitions", []):
             for competitor in comp.get("competitors", []):

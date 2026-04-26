@@ -373,68 +373,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     values["api_message"] = "Cached data"
                 return values
 
-        #
-        #  Call the API
-        #  For "all" leagues, use narrow dates from team schedule to stay
-        #  within the 50-event API limit across all competitions.
-        #  For other leagues, use the default date computation.
-        #
-#        if league_path == "all" and is_integer(self.team_id):
-        if False:
-            schedule_info = await self.async_get_team_schedule(lang)
-            next_game_date = schedule_info.get("next_game_date") if schedule_info else None
-
-            today_utc = datetime.now(timezone.utc).date()
-            day_before_yesterday = today_utc - timedelta(days=2)
-
-            # Narrow window: cover recent results and upcoming game if within 7 days
-            d1 = day_before_yesterday.strftime("%Y%m%d")
-            if next_game_date and next_game_date <= today_utc + timedelta(days=7):
-                d2 = next_game_date.strftime("%Y%m%d")
-            else:
-                d2 = today_utc.strftime("%Y%m%d")
-
-            _LOGGER.debug(
-                "%s: All-league scoreboard call 1/1 dates=%s-%s (next_game=%s)",
-                sensor_name, d1, d2,
-                next_game_date.isoformat() if next_game_date else "unknown",
-            )
-            scoreboard_calls = 1
-            data = await self.async_call_sport_apis(
-                config, hass, lang, d1_override=d1, d2_override=d2
-            )
-            values = await self.async_update_values(config, hass, data, lang)
-
-            # If not found in the recent window and next game is beyond it,
-            # try a narrow call around the next game date.
-            if (values["state"] == "NOT_FOUND"
-                    and next_game_date and next_game_date > today_utc):
-                nd1 = (next_game_date - timedelta(days=1)).strftime("%Y%m%d")
-                nd2 = next_game_date.strftime("%Y%m%d")
-                if nd1 != d1 or nd2 != d2:  # avoid duplicate call
-                    _LOGGER.debug(
-                        "%s: All-league scoreboard call 2/2 dates=%s-%s (fallback to next game)",
-                        sensor_name, nd1, nd2,
-                    )
-                    scoreboard_calls = 2
-                    data2, _ = await self.async_call_sport_apis(
-                        config, hass, lang, d1_override=nd1, d2_override=nd2
-                    )
-                    values2 = await self.async_update_values(config, hass, data2, lang)
-                    if values2["state"] != "NOT_FOUND":
-                        data = data2
-                        values = values2
-
-            values = await self._enrich_league_name(values)
-            msg = values.get("api_message") or ""
-            values["api_message"] = (
-                f"All-league: {scoreboard_calls} scoreboard call(s), "
-                f"dates={d1}-{d2}"
-                + (f" | {msg}" if msg else "")
-            )
-        else:
-            data = await self.async_call_sport_apis(config, hass, lang)
-            values = await self.async_update_values(config, hass, data, lang)
+        data = await self.async_call_sport_apis(config, hass, lang)
+        values = await self.async_update_values(config, hass, data, lang)
 
         if data is not None:
             self.data_cache[key] = data
@@ -555,11 +495,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     async def async_call_sport_apis(self, config, hass, lang, d1_override=None, d2_override=None) -> dict:
         """Query API for status."""
 
-        sensor_name = self.name
-
-        data = None
-
-        sport_path = self.sport_path
         league_path = self.league_path
 
         if (league_path == "all") and is_integer(self.team_id):
@@ -651,21 +586,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
                 if has_team(data, team_id):
                     return data
-                else:
-                    return None
-
-#
-# Still need to update league name somehow...
-#
-        values = await self._enrich_league_name(values)
-        msg = values.get("api_message") or ""
-        values["api_message"] = (
-            f"All-league: {scoreboard_calls} scoreboard call(s), "
-            f"dates={d1}-{d2}"
-            + (f" | {msg}" if msg else "")
-            )
+                
         return None
-
 
 
 
