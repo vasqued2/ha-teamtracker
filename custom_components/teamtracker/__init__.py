@@ -531,7 +531,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             sensor_name, d1, d2,
             next_game_date.isoformat() if next_game_date else "unknown",
         )
-        scoreboard_calls = 1
 
         data = None
 
@@ -565,7 +564,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     "%s: All-league scoreboard call 2/2 dates=%s-%s (fallback to next game)",
                     sensor_name, nd1, nd2,
                 )
-                scoreboard_calls = 2
 
 
                 url_parms = "?lang=" + lang[:2] + "&limit=" + str(API_LIMIT)
