@@ -5,7 +5,7 @@ pytest>=8.0.2
 pytest-asyncio>=0.23.5
 pytest-cov>=4.1.0
 pytest-mock>=3.14.0
-pytest-homeassistant-custom-component>=0.13.316
-syrupy>=5.0.0
+pytest-homeassistant-custom-component==0.13.205
+syrupy==4.8.0
 arrow
 aiofiles
