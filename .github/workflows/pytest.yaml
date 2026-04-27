@@ -13,7 +13,7 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     strategy:
       matrix:
-        python-version: ['3.12', '3.13']
+        python-version: ['3.11', '3.12', '3.13']
 
     steps:
       - name: Checkout Repository
