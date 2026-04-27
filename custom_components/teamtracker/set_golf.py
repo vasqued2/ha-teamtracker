@@ -65,7 +65,10 @@ async def async_set_golf_values(
             p = await async_get_golf_position(competition, x)
             new_values["last_play"] = new_values["last_play"] + p + ". "
             new_values["last_play"] = new_values["last_play"] + await async_get_value(
-                competition, "competitors", x, "athlete", "shortName"
+                competition, "competitors", x, "athlete", "shortName", 
+                default=await async_get_value(
+                    competition, "competitors", x, "team", "shortDisplayName", default=""
+                )
             )
             new_values["last_play"] = (
                 new_values["last_play"]
