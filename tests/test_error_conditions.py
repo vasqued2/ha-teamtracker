@@ -34,9 +34,9 @@ async def test_error_conditions(hass):
     rc = await async_set_volleyball_values({}, {}, 0, 0, "sensor_name")
     assert rc is False
 
-    rc = await async_set_values({}, {}, 0, 0, 0, "en", "sensor_name")
+    rc = await async_set_values({}, {}, 0, 0, 0, {}, "en", "sensor_name")
     assert rc is False
-    rc = await async_set_universal_values({}, {}, 0, 0, 0, "en", "sensor_name")
+    rc = await async_set_universal_values({}, {}, 0, 0, 0, {}, "en", "sensor_name")
     assert rc is False
     rc = await async_set_team_values({}, {}, 0, 0, 0, "en", "sensor_name")
     assert rc is False

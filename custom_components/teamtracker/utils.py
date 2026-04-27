@@ -41,15 +41,25 @@ def is_integer(val):
         return False
 
 
+def has_team(data, target_team_id):
+    """Search for team in json data"""
+
+    for event in data.get("events", []):
+        for comp in event.get("competitions", []):
+            for competitor in comp.get("competitors", []):
+                if competitor.get("team", {}).get("id") == target_team_id:
+                    return True
+    return False
+    
 #
 #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
 #    This utility will eventually replace/wrap all API calls
 #
-async def async_call_espn_api2(hass, sensor_name, team_id, url, file_override=False) -> dict:
+async def async_call_espn_api(hass, sensor_name, team_id, url, file_override=False) -> dict:
     """Call the specified ESPN API."""
 
     if file_override:
-        data = await async_override_espn_api2(sensor_name, team_id, url)
+        data = await async_override_espn_api(sensor_name, team_id, url)
     else:
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
         session = async_get_clientsession(hass)
@@ -76,8 +86,13 @@ async def async_call_espn_api2(hass, sensor_name, team_id, url, file_override=Fa
 #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
 #    This utility will eventually replace/wrap all API calls
 #
-async def async_override_espn_api2(sensor_name, team_id, url) -> dict:
+async def async_override_espn_api(sensor_name, team_id, url) -> dict:
     """Read a json file to mock the ESPN API."""
+
+    _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
+
+    if sensor_name == "api_error":
+        return None
 
     clean_url = url.split('?')[0]
 

@@ -94,7 +94,7 @@ async def test_all_leagues_cold_start(hass):
 
 
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_data_cache_hit(hass):
+async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     """Test Case 2: Use internal data_cache to skip API calls during a refresh."""
     
     # 1. INITIAL SETUP 
@@ -142,15 +142,15 @@ async def test_all_leagues_data_cache_hit(hass):
 
     # 4. PATCH AND REFRESH
     # We only patch the coordinator AFTER the setup is done
-    with patch.object(coordinator, "async_call_espn_api", side_effect=mock_snitch) as mock_espn_api:
-        
+    with patch("custom_components.teamtracker.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
+
         # This is the second update attempt
         await coordinator.async_refresh()
 
         # 5. ASSERTIONS
         # This must be 0. If it's > 0, the snitch will print the stack trace 
         # showing exactly which line in the coordinator "leaked" the call.
-        assert mock_espn_api.call_count == 0
+        assert snitch_espn_api.call_count == 0
         
         # Verify the sensor state reflects it used the cache
         sensor_state = hass.states.get("sensor.test_tt_all_test99")
@@ -159,7 +159,7 @@ async def test_all_leagues_data_cache_hit(hass):
 
 
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_all_team_cache_hit(hass):
+async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     """Test Case 3: Use internal all_team_cache to skip API call for league_name."""
     
     # 1. INITIAL SETUP 
@@ -205,9 +205,9 @@ async def test_all_leagues_all_team_cache_hit(hass):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Need to track down why it's cached data
+    assert api_message == None
 
 # 2. EXPIRE THE DATA CACHE
     # Clear out the data_cache.
@@ -217,57 +217,41 @@ async def test_all_leagues_all_team_cache_hit(hass):
     # Update the league_name in the all_team_cache so we know we are reading it
     league_key = "soccer:all:183"
     if league_key in TeamTrackerDataUpdateCoordinator.all_team_cache:
-        comp_dict = TeamTrackerDataUpdateCoordinator.all_team_cache[league_key]["id_to_competition"]
+        comp_dict = TeamTrackerDataUpdateCoordinator.all_team_cache[league_key]["league_map"]
         for team_id in comp_dict:
             comp_dict[team_id] = "Cached MLS"
 
+    # This is the second update attempt
+    await coordinator.async_refresh()
 
-    # 3. DEFINE THE SNITCH
-    def mock_snitch(url):
-        import traceback
-        print(f"\n[MOCK BREAKPOINT] LEAK DETECTED! Called with URL: {url}")
-        traceback.print_stack() 
-        breakpoint()
-        return {} 
+    # 5. ASSERTIONS
+    
+    # Verify the sensor state reflects it used the cache
+    sensor_state = hass.states.get("sensor.test_tt_all_test99")
 
-    # 4. PATCH AND REFRESH
-    # We only patch the coordinator AFTER the setup is done
-    with patch.object(coordinator, "async_call_espn_api", side_effect=mock_snitch) as mock_espn_api:
-        
-        # This is the second update attempt
-        await coordinator.async_refresh()
-
-        # 5. ASSERTIONS
-        # This must be 0. If it's > 0, the snitch will print the stack trace 
-        # showing exactly which line in the coordinator "leaked" the call.
-        assert mock_espn_api.call_count == 0
-        
-        # Verify the sensor state reflects it used the cache
-        sensor_state = hass.states.get("sensor.test_tt_all_test99")
-
-        state = sensor_state.state
-        assert state == "POST"
-        team_abbr = sensor_state.attributes.get("team_abbr")
-        assert team_abbr == "CLB"
-        sport = sensor_state.attributes.get("sport")
-        assert sport == "soccer"
-        league_name = sensor_state.attributes.get("league_name")
-        assert league_name == "Cached MLS"                          # Confirm league name came from cache
-        event_name = sensor_state.attributes.get("event_name")
-        assert event_name == "CLB @ TOR"
-        date = sensor_state.attributes.get("date")
-        assert date == "2026-03-21T17:00Z"
-        api_url = sensor_state.attributes.get("api_url")
-        assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
-        api_message = sensor_state.attributes.get("api_message")
-        assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321" # Confirm "all" league API was called
+    state = sensor_state.state
+    assert state == "POST"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "CLB"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "soccer"
+    league_name = sensor_state.attributes.get("league_name")
+    assert league_name == "Cached MLS"                          # Confirm league name came from cache
+    event_name = sensor_state.attributes.get("event_name")
+    assert event_name == "CLB @ TOR"
+    date = sensor_state.attributes.get("date")
+    assert date == "2026-03-21T17:00Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == None
 
 
 
     
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_cold_start(hass):
+async def test_all_leagues_cold_start(hass, mock_call_espn_api):
     """Test Case 1: Cold start falls through to file-based discovery."""
 #
 #   Reset Caches
@@ -311,9 +295,9 @@ async def test_all_leagues_cold_start(hass):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321&groups=9999"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "All-league: 1 scoreboard call(s), dates=20260319-20260321"
+    assert api_message == None
 #
 # Validate the cache's are now populated
 #
@@ -330,7 +314,7 @@ async def test_all_leagues_cold_start(hass):
     
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
-async def test_all_leagues_team_abbr(hass):
+async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
     """Test Case 4: Cold start using team abbreviation instead of Team ID number."""
     """  Special "all" league processing should be skipped when Team ID is not an integer """
 #

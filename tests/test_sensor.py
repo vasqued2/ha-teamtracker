@@ -22,7 +22,7 @@ def expected_lingering_timers() -> bool:
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
-async def test_sensor(hass, mocker):
+async def test_sensor(hass, mock_call_espn_api, mocker):
     """ test sensor """
 
     entry = MockConfigEntry(

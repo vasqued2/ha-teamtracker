@@ -24,6 +24,7 @@ def expected_lingering_timers() -> bool:
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_entry_and_service_call(
     hass,
+    mock_call_espn_api
 ):
     """Test initial entry setup and subsequent service call"""
 
@@ -83,7 +84,7 @@ async def test_setup_entry_and_service_call(
 
     sensor_state = hass.states.get("sensor.test_tt_all_test01")
 
-    assert sensor_state.state == "NOT_FOUND"
+    assert sensor_state.state == "POST"
     team_abbr = sensor_state.attributes.get("team_abbr")
     assert team_abbr == "BOS"
     sport = sensor_state.attributes.get("sport")
@@ -96,7 +97,7 @@ async def test_setup_entry_and_service_call(
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_NOT_FOUND_api_error(
     hass,
-    mock_espn_api
+    mock_call_espn_api
 ):
     """ Test API Error (i.e. Internet is down, invalid URL) """
 
@@ -122,7 +123,7 @@ async def test_setup_NOT_FOUND_api_error(
     # Validate attributes indicate API Error
     #
 
-    sensor_state = hass.states.get("sensor.test_tt_all_test99")
+    sensor_state = hass.states.get("sensor.api_error")
 
     assert sensor_state.state == "NOT_FOUND"
     team_abbr = sensor_state.attributes.get("team_abbr")
@@ -144,7 +145,7 @@ async def test_setup_NOT_FOUND_api_error(
 @freeze_time("2026-03-21 10:00:00")
 async def test_setup_NOT_FOUND_no_team_id(
     hass,
-    mock_espn_api
+    mock_call_espn_api
 ):
     """ Test NOT_FOUND when team_id is an integer ID (Should lookup team_abbr) """
 
@@ -195,6 +196,7 @@ async def test_setup_NOT_FOUND_no_team_id(
 @freeze_time("2026-03-21 10:00:00")
 async def test_setup_second_team_in_league(
     hass,
+    mock_call_espn_api
 ):
     """ Validate cache used and api_url not populated for 2nd team in league """
 
