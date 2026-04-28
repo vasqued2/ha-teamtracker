@@ -52,7 +52,7 @@ async def async_fetch_hockeytech_scoreboard(
 def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
     """Transform HockeyTech scorebar data into ESPN-compatible format."""
 
-    if ht_data == None:
+    if ht_data is None:
         return None
         
     league_config = HOCKEYTECH_LEAGUES.get(league_id, {})
@@ -279,8 +279,6 @@ def _build_venue(game: dict) -> dict:
 
 async def async_call_hockeytech_api(session, key, client_code, sensor_name, league_id) -> dict:
     """Call the HockeyTech API."""
-
-    data = None
 
     params = {
         "feed": "modulekit",
