@@ -45,7 +45,7 @@ async def async_fetch_hockeytech_scoreboard(
         "client_code": league_config["client_code"],
         "lang": "en",
         "fmt": "json",
-        "numberofdaysback": 1,
+        "numberofdaysback": 0,
         "numberofdaysahead": 90,
     }
     headers = {"User-Agent": USER_AGENT}
