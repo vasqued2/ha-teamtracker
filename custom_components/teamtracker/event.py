@@ -403,13 +403,29 @@ async def async_find_search_key(
 async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
     """Determine if prev_values should be saved"""
 
-    if prev_values["state"] == "POST":
-        if values["state"] == "PRE":
+#
+#   If the state or prev_state is POST or IN and > 18 hrs in the future, treat is as PRE
+#     This can happen if an event is postponed
+#
+    current_state = values["state"]
+    if current_state in ("POST", "IN"):
+        time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
+        if time_diff > 64800:
+            current_state = "PRE"
+    prev_state = prev_values["state"]
+    if prev_state in ("POST", "IN"):
+        time_diff = (arrow.get(prev_values["date"]) - arrow.now()).total_seconds()
+        if time_diff > 64800:
+            prev_state = "PRE"
+
+
+    if prev_state == "POST":
+        if current_state == "PRE":
             # Use POST if PRE is more than 18 hours in future
             time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
             if time_diff > 64800:
                 return True
-        elif values["state"] == "POST":
+        elif current_state == "POST":
             # use POST w/ latest date
             if arrow.get(prev_values["date"]) > arrow.get(values["date"]):
                 return True
@@ -417,12 +433,12 @@ async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
                 arrow.get(prev_values["date"]) == arrow.get(values["date"])
             ):
                 return True
-    if prev_values["state"] == "PRE":
-        if values["state"] == "PRE":
+    if prev_state == "PRE":
+        if current_state == "PRE":
             # use PRE w/ earliest date
             if arrow.get(prev_values["date"]) <= arrow.get(values["date"]):
                 return True
-        elif values["state"] == "POST":
+        elif current_state == "POST":
             # Use PRE if less than 18 hours in future
             time_diff = abs(
                 arrow.get(prev_values["date"]) - arrow.now()

@@ -2,6 +2,7 @@ import pytest
 import json
 import logging
 import aiofiles
+from freezegun import freeze_time
 
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import (
@@ -44,17 +45,20 @@ async def test_event(hass, snapshot, t):
 
     _LOGGER.debug("%s: calling async_process_event()", sensor_name)
 
-    values = await async_process_event(
-        values,
-        sensor_name,
-        data,
-        sport_path,
-        league_id,
-        DEFAULT_LOGO,
-        team_id,
-        league_map,
-        lang,
-    )
+    assert t["frozen_time"] is not None
+
+    with freeze_time(t["frozen_time"]):
+        values = await async_process_event(
+            values,
+            sensor_name,
+            data,
+            sport_path,
+            league_id,
+            DEFAULT_LOGO,
+            team_id,
+            league_map,
+            lang,
+        )
 
     assert values
 
