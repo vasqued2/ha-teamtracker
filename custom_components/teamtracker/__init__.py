@@ -441,15 +441,15 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
             if now < expiration:
                 data = self.data_cache[key]
-                values = await self.async_update_values(config, hass, data, lang)
+                values = await self.async_update_values(hass, data, lang)
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
                 else:
                     values["api_message"] = "Cached data"
                 return values
 
-        data = await self.async_call_sport_apis(config, hass, lang)
-        values = await self.async_update_values(config, hass, data, lang)
+        data = await self.async_call_sport_apis(hass, lang)
+        values = await self.async_update_values(hass, data, lang)
 
         if data is not None:
             self.data_cache[key] = data
@@ -478,24 +478,20 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #    This is the API dispatcher, calls to new non-ESPN API's should be added here based on league_path.
     #      Response data should be formatted as an ESPN event.
     #
-    async def async_call_sport_apis(self, config, hass, lang) -> dict:
+    async def async_call_sport_apis(self, hass, lang) -> dict:
         """Calls appropriate set of APIs based on sport and league."""
 
         league_path = self.league_path
 
         league_path_upper = league_path.upper()
         if league_path_upper in HOCKEYTECH_LEAGUES:
-            session = async_get_clientsession(hass)
-            data = await async_fetch_hockeytech_scoreboard(
-                session=session,
-                league_id=league_path_upper,
-                sensor_name=self.name,
-            )
-            self.api_url = f"{HOCKEYTECH_LEAGUES[league_path_upper]['client_code']}.hockeytech.com/scorebar"
+            response = await async_fetch_hockeytech_scoreboard(hass, league_path_upper, self.name)
+            data = response["data"]
+            self.api_url = response["url"]
         elif (league_path == "all") and is_integer(self.team_id):
-            data = await self.async_fetch_espn_all_leagues_data(config, hass, lang)
+            data = await self.async_fetch_espn_all_leagues_data(hass, lang)
         else:
-            data = await self.async_fetch_espn_data(config, hass, lang)
+            data = await self.async_fetch_espn_data(hass, lang)
 
         return data
 
@@ -507,7 +503,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #      2. Call w/o date range specfied (uses ESPN default behavior)
     #      3. Call w/o language parm (some sports not returned in some languages)
     #
-    async def async_fetch_espn_data(self, config, hass, lang) -> dict:
+    async def async_fetch_espn_data(self, hass, lang) -> dict:
         """Gets data from ESPN APIs for specified league."""
 
         sensor_name = self.name
@@ -629,7 +625,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #      2. Call w/ date range up to upcoming game
     #      2. Call w/ date range around upcoming game
     #
-    async def async_fetch_espn_all_leagues_data(self, config, hass, lang) -> dict:
+    async def async_fetch_espn_all_leagues_data(self, hass, lang) -> dict:
         """Gets data from ESPN APIs for all leagues in specified sport."""
 
         sensor_name = self.name
@@ -701,7 +697,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #
     #  async_update_values()
     #
-    async def async_update_values(self, config, hass, data, lang) -> dict:
+    async def async_update_values(self, hass, data, lang) -> dict:
         """Updates sensor values using data returned by API or in cache"""
 
         sensor_name = self.name

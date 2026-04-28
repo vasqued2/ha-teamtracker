@@ -3,8 +3,11 @@
 import json
 import logging
 from datetime import datetime, timezone
+from yarl import URL
 
 import aiohttp
+
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
     HOCKEYTECH_BASE_URL,
@@ -25,7 +28,7 @@ _STATUS_MAP = {
 
 
 async def async_fetch_hockeytech_scoreboard(
-    session: aiohttp.ClientSession,
+    hass,
     league_id: str,
     sensor_name: str,
 ) -> dict | None:
@@ -38,15 +41,26 @@ async def async_fetch_hockeytech_scoreboard(
         )
         return None
 
-    ht_data = await async_call_hockeytech_api(
-        session,
-        league_config["key"], 
-        league_config["client_code"],
-        sensor_name, 
-        league_id
-    )
+    params = {
+        "feed": "modulekit",
+        "view": "scorebar",
+        "key": league_config["key"],
+        "client_code": league_config["client_code"],
+        "lang": "en",
+        "fmt": "json",
+        "numberofdaysback": 0,
+        "numberofdaysahead": 90,
+    }
 
-    return _transform_hockeytech_to_espn(ht_data, league_id)
+    ht_response = await async_call_hockeytech_api(hass, params, sensor_name, league_id)
+    ht_data = ht_response["ht_data"]
+    url = ht_response["url"]
+
+    espn_data = _transform_hockeytech_to_espn(ht_data, league_id)
+    return {
+        "data": espn_data,
+        "url": url
+    }
 
 
 def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
@@ -277,38 +291,36 @@ def _build_venue(game: dict) -> dict:
     }
 
 
-async def async_call_hockeytech_api(session, key, client_code, sensor_name, league_id) -> dict:
-    """Call the HockeyTech API."""
-
-    params = {
-        "feed": "modulekit",
-        "view": "scorebar",
-        "key": key,
-        "client_code": client_code,
-        "lang": "en",
-        "fmt": "json",
-        "numberofdaysback": 0,
-        "numberofdaysahead": 90,
-    }
+async def async_call_hockeytech_api(hass, params, sensor_name, league_id) -> dict:
+    """Call the HockeyTech API.
+        Response:
+        {
+            "ht_data": JSON reponse from API or None
+            "url:      URL for the call
+        }
+    """
     headers = {"User-Agent": USER_AGENT}
+    session = async_get_clientsession(hass)
 
+    url = str(URL(HOCKEYTECH_BASE_URL).with_query(params))
+
+    _LOGGER.debug(
+        "%s: Calling HockeyTech API: %s",
+        sensor_name,
+        url,
+    )
     try:
-        async with session.get(HOCKEYTECH_BASE_URL, params=params, headers=headers) as r:
-            _LOGGER.debug(
-                "%s: Calling HockeyTech API for league '%s' from %s",
-                sensor_name,
-                league_id,
-                r.url,
-            )
+        async with session.get(url, headers=headers) as r:
             if r.status != 200:
                 _LOGGER.warning(
                     "%s: HockeyTech API returned status %s", sensor_name, r.status
                 )
-                return None
+                return {"ht_data": None, "url": url}
             text = await r.text()
     except (aiohttp.ClientError, TimeoutError) as e:
         _LOGGER.warning("%s: HockeyTech API call failed: %s", sensor_name, e)
-        return None
+        return {"ht_data": None, "url": url}
+
 
     # Strip JSONP wrapper if present
     text = text.strip()
@@ -322,7 +334,10 @@ async def async_call_hockeytech_api(session, key, client_code, sensor_name, leag
     try:
         ht_data = json.loads(text)
     except json.JSONDecodeError as e:
-        _LOGGER.warning("%s: Failed to parse HockeyTech response: %s", sensor_name, e)
-        return None
+        _LOGGER.warning("%s: HockeyTech response not JSON: %s", sensor_name, e)
+        ht_data = None
 
-    return ht_data
+    return {
+        "ht_data": ht_data,
+        "url": url
+    }

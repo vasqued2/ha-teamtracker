@@ -6,22 +6,28 @@ from collections.abc import Generator # <-- New import
 import logging
 import json
 import aiofiles
+from yarl import URL
 
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from typing import Any
-from custom_components.teamtracker.const import DOMAIN
+from custom_components.teamtracker.const import (
+    DOMAIN,
+    HOCKEYTECH_BASE_URL,
+    HOCKEYTECH_LEAGUES,
+    HOCKEYTECH_TEAM_COLORS,
+    USER_AGENT,
+)
 from custom_components.teamtracker.sensor import async_setup_platform
 from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from unittest.mock import AsyncMock, patch
 
-
 @pytest.fixture
 async def mock_call_hockeytech_api(hass):
     """Global fixture to mock the HockeyTech API and return local JSON data."""
     
-    async def _get_mock_ht_api_data(hass, sensor_name, team_id, url, file_override=False):
+    async def _get_mock_ht_api_data(hass, params, sensor_name, league_id):
         """Read FILE_NAME instead of calling the API."""
 
         if sensor_name == "api_error":
@@ -30,13 +36,24 @@ async def mock_call_hockeytech_api(hass):
         FILE_NAME = "tests/tt/hockeytech-scorebar.json"
 
         try:
-            with open(f"{FILE_NAME}", "r") as f:
+            with open(FILE_NAME, "r") as f:
                 data = json.load(f)
-                return data
-        except FileNotFoundError:
-            return None
 
-    # Patch the actual utility function
+            url = str(URL(HOCKEYTECH_BASE_URL).with_query(params))
+
+            return {
+                "ht_data": data,
+                "url": url,
+            }
+
+        except FileNotFoundError:
+            url = str(URL(HOCKEYTECH_BASE_URL).with_query(params))
+
+            return {
+                "ht_data": None,
+                "url": url,
+            }
+
     with patch("custom_components.teamtracker.hockeytech.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht:
         mock_ht.side_effect = _get_mock_ht_api_data
         yield mock_ht
@@ -92,6 +109,6 @@ async def test_hockeytech(hass, mock_call_hockeytech_api, mocker):
     date = sensor_state.attributes.get("date")
     assert date == "2026-04-30T23:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "pwhl.hockeytech.com/scorebar"
+    assert api_url == "https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
