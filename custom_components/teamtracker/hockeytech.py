@@ -38,50 +38,13 @@ async def async_fetch_hockeytech_scoreboard(
         )
         return None
 
-    params = {
-        "feed": "modulekit",
-        "view": "scorebar",
-        "key": league_config["key"],
-        "client_code": league_config["client_code"],
-        "lang": "en",
-        "fmt": "json",
-        "numberofdaysback": 0,
-        "numberofdaysahead": 90,
-    }
-    headers = {"User-Agent": USER_AGENT}
-
-    try:
-        async with session.get(HOCKEYTECH_BASE_URL, params=params, headers=headers) as r:
-            _LOGGER.debug(
-                "%s: Calling HockeyTech API for league '%s' from %s",
-                sensor_name,
-                league_id,
-                r.url,
-            )
-            if r.status != 200:
-                _LOGGER.warning(
-                    "%s: HockeyTech API returned status %s", sensor_name, r.status
-                )
-                return None
-            text = await r.text()
-    except (aiohttp.ClientError, TimeoutError) as e:
-        _LOGGER.warning("%s: HockeyTech API call failed: %s", sensor_name, e)
-        return None
-
-    # Strip JSONP wrapper if present
-    text = text.strip()
-    if text.startswith("("):
-        text = text[1:]
-    if text.endswith(");"):
-        text = text[:-2]
-    elif text.endswith(")"):
-        text = text[:-1]
-
-    try:
-        ht_data = json.loads(text)
-    except json.JSONDecodeError as e:
-        _LOGGER.warning("%s: Failed to parse HockeyTech response: %s", sensor_name, e)
-        return None
+    ht_data = await async_call_hockeytech_api(
+        session,
+        league_config["key"], 
+        league_config["client_code"],
+        sensor_name, 
+        league_id
+    )
 
     return _transform_hockeytech_to_espn(ht_data, league_id)
 
@@ -89,6 +52,9 @@ async def async_fetch_hockeytech_scoreboard(
 def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
     """Transform HockeyTech scorebar data into ESPN-compatible format."""
 
+    if ht_data == None:
+        return None
+        
     league_config = HOCKEYTECH_LEAGUES.get(league_id, {})
     team_colors = HOCKEYTECH_TEAM_COLORS.get(league_id, {})
 
@@ -309,3 +275,56 @@ def _build_venue(game: dict) -> dict:
             "state": state,
         },
     }
+
+
+async def async_call_hockeytech_api(session, key, client_code, sensor_name, league_id) -> dict:
+    """Call the HockeyTech API."""
+
+    data = None
+
+    params = {
+        "feed": "modulekit",
+        "view": "scorebar",
+        "key": key,
+        "client_code": client_code,
+        "lang": "en",
+        "fmt": "json",
+        "numberofdaysback": 0,
+        "numberofdaysahead": 90,
+    }
+    headers = {"User-Agent": USER_AGENT}
+
+    try:
+        async with session.get(HOCKEYTECH_BASE_URL, params=params, headers=headers) as r:
+            _LOGGER.debug(
+                "%s: Calling HockeyTech API for league '%s' from %s",
+                sensor_name,
+                league_id,
+                r.url,
+            )
+            if r.status != 200:
+                _LOGGER.warning(
+                    "%s: HockeyTech API returned status %s", sensor_name, r.status
+                )
+                return None
+            text = await r.text()
+    except (aiohttp.ClientError, TimeoutError) as e:
+        _LOGGER.warning("%s: HockeyTech API call failed: %s", sensor_name, e)
+        return None
+
+    # Strip JSONP wrapper if present
+    text = text.strip()
+    if text.startswith("("):
+        text = text[1:]
+    if text.endswith(");"):
+        text = text[:-2]
+    elif text.endswith(")"):
+        text = text[:-1]
+
+    try:
+        ht_data = json.loads(text)
+    except json.JSONDecodeError as e:
+        _LOGGER.warning("%s: Failed to parse HockeyTech response: %s", sensor_name, e)
+        return None
+
+    return ht_data
