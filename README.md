@@ -17,7 +17,9 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vasqued2)
 
 ## Supported Teams and Leagues
-TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN scoreboard API exists. There is also support for PWHL games through the hockeytech API.
+TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN scoreboard API exists.
+
+There is also support for PWHL games through the hockeytech API. All non-ESPN APIs must be configured with a Custom API.
 
 A small subset of the most popular teams/leagues have been pre-configured to simplify their setup.  This is referred to as native support.  Unfortunately, given the large number of teams/leagues for which APIs exist, it is impossible to provide native support for all of them.  
 
@@ -31,7 +33,7 @@ The following leagues are supported natively:
 - Basketball - NBA, WNBA, NCAAM, NCAAW, WNBA
 - Football - NFL, NCAAF, XFL
 - Golf - PGA
-- Hockey - NHL, PWHL
+- Hockey - NHL
 - MMA - UFC
 - U.S. Soccer - MLS, NWSL
 - International Soccer - BUND (German Bundesliga), CL (Champions League), CLA (Conmebol Libertadores), EPL (English Premiere League), LIGA (Spanish LaLiga), LIG1 (French Ligue 1), SERA (Italian Serie A), WC (World Cup), WWC (Women's World Cup)
@@ -48,6 +50,15 @@ Sensors with Custom APIs require more steps to set up, however once set up, they
 Additionally, a Custom API can be configured using the `league_path` value of `all` to pull in soccer matches across multiple leagues and tournaments for the same team.
 
 The [Custom APIs](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#custom-apis--how-to-determine-the-sport-path-and-league-path-sport_path-league_path) section below provides more details for setting up Custom API Configurations.
+
+#### Sports / Leagues Supported by non-ESPN APIs
+
+Custom APIs can be configured for the following leagues using non-ESPN APIs
+
+| League | sport_path | league_path | API Provider |
+| --- | --- | --- | --- |
+| [Professional Womens Hockey League](https://www.thepwhl.com/) | hockey | PWHL | [HockeyTech](https://www.hockeytech.com/) |
+
 
 ## Installation
 
@@ -114,7 +125,6 @@ The `league_id` configuration key is used the specify the league for the sensor.
 - NFL (National Football League)
 - NWSL (National Women's Soccer League)
 - PGA (Professional Golfers' Assc.)
-- PWHL (Professional Womens' Hockey League)
 - SERA (Italian Serie A)
 - UFC (Ultimate Fighting Championship)
 - XFL (XFL)
