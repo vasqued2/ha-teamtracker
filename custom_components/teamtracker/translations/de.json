@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "league": "Ungültige Liga eingegeben.",
+      "cannot_fetch_teams": "Teams konnten nicht von ESPN abgerufen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "no_teams_found": "Keine Teams für diesen Suchbegriff gefunden. Versuchen Sie einen anderen Namen oder lassen Sie das Feld für eine manuelle Eingabe leer."
+    },
+    "step": {
+      "user": {
+        "title": "Sportart auswählen",
+        "description": "Wählen Sie die Sportart für Ihr Team oder Ihren Athleten.",
+        "data": {
+          "sport_key": "Sportart"
+        }
+      },
+      "league": {
+        "title": "Liga auswählen",
+        "description": "Wählen Sie die {sport_name}-Liga.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Team suchen",
+        "description": "Geben Sie einen Namen ein, um nach dem {league_name}-Team zu suchen, oder lassen Sie das Feld leer, um die Team-ID manuell einzugeben.",
+        "data": {
+          "search_team": "Teamname suchen (optional)"
+        }
+      },
+      "select_team": {
+        "title": "Team auswählen",
+        "description": "Wählen Sie Ihr {league_name}-Team aus den Suchergebnissen aus.",
+        "data": {
+          "team_selection": "Team",
+          "name": "Anzeigename (optional)"
+        }
+      },
+      "manual_team": {
+        "title": "Manuelle Teameingabe",
+        "description": "Geben Sie die {league_name}-Teamabkürzung oder die ID-Nummer wie auf ESPN angezeigt ein, oder '*' für das aktive/aktuellste Spiel.",
+        "data": {
+          "team_id": "Team-ID",
+          "conference_id": "Konferenz-Nummer",
+          "name": "Anzeigename"
+        }
+      },
+      "manual_athlete": {
+        "title": "Manuelle Athleteneingabe",
+        "description": "Geben Sie den Namen des {league_name}-Athleten, einen regulären Ausdruck oder '*' für das aktive/aktuellste Spiel ein.",
+        "data": {
+          "team_id": "Athleten-ID",
+          "conference_id": "Konferenz-Nummer (nur NCAA)",
+          "name": "Anzeigename"
+        }
+      },
+      "custom_api": {
+        "title": "Benutzerdefinierter API-Konfigurator",
+        "description": "Geben Sie den Teil 'sport_path' und 'league_path' der ESPN-API ein, um eine benutzerdefinierte API zu konfigurieren",
+        "data": {
+          "sport_path": "Sport-Pfad",
+          "league_path": "Liga-Pfad"
+        }
+      },
+      "finalize": {
+        "title": "Namen bestätigen",
+        "description": "Namen für den {league_name} {team_name} Sensor bestätigen/ändern",
+        "data": {
+          "name": "Anzeigename"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker Optionen",
+        "description": "Geben Sie den 2-stelligen Sprachcode für den API-Aufruf ein.",
+        "data": {
+          "api_language": "API-Sprache"
+        }
+      }
+    }
+  }
+}

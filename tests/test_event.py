@@ -1,7 +1,8 @@
-"""Test NFL Sensor"""
+import pytest
 import json
 import logging
 import aiofiles
+from freezegun import freeze_time
 
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import (
@@ -15,33 +16,38 @@ from tests.const import TEST_DATA
 _LOGGER = logging.getLogger(__name__)
 
 
-async def test_event(hass):
+@pytest.mark.parametrize("t", TEST_DATA, ids=lambda x: x["sensor_name"])
+async def test_event(hass, snapshot, t):
     """ Use file w/ test json and loop through test cases and compare to expected results """
+    """  This regression tests attributes for all of supported sports, leagues, and game states """
 
     async with aiofiles.open("tests/tt/all.json", mode="r") as f:
         contents = await f.read()
     data = json.loads(contents)
-    if data is None:
-        _LOGGER.warning("test_event(): Error with test file '%s'", "tests/tt/all.json")
-        assert False
 
-    for t in TEST_DATA:
-        values = await async_clear_values()
-        values["sport"] = t["sport"]
-        values["league"] = t["league"]
-        values["league_logo"] = DEFAULT_LOGO
-        values["team_abbr"] = t["team_abbr"]
-        values["state"] = "NOT_FOUND"
-        values["last_update"] = DEFAULT_LAST_UPDATE
-        values["private_fast_refresh"] = False
+    assert data is not None
 
-        sensor_name = t["sensor_name"]
-        sport_path = values["sport"]
-        league_id = values["league"]
-        team_id = values["team_abbr"]
-        lang = "en"
+    values = await async_clear_values()
+    values["sport"] = t["sport"]
+    values["league"] = t["league"]
+    values["league_logo"] = DEFAULT_LOGO
+    values["team_abbr"] = t["team_abbr"]
+    values["state"] = "NOT_FOUND"
+    values["last_update"] = DEFAULT_LAST_UPDATE
+    values["private_fast_refresh"] = False
 
-        _LOGGER.debug("%s: calling async_process_event()", sensor_name)
+    sensor_name = t["sensor_name"]
+    sport_path = values["sport"]
+    league_id = values["league"]
+    team_id = values["team_abbr"]
+    lang = "en"
+    league_map= {}
+
+    _LOGGER.debug("%s: calling async_process_event()", sensor_name)
+
+    assert t["frozen_time"] is not None
+
+    with freeze_time(t["frozen_time"]):
         values = await async_process_event(
             values,
             sensor_name,
@@ -50,21 +56,16 @@ async def test_event(hass):
             league_id,
             DEFAULT_LOGO,
             team_id,
+            league_map,
             lang,
         )
 
-        assert values
+    assert values
 
-        file = "tests/tt/results/" + sensor_name + ".json"
-        async with aiofiles.open(file, mode="r") as f:
-            contents = await f.read()
-        expected_results = json.loads(contents)
+    # Normalize dynamic fields
+    values["api_url"] = None
+    values["sport_path"] = None
+    values["league_path"] = None
+    values["kickoff_in"] = DEFAULT_KICKOFF_IN
 
-# Ignore expected values not set in the async_process_event() function
-
-        expected_results["api_url"] = None
-        expected_results["sport_path"] = None
-        expected_results["league_path"] = None
-
-        values["kickoff_in"] = DEFAULT_KICKOFF_IN  # set to default value for compare
-        assert values == expected_results
+    assert values == snapshot

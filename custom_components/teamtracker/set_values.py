@@ -5,6 +5,7 @@ import logging
 from datetime import date
 
 import arrow
+import re
 
 from .const import DEFAULT_LOGO, DEFAULT_PROB, DEFAULT_REFRESH_RATE, RAPID_REFRESH_RATE
 from .set_baseball import async_set_baseball_values
@@ -27,7 +28,7 @@ oppo_prob = {}
 #  Set Values
 #
 async def async_set_values(
-    new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
+    new_values, event, grouping_index, competition_index, team_index, league_map, lang, sensor_name
 ) -> bool:
     """Function to set all new_values for the specified event/competition/team"""
 
@@ -51,7 +52,7 @@ async def async_set_values(
         return False
 
     rc = await async_set_universal_values(
-        new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
+        new_values, event, grouping_index, competition_index, team_index, league_map, lang, sensor_name
     )
     if not rc:
         _LOGGER.debug(
@@ -172,7 +173,7 @@ async def async_set_values(
 #  Set Universal Values
 #
 async def async_set_universal_values(
-    new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
+    new_values, event, grouping_index, competition_index, team_index, league_map, lang, sensor_name
 ) -> bool:
     """Function to set new_values common for all sports"""
 
@@ -206,6 +207,10 @@ async def async_set_universal_values(
 
     new_values["event_name"] = await async_get_value(event, "shortName")
     new_values["event_url"] = await async_get_value(event, "links", 0, "href")
+
+    if new_values["league_name"] == "":
+        new_values["league_name"] = await derive_league_name(league_map, new_values["event_url"], new_values["season"])
+
     new_values["date"] = await async_get_value(
         competition, "date", default=(await async_get_value(event, "date"))
     )
@@ -625,3 +630,35 @@ async def async_set_in_values(
     #    _LOGGER.debug("%s: async_set_in_values() 6: %s", sensor_name, sensor_name)
 
     return True
+
+#
+# Derive league_name
+#
+async def derive_league_name(league_map, event_url, season):
+    """Set league_name from the competition the matched game belongs to."""
+
+    league_name = ""
+    match = re.search(r"/gameId/(\d+)", event_url)
+    if match:
+        game_id = match.group(1)
+        competition = league_map.get(game_id)
+        if competition:
+            league_name = re.sub(r"^\d{4}(-\d{2})?\s+", "", competition)
+
+    # Fallback: derive from season slug already present in scoreboard data
+    if league_name == "":
+        league_name = slug_to_name(season)
+
+    return league_name
+
+def slug_to_name(slug: str) -> str:
+    """Convert a season slug like '2025-26-english-premier-league' to 'English Premier League'."""
+    if not slug:
+        return ""
+    body = re.sub(r"^\d{4}(-\d{2})?-", "", slug)
+    if body == slug:
+        return ""
+    def _fmt_word(w):
+        # Uppercase abbreviations (no vowels, e.g. "mls", "nfl"); title-case real words
+        return w.upper() if w.isalpha() and not re.search(r"[aeiou]", w, re.I) else w.title()
+    return " ".join(_fmt_word(w) for w in body.split("-"))

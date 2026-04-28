@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_process_event(
-    values, sensor_name, data, sport_path, league_id, default_logo, team_id, lang
+    values, sensor_name, data, sport_path, league_id, default_logo, team_id, league_map, lang
 ) -> (dict, bool):
     """Loop throught the json data returned by the API to find the right event and set values"""
 
@@ -29,12 +29,16 @@ async def async_process_event(
     values["league_logo"] = await async_get_value(
         data, "leagues", 0, "logos", 0, "href", default=DEFAULT_LOGO
     )
+    values["league_name"] = await async_get_value(
+        data, "leagues", 0, "name", default=""
+    )
 
-    limit_hit = len(data["events"]) == API_LIMIT
+    events = data.get("events", [])
+    limit_hit = len(events) == API_LIMIT
     first_date = datetime(9999, 12, 31, 1, 0, 0)
     last_date = datetime(1900, 1, 31, 1, 0, 0)
 
-    for event in data["events"]:
+    for event in events:
         event_state = "NOT_FOUND"
 
         grouping_index = -1
@@ -64,6 +68,7 @@ async def async_process_event(
                     competition,
                     competition_index,
                     search_key,
+                    league_map,
                     lang,
                     sport, 
                     found_competitor,
@@ -97,6 +102,7 @@ async def async_process_event(
                     competition,
                     competition_index,
                     search_key,
+                    league_map,
                     lang,
                     sport, 
                     found_competitor,
@@ -144,6 +150,7 @@ async def async_process_competition(
     competition,
     competition_index,
     search_key,
+    league_map,
     lang,
     sport, 
     found_competitor,
@@ -176,6 +183,7 @@ async def async_process_competition(
                 grouping_index,
                 competition_index,
                 matched_index,
+                league_map,
                 lang,
                 sport, 
                 found_competitor,
@@ -200,6 +208,7 @@ async def async_process_name_match(
     grouping_index,
     competition_index,
     matched_index,
+    league_map,
     lang,
     sport, 
     found_competitor, 
@@ -221,6 +230,7 @@ async def async_process_name_match(
         grouping_index,
         competition_index,
         matched_index,
+        league_map,
         lang,
         sensor_name,
     )
@@ -393,13 +403,29 @@ async def async_find_search_key(
 async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
     """Determine if prev_values should be saved"""
 
-    if prev_values["state"] == "POST":
-        if values["state"] == "PRE":
+#
+#   If the state or prev_state is POST or IN and > 18 hrs in the future, treat is as PRE
+#     This can happen if an event is postponed
+#
+    current_state = values["state"]
+    if current_state in ("POST", "IN"):
+        time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
+        if time_diff > 64800:
+            current_state = "PRE"
+    prev_state = prev_values["state"]
+    if prev_state in ("POST", "IN"):
+        time_diff = (arrow.get(prev_values["date"]) - arrow.now()).total_seconds()
+        if time_diff > 64800:
+            prev_state = "PRE"
+
+
+    if prev_state == "POST":
+        if current_state == "PRE":
             # Use POST if PRE is more than 18 hours in future
             time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
             if time_diff > 64800:
                 return True
-        elif values["state"] == "POST":
+        elif current_state == "POST":
             # use POST w/ latest date
             if arrow.get(prev_values["date"]) > arrow.get(values["date"]):
                 return True
@@ -407,12 +433,12 @@ async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
                 arrow.get(prev_values["date"]) == arrow.get(values["date"])
             ):
                 return True
-    if prev_values["state"] == "PRE":
-        if values["state"] == "PRE":
+    if prev_state == "PRE":
+        if current_state == "PRE":
             # use PRE w/ earliest date
             if arrow.get(prev_values["date"]) <= arrow.get(values["date"]):
                 return True
-        elif values["state"] == "POST":
+        elif current_state == "POST":
             # Use PRE if less than 18 hours in future
             time_diff = abs(
                 arrow.get(prev_values["date"]) - arrow.now()
@@ -476,10 +502,13 @@ async def async_process_competition_dates(
     competition_date_str = await async_get_value(
         competition, "date", default=(await async_get_value(event, "date"))
     )
-    competition_date = datetime.strptime(
-        competition_date_str, "%Y-%m-%dT%H:%Mz"
-    )
-    last_date = max(last_date, competition_date)
-    first_date = min(first_date, competition_date)
+    try:
+        competition_date = datetime.fromisoformat(
+            str(competition_date_str).replace("Z", "+00:00")
+        ).replace(tzinfo=None)
+        last_date = max(last_date, competition_date)
+        first_date = min(first_date, competition_date)
+    except (ValueError, TypeError):
+        pass
 
     return first_date, last_date

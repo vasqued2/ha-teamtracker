@@ -5,26 +5,28 @@ import aiofiles
 
 from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import (
+    DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
 from custom_components.teamtracker.event import async_process_event
-from tests.const import MULTIGAME_DATA
+from tests.const import TEST_DATA
 
 _LOGGER = logging.getLogger(__name__)
 
 
-async def test_multigame(hass):
+async def test_event_old(hass):
     """ Use file w/ test json and loop through test cases and compare to expected results """
+    """ Used old expected results file for validation. Will remove once snapshot tests confirmed """
 
-    async with aiofiles.open("tests/tt/multigame.json", mode="r") as f:
+    async with aiofiles.open("tests/tt/all.json", mode="r") as f:
         contents = await f.read()
     data = json.loads(contents)
     if data is None:
-        _LOGGER.warning("test_event(): Error with test file '%s'", "tests/tt/multigame.json")
+        _LOGGER.warning("test_event(): Error with test file '%s'", "tests/tt/all.json")
         assert False
 
-    for t in MULTIGAME_DATA:
+    for t in TEST_DATA:
         values = await async_clear_values()
         values["sport"] = t["sport"]
         values["league"] = t["league"]
@@ -39,7 +41,7 @@ async def test_multigame(hass):
         league_id = values["league"]
         team_id = values["team_abbr"]
         lang = "en"
-        league_map = {}
+        league_map= {}
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await async_process_event(
@@ -55,4 +57,17 @@ async def test_multigame(hass):
         )
 
         assert values
-        assert values["event_name"] == t["expected_event_name"]
+
+        file = "tests/tt/results/" + sensor_name + ".json"
+        async with aiofiles.open(file, mode="r") as f:
+            contents = await f.read()
+        expected_results = json.loads(contents)
+
+# Ignore expected values not set in the async_process_event() function
+
+        expected_results["api_url"] = None
+        expected_results["sport_path"] = None
+        expected_results["league_path"] = None
+
+        values["kickoff_in"] = DEFAULT_KICKOFF_IN  # set to default value for compare
+        assert values == expected_results

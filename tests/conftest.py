@@ -4,11 +4,68 @@ import threading
 from collections.abc import Generator # <-- New import
 import pytest
 import logging
+import json
+import aiofiles
+from unittest.mock import AsyncMock, patch
 
 _LOGGER = logging.getLogger(__name__)
 
-
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
+
+from syrupy.extensions.amber import AmberSnapshotExtension
+
+class CustomDirectoryExtension(AmberSnapshotExtension):
+    snapshot_dirname = "__snapshots__"
+
+@pytest.fixture
+def snapshot(snapshot):
+    return snapshot.use_extension(CustomDirectoryExtension)
+
+
+@pytest.fixture
+async def mock_call_espn_api(hass):
+    """Global fixture to mock the ESPN API and return local JSON data."""
+    
+    # Path to your test data
+    DATA_PATH = "tests/tt/"
+
+    async def _get_mock_api_data(hass, sensor_name, team_id, url, file_override=False):
+        """Helper to load local files based on URL logic."""
+
+        if sensor_name == "api_error":
+            return None
+
+        clean_url = url.split('?')[0]
+
+        if "schedule" in clean_url:
+            file_name = "schedule.json"
+        elif "teams" in clean_url:
+            if clean_url[-1].isdigit(): # if there is any team identifier, use team 194
+                file_name = "teams-194.json"
+            elif "football" in clean_url:
+                file_name = "teams-ncaaf-small.json"
+            else:
+                file_name = "teams.json"
+        elif "/all/" in clean_url:
+            file_name = "scoreboard_all_leagues.json"
+        else:
+            file_name = "all.json"
+
+        try:
+            with open(f"{DATA_PATH}{file_name}", "r") as f:
+                data = json.load(f)
+                return data
+        except FileNotFoundError:
+            return None
+
+    # Patch the actual utility function
+    with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
+        patch("custom_components.teamtracker.config_flow.async_call_espn_api", new_callable=AsyncMock) as mock_cf, \
+        patch("custom_components.teamtracker.async_call_espn_api", new_callable=AsyncMock) as mock:
+        mock_utils.side_effect = _get_mock_api_data
+        mock_cf.side_effect = _get_mock_api_data
+        mock.side_effect = _get_mock_api_data
+        yield mock
 
 
 @pytest.fixture(autouse=True)
