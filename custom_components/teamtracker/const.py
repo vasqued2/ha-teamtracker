@@ -11,28 +11,6 @@ USER_AGENT = (
     "Gecko) Version/15.0 Safari/605.1.15"
 )
 
-# HockeyTech API
-HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
-HOCKEYTECH_LEAGUES = {
-    "PWHL": {
-        "key": "446521baf8c38984",
-        "client_code": "pwhl",
-        "league_logo": "https://assets.leaguestat.com/pwhl/logos/pwhl.png",
-    },
-}
-HOCKEYTECH_TEAM_COLORS = {
-    "PWHL": {
-        "BOS": {"color": "1a3c34", "alternateColor": "f0c744"},
-        "MIN": {"color": "2e1a47", "alternateColor": "ffffff"},
-        "MTL": {"color": "862633", "alternateColor": "ffffff"},
-        "NY":  {"color": "00b2e2", "alternateColor": "e8421e"},
-        "OTT": {"color": "c8102e", "alternateColor": "000000"},
-        "TOR": {"color": "006bae", "alternateColor": "ffffff"},
-        "SEA": {"color": "002d72", "alternateColor": "69b3e7"},
-        "VAN": {"color": "004c3f", "alternateColor": "c4a24b"},
-    },
-}
-
 # Config
 CONF_API_LANGUAGE = "api_language"
 CONF_CONFERENCE_ID = "conference_id"

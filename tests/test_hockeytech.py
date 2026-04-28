@@ -13,10 +13,12 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from typing import Any
 from custom_components.teamtracker.const import (
     DOMAIN,
+    USER_AGENT,
+)
+from custom_components.teamtracker.hockeytech import (
     HOCKEYTECH_BASE_URL,
     HOCKEYTECH_LEAGUES,
     HOCKEYTECH_TEAM_COLORS,
-    USER_AGENT,
 )
 from custom_components.teamtracker.sensor import async_setup_platform
 from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA

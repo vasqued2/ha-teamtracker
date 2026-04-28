@@ -10,13 +10,119 @@ import aiohttp
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
-    HOCKEYTECH_BASE_URL,
-    HOCKEYTECH_LEAGUES,
-    HOCKEYTECH_TEAM_COLORS,
     USER_AGENT,
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+#
+# HockeyTech API Definitions
+#
+# Public keys and API documentation provided by:
+#    https://www.mintlify.com/Pharaoh-Labs/teamarr/reference/provider-hockeytech
+#    https://github.com/IsabelleLefebvre97/PWHL-Data-Reference
+#
+HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
+HOCKEYTECH_LEAGUES = {
+    "CHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "chl",
+        "leage_name": "Canadian Hockey League",
+        "league_logo": None,
+    },
+    "OHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "ohl",
+        "leage_name": "Ontario Hockey League",
+        "league_logo": None,
+    },
+    "WHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "whl",
+        "leage_name": "Wester Hockey League",
+        "league_logo": None,
+    },
+    "QMJHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "qmjhl",
+        "leage_name": "Quebec Major Junior Hockey League",
+        "league_logo": None,
+    },
+    "AHL": {
+        "public_key": "50c2cd9b5e18e390",
+        "client_code": "ahl",
+        "leage_name": "American Hockey League",
+        "league_logo": None,
+    },
+    "ECHL": {
+        "public_key": "2c2b89ea7345cae8",
+        "client_code": "echl",
+        "leage_name": "East Coast Hockey League",
+        "league_logo": None,
+    },
+    "PWHL": {
+        "public_key": "446521baf8c38984",
+        "client_code": "pwhl",
+        "leage_name": "Professional Womens Hockey League",
+        "league_logo": "https://assets.leaguestat.com/pwhl/logos/pwhl.png",
+    },
+    "USHL": {
+        "public_key": "e828f89b243dc43f",
+        "client_code": "ushl",
+        "leage_name": "United States Hockey League",
+        "league_logo": None,
+    },
+    "OJHL": {
+        "public_key": "77a0bd73d9d363d3",
+        "client_code": "ojhl",
+        "leage_name": "Ontario Junior Hockey League",
+        "league_logo": None,
+    },
+    "BCHL": {
+        "public_key": "ca4e9e599d4dae55",
+        "client_code": "bchl",
+        "leage_name": "British Columbia Hockey League",
+        "league_logo": None,
+    },
+    "SJHL": {
+        "public_key": "2fb5c2e84bf3e4a8",
+        "client_code": "sjhl",
+        "leage_name": "Saskatchewan Junior Hockey League",
+        "league_logo": None,
+    },
+    "AJHL": {
+        "public_key": "cbe60a1d91c44ade",
+        "client_code": "ajhl",
+        "leage_name": "Alberta Junior Hockey League",
+        "league_logo": None,
+    },
+    "MJHL": {
+        "public_key": "f894c324fe5fd8f0",
+        "client_code": "mjhl",
+        "leage_name": "Manitoba Junior Hockey League",
+        "league_logo": None,
+    },
+    "MHL": {
+        "public_key": "4a948e7faf5ee58d",
+        "client_code": "mhl",
+        "leage_name": "Maritime Junior Hockey League",
+        "league_logo": None,
+    },
+}
+HOCKEYTECH_TEAM_COLORS = {
+    "PWHL": {
+        "BOS": {"color": "1a3c34", "alternateColor": "f0c744"},
+        "MIN": {"color": "2e1a47", "alternateColor": "ffffff"},
+        "MTL": {"color": "862633", "alternateColor": "ffffff"},
+        "NY":  {"color": "00b2e2", "alternateColor": "e8421e"},
+        "OTT": {"color": "c8102e", "alternateColor": "000000"},
+        "TOR": {"color": "006bae", "alternateColor": "ffffff"},
+        "SEA": {"color": "002d72", "alternateColor": "69b3e7"},
+        "VAN": {"color": "004c3f", "alternateColor": "c4a24b"},
+    },
+}
+
+
 
 # HockeyTech GameStatus codes
 _STATUS_MAP = {
@@ -44,7 +150,7 @@ async def async_fetch_hockeytech_scoreboard(
     params = {
         "feed": "modulekit",
         "view": "scorebar",
-        "key": league_config["key"],
+        "key": league_config["public_key"],
         "client_code": league_config["client_code"],
         "lang": "en",
         "fmt": "json",
