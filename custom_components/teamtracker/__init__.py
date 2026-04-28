@@ -38,6 +38,7 @@ from .const import (
     DEFAULT_LOGO,
     DEFAULT_TIMEOUT,
     DOMAIN,
+    HOCKEYTECH_LEAGUES,
     ISSUE_URL,
     LEAGUE_MAP,
     PLATFORMS,
@@ -50,6 +51,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
+from .hockeytech import async_fetch_hockeytech_scoreboard
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 
 _LOGGER = logging.getLogger(__name__)
