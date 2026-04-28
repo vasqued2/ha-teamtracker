@@ -38,6 +38,7 @@ from .const import (
     DEFAULT_LOGO,
     DEFAULT_TIMEOUT,
     DOMAIN,
+    HOCKEYTECH_LEAGUES,
     ISSUE_URL,
     LEAGUE_MAP,
     PLATFORMS,
@@ -50,6 +51,7 @@ from .const import (
     VERSION,
 )
 from .event import async_process_event
+from .hockeytech import async_fetch_hockeytech_scoreboard
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 
 _LOGGER = logging.getLogger(__name__)
@@ -481,7 +483,16 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         league_path = self.league_path
 
-        if (league_path == "all") and is_integer(self.team_id):
+        league_path_upper = league_path.upper()
+        if league_path_upper in HOCKEYTECH_LEAGUES:
+            session = async_get_clientsession(hass)
+            data = await async_fetch_hockeytech_scoreboard(
+                session=session,
+                league_id=league_path_upper,
+                sensor_name=self.name,
+            )
+            self.api_url = f"{HOCKEYTECH_LEAGUES[league_path_upper]['client_code']}.hockeytech.com/scorebar"
+        elif (league_path == "all") and is_integer(self.team_id):
             data = await self.async_fetch_espn_all_leagues_data(config, hass, lang)
         else:
             data = await self.async_fetch_espn_data(config, hass, lang)
