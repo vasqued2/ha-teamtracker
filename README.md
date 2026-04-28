@@ -13,17 +13,18 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
  - All teamtracker and teamtracker-card releases with the same MAJOR and MINOR version numbers will be compatible, regardless of PATCH version.
  - For example, any teamtracker v0.2.x will be compatible with any teamtracker-card v0.2.y.
  - Compatibility is not guaranteed across different MAJOR or MINOR version numbers.
+ - Beta functionality is not guaranteed to be supported in future releases and may require manual actions to reconfigure from release to release.
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vasqued2)
 
 ## Supported Teams and Leagues
 TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN scoreboard API exists.
 
-There is also support for PWHL games through the hockeytech API. All non-ESPN APIs must be configured with a Custom API.
-
 A small subset of the most popular teams/leagues have been pre-configured to simplify their setup.  This is referred to as native support.  Unfortunately, given the large number of teams/leagues for which APIs exist, it is impossible to provide native support for all of them.  
 
 The remaining teams/leagues are still supported, however they require a couple extra steps to set up.  This is referred to as configuring a Custom API.
+
+There is also beta support for PWHL games through the hockeytech API. All non-ESPN APIs must be configured with a Custom API. Beta functionality may have defects or break in future releases.
 
 ### Natively Supported (Pre-Configured) Sports / Leagues
 
@@ -55,9 +56,9 @@ The [Custom APIs](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#
 
 Custom APIs can be configured for the following leagues using non-ESPN APIs
 
-| League | sport_path | league_path | API Provider |
-| --- | --- | --- | --- |
-| [Professional Womens Hockey League](https://www.thepwhl.com/) | hockey | PWHL | [HockeyTech](https://www.hockeytech.com/) |
+| sport_path | league_path | League | Teams | API Provider |
+| --- | --- | --- | --- | --- |
+| hockeytech | PWHL | [Professional Womens Hockey League](https://www.thepwhl.com/) | [Teams](https://github.com/IsabelleLefebvre97/PWHL-Data-Reference/blob/main/data/basic/teams.csv) | [HockeyTech](https://www.hockeytech.com/) |
 
 
 ## Installation
