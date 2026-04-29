@@ -144,7 +144,7 @@ async def async_fetch_hockeytech_data(
 ) -> dict | None:
     """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
-    league_config = HOCKEYTECH_LEAGUES.get(league_id.upper())
+    league_config = HOCKEYTECH_LEAGUES.get(league_id)
     if league_config is None:
         _LOGGER.warning(
             "%s: No HockeyTech config for league '%s'", sensor_name, league_id
