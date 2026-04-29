@@ -40,7 +40,7 @@ HOCKEYTECH_DATA = [
         "team_id": "FW",
         "name": "test_in",
         "sport_path": "hockeytech",
-        "league_path": "PWHL",
+        "league_path": "ECHL",
         "timeout": 120,
         "conference_id": "9999",
     },
