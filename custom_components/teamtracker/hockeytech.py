@@ -22,6 +22,8 @@ _LOGGER = logging.getLogger(__name__)
 #    https://www.mintlify.com/Pharaoh-Labs/teamarr/reference/provider-hockeytech
 #    https://github.com/IsabelleLefebvre97/PWHL-Data-Reference
 #
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
+ATTRIBUTION_HOCKEYTECH = "Powered by HockeyTech.com"
 HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 HOCKEYTECH_LEAGUES = {
     "CHL": {
@@ -140,7 +142,7 @@ async def async_fetch_hockeytech_scoreboard(
 ) -> dict | None:
     """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
-    league_config = HOCKEYTECH_LEAGUES.get(league_id)
+    league_config = HOCKEYTECH_LEAGUES.get(league_id.upper())
     if league_config is None:
         _LOGGER.warning(
             "%s: No HockeyTech config for league '%s'", sensor_name, league_id

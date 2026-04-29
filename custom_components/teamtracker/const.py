@@ -3,6 +3,9 @@ from homeassistant.const import Platform
 from datetime import timedelta
 
 # API
+DATA_PROVIDER_ESPN = "espn"
+ATTRIBUTION_ESPN = "Data provided by ESPN"
+
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
 URL_TAIL = "/scoreboard"
 API_LIMIT = 50
@@ -176,6 +179,8 @@ SPORT_ICON_MAP = {
     SOCCER: "mdi:soccer",
     TENNIS: "mdi:tennis",
     VOLLEYBALL: "mdi:volleyball",
+#     Add sport_path and icons for non-ESPN APIs here
+    "hockeytech": "mdi:hockey-puck",
 }
 
 # Defaults
@@ -204,6 +209,5 @@ TEAM_ID = ""
 VERSION = "v0.16.4"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
-ATTRIBUTION = "Data provided by ESPN"
 COORDINATOR = "coordinator"
 PLATFORMS = [Platform.SENSOR]

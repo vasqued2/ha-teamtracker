@@ -17,7 +17,7 @@ from homeassistant.util import slugify
 
 from . import TeamTrackerDataUpdateCoordinator
 from .const import (
-    ATTRIBUTION,
+    ATTRIBUTION_ESPN,
     CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
@@ -35,6 +35,10 @@ from .const import (
     LEAGUE_MAP,
     SPORT_ICON_MAP,
     VERSION,
+)
+from .hockeytech import (
+    ATTRIBUTION_HOCKEYTECH,
+    DATA_PROVIDER_HOCKEYTECH,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -309,7 +313,10 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         if self.coordinator.data is None:
             return attrs
 
-        attrs[ATTR_ATTRIBUTION] = ATTRIBUTION
+        if self.coordinator.data_provider == DATA_PROVIDER_HOCKEYTECH:
+            attrs[ATTR_ATTRIBUTION] = ATTRIBUTION_HOCKEYTECH
+        else:
+            attrs[ATTR_ATTRIBUTION] = ATTRIBUTION_ESPN
 
         attrs["sport"] = self.coordinator.data["sport"]
         attrs["sport_path"] = self.coordinator.data["sport_path"]

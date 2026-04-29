@@ -32,6 +32,7 @@ from .const import (
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
     COORDINATOR,
+    DATA_PROVIDER_ESPN,
     DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LEAGUE,
@@ -52,7 +53,7 @@ from .const import (
 from .event import async_process_event
 from .hockeytech import (
     async_fetch_hockeytech_scoreboard,
-    HOCKEYTECH_LEAGUES
+    DATA_PROVIDER_HOCKEYTECH
 )
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 
@@ -248,7 +249,12 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         self.league_id = config[CONF_LEAGUE_ID]
         self.league_path = config[CONF_LEAGUE_PATH]
         self.sport_path = config[CONF_SPORT_PATH]
+        if self.sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
+            self.data_provider = DATA_PROVIDER_HOCKEYTECH
+        else:
+            self.data_provider = DATA_PROVIDER_ESPN
         self.team_id = config[CONF_TEAM_ID]
+
         self.conference_id = ""
         if CONF_CONFERENCE_ID in config.keys():
             if len(config[CONF_CONFERENCE_ID]) > 0:
@@ -484,10 +490,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         """Calls appropriate set of APIs based on sport and league."""
 
         league_path = self.league_path
-
-        league_path_upper = league_path.upper()
-        if league_path_upper in HOCKEYTECH_LEAGUES:
-            response = await async_fetch_hockeytech_scoreboard(hass, league_path_upper, self.name)
+        if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
+            response = await async_fetch_hockeytech_scoreboard(hass, league_path, self.name)
             data = response["data"]
             self.api_url = response["url"]
         elif (league_path == "all") and is_integer(self.team_id):
@@ -709,7 +713,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         # Populate base values that do not need API data
         values = {}
         values = await async_clear_values()
-        values["sport"] = self.sport_path
+        if self.sport_path.lower() == "hockeytech":
+            values["sport"] = "hockey"
+        else:
+            values["sport"] = self.sport_path
         values["sport_path"] = self.sport_path
         values["league"] = league_id
         values["league_path"] = self.league_path

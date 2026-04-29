@@ -3,7 +3,7 @@
   dict({
     'api_message': None,
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
-    'attribution': 'Data provided by ESPN',
+    'attribution': 'Powered by HockeyTech.com',
     'balls': None,
     'clock': '11:29 - 1st',
     'date': '2026-04-28T23:05Z',
@@ -50,7 +50,7 @@
     'season': 'regular-season',
     'series_summary': None,
     'sport': 'hockey',
-    'sport_path': 'hockey',
+    'sport_path': 'hockeytech',
     'strikes': None,
     'team_abbr': 'FW',
     'team_colors': list([
@@ -81,7 +81,7 @@
   dict({
     'api_message': None,
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
-    'attribution': 'Data provided by ESPN',
+    'attribution': 'Powered by HockeyTech.com',
     'balls': None,
     'clock': 'Final/OT',
     'date': '2026-04-26T02:00Z',
@@ -128,7 +128,7 @@
     'season': 'regular-season',
     'series_summary': None,
     'sport': 'hockey',
-    'sport_path': 'hockey',
+    'sport_path': 'hockeytech',
     'strikes': None,
     'team_abbr': 'SEA',
     'team_colors': list([
@@ -159,7 +159,7 @@
   dict({
     'api_message': None,
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
-    'attribution': 'Data provided by ESPN',
+    'attribution': 'Powered by HockeyTech.com',
     'balls': None,
     'clock': '7:00 pm EDT',
     'date': '2026-04-30T23:00Z',
@@ -206,7 +206,7 @@
     'season': 'regular-season',
     'series_summary': None,
     'sport': 'hockey',
-    'sport_path': 'hockey',
+    'sport_path': 'hockeytech',
     'strikes': None,
     'team_abbr': 'BOS',
     'team_colors': list([
