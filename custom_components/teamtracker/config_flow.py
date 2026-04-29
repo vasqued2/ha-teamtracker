@@ -103,10 +103,11 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
         league = paths[CONF_LEAGUE_PATH]
     url = (
         f"https://site.api.espn.com/apis/site/v2/sports"
-        f"/{sport}/{league}/teams?limit=1000"
+        f"/{sport}/{league}/teams"
     )
-    data = await async_call_espn_api(hass, "ConfigFlow-teams", league, url)
-
+    url_parms = {"limit": 1000}
+    response = await async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league)
+    data = response["data"]
     if data:
         raw = (
             data.get("sports", [{}])[0]
@@ -144,7 +145,8 @@ async def _fetch_team_conference_id(
         f"https://site.api.espn.com/apis/site/v2/sports"
         f"/{sport}/{league}/teams/{team_id}"
     )
-    data = await async_call_espn_api(hass, "ConfigFlow-teamGroup", team_id, url)
+    response = await async_call_espn_api(hass, url, None, "ConfigFlow-teamGroup", team_id)
+    data = response["data"]
     if data:
         groups = data.get("team", {}).get("groups") or {}
         return str(groups.get("id", ""))

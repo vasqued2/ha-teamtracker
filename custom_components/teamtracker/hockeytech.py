@@ -422,12 +422,13 @@ async def async_call_hockeytech_api(hass, params, sensor_name, league_id) -> dic
     )
     try:
         async with session.get(url, headers=headers) as r:
-            if r.status != 200:
+            if r.status == 200:
+                text = await r.text()
+            else:
                 _LOGGER.warning(
                     "%s: HockeyTech API returned status %s", sensor_name, r.status
                 )
                 return {"ht_data": None, "url": url}
-            text = await r.text()
     except (aiohttp.ClientError, TimeoutError) as e:
         _LOGGER.warning("%s: HockeyTech API call failed: %s", sensor_name, e)
         return {"ht_data": None, "url": url}

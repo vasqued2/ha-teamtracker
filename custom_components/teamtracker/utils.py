@@ -3,6 +3,7 @@ import json
 import aiofiles
 import os
 import logging
+from yarl import URL
 
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -55,31 +56,40 @@ def has_team(data, target_team_id):
 #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
 #    This utility will eventually replace/wrap all API calls
 #
-async def async_call_espn_api(hass, sensor_name, team_id, url, file_override=False) -> dict:
+async def async_call_espn_api(hass, base_url, params, sensor_name, team_id, file_override=False) -> dict:
     """Call the specified ESPN API."""
 
+    url = str(URL(base_url).with_query(params))
+    _LOGGER.debug(
+        "%s: Calling ESPN API for '%s': %s",
+        sensor_name,
+        team_id,
+        url,
+    )
+
     if file_override:
-        data = await async_override_espn_api(sensor_name, team_id, url)
+        data = await async_override_espn_api(sensor_name, team_id, base_url)
     else:
         headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
         session = async_get_clientsession(hass)
         try:
             async with session.get(url, headers=headers) as r:
-                _LOGGER.debug(
-                    "%s: Calling API for '%s' from %s",
-                    sensor_name,
-                    team_id,
-                    url,
-                )
                 if r.status == 200:
-                    data = await r.json()
+                    try:
+                        data = await r.json()
+                    except json.JSONDecodeError as e:
+                        _LOGGER.debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
+                        return {"data": None, "url": url}
                 else:
-                    data = None
-        except Exception as e: # pylint: disable=broad-exception-caught
+                    _LOGGER.debug(
+                        "%s: API returned status %s: %s", sensor_name, r.status, url
+                    )
+                    return {"data": None, "url": url}
+        except (aiohttp.ClientError, TimeoutError) as e:
             _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
-            data = None
+            return {"data": None, "url": url}
         
-    return data
+    return {"data": data, "url": url}
 
 
 #
