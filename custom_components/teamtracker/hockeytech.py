@@ -425,12 +425,12 @@ async def async_call_hockeytech_api(hass, params, sensor_name, league_id) -> dic
             if r.status == 200:
                 text = await r.text()
             else:
-                _LOGGER.warning(
+                _LOGGER.debug(
                     "%s: HockeyTech API returned status %s", sensor_name, r.status
                 )
                 return {"ht_data": None, "url": url}
     except (aiohttp.ClientError, TimeoutError) as e:
-        _LOGGER.warning("%s: HockeyTech API call failed: %s", sensor_name, e)
+        _LOGGER.debug("%s: HockeyTech API call failed: %s", sensor_name, e)
         return {"ht_data": None, "url": url}
 
 
@@ -446,7 +446,7 @@ async def async_call_hockeytech_api(hass, params, sensor_name, league_id) -> dic
     try:
         ht_data = json.loads(text)
     except json.JSONDecodeError as e:
-        _LOGGER.warning("%s: HockeyTech response not JSON: %s", sensor_name, e)
+        _LOGGER.debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
         ht_data = None
 
     return {
