@@ -21,7 +21,7 @@ from unittest.mock import AsyncMock, patch
 async def mock_call_espn_api(hass):
     """Global fixture to mock the ESPN API and return local JSON data."""
     
-    async def _get_mock_api_data(hass, sensor_name, team_id, url, file_override=False):
+    async def _get_mock_api_data(hass, url, params, sensor_name, team_id, file_override=False):
         """Read FILE_NAME instead of calling the API."""
 
         if sensor_name == "api_error":
@@ -32,9 +32,11 @@ async def mock_call_espn_api(hass):
         try:
             with open(f"{FILE_NAME}", "r") as f:
                 data = json.load(f)
-                return data
+                return {"data": data, "url": url}
+
         except FileNotFoundError:
-            return None
+            return {"data": None, "url": url}
+
 
     # Patch the actual utility function
     with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \

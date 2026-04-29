@@ -4,7 +4,6 @@ from typing import Any
 
 import voluptuous as vol
 
-from homeassistant.components.persistent_notification import async_create
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
@@ -17,7 +16,7 @@ from homeassistant.util import slugify
 
 from . import TeamTrackerDataUpdateCoordinator
 from .const import (
-    ATTRIBUTION,
+    ATTRIBUTION_ESPN,
     CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
     CONF_LEAGUE_ID,
@@ -35,6 +34,10 @@ from .const import (
     LEAGUE_MAP,
     SPORT_ICON_MAP,
     VERSION,
+)
+from .hockeytech import (
+    ATTRIBUTION_HOCKEYTECH,
+    DATA_PROVIDER_HOCKEYTECH,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -76,12 +79,6 @@ async def async_setup_platform(
     except vol.Invalid:
         _LOGGER.warning("%s: `league_id` must be valid (one of %s)", sensor_name, league_ids)
         _LOGGER.error("%s: Support for invalid `league_id` in YAML was deprecated in v0.7.6.  Correct config prior to next upgrade.", sensor_name)
-        async_create(
-            hass,
-            f"{sensor_name} Error: `league_id` must be valid (one of {league_ids})",
-            "Team Tracker",
-            DOMAIN,
-        )
         return
 
     # Raise an exception if the league ID is XXX and the sport or league path is not
@@ -93,7 +90,6 @@ async def async_setup_platform(
             "Must specify sport and league path for custom league (league_id = XXX)"
         )
         _LOGGER.warning("%s: %s", sensor_name, error_msg)
-        async_create(hass, f"{sensor_name} Error: {error_msg}", "Team Tracker", DOMAIN)
         return
 
     league_id = config[CONF_LEAGUE_ID].upper()
@@ -309,7 +305,10 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         if self.coordinator.data is None:
             return attrs
 
-        attrs[ATTR_ATTRIBUTION] = ATTRIBUTION
+        if self.coordinator.data_provider == DATA_PROVIDER_HOCKEYTECH:
+            attrs[ATTR_ATTRIBUTION] = ATTRIBUTION_HOCKEYTECH
+        else:
+            attrs[ATTR_ATTRIBUTION] = ATTRIBUTION_ESPN
 
         attrs["sport"] = self.coordinator.data["sport"]
         attrs["sport_path"] = self.coordinator.data["sport_path"]

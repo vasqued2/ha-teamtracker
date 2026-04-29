@@ -133,7 +133,7 @@ async def test_setup_NOT_FOUND_api_error(
 #    date = sensor_state.attributes.get("date")
 #    assert date == "2022-09-08T22:45Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=15"
+    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?limit=50&groups=15"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == "API error, no data returned" 
 

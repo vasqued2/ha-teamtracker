@@ -2,18 +2,130 @@
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+from yarl import URL
 
 import aiohttp
 
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+
 from .const import (
-    HOCKEYTECH_BASE_URL,
-    HOCKEYTECH_LEAGUES,
-    HOCKEYTECH_TEAM_COLORS,
     USER_AGENT,
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+#
+# HockeyTech API Definitions
+#
+# Public keys and API documentation provided by:
+#    https://www.mintlify.com/Pharaoh-Labs/teamarr/reference/provider-hockeytech
+#    https://github.com/IsabelleLefebvre97/PWHL-Data-Reference
+#
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
+ATTRIBUTION_HOCKEYTECH = "Powered by HockeyTech.com"
+RAPID_REFRESH_RATE_HOCKEYTECH = timedelta(seconds=60)
+HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
+HOCKEYTECH_LEAGUES = {
+    "CHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "chl",
+        "league_name": "Canadian Hockey League",
+        "league_logo": None,
+    },
+    "OHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "ohl",
+        "league_name": "Ontario Hockey League",
+        "league_logo": None,
+    },
+    "WHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "whl",
+        "league_name": "Wester Hockey League",
+        "league_logo": None,
+    },
+    "QMJHL": {
+        "public_key": "f1aa699db3d81487",
+        "client_code": "qmjhl",
+        "league_name": "Quebec Major Junior Hockey League",
+        "league_logo": None,
+    },
+    "AHL": {
+        "public_key": "50c2cd9b5e18e390",
+        "client_code": "ahl",
+        "league_name": "American Hockey League",
+        "league_logo": None,
+    },
+    "ECHL": {
+        "public_key": "2c2b89ea7345cae8",
+        "client_code": "echl",
+        "league_name": "East Coast Hockey League",
+        "league_logo": None,
+    },
+    "PWHL": {
+        "public_key": "446521baf8c38984",
+        "client_code": "pwhl",
+        "league_name": "Professional Womens Hockey League",
+        "league_logo": "https://assets.leaguestat.com/pwhl/logos/pwhl.png",
+    },
+    "USHL": {
+        "public_key": "e828f89b243dc43f",
+        "client_code": "ushl",
+        "league_name": "United States Hockey League",
+        "league_logo": None,
+    },
+    "OJHL": {
+        "public_key": "77a0bd73d9d363d3",
+        "client_code": "ojhl",
+        "league_name": "Ontario Junior Hockey League",
+        "league_logo": None,
+    },
+    "BCHL": {
+        "public_key": "ca4e9e599d4dae55",
+        "client_code": "bchl",
+        "league_name": "British Columbia Hockey League",
+        "league_logo": None,
+    },
+    "SJHL": {
+        "public_key": "2fb5c2e84bf3e4a8",
+        "client_code": "sjhl",
+        "league_name": "Saskatchewan Junior Hockey League",
+        "league_logo": None,
+    },
+    "AJHL": {
+        "public_key": "cbe60a1d91c44ade",
+        "client_code": "ajhl",
+        "league_name": "Alberta Junior Hockey League",
+        "league_logo": None,
+    },
+    "MJHL": {
+        "public_key": "f894c324fe5fd8f0",
+        "client_code": "mjhl",
+        "league_name": "Manitoba Junior Hockey League",
+        "league_logo": None,
+    },
+    "MHL": {
+        "public_key": "4a948e7faf5ee58d",
+        "client_code": "mhl",
+        "league_name": "Maritime Junior Hockey League",
+        "league_logo": None,
+    },
+}
+HOCKEYTECH_TEAM_COLORS = {
+    "PWHL": {
+        "BOS": {"color": "1a3c34", "alternateColor": "f0c744"},
+        "MIN": {"color": "2e1a47", "alternateColor": "ffffff"},
+        "MTL": {"color": "862633", "alternateColor": "ffffff"},
+        "NY":  {"color": "00b2e2", "alternateColor": "e8421e"},
+        "OTT": {"color": "c8102e", "alternateColor": "000000"},
+        "TOR": {"color": "006bae", "alternateColor": "ffffff"},
+        "SEA": {"color": "002d72", "alternateColor": "69b3e7"},
+        "VAN": {"color": "004c3f", "alternateColor": "c4a24b"},
+    },
+}
+
+
 
 # HockeyTech GameStatus codes
 _STATUS_MAP = {
@@ -24,10 +136,11 @@ _STATUS_MAP = {
 }
 
 
-async def async_fetch_hockeytech_scoreboard(
-    session: aiohttp.ClientSession,
+async def async_fetch_hockeytech_data(
+    hass,
     league_id: str,
     sensor_name: str,
+    lang: str,
 ) -> dict | None:
     """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
@@ -38,15 +151,26 @@ async def async_fetch_hockeytech_scoreboard(
         )
         return None
 
-    ht_data = await async_call_hockeytech_api(
-        session,
-        league_config["key"], 
-        league_config["client_code"],
-        sensor_name, 
-        league_id
-    )
+    params = {
+        "feed": "modulekit",
+        "view": "scorebar",
+        "key": league_config["public_key"],
+        "client_code": league_config["client_code"],
+        "lang": lang,
+        "fmt": "json",
+        "numberofdaysback": 0,
+        "numberofdaysahead": 90,
+    }
 
-    return _transform_hockeytech_to_espn(ht_data, league_id)
+    ht_response = await async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_id)
+    ht_data = ht_response["ht_data"]
+    url = ht_response["url"]
+
+    espn_data = _transform_hockeytech_to_espn(ht_data, league_id)
+    return {
+        "data": espn_data,
+        "url": url
+    }
 
 
 def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
@@ -64,6 +188,7 @@ def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
                 "id": league_config.get("client_code", league_id.lower()),
                 "abbreviation": league_id,
                 "logos": [{"href": league_config.get("league_logo", "")}],
+                "name": league_config.get("league_name", ""),
             }
         ],
         "events": [],
@@ -277,38 +402,37 @@ def _build_venue(game: dict) -> dict:
     }
 
 
-async def async_call_hockeytech_api(session, key, client_code, sensor_name, league_id) -> dict:
-    """Call the HockeyTech API."""
-
-    params = {
-        "feed": "modulekit",
-        "view": "scorebar",
-        "key": key,
-        "client_code": client_code,
-        "lang": "en",
-        "fmt": "json",
-        "numberofdaysback": 0,
-        "numberofdaysahead": 90,
-    }
+async def async_call_hockeytech_api(hass, base_url, params, sensor_name, league_id) -> dict:
+    """Call the HockeyTech API.
+        Response:
+        {
+            "ht_data": JSON reponse from API or None
+            "url:      URL for the call
+        }
+    """
     headers = {"User-Agent": USER_AGENT}
+    session = async_get_clientsession(hass)
 
+    url = str(URL(base_url).with_query(params))
+
+    _LOGGER.debug(
+        "%s: Calling HockeyTech API: %s",
+        sensor_name,
+        url,
+    )
     try:
-        async with session.get(HOCKEYTECH_BASE_URL, params=params, headers=headers) as r:
-            _LOGGER.debug(
-                "%s: Calling HockeyTech API for league '%s' from %s",
-                sensor_name,
-                league_id,
-                r.url,
-            )
-            if r.status != 200:
-                _LOGGER.warning(
+        async with session.get(url, headers=headers) as r:
+            if r.status == 200:
+                text = await r.text()
+            else:
+                _LOGGER.debug(
                     "%s: HockeyTech API returned status %s", sensor_name, r.status
                 )
-                return None
-            text = await r.text()
+                return {"ht_data": None, "url": url}
     except (aiohttp.ClientError, TimeoutError) as e:
-        _LOGGER.warning("%s: HockeyTech API call failed: %s", sensor_name, e)
-        return None
+        _LOGGER.debug("%s: HockeyTech API call failed: %s", sensor_name, e)
+        return {"ht_data": None, "url": url}
+
 
     # Strip JSONP wrapper if present
     text = text.strip()
@@ -322,7 +446,10 @@ async def async_call_hockeytech_api(session, key, client_code, sensor_name, leag
     try:
         ht_data = json.loads(text)
     except json.JSONDecodeError as e:
-        _LOGGER.warning("%s: Failed to parse HockeyTech response: %s", sensor_name, e)
-        return None
+        _LOGGER.debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
+        ht_data = None
 
-    return ht_data
+    return {
+        "ht_data": ht_data,
+        "url": url
+    }

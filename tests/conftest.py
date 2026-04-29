@@ -6,6 +6,8 @@ import pytest
 import logging
 import json
 import aiofiles
+from yarl import URL
+
 from unittest.mock import AsyncMock, patch
 
 _LOGGER = logging.getLogger(__name__)
@@ -29,13 +31,17 @@ async def mock_call_espn_api(hass):
     # Path to your test data
     DATA_PATH = "tests/tt/"
 
-    async def _get_mock_api_data(hass, sensor_name, team_id, url, file_override=False):
+#    async def _get_mock_api_data(hass, sensor_name, team_id, url, file_override=False):
+    async def _get_mock_api_data(hass, base_url, params, sensor_name, team_id, file_override=False):
         """Helper to load local files based on URL logic."""
 
-        if sensor_name == "api_error":
-            return None
+        clean_url = base_url.split('?')[0]
+        assert clean_url == base_url
 
-        clean_url = url.split('?')[0]
+        url = str(URL(base_url).with_query(params))
+
+        if sensor_name == "api_error":
+            return {"data": None, "url": url}
 
         if "schedule" in clean_url:
             file_name = "schedule.json"
@@ -54,9 +60,9 @@ async def mock_call_espn_api(hass):
         try:
             with open(f"{DATA_PATH}{file_name}", "r") as f:
                 data = json.load(f)
-                return data
+                return {"data": data, "url": url}
         except FileNotFoundError:
-            return None
+            return {"data": None, "url": url}
 
     # Patch the actual utility function
     with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \

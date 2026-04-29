@@ -3,6 +3,9 @@ from homeassistant.const import Platform
 from datetime import timedelta
 
 # API
+DATA_PROVIDER_ESPN = "espn"
+ATTRIBUTION_ESPN = "Data provided by ESPN"
+
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
 URL_TAIL = "/scoreboard"
 API_LIMIT = 50
@@ -10,28 +13,6 @@ USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like "
     "Gecko) Version/15.0 Safari/605.1.15"
 )
-
-# HockeyTech API
-HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
-HOCKEYTECH_LEAGUES = {
-    "PWHL": {
-        "key": "446521baf8c38984",
-        "client_code": "pwhl",
-        "league_logo": "https://assets.leaguestat.com/pwhl/logos/pwhl.png",
-    },
-}
-HOCKEYTECH_TEAM_COLORS = {
-    "PWHL": {
-        "BOS": {"color": "1a3c34", "alternateColor": "f0c744"},
-        "MIN": {"color": "2e1a47", "alternateColor": "ffffff"},
-        "MTL": {"color": "862633", "alternateColor": "ffffff"},
-        "NY":  {"color": "00b2e2", "alternateColor": "e8421e"},
-        "OTT": {"color": "c8102e", "alternateColor": "000000"},
-        "TOR": {"color": "006bae", "alternateColor": "ffffff"},
-        "SEA": {"color": "002d72", "alternateColor": "69b3e7"},
-        "VAN": {"color": "004c3f", "alternateColor": "c4a24b"},
-    },
-}
 
 # Config
 CONF_API_LANGUAGE = "api_language"
@@ -198,6 +179,8 @@ SPORT_ICON_MAP = {
     SOCCER: "mdi:soccer",
     TENNIS: "mdi:tennis",
     VOLLEYBALL: "mdi:volleyball",
+#     Add sport_path and icons for non-ESPN APIs here
+    "hockeytech": "mdi:hockey-puck",
 }
 
 # Defaults
@@ -226,6 +209,5 @@ TEAM_ID = ""
 VERSION = "v0.16.4"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
-ATTRIBUTION = "Data provided by ESPN"
 COORDINATOR = "coordinator"
 PLATFORMS = [Platform.SENSOR]
