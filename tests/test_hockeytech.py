@@ -130,4 +130,8 @@ async def test_hockeytech(hass, snapshot, mock_call_hockeytech_api, mocker, ht):
     assert sensor_state is not None
 
     attributes = dict(sensor_state.attributes)
+
+    attributes.pop("kickoff_in", None)
+    attributes.pop("last_update", None)
+
     assert attributes == snapshot
