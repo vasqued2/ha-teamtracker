@@ -4,7 +4,6 @@ from typing import Any
 
 import voluptuous as vol
 
-from homeassistant.components.persistent_notification import async_create
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
