@@ -2,7 +2,7 @@
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from yarl import URL
 
 import aiohttp
@@ -24,6 +24,7 @@ _LOGGER = logging.getLogger(__name__)
 #
 DATA_PROVIDER_HOCKEYTECH = "hockeytech"
 ATTRIBUTION_HOCKEYTECH = "Powered by HockeyTech.com"
+RAPID_REFRESH_RATE_HOCKEYTECH = timedelta(seconds=60)
 HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 HOCKEYTECH_LEAGUES = {
     "CHL": {

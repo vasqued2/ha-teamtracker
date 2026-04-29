@@ -53,7 +53,8 @@ from .const import (
 from .event import async_process_event
 from .hockeytech import (
     async_fetch_hockeytech_data,
-    DATA_PROVIDER_HOCKEYTECH
+    DATA_PROVIDER_HOCKEYTECH,
+    RAPID_REFRESH_RATE_HOCKEYTECH,
 )
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 
@@ -402,7 +403,10 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                 # update the interval based on flag
                 if data["private_fast_refresh"]:
                     if self.update_interval != RAPID_REFRESH_RATE:
-                        self.update_interval = RAPID_REFRESH_RATE
+                        if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
+                            self.update_interval = RAPID_REFRESH_RATE_HOCKEYTECH
+                        else:
+                            self.update_interval = RAPID_REFRESH_RATE
                         _LOGGER.debug(
                             "%s: Switching to rapid refresh rate (%s)", self.name, self.update_interval
                         )
