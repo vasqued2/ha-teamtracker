@@ -25,6 +25,39 @@ from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from unittest.mock import AsyncMock, patch
 
+HOCKEYTECH_DATA = [
+    {
+        "league_id": "XXX",
+        "team_id": "BOS",
+        "name": "test_pre",
+        "sport_path": "hockey",
+        "league_path": "PWHL",
+        "timeout": 120,
+        "conference_id": "9999",
+    },
+    {
+        "league_id": "XXX",
+        "team_id": "FW",
+        "name": "test_in",
+        "sport_path": "hockey",
+        "league_path": "PWHL",
+        "timeout": 120,
+        "conference_id": "9999",
+    },
+    {
+        "league_id": "XXX",
+        "team_id": "SEA",
+        "name": "test_post",
+        "sport_path": "hockey",
+        "league_path": "PWHL",
+        "timeout": 120,
+        "conference_id": "9999",
+    },
+]
+
+
+
+
 @pytest.fixture
 async def mock_call_hockeytech_api(hass):
     """Global fixture to mock the HockeyTech API and return local JSON data."""
@@ -60,20 +93,16 @@ async def mock_call_hockeytech_api(hass):
         mock_ht.side_effect = _get_mock_ht_api_data
         yield mock_ht
 
+@freeze_time("2026-03-21 20:00:00")
+@pytest.mark.parametrize("ht", HOCKEYTECH_DATA, ids=lambda x: x["name"])
+async def test_hockeytech(hass, snapshot, mock_call_hockeytech_api, mocker, ht):
+    """  
+        This regression tests attributes for all the hockeytech API
+            It runs a test for state PRE, IN, and POST
+            To set a new snapshot baseline: pytest --snapshot-update
+    """
 
-@freeze_time("2026-03-21 10:00:00")
-async def test_hockeytech(hass, mock_call_hockeytech_api, mocker):
-    """ Simple test for HockeyTech """
-
-    SAMPLE_DATA = {
-        "league_id": "XXX",
-        "team_id": "BOS",
-        "name": "test_sample",
-        "sport_path": "hockey",
-        "league_path": "PWHL",
-        "timeout": 120,
-        "conference_id": "9999",
-    }
+    SAMPLE_DATA = ht
 
     entry = MockConfigEntry(
         domain=DOMAIN,
@@ -97,20 +126,8 @@ async def test_hockeytech(hass, mock_call_hockeytech_api, mocker):
 # Validate sensor state and attributes based on CONFIG_DATA3
 #
 
-    sensor_state = hass.states.get("sensor.test_sample")
+    sensor_state = hass.states.get(f"sensor.{ht['name']}")
+    assert sensor_state is not None
 
-    assert sensor_state.state == "PRE"
-    team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "BOS"
-    sport = sensor_state.attributes.get("sport")
-    assert sport == "hockey"
-    league_name = sensor_state.attributes.get("league_name")
-    assert league_name == ""
-    event_name = sensor_state.attributes.get("event_name")
-    assert event_name == "OTT @ BOS"
-    date = sensor_state.attributes.get("date")
-    assert date == "2026-04-30T23:00Z"
-    api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90"
-    api_message = sensor_state.attributes.get("api_message")
-    assert api_message == None
+    attributes = dict(sensor_state.attributes)
+    assert attributes == snapshot

@@ -18,8 +18,11 @@ _LOGGER = logging.getLogger(__name__)
 
 @pytest.mark.parametrize("t", TEST_DATA, ids=lambda x: x["sensor_name"])
 async def test_event(hass, snapshot, t):
-    """ Use file w/ test json and loop through test cases and compare to expected results """
-    """  This regression tests attributes for all of supported sports, leagues, and game states """
+    """  
+        This regression tests attributes for all of supported sports, leagues, and game states
+            It runs a test for each case in TEST_DATA and compares it to the snapshot
+            To set a new snapshot baseline: pytest --snapshot-update
+    """
 
     async with aiofiles.open("tests/tt/all.json", mode="r") as f:
         contents = await f.read()
