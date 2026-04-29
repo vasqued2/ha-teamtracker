@@ -54,13 +54,24 @@ The [Custom APIs](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#
 
 #### Sports / Leagues Supported by non-ESPN APIs
 
-Custom APIs can be configured for the following leagues using non-ESPN APIs
+Custom APIs can be configured for the following leagues using HockeyTech APIs
 
-| sport_path | league_path | League | Teams | API Provider |
-| --- | --- | --- | --- | --- |
-| hockeytech | PWHL | [Professional Womens Hockey League](https://www.thepwhl.com/) | [Teams](https://github.com/IsabelleLefebvre97/PWHL-Data-Reference/blob/main/data/basic/teams.csv) | [HockeyTech](https://www.hockeytech.com/) |
-
-
+| League | `sport_path` | `league_path` |
+| --- | --- | --- |
+| [Professional Womens Hockey League](https://www.thepwhl.com/) | hockeytech | pwhl | 
+| [Canadian Hockey League](https://chl.ca/) | hockeytech | chl |
+| [Ontario Hockey League](https://ontariohockeyleague.com/) | hockeytech | ohl |
+| [Western Hockey League](https://whl.ca/) | hockeytech | whl |
+| [Quebec Major Junior Hockey League](https://theqmjhl.ca/) | hockeytech | qmjhl |
+| [American Hockey League](https://theahl.com/) | hockeytech | ahl |
+| [East Coast Hockey League](https://echl.com/) | hockeytech | echl |
+| [United States Hockey League](https://ushl.com/) | hockeytech | ushl |
+| [Ontario Junior Hockey League](https://www.ojhl.ca/) | hockeytech | ojhl |
+| [British Columbia Hockey League](https://bchl.ca/) | hockeytech | bchl |
+| [Saskatchewan Junior Hockey League](https://sjhl.ca/) | hockeytech | sjhl |
+| [Alberta Junior Hockey League](https://www.ajhl.ca/) | hockeytech | ajhl |
+| [Manitoba Junior Hockey League](https://mjhlhockey.ca/) | hockeytech | mjhl |
+| [Maritime Junior Hockey League](https://www.themhl.ca/) | hockeytech | mhl |
 ## Installation
 
 ### Manual Installation
