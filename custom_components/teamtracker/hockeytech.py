@@ -162,7 +162,7 @@ async def async_fetch_hockeytech_data(
         "numberofdaysahead": 90,
     }
 
-    ht_response = await async_call_hockeytech_api(hass, params, sensor_name, league_id)
+    ht_response = await async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_id)
     ht_data = ht_response["ht_data"]
     url = ht_response["url"]
 
@@ -402,7 +402,7 @@ def _build_venue(game: dict) -> dict:
     }
 
 
-async def async_call_hockeytech_api(hass, params, sensor_name, league_id) -> dict:
+async def async_call_hockeytech_api(hass, base_url, params, sensor_name, league_id) -> dict:
     """Call the HockeyTech API.
         Response:
         {
@@ -413,7 +413,7 @@ async def async_call_hockeytech_api(hass, params, sensor_name, league_id) -> dic
     headers = {"User-Agent": USER_AGENT}
     session = async_get_clientsession(hass)
 
-    url = str(URL(HOCKEYTECH_BASE_URL).with_query(params))
+    url = str(URL(base_url).with_query(params))
 
     _LOGGER.debug(
         "%s: Calling HockeyTech API: %s",

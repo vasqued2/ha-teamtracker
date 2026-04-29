@@ -62,28 +62,24 @@ HOCKEYTECH_DATA = [
 async def mock_call_hockeytech_api(hass):
     """Global fixture to mock the HockeyTech API and return local JSON data."""
     
-    async def _get_mock_ht_api_data(hass, params, sensor_name, league_id):
+    async def _get_mock_ht_api_data(hass, base_url, params, sensor_name, league_id):
         """Read FILE_NAME instead of calling the API."""
 
         if sensor_name == "api_error":
             return None
 
         FILE_NAME = "tests/tt/hockeytech-scorebar.json"
+        url = str(URL(base_url).with_query(params))
 
         try:
             with open(FILE_NAME, "r") as f:
                 data = json.load(f)
-
-            url = str(URL(HOCKEYTECH_BASE_URL).with_query(params))
-
             return {
                 "ht_data": data,
                 "url": url,
             }
 
         except FileNotFoundError:
-            url = str(URL(HOCKEYTECH_BASE_URL).with_query(params))
-
             return {
                 "ht_data": None,
                 "url": url,
