@@ -52,7 +52,7 @@ from .const import (
 )
 from .event import async_process_event
 from .hockeytech import (
-    async_fetch_hockeytech_scoreboard,
+    async_fetch_hockeytech_data,
     DATA_PROVIDER_HOCKEYTECH
 )
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
@@ -491,7 +491,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         league_path = self.league_path
         if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
-            response = await async_fetch_hockeytech_scoreboard(hass, league_path, self.name)
+            response = await async_fetch_hockeytech_data(hass, league_path, self.name, lang)
             data = response["data"]
             self.api_url = response["url"]
         elif (league_path == "all") and is_integer(self.team_id):

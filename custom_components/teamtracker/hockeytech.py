@@ -135,10 +135,11 @@ _STATUS_MAP = {
 }
 
 
-async def async_fetch_hockeytech_scoreboard(
+async def async_fetch_hockeytech_data(
     hass,
     league_id: str,
     sensor_name: str,
+    lang: str,
 ) -> dict | None:
     """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
@@ -154,7 +155,7 @@ async def async_fetch_hockeytech_scoreboard(
         "view": "scorebar",
         "key": league_config["public_key"],
         "client_code": league_config["client_code"],
-        "lang": "en",
+        "lang": lang,
         "fmt": "json",
         "numberofdaysback": 0,
         "numberofdaysahead": 90,
