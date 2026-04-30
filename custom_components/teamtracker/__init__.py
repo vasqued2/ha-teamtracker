@@ -500,14 +500,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         league_path = self.league_path
         if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
             response = await async_fetch_hockeytech_data(hass, league_path.upper(), self.name, lang)
-            data = response["data"]
-            self.api_url = response["url"]
         elif (league_path == "all") and is_integer(self.team_id):
-            data = await self.async_fetch_espn_all_leagues_data(hass, lang)
+            response = await self.async_fetch_espn_all_leagues_data(hass, lang)
         else:
-            data = await self.async_fetch_espn_data(hass, lang)
+            response = await self.async_fetch_espn_data(hass, lang)
 
-        return data
+        self.api_url = response["url"]
+        return response["data"]
 
 
     #
@@ -617,8 +616,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             data = response["data"]
             url = response["url"]
                     
-        self.api_url = url
-        return data
+        return {"data": data, "url": url}
 
 
     #
@@ -685,9 +683,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
                     data = response["data"]
                     url = response["url"]
 
-                
-        self.api_url = url
-        return data
+        return {"data": data, "url": url}
 
 
     #
