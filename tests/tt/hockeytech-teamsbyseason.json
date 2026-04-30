@@ -1,0 +1,119 @@
+{
+  "SiteKit": {
+    "Parameters": {
+      "feed": "modulekit",
+      "view": "teamsbyseason",
+      "season_id": 8,
+      "key": "446521baf8c38984",
+      "client_code": "pwhl",
+      "lang": "en",
+      "fmt": "json",
+      "lang_id": 1,
+      "league_id": "1"
+    },
+    "Teamsbyseason": [
+      {
+        "id": "1",
+        "name": "Boston Fleet",
+        "city": "Boston",
+        "code": "BOS",
+        "nickname": "Fleet",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/1.png"
+      },
+      {
+        "id": "2",
+        "name": "Minnesota Frost",
+        "city": "Minnesota",
+        "code": "MIN",
+        "nickname": "Frost",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/2.jpg"
+      },
+      {
+        "id": "3",
+        "name": "Montréal Victoire",
+        "city": "Montréal",
+        "code": "MTL",
+        "nickname": "Victoire",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/3.png"
+      },
+      {
+        "id": "4",
+        "name": "New York Sirens",
+        "city": "New York",
+        "code": "NY",
+        "nickname": "Sirens",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/4.png"
+      },
+      {
+        "id": "5",
+        "name": "Ottawa Charge",
+        "city": "Ottawa",
+        "code": "OTT",
+        "nickname": "Charge",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/5.png"
+      },
+      {
+        "id": "8",
+        "name": "Seattle Torrent",
+        "city": "Seattle",
+        "code": "SEA",
+        "nickname": "Torrent",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/8.png"
+      },
+      {
+        "id": "6",
+        "name": "Toronto Sceptres",
+        "city": "Toronto",
+        "code": "TOR",
+        "nickname": "Sceptres",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/6.png"
+      },
+      {
+        "id": "9",
+        "name": "Vancouver Goldeneyes",
+        "city": "Vancouver",
+        "code": "VAN",
+        "nickname": "Goldeneyes",
+        "team_caption": "",
+        "division_id": "1",
+        "division_long_name": "PWHL",
+        "division_short_name": "PWHL",
+        "team_logo_url": "https://assets.leaguestat.com/pwhl/logos/9.png"
+      }
+    ],
+    "Copyright": {
+      "required_copyright": "Official statistics provided by Professional Women's Hockey League",
+      "required_link": "http://leaguestat.com",
+      "powered_by": "Powered by HockeyTech.com",
+      "powered_by_url": "http://hockeytech.com"
+    }
+  }
+}

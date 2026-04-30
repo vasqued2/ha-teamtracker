@@ -23,6 +23,38 @@ class CustomDirectoryExtension(AmberSnapshotExtension):
 def snapshot(snapshot):
     return snapshot.use_extension(CustomDirectoryExtension)
 
+@pytest.fixture
+async def mock_call_hockeytech_api(hass):
+    """Global fixture to mock the HockeyTech API and return local JSON data."""
+    
+    async def _get_mock_ht_api_data(hass, base_url, params, sensor_name, league_id):
+        """Read FILE_NAME instead of calling the API."""
+
+        if sensor_name == "api_error":
+            return None
+
+        view = params["view"]
+        FILE_NAME = f"tests/tt/hockeytech-{view}.json"
+        url = str(URL(base_url).with_query(params))
+
+        try:
+            with open(FILE_NAME, "r") as f:
+                data = json.load(f)
+            return {
+                "ht_data": data,
+                "url": url,
+            }
+
+        except FileNotFoundError:
+            return {
+                "ht_data": None,
+                "url": url,
+            }
+
+    with patch("custom_components.teamtracker.hockeytech.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht:
+        mock_ht.side_effect = _get_mock_ht_api_data
+        yield mock_ht
+
 
 @pytest.fixture
 async def mock_call_espn_api(hass):

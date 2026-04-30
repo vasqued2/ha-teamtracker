@@ -68,7 +68,8 @@ async def mock_call_hockeytech_api(hass):
         if sensor_name == "api_error":
             return None
 
-        FILE_NAME = "tests/tt/hockeytech-scorebar.json"
+        view = params["view"]
+        FILE_NAME = f"tests/tt/hockeytech-{view}.json"
         url = str(URL(base_url).with_query(params))
 
         try:

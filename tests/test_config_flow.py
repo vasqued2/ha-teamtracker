@@ -288,12 +288,12 @@ async def test_custom_api_team_input(hass):
         await hass.async_block_till_done()
         assert len(mock_setup_entry.mock_calls) == 1
 
-async def test_custom_api_team_list(hass, mock_call_espn_api):
+async def test_custom_api_espn_team_list(hass, mock_call_espn_api):
     """Test the multi-step config flow when team selected from list"""
     #
     # Step 1: Initiate the flow
     # Step 2: Choose "XXX" for Custom API
-    # Step 3: Enter sport_path and league_path
+    # Step 3: Enter sport_path and league_path for ESPN
     # Step 4: Enter team name to search for
     # Step 5: Select team from list
     # Step 6: Input Sensor Name (Override default team name)
@@ -362,6 +362,83 @@ async def test_custom_api_team_list(hass, mock_call_espn_api):
 
         await hass.async_block_till_done()
         assert len(mock_setup_entry.mock_calls) == 1
+
+
+async def test_custom_api_hockeytech_team_list(hass, mock_call_hockeytech_api):
+    """Test the multi-step config flow when team selected from list"""
+    #
+    # Step 1: Initiate the flow
+    # Step 2: Choose "XXX" for Custom API
+    # Step 3: Enter 'hockeytech' for sport_path and league_path for HockeyTech league
+    # Step 4: Enter team name to search for
+    # Step 5: Select team from list
+    # Step 6: Input Sensor Name (Override default team name)
+    #
+
+    # Step 1: init flow, expect sport selection form
+    await setup.async_setup_component(hass, "persistent_notification", {})
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": "user"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "user"
+    assert result["errors"] == {}
+
+    # Step 2: choose sport → expect custom_api form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"sport_key": "XXX"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "custom_api"
+
+    # Step 3: enter sport_path and league_path → expect team search form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {
+                "sport_path": "hockeytech",
+                "league_path": "pwhl",
+            },
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "search"
+
+    # Step 4: enter team search term → expect select_team entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"search_team": "fleet"}
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "select_team"
+
+    # Step 5: select team from list → expect finalize entry form
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {"team_selection": "1"} # Must be the team ID from JSON
+    )
+    assert result["type"] == "form"
+    assert result["step_id"] == "finalize"
+
+    # Step 6: Enter a sensor name to override default (Final Step)
+    with patch(
+        "custom_components.teamtracker.async_setup_entry",
+        return_value=True,
+    ) as mock_setup_entry:
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {
+                "name": "Override Sensor Name",    # Override name
+            },
+        )
+
+        assert result["type"] == "create_entry"
+        assert result["title"] == "Override Sensor Name"
+
+        # Verify the data structure matches NCAAF expectations
+        assert result["data"]["league_id"] == "XXX"
+        assert result["data"]["team_id"] == "1"
+        assert result["data"]["sport_path"] == "hockeytech" # Conference ID from the test file as it should be
+        assert result["data"]["league_path"] == "pwhl"
+
+        await hass.async_block_till_done()
+        assert len(mock_setup_entry.mock_calls) == 1
+
 
 async def test_options_flow_init(hass):
     """ Test config flow options """

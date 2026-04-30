@@ -1,0 +1,101 @@
+{
+  "SiteKit": {
+    "Parameters": {
+      "feed": "modulekit",
+      "view": "seasons",
+      "key": "446521baf8c38984",
+      "client_code": "pwhl",
+      "league_id": "1",
+      "season_id": "9"
+    },
+    "Seasons": [
+      {
+        "season_id": "9",
+        "season_name": "2026 Playoffs",
+        "shortname": "2026 Playoffs",
+        "career": "1",
+        "playoff": "1",
+        "start_date": "2026-04-28",
+        "end_date": "2026-05-28"
+      },
+      {
+        "season_id": "8",
+        "season_name": "2025-26 Regular Season",
+        "shortname": "2025-26 Reg",
+        "career": "1",
+        "playoff": "0",
+        "start_date": "2025-11-21",
+        "end_date": "2026-04-27"
+      },
+      {
+        "season_id": "7",
+        "season_name": "2025-26 Preseason",
+        "shortname": "2025-26 Preseason",
+        "career": "0",
+        "playoff": "0",
+        "start_date": "2025-06-01",
+        "end_date": "2025-11-19"
+      },
+      {
+        "season_id": "6",
+        "season_name": "2025 Playoffs",
+        "shortname": "2025 Playoffs",
+        "career": "1",
+        "playoff": "1",
+        "start_date": "2025-05-06",
+        "end_date": "2025-06-03"
+      },
+      {
+        "season_id": "5",
+        "season_name": "2024-25 Regular Season",
+        "shortname": "2024-25 Reg",
+        "career": "1",
+        "playoff": "0",
+        "start_date": "2024-11-25",
+        "end_date": "2025-05-05"
+      },
+      {
+        "season_id": "4",
+        "season_name": "2024-25 Preseason",
+        "shortname": "2024-25 Preseason",
+        "career": "0",
+        "playoff": "0",
+        "start_date": "2024-11-01",
+        "end_date": "2024-11-29"
+      },
+      {
+        "season_id": "3",
+        "season_name": "2024 Playoffs",
+        "shortname": "2024 Playoffs",
+        "career": "1",
+        "playoff": "1",
+        "start_date": "2024-05-06",
+        "end_date": "2024-06-10"
+      },
+      {
+        "season_id": "1",
+        "season_name": "2024 Regular Season",
+        "shortname": "2024 Reg",
+        "career": "1",
+        "playoff": "0",
+        "start_date": "2024-01-01",
+        "end_date": "2024-05-27"
+      },
+      {
+        "season_id": "2",
+        "season_name": "2024 Preseason",
+        "shortname": "2024 Preseason",
+        "career": "0",
+        "playoff": "0",
+        "start_date": "2023-11-01",
+        "end_date": "2023-12-31"
+      }
+    ],
+    "Copyright": {
+      "required_copyright": "Official statistics provided by Professional Women's Hockey League",
+      "required_link": "http://leaguestat.com",
+      "powered_by": "Powered by HockeyTech.com",
+      "powered_by_url": "http://hockeytech.com"
+    }
+  }
+}
