@@ -393,6 +393,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #          async_call_espn_api() - Mockable, overridable API call for ESPN APIs
     #        async_fetch_espn_all_leagues_data() - Gets data from ESPN APIs for all leagues in specified sport
     #          async_call_espn_api() - Mockable, overridable API call for ESPN APIs
+    #        async_fetch_hockeytech_data() - Gets data from HockeyTech APIs for specified league
+    #          async_call_hockeytech_api() - Mockable, overridable API call for HockeyTech APIs
     #      async_update_values() - Updates sensor values using data returned by API or in cache
     #        async_process_event() - Parses ESPN event structure and populates values for sensor
     #

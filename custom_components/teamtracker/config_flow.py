@@ -23,6 +23,11 @@ from .const import (
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
 )
+from .hockeytech import (
+    async_fetch_hockeytech_team_data,
+    DATA_PROVIDER_HOCKEYTECH,
+)
+
 from .utils import async_call_espn_api
 
 _LOGGER = logging.getLogger(__name__)
@@ -91,9 +96,39 @@ SPORT_OPTIONS: dict[str, str] = {
     **{k: v[0] for k, v in _SPORT_GROUPS.items()}
 }
 
+#
+# Return a list of team dictionaries
+#  [{
+#   "id": team_id,
+#   "displayName": Long Team Name
+#   "location": City, State, Country of team
+#    "conference_id": Conference for the team (NCAA Only)
+#  }]
+#
+async def async_call_teams_apis(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
+    """Fetch teams from any API for a given league."""
 
-async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
-    """Fetch teams from ESPN API for a given league."""
+    if sport_path.lower() == DATA_PROVIDER_HOCKEYTECH.lower():
+        response = await async_fetch_hockeytech_team_data(hass, league_path.upper())
+    elif (league_path == "all"):
+        response = {"data": None}
+    else:
+        response = await async_fetch_espn_team_data(hass, league_id, sport_path, league_path)
+
+    return response["data"]
+
+#
+# Return a list of team dictionaries
+#  [{
+#   "id": team_id,
+#   "displayName": Long Team Name
+#   "location": City, State, Country of team
+#    "conference_id": Conference for the team (NCAA Only)
+#  }]
+#
+
+async def async_fetch_espn_team_data(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
+    """Fetch teams from any API for a given league."""
     if league_id not in LEAGUE_MAP:
         sport = sport_path
         league = league_path
@@ -108,6 +143,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
     url_parms = {"limit": 1000}
     response = await async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league)
     data = response["data"]
+    url = response["url"]
     if data:
         raw = (
             data.get("sports", [{}])[0]
@@ -116,7 +152,8 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
         )
     else:
         raw = []
-        
+
+    # Build the teams data
     teams = []
     for entry in raw:
         t = entry.get("team", {})
@@ -127,7 +164,7 @@ async def _fetch_teams(hass: HomeAssistant, league_id: str, sport_path: str, lea
             "location":      t.get("location", ""),
             "conference_id": (t.get("groups") or {}).get("id", ""),
         })
-    return teams
+    return {"data": teams, "url": url}
 
 
 async def _fetch_team_conference_id(
@@ -295,7 +332,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             search_term = user_input.get("search_team", "").strip().lower()
 
             if search_term:
-                self._all_teams = await _fetch_teams(self.hass, self._league_id, self._sport_path, self._league_path)
+                self._all_teams = await async_call_teams_apis(self.hass, self._league_id, self._sport_path, self._league_path)
                 if not self._all_teams:
                     self._errors["base"] = "cannot_fetch_teams"
                 else:
