@@ -437,7 +437,6 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     async def async_update_sport_data(self, config, hass) -> dict:
         """Determines to use cached data or API call (if exprired)"""
 
-        sensor_name = self.name
         sport_path = self.sport_path
         league_path = self.league_path
         conference_id = self.conference_id
