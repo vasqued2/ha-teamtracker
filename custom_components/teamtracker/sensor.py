@@ -187,87 +187,12 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
                 sport_path,
             )
 
-        self.coordinator = sensor_coordinator
         self._entry_id = entry_id
         self._name = sensor_name
         self._icon = icon
-        self._state = "PRE"
 
-        self._sport = None
-        self._sport_path = None
-        self._league = None
-        self._league_path = None
-        self._league_logo = None
-        self._league_name = None
-        self._season = None
-        self._team_abbr = None
-        self._opponent_abbr = None
+        self.coordinator = sensor_coordinator
 
-        self._event_name = None
-        self._event_url = None
-        self._date = None
-        self._kickoff_in = None
-        self._series_summary = None
-        self._venue = None
-        self._location = None
-        self._tv_network = None
-        self._odds = None
-        self._overunder = None
-
-        self._team_name = None
-        self._team_long_name = None
-        self._team_id = None
-        self._team_record = None
-        self._team_rank = None
-        self._team_conference_id = None
-        self._team_homeaway = None
-        self._team_logo = None
-        self._team_url = None
-        self._team_colors = None
-        self._team_score = None
-        self._team_win_probability = None
-        self._team_winner = None
-        self._team_timeouts = None
-
-        self._opponent_name = None
-        self._opponent_long_name = None
-        self._opponent_id = None
-        self._opponent_record = None
-        self._opponent_rank = None
-        self._opponent_conference_id = None
-        self._opponent_homeaway = None
-        self._opponent_logo = None
-        self._opponent_url = None
-        self._opponent_colors = None
-        self._opponent_score = None
-        self._opponent_win_probability = None
-        self._opponent_winner = None
-        self._opponent_timeouts = None
-
-        self._quarter = None
-        self._clock = None
-        self._possession = None
-        self._last_play = None
-        self._down_distance_text = None
-
-        self._outs = None
-        self._balls = None
-        self._strikes = None
-        self._on_first = None
-        self._on_second = None
-        self._on_third = None
-
-        self._team_shots_on_target = None
-        self._team_total_shots = None
-        self._opponent_shots_on_target = None
-        self._opponent_total_shots = None
-
-        self._team_sets_won = None
-        self._opponent_sets_won = None
-
-        self._last_update = None
-        self._api_message = None
-        self._api_url = None
 
     @property
     def unique_id(self) -> str:
