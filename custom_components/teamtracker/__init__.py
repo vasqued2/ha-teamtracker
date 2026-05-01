@@ -187,14 +187,15 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
 
     if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id)
+        domain_data = hass.data.get(DOMAIN, None)
+        if domain_data:
+            domain_data.pop(entry.entry_id)
         
         # Only remove service if this is the last entry
-        if not hass.data[DOMAIN]:
+        if not domain_data:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
             TeamTrackerDataUpdateCoordinator.data_cache.clear()
-            TeamTrackerDataUpdateCoordinator.last_update.clear()
-            TeamTrackerDataUpdateCoordinator.c_cache.clear()
+            TeamTrackerDataUpdateCoordinator.all_team_cache.clear()
 
     return unload_ok
 
@@ -238,10 +239,13 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching TeamTracker data."""
 
-    data_cache = {}
-    last_update = {}
-    c_cache = {}
-    all_team_cache = {}  # {"{sport}:{league}:{team_id}": {next_game_date, league_map, expires}}
+# Stores API data for sharing across sensors
+#  key = "{sport_path}:{league_path}:{conference_id}:{lang}"+":{team_id}" if league_path "all"
+    data_cache = {}  # {key: {cache_data, cache_url, cache_time}}
+
+# Stores team information when league_path is all
+#  key = "{sport}:{league}:{team_id}"
+    all_team_cache = {}  # {key: {next_game_date, league_map, expires}}
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
@@ -311,7 +315,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             key += ":" + team_id
 
         if key in TeamTrackerDataUpdateCoordinator.data_cache:
-            del TeamTrackerDataUpdateCoordinator.data_cache[key]
+            TeamTrackerDataUpdateCoordinator.data_cache.pop(key, None)
 
 
     #
@@ -449,43 +453,38 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         #
         #  Use cache if not expired
         #
-        if key in self.data_cache:
+        dc = self.data_cache.get(key, None)
+        if dc:
+            cache_time = dc.get("cache_time", None)
+
             expiration = (
-                datetime.fromisoformat(self.last_update[key]) + self.update_interval
+                datetime.fromisoformat(cache_time) + self.update_interval
             )
             now = datetime.now(timezone.utc)
 
             if now < expiration:
-                data = self.data_cache[key]
+                data = dc.get("cache_data", None)
+                self.api_url = dc.get("cache_url", None)
+
                 values = await self.async_update_values(hass, data, lang)
+
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
                 else:
                     values["api_message"] = "Cached data"
+
                 return values
 
         data = await self.async_call_sport_apis(hass, lang)
         values = await self.async_update_values(hass, data, lang)
 
         if data is not None:
-            self.data_cache[key] = data
-        self.last_update[key] = values["last_update"]
+            self.data_cache[key] = {
+                "cache_data": data,
+                "cache_url": self.api_url,
+                "cache_time": values["last_update"]
+            }
 
-        if conference_id == "9999": # if conference_id is 9999, create results file for tests
-            path = "/share/tt/results/" + sensor_name + ".json"
-            if not os.path.exists(path):
-                _LOGGER.debug("%s: Creating results file '%s'", sensor_name, path)
-                values[
-                    "last_update"
-                ] = DEFAULT_LAST_UPDATE  # set to fixed time for compares
-                values["kickoff_in"] = DEFAULT_KICKOFF_IN
-                try:
-                    with open(path, "w", encoding="utf-8") as convert_file:
-                        convert_file.write(json.dumps(values, indent=4))
-                except:
-                    _LOGGER.debug(
-                        "%s: Error creating results file '%s'", sensor_name, path
-                    )
         return values
 
 
