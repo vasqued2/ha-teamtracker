@@ -40,7 +40,9 @@ async def async_process_event(
 
     for event in events:
         event_state = "NOT_FOUND"
-
+        values["event_name"] = await async_get_value(
+            data, "events", 0, "name", default=""
+        )
         grouping_index = -1
         for grouping_index, grouping in enumerate(
             await async_get_value(event, "groupings", default=[])
@@ -474,20 +476,35 @@ async def competitor_not_found(
             API_LIMIT,
             search_key,
         )
-    else:
-        values["api_message"] = (
-            "No competition scheduled for '"
-            + team_id
-            + "' between "
-            + first_date.strftime("%Y-%m-%dT%H:%MZ")
-            + " and "
-            + last_date.strftime("%Y-%m-%dT%H:%MZ")
+        return
+
+    if values["sport_path"] == "racing" and values["event_name"] is not None:
+        competition = await async_get_value(
+            values, "events", 0, "competitions", 0, "competitors", default=None
         )
-        _LOGGER.debug(
-            "%s: No competitor information '%s' returned by API",
-            sensor_name,
-            search_key,
-        )
+        if competition is None:
+            values["api_message"] = f"Driver not found. Field not set for race ({values['event_name']})"
+            _LOGGER.debug(
+                "%s: No drivers in race field for %s",
+                sensor_name,
+                values["event_name"]
+            )
+            return
+
+    values["api_message"] = (
+        "No competition scheduled for '"
+        + team_id
+        + "' between "
+        + first_date.strftime("%Y-%m-%dT%H:%MZ")
+        + " and "
+        + last_date.strftime("%Y-%m-%dT%H:%MZ")
+    )
+    _LOGGER.debug(
+        "%s: No competitor information '%s' returned by API",
+        sensor_name,
+        search_key,
+    )
+
     return
 
 
