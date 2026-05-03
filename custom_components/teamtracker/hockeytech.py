@@ -286,14 +286,15 @@ async def async_fetch_hockeytech_data(
         "url": url
     }
 
-def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
+def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict | None:
     """Transform HockeyTech scorebar data into ESPN-compatible format."""
 
-    if ht_data is None:
+    league_config = HOCKEYTECH_LEAGUES.get(league_id)
+    team_colors = HOCKEYTECH_TEAM_COLORS.get(league_id, {})
+
+    if ht_data is None or league_config is None:
         return None
         
-    league_config = HOCKEYTECH_LEAGUES.get(league_id, {})
-    team_colors = HOCKEYTECH_TEAM_COLORS.get(league_id, {})
 
     espn_data = {
         "leagues": [
