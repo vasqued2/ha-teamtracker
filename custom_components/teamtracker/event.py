@@ -38,9 +38,9 @@ async def async_process_event(
     first_date = datetime(9999, 12, 31, 1, 0, 0)
     last_date = datetime(1900, 1, 31, 1, 0, 0)
 
+    event = None
+    competition = None
     for event in events:
-        saved_event = event
-        saved_competition = None
         event_state = "NOT_FOUND"
         grouping_index = -1
         for grouping_index, grouping in enumerate(
@@ -51,7 +51,6 @@ async def async_process_event(
             for competition_index, competition in enumerate(
                 await async_get_value(grouping, "competitions", default=[])
             ):
-                saved_competition = competition
                 first_date, last_date = await  async_process_competition_dates(
                     event,
                     competition,
@@ -85,8 +84,6 @@ async def async_process_event(
             for competition_index, competition in enumerate(
                 await async_get_value(event, "competitions", default=[])
             ):
-                saved_competition = competition
-
                 first_date, last_date = await  async_process_competition_dates(
                     event,
                     competition,
@@ -131,7 +128,7 @@ async def async_process_event(
     if not found_competitor:
         await competitor_not_found(
             values,
-            saved_event,
+            event,
             competition,
             limit_hit,
             first_date,
