@@ -102,4 +102,4 @@ async def test_sample(hass, mock_call_espn_api, mocker):
     api_url = sensor_state.attributes.get("api_url")
 #    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard?lang=en&limit=50&dates=20260320-20260619&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
-    assert api_message == "Driver not found. Field not set for race (NASCAR Cup Series at Texas)"
+    assert api_message == "Drivers not found, qualifying not complete for NASCAR Cup Series at Texas"

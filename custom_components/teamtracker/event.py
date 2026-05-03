@@ -40,9 +40,6 @@ async def async_process_event(
 
     for event in events:
         event_state = "NOT_FOUND"
-        values["event_name"] = await async_get_value(
-            data, "events", 0, "name", default=""
-        )
         grouping_index = -1
         for grouping_index, grouping in enumerate(
             await async_get_value(event, "groupings", default=[])
@@ -131,6 +128,8 @@ async def async_process_event(
     if not found_competitor:
         await competitor_not_found(
             values,
+            event,
+            competition,
             limit_hit,
             first_date,
             last_date,
@@ -452,6 +451,8 @@ async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
 
 async def competitor_not_found(
     values,
+    event,
+    competition,
     limit_hit,
     first_date,
     last_date,
@@ -478,18 +479,23 @@ async def competitor_not_found(
         )
         return
 
-    if values["sport_path"] == "racing" and values["event_name"] is not None:
-        competition = await async_get_value(
-            values, "events", 0, "competitions", 0, "competitors", default=None
+    if values["sport_path"] == "racing":
+        event_name = await async_get_value(
+            event, "shortName", default=None
         )
-        if competition is None:
-            values["api_message"] = f"Driver not found. Field not set for race ({values['event_name']})"
-            _LOGGER.debug(
-                "%s: No drivers in race field for %s",
-                sensor_name,
-                values["event_name"]
+        if event_name is not None:
+            competition = await async_get_value(
+                competition, "competitors", default=None
             )
-            return
+            if competition is None:
+                values["event_name"] = event_name
+                values["api_message"] = f"Drivers not found, qualifying not complete for {event_name}"
+                _LOGGER.debug(
+                    "%s: No drivers found for %s",
+                    sensor_name,
+                    event_name,
+                )
+                return
 
     values["api_message"] = (
         "No competition scheduled for '"
