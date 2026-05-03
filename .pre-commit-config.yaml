@@ -9,6 +9,8 @@ repos:
 #    rev: v1.10.0
 #    hooks:
 #      - id: mypy
+#        additional_dependencies:
+#          - types-aiofiles
 #        files: ^custom_components/
 
 #  - repo: https://github.com/psf/black

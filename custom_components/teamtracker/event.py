@@ -15,10 +15,10 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_process_event(
     values, sensor_name, data, sport_path, league_id, default_logo, team_id, league_map, lang
-) -> (dict, bool):
+) -> dict:
     """Loop throught the json data returned by the API to find the right event and set values"""
 
-    prev_values = {}
+    prev_values: dict[str, str] = {}
 
     stop_flag = False
     search_key = team_id
@@ -156,7 +156,7 @@ async def async_process_competition(
     sport, 
     found_competitor,
     stop_flag
-) -> (dict, str, bool, bool):
+) -> tuple[dict, str, bool, bool]:
     """Process a competition"""
 
     competitor_index = -1
@@ -214,7 +214,7 @@ async def async_process_name_match(
     sport, 
     found_competitor, 
     stop_flag
-)-> (dict, str, bool, bool):
+)-> tuple[dict, str, bool, bool]:
     """Process a name match"""
 
     found_competitor = True
@@ -519,7 +519,7 @@ async def async_process_competition_dates(
     competition,
     first_date,
     last_date
-) -> (datetime, datetime):
+) -> tuple[datetime, datetime]:
     """Process dates"""
 
     competition_date_str = await async_get_value(

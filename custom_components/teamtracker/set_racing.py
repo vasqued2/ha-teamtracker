@@ -5,7 +5,7 @@ import logging
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
-race_laps = {}
+race_laps: dict[str, int] = {}
 
 async def async_set_racing_values(
     new_values, event, competition_index, team_index, lang, sensor_name

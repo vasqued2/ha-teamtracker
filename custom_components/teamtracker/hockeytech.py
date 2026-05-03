@@ -250,19 +250,20 @@ async def async_fetch_hockeytech_data(
     league_id: str,
     sensor_name: str,
     lang: str,
-) -> dict | None:
+) -> dict:
     """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
-    try:
-        league_config = HOCKEYTECH_LEAGUES.get(league_id)
-        public_key = league_config["public_key"]
-        client_code = league_config["client_code"]
-    except:
+    league_config = HOCKEYTECH_LEAGUES.get(league_id)
+
+    if league_config is None:
         _LOGGER.warning(
             "%s: No HockeyTech config for league '%s'", sensor_name, league_id
         )
         public_key = "UNKNOWN_PUBLIC_KEY"
         client_code = league_id
+    else:
+        public_key = league_config["public_key"]
+        client_code = league_config["client_code"]
 
     params = {
         "feed": "modulekit",

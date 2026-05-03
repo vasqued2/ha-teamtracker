@@ -212,7 +212,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         return self._icon
 
     @property
-    def state(self) -> str:
+    def state(self) -> str | None:
         """Return the state of the sensor."""
         if self.coordinator.data is None:
             return None
@@ -225,7 +225,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state message."""
-        attrs = {}
+        attrs: dict[str, Any] = {}
 
         if self.coordinator.data is None:
             return attrs
