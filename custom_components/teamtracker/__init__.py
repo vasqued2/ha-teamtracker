@@ -10,6 +10,7 @@ import re
 import aiofiles
 import arrow
 from async_timeout import timeout
+from typing import ClassVar
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
@@ -187,14 +188,15 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
 
     if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id)
+        domain_data = hass.data.get(DOMAIN, None)
+        if domain_data:
+            domain_data.pop(entry.entry_id)
         
         # Only remove service if this is the last entry
-        if not hass.data[DOMAIN]:
+        if not domain_data:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
             TeamTrackerDataUpdateCoordinator.data_cache.clear()
-            TeamTrackerDataUpdateCoordinator.last_update.clear()
-            TeamTrackerDataUpdateCoordinator.c_cache.clear()
+            TeamTrackerDataUpdateCoordinator.all_team_cache.clear()
 
     return unload_ok
 
@@ -238,10 +240,13 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching TeamTracker data."""
 
-    data_cache = {}
-    last_update = {}
-    c_cache = {}
-    all_team_cache = {}  # {"{sport}:{league}:{team_id}": {next_game_date, league_map, expires}}
+# Stores API data for sharing across sensors
+#  key = "{sport_path}:{league_path}:{conference_id}:{lang}"+":{team_id}" if league_path "all"
+    data_cache: ClassVar[dict] = {}  # {key: {cache_data, cache_url, cache_time}}
+
+# Stores team information when league_path is all
+#  key = "{sport}:{league}:{team_id}"
+    all_team_cache: ClassVar[dict] = {}  # {key: {next_game_date, league_map, expires}}
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
@@ -311,7 +316,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             key += ":" + team_id
 
         if key in TeamTrackerDataUpdateCoordinator.data_cache:
-            del TeamTrackerDataUpdateCoordinator.data_cache[key]
+            TeamTrackerDataUpdateCoordinator.data_cache.pop(key, None)
 
 
     #
@@ -321,7 +326,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #    date and build an event_id → league name mapping (substring of season)
     #    Results are cached in all_team_cache until the next game date passes.
     #
-    async def async_get_team_schedule(self, lang):
+    async def async_get_team_schedule(self):
         """Fetch team schedule info for 'all' league date computation."""
 
         team_id = self.team_id
@@ -402,7 +407,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         """Top-level method called from HA to update sensor, controls refresh rate."""
         async with timeout(DEFAULT_TIMEOUT):
             try:
-                data = await self.async_update_sport_data(self.config, self.hass)
+                data = await self.async_update_sport_data()
 
                 # update the interval based on flag
                 if data["private_fast_refresh"]:
@@ -430,10 +435,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 #
 #  async_update_sport_data()
 #
-    async def async_update_sport_data(self, config, hass) -> dict:
+    async def async_update_sport_data(self) -> dict:
         """Determines to use cached data or API call (if exprired)"""
 
-        sensor_name = self.name
         sport_path = self.sport_path
         league_path = self.league_path
         conference_id = self.conference_id
@@ -449,43 +453,38 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         #
         #  Use cache if not expired
         #
-        if key in self.data_cache:
+        dc = TeamTrackerDataUpdateCoordinator.data_cache.get(key, None)
+        if dc:
+            cache_time = dc.get("cache_time", None)
+
             expiration = (
-                datetime.fromisoformat(self.last_update[key]) + self.update_interval
+                datetime.fromisoformat(cache_time) + self.update_interval
             )
             now = datetime.now(timezone.utc)
 
             if now < expiration:
-                data = self.data_cache[key]
-                values = await self.async_update_values(hass, data, lang)
+                data = dc.get("cache_data", None)
+                self.api_url = dc.get("cache_url", None)
+
+                values = await self.async_update_values(data)
+
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
                 else:
                     values["api_message"] = "Cached data"
+
                 return values
 
-        data = await self.async_call_sport_apis(hass, lang)
-        values = await self.async_update_values(hass, data, lang)
+        data = await self.async_call_sport_apis()
+        values = await self.async_update_values(data)
 
         if data is not None:
-            self.data_cache[key] = data
-        self.last_update[key] = values["last_update"]
+            TeamTrackerDataUpdateCoordinator.data_cache[key] = {
+                "cache_data": data,
+                "cache_url": self.api_url,
+                "cache_time": values["last_update"]
+            }
 
-        if conference_id == "9999": # if conference_id is 9999, create results file for tests
-            path = "/share/tt/results/" + sensor_name + ".json"
-            if not os.path.exists(path):
-                _LOGGER.debug("%s: Creating results file '%s'", sensor_name, path)
-                values[
-                    "last_update"
-                ] = DEFAULT_LAST_UPDATE  # set to fixed time for compares
-                values["kickoff_in"] = DEFAULT_KICKOFF_IN
-                try:
-                    with open(path, "w", encoding="utf-8") as convert_file:
-                        convert_file.write(json.dumps(values, indent=4))
-                except:
-                    _LOGGER.debug(
-                        "%s: Error creating results file '%s'", sensor_name, path
-                    )
         return values
 
 
@@ -494,16 +493,17 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #    This is the API dispatcher, calls to new non-ESPN API's should be added here based on league_path.
     #      Response data should be formatted as an ESPN event.
     #
-    async def async_call_sport_apis(self, hass, lang) -> dict:
+    async def async_call_sport_apis(self) -> dict:
         """Calls appropriate set of APIs based on sport and league."""
 
+        lang = self.get_lang()
         league_path = self.league_path
         if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
-            response = await async_fetch_hockeytech_data(hass, league_path.upper(), self.name, lang)
+            response = await async_fetch_hockeytech_data(self.hass, league_path.upper(), self.name, lang)
         elif (league_path == "all") and is_integer(self.team_id):
-            response = await self.async_fetch_espn_all_leagues_data(hass, lang)
+            response = await self.async_fetch_espn_all_leagues_data(self.hass, lang)
         else:
-            response = await self.async_fetch_espn_data(hass, lang)
+            response = await self.async_fetch_espn_data(self.hass, lang)
 
         self.api_url = response["url"]
         return response["data"]
@@ -635,7 +635,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         team_id = self.team_id.upper()
 
         # Get date of next game
-        schedule_info = await self.async_get_team_schedule(lang)
+        schedule_info = await self.async_get_team_schedule()
         next_game_date = schedule_info.get("next_game_date") if schedule_info else None
 
         # Narrow window: cover recent results and upcoming game if within 7 days
@@ -689,12 +689,13 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
     #
     #  async_update_values()
     #
-    async def async_update_values(self, hass, data, lang) -> dict:
+    async def async_update_values(self, data) -> dict:
         """Updates sensor values using data returned by API or in cache"""
 
         sensor_name = self.name
         league_id = self.league_id.upper()
         team_id = self.team_id.upper()
+        lang = self.get_lang()
 
         # Populate base values that do not need API data
         values = {}
@@ -725,7 +726,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         league_map = {}
         if (self.league_path) == "all":
             cache_key = f"{self.sport_path}:{self.league_path}:{self.team_id}"
-            team_cache = self.all_team_cache.get(cache_key)
+            team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache.get(cache_key)
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 
@@ -742,11 +743,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         )
 
         # If NOT_FOUND, try to get abbr w/ another API to make message easier to read
-        if (values["state"] == "NOT_FOUND" and is_integer(team_id)):
+        if (self.data_provider == DATA_PROVIDER_ESPN and 
+            values["state"] == "NOT_FOUND" and 
+            is_integer(team_id)
+        ):
             url = (
                 f"{URL_HEAD}/{self.sport_path}/{self.league_path}/teams/{team_id}"
             )
-            response = await async_call_espn_api(hass, url, None, sensor_name, team_id)
+            response = await async_call_espn_api(self.hass, url, None, sensor_name, team_id)
             team_data = response["data"]
             if team_data:
                 values["team_id"] = team_id

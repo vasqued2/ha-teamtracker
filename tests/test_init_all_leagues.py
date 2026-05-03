@@ -108,7 +108,6 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
 
     # Ensure caches are empty before setup
     TeamTrackerDataUpdateCoordinator.data_cache.clear()
-    TeamTrackerDataUpdateCoordinator.last_update.clear()
 
     # Setup the entry - this will call the API 3 times in the background
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -116,17 +115,13 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
-    lu = TeamTrackerDataUpdateCoordinator.last_update
     dc = TeamTrackerDataUpdateCoordinator.data_cache
 
     data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    last_update = TeamTrackerDataUpdateCoordinator.last_update
     all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
-    assert isinstance(last_update, dict)
-    assert len(last_update) > 0
     assert isinstance(all_team_cache, dict)
     assert len(all_team_cache) > 0
 
@@ -173,7 +168,6 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
 
     # Ensure caches are empty before setup
     TeamTrackerDataUpdateCoordinator.data_cache.clear()
-    TeamTrackerDataUpdateCoordinator.last_update.clear()
 
     # Setup the entry - this will call the API 3 times in the background
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -182,13 +176,10 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
     data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    last_update = TeamTrackerDataUpdateCoordinator.last_update
     all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)  # key="soccer:all:9999:en:183"
     assert len(data_cache) > 0  
-    assert isinstance(last_update, dict)  # key="soccer:all:9999:en:183"
-    assert len(last_update) > 0
     assert isinstance(all_team_cache, dict) # key="soccer:all:183"
     assert len(all_team_cache) > 0
 
@@ -212,7 +203,6 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
 # 2. EXPIRE THE DATA CACHE
     # Clear out the data_cache.
     TeamTrackerDataUpdateCoordinator.data_cache.clear()
-    TeamTrackerDataUpdateCoordinator.last_update.clear()
 
     # Update the league_name in the all_team_cache so we know we are reading it
     league_key = "soccer:all:183"
