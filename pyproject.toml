@@ -1,3 +1,10 @@
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+follow_imports = "skip"
+check_untyped_defs = false
+disallow_untyped_defs = false
+
 [tool.black]
 target-version = ["py312", "py313"]
 extend-exclude = "/generated/"
@@ -18,7 +25,7 @@ combine_as_imports = true
 
 [tool.pylint.MAIN]
 py-version = "3.13"
-ignore = [
+ignore-paths = [
     "tests",
 ]
 # Use a conservative default here; 2 should speed up most setups and not hurt
@@ -97,8 +104,10 @@ disable = [
     "abstract-method",
     "cyclic-import",
     "duplicate-code",
+    "import-error",
     "inconsistent-return-statements",
     "locally-disabled",
+    "missing-docstring",
     "not-context-manager",
     "too-few-public-methods",
     "too-many-ancestors",
@@ -107,7 +116,6 @@ disable = [
     "too-many-instance-attributes",
     "too-many-lines",
     "too-many-locals",
-    "too-many-positional-arguments",
     "too-many-public-methods",
     "too-many-return-statements",
     "too-many-statements",

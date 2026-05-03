@@ -250,6 +250,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
+        self.update_interval = DEFAULT_REFRESH_RATE
         self.name = config[CONF_NAME]
         self.api_url = ""
         self.league_id = config[CONF_LEAGUE_ID]
