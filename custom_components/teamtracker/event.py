@@ -38,8 +38,6 @@ async def async_process_event(
     first_date = datetime(9999, 12, 31, 1, 0, 0)
     last_date = datetime(1900, 1, 31, 1, 0, 0)
 
-    event = None
-    competition = None
     for event in events:
         event_state = "NOT_FOUND"
         grouping_index = -1
@@ -128,8 +126,7 @@ async def async_process_event(
     if not found_competitor:
         await competitor_not_found(
             values,
-            event,
-            competition,
+            data,
             limit_hit,
             first_date,
             last_date,
@@ -451,8 +448,7 @@ async def async_use_prev_values_flag(prev_values, values, sensor_name, sport):
 
 async def competitor_not_found(
     values,
-    event,
-    competition,
+    data,
     limit_hit,
     first_date,
     last_date,
@@ -480,15 +476,21 @@ async def competitor_not_found(
         return
 
     if values["sport_path"] == "racing":
+        events = data.get("events")
+
         event_name = await async_get_value(
-            event, "shortName", default=None
+            events, 0, "shortName", default=None
+        )
+        event_date = await async_get_value(
+            events, 0, "date", default=None
         )
         if event_name is not None:
-            competition = await async_get_value(
-                competition, "competitors", default=None
+            competitors = await async_get_value(
+                events, 0, "competitions", 0, "competitors", default=None
             )
-            if competition is None:
+            if competitors is None:
                 values["event_name"] = event_name
+                values["date"] = event_date
                 values["api_message"] = f"Drivers not found, qualifying not complete for {event_name}"
                 _LOGGER.debug(
                     "%s: No drivers found for %s",
