@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pycqa/pylint
-    rev: v3.2.5
+    rev: v4.0.5
     hooks:
       - id: pylint
         files: ^custom_components/

@@ -30,12 +30,13 @@ async def mock_call_hockeytech_api(hass):
     async def _get_mock_ht_api_data(hass, base_url, params, sensor_name, league_id):
         """Read FILE_NAME instead of calling the API."""
 
-        if sensor_name == "api_error":
-            return None
 
         view = params["view"]
         FILE_NAME = f"tests/tt/hockeytech-{view}.json"
         url = str(URL(base_url).with_query(params))
+
+        if "api_error" in sensor_name:
+            return {"ht_data": None, "url": url}
 
         try:
             with open(FILE_NAME, "r") as f:
