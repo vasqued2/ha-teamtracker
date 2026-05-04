@@ -206,7 +206,7 @@ INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.17.0"
+VERSION = "v0.17.1"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 COORDINATOR = "coordinator"
