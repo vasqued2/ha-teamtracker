@@ -188,11 +188,11 @@ You should use a [standard ISO language code](https://www.andiamo.co.uk/resource
 
 #### Specify the Conference - for NCAA Sports only (conference_id)
 
-The `conference_id` configuration key is used the specifiy the Conference for the sensor.  It should only be used for NCAA football and basketball.  Using it for other leagues or sports will cause a `NOT_FOUND` state.
+The `conference_id` configuration key is used the specifiy the Conference for the sensor.  It should only be used for NCAA sports.  Using it for other leagues or sports will cause a `NOT_FOUND` state.
 
-By default, NCAA football and basketball will only find a game if at least one of the teams playing is ranked.  In order to find games in which both teams are unranked, you must specify a Conference ID, which is a number used by ESPN to identify college conferences and other groups of teams.  Conferences ID's are not consistent across football and basketball.
+By default, NCAA sports will only find a game if at least one of the teams playing is ranked.  In order to find games in which both teams are unranked, you must specify a Conference ID, which is a number used by ESPN to identify college conferences and other groups of teams.  Conferences ID's are not consistent across sports.
 
-The following is a list of the college conferences and the corresponding number ESPN uses for their Conference ID.  For games involving at least one ranked team, no Conference ID is needed.
+The following is a list of the college conferences and the corresponding number ESPN uses for their Conference ID.
 
 | Conference | Football | Basketball | Baseball | Softball | W. Volleyball | W. Basketball |
 | --- | --- | --- | --- | --- | --- | --- |
