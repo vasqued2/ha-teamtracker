@@ -237,7 +237,7 @@ async def async_fetch_hockeytech_team_data(hass: HomeAssistant, league_id: str) 
     for t in raw:
         teams.append({
             "id":            t.get("id", ""),
-            "abbreviation":  t.get("code", ""),
+            "abbreviation":  t.get("code", t.get("abbreviation", "")),
             "displayName":   t.get("name", ""),
             "location":      t.get("city", ""),
             "conference_id": "",
