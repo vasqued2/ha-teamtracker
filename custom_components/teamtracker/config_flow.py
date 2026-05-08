@@ -127,7 +127,7 @@ async def async_call_teams_apis(hass: HomeAssistant, league_id: str, sport_path:
 #  }]
 #
 
-async def async_fetch_espn_team_data(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
+async def async_fetch_espn_team_data(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> dict:
     """Fetch teams from any API for a given league."""
     if league_id not in LEAGUE_MAP:
         sport = sport_path
@@ -212,7 +212,7 @@ def _get_path_schema(
     )
 
 
-class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # type: ignore[call-arg]
     """Config flow for TeamTracker."""
 
     VERSION = 3

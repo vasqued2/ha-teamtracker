@@ -97,7 +97,7 @@ async def async_call_espn_api(hass, base_url, params, sensor_name, team_id, file
 #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
 #    This utility will eventually replace/wrap all API calls
 #
-async def async_override_espn_api(sensor_name, team_id, url) -> dict:
+async def async_override_espn_api(sensor_name, team_id, url) -> dict | None:
     """Read a json file to mock the ESPN API."""
 
     _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)

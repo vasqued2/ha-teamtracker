@@ -62,7 +62,7 @@ Custom APIs can be configured for the following leagues using HockeyTech APIs
 | [Canadian Hockey League](https://chl.ca/) | hockeytech | chl |
 | [Ontario Hockey League](https://ontariohockeyleague.com/) | hockeytech | ohl |
 | [Western Hockey League](https://whl.ca/) | hockeytech | whl |
-| [Quebec Major Junior Hockey League](https://theqmjhl.ca/) | hockeytech | qmjhl |
+| [Quebec Major Junior Hockey League](https://chl.ca/lhjmq/) | hockeytech | lhjmq |
 | [American Hockey League](https://theahl.com/) | hockeytech | ahl |
 | [East Coast Hockey League](https://echl.com/) | hockeytech | echl |
 | [United States Hockey League](https://ushl.com/) | hockeytech | ushl |

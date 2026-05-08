@@ -177,7 +177,7 @@ async def test_setup_NOT_FOUND_no_team_id(
     team_id = sensor_state.attributes.get("team_id")
     assert team_id == "195"    # Populate Team ID w/ provided team_id
     team_abbr = sensor_state.attributes.get("team_abbr")
-    assert team_abbr == "OSU"    # Change to team abbreviation (OSU)
+    assert team_abbr == "OHIO"    # Change to team abbreviation (OHIO)
     sport = sensor_state.attributes.get("sport")
     assert sport == "football"
     date = sensor_state.attributes.get("date")

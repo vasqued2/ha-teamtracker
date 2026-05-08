@@ -24,6 +24,10 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .clear_values import async_clear_values
+from .config_flow import (
+    async_fetch_espn_team_data,
+)
+
 from .const import (
     API_LIMIT,
     CONF_API_LANGUAGE,
@@ -54,6 +58,7 @@ from .const import (
 from .event import async_process_event
 from .hockeytech import (
     async_fetch_hockeytech_data,
+    async_fetch_hockeytech_team_data,
     DATA_PROVIDER_HOCKEYTECH,
     RAPID_REFRESH_RATE_HOCKEYTECH,
 )
@@ -250,6 +255,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
+        self.update_interval = DEFAULT_REFRESH_RATE
         self.name = config[CONF_NAME]
         self.api_url = ""
         self.league_id = config[CONF_LEAGUE_ID]
@@ -743,17 +749,25 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         )
 
         # If NOT_FOUND, try to get abbr w/ another API to make message easier to read
-        if (self.data_provider == DATA_PROVIDER_ESPN and 
-            values["state"] == "NOT_FOUND" and 
+        if (values["state"] == "NOT_FOUND" and 
             is_integer(team_id)
         ):
-            url = (
-                f"{URL_HEAD}/{self.sport_path}/{self.league_path}/teams/{team_id}"
-            )
-            response = await async_call_espn_api(self.hass, url, None, sensor_name, team_id)
-            team_data = response["data"]
-            if team_data:
-                values["team_id"] = team_id
-                values["team_abbr"] = await async_get_value(team_data, "team", "abbreviation", default=team_id)
-        
+            if (self.data_provider == DATA_PROVIDER_HOCKEYTECH):
+                response = await async_fetch_hockeytech_team_data(self.hass, self.league_path.upper())
+            else:
+                response = await async_fetch_espn_team_data(self.hass, league_id, self.sport_path, self.league_path)
+
+            teams = response["data"]
+            if teams:
+                team_abbr = next(
+                    (team["abbreviation"] for team in teams if team["id"] == team_id),
+                    None,
+                )
+            else:
+                team_abbr = None
+
+            values["team_id"] = team_id
+            if team_abbr:
+                values["team_abbr"] = team_abbr
+
         return values

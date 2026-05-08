@@ -20,8 +20,8 @@ from .set_volleyball import async_set_volleyball_values
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
-team_prob = {}
-oppo_prob = {}
+team_prob: dict[str, float] = {}
+oppo_prob: dict[str, float] = {}
 
 
 #
@@ -514,7 +514,7 @@ async def async_set_pre_values(new_values, event) -> bool:
 #
 async def async_set_in_values(
     new_values, event, grouping_index, competition_index, team_index, sensor_name
-) -> dict:
+) -> bool:
     """Function to set new_values common for IN state"""
 
     #
@@ -618,8 +618,8 @@ async def async_set_in_values(
             str(codecs.decode(new_values["team_abbr"], "rot13")), 
             str(codecs.decode(new_values["opponent_abbr"], "rot13"))} == {"sbbgonyy", "BFH", "ZVPU"}
         ):
-            if (((str(codecs.decode(new_values["team_abbr"], "rot13")) == "BFH") and (team_prob.get(prob_key) >= 0.7))
-                or ((str(codecs.decode(new_values["opponent_abbr"], "rot13")) == "BFH") and (oppo_prob.get(prob_key) >= 0.7))
+            if (((str(codecs.decode(new_values["team_abbr"], "rot13")) == "BFH") and (team_prob.get(prob_key, 0.0) >= 0.7))
+                or ((str(codecs.decode(new_values["opponent_abbr"], "rot13")) == "BFH") and (oppo_prob.get(prob_key, 0.0) >= 0.7))
             ):
                 new_values["last_play"] = new_values["last_play"] + codecs.decode(
                     alt_lp, "rot13"

@@ -5,7 +5,8 @@ import logging
 from datetime import datetime, timezone, timedelta
 from yarl import URL
 import locale
-
+from typing import TypedDict
+    
 import aiohttp
 
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -16,6 +17,17 @@ from .const import (
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+class HockeyTechLeague(TypedDict):
+    public_key: str
+    client_code: str
+    league_name: str
+    league_logo: str | None
+
+class HockeyTechTeamColor(TypedDict):
+    color: str
+    alternateColor: str
+TeamColorMap = dict[str, HockeyTechTeamColor]
 
 #
 # HockeyTech API Definitions
@@ -28,7 +40,7 @@ DATA_PROVIDER_HOCKEYTECH = "hockeytech"
 ATTRIBUTION_HOCKEYTECH = "Powered by HockeyTech.com"
 RAPID_REFRESH_RATE_HOCKEYTECH = timedelta(seconds=60)
 HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
-HOCKEYTECH_LEAGUES = {
+HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     "CHL": {
         "public_key": "f1aa699db3d81487",
         "client_code": "chl",
@@ -47,9 +59,9 @@ HOCKEYTECH_LEAGUES = {
         "league_name": "Wester Hockey League",
         "league_logo": None,
     },
-    "QMJHL": {
+    "LHJMQ": {
         "public_key": "f1aa699db3d81487",
-        "client_code": "qmjhl",
+        "client_code": "lhjmq",
         "league_name": "Quebec Major Junior Hockey League",
         "league_logo": None,
     },
@@ -114,7 +126,7 @@ HOCKEYTECH_LEAGUES = {
         "league_logo": None,
     },
 }
-HOCKEYTECH_TEAM_COLORS = {
+HOCKEYTECH_TEAM_COLORS: dict[str, TeamColorMap] = {
     "PWHL": {
         "BOS": {"color": "1a3c34", "alternateColor": "f0c744"},
         "MIN": {"color": "2e1a47", "alternateColor": "ffffff"},
@@ -147,7 +159,7 @@ _STATUS_MAP = {
 #  }]
 #
 
-async def async_fetch_hockeytech_team_data(hass: HomeAssistant, league_id: str) -> list[dict]:
+async def async_fetch_hockeytech_team_data(hass: HomeAssistant, league_id: str) -> dict:
     """Fetch teams from any API for a given league."""
 
     sensor_name = "hockeytech_teamsbyseason"
@@ -225,7 +237,7 @@ async def async_fetch_hockeytech_team_data(hass: HomeAssistant, league_id: str) 
     for t in raw:
         teams.append({
             "id":            t.get("id", ""),
-            "abbreviation":  t.get("code", ""),
+            "abbreviation":  t.get("code", t.get("abbreviation", "")),
             "displayName":   t.get("name", ""),
             "location":      t.get("city", ""),
             "conference_id": "",
@@ -238,21 +250,26 @@ async def async_fetch_hockeytech_data(
     league_id: str,
     sensor_name: str,
     lang: str,
-) -> dict | None:
+) -> dict:
     """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
     league_config = HOCKEYTECH_LEAGUES.get(league_id)
+
     if league_config is None:
         _LOGGER.warning(
             "%s: No HockeyTech config for league '%s'", sensor_name, league_id
         )
-        return {"data": None, "url": None}
+        public_key = "UNKNOWN_PUBLIC_KEY"
+        client_code = league_id
+    else:
+        public_key = league_config["public_key"]
+        client_code = league_config["client_code"]
 
     params = {
         "feed": "modulekit",
         "view": "scorebar",
-        "key": league_config["public_key"],
-        "client_code": league_config["client_code"],
+        "key": public_key,
+        "client_code": client_code,
         "lang": lang,
         "fmt": "json",
         "numberofdaysback": 0,
@@ -269,14 +286,15 @@ async def async_fetch_hockeytech_data(
         "url": url
     }
 
-def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict:
+def _transform_hockeytech_to_espn(ht_data: dict, league_id: str) -> dict | None:
     """Transform HockeyTech scorebar data into ESPN-compatible format."""
 
-    if ht_data is None:
+    league_config = HOCKEYTECH_LEAGUES.get(league_id)
+    team_colors = HOCKEYTECH_TEAM_COLORS.get(league_id, {})
+
+    if ht_data is None or league_config is None:
         return None
         
-    league_config = HOCKEYTECH_LEAGUES.get(league_id, {})
-    team_colors = HOCKEYTECH_TEAM_COLORS.get(league_id, {})
 
     espn_data = {
         "leagues": [
