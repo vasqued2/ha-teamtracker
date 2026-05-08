@@ -59,9 +59,9 @@ HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
         "league_name": "Wester Hockey League",
         "league_logo": None,
     },
-    "QMJHL": {
+    "LHJMQ": {
         "public_key": "f1aa699db3d81487",
-        "client_code": "qmjhl",
+        "client_code": "lhjmq",
         "league_name": "Quebec Major Junior Hockey League",
         "league_logo": None,
     },
