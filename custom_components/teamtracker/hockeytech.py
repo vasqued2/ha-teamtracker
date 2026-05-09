@@ -2,7 +2,7 @@
 
 import json
 import logging
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from yarl import URL
 import locale
 from typing import TypedDict
@@ -38,7 +38,6 @@ TeamColorMap = dict[str, HockeyTechTeamColor]
 #
 DATA_PROVIDER_HOCKEYTECH = "hockeytech"
 ATTRIBUTION_HOCKEYTECH = "Powered by HockeyTech.com"
-RAPID_REFRESH_RATE_HOCKEYTECH = timedelta(seconds=60)
 HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     "CHL": {
