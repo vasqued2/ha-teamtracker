@@ -23,11 +23,10 @@ from .const import (
     INDIVIDUAL_SPORTS,
     LEAGUE_MAP,
 )
-from .hockeytech import (
-    async_fetch_hockeytech_team_data,
-    DATA_PROVIDER_HOCKEYTECH,
-)
-
+from .provider_factory import (
+    DATA_PROVIDER_ESPN, 
+    DATA_PROVIDER_HOCKEYTECH, 
+    get_provider)
 from .utils import async_call_espn_api
 
 _LOGGER = logging.getLogger(__name__)
@@ -109,62 +108,15 @@ async def async_call_teams_apis(hass: HomeAssistant, league_id: str, sport_path:
     """Fetch teams from any API for a given league."""
 
     if sport_path.lower() == DATA_PROVIDER_HOCKEYTECH.lower():
-        response = await async_fetch_hockeytech_team_data(hass, league_path.upper())
+        temp_provider = get_provider(DATA_PROVIDER_HOCKEYTECH)
+        response = await temp_provider.async_fetch_team_data(hass, league_path.upper())
     elif (league_path == "all"):
         response = {"data": None}
     else:
-        response = await async_fetch_espn_team_data(hass, league_id, sport_path, league_path)
+        temp_provider = get_provider(DATA_PROVIDER_ESPN)
+        response = await temp_provider.async_fetch_team_data(hass, league_id, sport_path, league_path)
 
     return response["data"]
-
-#
-# Return a list of team dictionaries
-#  [{
-#   "id": team_id,
-#   "displayName": Long Team Name
-#   "location": City, State, Country of team
-#    "conference_id": Conference for the team (NCAA Only)
-#  }]
-#
-
-async def async_fetch_espn_team_data(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> dict:
-    """Fetch teams from any API for a given league."""
-    if league_id not in LEAGUE_MAP:
-        sport = sport_path
-        league = league_path
-    else:
-        paths = LEAGUE_MAP[league_id]
-        sport = paths[CONF_SPORT_PATH]
-        league = paths[CONF_LEAGUE_PATH]
-    url = (
-        f"https://site.api.espn.com/apis/site/v2/sports"
-        f"/{sport}/{league}/teams"
-    )
-    url_parms = {"limit": 1000}
-    response = await async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league)
-    data = response["data"]
-    url = response["url"]
-    if data:
-        raw = (
-            data.get("sports", [{}])[0]
-            .get("leagues", [{}])[0]
-            .get("teams", [])
-        )
-    else:
-        raw = []
-
-    # Build the teams data
-    teams = []
-    for entry in raw:
-        t = entry.get("team", {})
-        teams.append({
-            "id":            t.get("id", ""),
-            "abbreviation":  t.get("abbreviation", ""),
-            "displayName":   t.get("displayName", t.get("name", "")),
-            "location":      t.get("location", ""),
-            "conference_id": (t.get("groups") or {}).get("id", ""),
-        })
-    return {"data": teams, "url": url}
 
 
 async def _fetch_team_conference_id(

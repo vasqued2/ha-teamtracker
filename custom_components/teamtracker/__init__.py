@@ -24,9 +24,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .clear_values import async_clear_values
-from .config_flow import (
-    async_fetch_espn_team_data,
-)
 
 from .const import (
     API_LIMIT,
@@ -55,7 +52,6 @@ from .const import (
 from .event import async_process_event
 from .hockeytech import (
     async_fetch_hockeytech_data,
-    async_fetch_hockeytech_team_data,
 )
 from .provider_factory import (
     DATA_PROVIDER_ESPN, 
@@ -751,9 +747,9 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
             is_integer(team_id)
         ):
             if (self.provider.DATA_PROVIDER == DATA_PROVIDER_HOCKEYTECH):
-                response = await async_fetch_hockeytech_team_data(self.hass, self.league_path.upper())
+                response = await self.provider.async_fetch_team_data(self.hass, self.league_path.upper())
             else:
-                response = await async_fetch_espn_team_data(self.hass, league_id, self.sport_path, self.league_path)
+                response = await self.provider.async_fetch_team_data(self.hass, league_id, self.sport_path, self.league_path)
 
             teams = response["data"]
             if teams:

@@ -19,7 +19,9 @@ class BaseSportProvider(ABC):
     async def async_fetch_team_data(
         self,
         hass: HomeAssistant, 
-        league_id: str
+        league_id: str,
+        sport_path: str="",
+        league_path: str=""
     ) -> dict:
         """Fetch and return team data in the standard format."""
         pass                                               # pylint: disable=unnecessary-pass

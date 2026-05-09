@@ -52,8 +52,10 @@ async def mock_call_hockeytech_api(hass):
                 "url": url,
             }
 
-    with patch("custom_components.teamtracker.hockeytech.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht:
+    with patch("custom_components.teamtracker.ht.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht, \
+        patch("custom_components.teamtracker.hockeytech.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
         mock_ht.side_effect = _get_mock_ht_api_data
+        mock_hockeytech.side_effect = _get_mock_ht_api_data
         yield mock_ht
 
 
@@ -100,9 +102,11 @@ async def mock_call_espn_api(hass):
     # Patch the actual utility function
     with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
         patch("custom_components.teamtracker.config_flow.async_call_espn_api", new_callable=AsyncMock) as mock_cf, \
+        patch("custom_components.teamtracker.espn.async_call_espn_api", new_callable=AsyncMock) as mock_espn, \
         patch("custom_components.teamtracker.async_call_espn_api", new_callable=AsyncMock) as mock:
         mock_utils.side_effect = _get_mock_api_data
         mock_cf.side_effect = _get_mock_api_data
+        mock_espn.side_effect = _get_mock_api_data
         mock.side_effect = _get_mock_api_data
         yield mock
 
