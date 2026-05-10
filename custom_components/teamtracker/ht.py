@@ -105,16 +105,18 @@ HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     },
 }
 
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
+
 
 class HockeyTechProvider(BaseSportProvider):
     """Provider for HockeyTech data."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.DATA_PROVIDER: str = "hockeytech"
+        self.DATA_PROVIDER: str = DATA_PROVIDER_HOCKEYTECH
         self.ATTRIBUTION: str = "Powered by HockeyTech.com"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
-        self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
+        self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=60)
         self.leagues: dict[str, Any] = HOCKEYTECH_LEAGUES
 
 

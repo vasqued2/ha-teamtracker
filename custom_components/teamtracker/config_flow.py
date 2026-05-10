@@ -24,7 +24,8 @@ from .const import (
     LEAGUE_MAP,
 )
 from .provider_factory import (
-    DATA_PROVIDER_ESPN, 
+    DATA_PROVIDER_ESPN,
+    DATA_PROVIDER_ESPN_ALL_LEAGUES,
     DATA_PROVIDER_HOCKEYTECH, 
     get_provider)
 from .utils import async_call_espn_api
@@ -107,11 +108,10 @@ SPORT_OPTIONS: dict[str, str] = {
 async def async_call_teams_apis(hass: HomeAssistant, league_id: str, sport_path: str, league_path: str) -> list[dict]:
     """Fetch teams from any API for a given league."""
 
-    if (league_path == "all"):
-        return []
-
     if sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
         temp_provider = get_provider(DATA_PROVIDER_HOCKEYTECH)
+    elif (league_path.lower == "all"):
+        temp_provider = get_provider(DATA_PROVIDER_ESPN_ALL_LEAGUES)
     else:
         temp_provider = get_provider(DATA_PROVIDER_ESPN)
     response = await temp_provider.async_fetch_team_data(hass, league_id, sport_path, league_path)

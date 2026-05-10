@@ -128,12 +128,14 @@ ESPN_LEAGUES: dict[str, ESPNLeague]  = {
     },
 }
 
+DATA_PROVIDER_ESPN = "espn"
+
 class EspnProvider(BaseSportProvider):
     """Provider for ESPN data."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.DATA_PROVIDER: str = "espn"
+        self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN
         self.ATTRIBUTION: str = "Data provided by ESPN"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)

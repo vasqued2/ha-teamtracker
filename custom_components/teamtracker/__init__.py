@@ -55,6 +55,7 @@ from .hockeytech import (
 )
 from .provider_factory import (
     DATA_PROVIDER_ESPN, 
+    DATA_PROVIDER_ESPN_ALL_LEAGUES, 
     DATA_PROVIDER_HOCKEYTECH, 
     get_provider)
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
@@ -264,6 +265,8 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         if self.sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
             self.provider = get_provider(DATA_PROVIDER_HOCKEYTECH)
+        elif self.league_path.lower() == "all":
+            self.provider = get_provider(DATA_PROVIDER_ESPN_ALL_LEAGUES)
         else:
             self.provider = get_provider(DATA_PROVIDER_ESPN)
 

@@ -1,16 +1,16 @@
 from .base_provider import BaseSportProvider
 
-# Import your provider classes
-from .espn import EspnProvider
-from .ht import HockeyTechProvider
+# Import provider classes
+from .espn import DATA_PROVIDER_ESPN, EspnProvider
+from .espn_all_leagues import DATA_PROVIDER_ESPN_ALL_LEAGUES, EspnAllLeaguesProvider
+from .ht import DATA_PROVIDER_HOCKEYTECH, HockeyTechProvider
 
-DATA_PROVIDER_ESPN = "espn"
-DATA_PROVIDER_HOCKEYTECH = "hockeytech"
 
 def get_provider(provider_type: str) -> BaseSportProvider:
     """Factory function to get the correct provider instance."""
     providers = {
         DATA_PROVIDER_ESPN: EspnProvider,
+        DATA_PROVIDER_ESPN_ALL_LEAGUES: EspnAllLeaguesProvider,
         DATA_PROVIDER_HOCKEYTECH: HockeyTechProvider,
     }
 
