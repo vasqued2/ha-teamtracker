@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Any
 from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
@@ -13,13 +12,11 @@ class BaseSportProvider(ABC):
         self.ATTRIBUTION: str = ""
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
-        self.leagues: dict[str, Any] = {}
 
     @abstractmethod
     async def async_fetch_team_data(
         self,
         hass: HomeAssistant, 
-        league_id: str,
         sport_path: str="",
         league_path: str=""
     ) -> dict:

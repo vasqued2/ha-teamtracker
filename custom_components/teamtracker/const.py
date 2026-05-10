@@ -37,7 +37,7 @@ TENNIS = "tennis"
 VOLLEYBALL = "volleyball"
 
 # Maps
-LEAGUE_MAP = {
+NATIVE_LEAGUES = {
     "AFL": {
         CONF_SPORT_PATH: AUSTRALIAN_FOOTBALL,
         CONF_LEAGUE_PATH: "afl",

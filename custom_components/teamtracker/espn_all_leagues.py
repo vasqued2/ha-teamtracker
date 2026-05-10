@@ -17,7 +17,7 @@ class EspnAllLeaguesProvider(EspnProvider):
     # Return an empty list of team dictionaries since no way to get teams w/o a league constraint
     #
 
-    async def async_fetch_team_data(self, hass: HomeAssistant, league_id: str, sport_path: str="", league_path: str="") -> dict:
+    async def async_fetch_team_data(self, hass: HomeAssistant, sport_path: str="", league_path: str="") -> dict:
         """There is no API to get all teams for a sport w/o specifying a league so return an empty list."""
 
         return {"data": [], "url": ""}

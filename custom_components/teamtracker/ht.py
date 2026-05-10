@@ -1,5 +1,5 @@
 from .base_provider import BaseSportProvider
-from typing import Any, TypedDict
+from typing import TypedDict
 from datetime import timedelta
 import locale
 import logging
@@ -8,15 +8,16 @@ from homeassistant.core import HomeAssistant
 
 from .hockeytech import async_call_hockeytech_api
 
-_LOGGER = logging.getLogger(__name__)
-
 class HockeyTechLeague(TypedDict):
     public_key: str
     client_code: str
     league_name: str
     league_logo: str | None
 
+_LOGGER = logging.getLogger(__name__)
+
 HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
 
 HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     "CHL": {
@@ -105,8 +106,6 @@ HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     },
 }
 
-DATA_PROVIDER_HOCKEYTECH = "hockeytech"
-
 
 class HockeyTechProvider(BaseSportProvider):
     """Provider for HockeyTech data."""
@@ -117,7 +116,6 @@ class HockeyTechProvider(BaseSportProvider):
         self.ATTRIBUTION: str = "Powered by HockeyTech.com"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=60)
-        self.leagues: dict[str, Any] = HOCKEYTECH_LEAGUES
 
 
     #
@@ -130,7 +128,7 @@ class HockeyTechProvider(BaseSportProvider):
     #  }]
     #
 
-    async def async_fetch_team_data(self, hass: HomeAssistant, league_id: str, sport_path: str="", league_path: str ="") -> dict:
+    async def async_fetch_team_data(self, hass: HomeAssistant, sport_path: str="", league_path: str ="") -> dict:
         """Fetch teams from any API for a given league."""
 
         sensor_name = "hockeytech_teamsbyseason"

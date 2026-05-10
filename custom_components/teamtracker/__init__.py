@@ -41,7 +41,7 @@ from .const import (
     DEFAULT_TIMEOUT,
     DOMAIN,
     ISSUE_URL,
-    LEAGUE_MAP,
+    NATIVE_LEAGUES,
     PLATFORMS,
     SERVICE_NAME_CALL_API,
     URL_HEAD,
@@ -228,7 +228,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             CONF_LEAGUE_PATH not in updated_config.keys()
         ):
             league_id = updated_config[CONF_LEAGUE_ID].upper()
-            updated_config.update(LEAGUE_MAP[league_id])
+            updated_config.update(NATIVE_LEAGUES[league_id])
 
         if updated_config != entry.data:
             hass.config_entries.async_update_entry(entry, data=updated_config, version=3)
@@ -749,7 +749,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         if (values["state"] == "NOT_FOUND" and 
             is_integer(team_id)
         ):
-            response = await self.provider.async_fetch_team_data(self.hass, league_id, self.sport_path, self.league_path)
+            response = await self.provider.async_fetch_team_data(self.hass, self.sport_path, self.league_path)
             teams = response["data"]
             if teams:
                 team_abbr = next(

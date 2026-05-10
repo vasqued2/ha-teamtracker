@@ -30,7 +30,7 @@ from .const import (
     DEFAULT_SPORT_PATH,
     DOMAIN,
     ISSUE_URL,
-    LEAGUE_MAP,
+    NATIVE_LEAGUES,
     SPORT_ICON_MAP,
     VERSION,
 )
@@ -40,7 +40,7 @@ _LOGGER = logging.getLogger(__name__)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_LEAGUE_ID, default=DEFAULT_LEAGUE): vol.All(
-            vol.Upper, vol.In([*LEAGUE_MAP.keys(), "XXX"])
+            vol.Upper, vol.In([*NATIVE_LEAGUES.keys(), "XXX"])
         ),
         vol.Required(CONF_TEAM_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
@@ -68,7 +68,7 @@ async def async_setup_platform(
         ISSUE_URL,
     )
 
-    league_ids = [*LEAGUE_MAP.keys(), "XXX"]
+    league_ids = [*NATIVE_LEAGUES.keys(), "XXX"]
     try:
         vol.In(league_ids)(config[CONF_LEAGUE_ID])
     except vol.Invalid:
@@ -91,7 +91,7 @@ async def async_setup_platform(
     # If the league ID is not in the map, it must be XXX and therefore we get the path
     # and league from the config
     config.update(
-        LEAGUE_MAP.get(
+        NATIVE_LEAGUES.get(
             league_id,
             {
                 k: v
