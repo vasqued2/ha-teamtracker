@@ -24,9 +24,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .clear_values import async_clear_values
-from .config_flow import (
-    async_fetch_espn_team_data,
-)
 
 from .const import (
     API_LIMIT,
@@ -37,7 +34,6 @@ from .const import (
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
     COORDINATOR,
-    DATA_PROVIDER_ESPN,
     DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
     DEFAULT_LEAGUE,
@@ -45,10 +41,8 @@ from .const import (
     DEFAULT_TIMEOUT,
     DOMAIN,
     ISSUE_URL,
-    LEAGUE_MAP,
+    NATIVE_LEAGUES,
     PLATFORMS,
-    DEFAULT_REFRESH_RATE,
-    RAPID_REFRESH_RATE,
     SERVICE_NAME_CALL_API,
     URL_HEAD,
     URL_TAIL,
@@ -58,10 +52,12 @@ from .const import (
 from .event import async_process_event
 from .hockeytech import (
     async_fetch_hockeytech_data,
-    async_fetch_hockeytech_team_data,
-    DATA_PROVIDER_HOCKEYTECH,
-    RAPID_REFRESH_RATE_HOCKEYTECH,
 )
+from .provider_factory import (
+    DATA_PROVIDER_ESPN, 
+    DATA_PROVIDER_ESPN_ALL_LEAGUES, 
+    DATA_PROVIDER_HOCKEYTECH, 
+    get_provider)
 from .utils import is_integer, async_call_espn_api, async_get_value, has_team
 
 _LOGGER = logging.getLogger(__name__)
@@ -232,7 +228,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             CONF_LEAGUE_PATH not in updated_config.keys()
         ):
             league_id = updated_config[CONF_LEAGUE_ID].upper()
-            updated_config.update(LEAGUE_MAP[league_id])
+            updated_config.update(NATIVE_LEAGUES[league_id])
 
         if updated_config != entry.data:
             hass.config_entries.async_update_entry(entry, data=updated_config, version=3)
@@ -255,28 +251,32 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
-        self.update_interval = DEFAULT_REFRESH_RATE
-        self.name = config[CONF_NAME]
         self.api_url = ""
+
+        self.name = config[CONF_NAME]
+        self.team_id = config[CONF_TEAM_ID]
         self.league_id = config[CONF_LEAGUE_ID]
         self.league_path = config[CONF_LEAGUE_PATH]
         self.sport_path = config[CONF_SPORT_PATH]
-        if self.sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
-            self.data_provider = DATA_PROVIDER_HOCKEYTECH
-        else:
-            self.data_provider = DATA_PROVIDER_ESPN
-        self.team_id = config[CONF_TEAM_ID]
-
         self.conference_id = ""
         if CONF_CONFERENCE_ID in config.keys():
             if len(config[CONF_CONFERENCE_ID]) > 0:
                 self.conference_id = config[CONF_CONFERENCE_ID]
 
+        if self.sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
+            self.provider = get_provider(DATA_PROVIDER_HOCKEYTECH)
+        elif self.league_path.lower() == "all":
+            self.provider = get_provider(DATA_PROVIDER_ESPN_ALL_LEAGUES)
+        else:
+            self.provider = get_provider(DATA_PROVIDER_ESPN)
+
+        self.update_interval = self.provider.DEFAULT_REFRESH_RATE
+
         self.config = config
         self.hass = hass
         self.entry = entry #None if setup from YAML
 
-        super().__init__(hass, _LOGGER, name=self.name, update_interval=DEFAULT_REFRESH_RATE)
+        super().__init__(hass, _LOGGER, name=self.name, update_interval=self.provider.DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
             "%s: Using default refresh rate (%s)", self.name, self.update_interval
         )
@@ -417,17 +417,14 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
                 # update the interval based on flag
                 if data["private_fast_refresh"]:
-                    if self.update_interval != RAPID_REFRESH_RATE:
-                        if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
-                            self.update_interval = RAPID_REFRESH_RATE_HOCKEYTECH
-                        else:
-                            self.update_interval = RAPID_REFRESH_RATE
+                    if self.update_interval != self.provider.RAPID_REFRESH_RATE:
+                        self.update_interval = self.provider.RAPID_REFRESH_RATE
                         _LOGGER.debug(
                             "%s: Switching to rapid refresh rate (%s)", self.name, self.update_interval
                         )
                 else:
-                    if self.update_interval != DEFAULT_REFRESH_RATE:
-                        self.update_interval = DEFAULT_REFRESH_RATE
+                    if self.update_interval != self.provider.DEFAULT_REFRESH_RATE:
+                        self.update_interval = self.provider.DEFAULT_REFRESH_RATE
                         _LOGGER.debug(
                             "%s: Switching to default refresh rate (%s)", self.name, self.update_interval
                         )
@@ -504,7 +501,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
 
         lang = self.get_lang()
         league_path = self.league_path
-        if self.data_provider == DATA_PROVIDER_HOCKEYTECH:
+        if self.provider.DATA_PROVIDER == DATA_PROVIDER_HOCKEYTECH:
             response = await async_fetch_hockeytech_data(self.hass, league_path.upper(), self.name, lang)
         elif (league_path == "all") and is_integer(self.team_id):
             response = await self.async_fetch_espn_all_leagues_data(self.hass, lang)
@@ -752,11 +749,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         if (values["state"] == "NOT_FOUND" and 
             is_integer(team_id)
         ):
-            if (self.data_provider == DATA_PROVIDER_HOCKEYTECH):
-                response = await async_fetch_hockeytech_team_data(self.hass, self.league_path.upper())
-            else:
-                response = await async_fetch_espn_team_data(self.hass, league_id, self.sport_path, self.league_path)
-
+            response = await self.provider.async_fetch_team_data(self.hass, self.sport_path, self.league_path)
             teams = response["data"]
             if teams:
                 team_abbr = next(

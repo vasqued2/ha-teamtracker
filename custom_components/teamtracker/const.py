@@ -4,7 +4,6 @@ from datetime import timedelta
 
 # API
 DATA_PROVIDER_ESPN = "espn"
-ATTRIBUTION_ESPN = "Data provided by ESPN"
 
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
 URL_TAIL = "/scoreboard"
@@ -38,7 +37,7 @@ TENNIS = "tennis"
 VOLLEYBALL = "volleyball"
 
 # Maps
-LEAGUE_MAP = {
+NATIVE_LEAGUES = {
     "AFL": {
         CONF_SPORT_PATH: AUSTRALIAN_FOOTBALL,
         CONF_LEAGUE_PATH: "afl",
@@ -196,8 +195,8 @@ DEFAULT_SPORT_PATH = "UNDEFINED_SPORT"
 DEFAULT_TIMEOUT = 120
 DEFAULT_LAST_UPDATE = "2022-02-02 02:02:02-05:00"
 DEFAULT_KICKOFF_IN = "{test} days"
-DEFAULT_REFRESH_RATE = timedelta(minutes=10)
-RAPID_REFRESH_RATE = timedelta(seconds=5)
+GENERAL_REFRESH_RATE = timedelta(minutes=10) # Remove later when event part of provider object
+GENERAL_RAPID_REFRESH_RATE = timedelta(seconds=5)
 
 # Services
 SERVICE_NAME_CALL_API = "call_api"
