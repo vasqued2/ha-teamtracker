@@ -746,11 +746,7 @@ class TeamTrackerDataUpdateCoordinator(DataUpdateCoordinator):
         if (values["state"] == "NOT_FOUND" and 
             is_integer(team_id)
         ):
-            if (self.provider.DATA_PROVIDER == DATA_PROVIDER_HOCKEYTECH):
-                response = await self.provider.async_fetch_team_data(self.hass, self.league_path.upper())
-            else:
-                response = await self.provider.async_fetch_team_data(self.hass, league_id, self.sport_path, self.league_path)
-
+            response = await self.provider.async_fetch_team_data(self.hass, league_id, self.sport_path, self.league_path)
             teams = response["data"]
             if teams:
                 team_abbr = next(

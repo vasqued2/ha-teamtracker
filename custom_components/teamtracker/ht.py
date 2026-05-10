@@ -132,10 +132,11 @@ class HockeyTechProvider(BaseSportProvider):
         """Fetch teams from any API for a given league."""
 
         sensor_name = "hockeytech_teamsbyseason"
-        league_config = HOCKEYTECH_LEAGUES.get(league_id)
+        league_abbr = league_path.upper()
+        league_config = HOCKEYTECH_LEAGUES.get(league_abbr)
         if league_config is None:
             _LOGGER.warning(
-                "%s: No HockeyTech config for league '%s'", sensor_name, league_id
+                "%s: No HockeyTech config for league '%s'", sensor_name, league_abbr
             )
             return {"data": None, "url": None}
 
@@ -156,7 +157,7 @@ class HockeyTechProvider(BaseSportProvider):
             "client_code": league_config["client_code"],
         }
 
-        ht_response = await async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_id)
+        ht_response = await async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_abbr)
         ht_data = ht_response["ht_data"]
         url = ht_response["url"]
 
@@ -189,7 +190,7 @@ class HockeyTechProvider(BaseSportProvider):
             "fmt": "json",
         }
 
-        ht_response = await async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_id)
+        ht_response = await async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_abbr)
         ht_data = ht_response["ht_data"]
         url = ht_response["url"]
 
