@@ -9,7 +9,7 @@ from freezegun import freeze_time
 import arrow
 from datetime import date
 
-from custom_components.teamtracker import TeamTrackerDataUpdateCoordinator
+from custom_components.teamtracker import TeamTrackerCoordinator
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.teamtracker.const import DOMAIN
@@ -35,9 +35,9 @@ async def test_all_leagues_cold_start(hass):
 #
 #   Reset Caches
 #
-    TeamTrackerDataUpdateCoordinator.data_cache = {}
-    TeamTrackerDataUpdateCoordinator.last_update = {}
-    TeamTrackerDataUpdateCoordinator.all_team_cache = {}
+    TeamTrackerCoordinator.data_cache = {}
+    TeamTrackerCoordinator.last_update = {}
+    TeamTrackerCoordinator.all_team_cache = {}
 
 #
 #   Set up entry
@@ -83,8 +83,8 @@ async def test_all_leagues_cold_start(hass):
 # Validate the cache's are now populated
 #
 
-    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+    data_cache = TeamTrackerCoordinator.data_cache
+    all_team_cache = TeamTrackerCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
@@ -107,7 +107,7 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     entry.add_to_hass(hass)
 
     # Ensure caches are empty before setup
-    TeamTrackerDataUpdateCoordinator.data_cache.clear()
+    TeamTrackerCoordinator.data_cache.clear()
 
     # Setup the entry - this will call the API 3 times in the background
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -115,10 +115,10 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
-    dc = TeamTrackerDataUpdateCoordinator.data_cache
+    dc = TeamTrackerCoordinator.data_cache
 
-    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+    data_cache = TeamTrackerCoordinator.data_cache
+    all_team_cache = TeamTrackerCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
@@ -167,7 +167,7 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     entry.add_to_hass(hass)
 
     # Ensure caches are empty before setup
-    TeamTrackerDataUpdateCoordinator.data_cache.clear()
+    TeamTrackerCoordinator.data_cache.clear()
 
     # Setup the entry - this will call the API 3 times in the background
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -175,8 +175,8 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
-    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+    data_cache = TeamTrackerCoordinator.data_cache
+    all_team_cache = TeamTrackerCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)  # key="soccer:all:9999:en:183"
     assert len(data_cache) > 0  
@@ -202,12 +202,12 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
 
 # 2. EXPIRE THE DATA CACHE
     # Clear out the data_cache.
-    TeamTrackerDataUpdateCoordinator.data_cache.clear()
+    TeamTrackerCoordinator.data_cache.clear()
 
     # Update the league_name in the all_team_cache so we know we are reading it
     league_key = "soccer:all:183"
-    if league_key in TeamTrackerDataUpdateCoordinator.all_team_cache:
-        comp_dict = TeamTrackerDataUpdateCoordinator.all_team_cache[league_key]["league_map"]
+    if league_key in TeamTrackerCoordinator.all_team_cache:
+        comp_dict = TeamTrackerCoordinator.all_team_cache[league_key]["league_map"]
         for team_id in comp_dict:
             comp_dict[team_id] = "Cached MLS"
 
@@ -246,9 +246,9 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
 #
 #   Reset Caches
 #
-    TeamTrackerDataUpdateCoordinator.data_cache = {}
-    TeamTrackerDataUpdateCoordinator.last_update = {}
-    TeamTrackerDataUpdateCoordinator.all_team_cache = {}
+    TeamTrackerCoordinator.data_cache = {}
+    TeamTrackerCoordinator.last_update = {}
+    TeamTrackerCoordinator.all_team_cache = {}
 
 #
 #   Set up entry
@@ -292,8 +292,8 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
 # Validate the cache's are now populated
 #
 
-    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+    data_cache = TeamTrackerCoordinator.data_cache
+    all_team_cache = TeamTrackerCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
@@ -310,9 +310,9 @@ async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
 #
 #   Reset Caches
 #
-    TeamTrackerDataUpdateCoordinator.data_cache = {}
-    TeamTrackerDataUpdateCoordinator.last_update = {}
-    TeamTrackerDataUpdateCoordinator.all_team_cache = {}
+    TeamTrackerCoordinator.data_cache = {}
+    TeamTrackerCoordinator.last_update = {}
+    TeamTrackerCoordinator.all_team_cache = {}
 
 #
 #   Set up entry
@@ -358,8 +358,8 @@ async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
 # Validate the cache's are now populated
 #
 
-    data_cache = TeamTrackerDataUpdateCoordinator.data_cache
-    all_team_cache = TeamTrackerDataUpdateCoordinator.all_team_cache
+    data_cache = TeamTrackerCoordinator.data_cache
+    all_team_cache = TeamTrackerCoordinator.all_team_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0

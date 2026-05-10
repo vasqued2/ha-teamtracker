@@ -14,7 +14,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.util import slugify
 
-from . import TeamTrackerDataUpdateCoordinator
 from .const import (
     CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
@@ -34,6 +33,7 @@ from .const import (
     SPORT_ICON_MAP,
     VERSION,
 )
+from .coordinator import TeamTrackerCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -105,7 +105,7 @@ async def async_setup_platform(
         hass.data.setdefault(DOMAIN, {})
 
     # Setup the data coordinator
-    coordinator = TeamTrackerDataUpdateCoordinator(
+    coordinator = TeamTrackerCoordinator(
         hass,
         config,
     )
