@@ -45,9 +45,7 @@ async def mock_call_espn_api(hass):
 
 
     # Patch the actual utility function
-    with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
-        patch("custom_components.teamtracker.espn.async_call_espn_api", new_callable=AsyncMock) as mock_espn:
-        mock_utils.side_effect = _get_mock_api_data
+    with patch("custom_components.teamtracker.espn.EspnProvider.async_call_espn_api", new_callable=AsyncMock) as mock_espn:
         mock_espn.side_effect = _get_mock_api_data
         yield mock_espn
 

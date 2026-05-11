@@ -137,7 +137,7 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
 
     # 4. PATCH AND REFRESH
     # We only patch the coordinator AFTER the setup is done
-    with patch("custom_components.teamtracker.espn_all_leagues.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
+    with patch("custom_components.teamtracker.espn_all_leagues.EspnAllLeaguesProvider.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
 
         # This is the second update attempt
         await coordinator.async_refresh()

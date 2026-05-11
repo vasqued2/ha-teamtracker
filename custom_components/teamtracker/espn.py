@@ -1,16 +1,20 @@
 from __future__ import annotations
 
+import aiohttp
 from datetime import date, timedelta
+import json
 import logging
 from typing import TYPE_CHECKING
+from yarl import URL
 
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .base_provider import BaseSportProvider
 from .const import (
     API_LIMIT,
+    USER_AGENT,
 )
-from .utils import async_call_espn_api
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -51,7 +55,7 @@ class EspnProvider(BaseSportProvider):
             f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams"
         )
         url_parms = {"limit": 1000}
-        response = await async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league_path)
+        response = await self.async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league_path)
         data = response["data"]
         url = response["url"]
         if data:
@@ -89,7 +93,7 @@ class EspnProvider(BaseSportProvider):
         url = (
             f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_id}"
         )
-        response = await async_call_espn_api(hass, url, None, "ConfigFlow-teamGroup", team_id)
+        response = await self.async_call_espn_api(hass, url, None, "ConfigFlow-teamGroup", team_id)
         data = response["data"]
         if data:
             groups = data.get("team", {}).get("groups") or {}
@@ -148,7 +152,7 @@ class EspnProvider(BaseSportProvider):
 
         url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
 
-        response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id, file_override)
+        response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id, file_override)
         data = response["data"]
         url = response["url"]
 
@@ -178,7 +182,7 @@ class EspnProvider(BaseSportProvider):
 
             url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
 
-            response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+            response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
             data = response["data"]
             url = response["url"]
 
@@ -214,9 +218,44 @@ class EspnProvider(BaseSportProvider):
                 url,
             )
 
-            response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+            response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
             data = response["data"]
             url = response["url"]
                     
         return {"data": data, "url": url}
 
+    #
+    #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
+    #    This utility will eventually replace/wrap all API calls
+    #
+    async def async_call_espn_api(self, hass, base_url, params, sensor_name, team_id, file_override=False) -> dict:
+        """Call the specified ESPN API."""
+
+        url = str(URL(base_url).with_query(params))
+        _LOGGER.debug(
+            "%s: Calling ESPN API for '%s': %s",
+            sensor_name,
+            team_id,
+            url,
+        )
+
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+        session = async_get_clientsession(hass)
+        try:
+            async with session.get(url, headers=headers) as r:
+                if r.status == 200:
+                    try:
+                        data = await r.json()
+                    except json.JSONDecodeError as e:
+                        _LOGGER.debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
+                        return {"data": None, "url": url}
+                else:
+                    _LOGGER.debug(
+                        "%s: API returned status %s: %s", sensor_name, r.status, url
+                    )
+                    return {"data": None, "url": url}
+        except (aiohttp.ClientError, TimeoutError) as e:
+            _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+            return {"data": None, "url": url}
+
+        return {"data": data, "url": url}

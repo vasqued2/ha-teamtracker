@@ -11,7 +11,7 @@ from .const import (
     API_LIMIT,
 )
 from .espn import EspnProvider
-from .utils import async_call_espn_api, has_team
+from .utils import has_team
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -71,7 +71,7 @@ class EspnAllLeaguesProvider(EspnProvider):
         league_map = {}
         next_events = []
 
-        response = await async_call_espn_api(self._coordinator.hass, team_url, None, sensor_name, team_id)
+        response = await self.async_call_espn_api(self._coordinator.hass, team_url, None, sensor_name, team_id)
         team_data = response["data"]
         if team_data:
             next_events = team_data.get("team", {}).get("nextEvent", [])
@@ -86,7 +86,7 @@ class EspnAllLeaguesProvider(EspnProvider):
                     league_map[str(eid)] = display
 
         schedule_url = team_url + "/schedule"
-        response = await async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
+        response = await self.async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
         sched_data = response["data"]
         if sched_data:
             for e in sched_data.get("events", []):
@@ -162,7 +162,7 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
 
-        response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+        response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
         data = response["data"]
         url = response["url"]
 
@@ -180,7 +180,7 @@ class EspnAllLeaguesProvider(EspnProvider):
                     url_parms["dates"] = f"{nd1}-{nd2}"
                     url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
 
-                    response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+                    response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
                     data = response["data"]
                     url = response["url"]
 
