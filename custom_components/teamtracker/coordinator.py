@@ -24,9 +24,6 @@ from .const import (
     DEFAULT_TIMEOUT,
 )
 from .event import async_process_event
-from .hockeytech import (
-    async_fetch_hockeytech_data,
-)
 from .provider_factory import (
     DATA_PROVIDER_ESPN, 
     DATA_PROVIDER_ESPN_ALL_LEAGUES, 
@@ -130,12 +127,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
     #  _async_update_data() - Top-level method called from HA to update sensor, controls refresh rate
     #    async_update_sport_data() - Determines to use cached data or API call (if exprired)
     #      async_call_sport_apis() - Calls appropriate set of APIs based on sport and league
-    #        async_fetch_espn_data() - Gets data from ESPN APIs for specified league
-    #          async_call_espn_api() - Mockable, overridable API call for ESPN APIs
-    #        async_fetch_espn_all_leagues_data() - Gets data from ESPN APIs for all leagues in specified sport
-    #          async_call_espn_api() - Mockable, overridable API call for ESPN APIs
-    #        async_fetch_hockeytech_data() - Gets data from HockeyTech APIs for specified league
-    #          async_call_hockeytech_api() - Mockable, overridable API call for HockeyTech APIs
+    #        async_fetch_scoreboard_data() - Gets data from ESPN APIs for specified league
     #      async_update_values() - Updates sensor values using data returned by API or in cache
     #        async_process_event() - Parses ESPN event structure and populates values for sensor
     #
@@ -230,11 +222,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         """Calls appropriate set of APIs based on sport and league."""
 
         lang = self.get_lang()
-        league_path = self.league_path
-        if self.provider.DATA_PROVIDER == DATA_PROVIDER_HOCKEYTECH:
-            response = await async_fetch_hockeytech_data(self.hass, league_path.upper(), self.name, lang)
-        else:
-            response = await self.provider.async_fetch_scoreboard_data(self.hass, lang)
+        response = await self.provider.async_fetch_scoreboard_data(self.hass, lang)
 
         self.api_url = response["url"]
         return response["data"]

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from .base_provider import BaseSportProvider
 from .espn import DATA_PROVIDER_ESPN, EspnProvider
 from .espn_all_leagues import DATA_PROVIDER_ESPN_ALL_LEAGUES, EspnAllLeaguesProvider
-from .ht import DATA_PROVIDER_HOCKEYTECH, HockeyTechProvider
+from .hockeytech import DATA_PROVIDER_HOCKEYTECH, HockeyTechProvider
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator

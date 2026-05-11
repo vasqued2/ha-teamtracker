@@ -39,7 +39,7 @@ async def mock_call_hockeytech_api_override(hass):
 
 
     # Patch the actual utility function
-    with patch("custom_components.teamtracker.hockeytech.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht:
+    with patch("custom_components.teamtracker.hockeytech.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht:
         mock_ht.side_effect = _get_mock_api_data
         yield mock_ht
 

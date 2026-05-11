@@ -51,9 +51,6 @@ from .const import (
 )
 from .coordinator import TeamTrackerCoordinator
 from .event import async_process_event
-from .hockeytech import (
-    async_fetch_hockeytech_data,
-)
 from .provider_factory import (
     DATA_PROVIDER_ESPN, 
     DATA_PROVIDER_ESPN_ALL_LEAGUES, 
