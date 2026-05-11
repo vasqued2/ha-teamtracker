@@ -3,8 +3,6 @@ from homeassistant.const import Platform
 from datetime import timedelta
 
 # API
-DATA_PROVIDER_ESPN = "espn"
-
 URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
 URL_TAIL = "/scoreboard"
 API_LIMIT = 50

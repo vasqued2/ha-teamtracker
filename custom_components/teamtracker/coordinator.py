@@ -25,9 +25,6 @@ from .const import (
 )
 from .event import async_process_event
 from .provider_factory import (
-    DATA_PROVIDER_ESPN, 
-    DATA_PROVIDER_ESPN_ALL_LEAGUES, 
-    DATA_PROVIDER_HOCKEYTECH, 
     get_provider)
 from .utils import is_integer
 
@@ -59,12 +56,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             if len(config[CONF_CONFERENCE_ID]) > 0:
                 self.conference_id = config[CONF_CONFERENCE_ID]
 
-        if self.sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
-            self.provider = get_provider(DATA_PROVIDER_HOCKEYTECH, self)
-        elif self.league_path.lower() == "all" and is_integer(self.team_id):
-            self.provider = get_provider(DATA_PROVIDER_ESPN_ALL_LEAGUES, self) # ALL_LEAGUES only works w/ int team_id
-        else:
-            self.provider = get_provider(DATA_PROVIDER_ESPN, self)
+        self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 

@@ -51,12 +51,7 @@ from .const import (
 )
 from .coordinator import TeamTrackerCoordinator
 from .event import async_process_event
-from .provider_factory import (
-    DATA_PROVIDER_ESPN, 
-    DATA_PROVIDER_ESPN_ALL_LEAGUES, 
-    DATA_PROVIDER_HOCKEYTECH, 
-    get_provider)
-from .utils import is_integer, async_call_espn_api, async_get_value, has_team
+from .utils import is_integer, async_get_value, has_team
 
 _LOGGER = logging.getLogger(__name__)
 

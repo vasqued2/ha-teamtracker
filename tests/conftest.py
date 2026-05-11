@@ -100,14 +100,12 @@ async def mock_call_espn_api(hass):
     with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
         patch("custom_components.teamtracker.config_flow.async_call_espn_api", new_callable=AsyncMock) as mock_cf, \
         patch("custom_components.teamtracker.espn.async_call_espn_api", new_callable=AsyncMock) as mock_espn, \
-        patch("custom_components.teamtracker.espn_all_leagues.async_call_espn_api", new_callable=AsyncMock) as mock_ea, \
-        patch("custom_components.teamtracker.async_call_espn_api", new_callable=AsyncMock) as mock:
+        patch("custom_components.teamtracker.espn_all_leagues.async_call_espn_api", new_callable=AsyncMock) as mock_ea:
         mock_utils.side_effect = _get_mock_api_data
         mock_cf.side_effect = _get_mock_api_data
         mock_espn.side_effect = _get_mock_api_data
         mock_ea.side_effect = _get_mock_api_data
-        mock.side_effect = _get_mock_api_data
-        yield mock
+        yield mock_espn
 
 
 @pytest.fixture(autouse=True)
