@@ -52,11 +52,9 @@ async def mock_call_hockeytech_api(hass):
                 "url": url,
             }
 
-    with patch("custom_components.teamtracker.ht.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht, \
-        patch("custom_components.teamtracker.hockeytech.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
-        mock_ht.side_effect = _get_mock_ht_api_data
+    with patch("custom_components.teamtracker.hockeytech.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
         mock_hockeytech.side_effect = _get_mock_ht_api_data
-        yield mock_ht
+        yield mock_hockeytech
 
 
 @pytest.fixture
