@@ -1,12 +1,17 @@
-from .base_provider import BaseSportProvider
+from __future__ import annotations
 
-# Import provider classes
+from typing import TYPE_CHECKING
+
+from .base_provider import BaseSportProvider
 from .espn import DATA_PROVIDER_ESPN, EspnProvider
 from .espn_all_leagues import DATA_PROVIDER_ESPN_ALL_LEAGUES, EspnAllLeaguesProvider
 from .ht import DATA_PROVIDER_HOCKEYTECH, HockeyTechProvider
 
+if TYPE_CHECKING:
+    from .coordinator import TeamTrackerCoordinator
 
-def get_provider(provider_type: str) -> BaseSportProvider:
+
+def get_provider(provider_type: str, coordinator: TeamTrackerCoordinator | None = None) -> BaseSportProvider:
     """Factory function to get the correct provider instance."""
     providers = {
         DATA_PROVIDER_ESPN: EspnProvider,
@@ -19,4 +24,5 @@ def get_provider(provider_type: str) -> BaseSportProvider:
     if not provider_class:
         raise ValueError(f"Unknown provider type: {provider_type}")
 
-    return provider_class()
+    provider = provider_class(coordinator)
+    return provider

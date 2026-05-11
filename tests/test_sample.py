@@ -6,6 +6,7 @@ from collections.abc import Generator # <-- New import
 import logging
 import json
 import aiofiles
+from yarl import URL
 
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -21,11 +22,16 @@ from unittest.mock import AsyncMock, patch
 async def mock_call_espn_api(hass):
     """Global fixture to mock the ESPN API and return local JSON data."""
     
-    async def _get_mock_api_data(hass, url, params, sensor_name, team_id, file_override=False):
+    async def _get_mock_api_data(hass, base_url, params, sensor_name, team_id, file_override=False):
         """Read FILE_NAME instead of calling the API."""
 
+        clean_url = base_url.split('?')[0]
+        assert clean_url == base_url
+
+        url = str(URL(base_url).with_query(params))
+
         if sensor_name == "api_error":
-            return None
+            return {"data": None, "url": url}
 
         FILE_NAME = "tests/tt/sample.json"
 
@@ -42,10 +48,12 @@ async def mock_call_espn_api(hass):
     with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
         patch("custom_components.teamtracker.config_flow.async_call_espn_api", new_callable=AsyncMock) as mock_cf, \
         patch("custom_components.teamtracker.coordinator.async_call_espn_api", new_callable=AsyncMock) as mock_c, \
+        patch("custom_components.teamtracker.espn.async_call_espn_api", new_callable=AsyncMock) as mock_espn, \
         patch("custom_components.teamtracker.async_call_espn_api", new_callable=AsyncMock) as mock:
         mock_utils.side_effect = _get_mock_api_data
         mock_cf.side_effect = _get_mock_api_data
         mock_c.side_effect = _get_mock_api_data
+        mock_espn.side_effect = _get_mock_api_data
         mock.side_effect = _get_mock_api_data
         yield mock
 

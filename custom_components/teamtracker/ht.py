@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from .base_provider import BaseSportProvider
-from typing import TypedDict
+from typing import TypedDict, TYPE_CHECKING
 from datetime import timedelta
 import locale
 import logging
@@ -7,6 +9,9 @@ import logging
 from homeassistant.core import HomeAssistant
 
 from .hockeytech import async_call_hockeytech_api
+
+if TYPE_CHECKING:
+    from .coordinator import TeamTrackerCoordinator
 
 class HockeyTechLeague(TypedDict):
     public_key: str
@@ -110,8 +115,8 @@ HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
 class HockeyTechProvider(BaseSportProvider):
     """Provider for HockeyTech data."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
+        super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_HOCKEYTECH
         self.ATTRIBUTION: str = "Powered by HockeyTech.com"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
@@ -215,11 +220,9 @@ class HockeyTechProvider(BaseSportProvider):
         return {"data": teams, "url": url}
 
 
-    async def async_fetch_game_data(
+    async def async_fetch_scoreboard_data(
         self,
         hass,
-        league_id: str,
-        sensor_name: str,
         lang: str,
     ) -> dict:
         # Perform your specific API calls here

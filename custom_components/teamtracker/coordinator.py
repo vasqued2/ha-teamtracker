@@ -79,11 +79,11 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 self.conference_id = config[CONF_CONFERENCE_ID]
 
         if self.sport_path.lower() == DATA_PROVIDER_HOCKEYTECH:
-            self.provider = get_provider(DATA_PROVIDER_HOCKEYTECH)
-        elif self.league_path.lower() == "all":
-            self.provider = get_provider(DATA_PROVIDER_ESPN_ALL_LEAGUES)
+            self.provider = get_provider(DATA_PROVIDER_HOCKEYTECH, self)
+        elif self.league_path.lower() == "all" and is_integer(self.team_id):
+            self.provider = get_provider(DATA_PROVIDER_ESPN_ALL_LEAGUES, self) # ALL_LEAGUES only works w/ int team_id
         else:
-            self.provider = get_provider(DATA_PROVIDER_ESPN)
+            self.provider = get_provider(DATA_PROVIDER_ESPN, self)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
@@ -321,7 +321,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         elif (league_path == "all") and is_integer(self.team_id):
             response = await self.async_fetch_espn_all_leagues_data(self.hass, lang)
         else:
-            response = await self.async_fetch_espn_data(self.hass, lang)
+            response = await self.provider.async_fetch_scoreboard_data(self.hass, lang)
 
         self.api_url = response["url"]
         return response["data"]

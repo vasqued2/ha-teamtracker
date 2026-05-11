@@ -1,6 +1,12 @@
+from __future__ import annotations
+
 from homeassistant.core import HomeAssistant
+from typing import TYPE_CHECKING
 
 from .espn import EspnProvider
+
+if TYPE_CHECKING:
+    from .coordinator import TeamTrackerCoordinator
 
 DATA_PROVIDER_ESPN_ALL_LEAGUES = "espn-all_leagues"
 
@@ -8,8 +14,8 @@ DATA_PROVIDER_ESPN_ALL_LEAGUES = "espn-all_leagues"
 class EspnAllLeaguesProvider(EspnProvider):
     """Provider for ESPN data."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
+        super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN_ALL_LEAGUES
 
 
@@ -25,11 +31,9 @@ class EspnAllLeaguesProvider(EspnProvider):
 
 
 
-    async def async_fetch_game_data(
+    async def async_fetch_scoreboard_data(
         self,
         hass,
-        league_id: str,
-        sensor_name: str,
         lang: str,
     ) -> dict:
         # Perform your specific API calls here

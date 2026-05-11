@@ -1,18 +1,32 @@
-from datetime import timedelta
+from __future__ import annotations
+
+from datetime import date, timedelta
+import logging
+from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
 from .base_provider import BaseSportProvider
+from .const import (
+    API_LIMIT,
+)
 from .utils import async_call_espn_api
+
+_LOGGER = logging.getLogger(__name__)
+
+if TYPE_CHECKING:
+    from .coordinator import TeamTrackerCoordinator
 
 ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 DATA_PROVIDER_ESPN = "espn"
+URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
+URL_TAIL = "/scoreboard"
 
 class EspnProvider(BaseSportProvider):
     """Provider for ESPN data."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
+        super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN
         self.ATTRIBUTION: str = "Data provided by ESPN"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
@@ -74,3 +88,117 @@ class EspnProvider(BaseSportProvider):
     ) -> dict:
         # Perform your specific API calls here
         return {"source": "espn", "data": {}, "url": "url"}
+
+
+    #
+    #  async_fetch_scoreboard_data()
+    #    Call ESPN API with using varying date ranges and parameters until events returned
+    #      1. Call w/ sport specific date range
+    #      2. Call w/o date range specfied (uses ESPN default behavior)
+    #      3. Call w/o language parm (some sports not returned in some languages)
+    #
+    async def async_fetch_scoreboard_data(self, hass, lang) -> dict:
+        """Gets data from ESPN APIs for specified league."""
+
+        if not self._coordinator:
+            return{"data": None, "url": None}
+
+        sensor_name = self._coordinator.name
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        team_id = self._coordinator.team_id.upper()
+
+        url_parms = {}
+        url_parms["lang"] = lang[:2]
+        url_parms["limit"] = str(API_LIMIT)
+
+        if sport_path not in ("tennis"):
+            d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
+            if league_path == "all":
+                d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
+            elif sport_path in ("baseball"):
+                d2 = (date.today() + timedelta(days=1)).strftime("%Y%m%d")
+            else:
+                d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
+            url_parms["dates"] = f"{d1}-{d2}"
+
+        file_override = False
+        if self._coordinator.conference_id:
+            url_parms["groups"] = self._coordinator.conference_id
+            if self._coordinator.conference_id == "9999":
+                file_override = True
+
+        url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+
+        response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id, file_override)
+        data = response["data"]
+        url = response["url"]
+
+        num_events = 0
+        if data is not None:
+            _LOGGER.debug(
+                "%s: Data returned for '%s' from %s",
+                sensor_name,
+                team_id,
+                url,
+            )
+            try:
+                num_events = len(data["events"])
+            except:
+                num_events = 0
+
+        _LOGGER.debug(
+            "%s: Num_events '%d' from %s",
+            sensor_name,
+            num_events,
+            url,
+        )
+            
+        # First fallback - without date constraint
+        if num_events == 0:
+            url_parms.pop("dates", None)
+
+            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+
+            response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+            data = response["data"]
+            url = response["url"]
+
+            num_events = 0
+            if data is not None:
+                _LOGGER.debug(
+                    "%s: Data returned for '%s' from %s",
+                    sensor_name,
+                    team_id,
+                    url,
+                )
+                try:
+                    num_events = len(data["events"])
+                except:
+                    num_events = 0
+
+            _LOGGER.debug(
+                "%s: Num_events '%d' from %s",
+                sensor_name,
+                num_events,
+                url,
+            )
+
+        # Second fallback - without language
+        if num_events == 0:
+            url_parms.pop("lang", None)
+
+            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+            _LOGGER.debug(
+                "%s: Calling API without language for '%s' from %s",
+                sensor_name,
+                team_id,
+                url,
+            )
+
+            response = await async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+            data = response["data"]
+            url = response["url"]
+                    
+        return {"data": data, "url": url}
+
