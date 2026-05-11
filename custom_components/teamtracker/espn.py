@@ -77,6 +77,24 @@ class EspnProvider(BaseSportProvider):
         return {"data": teams, "url": url}
 
 
+    async def async_fetch_team_conference_id(
+        self,
+        hass: HomeAssistant, 
+        sport_path: str, 
+        league_path: str, 
+        team_id: str
+    ) -> str:
+        """Fetch conference/group ID for a single team from the ESPN team detail API."""
+
+        url = (
+            f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_id}"
+        )
+        response = await async_call_espn_api(hass, url, None, "ConfigFlow-teamGroup", team_id)
+        data = response["data"]
+        if data:
+            groups = data.get("team", {}).get("groups") or {}
+            return str(groups.get("id", ""))
+        return str("")
 
 
     async def async_fetch_game_data(

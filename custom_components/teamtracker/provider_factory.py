@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 def get_provider(sport_path: str, league_path: str, team_id: str="", coordinator: TeamTrackerCoordinator | None = None) -> BaseSportProvider:
     """Factory function to get the correct provider instance."""
 
+    provider: BaseSportProvider = EspnProvider(coordinator)
+
     if sport_path.lower() == "hockeytech":
         provider = HockeyTechProvider(coordinator)
     elif league_path.lower() == "all" and is_integer(team_id):
         provider = EspnAllLeaguesProvider(coordinator)
-    else:
-        provider = EspnProvider(coordinator)
 
     return provider
