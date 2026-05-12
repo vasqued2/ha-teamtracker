@@ -137,7 +137,7 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
 
     # 4. PATCH AND REFRESH
     # We only patch the coordinator AFTER the setup is done
-    with patch("custom_components.teamtracker.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
+    with patch("custom_components.teamtracker.espn_all_leagues.EspnAllLeaguesProvider.async_call_espn_api", side_effect=mock_snitch) as snitch_espn_api:
 
         # This is the second update attempt
         await coordinator.async_refresh()
@@ -196,7 +196,7 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
@@ -232,7 +232,7 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
@@ -285,7 +285,7 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260319-20260321"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 #
@@ -351,7 +351,7 @@ async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260320-20260326&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260320-20260326&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 #

@@ -17,7 +17,7 @@ from .set_racing import async_set_racing_values
 from .set_soccer import async_set_soccer_values
 from .set_tennis import async_set_tennis_values
 from .set_volleyball import async_set_volleyball_values
-from .utils import async_get_value
+from .utils import async_get_value, season_slug_to_name
 
 _LOGGER = logging.getLogger(__name__)
 team_prob: dict[str, float] = {}
@@ -647,18 +647,6 @@ async def derive_league_name(league_map, event_url, season):
 
     # Fallback: derive from season slug already present in scoreboard data
     if league_name == "":
-        league_name = slug_to_name(season)
+        league_name = season_slug_to_name(season)
 
     return league_name
-
-def slug_to_name(slug: str) -> str:
-    """Convert a season slug like '2025-26-english-premier-league' to 'English Premier League'."""
-    if not slug:
-        return ""
-    body = re.sub(r"^\d{4}(-\d{2})?-", "", slug)
-    if body == slug:
-        return ""
-    def _fmt_word(w):
-        # Uppercase abbreviations (no vowels, e.g. "mls", "nfl"); title-case real words
-        return w.upper() if w.isalpha() and not re.search(r"[aeiou]", w, re.I) else w.title()
-    return " ".join(_fmt_word(w) for w in body.split("-"))

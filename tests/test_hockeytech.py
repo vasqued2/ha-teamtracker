@@ -13,7 +13,6 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from typing import Any
 from custom_components.teamtracker.const import (
     DOMAIN,
-    USER_AGENT,
 )
 from custom_components.teamtracker.hockeytech import (
     HOCKEYTECH_BASE_URL,

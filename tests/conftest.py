@@ -52,11 +52,9 @@ async def mock_call_hockeytech_api(hass):
                 "url": url,
             }
 
-    with patch("custom_components.teamtracker.ht.async_call_hockeytech_api", new_callable=AsyncMock) as mock_ht, \
-        patch("custom_components.teamtracker.hockeytech.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
-        mock_ht.side_effect = _get_mock_ht_api_data
+    with patch("custom_components.teamtracker.hockeytech.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
         mock_hockeytech.side_effect = _get_mock_ht_api_data
-        yield mock_ht
+        yield mock_hockeytech
 
 
 @pytest.fixture
@@ -66,7 +64,6 @@ async def mock_call_espn_api(hass):
     # Path to your test data
     DATA_PATH = "tests/tt/"
 
-#    async def _get_mock_api_data(hass, sensor_name, team_id, url, file_override=False):
     async def _get_mock_api_data(hass, base_url, params, sensor_name, team_id, file_override=False):
         """Helper to load local files based on URL logic."""
 
@@ -100,17 +97,11 @@ async def mock_call_espn_api(hass):
             return {"data": None, "url": url}
 
     # Patch the actual utility function
-    with patch("custom_components.teamtracker.utils.async_call_espn_api", new_callable=AsyncMock) as mock_utils, \
-        patch("custom_components.teamtracker.config_flow.async_call_espn_api", new_callable=AsyncMock) as mock_cf, \
-        patch("custom_components.teamtracker.coordinator.async_call_espn_api", new_callable=AsyncMock) as mock_c, \
-        patch("custom_components.teamtracker.espn.async_call_espn_api", new_callable=AsyncMock) as mock_espn, \
-        patch("custom_components.teamtracker.async_call_espn_api", new_callable=AsyncMock) as mock:
-        mock_utils.side_effect = _get_mock_api_data
-        mock_cf.side_effect = _get_mock_api_data
-        mock_c.side_effect = _get_mock_api_data
+    with patch("custom_components.teamtracker.espn.EspnProvider.async_call_espn_api", new_callable=AsyncMock) as mock_espn, \
+        patch("custom_components.teamtracker.espn_all_leagues.EspnAllLeaguesProvider.async_call_espn_api", new_callable=AsyncMock) as mock_ea:
         mock_espn.side_effect = _get_mock_api_data
-        mock.side_effect = _get_mock_api_data
-        yield mock
+        mock_ea.side_effect = _get_mock_api_data
+        yield mock_espn
 
 
 @pytest.fixture(autouse=True)
