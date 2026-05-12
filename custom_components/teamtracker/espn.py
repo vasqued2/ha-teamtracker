@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import aiofiles
 import aiohttp
-import os
 from datetime import date, timedelta
 import json
 import logging
+import os
 from typing import TYPE_CHECKING
 from yarl import URL
 
@@ -15,7 +15,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from .base_provider import BaseSportProvider
 from .const import (
     API_LIMIT,
-    USER_AGENT,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -23,14 +22,15 @@ _LOGGER = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
-ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 DATA_PROVIDER_ESPN = "espn"
-URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
-URL_TAIL = "/scoreboard"
+ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 class EspnProvider(BaseSportProvider):
     """Provider for ESPN data."""
-
+    #
+    #  __init__()
+    #    Set ESPN specific values
+    #
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN
@@ -38,24 +38,20 @@ class EspnProvider(BaseSportProvider):
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
 
-
-
     #
-    # Return a list of team dictionaries
-    #  [{
-    #   "id": team_id,
-    #   "displayName": Long Team Name
-    #   "location": City, State, Country of team
-    #    "conference_id": Conference for the team (NCAA Only)
-    #  }]
+    #  async_fetch_team_data()
+    #    Return a list of team dictionaries
+    #      [{
+    #        "id": team_id,
+    #        "displayName": Long Team Name
+    #        "location": City, State, Country of team
+    #        "conference_id": Conference for the team (NCAA Only)
+    #      }]
     #
-
     async def async_fetch_team_data(self, hass: HomeAssistant, sport_path: str="", league_path: str="") -> dict:
         """Fetch teams from any API for a given league."""
 
-        url = (
-            f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams"
-        )
+        url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams"
         url_parms = {"limit": 1000}
         response = await self.async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league_path)
         data = response["data"]
@@ -103,17 +99,6 @@ class EspnProvider(BaseSportProvider):
         return str("")
 
 
-    async def async_fetch_game_data(
-        self,
-        hass,
-        league_id: str,
-        sensor_name: str,
-        lang: str,
-    ) -> dict:
-        # Perform your specific API calls here
-        return {"source": "espn", "data": {}, "url": "url"}
-
-
     #
     #  async_fetch_scoreboard_data()
     #    Call ESPN API with using varying date ranges and parameters until events returned
@@ -152,7 +137,7 @@ class EspnProvider(BaseSportProvider):
             if self._coordinator.conference_id == "9999":
                 file_override = True
 
-        url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+        url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id, file_override)
         data = response["data"]
@@ -181,8 +166,7 @@ class EspnProvider(BaseSportProvider):
         # First fallback - without date constraint
         if num_events == 0:
             url_parms.pop("dates", None)
-
-            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+            url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
             response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
             data = response["data"]
@@ -211,8 +195,7 @@ class EspnProvider(BaseSportProvider):
         # Second fallback - without language
         if num_events == 0:
             url_parms.pop("lang", None)
-
-            url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+            url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
             _LOGGER.debug(
                 "%s: Calling API without language for '%s' from %s",
                 sensor_name,
@@ -227,8 +210,9 @@ class EspnProvider(BaseSportProvider):
         return {"data": data, "url": url}
 
     #
-    #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
-    #    This utility will eventually replace/wrap all API calls
+    #  async_call_espn_api()
+    #
+    #    Call an ESPN API (or use file w/ the appropriate file override) and get the data returned by it
     #
     async def async_call_espn_api(self, hass, base_url, params, sensor_name, team_id, file_override=False) -> dict:
         """Call the specified ESPN API."""
@@ -242,11 +226,11 @@ class EspnProvider(BaseSportProvider):
         )
 
         if file_override:
-            data = await self.async_override_espn_api(sensor_name, team_id, base_url)
+            data = await self._async_override_espn_api(sensor_name, team_id, base_url)
             return {"data": data, "url": url}
 
 
-        headers = {"User-Agent": USER_AGENT, "Accept": "application/ld+json"}
+        headers = {"User-Agent": self._USER_AGENT, "Accept": "application/ld+json"}
         session = async_get_clientsession(hass)
         try:
             async with session.get(url, headers=headers) as r:
@@ -272,7 +256,7 @@ class EspnProvider(BaseSportProvider):
     #  Call an ESPN API (or file use the appropriate file override) and get the data returned by it
     #    This utility will eventually replace/wrap all API calls
     #
-    async def async_override_espn_api(self, sensor_name, team_id, url) -> dict | None:
+    async def _async_override_espn_api(self, sensor_name, team_id, url) -> dict | None:
         """Read a json file to mock the ESPN API."""
 
         _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)

@@ -14,9 +14,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .base_provider import BaseSportProvider
-from .const import (
-    USER_AGENT,
-)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -548,7 +545,7 @@ class HockeyTechProvider(BaseSportProvider):
                 "url:      URL for the call
             }
         """
-        headers = {"User-Agent": USER_AGENT}
+        headers = {"User-Agent": self._USER_AGENT}
         session = async_get_clientsession(hass)
 
         url = str(URL(base_url).with_query(params))

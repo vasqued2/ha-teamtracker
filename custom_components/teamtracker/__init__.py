@@ -44,9 +44,6 @@ from .const import (
     NATIVE_LEAGUES,
     PLATFORMS,
     SERVICE_NAME_CALL_API,
-    URL_HEAD,
-    URL_TAIL,
-    USER_AGENT,
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator

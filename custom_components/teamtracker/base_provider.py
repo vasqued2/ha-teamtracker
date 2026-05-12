@@ -18,6 +18,10 @@ class BaseSportProvider(ABC):
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
         self._coordinator = coordinator
+        self._USER_AGENT = (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like "
+            "Gecko) Version/15.0 Safari/605.1.15"
+        )
 
     @abstractmethod
     async def async_fetch_team_data(

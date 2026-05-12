@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from datetime import date, datetime, timedelta, timezone
 import logging
-import re
 from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
@@ -11,7 +10,7 @@ from .const import (
     API_LIMIT,
 )
 from .espn import EspnProvider
-from .utils import has_team
+from .utils import (has_team, season_slug_to_name)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -19,98 +18,20 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 DATA_PROVIDER_ESPN_ALL_LEAGUES = "espn-all_leagues"
-URL_HEAD = "http://site.api.espn.com/apis/site/v2/sports/"
-URL_TAIL = "/scoreboard"
+ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 
 class EspnAllLeaguesProvider(EspnProvider):
-    """Provider for ESPN data."""
-
+    """Provider for ESPN data when league_path is all and team_id is an integer."""
+    #
+    #  __init__()
+    #    Reuse EspnProvider settings except:
+    #      - DATA_PROVIDER
+    #      - async_fetch_scoreboard_data()
+    #
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN_ALL_LEAGUES
-
-
-    def _slug_to_name(self, slug: str) -> str:
-        """Convert a season slug like '2025-26-english-premier-league' to 'English Premier League'."""
-        if not slug:
-            return ""
-        body = re.sub(r"^\d{4}(-\d{2})?-", "", slug)
-        if body == slug:
-            return ""
-        def _fmt_word(w):
-            # Uppercase abbreviations (no vowels, e.g. "mls", "nfl"); title-case real words
-            return w.upper() if w.isalpha() and not re.search(r"[aeiou]", w, re.I) else w.title()
-        return " ".join(_fmt_word(w) for w in body.split("-"))
-
-    #
-    #  async_get_team_schedule()
-    #
-    #    Calls the team info and schedule endpoints to discover the next game
-    #    date and build an event_id → league name mapping (substring of season)
-    #    Results are cached in all_team_cache until the next game date passes.
-    #
-    async def async_get_team_schedule(self):
-        """Fetch team schedule info for 'all' league date computation."""
-
-        team_id = self._coordinator.team_id
-        sport_path = self._coordinator.sport_path
-        league_path = self._coordinator.league_path
-        sensor_name = self._coordinator.name
-
-        cache_key = f"{sport_path}:{league_path}:{team_id}"
-        today = date.today()
-        cached = self._coordinator.all_team_cache.get(cache_key) # get the class variable
-
-        if cached is not None and today <= cached["expires"]:
-            _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
-            return cached
-
-        team_url = URL_HEAD + sport_path + "/" + league_path + "/teams/" + team_id
-
-        league_map = {}
-        next_events = []
-
-        response = await self.async_call_espn_api(self._coordinator.hass, team_url, None, sensor_name, team_id)
-        team_data = response["data"]
-        if team_data:
-            next_events = team_data.get("team", {}).get("nextEvent", [])
-            for ne in next_events:
-                eid = ne.get("id")
-                if not eid:
-                    continue
-                display = ne.get("season", {}).get("displayName") or self._slug_to_name(
-                    ne.get("season", {}).get("slug", "")
-                )
-                if display:
-                    league_map[str(eid)] = display
-
-        schedule_url = team_url + "/schedule"
-        response = await self.async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
-        sched_data = response["data"]
-        if sched_data:
-            for e in sched_data.get("events", []):
-                eid = e.get("id")
-                if not eid:
-                    continue
-                display = e.get("season", {}).get("displayName") or self._slug_to_name(
-                    e.get("season", {}).get("slug", "")
-                )
-                if display:
-                    league_map[str(eid)] = display
-
-        next_game_date = (
-            date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
-        )
-
-        result = {
-            "next_game_date": next_game_date,
-            "league_map": league_map,
-            "expires": next_game_date or today,
-        }
-        self._coordinator.all_team_cache[cache_key] = result  #update the class variable
-        return result
-
 
 
     #
@@ -136,7 +57,7 @@ class EspnAllLeaguesProvider(EspnProvider):
         team_id = self._coordinator.team_id.upper()
 
         # Get date of next game
-        schedule_info = await self.async_get_team_schedule()
+        schedule_info = await self._async_get_team_schedule()
         next_game_date = schedule_info.get("next_game_date") if schedule_info else None
 
         # Narrow window: cover recent results and upcoming game if within 7 days
@@ -160,7 +81,7 @@ class EspnAllLeaguesProvider(EspnProvider):
         url_parms["limit"] = str(API_LIMIT)
         url_parms["dates"] = f"{d1}-{d2}"
 
-        url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+        url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
         data = response["data"]
@@ -178,7 +99,7 @@ class EspnAllLeaguesProvider(EspnProvider):
                     )
 
                     url_parms["dates"] = f"{nd1}-{nd2}"
-                    url = URL_HEAD + sport_path + "/" + league_path + URL_TAIL
+                    url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
                     data = response["data"]
@@ -186,3 +107,71 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         return {"data": data, "url": url}
 
+
+    #
+    #  _async_get_team_schedule()
+    #
+    #    Calls the team info and schedule endpoints to discover the next game
+    #    date and build an event_id → league name mapping (substring of season)
+    #    Results are cached in all_team_cache until the next game date passes.
+    #
+    async def _async_get_team_schedule(self):
+        """Fetch team schedule info for 'all' league date computation."""
+
+        team_id = self._coordinator.team_id
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        sensor_name = self._coordinator.name
+
+        cache_key = f"{sport_path}:{league_path}:{team_id}"
+        today = date.today()
+        cached = self._coordinator.all_team_cache.get(cache_key) # get the class variable
+
+        if cached is not None and today <= cached["expires"]:
+            _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
+            return cached
+
+        team_url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_id}"
+
+        league_map = {}
+        next_events = []
+
+        response = await self.async_call_espn_api(self._coordinator.hass, team_url, None, sensor_name, team_id)
+        team_data = response["data"]
+        if team_data:
+            next_events = team_data.get("team", {}).get("nextEvent", [])
+            for ne in next_events:
+                eid = ne.get("id")
+                if not eid:
+                    continue
+                display = ne.get("season", {}).get("displayName") or season_slug_to_name(
+                    ne.get("season", {}).get("slug", "")
+                )
+                if display:
+                    league_map[str(eid)] = display
+
+        schedule_url = team_url + "/schedule"
+        response = await self.async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
+        sched_data = response["data"]
+        if sched_data:
+            for e in sched_data.get("events", []):
+                eid = e.get("id")
+                if not eid:
+                    continue
+                display = e.get("season", {}).get("displayName") or season_slug_to_name(
+                    e.get("season", {}).get("slug", "")
+                )
+                if display:
+                    league_map[str(eid)] = display
+
+        next_game_date = (
+            date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
+        )
+
+        result = {
+            "next_game_date": next_game_date,
+            "league_map": league_map,
+            "expires": next_game_date or today,
+        }
+        self._coordinator.all_team_cache[cache_key] = result  #update the class variable
+        return result

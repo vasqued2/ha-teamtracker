@@ -133,7 +133,7 @@ async def test_setup_NOT_FOUND_api_error(
 #    date = sensor_state.attributes.get("date")
 #    assert date == "2022-09-08T22:45Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?limit=50&groups=15"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?limit=50&groups=15"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == "API error, no data returned" 
 
@@ -183,7 +183,7 @@ async def test_setup_NOT_FOUND_no_team_id(
     date = sensor_state.attributes.get("date")
     assert date == None
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?lang=en&limit=50&dates=20260320-20260619&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?lang=en&limit=50&dates=20260320-20260619&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == "No competition scheduled for '195' between 2022-09-08T18:20Z and 2024-08-04T04:00Z"
 
@@ -234,7 +234,7 @@ async def test_setup_second_team_in_league(
     date = sensor_state.attributes.get("date")
     assert date == "2022-09-08T22:45Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
@@ -272,7 +272,7 @@ async def test_setup_second_team_in_league(
     date = sensor_state.attributes.get("date")
     assert date == "2022-09-08T18:20Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == "Cached data"
 

@@ -61,7 +61,7 @@ async def test_sensor(hass, mock_call_espn_api, mocker):
     date = sensor_state.attributes.get("date")
     assert date == "2022-09-08T22:45Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
