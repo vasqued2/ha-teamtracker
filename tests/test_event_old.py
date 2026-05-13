@@ -28,8 +28,6 @@ async def test_event_old(hass):
         assert False
 
     for t in TEST_DATA:
-        parser = EspnParser()
-
         values = await async_clear_values()
         values["sport"] = t["sport"]
         values["league"] = t["league"]
@@ -47,14 +45,13 @@ async def test_event_old(hass):
         league_map= {}
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
+
+        parser = EspnParser()
+        parser.setup(sensor_name, sport_path, league_id, team_id)
+
         values = await parser.async_process_event(
             values,
-            sensor_name,
             data,
-            sport_path,
-            league_id,
-            DEFAULT_LOGO,
-            team_id,
             league_map,
             lang,
         )

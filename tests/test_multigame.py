@@ -26,8 +26,6 @@ async def test_multigame(hass):
         assert False
 
     for t in MULTIGAME_DATA:
-        parser = EspnParser()
-
         values = await async_clear_values()
         values["sport"] = t["sport"]
         values["league"] = t["league"]
@@ -44,15 +42,13 @@ async def test_multigame(hass):
         lang = "en"
         league_map = {}
 
+        parser = EspnParser()
+        parser.setup(sensor_name, sport_path, league_id, team_id)
+
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
         values = await parser.async_process_event(
             values,
-            sensor_name,
             data,
-            sport_path,
-            league_id,
-            DEFAULT_LOGO,
-            team_id,
             league_map,
             lang,
         )

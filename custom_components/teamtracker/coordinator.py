@@ -58,6 +58,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
         self.parser = get_parser(self.provider.data_format)
+        self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
@@ -112,6 +113,8 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         if key in TeamTrackerCoordinator.data_cache:
             TeamTrackerCoordinator.data_cache.pop(key, None)
+            
+        self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
 
 
     #
@@ -267,12 +270,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         values = await self.parser.async_process_event(
             values,
-            sensor_name,
             data,
-            self.sport_path,
-            league_id,
-            DEFAULT_LOGO,
-            team_id,
             league_map,
             lang,
         )

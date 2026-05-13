@@ -9,9 +9,18 @@ if TYPE_CHECKING:
 class BaseSportParser(ABC):
     """Base class for all sport data providers."""
 
-    def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
+    def __init__(self) -> None:
         # Define the attributes that must be available on all providers
-        self._coordinator = coordinator
+        pass
+
+    @abstractmethod
+    #
+    #  setup()
+    #
+    def setup(self,
+        sensor_name, sport_path, league_id, team_id
+    ) -> bool:
+        pass
 
 
     @abstractmethod
@@ -19,7 +28,7 @@ class BaseSportParser(ABC):
     #  async_process_event()
     #
     async def async_process_event(self,
-        values, sensor_name, data, sport_path, league_id, default_logo, team_id, league_map, lang
+        values, data, league_map, lang
     ) -> dict:
 
         pass                                               # pylint: disable=unnecessary-pass

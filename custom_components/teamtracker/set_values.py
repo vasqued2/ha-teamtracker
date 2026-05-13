@@ -23,150 +23,151 @@ _LOGGER = logging.getLogger(__name__)
 team_prob: dict[str, float] = {}
 oppo_prob: dict[str, float] = {}
 
-
+class SetValuesMixin:
 #
 #  Set Values
 #
-async def async_set_values(
-    new_values, event, grouping_index, competition_index, team_index, league_map, lang, sensor_name
-) -> bool:
-    """Function to set all new_values for the specified event/competition/team"""
-
-    #    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
-
-    oppo_index = 1 if team_index == 0 else 0
-    grouping = await async_get_value(event, "groupings", grouping_index)
-    if grouping is None:
-        competition = await async_get_value(event, "competitions", competition_index)
-    else:
-        competition = await async_get_value(grouping, "competitions", competition_index)
-    competitor = await async_get_value(competition, "competitors", team_index)
-    opponent = await async_get_value(competition, "competitors", oppo_index)
-
-    if competition is None or competitor is None or opponent is None:
-        _LOGGER.debug(
-            "%s: async_set_values() Invalid competition, competitor, or opponent: %s",
-            sensor_name,
-            sensor_name,
-        )
-        return False
-
-    rc = await async_set_universal_values(
+    async def async_set_values(
+        self,
         new_values, event, grouping_index, competition_index, team_index, league_map, lang, sensor_name
-    )
-    if not rc:
-        _LOGGER.debug(
-            "%s: async_set_values() Bad rc from async_set_universal_values(): %s",
-            sensor_name,
-            sensor_name,
-        )
-        return False
+    ) -> bool:
+        """Function to set all new_values for the specified event/competition/team"""
 
-    #
-    #  Additional values only needed for team sports
-    #
-    if await async_get_value(competitor, "type") == "team":
-        rc = await async_set_team_values(
-            new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
-        )
-        if not rc:
+        #    _LOGGER.debug("%s: async_set_values() 1: %s", sensor_name, sensor_name)
+
+        oppo_index = 1 if team_index == 0 else 0
+        grouping = await async_get_value(event, "groupings", grouping_index)
+        if grouping is None:
+            competition = await async_get_value(event, "competitions", competition_index)
+        else:
+            competition = await async_get_value(grouping, "competitions", competition_index)
+        competitor = await async_get_value(competition, "competitors", team_index)
+        opponent = await async_get_value(competition, "competitors", oppo_index)
+
+        if competition is None or competitor is None or opponent is None:
             _LOGGER.debug(
-                "%s: async_set_values() Bad rc from async_set_team_values(): %s",
+                "%s: async_set_values() Invalid competition, competitor, or opponent: %s",
                 sensor_name,
                 sensor_name,
             )
             return False
 
-    #    _LOGGER.debug("%s: async_set_values() 3: %s", sensor_name, new_values)
-
-    if new_values["state"] == "PRE":
-        rc = await async_set_pre_values(new_values, event)
-        if not rc:
-            _LOGGER.debug(
-                "%s: async_set_values() Bad rc from async_set_pre_values(): %s",
-                sensor_name,
-                sensor_name,
-            )
-            return False
-
-    if new_values["state"] == "IN":
-        rc = await async_set_in_values(
-            new_values, event, grouping_index, competition_index, team_index, sensor_name
+        rc = await async_set_universal_values(
+            new_values, event, grouping_index, competition_index, team_index, league_map, lang, sensor_name
         )
         if not rc:
             _LOGGER.debug(
-                "%s: async_set_values() Bad rc from async_set_in_values(): %s",
+                "%s: async_set_values() Bad rc from async_set_universal_values(): %s",
                 sensor_name,
                 sensor_name,
             )
             return False
-        #        _LOGGER.debug("%s: async_set_values() 3.1: %s", sensor_name, new_values)
+
         #
-        #   Sport Specific Values
+        #  Additional values only needed for team sports
         #
-        if new_values["sport"] == "baseball":
-            rc = await async_set_baseball_values(
-                new_values, event, competition_index, team_index, sensor_name
+        if await async_get_value(competitor, "type") == "team":
+            rc = await async_set_team_values(
+                new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
             )
-        elif new_values["sport"] == "soccer":
-            rc = await async_set_soccer_values(
-                new_values, event, competition_index, team_index, sensor_name
-            )
-        elif new_values["sport"] == "volleyball":
-            rc = await async_set_volleyball_values(
-                new_values, event, competition_index, team_index, sensor_name
-            )
-        elif new_values["sport"] == "hockey":
-            rc = await async_set_hockey_values(
-                new_values, event, competition_index, team_index, sensor_name
-            )
-    if new_values["sport"] == "golf":
-        rc = await async_set_golf_values(
-            new_values, event, competition_index, team_index, lang, sensor_name
-        )
-    elif new_values["sport"] == "tennis":
-        rc = await async_set_tennis_values(
-            new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
-        )
-    elif new_values["sport"] == "mma":
-        rc = await async_set_mma_values(
-            new_values, event, competition_index, team_index, lang, sensor_name
-        )
-    elif new_values["sport"] == "racing":
-        rc = await async_set_racing_values(
-            new_values, event, competition_index, team_index, lang, sensor_name
-        )
-    elif new_values["sport"] == "cricket":
-        rc = await async_set_cricket_values(
-            new_values, event, competition_index, team_index, lang, sensor_name
-        )
-    #    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
-    if not rc:
-        _LOGGER.debug(
-            "%s: async_set_values() Bad rc from async_set_SPORT_values(): %s",
-            sensor_name,
-            sensor_name,
-        )
-        return False
+            if not rc:
+                _LOGGER.debug(
+                    "%s: async_set_values() Bad rc from async_set_team_values(): %s",
+                    sensor_name,
+                    sensor_name,
+                )
+                return False
 
-    new_values["private_fast_refresh"] = False
-    if new_values["state"] == "IN":
-        new_values["private_fast_refresh"] = True
-    if new_values["state"] == "PRE" and (
-        abs((arrow.get(new_values["date"]) - arrow.now()).total_seconds()) < 
-        (int(GENERAL_REFRESH_RATE.total_seconds())*2)
-    ):
-        _LOGGER.debug(
-            "%s: Event is within %s minutes, setting refresh rate to %s seconds.",
-            sensor_name,
-            int(GENERAL_REFRESH_RATE.total_seconds()/60)*2,
-            int(GENERAL_RAPID_REFRESH_RATE.total_seconds())
-        )
-        new_values["private_fast_refresh"] = True
+        #    _LOGGER.debug("%s: async_set_values() 3: %s", sensor_name, new_values)
 
-    #    _LOGGER.debug("%s: async_set_values() 5: %s", sensor_name, new_values)
+        if new_values["state"] == "PRE":
+            rc = await async_set_pre_values(new_values, event)
+            if not rc:
+                _LOGGER.debug(
+                    "%s: async_set_values() Bad rc from async_set_pre_values(): %s",
+                    sensor_name,
+                    sensor_name,
+                )
+                return False
 
-    return rc
+        if new_values["state"] == "IN":
+            rc = await async_set_in_values(
+                new_values, event, grouping_index, competition_index, team_index, sensor_name
+            )
+            if not rc:
+                _LOGGER.debug(
+                    "%s: async_set_values() Bad rc from async_set_in_values(): %s",
+                    sensor_name,
+                    sensor_name,
+                )
+                return False
+            #        _LOGGER.debug("%s: async_set_values() 3.1: %s", sensor_name, new_values)
+            #
+            #   Sport Specific Values
+            #
+            if new_values["sport"] == "baseball":
+                rc = await async_set_baseball_values(
+                    new_values, event, competition_index, team_index, sensor_name
+                )
+            elif new_values["sport"] == "soccer":
+                rc = await async_set_soccer_values(
+                    new_values, event, competition_index, team_index, sensor_name
+                )
+            elif new_values["sport"] == "volleyball":
+                rc = await async_set_volleyball_values(
+                    new_values, event, competition_index, team_index, sensor_name
+                )
+            elif new_values["sport"] == "hockey":
+                rc = await async_set_hockey_values(
+                    new_values, event, competition_index, team_index, sensor_name
+                )
+        if new_values["sport"] == "golf":
+            rc = await async_set_golf_values(
+                new_values, event, competition_index, team_index, lang, sensor_name
+            )
+        elif new_values["sport"] == "tennis":
+            rc = await async_set_tennis_values(
+                new_values, event, grouping_index, competition_index, team_index, lang, sensor_name
+            )
+        elif new_values["sport"] == "mma":
+            rc = await async_set_mma_values(
+                new_values, event, competition_index, team_index, lang, sensor_name
+            )
+        elif new_values["sport"] == "racing":
+            rc = await async_set_racing_values(
+                new_values, event, competition_index, team_index, lang, sensor_name
+            )
+        elif new_values["sport"] == "cricket":
+            rc = await async_set_cricket_values(
+                new_values, event, competition_index, team_index, lang, sensor_name
+            )
+        #    _LOGGER.debug("%s: async_set_values() 4: %s", sensor_name, sensor_name)
+        if not rc:
+            _LOGGER.debug(
+                "%s: async_set_values() Bad rc from async_set_SPORT_values(): %s",
+                sensor_name,
+                sensor_name,
+            )
+            return False
+
+        new_values["private_fast_refresh"] = False
+        if new_values["state"] == "IN":
+            new_values["private_fast_refresh"] = True
+        if new_values["state"] == "PRE" and (
+            abs((arrow.get(new_values["date"]) - arrow.now()).total_seconds()) < 
+            (int(GENERAL_REFRESH_RATE.total_seconds())*2)
+        ):
+            _LOGGER.debug(
+                "%s: Event is within %s minutes, setting refresh rate to %s seconds.",
+                sensor_name,
+                int(GENERAL_REFRESH_RATE.total_seconds()/60)*2,
+                int(GENERAL_RAPID_REFRESH_RATE.total_seconds())
+            )
+            new_values["private_fast_refresh"] = True
+
+        #    _LOGGER.debug("%s: async_set_values() 5: %s", sensor_name, new_values)
+
+        return rc
 
 
 #
