@@ -237,9 +237,6 @@ class EspnParser(BaseSportParser, SetValuesMixin):
             grouping_index,
             competition_index,
             matched_index,
-            self._league_map,
-            self._lang,
-            self._sensor_name,
         )
         if not rc:
             _LOGGER.debug(
