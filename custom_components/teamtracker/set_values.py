@@ -8,22 +8,22 @@ import arrow
 import re
 
 from .const import DEFAULT_LOGO, DEFAULT_PROB, GENERAL_REFRESH_RATE, GENERAL_RAPID_REFRESH_RATE
-from .set_baseball import async_set_baseball_values
-from .set_cricket import async_set_cricket_values
-from .set_golf import async_set_golf_values
-from .set_hockey import async_set_hockey_values
-from .set_mma import async_set_mma_values
-from .set_racing import async_set_racing_values
-from .set_soccer import async_set_soccer_values
-from .set_tennis import async_set_tennis_values
-from .set_volleyball import async_set_volleyball_values
+from .set_baseball import SetBaseballMixin
+from .set_cricket import SetCricketMixin
+from .set_golf import SetGolfMixin
+from .set_hockey import SetHockeyMixin
+from .set_mma import SetMMAMixin
+from .set_racing import SetRacingMixin
+from .set_soccer import SetSoccerMixin
+from .set_tennis import SetTennisMixin
+from .set_volleyball import SetVolleyballMixin
 from .utils import async_get_value, season_slug_to_name
 
 _LOGGER = logging.getLogger(__name__)
 team_prob: dict[str, float] = {}
 oppo_prob: dict[str, float] = {}
 
-class SetValuesMixin:
+class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyMixin, SetMMAMixin, SetRacingMixin, SetSoccerMixin, SetTennisMixin, SetVolleyballMixin):
     _sensor_name: str
     _lang: str
     _league_map: dict[str, str]
@@ -110,40 +110,40 @@ class SetValuesMixin:
             #   Sport Specific Values
             #
             if new_values["sport"] == "baseball":
-                rc = await async_set_baseball_values(
-                    new_values, event, competition_index, team_index, self._sensor_name
+                rc = await self.async_set_baseball_values(
+                    new_values, event, competition_index, team_index
                 )
             elif new_values["sport"] == "soccer":
-                rc = await async_set_soccer_values(
-                    new_values, event, competition_index, team_index, self._sensor_name
+                rc = await self.async_set_soccer_values(
+                    new_values, event, competition_index, team_index
                 )
             elif new_values["sport"] == "volleyball":
-                rc = await async_set_volleyball_values(
-                    new_values, event, competition_index, team_index, self._sensor_name
+                rc = await self.async_set_volleyball_values(
+                    new_values, event, competition_index, team_index
                 )
             elif new_values["sport"] == "hockey":
-                rc = await async_set_hockey_values(
-                    new_values, event, competition_index, team_index, self._sensor_name
+                rc = await self.async_set_hockey_values(
+                    new_values, event, competition_index, team_index
                 )
         if new_values["sport"] == "golf":
-            rc = await async_set_golf_values(
-                new_values, event, competition_index, team_index, self._lang, self._sensor_name
+            rc = await self.async_set_golf_values(
+                new_values, event, competition_index, team_index
             )
         elif new_values["sport"] == "tennis":
-            rc = await async_set_tennis_values(
-                new_values, event, grouping_index, competition_index, team_index, self._lang, self._sensor_name
+            rc = await self.async_set_tennis_values(
+                new_values, event, grouping_index, competition_index, team_index
             )
         elif new_values["sport"] == "mma":
-            rc = await async_set_mma_values(
-                new_values, event, competition_index, team_index, self._lang, self._sensor_name
+            rc = await self.async_set_mma_values(
+                new_values, event, competition_index, team_index
             )
         elif new_values["sport"] == "racing":
-            rc = await async_set_racing_values(
-                new_values, event, competition_index, team_index, self._lang, self._sensor_name
+            rc = await self.async_set_racing_values(
+                new_values, event, competition_index, team_index
             )
         elif new_values["sport"] == "cricket":
-            rc = await async_set_cricket_values(
-                new_values, event, competition_index, team_index, self._lang, self._sensor_name
+            rc = await self.async_set_cricket_values(
+                new_values, event, competition_index, team_index
             )
         #    _LOGGER.debug("%s: async_set_values() 4: %s", self._sensor_name, self._sensor_name)
         if not rc:
