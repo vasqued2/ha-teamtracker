@@ -10,7 +10,7 @@ from custom_components.teamtracker.const import (
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
-from custom_components.teamtracker.event import async_process_event
+from custom_components.teamtracker.event import EspnParser
 from tests.const import TEST_DATA
 
 _LOGGER = logging.getLogger(__name__)
@@ -30,6 +30,7 @@ async def test_event(hass, snapshot, t):
 
     assert data is not None
 
+    parser = EspnParser()
     values = await async_clear_values()
     values["sport"] = t["sport"]
     values["league"] = t["league"]
@@ -51,7 +52,7 @@ async def test_event(hass, snapshot, t):
     assert t["frozen_time"] is not None
 
     with freeze_time(t["frozen_time"]):
-        values = await async_process_event(
+        values = await parser.async_process_event(
             values,
             sensor_name,
             data,

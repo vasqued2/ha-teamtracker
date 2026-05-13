@@ -16,9 +16,10 @@ class BaseSportParser(ABC):
 
     @abstractmethod
     #
-    #  async_parse_data()
+    #  async_process_event()
     #
-    async def async_parse_data(self, data) -> dict:
-        """Updates sensor values using data returned by API or in cache"""
+    async def async_process_event(self,
+        values, sensor_name, data, sport_path, league_id, default_logo, team_id, league_map, lang
+    ) -> dict:
 
         pass                                               # pylint: disable=unnecessary-pass

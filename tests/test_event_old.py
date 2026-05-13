@@ -9,7 +9,8 @@ from custom_components.teamtracker.const import (
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
-from custom_components.teamtracker.event import async_process_event
+from custom_components.teamtracker.event import EspnParser
+
 from tests.const import TEST_DATA
 
 _LOGGER = logging.getLogger(__name__)
@@ -27,6 +28,8 @@ async def test_event_old(hass):
         assert False
 
     for t in TEST_DATA:
+        parser = EspnParser()
+
         values = await async_clear_values()
         values["sport"] = t["sport"]
         values["league"] = t["league"]
@@ -44,7 +47,7 @@ async def test_event_old(hass):
         league_map= {}
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
-        values = await async_process_event(
+        values = await parser.async_process_event(
             values,
             sensor_name,
             data,

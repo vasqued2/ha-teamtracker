@@ -8,7 +8,8 @@ from custom_components.teamtracker.const import (
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
-from custom_components.teamtracker.event import async_process_event
+from custom_components.teamtracker.event import EspnParser
+
 from tests.const import MULTIGAME_DATA
 
 _LOGGER = logging.getLogger(__name__)
@@ -25,6 +26,8 @@ async def test_multigame(hass):
         assert False
 
     for t in MULTIGAME_DATA:
+        parser = EspnParser()
+
         values = await async_clear_values()
         values["sport"] = t["sport"]
         values["league"] = t["league"]
@@ -42,7 +45,7 @@ async def test_multigame(hass):
         league_map = {}
 
         _LOGGER.debug("%s: calling async_process_event()", sensor_name)
-        values = await async_process_event(
+        values = await parser.async_process_event(
             values,
             sensor_name,
             data,

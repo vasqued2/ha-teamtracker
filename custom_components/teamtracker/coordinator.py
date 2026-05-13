@@ -23,7 +23,6 @@ from .const import (
     DEFAULT_LOGO,
     DEFAULT_TIMEOUT,
 )
-from .event import async_process_event
 from .parser_factory import get_parser
 from .provider_factory import get_provider
 
@@ -58,7 +57,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 self.conference_id = config[CONF_CONFERENCE_ID]
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
-        self.parser = get_parser(self.provider.data_format, self)
+        self.parser = get_parser(self.provider.data_format)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
@@ -185,7 +184,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 data = dc.get("cache_data", None)
                 self.api_url = dc.get("cache_url", None)
 
-                values = await self.parser.async_parse_data(data)
+                values = await self.async_update_values(data)
 
                 if values["api_message"]:
                     values["api_message"] = "Cached data: " + values["api_message"]
@@ -195,7 +194,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 return values
 
         data = await self.async_call_sport_apis()
-        values = await self.parser.async_parse_data(data)
+        values = await self.async_update_values(data)
 
         if data is not None:
             TeamTrackerCoordinator.data_cache[key] = {
@@ -266,7 +265,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 
-        values = await async_process_event(
+        values = await self.parser.async_process_event(
             values,
             sensor_name,
             data,
