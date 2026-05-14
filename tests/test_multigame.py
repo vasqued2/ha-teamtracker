@@ -8,7 +8,7 @@ from custom_components.teamtracker.const import (
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
-from custom_components.teamtracker.event import EspnParser
+from custom_components.teamtracker.parse_espn import EspnParser
 
 from tests.const import MULTIGAME_DATA
 

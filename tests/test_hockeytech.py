@@ -14,7 +14,7 @@ from typing import Any
 from custom_components.teamtracker.const import (
     DOMAIN,
 )
-from custom_components.teamtracker.hockeytech import (
+from custom_components.teamtracker.provide_hockeytech import (
     HOCKEYTECH_BASE_URL,
     HOCKEYTECH_LEAGUES,
     HOCKEYTECH_TEAM_COLORS,

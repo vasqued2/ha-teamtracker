@@ -1,4 +1,4 @@
-"""HockeyTech API client and ESPN format transformer for TeamTracker."""
+""" Provide response from HockeyTech APIs """
 from __future__ import annotations
 
 import json
@@ -13,7 +13,7 @@ import aiohttp
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .base_provider import BaseSportProvider
+from .provider_base import BaseSportProvider
 
 _LOGGER = logging.getLogger(__name__)
 

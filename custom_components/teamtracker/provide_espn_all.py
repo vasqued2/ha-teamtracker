@@ -1,3 +1,4 @@
+""" Provide response from ESPN APIs for league_path = all & team_id is an integer """
 from __future__ import annotations
 
 from datetime import date, datetime, timedelta, timezone
@@ -9,7 +10,7 @@ from homeassistant.core import HomeAssistant
 from .const import (
     API_LIMIT,
 )
-from .espn import EspnProvider
+from .provide_espn import EspnProvider
 from .utils import (has_team, season_slug_to_name)
 
 _LOGGER = logging.getLogger(__name__)
