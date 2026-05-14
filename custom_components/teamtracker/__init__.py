@@ -47,7 +47,6 @@ from .const import (
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator
-from .event import async_process_event
 from .utils import is_integer, async_get_value, has_team
 
 _LOGGER = logging.getLogger(__name__)

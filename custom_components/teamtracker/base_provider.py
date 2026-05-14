@@ -5,8 +5,11 @@ from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
+
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
+
+DEFAULT_DATA_FORMAT = "espn_json"
 
 class BaseSportProvider(ABC):
     """Base class for all sport data providers."""
@@ -17,6 +20,7 @@ class BaseSportProvider(ABC):
         self.ATTRIBUTION: str = ""
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
+        self.data_format = DEFAULT_DATA_FORMAT
         self._coordinator = coordinator
         self._USER_AGENT = (
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like "

@@ -23,9 +23,9 @@ from .const import (
     DEFAULT_LOGO,
     DEFAULT_TIMEOUT,
 )
-from .event import async_process_event
-from .provider_factory import (
-    get_provider)
+from .parser_factory import get_parser
+from .provider_factory import get_provider
+
 from .utils import is_integer
 
 _LOGGER = logging.getLogger(__name__)
@@ -57,6 +57,8 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 self.conference_id = config[CONF_CONFERENCE_ID]
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
+        self.parser = get_parser(self.provider.data_format)
+        self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
@@ -111,6 +113,8 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         if key in TeamTrackerCoordinator.data_cache:
             TeamTrackerCoordinator.data_cache.pop(key, None)
+            
+        self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
 
 
     #
@@ -264,14 +268,9 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 
-        values = await async_process_event(
+        values = await self.parser.async_process_event(
             values,
-            sensor_name,
             data,
-            self.sport_path,
-            league_id,
-            DEFAULT_LOGO,
-            team_id,
             league_map,
             lang,
         )
