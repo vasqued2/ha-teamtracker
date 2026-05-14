@@ -8,7 +8,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class SetGolfMixin:
 
-    async def async_set_golf_values(
+    async def _async_set_golf_values(
         self,
         new_values, event, competition_index, team_index
     ) -> bool:

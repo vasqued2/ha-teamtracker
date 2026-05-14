@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 class SetVolleyballMixin:
     _sensor_name: str
 
-    async def async_set_volleyball_values(
+    async def _async_set_volleyball_values(
         self, 
         new_values, event, competition_index, team_index
     ) -> bool:

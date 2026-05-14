@@ -10,7 +10,7 @@ class SetSoccerMixin:
     _sensor_name: str
 
 
-    async def async_set_soccer_values(
+    async def _async_set_soccer_values(
         self,
         new_values, event, competition_index, team_index
     ) -> bool:

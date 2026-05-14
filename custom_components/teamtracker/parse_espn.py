@@ -231,7 +231,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 event, "status", "type", "state", default="NOT_FOUND"
             )
         ).upper()
-        rc = await self.async_set_values(
+        rc = await self._async_set_values(
             values,
             event,
             grouping_index,

@@ -11,7 +11,7 @@ class SetRacingMixin:
     _sensor_name: str
 
     
-    async def async_set_racing_values(
+    async def _async_set_racing_values(
         self,
         new_values, event, competition_index, team_index
     ) -> bool:

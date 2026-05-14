@@ -4,7 +4,7 @@ from .utils import async_get_value
 
 class SetBaseballMixin:
 
-    async def async_set_baseball_values(
+    async def _async_set_baseball_values(
         self,
         new_values, event, competition_index, team_index
     ) -> bool:
