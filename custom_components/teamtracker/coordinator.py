@@ -268,7 +268,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 
-        values = await self.parser.async_process_event(
+        values = await self.parser.async_parse_response(
             values,
             data,
             league_map,

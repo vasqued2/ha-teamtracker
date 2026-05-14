@@ -28,7 +28,7 @@ class BaseSportParser(ABC):
     #
     #  async_process_event()
     #
-    async def async_process_event(self,
+    async def async_parse_response(self,
         values, data, league_map, lang
     ) -> dict:
 

@@ -62,7 +62,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
 
 
-    async def async_process_event(
+    async def async_parse_response(
         self,
         values, 
         data, 

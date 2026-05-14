@@ -54,7 +54,7 @@ async def test_event(hass, snapshot, t):
     assert t["frozen_time"] is not None
 
     with freeze_time(t["frozen_time"]):
-        values = await parser.async_process_event(
+        values = await parser.async_parse_response(
             values,
             data,
             league_map,

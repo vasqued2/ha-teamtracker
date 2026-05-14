@@ -44,12 +44,12 @@ async def test_event_old(hass):
         lang = "en"
         league_map= {}
 
-        _LOGGER.debug("%s: calling async_process_event()", sensor_name)
+        _LOGGER.debug("%s: calling async_parse_response()", sensor_name)
 
         parser = EspnParser()
         parser.setup(sensor_name, sport_path, league_id, team_id)
 
-        values = await parser.async_process_event(
+        values = await parser.async_parse_response(
             values,
             data,
             league_map,

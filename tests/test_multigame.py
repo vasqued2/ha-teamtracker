@@ -45,8 +45,8 @@ async def test_multigame(hass):
         parser = EspnParser()
         parser.setup(sensor_name, sport_path, league_id, team_id)
 
-        _LOGGER.debug("%s: calling async_process_event()", sensor_name)
-        values = await parser.async_process_event(
+        _LOGGER.debug("%s: calling async_parse_response()", sensor_name)
+        values = await parser.async_parse_response(
             values,
             data,
             league_map,
