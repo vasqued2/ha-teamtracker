@@ -1,7 +1,7 @@
 """Test NFL Sensor"""
 import logging
 
-from custom_components.teamtracker.event import EspnParser
+from custom_components.teamtracker.parse_espn import EspnParser
 
 _LOGGER = logging.getLogger(__name__)
 

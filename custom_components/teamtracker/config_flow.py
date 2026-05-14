@@ -12,7 +12,7 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers import config_validation as cv
 
-from .base_provider import BaseSportProvider
+from .provider_base import BaseSportProvider
 from .const import (
     CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,

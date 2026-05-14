@@ -1,3 +1,4 @@
+""" Base class for all data providers """
 from __future__ import annotations
 
 from abc import ABC, abstractmethod

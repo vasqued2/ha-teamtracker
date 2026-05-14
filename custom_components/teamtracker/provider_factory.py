@@ -1,11 +1,12 @@
+""" Parser Factory """
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from .base_provider import BaseSportProvider
-from .espn import EspnProvider
-from .espn_all_leagues import EspnAllLeaguesProvider
-from .hockeytech import HockeyTechProvider
+from .provider_base import BaseSportProvider
+from .provide_espn import EspnProvider
+from .provide_espn_all import EspnAllLeaguesProvider
+from .provide_hockeytech import HockeyTechProvider
 from .utils import is_integer
 
 if TYPE_CHECKING:

@@ -1,4 +1,4 @@
-""" Parse throught the API data and find the right event/competition"""
+""" Parse ESPN JSON response """
 from __future__ import annotations
 
 import arrow
@@ -7,7 +7,7 @@ import logging
 import re
 from typing import TYPE_CHECKING
 
-from .base_parser import BaseSportParser
+from .parser_base import BaseSportParser
 from .const import (
     API_LIMIT,
     DEFAULT_LOGO,

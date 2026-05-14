@@ -1,3 +1,4 @@
+""" Provide response from ESPN APIs """
 from __future__ import annotations
 
 import aiofiles
@@ -12,7 +13,7 @@ from yarl import URL
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .base_provider import BaseSportProvider
+from .provider_base import BaseSportProvider
 from .const import (
     API_LIMIT,
 )
