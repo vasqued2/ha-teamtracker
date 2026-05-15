@@ -9,15 +9,14 @@ _LOGGER = logging.getLogger(__name__)
 
 class SetSoccerMixin:
     _sensor_name: str
+    _values: TeamTrackerValues
 
 
     async def _async_set_soccer_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set soccer specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         teamPP = None
         oppoPP = None
@@ -82,6 +81,5 @@ class SetSoccerMixin:
                 last_play += " {last_play} "
 
         self._values.last_play = last_play
-        new_values.update(self._values.to_dict())
 
         return True

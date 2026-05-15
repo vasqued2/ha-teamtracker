@@ -9,14 +9,13 @@ _LOGGER = logging.getLogger(__name__)
 
 class SetHockeyMixin:
     _sensor_name: str
+    _values: TeamTrackerValues
 
     async def _async_set_hockey_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set hockey specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         oppo_index = 1 - team_index
         competition = await async_get_value(event, "competitions", competition_index)
@@ -53,7 +52,5 @@ class SetHockeyMixin:
                     await async_get_value(statistic, "displayValue", default=0)
                 )
                 self._values.opponent_shots_on_target = shots
-
-        new_values.update(self._values.to_dict())
 
         return True

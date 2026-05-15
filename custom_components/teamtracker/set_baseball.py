@@ -4,14 +4,14 @@ from .models import TeamTrackerValues
 from .utils import async_get_value
 
 class SetBaseballMixin:
+    _values: TeamTrackerValues
+
 
     async def _async_set_baseball_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set baseball specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         self._values.clock = await async_get_value(
             event, "status", "type", "detail"
@@ -51,8 +51,5 @@ class SetBaseballMixin:
         self._values.on_third = await async_get_value(
             event, "competitions", 0, "situation", "onThird"
         )
-
-        # Update the dictionary with only the values that are not None in the dataclass
-        new_values.update({k: v for k, v in self._values.to_dict().items() if v is not None})
 
         return True

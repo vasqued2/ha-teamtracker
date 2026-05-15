@@ -10,15 +10,14 @@ race_laps: dict[str, int] = {}
 
 class SetRacingMixin:
     _sensor_name: str
+    _values: TeamTrackerValues
 
     
     async def _async_set_racing_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set racing specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         #    _LOGGER.debug("%s: async_set_racing_values() 0: %s", self._sensor_name, new_values)
 
@@ -75,7 +74,5 @@ class SetRacingMixin:
                 ) + ",   "
         
         self._values.last_play = last_play[:-1]
-
-        new_values.update(self._values.to_dict())
 
         return True

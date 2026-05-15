@@ -9,14 +9,13 @@ _LOGGER = logging.getLogger(__name__)
 
 class SetCricketMixin:
     _sensor_name: str
+    _values: TeamTrackerValues
 
     async def _async_set_cricket_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set cricket specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         oppo_index = 1 - team_index
         competition = await async_get_value(event, "competitions", competition_index)
@@ -40,6 +39,4 @@ class SetCricketMixin:
 
         self._values.last_play = await async_get_value(competition, "status", "summary")
 
-        new_values.update(self._values.to_dict())
-        
         return True

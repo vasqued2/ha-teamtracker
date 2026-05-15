@@ -8,14 +8,13 @@ from .utils import async_get_value, is_integer
 _LOGGER = logging.getLogger(__name__)
 
 class SetGolfMixin:
+    _values: TeamTrackerValues
 
     async def _async_set_golf_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set golf specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         oppo_index = 1 if team_index == 0 else 0
         competition = await async_get_value(event, "competitions", competition_index)
@@ -79,8 +78,6 @@ class SetGolfMixin:
                 )
 
             self._values.last_play = self._values.last_play[:-1]
-
-        new_values.update(self._values.to_dict())
 
         return True
 

@@ -8,14 +8,13 @@ from .utils import async_get_value
 _LOGGER = logging.getLogger(__name__)
 
 class SetTennisMixin:
+    _values: TeamTrackerValues
 
     async def _async_set_tennis_values(
         self,
-        new_values, event, grouping_index, competition_index, team_index
+        event, grouping_index, competition_index, team_index
     ) -> bool:
         """Set tennis specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         #     _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", self._sensor_name, self._sensor_name, grouping_index, competition_index)
 
@@ -101,5 +100,4 @@ class SetTennisMixin:
         self._values.team_sets_won = str(team_sets_won)
         self._values.opponent_sets_won = str(opponent_sets_won)
 
-        new_values.update(self._values.to_dict())
         return True

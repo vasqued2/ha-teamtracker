@@ -9,14 +9,13 @@ _LOGGER = logging.getLogger(__name__)
 
 class SetMMAMixin:
     _sensor_name: str
+    _values: TeamTrackerValues
 
     async def _async_set_mma_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set MMA specific values"""
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         _LOGGER.debug("%s: async_set_mma_values() 1: %s", self._sensor_name, self._sensor_name)
 
@@ -73,8 +72,6 @@ class SetMMAMixin:
         self._values.last_play = await self._async_get_prior_fights(event)
 
         #     _LOGGER.debug("%s: async_set_mma_values() 5: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
-
-        new_values.update(self._values.to_dict())
 
         return True
 
