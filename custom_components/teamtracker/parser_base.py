@@ -4,6 +4,8 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from .models import TeamTrackerValues
+
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
@@ -12,7 +14,7 @@ class BaseSportParser(ABC):
 
     def __init__(self) -> None:
         # Define the attributes that must be available on all providers
-        pass
+        self._values = TeamTrackerValues()
 
     @abstractmethod
     #

@@ -2,6 +2,7 @@
 
 import logging
 
+from .models import TeamTrackerValues
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
@@ -14,6 +15,8 @@ class SetMMAMixin:
         new_values, event, competition_index, team_index
     ) -> bool:
         """Set MMA specific values"""
+
+        self._values = TeamTrackerValues.from_dict(new_values)
 
         _LOGGER.debug("%s: async_set_mma_values() 1: %s", self._sensor_name, self._sensor_name)
 
@@ -28,7 +31,7 @@ class SetMMAMixin:
 
         #    _LOGGER.debug("%s: async_set_mma_values() 2: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
-        new_values["event_name"] = await async_get_value(event, "name")
+        self._values.event_name = await async_get_value(event, "name")
 
         t = 0
         o = 0
@@ -55,21 +58,23 @@ class SetMMAMixin:
             ):
                 o = o + 1
 
-            new_values["team_score"] = t
-            new_values["opponent_score"] = o
+            self._values.team_score = str(t)
+            self._values.opponent_score = str(o)
         if t == o:
             #        _LOGGER.debug("%s: async_set_mma_values() 3: %s", sensor_name, sensor_name)
             if await async_get_value(competitor, "winner", default=False):
-                new_values["team_score"] = "W"
-                new_values["opponent_score"] = "L"
+                self._values.team_score = "W"
+                self._values.opponent_score = "L"
             if await async_get_value(opponent, "winner", default=False):
-                new_values["team_score"] = "L"
-                new_values["opponent_score"] = "W"
+                self._values.team_score = "L"
+                self._values.opponent_score = "W"
 
         #    _LOGGER.debug("%s: async_set_mma_values() 4: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
-        new_values["last_play"] = await self._async_get_prior_fights(event)
+        self._values.last_play = await self._async_get_prior_fights(event)
 
-        #    _LOGGER.debug("%s: async_set_mma_values() 5: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
+        #     _LOGGER.debug("%s: async_set_mma_values() 5: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
+
+        new_values.update(self._values.to_dict())
 
         return True
 

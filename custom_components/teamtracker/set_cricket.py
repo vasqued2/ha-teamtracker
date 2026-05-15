@@ -2,6 +2,7 @@
 
 import logging
 
+from .models import TeamTrackerValues
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
@@ -15,6 +16,8 @@ class SetCricketMixin:
     ) -> bool:
         """Set cricket specific values"""
 
+        self._values = TeamTrackerValues.from_dict(new_values)
+
         oppo_index = 1 - team_index
         competition = await async_get_value(event, "competitions", competition_index)
         competitor = await async_get_value(competition, "competitors", team_index)
@@ -24,17 +27,19 @@ class SetCricketMixin:
             _LOGGER.debug("%s: async_set_cricket_values() 0: %s", self._sensor_name, self._sensor_name)
             return False
 
-        new_values["odds"] = await async_get_value(competition, "class", "generalClassCard")
-        new_values["clock"] = await async_get_value(
+        self._values.odds = await async_get_value(competition, "class", "generalClassCard")
+        self._values.clock = await async_get_value(
             competition, "status", "type", "description"
         )
-        new_values["quarter"] = await async_get_value(competition, "status", "session")
+        self._values.quarter = await async_get_value(competition, "status", "session")
 
         if await async_get_value(competitor, "linescores", -1, "isBatting"):
-            new_values["possession"] = await async_get_value(competitor, "id")
+            self._values.possession = await async_get_value(competitor, "id")
         if await async_get_value(opponent, "linescores", -1, "isBatting"):
-            new_values["possession"] = await async_get_value(opponent, "id")
+            self._values.possession = await async_get_value(opponent, "id")
 
-        new_values["last_play"] = await async_get_value(competition, "status", "summary")
+        self._values.last_play = await async_get_value(competition, "status", "summary")
 
+        new_values.update(self._values.to_dict())
+        
         return True

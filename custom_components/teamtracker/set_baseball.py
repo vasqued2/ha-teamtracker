@@ -1,5 +1,6 @@
 """ Baseball specific functionality"""
 
+from .models import TeamTrackerValues
 from .utils import async_get_value
 
 class SetBaseballMixin:
@@ -10,43 +11,48 @@ class SetBaseballMixin:
     ) -> bool:
         """Set baseball specific values"""
 
-        new_values["clock"] = await async_get_value(
+        self._values = TeamTrackerValues.from_dict(new_values)
+
+        self._values.clock = await async_get_value(
             event, "status", "type", "detail"
         )  # Inning
-        if not new_values["clock"]:
-            new_values["clock"] = ""
-        if new_values["clock"][:3].lower() in ["bot", "mid"]:
-            if new_values["team_homeaway"] in [
+        if not self._values.clock:
+            self._values.clock = ""
+        if self._values.clock[:3].lower() in ["bot", "mid"]:
+            if self._values.team_homeaway in [
                 "home"
             ]:  # Home outs, at bat in bottom of inning
-                new_values["possession"] = new_values["team_id"]
+                self._values.possession = self._values.team_id
             else:  # Away outs, at bat in bottom of inning
-                new_values["possession"] = new_values["opponent_id"]
+                self._values.possession = self._values.opponent_id
         else:
-            if new_values["team_homeaway"] in [
+            if self._values.team_homeaway in [
                 "away"
             ]:  # Away outs, at bat in top of inning
-                new_values["possession"] = new_values["team_id"]
+                self._values.possession = self._values.team_id
             else:  # Home outs, at bat in top of inning
-                new_values["possession"] = new_values["opponent_id"]
+                self._values.possession = self._values.opponent_id
 
-        new_values["outs"] = await async_get_value(
+        self._values.outs = await async_get_value(
             event, "competitions", 0, "situation", "outs"
         )
-        new_values["balls"] = await async_get_value(
+        self._values.balls = await async_get_value(
             event, "competitions", 0, "situation", "balls"
         )
-        new_values["strikes"] = await async_get_value(
+        self._values.strikes = await async_get_value(
             event, "competitions", 0, "situation", "strikes"
         )
-        new_values["on_first"] = await async_get_value(
+        self._values.on_first = await async_get_value(
             event, "competitions", 0, "situation", "onFirst"
         )
-        new_values["on_second"] = await async_get_value(
+        self._values.on_second = await async_get_value(
             event, "competitions", 0, "situation", "onSecond"
         )
-        new_values["on_third"] = await async_get_value(
+        self._values.on_third = await async_get_value(
             event, "competitions", 0, "situation", "onThird"
         )
+
+        # Update the dictionary with only the values that are not None in the dataclass
+        new_values.update({k: v for k, v in self._values.to_dict().items() if v is not None})
 
         return True

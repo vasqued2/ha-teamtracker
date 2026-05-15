@@ -2,6 +2,7 @@
 
 import logging
 
+from .models import TeamTrackerValues
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
@@ -14,7 +15,9 @@ class SetTennisMixin:
     ) -> bool:
         """Set tennis specific values"""
 
-        #    _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", sensor_name, sensor_name, grouping_index, competition_index)
+        self._values = TeamTrackerValues.from_dict(new_values)
+
+        #     _LOGGER.debug("%s: async_set_tennis_values() 0: %s %s %s", self._sensor_name, self._sensor_name, grouping_index, competition_index)
 
         oppo_index = 1 - team_index
             
@@ -23,39 +26,21 @@ class SetTennisMixin:
             competition = await async_get_value(event, "competitions", competition_index)
         else:
             competition = await async_get_value(grouping, "competitions", competition_index)
+        
         competitor = await async_get_value(competition, "competitors", team_index)
         opponent = await async_get_value(competition, "competitors", oppo_index)
 
         if competition is None or competitor is None or opponent is None:
-            #        _LOGGER.debug("%s: async_set_tennis_values() 0.1: %s", sensor_name, sensor_name)
+            #         _LOGGER.debug("%s: async_set_tennis_values() 0.1: %s", self._sensor_name, self._sensor_name)
             return False
 
-    #    remaining_games = (
-    #        len(await async_get_value(event, "competitions", default=[]))
-    #        - competition_index
-    #    )
-    #    new_values["odds"] = 1 << remaining_games.bit_length()  # Game is in the round of X
-    #    #    _LOGGER.debug("%s: async_set_tennis_values() 1: %s %s %s", sensor_name, remaining_games, len(event["competitions"]), competition_index)
+        self._values.location = await async_get_value(competition, "venue", "court")
+        self._values.down_distance_text = await async_get_value(competition, "round", "displayName")
+        self._values.overunder = await async_get_value(competition, "type", "text")
+        self._values.team_rank = await async_get_value(competitor, "tournamentSeed")
+        self._values.opponent_rank = await async_get_value(opponent, "tournamentSeed")
 
-        new_values["location"] = await async_get_value(
-            competition,
-            "venue",
-            "court"
-        )
-        new_values["down_distance_text"] = await async_get_value(
-            competition,
-            "round",
-            "displayName"
-        )
-        new_values["overunder"] = await async_get_value(
-            competition,
-            "type",
-            "text"
-        )
-        new_values["team_rank"] = await async_get_value(competitor, "tournamentSeed")
-        new_values["opponent_rank"] = await async_get_value(opponent, "tournamentSeed")
-
-        new_values["clock"] = await async_get_value(
+        self._values.clock = await async_get_value(
             competition,
             "status",
             "type",
@@ -63,108 +48,58 @@ class SetTennisMixin:
             default=await async_get_value(event, "status", "type", "shortDetail"),
         )
 
-        #    _LOGGER.debug("%s: async_set_tennis_values() 2: %s", sensor_name, sensor_name)
+        #     _LOGGER.debug("%s: async_set_tennis_values() 2: %s", self._sensor_name, self._sensor_name)
 
-        new_values["team_score"] = await async_get_value(competitor, "score")
-        #    _LOGGER.debug("%s: async_set_tennis_values() 3: %s", sensor_name, sensor_name)
+        # Current set score
+        self._values.team_score = await async_get_value(competitor, "linescores", -1, "value")
+        self._values.opponent_score = await async_get_value(opponent, "linescores", -1, "value")
+        
+        # Tiebreak points
+        self._values.team_shots_on_target = await async_get_value(competitor, "linescores", -1, "tiebreak")
+        self._values.opponent_shots_on_target = await async_get_value(opponent, "linescores", -1, "tiebreak")
 
-        new_values["opponent_score"] = await async_get_value(opponent, "score")
-        #    _LOGGER.debug("%s: async_set_tennis_values() 4: %s", sensor_name, sensor_name)
-
-        new_values["team_score"] = await async_get_value(
-            competitor, "linescores", -1, "value"
-        )
-        #    _LOGGER.debug("%s: async_set_tennis_values() 5: %s", sensor_name, sensor_name)
-        new_values["opponent_score"] = await async_get_value(
-            opponent, "linescores", -1, "value"
-        )
-        #    _LOGGER.debug("%s: async_set_tennis_values() 5.1: %s", sensor_name, sensor_name)
-        new_values["team_shots_on_target"] = await async_get_value(
-            competitor, "linescores", -1, "tiebreak"
-        )
-        #    _LOGGER.debug("%s: async_set_tennis_values() 5.2: %s", sensor_name, sensor_name)
-        new_values["opponent_shots_on_target"] = await async_get_value(
-            opponent, "linescores", -1, "tiebreak"
-        )
-
-        #    _LOGGER.debug("%s: async_set_tennis_values() 6: %s", sensor_name, sensor_name)
-
-        if new_values["state"] == "POST":
-            new_values["team_score"] = 0
-            new_values["opponent_score"] = 0
-            #        _LOGGER.debug("%s: async_set_tennis_values() 6.1: %s", sensor_name, sensor_name)
-
-            for x in range(
-                0, len(await async_get_value(competitor, "linescores", default=[]))
-            ):
-                if int(
-                    await async_get_value(competitor, "linescores", x, "value", default=0)
-                ) > int(
-                    await async_get_value(opponent, "linescores", x, "value", default=0)
-                ):
-                    new_values["team_score"] = new_values["team_score"] + 1
+        # Final Match Score (Sets Won)
+        if self._values.state == "POST":
+            t_sets = 0
+            o_sets = 0
+            for x in range(0, len(await async_get_value(competitor, "linescores", default=[]))):
+                if int(await async_get_value(competitor, "linescores", x, "value", default=0)) > \
+                    int(await async_get_value(opponent, "linescores", x, "value", default=0)):
+                    t_sets += 1
                 else:
-                    new_values["opponent_score"] = new_values["opponent_score"] + 1
+                    o_sets += 1
+            self._values.team_score = str(t_sets)
+            self._values.opponent_score = str(o_sets)
 
-        new_values["last_play"] = ""
-        #    _LOGGER.debug("%s: async_set_tennis_values() 7: %s", sensor_name, await async_get_value(competitor, "linescores"))
-        sets = len(await async_get_value(competitor, "linescores", default=[]))
+        # Construct last_play string for set history
+        last_play = ""
+        linescores = await async_get_value(competitor, "linescores", default=[])
+        sets_count = len(linescores)
 
-        #    _LOGGER.debug("%s: async_set_tennis_values() 8: %s", sensor_name, sets)
+        for x in range(0, sets_count):
+            t_name = await async_get_value(competitor, "athlete", "shortName", 
+                        default=await async_get_value(competitor, "roster", "shortDisplayName", default="{shortName}"))
+            o_name = await async_get_value(opponent, "athlete", "shortName",
+                        default=await async_get_value(opponent, "roster", "shortDisplayName", default="{shortName}"))
+            
+            t_val = int(await async_get_value(competitor, "linescores", x, "value", default=0))
+            o_val = int(await async_get_value(opponent, "linescores", x, "value", default=0))
+            
+            last_play += f" Set {x + 1}: {t_name} {t_val} {o_name} {o_val}; "
 
-        for x in range(0, sets):
-            new_values["last_play"] = new_values["last_play"] + " Set " + str(x + 1) + ": "
-            new_values["last_play"] = (
-                new_values["last_play"]
-                + str(
-                    await async_get_value(competitor, "athlete", "shortName", 
-                            default=await async_get_value(competitor, "roster", "shortDisplayName", 
-                                default="{shortName}")
-                    )
-                )
-                + " "
-            )
-            new_values["last_play"] = (
-                new_values["last_play"]
-                + str(
-                    int(
-                        await async_get_value(
-                            competitor, "linescores", x, "value", default=0
-                        )
-                    )
-                )
-                + " "
-            )
-            new_values["last_play"] = (
-                new_values["last_play"]
-                + str(
-                    await async_get_value(opponent, "athlete", "shortName",
-                            default=await async_get_value(opponent, "roster", "shortDisplayName", 
-                                default="{shortName}")
-                    )
-                )
-                + " "
-            )
-            new_values["last_play"] = (
-                new_values["last_play"]
-                + str(
-                    int(
-                        await async_get_value(opponent, "linescores", x, "value", default=0)
-                    )
-                )
-                + "; "
-            )
+        self._values.last_play = last_play
 
-        new_values["team_sets_won"] = 0
-        new_values["opponent_sets_won"] = 0
-        for x in range(0, sets - 1):
-            if await async_get_value(
-                competitor, "linescores", x, "value", default=0
-            ) > await async_get_value(opponent, "linescores", x, "value", default=0):
-                new_values["team_sets_won"] = new_values["team_sets_won"] + 1
+        # Sets won tracking (excluding current set if still live)
+        team_sets_won = 0
+        opponent_sets_won = 0
+        for x in range(0, sets_count - 1):
+            if await async_get_value(competitor, "linescores", x, "value", default=0) > \
+                await async_get_value(opponent, "linescores", x, "value", default=0):
+                team_sets_won += 1
             else:
-                new_values["opponent_sets_won"] = new_values["opponent_sets_won"] + 1
+                opponent_sets_won += 1
+        self._values.team_sets_won = str(team_sets_won)
+        self._values.opponent_sets_won = str(opponent_sets_won)
 
-        #    _LOGGER.debug("%s: async_set_tennis_values() 9: %s", sensor_name, new_values)
-
+        new_values.update(self._values.to_dict())
         return True
