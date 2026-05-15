@@ -31,9 +31,9 @@ async def test_error_conditions(hass):
 
     rc = await parser._async_set_values({}, {}, 0, 0, 0)
     assert rc is False
-    rc = await parser._async_set_universal_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_universal_values({}, 0, 0, 0)
     assert rc is False
-    rc = await parser._async_set_team_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_team_values({}, 0, 0, 0)
     assert rc is False
-    rc = await parser._async_set_in_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_in_values({}, 0, 0, 0)
     assert rc is False
