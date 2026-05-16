@@ -8,7 +8,6 @@ import arrow
 import re
 
 from .const import DEFAULT_LOGO, DEFAULT_PROB, GENERAL_REFRESH_RATE, GENERAL_RAPID_REFRESH_RATE
-from .models import TeamTrackerValues
 from .set_baseball import SetBaseballMixin
 from .set_cricket import SetCricketMixin
 from .set_golf import SetGolfMixin
@@ -34,13 +33,11 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
 #
     async def _async_set_values(
         self,
-        new_values, event, grouping_index, competition_index, team_index
+        event, grouping_index, competition_index, team_index
     ) -> bool:
         """Function to set all new_values for the specified event/competition/team"""
 
         #    _LOGGER.debug("%s: async_set_values() 1: %s", self._sensor_name, self._sensor_name)
-
-        self._values = TeamTrackerValues.from_dict(new_values)
 
         oppo_index = 1 if team_index == 0 else 0
         grouping = await async_get_value(event, "groupings", grouping_index)
@@ -175,7 +172,6 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             self._values.private_fast_refresh = True
 
         #    _LOGGER.debug("%s: async_set_values() 5: %s", self._sensor_name, new_values)
-        new_values.update(self._values.to_dict())
 
         return rc
 
