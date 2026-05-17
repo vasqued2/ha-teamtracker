@@ -152,7 +152,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 raise UpdateFailed(error) from error
             data_dict = {}
             data_dict.update(data.to_dict_all_attr())
-            return data_dict
+            return data
 
 #
 #  async_update_sport_data()
