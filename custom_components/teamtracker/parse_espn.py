@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import arrow
+from dataclasses import replace
 from datetime import datetime
 import logging
 import re
@@ -42,7 +43,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         self._stop_flag = False
         self._found_competitor = False
         self._event_state = "NOT_FOUND"
-        self._prev_values: dict[str, str] = {}
+        self._prev_values: TeamTrackerValues
 
 
 
@@ -77,7 +78,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         self._lang = lang
         self._search_key = self._team_id
 
-        self._prev_values = {}
+        self._prev_values = TeamTrackerValues()
 
         self._stop_flag = False
         self._found_competitor = False
@@ -235,7 +236,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         """Process a name match"""
 
         self._found_competitor = True
-        self._prev_values.update(self._values.to_dict())              # Save a copy in prev_values (TO_DICT)
+        self._prev_values = replace(self._values)
 
         self._event_state = str(
             await async_get_value(
@@ -269,7 +270,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
         prev_flag = await self._async_use_prev_values_flag()
         if prev_flag:
-            self._values = TeamTrackerValues.from_dict(self._prev_values)  # Restore _prev_values (FROM_DICT)
+            self._values = replace(self._prev_values)
 
         return rc
 
@@ -427,9 +428,9 @@ class EspnParser(BaseSportParser, SetValuesMixin):
             time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
             if time_diff > 64800:
                 current_state = "PRE"
-        prev_state = self._prev_values["state"]
+        prev_state = self._prev_values.state
         if prev_state in ("POST", "IN"):
-            time_diff = (arrow.get(self._prev_values["date"]) - arrow.now()).total_seconds()
+            time_diff = (arrow.get(self._prev_values.date) - arrow.now()).total_seconds()
             if time_diff > 64800:
                 prev_state = "PRE"
 
@@ -442,21 +443,21 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                     return True
             elif current_state == "POST":
                 # use POST w/ latest date
-                if arrow.get(self._prev_values["date"]) > arrow.get(self._values.date):
+                if arrow.get(self._prev_values.date) > arrow.get(self._values.date):
                     return True
                 if self._sport_path in ["golf", "racing"] and (
-                    arrow.get(self._prev_values["date"]) == arrow.get(self._values.date)
+                    arrow.get(self._prev_values.date) == arrow.get(self._values.date)
                 ):
                     return True
         if prev_state == "PRE":
             if current_state == "PRE":
                 # use PRE w/ earliest date
-                if arrow.get(self._prev_values["date"]) <= arrow.get(self._values.date):
+                if arrow.get(self._prev_values.date) <= arrow.get(self._values.date):
                     return True
             elif current_state == "POST":
                 # Use PRE if less than 18 hours in future
                 time_diff = abs(
-                    arrow.get(self._prev_values["date"]) - arrow.now()
+                    arrow.get(self._prev_values.date) - arrow.now()
                 ).total_seconds()
                 if time_diff < 64800:
                     return True
