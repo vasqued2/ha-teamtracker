@@ -2,10 +2,10 @@
 from datetime import datetime, timezone
 import locale
 import logging
+from typing import ClassVar
 
 import arrow
 from async_timeout import timeout
-from typing import ClassVar
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
@@ -24,7 +24,6 @@ from .const import (
 from .models import TeamTrackerValues
 from .parser_factory import get_parser
 from .provider_factory import get_provider
-
 from .utils import is_integer
 
 _LOGGER = logging.getLogger(__name__)

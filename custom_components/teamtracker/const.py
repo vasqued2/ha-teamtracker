@@ -1,6 +1,7 @@
 """ Constants for teamtracker sensor"""
-from homeassistant.const import Platform
 from datetime import timedelta
+
+from homeassistant.const import Platform
 
 # API
 API_LIMIT = 50

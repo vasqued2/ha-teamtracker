@@ -1,10 +1,12 @@
 """Test for config flow"""
 from unittest.mock import patch
+
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.teamtracker.const import DOMAIN, CONF_API_LANGUAGE
+from custom_components.teamtracker.const import CONF_API_LANGUAGE, DOMAIN
 from homeassistant import setup
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
+
 from tests.const import CONFIG_DATA
 
 

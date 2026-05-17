@@ -3,6 +3,7 @@
 from .models import TeamTrackerValues
 from .utils import async_get_value
 
+
 class SetBaseballMixin:
     _values: TeamTrackerValues
 

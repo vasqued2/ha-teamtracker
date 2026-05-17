@@ -1,13 +1,15 @@
 """ Test TeamTracker Sensor """
-from freezegun import freeze_time
+from typing import Any
 
+from freezegun import freeze_time
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-from typing import Any
+
 from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
-from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
+
+from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 
 
 @pytest.fixture(autouse=False)

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from .parser_base import BaseSportParser
 from .parse_espn import EspnParser
+from .parser_base import BaseSportParser
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator

@@ -1,13 +1,18 @@
 """ Set non-sport specific values """
 
 import codecs
-import logging
 from datetime import date
-
-import arrow
+import logging
 import re
 
-from .const import DEFAULT_LOGO, DEFAULT_PROB, GENERAL_REFRESH_RATE, GENERAL_RAPID_REFRESH_RATE
+import arrow
+
+from .const import (
+    DEFAULT_LOGO,
+    DEFAULT_PROB,
+    GENERAL_RAPID_REFRESH_RATE,
+    GENERAL_REFRESH_RATE,
+)
 from .set_baseball import SetBaseballMixin
 from .set_cricket import SetCricketMixin
 from .set_golf import SetGolfMixin

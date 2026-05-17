@@ -3,10 +3,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from .provider_base import BaseSportProvider
 from .provide_espn import EspnProvider
 from .provide_espn_all import EspnAllLeaguesProvider
 from .provide_hockeytech import HockeyTechProvider
+from .provider_base import BaseSportProvider
 from .utils import is_integer
 
 if TYPE_CHECKING:

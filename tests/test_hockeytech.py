@@ -1,28 +1,28 @@
 """ Test TeamTracker Sensor """
-from freezegun import freeze_time
 import asyncio
-import threading
-from collections.abc import Generator # <-- New import
-import logging
+from collections.abc import Generator  # <-- New import
 import json
-import aiofiles
-from yarl import URL
+import logging
+import threading
+from typing import Any
+from unittest.mock import AsyncMock, patch
 
+import aiofiles
+from freezegun import freeze_time
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-from typing import Any
-from custom_components.teamtracker.const import (
-    DOMAIN,
-)
+from yarl import URL
+
+from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.provide_hockeytech import (
     HOCKEYTECH_BASE_URL,
     HOCKEYTECH_LEAGUES,
     HOCKEYTECH_TEAM_COLORS,
 )
 from custom_components.teamtracker.sensor import async_setup_platform
-from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from unittest.mock import AsyncMock, patch
+
+from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 
 HOCKEYTECH_DATA = [
     {

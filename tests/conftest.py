@@ -1,20 +1,21 @@
 """Fixtures for tests"""
 import asyncio
-import threading
-from collections.abc import Generator # <-- New import
-import pytest
-import logging
+from collections.abc import Generator  # <-- New import
 import json
-import aiofiles
-from yarl import URL
-
+import logging
+import threading
 from unittest.mock import AsyncMock, patch
+
+import aiofiles
+import pytest
+from yarl import URL
 
 _LOGGER = logging.getLogger(__name__)
 
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
 
 from syrupy.extensions.amber import AmberSnapshotExtension
+
 
 class CustomDirectoryExtension(AmberSnapshotExtension):
     snapshot_dirname = "__snapshots__"

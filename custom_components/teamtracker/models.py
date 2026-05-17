@@ -1,4 +1,4 @@
-from dataclasses import dataclass, fields, asdict
+from dataclasses import asdict, dataclass, fields
 from typing import Any, Final
 
 MISSING: Final[Any] = object()

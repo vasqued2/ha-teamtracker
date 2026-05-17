@@ -1,19 +1,20 @@
 """ Tests for TeamTracker """
+import datetime
+from datetime import date
 import json
 import logging
+from unittest.mock import AsyncMock, MagicMock, patch
+
 import aiofiles
-import datetime
-
-from unittest.mock import patch, MagicMock, AsyncMock
-from freezegun import freeze_time
 import arrow
-from datetime import date
-
-from custom_components.teamtracker import TeamTrackerCoordinator
+from freezegun import freeze_time
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+
+from custom_components.teamtracker import TeamTrackerCoordinator
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
+
 from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA3, CONFIG_DATA4
 
 _LOGGER = logging.getLogger(__name__)
