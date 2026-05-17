@@ -8,6 +8,7 @@ from custom_components.teamtracker.const import (
     DEFAULT_LAST_UPDATE,
     DEFAULT_LOGO,
 )
+from custom_components.teamtracker.models import TeamTrackerValues
 from custom_components.teamtracker.parse_espn import EspnParser
 
 from tests.const import MULTIGAME_DATA
@@ -26,19 +27,19 @@ async def test_multigame(hass):
         assert False
 
     for t in MULTIGAME_DATA:
-        values = await async_clear_values()
-        values["sport"] = t["sport"]
-        values["league"] = t["league"]
-        values["league_logo"] = DEFAULT_LOGO
-        values["team_abbr"] = t["team_abbr"]
-        values["state"] = "NOT_FOUND"
-        values["last_update"] = DEFAULT_LAST_UPDATE
-        values["private_fast_refresh"] = False
+        values = TeamTrackerValues()
+        values.sport = t["sport"]
+        values.league = t["league"]
+        values.league_logo = DEFAULT_LOGO
+        values.team_abbr = t["team_abbr"]
+        values.state = "NOT_FOUND"
+        values.last_update = DEFAULT_LAST_UPDATE
+        values.private_fast_refresh = False
 
         sensor_name = t["sensor_name"]
-        sport_path = values["sport"]
-        league_id = values["league"]
-        team_id = values["team_abbr"]
+        sport_path = values.sport
+        league_id = values.league
+        team_id = values.team_abbr
         lang = "en"
         league_map = {}
 
@@ -54,4 +55,6 @@ async def test_multigame(hass):
         )
 
         assert values
-        assert values["event_name"] == t["expected_event_name"]
+        values_dict = values.to_dict_all_attr()
+
+        assert values_dict["event_name"] == t["expected_event_name"]

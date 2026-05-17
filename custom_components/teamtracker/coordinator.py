@@ -11,8 +11,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .clear_values import async_clear_values
-
 from .const import (
     CONF_API_LANGUAGE,
     CONF_CONFERENCE_ID,
@@ -23,6 +21,7 @@ from .const import (
     DEFAULT_LOGO,
     DEFAULT_TIMEOUT,
 )
+from .models import TeamTrackerValues
 from .parser_factory import get_parser
 from .provider_factory import get_provider
 
@@ -134,7 +133,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 data = await self.async_update_sport_data()
 
                 # update the interval based on flag
-                if data["private_fast_refresh"]:
+                if data.private_fast_refresh:
                     if self.update_interval != self.provider.RAPID_REFRESH_RATE:
                         self.update_interval = self.provider.RAPID_REFRESH_RATE
                         _LOGGER.debug(
@@ -151,12 +150,14 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 _LOGGER.debug("%s: Error type: %s", self.name, type(error).__name__)
                 _LOGGER.debug("%s: Additional information: %s", self.name, str(error))
                 raise UpdateFailed(error) from error
-            return data
+            data_dict = {}
+            data_dict.update(data.to_dict_all_attr())
+            return data_dict
 
 #
 #  async_update_sport_data()
 #
-    async def async_update_sport_data(self) -> dict:
+    async def async_update_sport_data(self) -> TeamTrackerValues:
         """Determines to use cached data or API call (if exprired)"""
 
         sport_path = self.sport_path
@@ -189,11 +190,13 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
                 values = await self.async_update_values(data)
 
-                if values["api_message"]:
-                    values["api_message"] = "Cached data: " + values["api_message"]
+                if values.api_message:
+                    values.api_message = "Cached data: " + values.api_message
                 else:
-                    values["api_message"] = "Cached data"
+                    values.api_message = "Cached data"
 
+                values_dict = {}
+                values_dict.update(values.to_dict_all_attr())
                 return values
 
         data = await self.async_call_sport_apis()
@@ -203,10 +206,13 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             TeamTrackerCoordinator.data_cache[key] = {
                 "cache_data": data,
                 "cache_url": self.api_url,
-                "cache_time": values["last_update"]
+                "cache_time": values.last_update
             }
 
+        values_dict = {}
+        values_dict.update(values.to_dict_all_attr())
         return values
+
 
 
     #
@@ -227,7 +233,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
     #
     #  async_update_values()
     #
-    async def async_update_values(self, data) -> dict:
+    async def async_update_values(self, data) -> TeamTrackerValues:
         """Updates sensor values using data returned by API or in cache"""
 
         sensor_name = self.name
@@ -236,29 +242,29 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         lang = self.get_lang()
 
         # Populate base values that do not need API data
-        values = {}
-        values = await async_clear_values()
+        tt_values = TeamTrackerValues()
         if self.sport_path.lower() == "hockeytech":
-            values["sport"] = "hockey"
+            tt_values.sport = "hockey"
         else:
-            values["sport"] = self.sport_path
-        values["sport_path"] = self.sport_path
-        values["league"] = league_id
-        values["league_path"] = self.league_path
-        values["league_logo"] = DEFAULT_LOGO
-        values["team_abbr"] = team_id
-        values["state"] = "NOT_FOUND"
-        values["last_update"] = arrow.now().format(arrow.FORMAT_W3C)
-        values["private_fast_refresh"] = False
-        values["api_url"] = self.api_url
+            tt_values.sport = self.sport_path
+        tt_values.sport_path = self.sport_path
+        tt_values.league = league_id
+        tt_values.league_path = self.league_path
+        tt_values.league_logo = DEFAULT_LOGO
+        tt_values.team_abbr = team_id
+        tt_values.state = "NOT_FOUND"
+        tt_values.last_update = arrow.now().format(arrow.FORMAT_W3C)
+        tt_values.private_fast_refresh = False
+        tt_values.api_url = self.api_url
+        tt_values.api_message = None
 
         # If there was an error (i.e. 404) w/ the API call...
         if data is None:
-            values["api_message"] = "API error, no data returned"
+            tt_values.api_message = "API error, no data returned"
             _LOGGER.warning(
                 "%s: API did not return any data for team '%s'", sensor_name, team_id
             )
-            return values
+            return tt_values
 
         # When league_path is "all", parser needs league_map{} to do manual lookup
         league_map = {}
@@ -268,15 +274,15 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 
-        values = await self.parser.async_parse_response(
-            values,
+        tt_values = await self.parser.async_parse_response(
+            tt_values,
             data,
             league_map,
             lang,
         )
 
         # If NOT_FOUND, try to get abbr w/ another API to make message easier to read
-        if (values["state"] == "NOT_FOUND" and 
+        if (tt_values.state == "NOT_FOUND" and 
             is_integer(team_id)
         ):
             response = await self.provider.async_fetch_team_data(self.hass, self.sport_path, self.league_path)
@@ -289,8 +295,9 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             else:
                 team_abbr = None
 
-            values["team_id"] = team_id
+            tt_values.team_id = team_id
             if team_abbr:
-                values["team_abbr"] = team_abbr
+                tt_values.team_abbr = team_abbr
 
-        return values
+        return tt_values
+

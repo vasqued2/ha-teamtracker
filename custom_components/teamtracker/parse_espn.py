@@ -69,10 +69,9 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         data, 
         league_map, 
         lang: str
-    ) -> dict:
+    ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
-
-        self._values = TeamTrackerValues.from_dict(values)  #FROM_DICT
+        self._values = values
 
         self._league_map = league_map
         self._lang = lang
@@ -176,8 +175,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 self._team_id,
             )
 
-        values.update(self._values.to_dict())              #TO_DICT
-        return values
+        return self._values
 
 
     async def _async_process_competition(self,

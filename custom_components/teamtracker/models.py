@@ -110,3 +110,15 @@ class TeamTrackerValues:
                 k: v for k, v in asdict(self).items() 
                 if v is not MISSING
             }
+
+    def to_dict_all_attr(self) -> dict[str, Any]:
+        """Convert properties to a dictionary, translating MISSING sentinels to None."""
+        # A robust check that traps the sentinel even if it was deep-copied
+        return {
+            f.name: (
+                None 
+                if getattr(self, f.name) is MISSING or type(getattr(self, f.name)).__name__ == 'object'
+                else getattr(self, f.name)
+            )
+            for f in fields(self)
+        }
