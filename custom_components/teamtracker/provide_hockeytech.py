@@ -1,14 +1,14 @@
 """ Provide response from HockeyTech APIs """
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 import json
 import locale
 import logging
-from datetime import datetime, timezone, timedelta
-from yarl import URL
-from typing import TypedDict, TYPE_CHECKING
-    
+from typing import TYPE_CHECKING, TypedDict
+
 import aiohttp
+from yarl import URL
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession

@@ -2,6 +2,7 @@
 
 import logging
 
+from .models import TeamTrackerValues
 from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
@@ -9,21 +10,16 @@ race_laps: dict[str, int] = {}
 
 class SetRacingMixin:
     _sensor_name: str
+    _values: TeamTrackerValues
 
     
-    async def async_set_racing_values(
+    async def _async_set_racing_values(
         self,
-        new_values, event, competition_index, team_index
+        event, competition_index, team_index
     ) -> bool:
         """Set racing specific values"""
 
-
-        #
-        #  Pylint doesn't recognize values set by setdefault() method
-        #
-        global race_laps  # pylint: disable=global-variable-not-assigned
-
-        #    _LOGGER.debug("%s: async_set_racing_values() 0: %s", sensor_name, new_values)
+        #    _LOGGER.debug("%s: async_set_racing_values() 0: %s", self._sensor_name, new_values)
 
         oppo_index = 1 if team_index == 0 else 0
         competition = await async_get_value(event, "competitions", competition_index)
@@ -36,48 +32,37 @@ class SetRacingMixin:
 
         city = await async_get_value(event, "circuit", "address", "city")
         country = await async_get_value(event, "circuit", "address", "country")
-        #    _LOGGER.debug("%s: async_set_racing_values() 1: %s", sensor_name, new_values)
+        #    _LOGGER.debug("%s: async_set_racing_values() 1: %s", self._sensor_name, new_values)
 
         if city is not None:
-            new_values["location"] = "%s, %s" % (city, country)
+            self._values.location = f"{city}, {country}"
         else:
-            new_values["location"] = country
+            self._values.location = country
 
-        new_values["team_score"] = team_index + 1
-        new_values["opponent_score"] = oppo_index + 1
-        #    _LOGGER.debug("%s: async_set_racing_values() 2: %s", sensor_name, new_values)
+        self._values.team_score = str(team_index + 1)
+        self._values.opponent_score = str(oppo_index + 1)
+        #     _LOGGER.debug("%s: async_set_racing_values() 2: %s", self._sensor_name, new_values)
 
-        if new_values["state"] == "PRE":
-            new_values["team_rank"] = team_index + 1
-            new_values["opponent_rank"] = oppo_index + 1
-        #    _LOGGER.debug("%s: async_set_racing_values() 3: %s", sensor_name, new_values)
+        if self._values.state == "PRE":
+            self._values.team_rank = str(team_index + 1)
+            self._values.opponent_rank = str(oppo_index + 1)
+        #    _LOGGER.debug("%s: async_set_racing_values() 3: %s", self._sensor_name, new_values)
 
-        race_key = (
-            str(new_values["league"])
-            + "-"
-            + str(new_values["event_name"])
-        )
-        new_values["team_total_shots"] = await async_get_value(
+        # Use team_total_shots to track laps; logic remains consistent with original global usage
+        self._values.team_total_shots = await async_get_value(
             competition, "status", "period",
-            default=race_laps.setdefault(race_key, 0),
+            default=self._values.team_total_shots,
         )
-        race_laps.update({race_key: new_values["team_total_shots"]})
 
-        new_values["quarter"] = await async_get_value(competition, "type", "abbreviation")
-        #    _LOGGER.debug("%s: async_set_racing_values() 4: %s", sensor_name, new_values)
+        self._values.quarter = await async_get_value(competition, "type", "abbreviation")
+        #     _LOGGER.debug("%s: async_set_racing_values() 4: %s", self._sensor_name, new_values)
 
-        new_values["last_play"] = ""
+        last_play = ""
         for x in range(0, 10):
-            new_values["last_play"] = (
-                new_values["last_play"]
-                + str(
+            last_play += str(
                     await async_get_value(competition, "competitors", x, "order", default=x)
-                )
-                + ". "
-            )
-            new_values["last_play"] = (
-                new_values["last_play"]
-                + str(
+                ) + ". "
+            last_play += str(
                     await async_get_value(
                         competition,
                         "competitors",
@@ -86,9 +71,8 @@ class SetRacingMixin:
                         "shortName",
                         default="{shortName}",
                     )
-                )
-                + ",   "
-            )
-        new_values["last_play"] = new_values["last_play"][:-1]
+                ) + ",   "
+        
+        self._values.last_play = last_play[:-1]
 
         return True

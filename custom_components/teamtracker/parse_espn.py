@@ -1,19 +1,20 @@
 """ Parse ESPN JSON response """
 from __future__ import annotations
 
-import arrow
+from dataclasses import replace
 from datetime import datetime
 import logging
 import re
 from typing import TYPE_CHECKING
 
+import arrow
+
+from .const import API_LIMIT, DEFAULT_LOGO
+from .models import TeamTrackerValues
 from .parser_base import BaseSportParser
-from .const import (
-    API_LIMIT,
-    DEFAULT_LOGO,
-)
 from .set_values import SetValuesMixin
 from .utils import async_get_value
+
 _LOGGER = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
@@ -41,7 +42,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         self._stop_flag = False
         self._found_competitor = False
         self._event_state = "NOT_FOUND"
-        self._prev_values: dict[str, str] = {}
+        self._prev_values: TeamTrackerValues
 
 
 
@@ -62,29 +63,30 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
 
 
-    async def async_process_event(
+    async def async_parse_response(
         self,
         values, 
         data, 
         league_map, 
         lang: str
-    ) -> dict:
+    ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
+        self._values = values
 
         self._league_map = league_map
         self._lang = lang
         self._search_key = self._team_id
 
-        self._prev_values = {}
+        self._prev_values = TeamTrackerValues()
 
         self._stop_flag = False
         self._found_competitor = False
 
 
-        values["league_logo"] = await async_get_value(
+        self._values.league_logo = await async_get_value(
             data, "leagues", 0, "logos", 0, "href", default=DEFAULT_LOGO
         )
-        values["league_name"] = await async_get_value(
+        self._values.league_name = await async_get_value(
             data, "leagues", 0, "name", default=""
         )
 
@@ -111,13 +113,18 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                         last_date
                     )
 
-                    values = await self._async_process_competition(
-                        values,
+                    rc = await self._async_process_competition(
                         event,
                         grouping_index,
                         competition,
                         competition_index,
                     )
+                    if not rc:
+                        _LOGGER.debug(
+                            "%s: async_parse_response() Error occurred processing competition: %s",
+                            self._sensor_name,
+                            self._values,
+                        )
 
                     if self._stop_flag:
                         break
@@ -135,8 +142,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                         last_date
                     )
 
-                    values = await self._async_process_competition(
-                        values,
+                    rc = await self._async_process_competition(
                         event,
                         grouping_index,
                         competition,
@@ -149,7 +155,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
             #  if the competition state is POST but the event state is IN, stop looking
             #    this happens in tennis where an event has many competitions
             #
-            if values["state"] == "POST" and self._event_state == "IN":
+            if self._values.state == "POST" and self._event_state == "IN":
                 self._stop_flag = True
             if self._stop_flag:
                 break
@@ -162,7 +168,6 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
         if not self._found_competitor:
             await self._competitor_not_found(
-                values,
                 data,
                 limit_hit,
                 first_date,
@@ -170,39 +175,45 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 self._team_id,
             )
 
-        return values
+        return self._values
 
 
     async def _async_process_competition(self,
-        values,
         event,
         grouping_index,
         competition,
         competition_index,
-    ) -> tuple[dict, str]:
+    ) -> bool:
         """Process a competition"""
 
         competitor_index = -1
+        rc = True
 
         for competitor_index, competitor in enumerate(
             await async_get_value(competition, "competitors", default=[])
         ):
             matched_index = await self._async_find_search_key(
-                values,
                 event,
                 competition,
                 competitor,
                 competitor_index,
             )
 
+
             if matched_index is not None:
-                values = await self.async_process_name_match(
-                    values, 
+
+                rc = await self.async_process_name_match(
                     event,
                     grouping_index,
                     competition_index,
                     matched_index,
                 )
+                if not rc:
+                    _LOGGER.debug(
+                        "%s: async_process_competition() Error occurred processing name match: %s",
+                        self._sensor_name,
+                        self._values,
+                    )
                 if self._stop_flag:
                     break
         if competitor_index == -1:
@@ -211,61 +222,62 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 self._sensor_name,
                 str(await async_get_value(competition, "id", default="{id}")),
             )
-        return values
+
+        return rc
 
 
     async def async_process_name_match(self,
-        values, 
         event,
         grouping_index,
         competition_index,
         matched_index,
-    )-> dict:
+    )-> bool:
         """Process a name match"""
 
         self._found_competitor = True
-        self._prev_values = values.copy()
+        self._prev_values = replace(self._values)
 
         self._event_state = str(
             await async_get_value(
                 event, "status", "type", "state", default="NOT_FOUND"
             )
         ).upper()
-        rc = await self.async_set_values(
-            values,
+
+        rc = await self._async_set_values(
             event,
             grouping_index,
             competition_index,
             matched_index,
         )
+
         if not rc:
             _LOGGER.debug(
                 "%s: event() Error occurred setting event values: %s",
                 self._sensor_name,
-                values,
+                self._values,
             )
 
-        if values["state"] == "IN":
+        if self._values.state == "IN":
             self._stop_flag = True
         time_diff = abs(
-            (arrow.get(values["date"]) - arrow.now()).total_seconds()
+            (arrow.get(self._values.date) - arrow.now()).total_seconds()
         )
-        if values["state"] == "PRE" and time_diff < 1200:
+        if self._values.state == "PRE" and time_diff < 1200:
             self._stop_flag = True
         if self._stop_flag:
-            return values
+            return rc
 
-        prev_flag = await self._async_use_prev_values_flag(
-            values
-        )
+        prev_flag = await self._async_use_prev_values_flag()
         if prev_flag:
-            values = self._prev_values
+            self._values = replace(self._prev_values)
 
-        return values
+        return rc
 
 
+    #
+    #   _async_find_search_key()
+    #
     async def _async_find_search_key(self,
-        values,
         event,
         competition,
         competitor,
@@ -358,7 +370,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 if event_shortname.startswith(self._search_key + " ") or event_shortname.endswith(
                     " " + self._search_key
                 ):
-                    values["api_message"] = (
+                    self._values.api_message = (
                         "team_id '"
                         + self._search_key
                         + "' does not match team_abbr.  Found in event_name."
@@ -400,22 +412,24 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
         return None
 
-
-    async def _async_use_prev_values_flag(self, values):
+    #
+    #   _async_use_prev_values_flag()
+    #
+    async def _async_use_prev_values_flag(self):
         """Determine if prev_values should be saved"""
 
     #
     #   If the state or prev_state is POST or IN and > 18 hrs in the future, treat is as PRE
     #     This can happen if an event is postponed
     #
-        current_state = values["state"]
+        current_state = self._values.state
         if current_state in ("POST", "IN"):
-            time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
+            time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
             if time_diff > 64800:
                 current_state = "PRE"
-        prev_state = self._prev_values["state"]
+        prev_state = self._prev_values.state
         if prev_state in ("POST", "IN"):
-            time_diff = (arrow.get(self._prev_values["date"]) - arrow.now()).total_seconds()
+            time_diff = (arrow.get(self._prev_values.date) - arrow.now()).total_seconds()
             if time_diff > 64800:
                 prev_state = "PRE"
 
@@ -423,34 +437,36 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         if prev_state == "POST":
             if current_state == "PRE":
                 # Use POST if PRE is more than 18 hours in future
-                time_diff = (arrow.get(values["date"]) - arrow.now()).total_seconds()
+                time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
                 if time_diff > 64800:
                     return True
             elif current_state == "POST":
                 # use POST w/ latest date
-                if arrow.get(self._prev_values["date"]) > arrow.get(values["date"]):
+                if arrow.get(self._prev_values.date) > arrow.get(self._values.date):
                     return True
                 if self._sport_path in ["golf", "racing"] and (
-                    arrow.get(self._prev_values["date"]) == arrow.get(values["date"])
+                    arrow.get(self._prev_values.date) == arrow.get(self._values.date)
                 ):
                     return True
         if prev_state == "PRE":
             if current_state == "PRE":
                 # use PRE w/ earliest date
-                if arrow.get(self._prev_values["date"]) <= arrow.get(values["date"]):
+                if arrow.get(self._prev_values.date) <= arrow.get(self._values.date):
                     return True
             elif current_state == "POST":
                 # Use PRE if less than 18 hours in future
                 time_diff = abs(
-                    arrow.get(self._prev_values["date"]) - arrow.now()
+                    arrow.get(self._prev_values.date) - arrow.now()
                 ).total_seconds()
                 if time_diff < 64800:
                     return True
 
         return False
 
+    #
+    #  _competitor_not_found()
+    #
     async def _competitor_not_found(self,
-        values,
         data,
         limit_hit,
         first_date,
@@ -460,7 +476,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         """Handle messaging if competitor was not found"""
 
         if limit_hit:
-            values["api_message"] = (
+            self._values.api_message = (
                 "API_LIMIT hit.  No competition found for '"
                 + team_id
                 + "' between "
@@ -490,9 +506,9 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                     events, 0, "competitions", 0, "competitors", default=None
                 )
                 if competitors is None:
-                    values["event_name"] = event_name
-                    values["date"] = event_date
-                    values["api_message"] = f"Drivers not found, qualifying not complete for {event_name}"
+                    self._values.event_name = event_name
+                    self._values.date = event_date
+                    self._values.api_message = f"Drivers not found, qualifying not complete for {event_name}"
                     _LOGGER.debug(
                         "%s: No drivers found for %s",
                         self._sensor_name,
@@ -500,7 +516,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                     )
                     return
 
-        values["api_message"] = (
+        self._values.api_message = (
             "No competition scheduled for '"
             + team_id
             + "' between "

@@ -6,25 +6,24 @@ import locale
 import logging
 import os
 import re
+from typing import ClassVar
 
 import aiofiles
 import arrow
 from async_timeout import timeout
-from typing import ClassVar
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_registry import ( # pylint: disable=reimported
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.entity_registry import (  # pylint: disable=reimported
     async_entries_for_config_entry,
     async_get,
     async_get as async_get_entity_registry,
 )
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .clear_values import async_clear_values
-
 from .const import (
     API_LIMIT,
     CONF_API_LANGUAGE,
@@ -47,7 +46,7 @@ from .const import (
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator
-from .utils import is_integer, async_get_value, has_team
+from .utils import async_get_value, has_team, is_integer
 
 _LOGGER = logging.getLogger(__name__)
 

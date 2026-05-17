@@ -1,14 +1,23 @@
 """ Tests for TeamTracker """
 
-from freezegun import freeze_time
+import logging
 from unittest.mock import patch
 
+from freezegun import freeze_time
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+
 from custom_components.teamtracker.const import DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA5, CONFIG_DATA6, CONFIG_DATA7
-import logging
+
+from tests.const import (
+    CONFIG_DATA,
+    CONFIG_DATA2,
+    CONFIG_DATA5,
+    CONFIG_DATA6,
+    CONFIG_DATA7,
+)
+
 _LOGGER = logging.getLogger(__name__)
 
 @pytest.fixture(autouse=False)

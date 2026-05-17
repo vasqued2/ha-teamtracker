@@ -12,28 +12,28 @@ async def test_error_conditions(hass):
     parser = EspnParser()
     parser.setup("sensor_name", "sport_path", "league_id", "team_id")
 
-    rc = await parser.async_set_cricket_values({}, {}, 0, 0)
+    rc = await parser._async_set_cricket_values({}, 0, 0)
     assert rc is False
-    rc = await parser.async_set_golf_values({}, {}, 0, 0)
+    rc = await parser._async_set_golf_values({}, 0, 0)
     assert rc is False
-    rc = await parser.async_set_hockey_values({}, {}, 0, 0)
+    rc = await parser._async_set_hockey_values({}, 0, 0)
     assert rc is False
-    rc = await parser.async_set_mma_values({}, {}, 0, 0)
+    rc = await parser._async_set_mma_values({}, 0, 0)
     assert rc is False
-    rc = await parser.async_set_racing_values({}, {}, 0, 0)
+    rc = await parser._async_set_racing_values({}, 0, 0)
     assert rc is False
-    rc = await parser.async_set_soccer_values({}, {}, 0, 0)
+    rc = await parser._async_set_soccer_values({}, 0, 0)
     assert rc is False
-    rc = await parser.async_set_tennis_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_tennis_values({}, 0, 0, 0)
     assert rc is False
-    rc = await parser.async_set_volleyball_values({}, {}, 0, 0)
+    rc = await parser._async_set_volleyball_values({}, 0, 0)
     assert rc is False
 
-    rc = await parser.async_set_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_values({}, 0, 0, 0)
     assert rc is False
-    rc = await parser._async_set_universal_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_universal_values({}, 0, 0, 0)
     assert rc is False
-    rc = await parser._async_set_team_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_team_values({}, 0, 0, 0)
     assert rc is False
-    rc = await parser._async_set_in_values({}, {}, 0, 0, 0)
+    rc = await parser._async_set_in_values({}, 0, 0, 0)
     assert rc is False

@@ -10,8 +10,8 @@ from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
 
 from .const import (
@@ -211,11 +211,7 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
         """Return the state of the sensor."""
         if self.coordinator.data is None:
             return None
-
-        if "state" in self.coordinator.data.keys():
-            return self.coordinator.data["state"]
-
-        return None
+        return self.coordinator.data.state
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
@@ -224,93 +220,8 @@ class TeamTrackerScoresSensor(CoordinatorEntity):
 
         if self.coordinator.data is None:
             return attrs
-
         attrs[ATTR_ATTRIBUTION] = self.coordinator.provider.ATTRIBUTION
-
-        attrs["sport"] = self.coordinator.data["sport"]
-        attrs["sport_path"] = self.coordinator.data["sport_path"]
-        attrs["league"] = self.coordinator.data["league"]
-        attrs["league_path"] = self.coordinator.data["league_path"]
-        attrs["league_logo"] = self.coordinator.data["league_logo"]
-        attrs["league_name"] = self.coordinator.data["league_name"]
-        attrs["season"] = self.coordinator.data["season"]
-        attrs["team_abbr"] = self.coordinator.data["team_abbr"]
-        attrs["opponent_abbr"] = self.coordinator.data["opponent_abbr"]
-
-        attrs["event_name"] = self.coordinator.data["event_name"]
-        attrs["event_url"] = self.coordinator.data["event_url"]
-        attrs["date"] = self.coordinator.data["date"]
-        attrs["kickoff_in"] = self.coordinator.data["kickoff_in"]
-        attrs["series_summary"] = self.coordinator.data["series_summary"]
-        attrs["venue"] = self.coordinator.data["venue"]
-        attrs["location"] = self.coordinator.data["location"]
-        attrs["tv_network"] = self.coordinator.data["tv_network"]
-        attrs["odds"] = self.coordinator.data["odds"]
-        attrs["overunder"] = self.coordinator.data["overunder"]
-
-        attrs["team_name"] = self.coordinator.data["team_name"]
-        attrs["team_long_name"] = self.coordinator.data["team_long_name"]
-        attrs["team_id"] = self.coordinator.data["team_id"]
-        attrs["team_record"] = self.coordinator.data["team_record"]
-        attrs["team_rank"] = self.coordinator.data["team_rank"]
-        attrs["team_conference_id"] = self.coordinator.data["team_conference_id"]
-        attrs["team_homeaway"] = self.coordinator.data["team_homeaway"]
-        attrs["team_logo"] = self.coordinator.data["team_logo"]
-        attrs["team_url"] = self.coordinator.data["team_url"]
-        attrs["team_colors"] = self.coordinator.data["team_colors"]
-        #        attrs["team_colors_rbg"] = self.colors2rgb(self.coordinator.data["team_colors"])
-        attrs["team_score"] = self.coordinator.data["team_score"]
-        attrs["team_win_probability"] = self.coordinator.data["team_win_probability"]
-        attrs["team_winner"] = self.coordinator.data["team_winner"]
-        attrs["team_timeouts"] = self.coordinator.data["team_timeouts"]
-
-        attrs["opponent_name"] = self.coordinator.data["opponent_name"]
-        attrs["opponent_long_name"] = self.coordinator.data["opponent_long_name"]
-        attrs["opponent_id"] = self.coordinator.data["opponent_id"]
-        attrs["opponent_record"] = self.coordinator.data["opponent_record"]
-        attrs["opponent_rank"] = self.coordinator.data["opponent_rank"]
-        attrs["opponent_conference_id"] = self.coordinator.data["opponent_conference_id"]
-        attrs["opponent_homeaway"] = self.coordinator.data["opponent_homeaway"]
-        attrs["opponent_logo"] = self.coordinator.data["opponent_logo"]
-        attrs["opponent_url"] = self.coordinator.data["opponent_url"]
-        attrs["opponent_colors"] = self.coordinator.data["opponent_colors"]
-        #        attrs["opponent_colors_rgb"] = self.colors2rgb(self.coordinator.data["opponent_colors"])
-        attrs["opponent_score"] = self.coordinator.data["opponent_score"]
-        attrs["opponent_win_probability"] = self.coordinator.data[
-            "opponent_win_probability"
-        ]
-        attrs["opponent_winner"] = self.coordinator.data[
-            "opponent_winner"
-        ]
-        attrs["opponent_timeouts"] = self.coordinator.data["opponent_timeouts"]
-
-        attrs["quarter"] = self.coordinator.data["quarter"]
-        attrs["clock"] = self.coordinator.data["clock"]
-        attrs["possession"] = self.coordinator.data["possession"]
-        attrs["last_play"] = self.coordinator.data["last_play"]
-        attrs["down_distance_text"] = self.coordinator.data["down_distance_text"]
-
-        attrs["outs"] = self.coordinator.data["outs"]
-        attrs["balls"] = self.coordinator.data["balls"]
-        attrs["strikes"] = self.coordinator.data["strikes"]
-        attrs["on_first"] = self.coordinator.data["on_first"]
-        attrs["on_second"] = self.coordinator.data["on_second"]
-        attrs["on_third"] = self.coordinator.data["on_third"]
-
-        attrs["team_shots_on_target"] = self.coordinator.data["team_shots_on_target"]
-        attrs["team_total_shots"] = self.coordinator.data["team_total_shots"]
-        attrs["opponent_shots_on_target"] = self.coordinator.data[
-            "opponent_shots_on_target"
-        ]
-        attrs["opponent_total_shots"] = self.coordinator.data["opponent_total_shots"]
-
-        attrs["team_sets_won"] = self.coordinator.data["team_sets_won"]
-        attrs["opponent_sets_won"] = self.coordinator.data["opponent_sets_won"]
-
-        attrs["last_update"] = self.coordinator.data["last_update"]
-        attrs["api_message"] = self.coordinator.data["api_message"]
-        attrs["api_url"] = self.coordinator.data["api_url"]
-
+        attrs.update(self.coordinator.data.to_dict_all_attr())
         return attrs
 
     @property

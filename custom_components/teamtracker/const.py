@@ -1,6 +1,7 @@
 """ Constants for teamtracker sensor"""
-from homeassistant.const import Platform
 from datetime import timedelta
+
+from homeassistant.const import Platform
 
 # API
 API_LIMIT = 50
@@ -197,7 +198,7 @@ INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.17.1"
+VERSION = "v0.17.2"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 COORDINATOR = "coordinator"

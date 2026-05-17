@@ -7,11 +7,9 @@ from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
-from .const import (
-    API_LIMIT,
-)
+from .const import API_LIMIT
 from .provide_espn import EspnProvider
-from .utils import (has_team, season_slug_to_name)
+from .utils import has_team, season_slug_to_name
 
 _LOGGER = logging.getLogger(__name__)
 
