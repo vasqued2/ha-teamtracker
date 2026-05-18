@@ -46,85 +46,85 @@ HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
         "public_key": "f1aa699db3d81487",
         "client_code": "chl",
         "league_name": "Canadian Hockey League",
-        "league_logo": None,
+        "league_logo": "https://cdn.chl.ca/uploads/chl/2014/05/06154138/CHL.png",
     },
     "OHL": {
         "public_key": "f1aa699db3d81487",
         "client_code": "ohl",
         "league_name": "Ontario Hockey League",
-        "league_logo": None,
+        "league_logo": "https://media.chl.ca/wp-content/uploads/sites/5/2023/05/25210408/logo_OHL_lg_white-1.png",
     },
     "WHL": {
         "public_key": "f1aa699db3d81487",
         "client_code": "whl",
         "league_name": "Wester Hockey League",
-        "league_logo": None,
+        "league_logo": "https://media.chl.ca/wp-content/uploads/sites/6/2023/08/18153056/Western_Hockey_League.svg_.png",
     },
     "LHJMQ": {
         "public_key": "f1aa699db3d81487",
         "client_code": "lhjmq",
         "league_name": "Quebec Major Junior Hockey League",
-        "league_logo": None,
+        "league_logo": "https://www.themhl.ca/wp-content/uploads/sites/2/2018/10/QMJHL-Logo.png",
     },
     "AHL": {
         "public_key": "50c2cd9b5e18e390",
         "client_code": "ahl",
         "league_name": "American Hockey League",
-        "league_logo": None,
+        "league_logo": "https://1000logos.net/wp-content/uploads/2023/04/American-Hockey-League-logo-768x432.png",
     },
     "ECHL": {
         "public_key": "2c2b89ea7345cae8",
         "client_code": "echl",
         "league_name": "East Coast Hockey League",
-        "league_logo": None,
+        "league_logo": "https://1000logos.net/wp-content/uploads/2019/01/Echl-logo-768x512.png",
     },
     "PWHL": {
         "public_key": "446521baf8c38984",
         "client_code": "pwhl",
         "league_name": "Professional Womens Hockey League",
-        "league_logo": "https://assets.leaguestat.com/pwhl/logos/pwhl.png",
+        "league_logo": "https://1000logos.net/wp-content/uploads/2024/10/PWHL-Logo.png",
     },
     "USHL": {
         "public_key": "e828f89b243dc43f",
         "client_code": "ushl",
         "league_name": "United States Hockey League",
-        "league_logo": None,
+        "league_logo": "https://dbukjj6eu5tsf.cloudfront.net/ushl.sidearmsports.com/images/responsive_2022/ushl_on-dark.svg",
     },
     "OJHL": {
         "public_key": "77a0bd73d9d363d3",
         "client_code": "ojhl",
         "league_name": "Ontario Junior Hockey League",
-        "league_logo": None,
+        "league_logo": "https://www.ojhl.ca/wp-content/uploads/sites/2/2023/04/default-300x200.jpg",
     },
     "BCHL": {
         "public_key": "ca4e9e599d4dae55",
         "client_code": "bchl",
         "league_name": "British Columbia Hockey League",
-        "league_logo": None,
+        "league_logo": "https://bchl.ca/wp-content/uploads/2015/12/BCHL-Footer-Logo.png",
     },
     "SJHL": {
         "public_key": "2fb5c2e84bf3e4a8",
         "client_code": "sjhl",
         "league_name": "Saskatchewan Junior Hockey League",
-        "league_logo": None,
+        "league_logo": "https://www.sjhl.ca/wp-content/uploads/sites/2/2019/04/cropped-sjhl-512.png",
     },
     "AJHL": {
         "public_key": "cbe60a1d91c44ade",
         "client_code": "ajhl",
         "league_name": "Alberta Junior Hockey League",
-        "league_logo": None,
+        "league_logo": "https://www.ajhl.ca/wp-content/uploads/sites/2/2023/06/ajhl.png",
     },
     "MJHL": {
         "public_key": "f894c324fe5fd8f0",
         "client_code": "mjhl",
         "league_name": "Manitoba Junior Hockey League",
-        "league_logo": None,
+        "league_logo": "https://www.mjhlhockey.ca/wp-content/uploads/sites/2/2024/08/MJHL-8.png",
     },
     "MHL": {
         "public_key": "4a948e7faf5ee58d",
         "client_code": "mhl",
         "league_name": "Maritime Junior Hockey League",
-        "league_logo": None,
+        "league_logo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Maritime_Junior_A_Hockey_League_Logo.svg/250px-Maritime_Junior_A_Hockey_League_Logo.svg.png",
     },
 }
 HOCKEYTECH_TEAM_COLORS: dict[str, TeamColorMap] = {
@@ -373,19 +373,13 @@ class HockeyTechProvider(BaseSportProvider):
         # Parse venue
         venue = self._build_venue(game)
 
-        # Broadcasts
-        broadcasts = []
-        video_url = game.get("HomeVideoUrl", "")
-        if video_url:
-            broadcasts = [{"names": ["PWHL Live"]}]
-
         event = {
             "id": game_id,
             "date": espn_date,
             "name": f'{game.get("VisitorLongName", "")} at {game.get("HomeLongName", "")}',
             "shortName": f'{game.get("VisitorCode", "")} @ {game.get("HomeCode", "")}',
             "season": {"slug": "regular-season"},
-            "links": [{"href": f"https://www.thepwhl.com/en/game/{game_id}"}],
+            "links": [{"href": f'{game.get("FloHockeyUrl", "")}'}],
             "status": {
                 "clock": 0,
                 "period": period,
@@ -400,7 +394,6 @@ class HockeyTechProvider(BaseSportProvider):
                     "date": espn_date,
                     "venue": venue,
                     "competitors": [home_competitor, visitor_competitor],
-                    "broadcasts": broadcasts,
                     "status": {
                         "period": period,
                         "type": {
@@ -426,6 +419,11 @@ class HockeyTechProvider(BaseSportProvider):
         team_code = game.get(f"{side}Code", "")
         team_id = game.get(f"{side}ID", "")
         colors = team_colors.get(team_code, {})
+        team_url = game.get(f"{side}WebcastUrl", "")
+        if team_url == "":
+            team_url = game.get(f"{side}VideoUrl", "")
+        if team_url == "":
+            team_url = game.get(f"{side}AudioUrl", "")
 
         return {
             "id": team_id,
@@ -442,7 +440,7 @@ class HockeyTechProvider(BaseSportProvider):
                 "logo": game.get(f"{side}Logo", ""),
                 "color": colors.get("color", "D3D3D3"),
                 "alternateColor": colors.get("alternateColor", "A9A9A9"),
-                "links": [{"href": f"https://www.thepwhl.com/en/team/{team_id}"}],
+                "links": [{"href": f"{team_url}"}],
             },
             "records": [
                 {
