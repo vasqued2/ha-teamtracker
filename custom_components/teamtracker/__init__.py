@@ -23,7 +23,6 @@ from homeassistant.helpers.entity_registry import (  # pylint: disable=reimporte
 )
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .clear_values import async_clear_values
 from .const import (
     API_LIMIT,
     CONF_API_LANGUAGE,

@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 
 import aiofiles
 import aiohttp
+import arrow
 from yarl import URL
 
 from homeassistant.core import HomeAssistant
@@ -141,7 +142,6 @@ class EspnProvider(BaseSportProvider):
 
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id, file_override)
         data = response["data"]
-        url = response["url"]
 
         num_events = 0
         if data is not None:
@@ -170,7 +170,6 @@ class EspnProvider(BaseSportProvider):
 
             response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
             data = response["data"]
-            url = response["url"]
 
             num_events = 0
             if data is not None:
@@ -204,10 +203,8 @@ class EspnProvider(BaseSportProvider):
             )
 
             response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
-            data = response["data"]
-            url = response["url"]
-                    
-        return {"data": data, "url": url}
+
+        return response
 
     #
     #  async_call_espn_api()
@@ -224,10 +221,11 @@ class EspnProvider(BaseSportProvider):
             team_id,
             url,
         )
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
 
         if file_override:
             data = await self._async_override_espn_api(sensor_name, team_id, base_url)
-            return {"data": data, "url": url}
+            return {"data": data, "url": url, "timestamp": timestamp}
 
 
         headers = {"User-Agent": self._USER_AGENT, "Accept": "application/ld+json"}
@@ -239,17 +237,17 @@ class EspnProvider(BaseSportProvider):
                         data = await r.json()
                     except json.JSONDecodeError as e:
                         _LOGGER.debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
-                        return {"data": None, "url": url}
+                        return {"data": None, "url": url, "timestamp": timestamp}
                 else:
                     _LOGGER.debug(
                         "%s: API returned status %s: %s", sensor_name, r.status, url
                     )
-                    return {"data": None, "url": url}
+                    return {"data": None, "url": url, "timestamp": timestamp}
         except (aiohttp.ClientError, TimeoutError) as e:
             _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
-            return {"data": None, "url": url}
+            return {"data": None, "url": url, "timestamp": timestamp}
 
-        return {"data": data, "url": url}
+        return {"data": data, "url": url, "timestamp": timestamp}
 
 
     #

@@ -84,7 +84,6 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
         data = response["data"]
-        url = response["url"]
 
         # If event for team not returned, narrow date range and try again
         if has_team(data, team_id) is False:
@@ -101,10 +100,8 @@ class EspnAllLeaguesProvider(EspnProvider):
                     url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
-                    data = response["data"]
-                    url = response["url"]
 
-        return {"data": data, "url": url}
+        return response
 
 
     #

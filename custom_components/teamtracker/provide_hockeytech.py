@@ -8,6 +8,7 @@ import logging
 from typing import TYPE_CHECKING, TypedDict
 
 import aiohttp
+import arrow
 from yarl import URL
 
 from homeassistant.core import HomeAssistant
@@ -300,11 +301,13 @@ class HockeyTechProvider(BaseSportProvider):
         ht_response = await self.async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_id)
         ht_data = ht_response["ht_data"]
         url = ht_response["url"]
+        timestamp = ht_response["timestamp"]
 
         espn_data = self._transform_hockeytech_to_espn(ht_data, league_id)
         return {
             "data": espn_data,
-            "url": url
+            "url": url,
+            "timestamp": timestamp
         }
 
     def _transform_hockeytech_to_espn(self, ht_data: dict, league_id: str) -> dict | None:
@@ -553,6 +556,8 @@ class HockeyTechProvider(BaseSportProvider):
             sensor_name,
             url,
         )
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
         try:
             async with session.get(url, headers=headers) as r:
                 if r.status == 200:
@@ -561,10 +566,10 @@ class HockeyTechProvider(BaseSportProvider):
                     _LOGGER.debug(
                         "%s: HockeyTech API returned status %s", sensor_name, r.status
                     )
-                    return {"ht_data": None, "url": url}
+                    return {"ht_data": None, "url": url, "timestamp": timestamp}
         except (aiohttp.ClientError, TimeoutError) as e:
             _LOGGER.debug("%s: HockeyTech API call failed: %s", sensor_name, e)
-            return {"ht_data": None, "url": url}
+            return {"ht_data": None, "url": url, "timestamp": timestamp}
 
 
         # Strip JSONP wrapper if present
@@ -584,5 +589,6 @@ class HockeyTechProvider(BaseSportProvider):
 
         return {
             "ht_data": ht_data,
-            "url": url
+            "url": url,
+            "timestamp": timestamp
         }

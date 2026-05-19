@@ -7,6 +7,7 @@ import threading
 from unittest.mock import AsyncMock, patch
 
 import aiofiles
+import arrow
 import pytest
 from yarl import URL
 
@@ -36,8 +37,10 @@ async def mock_call_hockeytech_api(hass):
         FILE_NAME = f"tests/tt/hockeytech-{view}.json"
         url = str(URL(base_url).with_query(params))
 
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
         if "api_error" in sensor_name:
-            return {"ht_data": None, "url": url}
+            return {"ht_data": None, "url": url, "timestamp": timestamp}
 
         try:
             with open(FILE_NAME, "r") as f:
@@ -45,12 +48,14 @@ async def mock_call_hockeytech_api(hass):
             return {
                 "ht_data": data,
                 "url": url,
+                "timestamp": timestamp
             }
 
         except FileNotFoundError:
             return {
                 "ht_data": None,
                 "url": url,
+                "timestamp": timestamp
             }
 
     with patch("custom_components.teamtracker.provide_hockeytech.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
@@ -73,8 +78,10 @@ async def mock_call_espn_api(hass):
 
         url = str(URL(base_url).with_query(params))
 
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
         if sensor_name == "api_error":
-            return {"data": None, "url": url}
+            return {"data": None, "url": url, "timestamp": timestamp}
 
         if "schedule" in clean_url:
             file_name = "schedule.json"
@@ -93,9 +100,9 @@ async def mock_call_espn_api(hass):
         try:
             with open(f"{DATA_PATH}{file_name}", "r") as f:
                 data = json.load(f)
-                return {"data": data, "url": url}
+                return {"data": data, "url": url, "timestamp": timestamp}
         except FileNotFoundError:
-            return {"data": None, "url": url}
+            return {"data": None, "url": url, "timestamp": timestamp}
 
     # Patch the actual utility function
     with patch("custom_components.teamtracker.provide_espn.EspnProvider.async_call_espn_api", new_callable=AsyncMock) as mock_espn, \
