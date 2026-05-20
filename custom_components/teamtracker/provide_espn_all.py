@@ -9,6 +9,7 @@ from homeassistant.core import HomeAssistant
 
 from .const import API_LIMIT
 from .provide_espn import EspnProvider
+from .provider_base import BaseSportProvider
 from .utils import has_team, season_slug_to_name
 
 _LOGGER = logging.getLogger(__name__)
@@ -22,6 +23,8 @@ ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 class EspnAllLeaguesProvider(EspnProvider):
     """Provider for ESPN data when league_path is all and team_id is an integer."""
+
+
     #
     #  __init__()
     #    Reuse EspnProvider settings except:
@@ -31,6 +34,30 @@ class EspnAllLeaguesProvider(EspnProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN_ALL_LEAGUES
+
+
+    #
+    #  _get_cache_key()
+    #    Return unique key for espn all calls
+    #
+    def _get_cache_key(self) -> str:
+        """Return cache key"""
+
+        if not self._coordinator:
+            return ""
+
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        conference_id = self._coordinator.conference_id
+        team_id = self._coordinator.team_id
+
+        lang = self._coordinator.get_lang()
+
+        # For "all" leagues, include team_id in cache key since each team
+        # uses different narrow date windows for the scoreboard call.
+        key = self.DATA_PROVIDER + ":" + sport_path + ":" + league_path + ":" + conference_id + ":" + lang + ":" + team_id
+
+        return key
 
 
     #
@@ -121,7 +148,7 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         cache_key = f"{sport_path}:{league_path}:{team_id}"
         today = date.today()
-        cached = self._coordinator.all_team_cache.get(cache_key) # get the class variable
+        cached = BaseSportProvider.all_team_cache.get(cache_key)
 
         if cached is not None and today <= cached["expires"]:
             _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
@@ -169,5 +196,5 @@ class EspnAllLeaguesProvider(EspnProvider):
             "league_map": league_map,
             "expires": next_game_date or today,
         }
-        self._coordinator.all_team_cache[cache_key] = result  #update the class variable
+        BaseSportProvider.all_team_cache[cache_key] = result
         return result

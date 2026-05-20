@@ -165,6 +165,26 @@ class HockeyTechProvider(BaseSportProvider):
 
 
     #
+    #  _get_cache_key()
+    #    Return unique key for hockteytech calls
+    #
+    def _get_cache_key(self) -> str:
+        """Return cache key"""
+
+        if not self._coordinator:
+            return ""
+
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        conference_id = self._coordinator.conference_id
+
+        lang = self._coordinator.get_lang()
+
+        key = self.DATA_PROVIDER + ":" + sport_path + ":" + league_path + ":" + conference_id + ":" + lang
+
+        return key
+
+    #
     # Return a list of team dictionaries
     #  [{
     #   "id": team_id,

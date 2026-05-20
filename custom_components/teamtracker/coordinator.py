@@ -1,8 +1,6 @@
 """ TeamTracker Data Coordinator """
-from datetime import datetime, timezone
 import locale
 import logging
-from typing import ClassVar
 
 from async_timeout import timeout
 
@@ -22,6 +20,7 @@ from .const import (
 )
 from .models import TeamTrackerValues
 from .parser_factory import get_parser
+from .provider_base import BaseSportProvider
 from .provider_factory import get_provider
 from .utils import is_integer
 
@@ -30,14 +29,6 @@ _LOGGER = logging.getLogger(__name__)
 
 class TeamTrackerCoordinator(DataUpdateCoordinator):
     """Class to manage fetching TeamTracker data."""
-
-# Stores API data for sharing across sensors
-#  key = "{sport_path}:{league_path}:{conference_id}:{lang}"+":{team_id}" if league_path "all"
-    data_cache: ClassVar[dict] = {}  # {key: {cache_data, cache_url, cache_time}}
-
-# Stores team information when league_path is all
-#  key = "{sport}:{league}:{team_id}"
-    all_team_cache: ClassVar[dict] = {}  # {key: {next_game_date, league_map, expires}}
 
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
@@ -101,14 +92,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         self.team_id = team_id
         self.conference_id = conference_id
 
-        lang = self.get_lang()
-        key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all" and is_integer(self.team_id):
-            key += ":" + team_id
-
-        if key in TeamTrackerCoordinator.data_cache:
-            TeamTrackerCoordinator.data_cache.pop(key, None)
-            
         self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
 
 
@@ -116,16 +99,14 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
     #  DataUpdateCoordinator Call Tree
     #
     #  _async_update_data() - Top-level method called from HA to update sensor, controls refresh rate
-    #    async_update_sport_data() - Determines to use cached data or API call (if exprired)
-    #      async_fetch_scoreboard_data() - Gets data from data providers
-    #    async_update_values() - Updates sensor values using data returned by API or in cache
-    #      async_process_event() - Parses ESPN event structure and populates values for sensor
+    #    async_update_sport_data() - Provider method to return response from data provider (cached or real-time)
+    #    async_update_values() - Returns sensor values based on response returned by data provider
     #
     async def _async_update_data(self):
         """Top-level method called from HA to update sensor, controls refresh rate."""
         async with timeout(DEFAULT_TIMEOUT):
             try:
-                response = await self.async_update_sport_data()
+                response = await self.provider.async_update_sport_data()
                 values = await self.async_update_values(response)
 
                 # update the interval based on flag
@@ -145,55 +126,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 _LOGGER.debug("%s: Additional information: %s", self.name, str(error))
                 raise UpdateFailed(error) from error
             return values
-
-#
-#  async_update_sport_data()
-#
-    async def async_update_sport_data(self) -> TeamTrackerValues:
-        """Determines to use cached data or API call (if exprired)"""
-
-        #
-        #  Return cached response if not expired
-        #
-        key = self._get_cache_key()
-        response = TeamTrackerCoordinator.data_cache.get(key, {}).get("response", None)
-        if response:
-            expiration = datetime.fromisoformat(response["timestamp"]) + self.update_interval
-            now = datetime.now(timezone.utc)
-
-            if now < expiration:
-                response.update({"cache_flag": True}) # Add key to indicate cache was used
-                return response
-
-        #
-        #  Call API to get refreshed response and cache it
-        #
-        response = await self.provider.async_fetch_scoreboard_data(self.hass, self.get_lang())
-        if response["data"] is not None:
-            TeamTrackerCoordinator.data_cache.update({key: {"response": response}})
-
-        return response
-
-
-#
-#  _get_cache_key()
-#
-    def _get_cache_key(self) -> str:
-        """Return cache key"""
-
-        sport_path = self.sport_path
-        league_path = self.league_path
-        conference_id = self.conference_id
-
-        lang = self.get_lang()
-
-        # For "all" leagues, include team_id in cache key since each team
-        # uses different narrow date windows for the scoreboard call.
-        key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all" and is_integer(self.team_id):
-            key += ":" + self.team_id
-
-        return key
 
 
     #
@@ -240,7 +172,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         league_map = {}
         if (self.league_path) == "all":
             cache_key = f"{self.sport_path}:{self.league_path}:{self.team_id}"
-            team_cache = TeamTrackerCoordinator.all_team_cache.get(cache_key)
+            team_cache = BaseSportProvider.all_team_cache.get(cache_key)
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 

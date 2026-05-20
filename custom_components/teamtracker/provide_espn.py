@@ -39,6 +39,28 @@ class EspnProvider(BaseSportProvider):
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
 
+
+    #
+    #  _get_cache_key()
+    #    Return unique key for espn calls
+    #
+    def _get_cache_key(self) -> str:
+        """Return cache key"""
+
+        if not self._coordinator:
+            return ""
+
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        conference_id = self._coordinator.conference_id
+
+        lang = self._coordinator.get_lang()
+
+        key = self.DATA_PROVIDER + ":" + sport_path + ":" + league_path + ":" + conference_id + ":" + lang
+
+        return key
+
+
     #
     #  async_fetch_team_data()
     #    Return a list of team dictionaries
@@ -98,6 +120,7 @@ class EspnProvider(BaseSportProvider):
             groups = data.get("team", {}).get("groups") or {}
             return str(groups.get("id", ""))
         return str("")
+
 
 
     #
