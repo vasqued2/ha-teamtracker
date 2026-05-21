@@ -137,6 +137,25 @@ Please avoid introducing live API dependencies into tests.
 
 ---
 
+## Code Quality Requirements
+
+All submissions should pass the project's automated quality checks before review.
+
+This includes:
+- `pylint`
+- `mypy`
+- `isort`
+- pytest regression tests
+
+Contributions should:
+- include proper type annotations where practical
+- avoid introducing new lint violations
+- follow existing import ordering and formatting conventions
+
+Please run the same checks locally before submitting a PR whenever possible.
+
+---
+
 ## Snapshot Testing
 
 This project uses `syrupy` snapshot testing to validate sensor outputs across many sports and game states.
