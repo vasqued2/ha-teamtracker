@@ -8,6 +8,7 @@ from typing import Any
 from unittest.mock import AsyncMock, patch
 
 import aiofiles
+import arrow
 from freezegun import freeze_time
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -32,18 +33,20 @@ async def mock_call_espn_api(hass):
 
         url = str(URL(base_url).with_query(params))
 
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
         if sensor_name == "api_error":
-            return {"data": None, "url": url}
+            return {"data": None, "url": url, "timestamp": timestamp}
 
         FILE_NAME = "tests/tt/sample.json"
 
         try:
             with open(f"{FILE_NAME}", "r") as f:
                 data = json.load(f)
-                return {"data": data, "url": url}
+                return {"data": data, "url": url, "timestamp": timestamp}
 
         except FileNotFoundError:
-            return {"data": None, "url": url}
+            return {"data": None, "url": url, "timestamp": timestamp}
 
 
     # Patch the actual utility function

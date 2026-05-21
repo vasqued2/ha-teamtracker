@@ -23,7 +23,6 @@ from homeassistant.helpers.entity_registry import (  # pylint: disable=reimporte
 )
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .clear_values import async_clear_values
 from .const import (
     API_LIMIT,
     CONF_API_LANGUAGE,
@@ -46,6 +45,7 @@ from .const import (
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator
+from .provider_base import BaseSportProvider
 from .utils import async_get_value, has_team, is_integer
 
 _LOGGER = logging.getLogger(__name__)
@@ -171,8 +171,8 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Only remove service if this is the last entry
         if not domain_data:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
-            TeamTrackerCoordinator.data_cache.clear()
-            TeamTrackerCoordinator.all_team_cache.clear()
+            BaseSportProvider.data_cache.clear()
+            BaseSportProvider.all_team_cache.clear()
 
     return unload_ok
 

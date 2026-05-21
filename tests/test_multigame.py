@@ -4,7 +4,6 @@ import logging
 
 import aiofiles
 
-from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import DEFAULT_LAST_UPDATE, DEFAULT_LOGO
 from custom_components.teamtracker.models import TeamTrackerValues
 from custom_components.teamtracker.parse_espn import EspnParser

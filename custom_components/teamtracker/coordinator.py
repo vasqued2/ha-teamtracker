@@ -1,10 +1,7 @@
 """ TeamTracker Data Coordinator """
-from datetime import datetime, timezone
 import locale
 import logging
-from typing import ClassVar
 
-import arrow
 from async_timeout import timeout
 
 from homeassistant.config_entries import ConfigEntry
@@ -23,6 +20,7 @@ from .const import (
 )
 from .models import TeamTrackerValues
 from .parser_factory import get_parser
+from .provider_base import BaseSportProvider
 from .provider_factory import get_provider
 from .utils import is_integer
 
@@ -32,18 +30,8 @@ _LOGGER = logging.getLogger(__name__)
 class TeamTrackerCoordinator(DataUpdateCoordinator):
     """Class to manage fetching TeamTracker data."""
 
-# Stores API data for sharing across sensors
-#  key = "{sport_path}:{league_path}:{conference_id}:{lang}"+":{team_id}" if league_path "all"
-    data_cache: ClassVar[dict] = {}  # {key: {cache_data, cache_url, cache_time}}
-
-# Stores team information when league_path is all
-#  key = "{sport}:{league}:{team_id}"
-    all_team_cache: ClassVar[dict] = {}  # {key: {next_game_date, league_map, expires}}
-
     def __init__(self, hass, config, entry: ConfigEntry=None):
         """Initialize."""
-        self.api_url = ""
-
         self.name = config[CONF_NAME]
         self.team_id = config[CONF_TEAM_ID]
         self.league_id = config[CONF_LEAGUE_ID]
@@ -104,14 +92,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         self.team_id = team_id
         self.conference_id = conference_id
 
-        lang = self.get_lang()
-        key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all" and is_integer(self.team_id):
-            key += ":" + team_id
-
-        if key in TeamTrackerCoordinator.data_cache:
-            TeamTrackerCoordinator.data_cache.pop(key, None)
-            
         self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
 
 
@@ -119,121 +99,44 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
     #  DataUpdateCoordinator Call Tree
     #
     #  _async_update_data() - Top-level method called from HA to update sensor, controls refresh rate
-    #    async_update_sport_data() - Determines to use cached data or API call (if exprired)
-    #      async_call_sport_apis() - Calls appropriate set of APIs based on sport and league
-    #        async_fetch_scoreboard_data() - Gets data from ESPN APIs for specified league
-    #      async_update_values() - Updates sensor values using data returned by API or in cache
-    #        async_process_event() - Parses ESPN event structure and populates values for sensor
+    #    async_update_sport_data() - Provider method to return response from data provider (cached or real-time)
+    #    async_update_values() - Returns sensor values based on response returned by data provider
     #
     async def _async_update_data(self):
         """Top-level method called from HA to update sensor, controls refresh rate."""
         async with timeout(DEFAULT_TIMEOUT):
             try:
-                data = await self.async_update_sport_data()
+                response = await self.provider.async_update_sport_data()
+                values = await self.async_update_values(response)
 
                 # update the interval based on flag
-                if data.private_fast_refresh:
-                    if self.update_interval != self.provider.RAPID_REFRESH_RATE:
-                        self.update_interval = self.provider.RAPID_REFRESH_RATE
-                        _LOGGER.debug(
-                            "%s: Switching to rapid refresh rate (%s)", self.name, self.update_interval
-                        )
+                if values.private_fast_refresh:
+                    refresh_rate = self.provider.RAPID_REFRESH_RATE
                 else:
-                    if self.update_interval != self.provider.DEFAULT_REFRESH_RATE:
-                        self.update_interval = self.provider.DEFAULT_REFRESH_RATE
-                        _LOGGER.debug(
-                            "%s: Switching to default refresh rate (%s)", self.name, self.update_interval
-                        )
+                    refresh_rate = self.provider.DEFAULT_REFRESH_RATE
+
+                if self.update_interval != refresh_rate:
+                    self.update_interval = refresh_rate
+                    _LOGGER.debug(
+                        "%s: Updating to refresh rate (%s)", self.name, self.update_interval
+                    )
             except Exception as error:
                 _LOGGER.debug("%s: Error updating data: %s", self.name, error)
                 _LOGGER.debug("%s: Error type: %s", self.name, type(error).__name__)
                 _LOGGER.debug("%s: Additional information: %s", self.name, str(error))
                 raise UpdateFailed(error) from error
-            data_dict = {}
-            data_dict.update(data.to_dict_all_attr())
-            return data
-
-#
-#  async_update_sport_data()
-#
-    async def async_update_sport_data(self) -> TeamTrackerValues:
-        """Determines to use cached data or API call (if exprired)"""
-
-        sport_path = self.sport_path
-        league_path = self.league_path
-        conference_id = self.conference_id
-
-        lang = self.get_lang()
-
-        # For "all" leagues, include team_id in cache key since each team
-        # uses different narrow date windows for the scoreboard call.
-        key = sport_path + ":" + league_path + ":" + conference_id + ":" + lang
-        if league_path == "all" and is_integer(self.team_id):
-            key += ":" + self.team_id
-
-        #
-        #  Use cache if not expired
-        #
-        dc = TeamTrackerCoordinator.data_cache.get(key, None)
-        if dc:
-            cache_time = dc.get("cache_time", None)
-
-            expiration = (
-                datetime.fromisoformat(cache_time) + self.update_interval
-            )
-            now = datetime.now(timezone.utc)
-
-            if now < expiration:
-                data = dc.get("cache_data", None)
-                self.api_url = dc.get("cache_url", None)
-
-                values = await self.async_update_values(data)
-
-                if values.api_message:
-                    values.api_message = "Cached data: " + values.api_message
-                else:
-                    values.api_message = "Cached data"
-
-                values_dict = {}
-                values_dict.update(values.to_dict_all_attr())
-                return values
-
-        data = await self.async_call_sport_apis()
-        values = await self.async_update_values(data)
-
-        if data is not None:
-            TeamTrackerCoordinator.data_cache[key] = {
-                "cache_data": data,
-                "cache_url": self.api_url,
-                "cache_time": values.last_update
-            }
-
-        values_dict = {}
-        values_dict.update(values.to_dict_all_attr())
-        return values
-
-
-
-    #
-    #  async_call_sport_apis()
-    #    This is the API dispatcher, calls to new non-ESPN API's should be added here based on league_path.
-    #      Response data should be formatted as an ESPN event.
-    #
-    async def async_call_sport_apis(self) -> dict:
-        """Calls appropriate set of APIs based on sport and league."""
-
-        lang = self.get_lang()
-        response = await self.provider.async_fetch_scoreboard_data(self.hass, lang)
-
-        self.api_url = response["url"]
-        return response["data"]
+            return values
 
 
     #
     #  async_update_values()
     #
-    async def async_update_values(self, data) -> TeamTrackerValues:
+    async def async_update_values(self, provider_response) -> TeamTrackerValues:
         """Updates sensor values using data returned by API or in cache"""
+
+        data = provider_response["data"]
+        url = provider_response["url"]
+        timestamp = provider_response["timestamp"]
 
         sensor_name = self.name
         league_id = self.league_id.upper()
@@ -241,47 +144,55 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         lang = self.get_lang()
 
         # Populate base values that do not need API data
-        tt_values = TeamTrackerValues()
+        values = TeamTrackerValues()
         if self.sport_path.lower() == "hockeytech":
-            tt_values.sport = "hockey"
+            values.sport = "hockey"
         else:
-            tt_values.sport = self.sport_path
-        tt_values.sport_path = self.sport_path
-        tt_values.league = league_id
-        tt_values.league_path = self.league_path
-        tt_values.league_logo = DEFAULT_LOGO
-        tt_values.team_abbr = team_id
-        tt_values.state = "NOT_FOUND"
-        tt_values.last_update = arrow.now().format(arrow.FORMAT_W3C)
-        tt_values.private_fast_refresh = False
-        tt_values.api_url = self.api_url
-        tt_values.api_message = None
+            values.sport = self.sport_path
+        values.sport_path = self.sport_path
+        values.league = league_id
+        values.league_path = self.league_path
+        values.league_logo = DEFAULT_LOGO
+        values.team_abbr = team_id
+        values.state = "NOT_FOUND"
+        values.last_update = timestamp
+        values.private_fast_refresh = False
+        values.api_url = url
+        values.api_message = None
 
         # If there was an error (i.e. 404) w/ the API call...
         if data is None:
-            tt_values.api_message = "API error, no data returned"
+            values.api_message = "API error, no data returned"
             _LOGGER.warning(
                 "%s: API did not return any data for team '%s'", sensor_name, team_id
             )
-            return tt_values
+            return values
 
         # When league_path is "all", parser needs league_map{} to do manual lookup
         league_map = {}
         if (self.league_path) == "all":
             cache_key = f"{self.sport_path}:{self.league_path}:{self.team_id}"
-            team_cache = TeamTrackerCoordinator.all_team_cache.get(cache_key)
+            team_cache = BaseSportProvider.all_team_cache.get(cache_key)
             if team_cache:
                 league_map = team_cache.get("league_map", {})
 
-        tt_values = await self.parser.async_parse_response(
-            tt_values,
+        # Parse the data returned from the API and get the values
+        values = await self.parser.async_parse_response(
+            values,
             data,
             league_map,
             lang,
         )
 
+        # "cache_flag" key only exists in cached data, so update the API message if appropriate
+        if provider_response.get("cache_flag", False):
+            if values.api_message:
+                values.api_message = "Cached data: " + values.api_message
+            else:
+                values.api_message = "Cached data"
+
         # If NOT_FOUND, try to get abbr w/ another API to make message easier to read
-        if (tt_values.state == "NOT_FOUND" and 
+        if (values.state == "NOT_FOUND" and 
             is_integer(team_id)
         ):
             response = await self.provider.async_fetch_team_data(self.hass, self.sport_path, self.league_path)
@@ -294,9 +205,9 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
             else:
                 team_abbr = None
 
-            tt_values.team_id = team_id
+            values.team_id = team_id
             if team_abbr:
-                tt_values.team_abbr = team_abbr
+                values.team_abbr = team_abbr
 
-        return tt_values
+        return values
 

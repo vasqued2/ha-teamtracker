@@ -5,7 +5,6 @@ import aiofiles
 from freezegun import freeze_time
 import pytest
 
-from custom_components.teamtracker.clear_values import async_clear_values
 from custom_components.teamtracker.const import (
     DEFAULT_KICKOFF_IN,
     DEFAULT_LAST_UPDATE,
