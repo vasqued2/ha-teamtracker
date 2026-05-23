@@ -1,0 +1,119 @@
+[
+  {
+    "id": 0,
+    "name": "TBD",
+    "abbreviation": "TBD",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": []
+  },
+  {
+    "id": 83579,
+    "name": "Hamilton Tiger-Cats",
+    "abbreviation": "HAM",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://ticats.ca/tickets",
+      "fr": "https://ticats.ca/tickets"
+    }
+  },
+  {
+    "id": 86680,
+    "name": "Montreal Alouettes",
+    "abbreviation": "MTL",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://en.montrealalouettes.com/tickets",
+      "fr": "https://www.montrealalouettes.com/tickets"
+    }
+  },
+  {
+    "id": 88019,
+    "name": "Ottawa RedBlacks",
+    "abbreviation": "OTT",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.ottawaredblacks.com/single-game-information/",
+      "fr": "https://fr.ottawaredblacks.com/tickets"
+    }
+  },
+  {
+    "id": 93775,
+    "name": "BC Lions",
+    "abbreviation": "BC",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.bclions.com/tickets",
+      "fr": "https://www.bclions.com/tickets"
+    }
+  },
+  {
+    "id": 106752,
+    "name": "Saskatchewan Roughriders",
+    "abbreviation": "SSK",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.riderville.com/tickets",
+      "fr": "https://www.riderville.com/tickets"
+    }
+  },
+  {
+    "id": 110380,
+    "name": "Winnipeg Blue Bombers",
+    "abbreviation": "WPG",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.bluebombers.com/tickets",
+      "fr": "https://www.bluebombers.com/tickets"
+    }
+  },
+  {
+    "id": 112939,
+    "name": "Calgary Stampeders",
+    "abbreviation": "CGY",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.stampeders.com/tickets",
+      "fr": "https://www.stampeders.com/tickets"
+    }
+  },
+  {
+    "id": 114347,
+    "name": "Edmonton Elks",
+    "abbreviation": "EDM",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.goelks.com/tickets",
+      "fr": "https://www.goelks.com/tickets"
+    }
+  },
+  {
+    "id": 122345,
+    "name": "Toronto Argonauts",
+    "abbreviation": "TOR",
+    "wins": 0,
+    "draw": 0,
+    "loss": 0,
+    "ticketUrls": {
+      "en": "https://www.argonauts.ca/tickets",
+      "fr": "https://www.argonauts.ca/tickets"
+    }
+  }
+]

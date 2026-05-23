@@ -1,0 +1,3099 @@
+[
+  {
+    "id": 1420009,
+    "status": "complete",
+    "name": "Preseason Week 1",
+    "type": "PRE",
+    "number": 0,
+    "startDate": "2026-05-18T00:00:00+00:00",
+    "endDate": "2026-05-18T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419665,
+        "date": "2026-05-18T19:00:00+00:00",
+        "status": "complete",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 20
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 15
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 2,
+          "home": 2
+        },
+        "possession": "None",
+        "cflId": 6582,
+        "clock": "00:00",
+        "winner": 112939,
+        "isHidden": false,
+        "markets": {
+          "away": {
+            "value": "+850",
+            "handicap": ""
+          },
+          "home": {
+            "value": "-6667",
+            "handicap": ""
+          }
+        },
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420010,
+    "status": "playing",
+    "name": "Preseason Week 2",
+    "type": "PRE",
+    "number": 0,
+    "startDate": "2026-05-22T00:00:00+00:00",
+    "endDate": "2026-05-23T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419666,
+        "date": "2026-05-22T23:00:00+00:00",
+        "status": "complete",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 12
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 27
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 2,
+          "home": 1
+        },
+        "possession": "None",
+        "cflId": 6583,
+        "clock": "00:00",
+        "winner": 88019,
+        "isHidden": false,
+        "markets": {
+          "away": {
+            "value": "+275",
+            "handicap": ""
+          },
+          "home": {
+            "value": "-475",
+            "handicap": ""
+          }
+        },
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419667,
+        "date": "2026-05-23T20:00:00+00:00",
+        "status": "third_quarter",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 7
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": 3,
+        "timeouts": {
+          "away": 2,
+          "home": 2
+        },
+        "possession": "Home",
+        "cflId": 6584,
+        "clock": "11:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {
+          "away": {
+            "value": "+155",
+            "handicap": ""
+          },
+          "home": {
+            "value": "-220",
+            "handicap": ""
+          }
+        },
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419668,
+        "date": "2026-05-23T21:00:00+00:00",
+        "status": "first_quarter",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 7
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 10
+        },
+        "activePeriod": 1,
+        "timeouts": {
+          "away": 2,
+          "home": 2
+        },
+        "possession": "Home",
+        "cflId": 6586,
+        "clock": "00:34",
+        "winner": null,
+        "isHidden": false,
+        "markets": {
+          "away": {
+            "value": "-115",
+            "handicap": ""
+          },
+          "home": {
+            "value": "-120",
+            "handicap": ""
+          }
+        },
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419669,
+        "date": "2026-05-23T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6585,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {
+          "away": {
+            "value": "+195",
+            "handicap": ""
+          },
+          "home": {
+            "value": "-290",
+            "handicap": ""
+          }
+        },
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420011,
+    "status": "scheduled",
+    "name": "Preseason Week 3",
+    "type": "PRE",
+    "number": 0,
+    "startDate": "2026-05-29T00:00:00+00:00",
+    "endDate": "2026-05-30T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419671,
+        "date": "2026-05-29T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6587,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419670,
+        "date": "2026-05-29T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6588,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419672,
+        "date": "2026-05-30T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6589,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419673,
+        "date": "2026-05-30T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6590,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420012,
+    "status": "scheduled",
+    "name": "Week 1",
+    "type": "REG",
+    "number": 1,
+    "startDate": "2026-06-04T00:00:00+00:00",
+    "endDate": "2026-06-06T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419674,
+        "date": "2026-06-04T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6591,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419675,
+        "date": "2026-06-06T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6592,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419676,
+        "date": "2026-06-06T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6593,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420013,
+    "status": "scheduled",
+    "name": "Week 2",
+    "type": "REG",
+    "number": 2,
+    "startDate": "2026-06-12T00:00:00+00:00",
+    "endDate": "2026-06-13T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419677,
+        "date": "2026-06-12T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6594,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419678,
+        "date": "2026-06-12T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6595,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419679,
+        "date": "2026-06-13T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6596,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420014,
+    "status": "scheduled",
+    "name": "Week 3",
+    "type": "REG",
+    "number": 3,
+    "startDate": "2026-06-19T00:00:00+00:00",
+    "endDate": "2026-06-20T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419680,
+        "date": "2026-06-19T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6597,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419681,
+        "date": "2026-06-20T17:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6598,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419682,
+        "date": "2026-06-20T20:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6599,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419683,
+        "date": "2026-06-20T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6600,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420015,
+    "status": "scheduled",
+    "name": "Week 4",
+    "type": "REG",
+    "number": 4,
+    "startDate": "2026-06-26T00:00:00+00:00",
+    "endDate": "2026-06-28T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419684,
+        "date": "2026-06-26T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6601,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419685,
+        "date": "2026-06-27T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6602,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419686,
+        "date": "2026-06-27T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6603,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419687,
+        "date": "2026-06-28T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6604,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420016,
+    "status": "scheduled",
+    "name": "Week 5",
+    "type": "REG",
+    "number": 5,
+    "startDate": "2026-07-03T00:00:00+00:00",
+    "endDate": "2026-07-05T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419688,
+        "date": "2026-07-03T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6605,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419689,
+        "date": "2026-07-03T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6606,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419690,
+        "date": "2026-07-04T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6607,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419691,
+        "date": "2026-07-05T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6608,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420017,
+    "status": "scheduled",
+    "name": "Week 6",
+    "type": "REG",
+    "number": 6,
+    "startDate": "2026-07-10T00:00:00+00:00",
+    "endDate": "2026-07-12T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419692,
+        "date": "2026-07-10T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6609,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419693,
+        "date": "2026-07-11T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6610,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419694,
+        "date": "2026-07-11T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6611,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419695,
+        "date": "2026-07-12T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6612,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420018,
+    "status": "scheduled",
+    "name": "Week 7",
+    "type": "REG",
+    "number": 7,
+    "startDate": "2026-07-18T00:00:00+00:00",
+    "endDate": "2026-07-19T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419696,
+        "date": "2026-07-18T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6613,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419697,
+        "date": "2026-07-18T20:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6614,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419698,
+        "date": "2026-07-18T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6615,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419699,
+        "date": "2026-07-19T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6616,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420019,
+    "status": "scheduled",
+    "name": "Week 8",
+    "type": "REG",
+    "number": 8,
+    "startDate": "2026-07-24T00:00:00+00:00",
+    "endDate": "2026-07-26T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419700,
+        "date": "2026-07-24T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6617,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419701,
+        "date": "2026-07-25T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6618,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419702,
+        "date": "2026-07-25T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6619,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419703,
+        "date": "2026-07-26T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6620,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420020,
+    "status": "scheduled",
+    "name": "Week 9",
+    "type": "REG",
+    "number": 9,
+    "startDate": "2026-07-31T00:00:00+00:00",
+    "endDate": "2026-08-01T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419704,
+        "date": "2026-07-31T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6621,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419705,
+        "date": "2026-07-31T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6622,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419706,
+        "date": "2026-08-01T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6623,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419707,
+        "date": "2026-08-01T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6624,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420021,
+    "status": "scheduled",
+    "name": "Week 10",
+    "type": "REG",
+    "number": 10,
+    "startDate": "2026-08-06T00:00:00+00:00",
+    "endDate": "2026-08-08T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419708,
+        "date": "2026-08-06T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6625,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419709,
+        "date": "2026-08-08T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6626,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419710,
+        "date": "2026-08-08T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6627,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419711,
+        "date": "2026-08-08T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6628,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420022,
+    "status": "scheduled",
+    "name": "Week 11",
+    "type": "REG",
+    "number": 11,
+    "startDate": "2026-08-14T00:00:00+00:00",
+    "endDate": "2026-08-15T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419712,
+        "date": "2026-08-14T01:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6629,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419713,
+        "date": "2026-08-15T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6630,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419714,
+        "date": "2026-08-15T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6631,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419715,
+        "date": "2026-08-15T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6632,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420023,
+    "status": "scheduled",
+    "name": "Week 12",
+    "type": "REG",
+    "number": 12,
+    "startDate": "2026-08-20T00:00:00+00:00",
+    "endDate": "2026-08-23T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419716,
+        "date": "2026-08-20T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6633,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419717,
+        "date": "2026-08-22T01:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6634,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419718,
+        "date": "2026-08-22T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6635,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419719,
+        "date": "2026-08-23T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6636,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420024,
+    "status": "scheduled",
+    "name": "Week 13",
+    "type": "REG",
+    "number": 13,
+    "startDate": "2026-08-29T00:00:00+00:00",
+    "endDate": "2026-08-30T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419720,
+        "date": "2026-08-29T00:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6637,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419721,
+        "date": "2026-08-29T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6638,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419722,
+        "date": "2026-08-29T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6639,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419723,
+        "date": "2026-08-30T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6640,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420025,
+    "status": "scheduled",
+    "name": "Week 14",
+    "type": "REG",
+    "number": 14,
+    "startDate": "2026-09-04T00:00:00+00:00",
+    "endDate": "2026-09-07T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419724,
+        "date": "2026-09-04T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6641,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419725,
+        "date": "2026-09-06T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6642,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419726,
+        "date": "2026-09-07T18:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6643,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419727,
+        "date": "2026-09-07T22:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6644,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420026,
+    "status": "scheduled",
+    "name": "Week 15",
+    "type": "REG",
+    "number": 15,
+    "startDate": "2026-09-12T00:00:00+00:00",
+    "endDate": "2026-09-13T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419728,
+        "date": "2026-09-12T17:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6645,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419729,
+        "date": "2026-09-12T20:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6646,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419730,
+        "date": "2026-09-12T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6647,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419731,
+        "date": "2026-09-13T02:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6648,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420027,
+    "status": "scheduled",
+    "name": "Week 16",
+    "type": "REG",
+    "number": 16,
+    "startDate": "2026-09-18T00:00:00+00:00",
+    "endDate": "2026-09-19T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419732,
+        "date": "2026-09-18T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6649,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419733,
+        "date": "2026-09-19T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6650,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419734,
+        "date": "2026-09-19T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6651,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420028,
+    "status": "scheduled",
+    "name": "Week 17",
+    "type": "REG",
+    "number": 17,
+    "startDate": "2026-09-26T00:00:00+00:00",
+    "endDate": "2026-09-26T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419735,
+        "date": "2026-09-26T00:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6652,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419736,
+        "date": "2026-09-26T02:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6653,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419737,
+        "date": "2026-09-26T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6654,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419738,
+        "date": "2026-09-26T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6655,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420029,
+    "status": "scheduled",
+    "name": "Week 18",
+    "type": "REG",
+    "number": 18,
+    "startDate": "2026-10-02T00:00:00+00:00",
+    "endDate": "2026-10-03T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419739,
+        "date": "2026-10-02T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6656,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419740,
+        "date": "2026-10-03T01:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6657,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419741,
+        "date": "2026-10-03T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6658,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419742,
+        "date": "2026-10-03T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6659,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420030,
+    "status": "scheduled",
+    "name": "Week 19",
+    "type": "REG",
+    "number": 19,
+    "startDate": "2026-10-09T00:00:00+00:00",
+    "endDate": "2026-10-12T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419743,
+        "date": "2026-10-09T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6660,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419744,
+        "date": "2026-10-10T02:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6661,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419745,
+        "date": "2026-10-10T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6662,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419746,
+        "date": "2026-10-12T17:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6663,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420031,
+    "status": "scheduled",
+    "name": "Week 20",
+    "type": "REG",
+    "number": 20,
+    "startDate": "2026-10-16T00:00:00+00:00",
+    "endDate": "2026-10-17T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419747,
+        "date": "2026-10-16T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6664,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419748,
+        "date": "2026-10-17T01:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6665,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419749,
+        "date": "2026-10-17T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6666,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419750,
+        "date": "2026-10-17T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 112939,
+          "name": "Calgary Stampeders",
+          "shortName": "CGY",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6667,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1420032,
+    "status": "scheduled",
+    "name": "Week 21",
+    "type": "REG",
+    "number": 21,
+    "startDate": "2026-10-23T00:00:00+00:00",
+    "endDate": "2026-10-24T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13419751,
+        "date": "2026-10-23T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 122345,
+          "name": "Toronto Argonauts",
+          "shortName": "TOR",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 86680,
+          "name": "Montreal Alouettes",
+          "shortName": "MTL",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6668,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419752,
+        "date": "2026-10-24T02:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 93775,
+          "name": "BC Lions",
+          "shortName": "BC",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 110380,
+          "name": "Winnipeg Blue Bombers",
+          "shortName": "WPG",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6669,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419754,
+        "date": "2026-10-24T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 106752,
+          "name": "Saskatchewan Roughriders",
+          "shortName": "SSK",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 114347,
+          "name": "Edmonton Elks",
+          "shortName": "EDM",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6671,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13419753,
+        "date": "2026-10-24T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 83579,
+          "name": "Hamilton Tiger-Cats",
+          "shortName": "HAM",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 88019,
+          "name": "Ottawa RedBlacks",
+          "shortName": "OTT",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": 6670,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1425627,
+    "status": "scheduled",
+    "name": "Eastern Semi Final",
+    "type": "POST",
+    "number": 22,
+    "startDate": "2026-10-31T00:00:00+00:00",
+    "endDate": "2026-10-31T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13463058,
+        "date": "2026-10-31T19:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": null,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13463062,
+        "date": "2026-10-31T22:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": null,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1425629,
+    "status": "scheduled",
+    "name": "Eastern Final",
+    "type": "POST",
+    "number": 24,
+    "startDate": "2026-11-07T00:00:00+00:00",
+    "endDate": "2026-11-07T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13463064,
+        "date": "2026-11-07T20:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": null,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      },
+      {
+        "id": 13463065,
+        "date": "2026-11-07T23:30:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": null,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  },
+  {
+    "id": 1425631,
+    "status": "scheduled",
+    "name": "113th Grey Cup",
+    "type": "POST",
+    "number": 26,
+    "startDate": "2026-11-15T00:00:00+00:00",
+    "endDate": "2026-11-15T23:59:00+00:00",
+    "tournaments": [
+      {
+        "id": 13463068,
+        "date": "2026-11-15T23:00:00+00:00",
+        "status": "scheduled",
+        "homeSquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "awaySquad": {
+          "id": 0,
+          "name": "TBD",
+          "shortName": "TBD",
+          "score": 0
+        },
+        "activePeriod": null,
+        "timeouts": {
+          "away": 0,
+          "home": 0
+        },
+        "possession": "None",
+        "cflId": null,
+        "clock": "00:00",
+        "winner": null,
+        "isHidden": false,
+        "markets": {},
+        "marketsBCLC": []
+      }
+    ]
+  }
+]

@@ -26,6 +26,43 @@ def snapshot(snapshot):
     return snapshot.use_extension(CustomDirectoryExtension)
 
 @pytest.fixture
+async def mock_call_cflscoreboard_api(hass):
+    """Global fixture to mock the CFL Scoreboard API and return local JSON data."""
+    
+    # Path to your test data
+    DATA_PATH = "tests/tt/"
+
+    async def _get_mock_api_data(hass, base_url, params, sensor_name, team_id, file_override=False):
+        """Helper to load local files based on URL logic."""
+
+        clean_url = base_url.split('?')[0]
+        assert clean_url == base_url
+
+        url = str(URL(base_url).with_query(params))
+
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
+        if sensor_name == "api_error":
+            return {"data": None, "url": url, "timestamp": timestamp}
+
+        if "squads" in clean_url:
+            file_name = "cflscoreboard-squads.json"
+        else:
+            file_name = "cflscoreboard-rounds.json"
+
+        try:
+            with open(f"{DATA_PATH}{file_name}", "r") as f:
+                data = json.load(f)
+                return {"data": data, "url": url, "timestamp": timestamp}
+        except FileNotFoundError:
+            return {"data": None, "url": url, "timestamp": timestamp}
+
+    # Patch the actual utility function
+    with patch("custom_components.teamtracker.provide_cflscoreboard.CflScoreboardProvider.async_call_cflscoreboard_api", new_callable=AsyncMock) as mock_cfl:
+        mock_cfl.side_effect = _get_mock_api_data
+        yield mock_cfl
+
+@pytest.fixture
 async def mock_call_hockeytech_api(hass):
     """Global fixture to mock the HockeyTech API and return local JSON data."""
     
