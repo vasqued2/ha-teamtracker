@@ -16,7 +16,7 @@
     'league': 'XXX',
     'league_logo': 'https://cdn0.iconfinder.com/data/icons/shift-interfaces/32/Error-512.png',
     'league_name': 'Canadian Football League',
-    'league_path': 'cfl',
+    'league_path': 'INVALID_LEAGUE_PATH',
     'location': None,
     'odds': 'TOR +155',
     'on_first': None,

@@ -30,13 +30,6 @@ class CflScoreboardParser(BaseSportParser):
     def __init__(self) -> None:
         # Define the attributes that must be available on all providers
         super().__init__()
-        self._sensor_name = ""
-        self._sport_path = ""
-        self._league_path = ""
-        self._league_id = ""
-        self._default_logo = CFL_LEAGUE_LOGO
-        self._team_id = ""
-
         self._league_map: dict[str, str] = {}
         self._lang = ""
         self._search_key = ""
@@ -48,6 +41,16 @@ class CflScoreboardParser(BaseSportParser):
         self._team_side = ""
         self._opponent_side = ""
 
+
+    #
+    #  initialize_values()
+    #    Set sensor attributes that do not rely on the API
+    #
+    def initialize_sensor_values(self, provider_response) -> bool:
+        rc = super().initialize_sensor_values(provider_response)
+        self._values.sport = "football"
+
+        return rc
 
 
     def setup(self,
@@ -77,20 +80,11 @@ class CflScoreboardParser(BaseSportParser):
     ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
 
-        data = provider_response["data"]
-        url = provider_response["url"]
-        timestamp = provider_response["timestamp"]
-
-        self._values = TeamTrackerValues()
-        rc = self._set_foundational_values(url, timestamp)
-
-        # Do not parse if no data was returned
-        if data is None:
-            self._values.api_message = "API error, no data returned"
-            _LOGGER.warning(
-                "%s: API did not return any data for team '%s'", self._sensor_name, self._team_id
-            )
+        rc = self.initialize_sensor_values(provider_response)
+        if rc is False:
             return self._values
+
+        data = provider_response["data"]
 
         self._league_map = league_map
         self._lang = lang
@@ -125,12 +119,7 @@ class CflScoreboardParser(BaseSportParser):
                 week_name
             )
 
-        # "cache_flag" key only exists in cached data, so update the API message if appropriate
-        if provider_response.get("cache_flag", False):
-            if self._values.api_message:
-                self._values.api_message = "Cached data: " + self._values.api_message
-            else:
-                self._values.api_message = "Cached data"
+        rc = self.finalize_sensor_values(provider_response)
 
         return self._values
 
