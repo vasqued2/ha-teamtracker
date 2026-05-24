@@ -32,31 +32,23 @@ async def test_event(hass, snapshot, t):
 
     assert data is not None
 
-    values = TeamTrackerValues()
-    values.sport = t["sport"]
-    values.league = t["league"]
-    values.league_logo = DEFAULT_LOGO
-    values.team_abbr = t["team_abbr"]
-    values.state = "NOT_FOUND"
-    values.last_update = DEFAULT_LAST_UPDATE
-    values.private_fast_refresh = False
-
     sensor_name = t["sensor_name"]
-    sport_path = values.sport
-    league_id = values.league
-    team_id = values.team_abbr
+    sport_path = t["sport"]
+    league_path = t["league"].lower()
+    league_id = t["league"]
+    team_id = t["team_abbr"]
     lang = "en"
     league_map= {}
 
     _LOGGER.debug("%s: calling async_process_event()", sensor_name)
 
     parser = EspnParser()
-    parser.setup(sensor_name, sport_path, league_id, team_id)
+    parser.setup(sensor_name, sport_path, league_path, league_id, team_id)
 
     assert t["frozen_time"] is not None
 
     url = "url"
-    timestamp = "timestamp"
+    timestamp = DEFAULT_LAST_UPDATE
     provider_response = {
         "data": data,
         "url": url,
@@ -64,7 +56,6 @@ async def test_event(hass, snapshot, t):
     }
     with freeze_time(t["frozen_time"]):
         values = await parser.async_parse_response(
-            values,
             provider_response,
             league_map,
             lang,

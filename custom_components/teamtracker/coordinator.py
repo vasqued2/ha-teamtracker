@@ -15,7 +15,6 @@ from .const import (
     CONF_LEAGUE_PATH,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
-    DEFAULT_LOGO,
     DEFAULT_TIMEOUT,
 )
 from .models import TeamTrackerValues
@@ -44,7 +43,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
         self.parser = get_parser(self.provider.data_format)
-        self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
+        self.parser.setup(self.name, self.sport_path, self.league_path, self.league_id, self.team_id)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
@@ -92,7 +91,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         self.team_id = team_id
         self.conference_id = conference_id
 
-        self.parser.setup(self.name, self.sport_path, self.league_id, self.team_id)
+        self.parser.setup(self.name, self.sport_path, self.league_path, self.league_id, self.team_id)
 
 
     #
@@ -135,38 +134,8 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         """Updates sensor values using data returned by API or in cache"""
 
         data = provider_response["data"]
-        url = provider_response["url"]
-        timestamp = provider_response["timestamp"]
-
-        sensor_name = self.name
-        league_id = self.league_id.upper()
         team_id = self.team_id.upper()
         lang = self.get_lang()
-
-        # Populate base values that do not need API data
-        values = TeamTrackerValues()
-        if self.sport_path.lower() == "hockeytech":
-            values.sport = "hockey"
-        else:
-            values.sport = self.sport_path
-        values.sport_path = self.sport_path
-        values.league = league_id
-        values.league_path = self.league_path
-        values.league_logo = DEFAULT_LOGO
-        values.team_abbr = team_id
-        values.state = "NOT_FOUND"
-        values.last_update = timestamp
-        values.private_fast_refresh = False
-        values.api_url = url
-        values.api_message = None
-
-        # If there was an error (i.e. 404) w/ the API call...
-        if data is None:
-            values.api_message = "API error, no data returned"
-            _LOGGER.warning(
-                "%s: API did not return any data for team '%s'", sensor_name, team_id
-            )
-            return values
 
         # When league_path is "all", parser needs league_map{} to do manual lookup
         league_map = {}
@@ -178,11 +147,13 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         # Parse the data returned from the API and get the values
         values = await self.parser.async_parse_response(
-            values,
             provider_response,
             league_map,
             lang,
         )
+
+        if data is None:
+            return values
 
         # "cache_flag" key only exists in cached data, so update the API message if appropriate
         if provider_response.get("cache_flag", False):

@@ -32,6 +32,7 @@ class CflScoreboardParser(BaseSportParser):
         super().__init__()
         self._sensor_name = ""
         self._sport_path = ""
+        self._league_path = ""
         self._league_id = ""
         self._default_logo = CFL_LEAGUE_LOGO
         self._team_id = ""
@@ -52,11 +53,13 @@ class CflScoreboardParser(BaseSportParser):
     def setup(self,
         sensor_name: str,
         sport_path: str,
+        league_path: str,
         league_id: str,
         team_id: str,
     ) -> bool:
         self._sensor_name = sensor_name
         self._sport_path = sport_path
+        self._league_path = league_path
         self._league_id = league_id
         self._default_logo = DEFAULT_LOGO
         self._team_id = team_id.upper()
@@ -68,7 +71,6 @@ class CflScoreboardParser(BaseSportParser):
 
     async def async_parse_response(
         self,
-        values, 
         provider_response, 
         league_map, 
         lang: str
@@ -79,8 +81,16 @@ class CflScoreboardParser(BaseSportParser):
         url = provider_response["url"]
         timestamp = provider_response["timestamp"]
 
-        self._values = values
+        self._values = TeamTrackerValues()
         rc = self._set_foundational_values(url, timestamp)
+
+        # Do not parse if no data was returned
+        if data is None:
+            self._values.api_message = "API error, no data returned"
+            _LOGGER.warning(
+                "%s: API did not return any data for team '%s'", self._sensor_name, self._team_id
+            )
+            return self._values
 
         self._league_map = league_map
         self._lang = lang

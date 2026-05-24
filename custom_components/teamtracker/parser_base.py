@@ -21,17 +21,17 @@ class BaseSportParser(ABC):
     #  setup()
     #
     def setup(self,
-        sensor_name, sport_path, league_id, team_id
+        sensor_name, sport_path, league_path, league_id, team_id
     ) -> bool:
         pass
 
 
     @abstractmethod
     #
-    #  async_process_event()
+    #  async_parse_response()
     #
     async def async_parse_response(self,
-        values, provider_response, league_map, lang
+        provider_response, league_map, lang
     ) -> TeamTrackerValues:
 
         pass                                               # pylint: disable=unnecessary-pass

@@ -32,6 +32,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         super().__init__()
         self._sensor_name = ""
         self._sport_path = ""
+        self._league_path = ""
         self._league_id = ""
         self._default_logo = ""
         self._team_id = ""
@@ -49,11 +50,13 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     def setup(self,
         sensor_name: str,
         sport_path: str,
+        league_path: str,
         league_id: str,
         team_id: str,
     ) -> bool:
         self._sensor_name = sensor_name
         self._sport_path = sport_path
+        self._league_path = league_path
         self._league_id = league_id
         self._default_logo = DEFAULT_LOGO
         self._team_id = team_id.upper()
@@ -65,7 +68,6 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
     async def async_parse_response(
         self,
-        values, 
         provider_response, 
         league_map, 
         lang: str
@@ -73,10 +75,19 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         """Loop throught the json data returned by the API to find the right event and set values"""
 
         data = provider_response["data"]
-#        url = provider_response["url"]
-#        timestamp = provider_response["timestamp"]
+        url = provider_response["url"]
+        timestamp = provider_response["timestamp"]
 
-        self._values = values
+        self._values = TeamTrackerValues()
+        rc = self._set_foundational_values(url, timestamp)
+
+        # Do not parse if no data was returned
+        if data is None:
+            self._values.api_message = "API error, no data returned"
+            _LOGGER.warning(
+                "%s: API did not return any data for team '%s'", self._sensor_name, self._team_id
+            )
+            return self._values
 
         self._league_map = league_map
         self._lang = lang
@@ -181,6 +192,31 @@ class EspnParser(BaseSportParser, SetValuesMixin):
             )
 
         return self._values
+
+
+    #
+    #  _set_foundational_values()
+    #    Set sensor attributes that do not rely on the API
+    #
+    def _set_foundational_values(
+        self,
+        url,
+        timestamp
+    ) -> bool:
+
+        self._values.state = "NOT_FOUND"
+        self._values.sport = self._sport_path if self._sport_path != "hockeytech" else "hockey"
+        self._values.sport_path = self._sport_path
+        self._values.league = self._league_id
+        self._values.league_path = self._league_path
+        self._values.league_logo = self._default_logo
+        self._values.team_abbr = self._team_id
+        self._values.last_update = timestamp
+        self._values.private_fast_refresh = False
+        self._values.api_url = url
+        self._values.api_message = None
+
+        return True
 
 
     async def _async_process_competition(self,

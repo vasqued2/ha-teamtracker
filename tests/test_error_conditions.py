@@ -10,7 +10,7 @@ async def test_error_conditions(hass):
     """ Use file w/ test json and loop through test cases and compare to expected results """
 
     parser = EspnParser()
-    parser.setup("sensor_name", "sport_path", "league_id", "team_id")
+    parser.setup("sensor_name", "sport_path", "league_path", "league_id", "team_id")
 
     rc = await parser._async_set_cricket_values({}, 0, 0)
     assert rc is False
