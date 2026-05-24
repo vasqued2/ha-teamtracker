@@ -155,13 +155,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         if data is None:
             return values
 
-        # "cache_flag" key only exists in cached data, so update the API message if appropriate
-        if provider_response.get("cache_flag", False):
-            if values.api_message:
-                values.api_message = "Cached data: " + values.api_message
-            else:
-                values.api_message = "Cached data"
-
         # If NOT_FOUND, try to get abbr w/ another API to make message easier to read
         if (values.state == "NOT_FOUND" and 
             is_integer(team_id)

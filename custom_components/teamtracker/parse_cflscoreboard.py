@@ -125,6 +125,13 @@ class CflScoreboardParser(BaseSportParser):
                 week_name
             )
 
+        # "cache_flag" key only exists in cached data, so update the API message if appropriate
+        if provider_response.get("cache_flag", False):
+            if self._values.api_message:
+                self._values.api_message = "Cached data: " + self._values.api_message
+            else:
+                self._values.api_message = "Cached data"
+
         return self._values
 
 
