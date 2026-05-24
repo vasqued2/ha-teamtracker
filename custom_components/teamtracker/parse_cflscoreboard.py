@@ -13,8 +13,6 @@ from .models import TeamTrackerValues
 from .parser_base import BaseSportParser
 from .utils import async_get_value
 
-_LOGGER = logging.getLogger(__name__)
-
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
@@ -22,7 +20,6 @@ _LOGGER = logging.getLogger(__name__)
 LEAGUE_NAME = "Canadian Football League"
 CFL_LEAGUE_LOGO = "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png"
 DEFAULT_COLORS = ["#D3D3D3", "#A9A9A9"]
-
 
 class CflScoreboardParser(BaseSportParser):
     """Class to parse responses in ESPN JSON format."""

@@ -21,6 +21,10 @@ _LOGGER = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
+HT_DATA_FORMAT = "ht-json"
+HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
+
 class HockeyTechLeague(TypedDict):
     public_key: str
     client_code: str
@@ -39,8 +43,6 @@ TeamColorMap = dict[str, HockeyTechTeamColor]
 #    https://mintlify.wiki/Pharaoh-Labs/teamarr/reference/provider-hockeytech
 #    https://github.com/IsabelleLefebvre97/PWHL-Data-Reference
 #
-DATA_PROVIDER_HOCKEYTECH = "hockeytech"
-HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 
 HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     "CHL": {
@@ -159,6 +161,7 @@ class HockeyTechProvider(BaseSportProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_HOCKEYTECH
+        self.data_format = HT_DATA_FORMAT
         self.ATTRIBUTION: str = "Powered by HockeyTech.com"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=60)

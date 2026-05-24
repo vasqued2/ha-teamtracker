@@ -39,7 +39,7 @@ class BaseSportParser(ABC):
         self._values = TeamTrackerValues()
 
         self._values.state = "NOT_FOUND"
-        self._values.sport = self._sport_path if self._sport_path != "hockeytech" else "hockey"
+        self._values.sport = self._sport_path
         self._values.sport_path = self._sport_path
         self._values.league = self._league_id
         self._values.league_path = self._league_path
