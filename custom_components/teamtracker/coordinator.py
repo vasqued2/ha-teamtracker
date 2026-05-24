@@ -179,7 +179,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         # Parse the data returned from the API and get the values
         values = await self.parser.async_parse_response(
             values,
-            data,
+            provider_response,
             league_map,
             lang,
         )

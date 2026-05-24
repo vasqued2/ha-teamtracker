@@ -66,11 +66,16 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     async def async_parse_response(
         self,
         values, 
-        data, 
+        provider_response, 
         league_map, 
         lang: str
     ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
+
+        data = provider_response["data"]
+#        url = provider_response["url"]
+#        timestamp = provider_response["timestamp"]
+
         self._values = values
 
         self._league_map = league_map

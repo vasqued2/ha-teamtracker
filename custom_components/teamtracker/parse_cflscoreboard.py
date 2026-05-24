@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 _LOGGER = logging.getLogger(__name__)
+LEAGUE_NAME = "Canadian Football League"
 CFL_LEAGUE_LOGO = "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png"
 DEFAULT_COLORS = ["#D3D3D3", "#A9A9A9"]
 
@@ -68,12 +69,18 @@ class CflScoreboardParser(BaseSportParser):
     async def async_parse_response(
         self,
         values, 
-        data, 
+        provider_response, 
         league_map, 
         lang: str
     ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
+
+        data = provider_response["data"]
+        url = provider_response["url"]
+        timestamp = provider_response["timestamp"]
+
         self._values = values
+        rc = self._set_foundational_values(url, timestamp)
 
         self._league_map = league_map
         self._lang = lang
@@ -215,6 +222,31 @@ class CflScoreboardParser(BaseSportParser):
 
 
     #
+    #  _set_foundational_values()
+    #    Set sensor attributes that do not rely on the API
+    #
+    def _set_foundational_values(
+        self,
+        url,
+        timestamp
+    ) -> bool:
+
+        self._values.state = "NOT_FOUND"
+        self._values.sport = "football"
+        self._values.sport_path = self._sport_path
+        self._values.league = self._league_id
+        self._values.league_path = "cfl"
+        self._values.league_logo = self._default_logo
+        self._values.team_abbr = self._team_id
+        self._values.last_update = timestamp
+        self._values.private_fast_refresh = False
+        self._values.api_url = url
+        self._values.api_message = None
+
+        return True
+
+
+    #
     #  Set Values
     #
     async def _async_set_values(
@@ -231,14 +263,9 @@ class CflScoreboardParser(BaseSportParser):
         else:
             self._values.state = "IN"
 
-        self._values.sport = "football"
-        self._values.sport_path = self._sport_path
-        self._values.league = self._league_id
-        self._values.league_path = self._league_id
-        self._values.league_logo = self._default_logo
-        self._values.league_name = "Canadian Football League"
+        self._values.league_name = LEAGUE_NAME
         self._values.season = await async_get_value(schedule, "type", default="")
-        
+
         # Event Details
         self._values.team_abbr = await async_get_value(tournament, f"{self._team_side}Squad", "shortName", default="")
         self._values.opponent_abbr = await async_get_value(tournament, f"{self._opponent_side}Squad", "shortName", default="")
@@ -269,10 +296,8 @@ class CflScoreboardParser(BaseSportParser):
         self._values.team_colors = DEFAULT_COLORS
         self._values.team_score = await async_get_value(tournament, f"{self._team_side}Squad", "score")
         self._values.team_win_probability = None
-
         winner = str(await async_get_value(tournament, "winner", default=""))
         self._values.team_winner = (winner == self._values.team_id)
-
         self._values.team_timeouts = await async_get_value(tournament, "timeouts", f"{self._team_side}")
 
         # Opponent Data
@@ -288,16 +313,13 @@ class CflScoreboardParser(BaseSportParser):
         self._values.opponent_colors = DEFAULT_COLORS
         self._values.opponent_score = await async_get_value(tournament, f"{self._opponent_side}Squad", "score")
         self._values.team_win_probability = None
-
         winner = str(await async_get_value(tournament, "winner", default=""))
         self._values.opponent_winner = (winner == self._values.opponent_id)
-
         self._values.opponent_timeouts = await async_get_value(tournament, "timeouts", f"{self._opponent_side}")
 
-        # Timing / Legacy Names
+        # In Game Attributes
         self._values.quarter = await async_get_value(tournament, "activePeriod")
         self._values.clock = await async_get_value(tournament, "clock")
-
         possession = str(await async_get_value(tournament, "possession", "")).lower()
         if possession == self._team_side:
             self._values.possession = self._values.team_id
@@ -305,7 +327,6 @@ class CflScoreboardParser(BaseSportParser):
             self._values.possession = self._values.opponent_id
         else:
             self._values.possession = None
-
         self._values.last_play = None
         self._values.down_distance_text = None
 
@@ -328,12 +349,7 @@ class CflScoreboardParser(BaseSportParser):
         self._values.opponent_sets_won = None
 
         # System/API Metadata
-#        self._values.last_update = None
-#        self._values.api_message = None
-#        self._values.api_url = None
         if self._values.state == "IN":
             self._values.private_fast_refresh = True
-        else:
-            self._values.private_fast_refresh = False
 
         return True

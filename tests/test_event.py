@@ -55,10 +55,17 @@ async def test_event(hass, snapshot, t):
 
     assert t["frozen_time"] is not None
 
+    url = "url"
+    timestamp = "timestamp"
+    provider_response = {
+        "data": data,
+        "url": url,
+        "timestamp": timestamp
+    }
     with freeze_time(t["frozen_time"]):
         values = await parser.async_parse_response(
             values,
-            data,
+            provider_response,
             league_map,
             lang,
         )
