@@ -19,7 +19,7 @@ class BaseSportParser(ABC):
 
     def __init__(self) -> None:
         # Define the attributes that must be available on all providers
-        self._values = TeamTrackerValues()
+        self._values: TeamTrackerValues = TeamTrackerValues()
         self._sensor_name = ""
         self._sport_path = ""
         self._league_path = ""

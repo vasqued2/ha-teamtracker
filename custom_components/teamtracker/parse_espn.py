@@ -178,31 +178,6 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         return self._values
 
 
-    #
-    #  _set_foundational_values()
-    #    Set sensor attributes that do not rely on the API
-    #
-    def _set_foundational_values(
-        self,
-        url,
-        timestamp
-    ) -> bool:
-
-        self._values.state = "NOT_FOUND"
-        self._values.sport = self._sport_path if self._sport_path != "hockeytech" else "hockey"
-        self._values.sport_path = self._sport_path
-        self._values.league = self._league_id
-        self._values.league_path = self._league_path
-        self._values.league_logo = self._default_logo
-        self._values.team_abbr = self._team_id
-        self._values.last_update = timestamp
-        self._values.private_fast_refresh = False
-        self._values.api_url = url
-        self._values.api_message = None
-
-        return True
-
-
     async def _async_process_competition(self,
         event,
         grouping_index,
