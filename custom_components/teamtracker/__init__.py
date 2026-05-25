@@ -46,7 +46,7 @@ from .const import (
 )
 from .coordinator import TeamTrackerCoordinator
 from .provider_base import BaseSportProvider
-from .utils import async_get_value, has_team, is_integer
+from .utils import has_team, is_integer
 
 _LOGGER = logging.getLogger(__name__)
 
