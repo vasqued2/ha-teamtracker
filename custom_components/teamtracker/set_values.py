@@ -30,7 +30,6 @@ oppo_prob: dict[str, float] = {}
 class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyMixin, SetMMAMixin, SetRacingMixin, SetSoccerMixin, SetTennisMixin, SetVolleyballMixin):
     _sensor_name: str
     _lang: str
-    _league_map: dict[str, str]
 
 #
 #  Set Values

@@ -46,7 +46,6 @@ async def test_multigame(hass):
         _LOGGER.debug("%s: calling async_parse_response()", sensor_name)
         values = await parser.async_parse_response(
             provider_response,
-            league_map,
             lang,
         )
 

@@ -27,7 +27,6 @@ class CflScoreboardParser(BaseSportParser):
     def __init__(self) -> None:
         # Define the attributes that must be available on all providers
         super().__init__()
-        self._league_map: dict[str, str] = {}
         self._lang = ""
         self._search_key = ""
         self._stop_flag = False
@@ -72,7 +71,6 @@ class CflScoreboardParser(BaseSportParser):
     async def async_parse_response(
         self,
         provider_response, 
-        league_map, 
         lang: str
     ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
@@ -83,7 +81,6 @@ class CflScoreboardParser(BaseSportParser):
 
         data = provider_response["data"]
 
-        self._league_map = league_map
         self._lang = lang
         self._search_key = self._team_id
 

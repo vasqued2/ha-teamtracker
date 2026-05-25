@@ -19,10 +19,6 @@ class BaseSportProvider(ABC):
     #  key = "{sport_path}:{league_path}:{conference_id}:{lang}"+":{team_id}" if league_path "all"
     data_cache: ClassVar[dict] = {}  # {key: {response: {data, url, timestamp, cache_flag}}}
 
-    # Stores team information when league_path is all
-    #  key = "{sport}:{league}:{team_id}"
-    all_team_cache: ClassVar[dict] = {}  # {key: {next_game_date, league_map, expires}}
-
 
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         # Define the attributes that must be available on all providers

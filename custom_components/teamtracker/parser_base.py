@@ -109,8 +109,10 @@ class BaseSportParser(ABC):
     #
     #  async_parse_response()
     #
-    async def async_parse_response(self,
-        provider_response, league_map, lang
+    async def async_parse_response(
+        self,
+        provider_response, 
+        lang
     ) -> TeamTrackerValues:
 
         pass                                               # pylint: disable=unnecessary-pass

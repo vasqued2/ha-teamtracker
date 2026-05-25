@@ -57,7 +57,6 @@ async def test_event(hass, snapshot, t):
     with freeze_time(t["frozen_time"]):
         values = await parser.async_parse_response(
             provider_response,
-            league_map,
             lang,
         )
 

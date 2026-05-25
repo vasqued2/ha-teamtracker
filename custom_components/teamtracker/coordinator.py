@@ -17,9 +17,7 @@ from .const import (
     CONF_TEAM_ID,
     DEFAULT_TIMEOUT,
 )
-from .models import TeamTrackerValues
 from .parser_factory import get_parser
-from .provider_base import BaseSportProvider
 from .provider_factory import get_provider
 
 _LOGGER = logging.getLogger(__name__)
@@ -96,16 +94,15 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
     #
     #  DataUpdateCoordinator Call Tree
     #
-    #  _async_update_data() - Top-level method called from HA to update sensor, controls refresh rate
-    #    async_update_sport_data() - Provider method to return response from data provider (cached or real-time)
-    #    async_update_values() - Returns sensor values based on response returned by data provider
+    #  _async_update_data() - Top-level method called from HA to update sensor
+    #    Gets response from provider, parses it, and updates the refresh rate if appropriate
     #
     async def _async_update_data(self):
         """Top-level method called from HA to update sensor, controls refresh rate."""
         async with timeout(DEFAULT_TIMEOUT):
             try:
                 response = await self.provider.async_update_sport_data()
-                values = await self.async_update_values(response)
+                values = await self.parser.async_parse_response(response, self.get_lang())
 
                 # update the interval based on flag
                 if values.private_fast_refresh:
@@ -124,34 +121,3 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                 _LOGGER.warning("%s: Additional information: %s", self.name, str(error))
                 raise UpdateFailed(error) from error
             return values
-
-
-    #
-    #  async_update_values()
-    #
-    async def async_update_values(self, provider_response) -> TeamTrackerValues:
-        """Updates sensor values using data returned by API or in cache"""
-
-        data = provider_response["data"]
-        lang = self.get_lang()
-
-        # When league_path is "all", parser needs league_map{} to do manual lookup
-        league_map = {}
-        if (self.league_path) == "all":
-            cache_key = f"{self.sport_path}:{self.league_path}:{self.team_id}"
-            team_cache = BaseSportProvider.all_team_cache.get(cache_key)
-            if team_cache:
-                league_map = team_cache.get("league_map", {})
-
-        # Parse the data returned from the API and get the values
-        values = await self.parser.async_parse_response(
-            provider_response,
-            league_map,
-            lang,
-        )
-
-        if data is None:
-            return values
-
-        return values
-
