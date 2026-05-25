@@ -116,8 +116,8 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
                         "%s: Updating to refresh rate (%s)", self.name, self.update_interval
                     )
             except Exception as error:
-                _LOGGER.warning("%s: Error updating data: %s", self.name, error)
-                _LOGGER.warning("%s: Error type: %s", self.name, type(error).__name__)
-                _LOGGER.warning("%s: Additional information: %s", self.name, str(error))
+                _LOGGER.debug("%s: Error updating data: %s", self.name, error)
+                _LOGGER.debug("%s: Error type: %s", self.name, type(error).__name__)
+                _LOGGER.debug("%s: Additional information: %s", self.name, str(error))
                 raise UpdateFailed(error) from error
             return values

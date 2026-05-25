@@ -160,7 +160,7 @@ class CflScoreboardProvider(BaseSportProvider):
                     except (json.JSONDecodeError, aiohttp.ContentTypeError) as e:
                         text = await r.text()
 
-                        _LOGGER.warning(
+                        _LOGGER.debug(
                             "%s: CFL Scoreboard response not valid JSON: %s | Body: %s",
                             sensor_name,
                             e,
@@ -173,7 +173,7 @@ class CflScoreboardProvider(BaseSportProvider):
                             "timestamp": timestamp,
                         }
                 else:
-                    _LOGGER.warning(
+                    _LOGGER.debug(
                         "%s: API returned status %s: %s",
                         sensor_name,
                         r.status,
@@ -187,7 +187,7 @@ class CflScoreboardProvider(BaseSportProvider):
                     }
 
         except (aiohttp.ClientError, TimeoutError) as e:
-            _LOGGER.warning("%s: API call failed: %s", sensor_name, e)
+            _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
 
             return {
                 "data": None,
