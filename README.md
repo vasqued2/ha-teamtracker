@@ -1,6 +1,6 @@
 # Real-time Sports Scores in Home Assistant
 
-This integration provides real-time scores for teams and athletes in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer, golf, tennis, racing, cricket) sports using the ESPN Scoreboard APIs, and creates a sensor with detailed data for the competition. Services exist to change and interact with the sensor.
+This integration provides real-time scores for teams and athletes in multiple professional (NBA, NFL, NHL, MLB, MLS, and more), college (NCAA), and international (soccer, golf, tennis, racing, cricket) sports using the ESPN Scoreboard and other APIs, and creates a sensor with detailed data for the competition. Services exist to change and interact with the sensor.
 
 This integration can be used with the [ha-teamtracker-card](https://github.com/vasqued2/ha-teamtracker-card) to display the game information in the Home Assistant dashboard.
 
@@ -24,7 +24,7 @@ A small subset of the most popular teams/leagues have been pre-configured to sim
 
 The remaining teams/leagues are still supported, however they require a couple extra steps to set up.  This is referred to as configuring a Custom API.
 
-There is also beta support for PWHL games through the hockeytech API. All non-ESPN APIs must be configured with a Custom API. Beta functionality may have defects or break in future releases.
+There is also beta support for other sports and leagues through non-ESPN APIs. All non-ESPN APIs must be configured with a Custom API. Beta functionality may have defects or break in future releases.
 
 ### Natively Supported (Pre-Configured) Sports / Leagues
 
@@ -54,10 +54,11 @@ The [Custom APIs](https://github.com/vasqued2/ha-teamtracker?tab=readme-ov-file#
 
 #### Sports / Leagues Supported by non-ESPN APIs
 
-Custom APIs can be configured for the following leagues using HockeyTech APIs
+Custom APIs can be configured for the following leagues using Non-ESPN APIs. The data available may be limited.
 
 | League | `sport_path` | `league_path` |
 | --- | --- | --- |
+| [Canadian Football League](https://chl.ca//) | cflscoreboard | pwhl | 
 | [Professional Womens Hockey League](https://www.thepwhl.com/) | hockeytech | pwhl | 
 | [Canadian Hockey League](https://chl.ca/) | hockeytech | chl |
 | [Ontario Hockey League](https://ontariohockeyleague.com/) | hockeytech | ohl |

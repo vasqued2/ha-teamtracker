@@ -118,12 +118,12 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     dc = BaseSportProvider.data_cache
 
     data_cache = BaseSportProvider.data_cache
-    all_team_cache = BaseSportProvider.all_team_cache
+    instance_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
-    assert isinstance(all_team_cache, dict)
-    assert len(all_team_cache) > 0
+    assert isinstance(instance_cache, dict)
+    assert len(instance_cache) > 0
 
 
 
@@ -176,7 +176,7 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
     data_cache = BaseSportProvider.data_cache
-    all_team_cache = BaseSportProvider.all_team_cache
+    all_team_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)  # key="soccer:all:9999:en:183"
     assert len(data_cache) > 0  
@@ -204,12 +204,9 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     # Clear out the data_cache.
     BaseSportProvider.data_cache.clear()
 
-    # Update the league_name in the all_team_cache so we know we are reading it
-    league_key = "soccer:all:183"
-    if league_key in BaseSportProvider.all_team_cache:
-        comp_dict = BaseSportProvider.all_team_cache[league_key]["league_map"]
-        for team_id in comp_dict:
-            comp_dict[team_id] = "Cached MLS"
+    # Update the league_name in the instance_cache so we know we are reading it
+    key = coordinator.provider.TEAM_SCHEDULE_KEY
+    cache = coordinator.provider.instance_cache[key]["derived_league_name"] = "Cached MLS"
 
     # This is the second update attempt
     await coordinator.async_refresh()
@@ -290,14 +287,14 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
 #
 # Validate the cache's are now populated
 #
-
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
     data_cache = BaseSportProvider.data_cache
-    all_team_cache = BaseSportProvider.all_team_cache
+    instance_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
-    assert isinstance(all_team_cache, dict)
-    assert len(all_team_cache) > 0
+    assert isinstance(instance_cache, dict)
+    assert len(instance_cache) > 0
 
 
     

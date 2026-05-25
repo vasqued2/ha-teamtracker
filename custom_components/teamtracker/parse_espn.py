@@ -30,13 +30,6 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     def __init__(self) -> None:
         # Define the attributes that must be available on all providers
         super().__init__()
-        self._sensor_name = ""
-        self._sport_path = ""
-        self._league_id = ""
-        self._default_logo = ""
-        self._team_id = ""
-
-        self._league_map: dict[str, str] = {}
         self._lang = ""
         self._search_key = ""
         self._stop_flag = False
@@ -49,11 +42,13 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     def setup(self,
         sensor_name: str,
         sport_path: str,
+        league_path: str,
         league_id: str,
         team_id: str,
     ) -> bool:
         self._sensor_name = sensor_name
         self._sport_path = sport_path
+        self._league_path = league_path
         self._league_id = league_id
         self._default_logo = DEFAULT_LOGO
         self._team_id = team_id.upper()
@@ -65,15 +60,18 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
     async def async_parse_response(
         self,
-        values, 
-        data, 
-        league_map, 
+        provider_response, 
         lang: str
     ) -> TeamTrackerValues:
         """Loop throught the json data returned by the API to find the right event and set values"""
-        self._values = values
 
-        self._league_map = league_map
+
+        rc = self.initialize_sensor_values(provider_response)
+        if rc is False:
+            return self._values
+
+        data = provider_response["data"]
+
         self._lang = lang
         self._search_key = self._team_id
 
@@ -174,6 +172,8 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 last_date,
                 self._team_id,
             )
+
+        rc = self.finalize_sensor_values(provider_response)
 
         return self._values
 

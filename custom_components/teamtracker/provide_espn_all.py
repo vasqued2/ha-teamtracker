@@ -3,13 +3,13 @@ from __future__ import annotations
 
 from datetime import date, datetime, timedelta, timezone
 import logging
+import re
 from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
 from .const import API_LIMIT
 from .provide_espn import EspnProvider
-from .provider_base import BaseSportProvider
 from .utils import has_team, season_slug_to_name
 
 _LOGGER = logging.getLogger(__name__)
@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 DATA_PROVIDER_ESPN_ALL_LEAGUES = "espn-all_leagues"
+ESPNALL_DATA_FORMAT = "espnall-json"
 ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 
@@ -34,6 +35,10 @@ class EspnAllLeaguesProvider(EspnProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN_ALL_LEAGUES
+        self.TEAM_SCHEDULE_KEY: str = "team-schedule-key"
+        self.data_format = ESPNALL_DATA_FORMAT
+        self.lookups: dict[str, list] = {}
+        self.instance_cache: dict[str, dict] = {}
 
 
     #
@@ -128,6 +133,14 @@ class EspnAllLeaguesProvider(EspnProvider):
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
 
+        # Add required lookup tables
+        if "team_list" not in self.lookups:
+            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_data = teams_response["data"]
+            self.lookups["team_list"] = teams_data
+        response["lookups"] = self.lookups
+
+
         return response
 
 
@@ -136,7 +149,7 @@ class EspnAllLeaguesProvider(EspnProvider):
     #
     #    Calls the team info and schedule endpoints to discover the next game
     #    date and build an event_id → league name mapping (substring of season)
-    #    Results are cached in all_team_cache until the next game date passes.
+    #    Results are cached in the instance_cache until the next game date passes.
     #
     async def _async_get_team_schedule(self):
         """Fetch team schedule info for 'all' league date computation."""
@@ -146,32 +159,33 @@ class EspnAllLeaguesProvider(EspnProvider):
         league_path = self._coordinator.league_path
         sensor_name = self._coordinator.name
 
-        cache_key = f"{sport_path}:{league_path}:{team_id}"
         today = date.today()
-        cached = BaseSportProvider.all_team_cache.get(cache_key)
+        cache = self.instance_cache.get(self.TEAM_SCHEDULE_KEY)
 
-        if cached is not None and today <= cached["expires"]:
-            _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
-            return cached
+        if cache is not None and today <= cache["expires"]:
+            _LOGGER.debug("%s: instance_cache hit for '%s'", sensor_name, team_id)
+            self.lookups["derived_league_name"] = cache["derived_league_name"]
+            return cache
 
         team_url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_id}"
 
-        league_map = {}
         next_events = []
 
         response = await self.async_call_espn_api(self._coordinator.hass, team_url, None, sensor_name, team_id)
         team_data = response["data"]
+
+        # Try to derive the league_name from the season name or slug 
+        #   since not available from scoreboard API w/ league = "all"
+        season_name = ""
         if team_data:
             next_events = team_data.get("team", {}).get("nextEvent", [])
             for ne in next_events:
                 eid = ne.get("id")
                 if not eid:
                     continue
-                display = ne.get("season", {}).get("displayName") or season_slug_to_name(
+                season_name = ne.get("season", {}).get("displayName") or season_slug_to_name(
                     ne.get("season", {}).get("slug", "")
                 )
-                if display:
-                    league_map[str(eid)] = display
 
         schedule_url = team_url + "/schedule"
         response = await self.async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
@@ -181,20 +195,21 @@ class EspnAllLeaguesProvider(EspnProvider):
                 eid = e.get("id")
                 if not eid:
                     continue
-                display = e.get("season", {}).get("displayName") or season_slug_to_name(
+                season_name = e.get("season", {}).get("displayName") or season_slug_to_name(
                     e.get("season", {}).get("slug", "")
                 )
-                if display:
-                    league_map[str(eid)] = display
 
+        derived_league_name = re.sub(r"^\d{4}(-\d{2})?\s+", "", season_name)
+
+        self.lookups["derived_league_name"] = derived_league_name
         next_game_date = (
             date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
         )
 
         result = {
             "next_game_date": next_game_date,
-            "league_map": league_map,
+            "derived_league_name": derived_league_name,
             "expires": next_game_date or today,
         }
-        BaseSportProvider.all_team_cache[cache_key] = result
+        self.instance_cache[self.TEAM_SCHEDULE_KEY] = result
         return result

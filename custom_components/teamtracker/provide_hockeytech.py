@@ -21,6 +21,10 @@ _LOGGER = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
+HT_DATA_FORMAT = "ht-json"
+HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
+
 class HockeyTechLeague(TypedDict):
     public_key: str
     client_code: str
@@ -39,8 +43,6 @@ TeamColorMap = dict[str, HockeyTechTeamColor]
 #    https://mintlify.wiki/Pharaoh-Labs/teamarr/reference/provider-hockeytech
 #    https://github.com/IsabelleLefebvre97/PWHL-Data-Reference
 #
-DATA_PROVIDER_HOCKEYTECH = "hockeytech"
-HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 
 HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
     "CHL": {
@@ -159,9 +161,11 @@ class HockeyTechProvider(BaseSportProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_HOCKEYTECH
+        self.data_format = HT_DATA_FORMAT
         self.ATTRIBUTION: str = "Powered by HockeyTech.com"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=60)
+        self.lookups: dict[str, list] = {}
 
 
     #
@@ -189,15 +193,20 @@ class HockeyTechProvider(BaseSportProvider):
     #  [{
     #   "id": team_id,
     #   "displayName": Long Team Name
+    #   "abbreviation": Team Abbreviation
     #   "location": City, State, Country of team
-    #    "conference_id": Conference for the team (NCAA Only)
     #  }]
     #
 
-    async def async_fetch_team_data(self, hass: HomeAssistant, sport_path: str="", league_path: str ="") -> dict:
+    async def async_fetch_team_data(
+        self, 
+        hass: HomeAssistant, 
+        sport_path: str="", 
+        league_path: str ="",
+        sensor_name: str= "ConfigFlow-teams"
+        ) -> dict:
         """Fetch teams from any API for a given league."""
 
-        sensor_name = "hockeytech_teamsbyseason"
         league_abbr = league_path.upper()
         league_config = HOCKEYTECH_LEAGUES.get(league_abbr)
         if league_config is None:
@@ -276,7 +285,6 @@ class HockeyTechProvider(BaseSportProvider):
                 "abbreviation":  t.get("code", t.get("abbreviation", "")),
                 "displayName":   t.get("name", ""),
                 "location":      t.get("city", ""),
-                "conference_id": "",
             })
         return {"data": teams, "url": url}
 
@@ -292,6 +300,7 @@ class HockeyTechProvider(BaseSportProvider):
             return{"data": None, "url": None}
 
         sensor_name = self._coordinator.name
+        sport_path = self._coordinator.sport_path
         league_path = self._coordinator.league_path
         league_id = league_path.upper()
 
@@ -324,8 +333,16 @@ class HockeyTechProvider(BaseSportProvider):
         timestamp = ht_response["timestamp"]
 
         espn_data = self._transform_hockeytech_to_espn(ht_data, league_id)
+
+        # Add required lookup tables
+        if "team_list" not in self.lookups:
+            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_data = teams_response["data"]
+            self.lookups["team_list"] = teams_data
+
         return {
             "data": espn_data,
+            "lookups": self.lookups,
             "url": url,
             "timestamp": timestamp
         }

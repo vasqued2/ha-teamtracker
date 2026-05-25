@@ -38,6 +38,7 @@ class EspnProvider(BaseSportProvider):
         self.ATTRIBUTION: str = "Data provided by ESPN"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
+        self.lookups: dict[str, list] = {}
 
 
     #
@@ -67,16 +68,22 @@ class EspnProvider(BaseSportProvider):
     #      [{
     #        "id": team_id,
     #        "displayName": Long Team Name
+    #        "abbreviation": Team Abbreviation
     #        "location": City, State, Country of team
-    #        "conference_id": Conference for the team (NCAA Only)
     #      }]
     #
-    async def async_fetch_team_data(self, hass: HomeAssistant, sport_path: str="", league_path: str="") -> dict:
+    async def async_fetch_team_data(
+        self, 
+        hass: HomeAssistant, 
+        sport_path: str="", 
+        league_path: str="",
+        sensor_name: str= "ConfigFlow-teams"
+        ) -> dict:
         """Fetch teams from any API for a given league."""
 
         url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams"
         url_parms = {"limit": 1000}
-        response = await self.async_call_espn_api(hass, url, url_parms, "ConfigFlow-teams", league_path)
+        response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
         if data:
@@ -97,7 +104,6 @@ class EspnProvider(BaseSportProvider):
                 "abbreviation":  t.get("abbreviation", ""),
                 "displayName":   t.get("displayName", t.get("name", "")),
                 "location":      t.get("location", ""),
-                "conference_id": (t.get("groups") or {}).get("id", ""),
             })
         return {"data": teams, "url": url}
 
@@ -226,6 +232,13 @@ class EspnProvider(BaseSportProvider):
             )
 
             response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+
+        # Add required lookup tables
+        if "team_list" not in self.lookups:
+            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_data = teams_response["data"]
+            self.lookups["team_list"] = teams_data
+        response["lookups"] = self.lookups
 
         return response
 

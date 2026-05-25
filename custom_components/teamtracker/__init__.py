@@ -172,7 +172,6 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         if not domain_data:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
             BaseSportProvider.data_cache.clear()
-            BaseSportProvider.all_team_cache.clear()
 
     return unload_ok
 
