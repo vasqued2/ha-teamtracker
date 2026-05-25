@@ -161,7 +161,7 @@
 # ---
 # name: test_cflscoreboard[test_invalid_team]
   dict({
-    'api_message': "No competition scheduled for 'INVALID_TEAM_ID' for CFL 'Preseason Week 2'",
+    'api_message': "No competition scheduled for 'INVALID_TEAM_ID' in CFL 'Preseason Week 2' between 2026-05-22T00:00Z and 2026-05-23T23:59Z",
     'api_url': 'https://cflscoreboard.cfl.ca/json/scoreboard/rounds.json',
     'attribution': 'Data provided by cflscoreboard.cfl.ca',
     'balls': None,

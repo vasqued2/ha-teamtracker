@@ -89,6 +89,9 @@ class CflScoreboardParser(BaseSportParser):
 
         weekly_schedule = self._get_current_schedule(data)
         week_name =  await async_get_value(weekly_schedule, "name", default="")
+        first_date_str =  await async_get_value(weekly_schedule, "startDate", default="")
+        last_date_str =  await async_get_value(weekly_schedule, "endDate", default="")
+
         tournaments = await async_get_value(weekly_schedule, "tournaments", default=[])
 
         tournament = await self._async_get_tournament(tournaments, self._team_id)
@@ -103,8 +106,18 @@ class CflScoreboardParser(BaseSportParser):
                     week_name
                 )
         else:
+            first_date = datetime.fromisoformat(str(first_date_str)).replace(tzinfo=None)
+            last_date = datetime.fromisoformat(str(last_date_str)).replace(tzinfo=None)
+
             self._values.api_message = (
-                f"No competition scheduled for '{self._search_key}' for CFL '{week_name}'"
+                "No competition scheduled for '"
+                + str(self._values.team_abbr)
+                + "' in CFL '"
+                + week_name
+                + "' between "
+                + first_date.strftime("%Y-%m-%dT%H:%MZ")
+                + " and "
+                + last_date.strftime("%Y-%m-%dT%H:%MZ")
             )
             _LOGGER.debug(
                 "%s: No competitor information '%s' returned by API for %s",
@@ -219,31 +232,6 @@ class CflScoreboardParser(BaseSportParser):
                     return {}
 
         return {}
-
-
-    #
-    #  _set_foundational_values()
-    #    Set sensor attributes that do not rely on the API
-    #
-    def _set_foundational_values(
-        self,
-        url,
-        timestamp
-    ) -> bool:
-
-        self._values.state = "NOT_FOUND"
-        self._values.sport = "football"
-        self._values.sport_path = self._sport_path
-        self._values.league = self._league_id
-        self._values.league_path = "cfl"
-        self._values.league_logo = self._default_logo
-        self._values.team_abbr = self._team_id
-        self._values.last_update = timestamp
-        self._values.private_fast_refresh = False
-        self._values.api_url = url
-        self._values.api_message = None
-
-        return True
 
 
     #
