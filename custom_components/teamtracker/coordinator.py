@@ -21,7 +21,6 @@ from .models import TeamTrackerValues
 from .parser_factory import get_parser
 from .provider_base import BaseSportProvider
 from .provider_factory import get_provider
-from .utils import is_integer
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -134,7 +133,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         """Updates sensor values using data returned by API or in cache"""
 
         data = provider_response["data"]
-        team_id = self.team_id.upper()
         lang = self.get_lang()
 
         # When league_path is "all", parser needs league_map{} to do manual lookup
@@ -154,24 +152,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         if data is None:
             return values
-
-        # If NOT_FOUND, try to get abbr w/ another API to make message easier to read
-        if (values.state == "NOT_FOUND" and 
-            is_integer(team_id)
-        ):
-            response = await self.provider.async_fetch_team_data(self.hass, self.sport_path, self.league_path)
-            teams = response["data"]
-            if teams:
-                team_abbr = next(
-                    (team["abbreviation"] for team in teams if team["id"] == team_id),
-                    None,
-                )
-            else:
-                team_abbr = None
-
-            values.team_id = team_id
-            if team_abbr:
-                values.team_abbr = team_abbr
 
         return values
 

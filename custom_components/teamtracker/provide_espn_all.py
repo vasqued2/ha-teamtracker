@@ -34,6 +34,7 @@ class EspnAllLeaguesProvider(EspnProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN_ALL_LEAGUES
+        self.lookups: dict[str, list] = {}
 
 
     #
@@ -127,6 +128,14 @@ class EspnAllLeaguesProvider(EspnProvider):
                     url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+
+        # Add required lookup tables
+        if "team_list" not in self.lookups:
+            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_data = teams_response["data"]
+            self.lookups["team_list"] = teams_data
+        response["lookups"] = self.lookups
+
 
         return response
 

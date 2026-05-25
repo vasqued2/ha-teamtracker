@@ -72,7 +72,7 @@ async def test_sensor(hass, mock_call_espn_api, mocker):
 #    await hass.async_block_till_done()
 
 
-async def test_setup_platform(hass):
+async def test_setup_platform(hass, mock_call_espn_api):
     """test platform setup"""
 
 # Mock implementation of async_add_entities callback

@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from .const import DEFAULT_LOGO
 from .models import TeamTrackerValues
+from .utils import is_integer
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -65,6 +66,23 @@ class BaseSportParser(ABC):
     #    Do final adjustments to sensor values
     #
     def finalize_sensor_values(self, provider_response) -> bool:
+
+        # If NOT_FOUND, and team_id is an integer, try to get the abbr from the team_list lookup
+        if (self._values.state == "NOT_FOUND" and is_integer(self._team_id)):
+            teams = provider_response.get("lookups", {}).get("team_list", [])
+            if teams:
+                team_abbr = next(
+                    (team["abbreviation"] for team in teams if team["id"] == self._team_id),
+                    None,
+                )
+            else:
+                team_abbr = None
+
+            self._values.team_id = self._team_id
+            if team_abbr:
+                self._values.team_abbr = team_abbr
+
+
         # "cache_flag" key only exists in cached data, so update the API message if appropriate
         if provider_response.get("cache_flag", False):
             if self._values.api_message:

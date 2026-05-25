@@ -518,7 +518,7 @@ async def test_custom_api_cflscoreboard_team_list(hass, mock_call_cflscoreboard_
         assert len(mock_setup_entry.mock_calls) == 1
 
 
-async def test_options_flow_init(hass):
+async def test_options_flow_init(hass, mock_call_espn_api):
     """ Test config flow options """
 
     entry = MockConfigEntry(

@@ -37,6 +37,7 @@ class CflScoreboardProvider(BaseSportProvider):
         self.ATTRIBUTION: str = "Data provided by cflscoreboard.cfl.ca"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=30)
+        self.lookups: dict[str, list] = {}
 
 
     #
@@ -62,17 +63,24 @@ class CflScoreboardProvider(BaseSportProvider):
     #    Return a list of team dictionaries
     #      [{
     #        "id": team_id,
+    #        "abbreviation": Team Abbreviation
     #        "displayName": Long Team Name
     #        "location": City, State, Country of team
     #        "conference_id": Conference for the team (NCAA Only)
     #      }]
     #
-    async def async_fetch_team_data(self, hass: HomeAssistant, sport_path: str="", league_path: str="") -> dict:
+    async def async_fetch_team_data(
+        self, 
+        hass: HomeAssistant, 
+        sport_path: str="", 
+        league_path: str="",
+        sensor_name: str= "ConfigFlow-teams"
+        ) -> dict:
         """Fetch teams from any API for a given league."""
         url_parms: dict[str, str] = {}
 
         url = f"{CFLSCOREBOARD_BASE_URL}/squads.json"
-        response = await self.async_call_cflscoreboard_api(hass, url, url_parms, "ConfigFlow-teams", league_path)
+        response = await self.async_call_cflscoreboard_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
 
@@ -84,7 +92,6 @@ class CflScoreboardProvider(BaseSportProvider):
                 "abbreviation":  t.get("abbreviation", ""),
                 "displayName":   t.get("name", ""),
                 "location":      t.get("location", ""),
-                "conference_id": (t.get("groups"), ""),
             })
         return {"data": teams, "url": url}
 
@@ -96,17 +103,28 @@ class CflScoreboardProvider(BaseSportProvider):
     #
     async def async_fetch_scoreboard_data(self, hass, lang) -> dict:
         """Gets data from ESPN APIs for specified league."""
+
         url_parms: dict[str, str] = {}
 
         if not self._coordinator:
             return{"data": None, "url": None}
 
         sensor_name = self._coordinator.name
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+
         team_id = self._coordinator.team_id.upper()
 
         url = f"{CFLSCOREBOARD_BASE_URL}/rounds.json"
 
         response = await self.async_call_cflscoreboard_api(hass, url, url_parms, sensor_name, team_id)
+
+        # Add required lookup tables
+        if "team_list" not in self.lookups:
+            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_data = teams_response["data"]
+            self.lookups["team_list"] = teams_data
+        response["lookups"] = self.lookups
 
         return response
 
