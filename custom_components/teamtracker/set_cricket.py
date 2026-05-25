@@ -11,7 +11,7 @@ class SetCricketMixin:
     _sensor_name: str
     _values: TeamTrackerValues
 
-    async def _async_set_cricket_values(
+    def _set_cricket_values(
         self,
         event, competition_index, team_index
     ) -> bool:

@@ -243,7 +243,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
             )
         ).upper()
 
-        rc = await self._async_set_values(
+        rc = self._set_values(
             event,
             grouping_index,
             competition_index,

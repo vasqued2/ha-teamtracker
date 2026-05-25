@@ -8,7 +8,7 @@ class SetBaseballMixin:
     _values: TeamTrackerValues
 
 
-    async def _async_set_baseball_values(
+    def _set_baseball_values(
         self,
         event, competition_index, team_index
     ) -> bool:

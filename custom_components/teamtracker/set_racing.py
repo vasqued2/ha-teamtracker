@@ -13,7 +13,7 @@ class SetRacingMixin:
     _values: TeamTrackerValues
 
     
-    async def _async_set_racing_values(
+    def _set_racing_values(
         self,
         event, competition_index, team_index
     ) -> bool:

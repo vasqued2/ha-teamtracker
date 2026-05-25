@@ -11,7 +11,7 @@ class SetVolleyballMixin:
     _sensor_name: str
     _values: TeamTrackerValues
 
-    async def _async_set_volleyball_values(
+    def _set_volleyball_values(
         self, 
         event, competition_index, team_index
     ) -> bool:

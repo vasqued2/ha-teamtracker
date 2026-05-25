@@ -12,7 +12,7 @@ class SetSoccerMixin:
     _values: TeamTrackerValues
 
 
-    async def _async_set_soccer_values(
+    def _set_soccer_values(
         self,
         event, competition_index, team_index
     ) -> bool:

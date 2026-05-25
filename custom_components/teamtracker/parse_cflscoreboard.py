@@ -97,7 +97,7 @@ class CflScoreboardParser(BaseSportParser):
         tournament = await self._async_get_tournament(tournaments, self._team_id)
 
         if tournament:
-            rc = await self._async_set_values(weekly_schedule, tournament)
+            rc = self._set_values(weekly_schedule, tournament)
             if rc is False:
                 _LOGGER.debug(
                     "%s: Error parsing response for '%s' for CFL '%s'",
@@ -237,7 +237,7 @@ class CflScoreboardParser(BaseSportParser):
     #
     #  Set Values
     #
-    async def _async_set_values(
+    def _set_values(
         self,
         schedule,
         tournament

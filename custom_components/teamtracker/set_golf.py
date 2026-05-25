@@ -10,7 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 class SetGolfMixin:
     _values: TeamTrackerValues
 
-    async def _async_set_golf_values(
+    def _set_golf_values(
         self,
         event, competition_index, team_index
     ) -> bool:
@@ -25,8 +25,8 @@ class SetGolfMixin:
             return False
 
         if self._values.state in ["IN", "POST"]:
-            self._values.team_rank = await self._async_get_golf_position(competition, team_index)
-            self._values.opponent_rank = await self._async_get_golf_position(
+            self._values.team_rank = self._get_golf_position(competition, team_index)
+            self._values.opponent_rank = self._get_golf_position(
                 competition, oppo_index
             )
         else:
@@ -58,7 +58,7 @@ class SetGolfMixin:
 
             self._values.last_play = ""
             for x in range(0, 10):
-                p = await self._async_get_golf_position(competition, x)
+                p = self._get_golf_position(competition, x)
                 self._values.last_play = self._values.last_play + p + ". "
                 self._values.last_play = self._values.last_play + get_value(
                     competition, "competitors", x, "athlete", "shortName", 
@@ -82,7 +82,7 @@ class SetGolfMixin:
         return True
 
 
-    async def _async_get_golf_position(self, competition, index) -> str:
+    def _get_golf_position(self, competition, index) -> str:
         """Determine the position of index considering ties if score matches leading or trailing position"""
 
         t = 0

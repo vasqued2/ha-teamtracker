@@ -34,7 +34,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
 #
 #  Set Values
 #
-    async def _async_set_values(
+    def _set_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -59,7 +59,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             )
             return False
 
-        rc = await self._async_set_universal_values(
+        rc = self._set_universal_values(
             event, grouping_index, competition_index, team_index
         )
         if not rc:
@@ -74,7 +74,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #  Additional values only needed for team sports
         #
         if get_value(competitor, "type") == "team":
-            rc = await self._async_set_team_values(
+            rc = self._set_team_values(
                 event, grouping_index, competition_index, team_index
             )
             if not rc:
@@ -88,7 +88,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #    _LOGGER.debug("%s: async_set_values() 3: %s", self._sensor_name, new_values)
 
         if self._values.state == "PRE":
-            rc = await self._async_set_pre_values(event)
+            rc = self._set_pre_values(event)
             if not rc:
                 _LOGGER.debug(
                     "%s: async_set_values() Bad rc from async_set_pre_values(): %s",
@@ -98,7 +98,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 return False
 
         if self._values.state == "IN":
-            rc = await self._async_set_in_values(
+            rc = self._set_in_values(
                 event, grouping_index, competition_index, team_index
             )
             if not rc:
@@ -113,40 +113,40 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             #   Sport Specific Values
             #
             if self._values.sport == "baseball":
-                rc = await self._async_set_baseball_values(
+                rc = self._set_baseball_values(
                     event, competition_index, team_index
                 )
             elif self._values.sport == "soccer":
-                rc = await self._async_set_soccer_values(
+                rc = self._set_soccer_values(
                     event, competition_index, team_index
                 )
             elif self._values.sport == "volleyball":
-                rc = await self._async_set_volleyball_values(
+                rc = self._set_volleyball_values(
                     event, competition_index, team_index
                 )
             elif self._values.sport == "hockey":
-                rc = await self._async_set_hockey_values(
+                rc = self._set_hockey_values(
                     event, competition_index, team_index
                 )
 
         if self._values.sport == "golf":
-            rc = await self._async_set_golf_values(
+            rc = self._set_golf_values(
                 event, competition_index, team_index
             )
         elif self._values.sport == "tennis":
-            rc = await self._async_set_tennis_values(
+            rc = self._set_tennis_values(
                 event, grouping_index, competition_index, team_index
             )
         elif self._values.sport == "mma":
-            rc = await self._async_set_mma_values(
+            rc = self._set_mma_values(
                 event, competition_index, team_index
             )
         elif self._values.sport == "racing":
-            rc = await self._async_set_racing_values(
+            rc = self._set_racing_values(
                 event, competition_index, team_index
             )
         elif self._values.sport == "cricket":
-            rc = await self._async_set_cricket_values(
+            rc = self._set_cricket_values(
                 event, competition_index, team_index
             )
 
@@ -182,7 +182,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  Set Universal Values
     #
-    async def _async_set_universal_values(
+    def _set_universal_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -428,7 +428,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  Set Team Values
     #
-    async def _async_set_team_values(
+    def _set_team_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -504,7 +504,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  PRE
     #
-    async def _async_set_pre_values(self, event) -> bool:
+    def _set_pre_values(self, event) -> bool:
         """Function to set new_values common for PRE state"""
 
         self._values.odds = get_value(
@@ -520,7 +520,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  IN
     #
-    async def _async_set_in_values(
+    def _set_in_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
