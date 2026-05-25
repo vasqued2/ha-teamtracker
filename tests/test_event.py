@@ -55,7 +55,7 @@ async def test_event(hass, snapshot, t):
         "timestamp": timestamp
     }
     with freeze_time(t["frozen_time"]):
-        values = await parser.async_parse_response(
+        values = parser.parse_response(
             provider_response,
             lang,
         )

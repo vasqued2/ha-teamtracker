@@ -43,8 +43,8 @@ async def test_multigame(hass):
             "timestamp": timestamp
         }
 
-        _LOGGER.debug("%s: calling async_parse_response()", sensor_name)
-        values = await parser.async_parse_response(
+        _LOGGER.debug("%s: calling parse_response()", sensor_name)
+        values = parser.parse_response(
             provider_response,
             lang,
         )

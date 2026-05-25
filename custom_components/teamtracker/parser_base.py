@@ -107,9 +107,9 @@ class BaseSportParser(ABC):
 
     @abstractmethod
     #
-    #  async_parse_response()
+    #  parse_response()
     #
-    async def async_parse_response(
+    def parse_response(
         self,
         provider_response, 
         lang

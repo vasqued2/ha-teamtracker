@@ -68,7 +68,7 @@ class CflScoreboardParser(BaseSportParser):
 
 
 
-    async def async_parse_response(
+    def parse_response(
         self,
         provider_response, 
         lang: str
@@ -94,7 +94,7 @@ class CflScoreboardParser(BaseSportParser):
 
         tournaments = get_value(weekly_schedule, "tournaments", default=[])
 
-        tournament = await self._async_get_tournament(tournaments, self._team_id)
+        tournament = self._get_tournament(tournaments, self._team_id)
 
         if tournament:
             rc = self._set_values(weekly_schedule, tournament)
@@ -169,7 +169,7 @@ class CflScoreboardParser(BaseSportParser):
     #
     #   _get_tournament()
     #
-    async def _async_get_tournament(self,
+    def _get_tournament(self,
         tournaments,
         search_key,
     ) -> dict: 

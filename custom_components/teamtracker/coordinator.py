@@ -102,7 +102,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         async with timeout(DEFAULT_TIMEOUT):
             try:
                 response = await self.provider.async_update_sport_data()
-                values = await self.parser.async_parse_response(response, self.get_lang())
+                values = self.parser.parse_response(response, self.get_lang())
 
                 # update the interval based on flag
                 if values.private_fast_refresh:

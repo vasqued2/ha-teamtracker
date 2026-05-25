@@ -58,7 +58,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
 
 
-    async def async_parse_response(
+    def parse_response(
         self,
         provider_response, 
         lang: str
@@ -104,14 +104,14 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 for competition_index, competition in enumerate(
                     get_value(grouping, "competitions", default=[])
                 ):
-                    first_date, last_date = await  self._async_process_competition_dates(
+                    first_date, last_date = self._process_competition_dates(
                         event,
                         competition,
                         first_date,
                         last_date
                     )
 
-                    rc = await self._async_process_competition(
+                    rc = self._process_competition(
                         event,
                         grouping_index,
                         competition,
@@ -119,7 +119,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                     )
                     if not rc:
                         _LOGGER.debug(
-                            "%s: async_parse_response() Error occurred processing competition: %s",
+                            "%s: parse_response() Error occurred processing competition: %s",
                             self._sensor_name,
                             self._values,
                         )
@@ -133,14 +133,14 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 for competition_index, competition in enumerate(
                     get_value(event, "competitions", default=[])
                 ):
-                    first_date, last_date = await  self._async_process_competition_dates(
+                    first_date, last_date = self._process_competition_dates(
                         event,
                         competition,
                         first_date,
                         last_date
                     )
 
-                    rc = await self._async_process_competition(
+                    rc = self._process_competition(
                         event,
                         grouping_index,
                         competition,
@@ -165,7 +165,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 )
 
         if not self._found_competitor:
-            await self._competitor_not_found(
+            self._competitor_not_found(
                 data,
                 limit_hit,
                 first_date,
@@ -178,7 +178,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         return self._values
 
 
-    async def _async_process_competition(self,
+    def _process_competition(self,
         event,
         grouping_index,
         competition,
@@ -192,7 +192,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         for competitor_index, competitor in enumerate(
             get_value(competition, "competitors", default=[])
         ):
-            matched_index = await self._async_find_search_key(
+            matched_index = self._find_search_key(
                 event,
                 competition,
                 competitor,
@@ -202,7 +202,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
             if matched_index is not None:
 
-                rc = await self.async_process_name_match(
+                rc = self.process_name_match(
                     event,
                     grouping_index,
                     competition_index,
@@ -226,7 +226,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         return rc
 
 
-    async def async_process_name_match(self,
+    def process_name_match(self,
         event,
         grouping_index,
         competition_index,
@@ -267,7 +267,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         if self._stop_flag:
             return rc
 
-        prev_flag = await self._async_use_prev_values_flag()
+        prev_flag = self._use_prev_values_flag()
         if prev_flag:
             self._values = replace(self._prev_values)
 
@@ -277,7 +277,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     #
     #   _async_find_search_key()
     #
-    async def _async_find_search_key(self,
+    def _find_search_key(self,
         event,
         competition,
         competitor,
@@ -415,7 +415,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     #
     #   _async_use_prev_values_flag()
     #
-    async def _async_use_prev_values_flag(self):
+    def _use_prev_values_flag(self):
         """Determine if prev_values should be saved"""
 
     #
@@ -466,7 +466,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
     #
     #  _competitor_not_found()
     #
-    async def _competitor_not_found(self,
+    def _competitor_not_found(self,
         data,
         limit_hit,
         first_date,
@@ -533,7 +533,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         return
 
 
-    async def _async_process_competition_dates(self,
+    def _process_competition_dates(self,
         event,
         competition,
         first_date,
