@@ -3,7 +3,6 @@
 import codecs
 from datetime import date
 import logging
-import re
 
 import arrow
 
@@ -22,7 +21,7 @@ from .set_racing import SetRacingMixin
 from .set_soccer import SetSoccerMixin
 from .set_tennis import SetTennisMixin
 from .set_volleyball import SetVolleyballMixin
-from .utils import async_get_value, season_slug_to_name
+from .utils import async_get_value
 
 _LOGGER = logging.getLogger(__name__)
 team_prob: dict[str, float] = {}
@@ -220,9 +219,6 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
 
         self._values.event_name = await async_get_value(event, "shortName")
         self._values.event_url = await async_get_value(event, "links", 0, "href")
-
-        if self._values.league_name == "":
-            self._values.league_name = await self._derive_league_name(self._values.event_url, self._values.season)
 
         self._values.date = await async_get_value(
             competition, "date", default=(await async_get_value(event, "date"))
@@ -645,23 +641,3 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #    _LOGGER.debug("%s: async_set_in_values() 6: %s", self._sensor_name, self._sensor_name)
 
         return True
-
-    #
-    # Derive league_name
-    #
-    async def _derive_league_name(self, event_url, season):
-        """Set league_name from the competition the matched game belongs to."""
-
-        league_name = ""
-        match = re.search(r"/gameId/(\d+)", event_url)
-        if match:
-            game_id = match.group(1)
-            competition = self._league_map.get(game_id)
-            if competition:
-                league_name = re.sub(r"^\d{4}(-\d{2})?\s+", "", competition)
-
-        # Fallback: derive from season slug already present in scoreboard data
-        if league_name == "":
-            league_name = season_slug_to_name(season)
-
-        return league_name

@@ -9,7 +9,6 @@ from homeassistant.core import HomeAssistant
 
 from .const import API_LIMIT
 from .provide_espn import EspnProvider
-from .provider_base import BaseSportProvider
 from .utils import has_team, season_slug_to_name
 
 _LOGGER = logging.getLogger(__name__)
@@ -18,6 +17,7 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 DATA_PROVIDER_ESPN_ALL_LEAGUES = "espn-all_leagues"
+ESPNALL_DATA_FORMAT = "espnall-json"
 ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 
@@ -34,7 +34,10 @@ class EspnAllLeaguesProvider(EspnProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN_ALL_LEAGUES
+        self.TEAM_SCHEDULE_KEY: str = "team-schedule-key"
+        self.data_format = ESPNALL_DATA_FORMAT
         self.lookups: dict[str, list] = {}
+        self.instance_cache: dict[str, dict] = {}
 
 
     #
@@ -155,13 +158,13 @@ class EspnAllLeaguesProvider(EspnProvider):
         league_path = self._coordinator.league_path
         sensor_name = self._coordinator.name
 
-        cache_key = f"{sport_path}:{league_path}:{team_id}"
         today = date.today()
-        cached = BaseSportProvider.all_team_cache.get(cache_key)
+        cache = self.instance_cache.get(self.TEAM_SCHEDULE_KEY)
 
-        if cached is not None and today <= cached["expires"]:
-            _LOGGER.debug("%s: all_team_cache hit for '%s'", sensor_name, team_id)
-            return cached
+        if cache is not None and today <= cache["expires"]:
+            _LOGGER.debug("%s: instance_cache hit for '%s'", sensor_name, team_id)
+            self.lookups["derived_league_name"] = cache["derived_league_name"]
+            return cache
 
         team_url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_id}"
 
@@ -196,14 +199,15 @@ class EspnAllLeaguesProvider(EspnProvider):
                 if display:
                     league_map[str(eid)] = display
 
+        self.lookups["derived_league_name"] = display
         next_game_date = (
             date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
         )
 
         result = {
             "next_game_date": next_game_date,
-            "league_map": league_map,
+            "derived_league_name": display,
             "expires": next_game_date or today,
         }
-        BaseSportProvider.all_team_cache[cache_key] = result
+        self.instance_cache[self.TEAM_SCHEDULE_KEY] = result
         return result
