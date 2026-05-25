@@ -137,7 +137,7 @@ class CflScoreboardProvider(BaseSportProvider):
         """Call the specified ESPN API."""
 
         url = str(URL(base_url).with_query(params))
-        _LOGGER.warning(
+        _LOGGER.debug(
             "%s: Calling CFL Scoreboard API for '%s': %s",
             sensor_name,
             team_id,
