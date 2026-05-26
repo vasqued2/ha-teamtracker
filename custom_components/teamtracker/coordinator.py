@@ -37,6 +37,9 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         if CONF_CONFERENCE_ID in config.keys():
             if len(config[CONF_CONFERENCE_ID]) > 0:
                 self.conference_id = config[CONF_CONFERENCE_ID]
+        self.config = config
+        self.hass = hass
+        self.entry = entry #None if setup from YAML
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
         self.parser = get_parser(self.provider.data_format)
@@ -44,9 +47,6 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
-        self.config = config
-        self.hass = hass
-        self.entry = entry #None if setup from YAML
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=self.provider.DEFAULT_REFRESH_RATE)
         _LOGGER.debug(

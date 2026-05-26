@@ -171,7 +171,6 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Only remove service if this is the last entry
         if not domain_data:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
-            BaseSportProvider.data_cache.clear()
 
     return unload_ok
 

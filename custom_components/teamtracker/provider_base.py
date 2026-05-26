@@ -3,9 +3,11 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta, timezone
-from typing import TYPE_CHECKING, ClassVar
+from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
+
+from .const import DOMAIN
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
@@ -15,11 +17,6 @@ DEFAULT_DATA_FORMAT = "espn_json"
 class BaseSportProvider(ABC):
     """Base class for all sport data providers."""
 
-    # Stores API data for sharing across sensors
-    #  key = "{sport_path}:{league_path}:{conference_id}:{lang}"+":{team_id}" if league_path "all"
-    data_cache: ClassVar[dict] = {}  # {key: {response: {data, url, timestamp, cache_flag}}}
-
-
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         # Define the attributes that must be available on all providers
         self.DATA_PROVIDER: str = "default"
@@ -28,6 +25,10 @@ class BaseSportProvider(ABC):
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
         self.data_format = DEFAULT_DATA_FORMAT
         self._coordinator = coordinator
+        if self._coordinator:
+            self.data_cache = self._coordinator.hass.data.setdefault(DOMAIN, {}).setdefault("data_cache", {})
+        else: # coordinator is None when called from Config Flow
+            self.data_cache = {}
         self._USER_AGENT = (
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like "
             "Gecko) Version/15.0 Safari/605.1.15"
@@ -46,7 +47,7 @@ class BaseSportProvider(ABC):
         #  Return cached response if not expired
         #
         key = self._get_cache_key()
-        response = BaseSportProvider.data_cache.get(key, {}).get("response", None)
+        response = self.data_cache.get(key, {}).get("response", None)
         if response:
             expiration = datetime.fromisoformat(response["timestamp"]) + self._coordinator.update_interval
             now = datetime.now(timezone.utc)
@@ -60,7 +61,7 @@ class BaseSportProvider(ABC):
         #
         response = await self.async_fetch_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
         if response["data"] is not None:
-            BaseSportProvider.data_cache.update({key: {"response": response}})
+            self.data_cache.update({key: {"response": response}})
 
         return response
 
