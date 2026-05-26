@@ -32,7 +32,7 @@ async def test_multigame(hass):
         lang = "en"
         league_map = {}
 
-        parser = EspnParser()
+        parser = EspnParser(None)
         parser.setup(sensor_name, sport_path, league_path, league_id, team_id)
 
         url = "url"

@@ -27,9 +27,9 @@ _LOGGER = logging.getLogger(__name__)
 class EspnParser(BaseSportParser, SetValuesMixin):
     """Class to parse responses in ESPN JSON format."""
 
-    def __init__(self) -> None:
+    def __init__(self, coordinator: TeamTrackerCoordinator) -> None:
         # Define the attributes that must be available on all providers
-        super().__init__()
+        super().__init__(coordinator)
         self._lang = ""
         self._search_key = ""
         self._stop_flag = False

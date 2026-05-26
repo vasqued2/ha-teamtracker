@@ -1,0 +1,122 @@
+{
+  "{sport_path}": {
+    "{league_path}": {
+      "league_name": "Sample League",
+      "league_logo": "leagueLogo.png",
+      "public_key": "url key",
+      "client_code": "url code",
+      "teams": {
+        "{team_id}": {
+          "abbr": "ABBR",
+          "long_name": "Sample City Nickname",
+          "name": "Sample Nickname",
+          "logo": "teamLogo.png",
+          "url": "https://www.sample.com",
+          "colors": ["#FFFFFF", "#000000"]
+        }
+      }
+    }
+  },
+  "cflscoreboard": {
+    "cfl": {
+      "league_name": "Canadian Football League",
+      "league_logo": "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png",
+      "teams": {
+        "83579": {
+          "name": "Tiger-Cats",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/83579.png",
+          "url": "https://ticats.ca",
+          "colors": ["#FFB612", "#000000"]
+        },
+        "86680": {
+          "name": "Alouettes",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/86680.png",
+          "url": "https://www.montrealalouettes.com",
+          "colors": ["#021D49", "#D0202E"]
+        },
+        "88019": {
+          "name": "RedBlacks",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/88019.png",
+          "url": "https://www.ottawaredblacks.com",
+          "colors": ["#C8102E", "#000000"]
+        },
+        "93775": {
+          "name": "Lions",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/93775.png",
+          "url": "https://www.bclions.com",
+          "colors": ["#F15A22", "#000000"]
+        },
+        "106752": {
+          "name": "Roughriders",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/106752.png",
+          "url": "https://www.riderville.com",
+          "colors": ["#006341", "#FFFFFF"]
+        },
+        "110380": {
+          "name": "Blue Bombers",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/110380.png",
+          "url": "https://www.bluebombers.com",
+          "colors": ["#041E42", "#A7A8AA"]
+        },
+        "112939": {
+          "name": "Stampeders",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/112939.png",
+          "url": "https://www.stampeders.com",
+          "colors": ["#C8102E", "#000000"]
+        },
+        "114347": {
+          "name": "Elks",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/114347.png",
+          "url": "https://www.goelks.com",
+          "colors": ["#006341", "#FFB81C"]
+        },
+        "122345": {
+          "name": "Argonauts",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/122345.png",
+          "url": "https://www.argonauts.ca",
+          "colors": ["#5F259F", "#A7A8AA"]
+        }
+      }
+    }
+  },
+  "hockeytech": {
+    "ahl": {
+      "league_name": "American Hockey League",
+      "league_logo": "logo",
+      "public_key": "sdljkfd",
+      "client_code": "ahl",
+      "teams": {
+        "ID1": {
+          "name": "Team Name",
+          "logo": "Team Name",
+          "url": "http:/",
+          "colors": "xxx"
+        },
+        "ID2": {
+          "name": "Team Name",
+          "logo": "Team Name",
+          "colors": "xxx"
+        }
+      }
+    },
+    "chl": {
+      "league_name": "Canadian Hockey League",
+      "league_logo": "logo",
+      "public_key": "sdljkfd",
+      "client_code": "ahl",
+      "teams": {
+        "ID1": {
+          "name": "Team Name",
+          "logo": "Team Name",
+          "url": "http:/",
+          "colors": "xxx"
+        },
+        "ID2": {
+          "name": "Team Name",
+          "logo": "Team Name",
+          "colors": "xxx"
+        }
+      }
+    }
+  }
+}

@@ -202,4 +202,5 @@ VERSION = "v0.17.4"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 COORDINATOR = "coordinator"
+OVERRIDE_DICT = "override"
 PLATFORMS = [Platform.SENSOR]

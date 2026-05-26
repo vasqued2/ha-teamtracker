@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 import logging
 from typing import TYPE_CHECKING
 
-from .const import DEFAULT_LOGO
+from .const import DEFAULT_LOGO, DOMAIN, OVERRIDE_DICT
 from .models import TeamTrackerValues
 from .utils import is_integer
 
@@ -17,9 +17,10 @@ if TYPE_CHECKING:
 class BaseSportParser(ABC):
     """Base class for all sport data providers."""
 
-    def __init__(self) -> None:
+    def __init__(self, coordinator: TeamTrackerCoordinator) -> None:
         # Define the attributes that must be available on all providers
         self._values: TeamTrackerValues = TeamTrackerValues()
+        self._coordinator = coordinator
         self._sensor_name = ""
         self._sport_path = ""
         self._league_path = ""
@@ -90,9 +91,50 @@ class BaseSportParser(ABC):
             else:
                 self._values.api_message = "Cached data"
 
+        rc = self.override_sensor_values()
+
+        return rc
+
+
+    #
+    #  override_sensor_values()
+    #    Apply any overrides from the override files
+    #
+    def override_sensor_values(self) -> bool:
+
+        if self._coordinator is None:
+            return True
+
+        override_dict = self._coordinator.hass.data[DOMAIN].get(OVERRIDE_DICT, {})
+        overrides = override_dict.get(str(self._values.sport_path).lower(), {}).get(str(self._values.league_path).lower(), None)
+
+        if overrides is None:
+            return True
+
+        self._values.league_name = overrides.get("league_name", self._values.league_name)
+        self._values.league_logo = overrides.get("league_logo", self._values.league_logo)
+
+        team_id = self._values.team_id
+        team_overrides = overrides.get("teams", {}).get(team_id, None)
+        if team_overrides is not None:
+            self._values.team_abbr = team_overrides.get("abbr", self._values.team_abbr)
+            self._values.team_long_name = team_overrides.get("long_name", self._values.team_long_name)
+            self._values.team_name = team_overrides.get("name", self._values.team_name)
+            self._values.team_logo = team_overrides.get("logo", self._values.team_logo)
+            self._values.team_url = team_overrides.get("url", self._values.team_url)
+            self._values.team_colors = team_overrides.get("colors", self._values.team_colors)
+
+        opponent_id = self._values.opponent_id
+        opponent_overrides = overrides.get("teams", {}).get(opponent_id, None)
+        if opponent_overrides is not None:
+            self._values.opponent_abbr = opponent_overrides.get("abbr", self._values.opponent_abbr)
+            self._values.opponent_long_name = opponent_overrides.get("long_name", self._values.opponent_long_name)
+            self._values.opponent_name = opponent_overrides.get("name", self._values.opponent_name)
+            self._values.opponent_logo = opponent_overrides.get("logo", self._values.opponent_logo)
+            self._values.opponent_url = opponent_overrides.get("url", self._values.opponent_url)
+            self._values.opponent_colors = opponent_overrides.get("colors", self._values.opponent_colors)
+
         return True
-
-
 
 
     @abstractmethod

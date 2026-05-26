@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 async def test_error_conditions(hass):
     """ Use file w/ test json and loop through test cases and compare to expected results """
 
-    parser = EspnParser()
+    parser = EspnParser(None)
     parser.setup("sensor_name", "sport_path", "league_path", "league_id", "team_id")
 
     rc = parser._set_cricket_values({}, 0, 0)

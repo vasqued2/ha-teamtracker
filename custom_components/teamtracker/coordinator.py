@@ -42,7 +42,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         self.entry = entry #None if setup from YAML
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
-        self.parser = get_parser(self.provider.data_format)
+        self.parser = get_parser(self.provider.data_format, self)
         self.parser.setup(self.name, self.sport_path, self.league_path, self.league_id, self.team_id)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE

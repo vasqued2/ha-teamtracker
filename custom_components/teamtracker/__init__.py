@@ -40,13 +40,14 @@ from .const import (
     DOMAIN,
     ISSUE_URL,
     NATIVE_LEAGUES,
+    OVERRIDE_DICT,
     PLATFORMS,
     SERVICE_NAME_CALL_API,
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator
 from .provider_base import BaseSportProvider
-from .utils import has_team, is_integer
+from .utils import has_team, is_integer, load_file_overrides
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -113,7 +114,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Initialize DOMAIN in hass.data if it doesn't exist
     if DOMAIN not in hass.data:
         hass.data[DOMAIN] = {}
+
+    if OVERRIDE_DICT not in hass.data[DOMAIN]:
+        hass.data[DOMAIN][OVERRIDE_DICT] = None
+        component_dir = os.path.dirname(__file__)
+        default_file = os.path.join(component_dir, "overrides", "default.json")
+        custom_file = hass.config.path("teamtracker_overrides.json")
+
+        override_dict = await hass.async_add_executor_job(
+            load_file_overrides, default_file, custom_file
+        )
         
+        if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
+            hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+
+
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 
     if entry.unique_id is not None:

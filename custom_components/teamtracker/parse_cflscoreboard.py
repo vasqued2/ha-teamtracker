@@ -17,16 +17,14 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 _LOGGER = logging.getLogger(__name__)
-LEAGUE_NAME = "Canadian Football League"
-CFL_LEAGUE_LOGO = "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png"
 DEFAULT_COLORS = ["#D3D3D3", "#A9A9A9"]
 
 class CflScoreboardParser(BaseSportParser):
     """Class to parse responses in ESPN JSON format."""
 
-    def __init__(self) -> None:
+    def __init__(self, coordinator: TeamTrackerCoordinator) -> None:
         # Define the attributes that must be available on all providers
-        super().__init__()
+        super().__init__(coordinator)
         self._lang = ""
         self._search_key = ""
         self._stop_flag = False
@@ -83,9 +81,6 @@ class CflScoreboardParser(BaseSportParser):
 
         self._lang = lang
         self._search_key = self._team_id
-
-        self._values.league_logo = self._default_logo
-        self._values.league_name = "Canadien Football League"
 
         weekly_schedule = self._get_current_schedule(data)
         week_name =  get_value(weekly_schedule, "name", default="")
@@ -251,7 +246,6 @@ class CflScoreboardParser(BaseSportParser):
         else:
             self._values.state = "IN"
 
-        self._values.league_name = LEAGUE_NAME
         self._values.season = get_value(schedule, "type", default="")
 
         # Event Details
