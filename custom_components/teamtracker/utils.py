@@ -92,14 +92,14 @@ def load_file_overrides(hass: HomeAssistant) -> dict:
             with open(default_file, "r", encoding="utf-8") as f:
                 base_data = json.load(f)
         except json.JSONDecodeError as err:
-            _LOGGER.error(
-                "Invalid JSON in %s: %s",
+            _LOGGER.debug(
+                "File Override Error: Invalid JSON in %s: %s",
                 default_file,
                 err,
             )
         except OSError as err:
-            _LOGGER.error(
-                "Unable to read %s: %s",
+            _LOGGER.debug(
+                "File Override Error: Unable to read %s: %s",
                 default_file,
                 err,
             )
@@ -110,14 +110,14 @@ def load_file_overrides(hass: HomeAssistant) -> dict:
             with open(custom_file, "r", encoding="utf-8") as f:
                 custom_data = json.load(f)
         except json.JSONDecodeError as err:
-            _LOGGER.error(
-                "Invalid JSON in %s: %s",
+            _LOGGER.warning(
+                "File Override Error: Invalid JSON in %s: %s",
                 custom_file,
                 err,
             )
         except OSError as err:
-            _LOGGER.error(
-                "Unable to read %s: %s",
+            _LOGGER.debug(
+                "File Override Error: Unable to read %s: %s",
                 custom_file,
                 err,
             )

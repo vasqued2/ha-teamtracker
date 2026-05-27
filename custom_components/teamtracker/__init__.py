@@ -112,6 +112,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     async def async_reload_overrides(call):
         """Handle the service action call to reload the override file."""
 
+        _LOGGER.warning(
+            "Reloading local teamtracker_overrides.json file. All TeamTracker sensors will be impacted on next API call."
+        )
+
         # Initialize DOMAIN in hass.data if it doesn't exist
         if DOMAIN not in hass.data:
             hass.data[DOMAIN] = {}
