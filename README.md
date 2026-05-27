@@ -73,6 +73,15 @@ Custom APIs can be configured for the following leagues using Non-ESPN APIs. The
 | [Alberta Junior Hockey League](https://www.ajhl.ca/) | hockeytech | ajhl |
 | [Manitoba Junior Hockey League](https://mjhlhockey.ca/) | hockeytech | mjhl |
 | [Maritime Junior Hockey League](https://www.themhl.ca/) | hockeytech | mhl |
+
+#### Overriding Incorrect or Unpopulated Sensor Attributes in non-ESPN APIs
+
+Many non-ESPN APIs do not return values for attributes used by the TeamTracker Card and custom automations (i.e. logos, names, team colors). In other cases, a user may want to override a value returned by the API.
+
+The `teamtracker_overrides.json` file provides a way to supply or override these values. 
+
+See [this Wiki Entry](https://github.com/vasqued2/ha-teamtracker/wiki/Override-File) for configuration details.
+
 ## Installation
 
 ### Manual Installation

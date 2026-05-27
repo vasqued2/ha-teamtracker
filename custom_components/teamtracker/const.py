@@ -193,13 +193,17 @@ GENERAL_RAPID_REFRESH_RATE = timedelta(seconds=5)
 
 # Services
 SERVICE_NAME_CALL_API = "call_api"
+SERVICE_NAME_RELOAD_OVERRIDES = "reload_overrides"
 
 INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
 
 # Misc
 TEAM_ID = ""
-VERSION = "v0.17.4"
+VERSION = "v0.17.5"
 ISSUE_URL = "https://github.com/vasqued2/ha-teamtracker"
 DOMAIN = "teamtracker"
 COORDINATOR = "coordinator"
+OVERRIDE_DICT = "override"
+DEFAULT_OVERRIDE_FILE = "default.json"
+LOCAL_OVERRIDE_FILE = "teamtracker_overrides.json"
 PLATFORMS = [Platform.SENSOR]

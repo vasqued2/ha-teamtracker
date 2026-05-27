@@ -11,22 +11,20 @@ import arrow
 from .const import DEFAULT_LOGO
 from .models import TeamTrackerValues
 from .parser_base import BaseSportParser
-from .utils import async_get_value
+from .utils import get_value
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 _LOGGER = logging.getLogger(__name__)
-LEAGUE_NAME = "Canadian Football League"
-CFL_LEAGUE_LOGO = "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png"
 DEFAULT_COLORS = ["#D3D3D3", "#A9A9A9"]
 
 class CflScoreboardParser(BaseSportParser):
     """Class to parse responses in ESPN JSON format."""
 
-    def __init__(self) -> None:
+    def __init__(self, coordinator: TeamTrackerCoordinator) -> None:
         # Define the attributes that must be available on all providers
-        super().__init__()
+        super().__init__(coordinator)
         self._lang = ""
         self._search_key = ""
         self._stop_flag = False
@@ -68,7 +66,7 @@ class CflScoreboardParser(BaseSportParser):
 
 
 
-    async def async_parse_response(
+    def parse_response(
         self,
         provider_response, 
         lang: str
@@ -84,20 +82,17 @@ class CflScoreboardParser(BaseSportParser):
         self._lang = lang
         self._search_key = self._team_id
 
-        self._values.league_logo = self._default_logo
-        self._values.league_name = "Canadien Football League"
-
         weekly_schedule = self._get_current_schedule(data)
-        week_name =  await async_get_value(weekly_schedule, "name", default="")
-        first_date_str =  await async_get_value(weekly_schedule, "startDate", default="")
-        last_date_str =  await async_get_value(weekly_schedule, "endDate", default="")
+        week_name =  get_value(weekly_schedule, "name", default="")
+        first_date_str =  get_value(weekly_schedule, "startDate", default="")
+        last_date_str =  get_value(weekly_schedule, "endDate", default="")
 
-        tournaments = await async_get_value(weekly_schedule, "tournaments", default=[])
+        tournaments = get_value(weekly_schedule, "tournaments", default=[])
 
-        tournament = await self._async_get_tournament(tournaments, self._team_id)
+        tournament = self._get_tournament(tournaments, self._team_id)
 
         if tournament:
-            rc = await self._async_set_values(weekly_schedule, tournament)
+            rc = self._set_values(weekly_schedule, tournament)
             if rc is False:
                 _LOGGER.debug(
                     "%s: Error parsing response for '%s' for CFL '%s'",
@@ -169,7 +164,7 @@ class CflScoreboardParser(BaseSportParser):
     #
     #   _get_tournament()
     #
-    async def _async_get_tournament(self,
+    def _get_tournament(self,
         tournaments,
         search_key,
     ) -> dict: 
@@ -188,7 +183,7 @@ class CflScoreboardParser(BaseSportParser):
                     )
                     return t
 
-                team_id = str(await async_get_value(
+                team_id = str(get_value(
                     t, f"{side}Squad", "id", default=""
                 ))
                 if search_key == team_id:
@@ -199,7 +194,7 @@ class CflScoreboardParser(BaseSportParser):
                     )
                     return t
 
-                team_abbr = await async_get_value(
+                team_abbr = get_value(
                     t, f"{side}Squad", "shortName", default=""
                 )
                 if search_key == team_abbr:
@@ -210,7 +205,7 @@ class CflScoreboardParser(BaseSportParser):
                     )
                     return t
                     
-                team_name = str(await async_get_value(
+                team_name = str(get_value(
                     t, f"{side}Squad", "name", default=""
                 )).upper()
 
@@ -237,13 +232,13 @@ class CflScoreboardParser(BaseSportParser):
     #
     #  Set Values
     #
-    async def _async_set_values(
+    def _set_values(
         self,
         schedule,
         tournament
     ) -> bool:
 
-        status = await async_get_value(tournament, "status", default="")
+        status = get_value(tournament, "status", default="")
         if status.lower() == "complete":
             self._values.state = "POST"
         elif status.lower() == "scheduled":
@@ -251,30 +246,29 @@ class CflScoreboardParser(BaseSportParser):
         else:
             self._values.state = "IN"
 
-        self._values.league_name = LEAGUE_NAME
-        self._values.season = await async_get_value(schedule, "type", default="")
+        self._values.season = get_value(schedule, "type", default="")
 
         # Event Details
-        self._values.team_abbr = await async_get_value(tournament, f"{self._team_side}Squad", "shortName", default="")
-        self._values.opponent_abbr = await async_get_value(tournament, f"{self._opponent_side}Squad", "shortName", default="")
-        away = await async_get_value(tournament, "awaySquad", "shortName", default="{shortName}")
-        home = await async_get_value(tournament, "homeSquad", "shortName", default="{shortName}")
+        self._values.team_abbr = get_value(tournament, f"{self._team_side}Squad", "shortName", default="")
+        self._values.opponent_abbr = get_value(tournament, f"{self._opponent_side}Squad", "shortName", default="")
+        away = get_value(tournament, "awaySquad", "shortName", default="{shortName}")
+        home = get_value(tournament, "homeSquad", "shortName", default="{shortName}")
         self._values.event_name = f"{away}@{home}"                
         self._values.event_url = None
-        self._values.date = await async_get_value(tournament, "date")
+        self._values.date = get_value(tournament, "date")
         self._values.kickoff_in = arrow.get(self._values.date).humanize(locale=self._lang)
         self._values.series_summary = None
         self._values.venue = None
         self._values.location = None
         self._values.tv_network = None
-        odds = await async_get_value(tournament, "markets", "away", "value", default="")
+        odds = get_value(tournament, "markets", "away", "value", default="")
         self._values.odds = f"{self._values.team_abbr} {odds}"
         self._values.overunder = None
 
         # Team Data
-        self._values.team_name = await async_get_value(tournament, f"{self._team_side}Squad", "name", default="")
+        self._values.team_name = get_value(tournament, f"{self._team_side}Squad", "name", default="")
         self._values.team_long_name = self._values.team_name
-        self._values.team_id = str(await async_get_value(tournament, f"{self._team_side}Squad", "id", default=""))
+        self._values.team_id = str(get_value(tournament, f"{self._team_side}Squad", "id", default=""))
         self._values.team_record = None
         self._values.team_rank = None
         self._values.team_conference_id = None
@@ -282,16 +276,16 @@ class CflScoreboardParser(BaseSportParser):
         self._values.team_logo = None
         self._values.team_url = None
         self._values.team_colors = DEFAULT_COLORS
-        self._values.team_score = await async_get_value(tournament, f"{self._team_side}Squad", "score")
+        self._values.team_score = get_value(tournament, f"{self._team_side}Squad", "score")
         self._values.team_win_probability = None
-        winner = str(await async_get_value(tournament, "winner", default=""))
+        winner = str(get_value(tournament, "winner", default=""))
         self._values.team_winner = (winner == self._values.team_id)
-        self._values.team_timeouts = await async_get_value(tournament, "timeouts", f"{self._team_side}")
+        self._values.team_timeouts = get_value(tournament, "timeouts", f"{self._team_side}")
 
         # Opponent Data
-        self._values.opponent_name = await async_get_value(tournament, f"{self._opponent_side}Squad", "name", default="")
+        self._values.opponent_name = get_value(tournament, f"{self._opponent_side}Squad", "name", default="")
         self._values.opponent_long_name = self._values.opponent_name
-        self._values.opponent_id = str(await async_get_value(tournament, f"{self._opponent_side}Squad", "id", default=""))
+        self._values.opponent_id = str(get_value(tournament, f"{self._opponent_side}Squad", "id", default=""))
         self._values.opponent_record = None
         self._values.opponent_rank = None
         self._values.opponent_conference_id = None
@@ -299,16 +293,16 @@ class CflScoreboardParser(BaseSportParser):
         self._values.opponent_logo = None
         self._values.opponent_url = None
         self._values.opponent_colors = DEFAULT_COLORS
-        self._values.opponent_score = await async_get_value(tournament, f"{self._opponent_side}Squad", "score")
+        self._values.opponent_score = get_value(tournament, f"{self._opponent_side}Squad", "score")
         self._values.team_win_probability = None
-        winner = str(await async_get_value(tournament, "winner", default=""))
+        winner = str(get_value(tournament, "winner", default=""))
         self._values.opponent_winner = (winner == self._values.opponent_id)
-        self._values.opponent_timeouts = await async_get_value(tournament, "timeouts", f"{self._opponent_side}")
+        self._values.opponent_timeouts = get_value(tournament, "timeouts", f"{self._opponent_side}")
 
         # In Game Attributes
-        self._values.quarter = await async_get_value(tournament, "activePeriod")
-        self._values.clock = await async_get_value(tournament, "clock")
-        possession = str(await async_get_value(tournament, "possession", "")).lower()
+        self._values.quarter = get_value(tournament, "activePeriod")
+        self._values.clock = get_value(tournament, "clock")
+        possession = str(get_value(tournament, "possession", "")).lower()
         if possession == self._team_side:
             self._values.possession = self._values.team_id
         elif possession == self._opponent_side:

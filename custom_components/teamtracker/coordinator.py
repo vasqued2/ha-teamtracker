@@ -37,16 +37,16 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         if CONF_CONFERENCE_ID in config.keys():
             if len(config[CONF_CONFERENCE_ID]) > 0:
                 self.conference_id = config[CONF_CONFERENCE_ID]
+        self.config = config
+        self.hass = hass
+        self.entry = entry #None if setup from YAML
 
         self.provider = get_provider(self.sport_path, self.league_path, self.team_id, self)
-        self.parser = get_parser(self.provider.data_format)
+        self.parser = get_parser(self.provider.data_format, self)
         self.parser.setup(self.name, self.sport_path, self.league_path, self.league_id, self.team_id)
 
         self.update_interval = self.provider.DEFAULT_REFRESH_RATE
 
-        self.config = config
-        self.hass = hass
-        self.entry = entry #None if setup from YAML
 
         super().__init__(hass, _LOGGER, name=self.name, update_interval=self.provider.DEFAULT_REFRESH_RATE)
         _LOGGER.debug(
@@ -102,7 +102,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         async with timeout(DEFAULT_TIMEOUT):
             try:
                 response = await self.provider.async_update_sport_data()
-                values = await self.parser.async_parse_response(response, self.get_lang())
+                values = self.parser.parse_response(response, self.get_lang())
 
                 # update the interval based on flag
                 if values.private_fast_refresh:

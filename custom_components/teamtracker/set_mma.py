@@ -3,7 +3,7 @@
 import logging
 
 from .models import TeamTrackerValues
-from .utils import async_get_value
+from .utils import get_value
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ class SetMMAMixin:
     _sensor_name: str
     _values: TeamTrackerValues
 
-    async def _async_set_mma_values(
+    def _set_mma_values(
         self,
         event, competition_index, team_index
     ) -> bool:
@@ -20,9 +20,9 @@ class SetMMAMixin:
         _LOGGER.debug("%s: async_set_mma_values() 1: %s", self._sensor_name, self._sensor_name)
 
         oppo_index = 1 - team_index
-        competition = await async_get_value(event, "competitions", competition_index)
-        competitor = await async_get_value(competition, "competitors", team_index)
-        opponent = await async_get_value(competition, "competitors", oppo_index)
+        competition = get_value(event, "competitions", competition_index)
+        competitor = get_value(competition, "competitors", team_index)
+        opponent = get_value(competition, "competitors", oppo_index)
 
         if competition is None or competitor is None or opponent is None:
             #        _LOGGER.debug("%s: async_set_mma_values() 1.1: %s", sensor_name, sensor_name)
@@ -30,29 +30,29 @@ class SetMMAMixin:
 
         #    _LOGGER.debug("%s: async_set_mma_values() 2: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
-        self._values.event_name = await async_get_value(event, "name")
+        self._values.event_name = get_value(event, "name")
 
         t = 0
         o = 0
         for ls in range(
             0,
             len(
-                await async_get_value(
+                get_value(
                     competitor, "linescores", -1, "linescores", default=[]
                 )
             ),
         ):
             #        _LOGGER.debug("%s: async_set_mma_values() 2.1: %s", sensor_name, ls)
 
-            if await async_get_value(
+            if get_value(
                 competitor, "linescores", -1, "linescores", ls, "value", default=0
-            ) > await async_get_value(
+            ) > get_value(
                 opponent, "linescores", -1, "linescores", ls, "value", default=0
             ):
                 t = t + 1
-            if await async_get_value(
+            if get_value(
                 competitor, "linescores", -1, "linescores", ls, "value", default=0
-            ) < await async_get_value(
+            ) < get_value(
                 opponent, "linescores", -1, "linescores", ls, "value", default=0
             ):
                 o = o + 1
@@ -61,34 +61,34 @@ class SetMMAMixin:
             self._values.opponent_score = str(o)
         if t == o:
             #        _LOGGER.debug("%s: async_set_mma_values() 3: %s", sensor_name, sensor_name)
-            if await async_get_value(competitor, "winner", default=False):
+            if get_value(competitor, "winner", default=False):
                 self._values.team_score = "W"
                 self._values.opponent_score = "L"
-            if await async_get_value(opponent, "winner", default=False):
+            if get_value(opponent, "winner", default=False):
                 self._values.team_score = "L"
                 self._values.opponent_score = "W"
 
         #    _LOGGER.debug("%s: async_set_mma_values() 4: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
-        self._values.last_play = await self._async_get_prior_fights(event)
+        self._values.last_play = self._get_prior_fights(event)
 
         #     _LOGGER.debug("%s: async_set_mma_values() 5: %s %s %s", sensor_name, competition_index, team_index, oppo_index)
 
         return True
 
 
-    async def _async_get_prior_fights(self, event) -> str:
+    def _get_prior_fights(self, event) -> str:
         """Get the results of the prior fights"""
 
         prior_fights = ""
 
         #    _LOGGER.debug("%s: async_get_prior_fights() 1: %s", sensor_name, sensor_name)
         c = 1
-        for competition in await async_get_value(event, "competitions", default=[]):
-            #        _LOGGER.debug("%s: async_get_prior_fights() 2: %s", sensor_name, sensor_name)
+        for competition in get_value(event, "competitions", default=[]):
+            #        _LOGGER.debug("%s: _get_prior_fights() 2: %s", sensor_name, sensor_name)
 
             if (
                 str(
-                    await async_get_value(
+                    get_value(
                         competition, "status", "type", "state", default="NOT_FOUND"
                     )
                 ).upper()
@@ -97,14 +97,14 @@ class SetMMAMixin:
                 #            _LOGGER.debug("%s: async_get_prior_fights() 2.1: %s", sensor_name, sensor_name)
 
                 prior_fights = prior_fights + str(c) + ". "
-                if await async_get_value(
+                if get_value(
                     competition, "competitors", 0, "winner", default=False
                 ):
                     prior_fights = (
                         prior_fights
                         + "*"
                         + str(
-                            await async_get_value(
+                            get_value(
                                 competition,
                                 "competitors",
                                 0,
@@ -116,7 +116,7 @@ class SetMMAMixin:
                     )
                 else:
                     prior_fights = prior_fights + str(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             0,
@@ -126,13 +126,13 @@ class SetMMAMixin:
                         )
                     )
                 prior_fights = prior_fights + " v. "
-                if await async_get_value(
+                if get_value(
                     competition, "competitors", 1, "winner", default=False
                 ):
                     prior_fights = (
                         prior_fights
                         + str(
-                            await async_get_value(
+                            get_value(
                                 competition,
                                 "competitors",
                                 1,
@@ -145,7 +145,7 @@ class SetMMAMixin:
                     )
                 else:
                     prior_fights = prior_fights + str(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             1,
@@ -157,11 +157,11 @@ class SetMMAMixin:
                 f1 = 0
                 f2 = 0
                 t = 0
-                #            _LOGGER.debug("%s: async_get_prior_fights() 2.2: %s", sensor_name, len(await async_get_value(competition, "competitors", 0, "linescores", 0, "linescores", default=[])))
+                #            _LOGGER.debug("%s: async_get_prior_fights() 2.2: %s", sensor_name, len(get_value(competition, "competitors", 0, "linescores", 0, "linescores", default=[])))
                 for ls in range(
                     0,
                     len(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             0,
@@ -174,7 +174,7 @@ class SetMMAMixin:
                 ):
                     #                _LOGGER.debug("%s: async_get_prior_fights() 2.3: %s %s %s %s", sensor_name, ls, f1, f2, t)
                     if int(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             0,
@@ -186,7 +186,7 @@ class SetMMAMixin:
                             default=0,
                         )
                     ) > int(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             1,
@@ -200,7 +200,7 @@ class SetMMAMixin:
                     ):
                         f1 = f1 + 1
                     elif int(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             0,
@@ -212,7 +212,7 @@ class SetMMAMixin:
                             default=0,
                         )
                     ) < int(
-                        await async_get_value(
+                        get_value(
                             competition,
                             "competitors",
                             1,
@@ -235,13 +235,13 @@ class SetMMAMixin:
                         prior_fights
                         + " (KO/TKO/Sub: R"
                         + str(
-                            await async_get_value(
+                            get_value(
                                 competition, "status", "period", default="{period}"
                             )
                         )
                         + "@"
                         + str(
-                            await async_get_value(
+                            get_value(
                                 competition,
                                 "status",
                                 "displayClock",

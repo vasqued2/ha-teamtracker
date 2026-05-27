@@ -40,13 +40,15 @@ from .const import (
     DOMAIN,
     ISSUE_URL,
     NATIVE_LEAGUES,
+    OVERRIDE_DICT,
     PLATFORMS,
     SERVICE_NAME_CALL_API,
+    SERVICE_NAME_RELOAD_OVERRIDES,
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator
 from .provider_base import BaseSportProvider
-from .utils import async_get_value, has_team, is_integer
+from .utils import has_team, is_integer, load_file_overrides
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -69,6 +71,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         return None
 
 
+    #
+    #  async_call_api_service()
+    #    Service to change the path, league, team and conference 
+    #
     async def async_call_api_service(call):
         """Handle the service action call."""
 
@@ -99,6 +105,25 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                         entity_id,
                     )
 
+    #
+    #  async_reload_overrides()
+    #    Service to reload the override files
+    #
+    async def async_reload_overrides(call):
+        """Handle the service action call to reload the override file."""
+
+        _LOGGER.warning(
+            "Reloading local teamtracker_overrides.json file. All TeamTracker sensors will be impacted on next API call."
+        )
+
+        # Initialize DOMAIN in hass.data if it doesn't exist
+        if DOMAIN not in hass.data:
+            hass.data[DOMAIN] = {}
+
+        # Reload the OVERRIDE_DICT
+        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+        hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+
     # Print startup message
 
     sensor_name = entry.data[CONF_NAME]
@@ -113,7 +138,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Initialize DOMAIN in hass.data if it doesn't exist
     if DOMAIN not in hass.data:
         hass.data[DOMAIN] = {}
-        
+
+    # Load the OVERRIDE_DICT if it doesn't exist
+    if OVERRIDE_DICT not in hass.data[DOMAIN]:
+        hass.data[DOMAIN][OVERRIDE_DICT] = None
+        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+        if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
+            hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 
     if entry.unique_id is not None:
@@ -146,6 +178,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 #  Register services for sensor
 #
     hass.services.async_register(DOMAIN, SERVICE_NAME_CALL_API, async_call_api_service,)
+    hass.services.async_register(DOMAIN, SERVICE_NAME_RELOAD_OVERRIDES, async_reload_overrides,)
 
     return True
 
@@ -165,13 +198,12 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     if unload_ok:
         domain_data = hass.data.get(DOMAIN, None)
-        if domain_data:
-            domain_data.pop(entry.entry_id)
+        if domain_data and entry.entry_id in domain_data:
+                domain_data.pop(entry.entry_id)
         
         # Only remove service if this is the last entry
         if not domain_data:
             hass.services.async_remove(DOMAIN, SERVICE_NAME_CALL_API)
-            BaseSportProvider.data_cache.clear()
 
     return unload_ok
 

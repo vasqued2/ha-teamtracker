@@ -1,17 +1,43 @@
 """ Miscellaneous Utilities """
+import json
 import logging
+import os
 import re
+
+from homeassistant.core import HomeAssistant
+
+from .const import DEFAULT_OVERRIDE_FILE, LOCAL_OVERRIDE_FILE
 
 _LOGGER = logging.getLogger(__name__)
 
+#
+# deep_merge()
+#
+def deep_merge(base: dict, override: dict) -> dict:
+    """Recursively merge override into base."""
+    result = base.copy()
+
+    for key, value in override.items():
+        if (
+            key in result
+            and isinstance(result[key], dict)
+            and isinstance(value, dict)
+        ):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = value
+
+    return result
+
 
 #
-# Traverse json and return the value at the end of the chain of keys.
+# get_value()
+#   Traverse json and return the value at the end of the chain of keys.
 #    json - json to be traversed
 #    *keys - list of keys to use to retrieve the value
 #    default - default value to be returned if a key is missing
 #
-async def async_get_value(json_input, *keys, default=None):
+def get_value(json_input, *keys, default=None):
     """Traverse the json using keys to return the associated value, or default if invalid keys"""
 
     j = json_input
@@ -23,16 +49,9 @@ async def async_get_value(json_input, *keys, default=None):
         return default
 
 
-def is_integer(val):
-    """Check if a value is an integer"""
-
-    try:
-        int(val)
-        return True
-    except ValueError:
-        return False
-
-
+#
+#  has_team()
+#
 def has_team(data, target_team_id):
     """Search for team in json data"""
 
@@ -44,6 +63,72 @@ def has_team(data, target_team_id):
     return False
 
 
+#
+#  is_integer()
+#
+def is_integer(val):
+    """Check if a value is an integer"""
+
+    try:
+        int(val)
+        return True
+    except ValueError:
+        return False
+
+
+#
+#  load_file_overrides()
+#
+def load_file_overrides(hass: HomeAssistant) -> dict:
+    """Thread-safe file loading utility."""
+
+    component_dir = os.path.dirname(__file__)
+    default_file = os.path.join(component_dir, "overrides", DEFAULT_OVERRIDE_FILE)
+    custom_file = hass.config.path(LOCAL_OVERRIDE_FILE)
+
+    base_data = {}
+    if os.path.exists(default_file):
+        try:
+            with open(default_file, "r", encoding="utf-8") as f:
+                base_data = json.load(f)
+        except json.JSONDecodeError as err:
+            _LOGGER.debug(
+                "File Override Error: Invalid JSON in %s: %s",
+                default_file,
+                err,
+            )
+        except OSError as err:
+            _LOGGER.debug(
+                "File Override Error: Unable to read %s: %s",
+                default_file,
+                err,
+            )
+
+    custom_data = {}
+    if os.path.exists(custom_file):
+        try:
+            with open(custom_file, "r", encoding="utf-8") as f:
+                custom_data = json.load(f)
+        except json.JSONDecodeError as err:
+            _LOGGER.warning(
+                "File Override Error: Invalid JSON in %s: %s",
+                custom_file,
+                err,
+            )
+        except OSError as err:
+            _LOGGER.debug(
+                "File Override Error: Unable to read %s: %s",
+                custom_file,
+                err,
+            )
+
+    override_data = deep_merge(base_data, custom_data)
+    return override_data
+
+
+#
+#  season_slug_to_name()
+#
 def season_slug_to_name(slug: str) -> str:
     """Convert a season slug like '2025-26-english-premier-league' to 'English Premier League'."""
     if not slug:

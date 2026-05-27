@@ -21,7 +21,7 @@ from .set_racing import SetRacingMixin
 from .set_soccer import SetSoccerMixin
 from .set_tennis import SetTennisMixin
 from .set_volleyball import SetVolleyballMixin
-from .utils import async_get_value
+from .utils import get_value
 
 _LOGGER = logging.getLogger(__name__)
 team_prob: dict[str, float] = {}
@@ -34,7 +34,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
 #
 #  Set Values
 #
-    async def _async_set_values(
+    def _set_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -43,13 +43,13 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #    _LOGGER.debug("%s: async_set_values() 1: %s", self._sensor_name, self._sensor_name)
 
         oppo_index = 1 if team_index == 0 else 0
-        grouping = await async_get_value(event, "groupings", grouping_index)
+        grouping = get_value(event, "groupings", grouping_index)
         if grouping is None:
-            competition = await async_get_value(event, "competitions", competition_index)
+            competition = get_value(event, "competitions", competition_index)
         else:
-            competition = await async_get_value(grouping, "competitions", competition_index)
-        competitor = await async_get_value(competition, "competitors", team_index)
-        opponent = await async_get_value(competition, "competitors", oppo_index)
+            competition = get_value(grouping, "competitions", competition_index)
+        competitor = get_value(competition, "competitors", team_index)
+        opponent = get_value(competition, "competitors", oppo_index)
 
         if competition is None or competitor is None or opponent is None:
             _LOGGER.debug(
@@ -59,7 +59,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             )
             return False
 
-        rc = await self._async_set_universal_values(
+        rc = self._set_universal_values(
             event, grouping_index, competition_index, team_index
         )
         if not rc:
@@ -73,8 +73,8 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #
         #  Additional values only needed for team sports
         #
-        if await async_get_value(competitor, "type") == "team":
-            rc = await self._async_set_team_values(
+        if get_value(competitor, "type") == "team":
+            rc = self._set_team_values(
                 event, grouping_index, competition_index, team_index
             )
             if not rc:
@@ -88,7 +88,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #    _LOGGER.debug("%s: async_set_values() 3: %s", self._sensor_name, new_values)
 
         if self._values.state == "PRE":
-            rc = await self._async_set_pre_values(event)
+            rc = self._set_pre_values(event)
             if not rc:
                 _LOGGER.debug(
                     "%s: async_set_values() Bad rc from async_set_pre_values(): %s",
@@ -98,7 +98,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 return False
 
         if self._values.state == "IN":
-            rc = await self._async_set_in_values(
+            rc = self._set_in_values(
                 event, grouping_index, competition_index, team_index
             )
             if not rc:
@@ -113,40 +113,40 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             #   Sport Specific Values
             #
             if self._values.sport == "baseball":
-                rc = await self._async_set_baseball_values(
+                rc = self._set_baseball_values(
                     event, competition_index, team_index
                 )
             elif self._values.sport == "soccer":
-                rc = await self._async_set_soccer_values(
+                rc = self._set_soccer_values(
                     event, competition_index, team_index
                 )
             elif self._values.sport == "volleyball":
-                rc = await self._async_set_volleyball_values(
+                rc = self._set_volleyball_values(
                     event, competition_index, team_index
                 )
             elif self._values.sport == "hockey":
-                rc = await self._async_set_hockey_values(
+                rc = self._set_hockey_values(
                     event, competition_index, team_index
                 )
 
         if self._values.sport == "golf":
-            rc = await self._async_set_golf_values(
+            rc = self._set_golf_values(
                 event, competition_index, team_index
             )
         elif self._values.sport == "tennis":
-            rc = await self._async_set_tennis_values(
+            rc = self._set_tennis_values(
                 event, grouping_index, competition_index, team_index
             )
         elif self._values.sport == "mma":
-            rc = await self._async_set_mma_values(
+            rc = self._set_mma_values(
                 event, competition_index, team_index
             )
         elif self._values.sport == "racing":
-            rc = await self._async_set_racing_values(
+            rc = self._set_racing_values(
                 event, competition_index, team_index
             )
         elif self._values.sport == "cricket":
-            rc = await self._async_set_cricket_values(
+            rc = self._set_cricket_values(
                 event, competition_index, team_index
             )
 
@@ -182,7 +182,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  Set Universal Values
     #
-    async def _async_set_universal_values(
+    def _set_universal_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -191,13 +191,13 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #    _LOGGER.debug("%s: async_set_universal_values() 1: %s", self._sensor_name, self._sensor_name)
 
         oppo_index = 1 if team_index == 0 else 0
-        grouping = await async_get_value(event, "groupings", grouping_index)
+        grouping = get_value(event, "groupings", grouping_index)
         if grouping is None:
-            competition = await async_get_value(event, "competitions", competition_index)
+            competition = get_value(event, "competitions", competition_index)
         else:
-            competition = await async_get_value(grouping, "competitions", competition_index)
-        competitor = await async_get_value(competition, "competitors", team_index)
-        opponent = await async_get_value(competition, "competitors", oppo_index)
+            competition = get_value(grouping, "competitions", competition_index)
+        competitor = get_value(competition, "competitors", team_index)
+        opponent = get_value(competition, "competitors", oppo_index)
 
         if competition is None or competitor is None or opponent is None:
             _LOGGER.debug(
@@ -206,21 +206,21 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             return False
 
         self._values.state = str(
-            await async_get_value(
+            get_value(
                 competition,
                 "status",
                 "type",
                 "state",
-                default=await async_get_value(event, "status", "type", "state"),
+                default=get_value(event, "status", "type", "state"),
             )
         ).upper()
-        self._values.season = await async_get_value(event, "season", "slug")
+        self._values.season = get_value(event, "season", "slug")
 
-        self._values.event_name = await async_get_value(event, "shortName")
-        self._values.event_url = await async_get_value(event, "links", 0, "href")
+        self._values.event_name = get_value(event, "shortName")
+        self._values.event_url = get_value(event, "links", 0, "href")
 
-        self._values.date = await async_get_value(
-            competition, "date", default=(await async_get_value(event, "date"))
+        self._values.date = get_value(
+            competition, "date", default=(get_value(event, "date"))
         )
 
         #    _LOGGER.debug("%s: async_set_universal_values() 2: %s", self._sensor_name, self._sensor_name)
@@ -235,23 +235,23 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             except:
                 self._values.kickoff_in = arrow.get(self._values.date).humanize()
 
-        self._values.series_summary = await async_get_value(
+        self._values.series_summary = get_value(
             competition,
             "series",
             "summary",
         )
 
-        self._values.venue = await async_get_value(
+        self._values.venue = get_value(
             competition,
             "venue",
             "fullName",
-            default=await async_get_value(event, "circuit", "fullName"),
+            default=get_value(event, "circuit", "fullName"),
         )
 
-        state = await async_get_value(competition, "venue", "address", "state")
-        country = await async_get_value(competition, "venue", "address", "country")
+        state = get_value(competition, "venue", "address", "state")
+        country = get_value(competition, "venue", "address", "country")
 
-        self._values.location = await async_get_value(
+        self._values.location = get_value(
             competition, "venue", "address", "city"
         )
         if state:
@@ -265,96 +265,96 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             else:
                 self._values.location = country
         if self._values.location is None:
-            self._values.location = await async_get_value(
+            self._values.location = get_value(
                 competition, "venue", "address", "summary"
             )
 
         #    _LOGGER.debug("%s: async_set_universal_values() 3: %s", self._sensor_name, self._sensor_name)
 
-        broadcasts = await async_get_value(competition, "broadcasts", default=[])
+        broadcasts = get_value(competition, "broadcasts", default=[])
         names = []
         for b in broadcasts:
-            b_names = await async_get_value(b, "names", default=[])
+            b_names = get_value(b, "names", default=[])
             names.extend(b_names)
         self._values.tv_network = "/".join(names) if names else None
 
-        self._values.team_id = await async_get_value(competitor, "id")
-        self._values.opponent_id = await async_get_value(opponent, "id")
+        self._values.team_id = get_value(competitor, "id")
+        self._values.opponent_id = get_value(opponent, "id")
         #    _LOGGER.debug("%s: async_set_universal_values() 4: %s", self._sensor_name, self._sensor_name)
 
-        self._values.team_name = await async_get_value(
+        self._values.team_name = get_value(
             competitor,
             "team",
             "shortDisplayName",
-            default=await async_get_value(competitor, "athlete", "displayName",
-                default=await async_get_value(competitor, "roster", "shortDisplayName")
+            default=get_value(competitor, "athlete", "displayName",
+                default=get_value(competitor, "roster", "shortDisplayName")
             ),
         )
-        self._values.team_long_name = await async_get_value(
+        self._values.team_long_name = get_value(
             competitor,
             "team",
             "displayName",
-            default=await async_get_value(competitor, "athlete", "displayName",
-                default=await async_get_value(competitor, "roster", "displayName")
+            default=get_value(competitor, "athlete", "displayName",
+                default=get_value(competitor, "roster", "displayName")
             ),
         )
-        self._values.team_conference_id = await async_get_value(
+        self._values.team_conference_id = get_value(
             competitor,
             "team",
             "conferenceId"
         )
-        self._values.opponent_name = await async_get_value(
+        self._values.opponent_name = get_value(
             opponent,
             "team",
             "shortDisplayName",
-            default=await async_get_value(opponent, "athlete", "displayName",
-                default=await async_get_value(opponent, "roster", "shortDisplayName"),
+            default=get_value(opponent, "athlete", "displayName",
+                default=get_value(opponent, "roster", "shortDisplayName"),
             ),
         )
-        self._values.opponent_long_name = await async_get_value(
+        self._values.opponent_long_name = get_value(
             opponent,
             "team",
             "displayName",
-            default=await async_get_value(opponent, "athlete", "displayName",
-                default=await async_get_value(opponent, "roster", "displayName")
+            default=get_value(opponent, "athlete", "displayName",
+                default=get_value(opponent, "roster", "displayName")
             ),
         )
-        self._values.opponent_conference_id = await async_get_value(
+        self._values.opponent_conference_id = get_value(
             opponent,
             "team",
             "conferenceId"
         )
-        self._values.team_record = await async_get_value(
+        self._values.team_record = get_value(
             competitor, "records", 0, "summary"
         )
-        self._values.opponent_record = await async_get_value(
+        self._values.opponent_record = get_value(
             opponent, "records", 0, "summary"
         )
 
-        self._values.team_logo = await async_get_value(
+        self._values.team_logo = get_value(
             competitor,
             "team",
             "logo",
-            default=await async_get_value(
+            default=get_value(
                 competitor, "athlete", "flag", "href", default=DEFAULT_LOGO
             ),
         )
-        self._values.opponent_logo = await async_get_value(
+        self._values.opponent_logo = get_value(
             opponent,
             "team",
             "logo",
-            default=await async_get_value(
+            default=get_value(
                 opponent, "athlete", "flag", "href", default=DEFAULT_LOGO
             ),
         )
-        self._values.team_url = await async_get_value(
+        self._values.team_url = get_value(
             competitor,
             "team",
             "links",
             0,
             "href",
             )
-        self._values.opponent_url = await async_get_value(
+        self._values.opponent_url = get_value(
             opponent,
             "team",
             "links",
@@ -363,59 +363,59 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             )
         #    _LOGGER.debug("%s: async_set_universal_values() 4: %s", self._sensor_name, self._sensor_name)
 
-        self._values.quarter = await async_get_value(
+        self._values.quarter = get_value(
             competition,
             "status",
             "period",
-            default=await async_get_value(event, "status", "period"),
+            default=get_value(event, "status", "period"),
         )
-        self._values.clock = await async_get_value(
+        self._values.clock = get_value(
             competition,
             "status",
             "type",
             "shortDetail",
-            default=await async_get_value(event, "status", "type", "shortDetail"),
+            default=get_value(event, "status", "type", "shortDetail"),
         )
         try:
             self._values.team_score = (
-                str(await async_get_value(competitor, "score"))
+                str(get_value(competitor, "score"))
                 + "("
                 + str(event["competitions"][0]["competitors"][team_index]["shootoutScore"])
                 + ")"
             )
         except:
-            self._values.team_score = await async_get_value(competitor, "score")
+            self._values.team_score = get_value(competitor, "score")
         try:
             self._values.opponent_score = (
-                str(await async_get_value(opponent, "score"))
+                str(get_value(opponent, "score"))
                 + "("
                 + str(event["competitions"][0]["competitors"][oppo_index]["shootoutScore"])
                 + ")"
             )
         except:
-            self._values.opponent_score = await async_get_value(opponent, "score")
+            self._values.opponent_score = get_value(opponent, "score")
 
         # Some APIs return boolean values as strings, so we need to convert them
 
-        self._values.team_winner = await async_get_value(competitor, "winner")
+        self._values.team_winner = get_value(competitor, "winner")
         if self._values.team_winner == "true":
             self._values.team_winner = True;
         elif self._values.team_winner == "false":
             self._values.team_winner = False;
 
-        self._values.opponent_winner = await async_get_value(opponent, "winner")
+        self._values.opponent_winner = get_value(opponent, "winner")
         if self._values.opponent_winner == "true":
             self._values.opponent_winner = True;
         elif self._values.opponent_winner == "false":
             self._values.opponent_winner = False;
 
-        self._values.team_rank = await async_get_value(
+        self._values.team_rank = get_value(
             competitor, "curatedRank", "current"
         )
         if self._values.team_rank == 99:
             self._values.team_rank = None
 
-        self._values.opponent_rank = await async_get_value(
+        self._values.opponent_rank = get_value(
             opponent, "curatedRank", "current"
         )
         if self._values.opponent_rank == 99:
@@ -428,7 +428,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  Set Team Values
     #
-    async def _async_set_team_values(
+    def _set_team_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -437,14 +437,14 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         #    _LOGGER.debug("%s: async_set_team_values() 1: %s", self._sensor_name, self._sensor_name)
 
         oppo_index = 1 if team_index == 0 else 0
-        grouping = await async_get_value(event, "groupings", grouping_index)
+        grouping = get_value(event, "groupings", grouping_index)
         if grouping is None:
-            competition = await async_get_value(event, "competitions", competition_index)
+            competition = get_value(event, "competitions", competition_index)
         else:
-            competition = await async_get_value(grouping, "competitions", competition_index)
+            competition = get_value(grouping, "competitions", competition_index)
 
-        competitor = await async_get_value(competition, "competitors", team_index)
-        opponent = await async_get_value(competition, "competitors", oppo_index)
+        competitor = get_value(competition, "competitors", team_index)
+        opponent = get_value(competition, "competitors", oppo_index)
 
         if competition is None or competitor is None or opponent is None:
             #        _LOGGER.debug("%s: async_set_team_values() 1.1: %s", self._sensor_name, self._sensor_name)
@@ -456,25 +456,25 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         alt_series_summary = f"{difference.days:,} qnlf fvapr Zvpuvtna orng Buvb Fgngr"
         #alt_series_summary = None # Cheat code, uncomment in disaster scenarios only
 
-        self._values.team_abbr = await async_get_value(competitor, "team", "abbreviation")
-        self._values.opponent_abbr = await async_get_value(
+        self._values.team_abbr = get_value(competitor, "team", "abbreviation")
+        self._values.opponent_abbr = get_value(
             opponent, "team", "abbreviation"
         )
 
         #    _LOGGER.debug("%s: async_set_team_values() 3: %s", self._sensor_name, new_values)
 
-        self._values.team_homeaway = await async_get_value(competitor, "homeAway")
-        self._values.opponent_homeaway = await async_get_value(opponent, "homeAway")
+        self._values.team_homeaway = get_value(competitor, "homeAway")
+        self._values.opponent_homeaway = get_value(opponent, "homeAway")
 
         team_color = str(
-            await async_get_value(competitor, "team", "color", default="D3D3D3")
+            get_value(competitor, "team", "color", default="D3D3D3")
         )
-        oppo_color = str(await async_get_value(opponent, "team", "color", default="A9A9A9"))
+        oppo_color = str(get_value(opponent, "team", "color", default="A9A9A9"))
         team_alt_color = str(
-            await async_get_value(competitor, "team", "alternateColor", default=team_color)
+            get_value(competitor, "team", "alternateColor", default=team_color)
         )
         oppo_alt_color = str(
-            await async_get_value(opponent, "team", "alternateColor", default=oppo_color)
+            get_value(opponent, "team", "alternateColor", default=oppo_color)
         )
 
         #    _LOGGER.debug("%s: async_set_team_values() 4: %s", self._sensor_name, team_color)
@@ -504,13 +504,13 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  PRE
     #
-    async def _async_set_pre_values(self, event) -> bool:
+    def _set_pre_values(self, event) -> bool:
         """Function to set new_values common for PRE state"""
 
-        self._values.odds = await async_get_value(
+        self._values.odds = get_value(
             event, "competitions", 0, "odds", 0, "details"
         )
-        self._values.overunder = await async_get_value(
+        self._values.overunder = get_value(
             event, "competitions", 0, "odds", 0, "overUnder"
         )
 
@@ -520,7 +520,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
     #
     #  IN
     #
-    async def _async_set_in_values(
+    def _set_in_values(
         self,
         event, grouping_index, competition_index, team_index
     ) -> bool:
@@ -536,14 +536,14 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
 
         oppo_index = 1 if team_index == 0 else 0
 
-        grouping = await async_get_value(event, "groupings", grouping_index)
+        grouping = get_value(event, "groupings", grouping_index)
         if grouping is None:
-            competition = await async_get_value(event, "competitions", competition_index)
+            competition = get_value(event, "competitions", competition_index)
         else:
-            competition = await async_get_value(grouping, "competitions", competition_index)
+            competition = get_value(grouping, "competitions", competition_index)
 
-        competitor = await async_get_value(competition, "competitors", team_index)
-        opponent = await async_get_value(competition, "competitors", oppo_index)
+        competitor = get_value(competition, "competitors", team_index)
+        opponent = get_value(competition, "competitors", oppo_index)
 
         if competition is None or competitor is None or opponent is None:
             #        _LOGGER.debug("%s: async_set_in_values() 1.1: %s", self._sensor_name, self._sensor_name)
@@ -558,21 +558,21 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             + str(self._values.opponent_abbr)
         )
         alt_lp = ", naq Zvpuvtna fgvyy fhpxf"
-        self._values.down_distance_text = await async_get_value(
+        self._values.down_distance_text = get_value(
             competition, "situation", "downDistanceText"
         )
-        self._values.possession = await async_get_value(
+        self._values.possession = get_value(
             competition, "situation", "possession"
         )
 
-        if str(await async_get_value(competitor, "homeAway")) == "home":
-            self._values.team_timeouts = await async_get_value(
+        if str(get_value(competitor, "homeAway")) == "home":
+            self._values.team_timeouts = get_value(
                 competition, "situation", "homeTimeouts"
             )
-            self._values.opponent_timeouts = await async_get_value(
+            self._values.opponent_timeouts = get_value(
                 competition, "situation", "awayTimeouts"
             )
-            self._values.team_win_probability = await async_get_value(
+            self._values.team_win_probability = get_value(
                 competition,
                 "situation",
                 "lastPlay",
@@ -580,7 +580,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 "homeWinPercentage",
                 default=team_prob.setdefault(prob_key, DEFAULT_PROB),
             )
-            self._values.opponent_win_probability = await async_get_value(
+            self._values.opponent_win_probability = get_value(
                 competition,
                 "situation",
                 "lastPlay",
@@ -589,13 +589,13 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 default=oppo_prob.setdefault(prob_key, DEFAULT_PROB),
             )
         else:
-            self._values.team_timeouts = await async_get_value(
+            self._values.team_timeouts = get_value(
                 competition, "situation", "awayTimeouts"
             )
-            self._values.opponent_timeouts = await async_get_value(
+            self._values.opponent_timeouts = get_value(
                 competition, "situation", "homeTimeouts"
             )
-            self._values.team_win_probability = await async_get_value(
+            self._values.team_win_probability = get_value(
                 competition,
                 "situation",
                 "lastPlay",
@@ -603,7 +603,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 "awayWinPercentage",
                 default=team_prob.setdefault(prob_key, DEFAULT_PROB),
             )
-            self._values.opponent_win_probability = await async_get_value(
+            self._values.opponent_win_probability = get_value(
                 competition,
                 "situation",
                 "lastPlay",
@@ -617,7 +617,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         if self._values.team_win_probability and self._values.opponent_win_probability:
             team_prob.update({prob_key: self._values.team_win_probability})
             oppo_prob.update({prob_key: self._values.opponent_win_probability})
-        self._values.last_play = await async_get_value(
+        self._values.last_play = get_value(
             competition, "situation", "lastPlay", "text"
         )
 

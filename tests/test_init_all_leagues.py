@@ -36,8 +36,9 @@ async def test_all_leagues_cold_start(hass):
 #
 #   Reset Caches
 #
-    BaseSportProvider.data_cache = {}
-    BaseSportProvider.all_team_cache = {}
+    # Ensure data cache is empty before setup
+    if DOMAIN in hass.data and "data_cache" in hass.data[DOMAIN]:
+        hass.data[DOMAIN]["data_cache"].clear()
 
 #
 #   Set up entry
@@ -83,13 +84,14 @@ async def test_all_leagues_cold_start(hass):
 # Validate the cache's are now populated
 #
 
-    data_cache = BaseSportProvider.data_cache
-    all_team_cache = BaseSportProvider.all_team_cache
+    data_cache = hass.data[DOMAIN]["data_cache"]
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
+    instance_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
-    assert isinstance(all_team_cache, dict)
-    assert len(all_team_cache) > 0
+    assert isinstance(instance_cache, dict)
+    assert len(instance_cache) > 0
 
 
 
@@ -106,8 +108,9 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     )
     entry.add_to_hass(hass)
 
-    # Ensure caches are empty before setup
-    BaseSportProvider.data_cache.clear()
+    # Ensure data cache is empty before setup
+    if DOMAIN in hass.data and "data_cache" in hass.data[DOMAIN]:
+        hass.data[DOMAIN]["data_cache"].clear()
 
     # Setup the entry - this will call the API 3 times in the background
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -115,9 +118,7 @@ async def test_all_leagues_data_cache_hit(hass, mock_call_espn_api):
     
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
-    dc = BaseSportProvider.data_cache
-
-    data_cache = BaseSportProvider.data_cache
+    data_cache = hass.data[DOMAIN]["data_cache"]
     instance_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)
@@ -166,22 +167,22 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     )
     entry.add_to_hass(hass)
 
-    # Ensure caches are empty before setup
-    BaseSportProvider.data_cache.clear()
+    # Ensure data cache is empty before setup
+    if DOMAIN in hass.data and "data_cache" in hass.data[DOMAIN]:
+        hass.data[DOMAIN]["data_cache"].clear()
 
     # Setup the entry - this will call the API 3 times in the background
     assert await hass.config_entries.async_setup(entry.entry_id)
     await hass.async_block_till_done()
     
+    data_cache = hass.data[DOMAIN]["data_cache"]
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
-
-    data_cache = BaseSportProvider.data_cache
-    all_team_cache = coordinator.provider.instance_cache
+    instance_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)  # key="soccer:all:9999:en:183"
     assert len(data_cache) > 0  
-    assert isinstance(all_team_cache, dict) # key="soccer:all:183"
-    assert len(all_team_cache) > 0
+    assert isinstance(instance_cache, dict) # key="soccer:all:183"
+    assert len(instance_cache) > 0
 
     sensor_state = hass.states.get("sensor.test_tt_all_test99")
     assert sensor_state.state == "POST"
@@ -202,11 +203,12 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
 
 # 2. EXPIRE THE DATA CACHE
     # Clear out the data_cache.
-    BaseSportProvider.data_cache.clear()
+    if DOMAIN in hass.data and "data_cache" in hass.data[DOMAIN]:
+        hass.data[DOMAIN]["data_cache"].clear()
 
     # Update the league_name in the instance_cache so we know we are reading it
     key = coordinator.provider.TEAM_SCHEDULE_KEY
-    cache = coordinator.provider.instance_cache[key]["derived_league_name"] = "Cached MLS"
+    coordinator.provider.instance_cache[key]["derived_league_name"] = "Cached MLS"
 
     # This is the second update attempt
     await coordinator.async_refresh()
@@ -241,10 +243,11 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
 async def test_all_leagues_cold_start(hass, mock_call_espn_api):
     """Test Case 1: Cold start falls through to file-based discovery."""
 #
-#   Reset Caches
+#   Reset Cache
 #
-    BaseSportProvider.data_cache = {}
-    BaseSportProvider.all_team_cache = {}
+    # Ensure data cache is empty before setup
+    if DOMAIN in hass.data and "data_cache" in hass.data[DOMAIN]:
+        hass.data[DOMAIN]["data_cache"].clear()
 
 #
 #   Set up entry
@@ -288,7 +291,7 @@ async def test_all_leagues_cold_start(hass, mock_call_espn_api):
 # Validate the cache's are now populated
 #
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
-    data_cache = BaseSportProvider.data_cache
+    data_cache = hass.data[DOMAIN]["data_cache"]
     instance_cache = coordinator.provider.instance_cache
 
     assert isinstance(data_cache, dict)
@@ -306,8 +309,9 @@ async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
 #
 #   Reset Caches
 #
-    BaseSportProvider.data_cache = {}
-    BaseSportProvider.all_team_cache = {}
+    # Ensure data cache is empty before setup
+    if DOMAIN in hass.data and "data_cache" in hass.data[DOMAIN]:
+        hass.data[DOMAIN]["data_cache"].clear()
 
 #
 #   Set up entry
@@ -353,10 +357,11 @@ async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
 # Validate the cache's are now populated
 #
 
-    data_cache = BaseSportProvider.data_cache
-    all_team_cache = BaseSportProvider.all_team_cache
+    data_cache = hass.data[DOMAIN]["data_cache"]
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
 
     assert isinstance(data_cache, dict)
     assert len(data_cache) > 0
-    assert isinstance(all_team_cache, dict)
-    assert len(all_team_cache) == 0 # all_team_cache should remain 0 because all league processing skipped
+
+    # Confirm the data provider (ESPN) doesn't have an instance cache
+    assert not hasattr(coordinator.provider, "instance_cache")

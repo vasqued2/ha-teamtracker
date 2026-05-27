@@ -17,16 +17,16 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 
-def get_parser(data_format:str) -> BaseSportParser:
+def get_parser(data_format:str, coordinator: TeamTrackerCoordinator) -> BaseSportParser:
     """Factory function to get the correct provider instance."""
 
-    parser: BaseSportParser = EspnParser()  # DEFAULT_DATA_FORMAT
+    parser: BaseSportParser = EspnParser(coordinator)  # DEFAULT_DATA_FORMAT
 
     if data_format == CFL_DATA_FORMAT:
-        parser = CflScoreboardParser()
+        parser = CflScoreboardParser(coordinator)
     elif data_format == ESPNALL_DATA_FORMAT:
-        parser = EspnAllParser()
+        parser = EspnAllParser(coordinator)
     elif data_format == HT_DATA_FORMAT:
-        parser = HockeyTechParser()
+        parser = HockeyTechParser(coordinator)
 
     return parser
