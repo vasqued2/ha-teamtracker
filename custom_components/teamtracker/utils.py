@@ -8,6 +8,26 @@ _LOGGER = logging.getLogger(__name__)
 
 
 #
+# deep_merge()
+#
+def deep_merge(base: dict, override: dict) -> dict:
+    """Recursively merge override into base."""
+    result = base.copy()
+
+    for key, value in override.items():
+        if (
+            key in result
+            and isinstance(result[key], dict)
+            and isinstance(value, dict)
+        ):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = value
+
+    return result
+
+
+#
 # get_value()
 #   Traverse json and return the value at the end of the chain of keys.
 #    json - json to be traversed
@@ -59,12 +79,11 @@ def is_integer(val):
 def load_file_overrides(default_file: str, custom_file: str) -> dict:
     """Thread-safe file loading utility."""
 
-    override_data = {}
-
+    base_data = {}
     if os.path.exists(default_file):
         try:
             with open(default_file, "r", encoding="utf-8") as f:
-                override_data = json.load(f)
+                base_data = json.load(f)
         except json.JSONDecodeError as err:
             _LOGGER.error(
                 "Invalid JSON in %s: %s",
@@ -78,12 +97,11 @@ def load_file_overrides(default_file: str, custom_file: str) -> dict:
                 err,
             )
 
+    custom_data = {}
     if os.path.exists(custom_file):
         try:
             with open(custom_file, "r", encoding="utf-8") as f:
                 custom_data = json.load(f)
-                # Merge logic here...
-                override_data.update(custom_data)
         except json.JSONDecodeError as err:
             _LOGGER.error(
                 "Invalid JSON in %s: %s",
@@ -97,6 +115,7 @@ def load_file_overrides(default_file: str, custom_file: str) -> dict:
                 err,
             )
 
+    override_data = deep_merge(base_data, custom_data)
     return override_data
 
 
