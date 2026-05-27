@@ -12,7 +12,10 @@
           "name": "Sample Nickname",
           "logo": "teamLogo.png",
           "url": "https://www.sample.com",
-          "colors": ["#FFFFFF", "#000000"]
+          "colors": [
+            "#FFFFFF",
+            "#000000"
+          ]
         }
       }
     }
@@ -24,67 +27,94 @@
       "teams": {
         "83579": {
           "name": "Tiger-Cats",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/83579.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/83579.svg",
           "url": "https://ticats.ca",
-          "colors": ["#FFB612", "#000000"]
+          "colors": [
+            "#FFB612",
+            "#000000"
+          ]
         },
         "86680": {
           "name": "Alouettes",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/86680.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/86680.svg",
           "url": "https://www.montrealalouettes.com",
-          "colors": ["#021D49", "#D0202E"]
+          "colors": [
+            "#021D49",
+            "#D0202E"
+          ]
         },
         "88019": {
           "name": "RedBlacks",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/88019.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/88019.svg",
           "url": "https://www.ottawaredblacks.com",
-          "colors": ["#C8102E", "#000000"]
+          "colors": [
+            "#C8102E",
+            "#000000"
+          ]
         },
         "93775": {
           "name": "Lions",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/93775.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/93775.svg",
           "url": "https://www.bclions.com",
-          "colors": ["#F15A22", "#000000"]
+          "colors": [
+            "#F15A22",
+            "#000000"
+          ]
         },
         "106752": {
           "name": "Roughriders",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/106752.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/106752.svg",
           "url": "https://www.riderville.com",
-          "colors": ["#006341", "#FFFFFF"]
+          "colors": [
+            "#006341",
+            "#FFFFFF"
+          ]
         },
         "110380": {
           "name": "Blue Bombers",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/110380.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/110380.svg",
           "url": "https://www.bluebombers.com",
-          "colors": ["#041E42", "#A7A8AA"]
+          "colors": [
+            "#041E42",
+            "#A7A8AA"
+          ]
         },
         "112939": {
           "name": "Stampeders",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/112939.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/112939.svg",
           "url": "https://www.stampeders.com",
-          "colors": ["#C8102E", "#000000"]
+          "colors": [
+            "#C8102E",
+            "#000000"
+          ]
         },
         "114347": {
           "name": "Elks",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/114347.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/114347.svg",
           "url": "https://www.goelks.com",
-          "colors": ["#006341", "#FFB81C"]
+          "colors": [
+            "#006341",
+            "#FFB81C"
+          ]
         },
         "122345": {
           "name": "Argonauts",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/png/122345.png",
+          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/122345.svg",
           "url": "https://www.argonauts.ca",
-          "colors": ["#5F259F", "#A7A8AA"]
+          "colors": [
+            "#5F259F",
+            "#A7A8AA"
+          ]
         }
       }
     }
   },
   "hockeytech": {
-    "ahl": {
-      "league_name": "American Hockey League",
-      "league_logo": "logo",
-      "public_key": "sdljkfd",
-      "client_code": "ahl",
+    "chl": {
+      "league_name": "Canadian Hockey League",
+      "league_logo": "https://cdn.chl.ca/uploads/chl/2014/05/06154138/CHL.png",
+      "public_key": "f1aa699db3d81487",
+      "client_code": "chl",
       "teams": {
         "ID1": {
           "name": "Team Name",
@@ -99,24 +129,141 @@
         }
       }
     },
-    "chl": {
-      "league_name": "Canadian Hockey League",
-      "league_logo": "logo",
-      "public_key": "sdljkfd",
-      "client_code": "ahl",
+    "ohl": {
+      "league_name": "Ontario Hockey League",
+      "league_logo": "https://media.chl.ca/wp-content/uploads/sites/5/2023/05/25210408/logo_OHL_lg_white-1.png",
+      "public_key": "f1aa699db3d81487",
+      "client_code": "ohl"
+    },
+    "whl": {
+      "league_name": "Wester Hockey League",
+      "league_logo": "https://media.chl.ca/wp-content/uploads/sites/6/2023/08/18153056/Western_Hockey_League.svg_.png",
+      "public_key": "f1aa699db3d81487",
+      "client_code": "whl"
+    },
+    "lhjmq": {
+      "league_name": "Quebec Major Junior Hockey League",
+      "league_logo": "https://www.themhl.ca/wp-content/uploads/sites/2/2018/10/QMJHL-Logo.png",
+      "public_key": "f1aa699db3d81487",
+      "client_code": "lhjmq"
+    },
+    "ahl": {
+      "league_name": "American Hockey League",
+      "league_logo": "https://1000logos.net/wp-content/uploads/2023/04/American-Hockey-League-logo-768x432.png",
+      "public_key": "50c2cd9b5e18e390",
+      "client_code": "ahl"
+    },
+    "echl": {
+      "league_name": "East Coast Hockey League",
+      "league_logo": "https://1000logos.net/wp-content/uploads/2019/01/Echl-logo-768x512.png",
+      "public_key": "2c2b89ea7345cae8",
+      "client_code": "echl"
+    },
+    "pwhl": {
+      "league_name": "Professional Womens Hockey League",
+      "league_logo": "https://1000logos.net/wp-content/uploads/2024/10/PWHL-Logo.png",
+      "public_key": "446521baf8c38984",
+      "client_code": "pwhl",
       "teams": {
-        "ID1": {
-          "name": "Team Name",
-          "logo": "Team Name",
-          "url": "http:/",
-          "colors": "xxx"
+        "1": {
+          "unsedTeamName": "Boston Fleet",
+          "colors": [
+            "#1a3c34",
+            "#f0c744"
+          ]
         },
-        "ID2": {
-          "name": "Team Name",
-          "logo": "Team Name",
-          "colors": "xxx"
+        "2": {
+          "unsedTeamName": "Minnesota Frost",
+          "colors": [
+            "#2e1a47",
+            "#ffffff"
+          ]
+        },
+        "3": {
+          "unsedTeamName": "Montréal Victoire",
+          "colors": [
+            "#862633",
+            "#ffffff"
+          ]
+        },
+        "4": {
+          "unsedTeamName": "New York Sirens",
+          "colors": [
+            "#00b2e2",
+            "#e8421e"
+          ]
+        },
+        "5": {
+          "unsedTeamName": "Ottawa Charge",
+          "colors": [
+            "#c8102e",
+            "#000000"
+          ]
+        },
+        "6": {
+          "unsedTeamName": "Toronto Sceptres",
+          "colors": [
+            "#006bae",
+            "#ffffff"
+          ]
+        },
+        "8": {
+          "unsedTeamName": "Seattle Torrent",
+          "colors": [
+            "#002d72",
+            "#69b3e7"
+          ]
+        },
+        "9": {
+          "unsedTeamName": "Vancouver Goldeneyes",
+          "colors": [
+            "#004c3f",
+            "#c4a24b"
+          ]
         }
       }
+    },
+    "ushl": {
+      "league_name": "United States Hockey League",
+      "league_logo": "https://dbukjj6eu5tsf.cloudfront.net/ushl.sidearmsports.com/images/responsive_2022/ushl_on-dark.svg",
+      "public_key": "e828f89b243dc43f",
+      "client_code": "ushl"
+    },
+    "ojhl": {
+      "league_name": "Ontario Junior Hockey League",
+      "league_logo": "https://www.ojhl.ca/wp-content/uploads/sites/2/2023/04/default-300x200.jpg",
+      "public_key": "77a0bd73d9d363d3",
+      "client_code": "ojhl"
+    },
+    "bchl": {
+      "league_name": "British Columbia Hockey League",
+      "league_logo": "https://bchl.ca/wp-content/uploads/2015/12/BCHL-Footer-Logo.png",
+      "public_key": "ca4e9e599d4dae55",
+      "client_code": "bchl"
+    },
+    "sjhl": {
+      "league_name": "Saskatchewan Junior Hockey League",
+      "league_logo": "https://www.sjhl.ca/wp-content/uploads/sites/2/2019/04/cropped-sjhl-512.png",
+      "public_key": "2fb5c2e84bf3e4a8",
+      "client_code": "sjhl"
+    },
+    "ajhl": {
+      "league_name": "Alberta Junior Hockey League",
+      "league_logo": "https://www.ajhl.ca/wp-content/uploads/sites/2/2023/06/ajhl.png",
+      "public_key": "cbe60a1d91c44ade",
+      "client_code": "ajhl"
+    },
+    "mjhl": {
+      "league_name": "Manitoba Junior Hockey League",
+      "league_logo": "https://www.mjhlhockey.ca/wp-content/uploads/sites/2/2024/08/MJHL-8.png",
+      "public_key": "f894c324fe5fd8f0",
+      "client_code": "mjhl"
+    },
+    "mhl": {
+      "league_name": "Maritime Junior Hockey League",
+      "league_logo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Maritime_Junior_A_Hockey_League_Logo.svg/250px-Maritime_Junior_A_Hockey_League_Logo.svg.png",
+      "public_key": "4a948e7faf5ee58d",
+      "client_code": "mhl"
     }
   }
 }

@@ -5,7 +5,8 @@ from datetime import datetime, timedelta, timezone
 import json
 import locale
 import logging
-from typing import TYPE_CHECKING, TypedDict
+import os
+from typing import TYPE_CHECKING
 
 import aiohttp
 import arrow
@@ -14,27 +15,14 @@ from yarl import URL
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
+from .const import DOMAIN, OVERRIDE_DICT
 from .provider_base import BaseSportProvider
+from .utils import load_file_overrides
 
 _LOGGER = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
-
-DATA_PROVIDER_HOCKEYTECH = "hockeytech"
-HT_DATA_FORMAT = "ht-json"
-HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
-
-class HockeyTechLeague(TypedDict):
-    public_key: str
-    client_code: str
-    league_name: str
-    league_logo: str | None
-
-class HockeyTechTeamColor(TypedDict):
-    color: str
-    alternateColor: str
-TeamColorMap = dict[str, HockeyTechTeamColor]
 
 #
 # HockeyTech API Definitions
@@ -43,117 +31,9 @@ TeamColorMap = dict[str, HockeyTechTeamColor]
 #    https://mintlify.wiki/Pharaoh-Labs/teamarr/reference/provider-hockeytech
 #    https://github.com/IsabelleLefebvre97/PWHL-Data-Reference
 #
-
-HOCKEYTECH_LEAGUES: dict[str, HockeyTechLeague]  = {
-    "CHL": {
-        "public_key": "f1aa699db3d81487",
-        "client_code": "chl",
-        "league_name": "Canadian Hockey League",
-        "league_logo": "https://cdn.chl.ca/uploads/chl/2014/05/06154138/CHL.png",
-    },
-    "OHL": {
-        "public_key": "f1aa699db3d81487",
-        "client_code": "ohl",
-        "league_name": "Ontario Hockey League",
-        "league_logo": "https://media.chl.ca/wp-content/uploads/sites/5/2023/05/25210408/logo_OHL_lg_white-1.png",
-    },
-    "WHL": {
-        "public_key": "f1aa699db3d81487",
-        "client_code": "whl",
-        "league_name": "Wester Hockey League",
-        "league_logo": "https://media.chl.ca/wp-content/uploads/sites/6/2023/08/18153056/Western_Hockey_League.svg_.png",
-    },
-    "LHJMQ": {
-        "public_key": "f1aa699db3d81487",
-        "client_code": "lhjmq",
-        "league_name": "Quebec Major Junior Hockey League",
-        "league_logo": "https://www.themhl.ca/wp-content/uploads/sites/2/2018/10/QMJHL-Logo.png",
-    },
-    "AHL": {
-        "public_key": "50c2cd9b5e18e390",
-        "client_code": "ahl",
-        "league_name": "American Hockey League",
-        "league_logo": "https://1000logos.net/wp-content/uploads/2023/04/American-Hockey-League-logo-768x432.png",
-    },
-    "ECHL": {
-        "public_key": "2c2b89ea7345cae8",
-        "client_code": "echl",
-        "league_name": "East Coast Hockey League",
-        "league_logo": "https://1000logos.net/wp-content/uploads/2019/01/Echl-logo-768x512.png",
-    },
-    "PWHL": {
-        "public_key": "446521baf8c38984",
-        "client_code": "pwhl",
-        "league_name": "Professional Womens Hockey League",
-        "league_logo": "https://1000logos.net/wp-content/uploads/2024/10/PWHL-Logo.png",
-    },
-    "USHL": {
-        "public_key": "e828f89b243dc43f",
-        "client_code": "ushl",
-        "league_name": "United States Hockey League",
-        "league_logo": "https://dbukjj6eu5tsf.cloudfront.net/ushl.sidearmsports.com/images/responsive_2022/ushl_on-dark.svg",
-    },
-    "OJHL": {
-        "public_key": "77a0bd73d9d363d3",
-        "client_code": "ojhl",
-        "league_name": "Ontario Junior Hockey League",
-        "league_logo": "https://www.ojhl.ca/wp-content/uploads/sites/2/2023/04/default-300x200.jpg",
-    },
-    "BCHL": {
-        "public_key": "ca4e9e599d4dae55",
-        "client_code": "bchl",
-        "league_name": "British Columbia Hockey League",
-        "league_logo": "https://bchl.ca/wp-content/uploads/2015/12/BCHL-Footer-Logo.png",
-    },
-    "SJHL": {
-        "public_key": "2fb5c2e84bf3e4a8",
-        "client_code": "sjhl",
-        "league_name": "Saskatchewan Junior Hockey League",
-        "league_logo": "https://www.sjhl.ca/wp-content/uploads/sites/2/2019/04/cropped-sjhl-512.png",
-    },
-    "AJHL": {
-        "public_key": "cbe60a1d91c44ade",
-        "client_code": "ajhl",
-        "league_name": "Alberta Junior Hockey League",
-        "league_logo": "https://www.ajhl.ca/wp-content/uploads/sites/2/2023/06/ajhl.png",
-    },
-    "MJHL": {
-        "public_key": "f894c324fe5fd8f0",
-        "client_code": "mjhl",
-        "league_name": "Manitoba Junior Hockey League",
-        "league_logo": "https://www.mjhlhockey.ca/wp-content/uploads/sites/2/2024/08/MJHL-8.png",
-    },
-    "MHL": {
-        "public_key": "4a948e7faf5ee58d",
-        "client_code": "mhl",
-        "league_name": "Maritime Junior Hockey League",
-        "league_logo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Maritime_Junior_A_Hockey_League_Logo.svg/250px-Maritime_Junior_A_Hockey_League_Logo.svg.png",
-    },
-}
-HOCKEYTECH_TEAM_COLORS: dict[str, TeamColorMap] = {
-    "PWHL": {
-        "BOS": {"color": "1a3c34", "alternateColor": "f0c744"},
-        "MIN": {"color": "2e1a47", "alternateColor": "ffffff"},
-        "MTL": {"color": "862633", "alternateColor": "ffffff"},
-        "NY":  {"color": "00b2e2", "alternateColor": "e8421e"},
-        "OTT": {"color": "c8102e", "alternateColor": "000000"},
-        "TOR": {"color": "006bae", "alternateColor": "ffffff"},
-        "SEA": {"color": "002d72", "alternateColor": "69b3e7"},
-        "VAN": {"color": "004c3f", "alternateColor": "c4a24b"},
-    },
-}
-
-
-
-# HockeyTech GameStatus codes
-_STATUS_MAP = {
-    "1": "pre",
-    "2": "in",
-    "3": "in",   # Intermission is still "in progress"
-    "4": "post",
-}
-
-
+DATA_PROVIDER_HOCKEYTECH = "hockeytech"
+HT_DATA_FORMAT = "ht-json"
+HOCKEYTECH_BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 
 class HockeyTechProvider(BaseSportProvider):
     """Provider for HockeyTech data."""
@@ -197,7 +77,6 @@ class HockeyTechProvider(BaseSportProvider):
     #   "location": City, State, Country of team
     #  }]
     #
-
     async def async_fetch_team_data(
         self, 
         hass: HomeAssistant, 
@@ -207,8 +86,26 @@ class HockeyTechProvider(BaseSportProvider):
         ) -> dict:
         """Fetch teams from any API for a given league."""
 
+        # Initialize DOMAIN in hass.data if it doesn't exist
+        if DOMAIN not in hass.data:
+            hass.data[DOMAIN] = {}
+
+        if OVERRIDE_DICT not in hass.data[DOMAIN]:
+            hass.data[DOMAIN][OVERRIDE_DICT] = None
+            component_dir = os.path.dirname(__file__)
+            default_file = os.path.join(component_dir, "overrides", "default.json")
+            custom_file = hass.config.path("teamtracker_overrides.json")
+
+            override_dict = await hass.async_add_executor_job(
+                load_file_overrides, default_file, custom_file
+            )
+            
+            if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
+                hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+
         league_abbr = league_path.upper()
-        league_config = HOCKEYTECH_LEAGUES.get(league_abbr)
+        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
+        
         if league_config is None:
             _LOGGER.warning(
                 "%s: No HockeyTech config for league '%s'", sensor_name, league_abbr
@@ -221,10 +118,10 @@ class HockeyTechProvider(BaseSportProvider):
             lang, _ = locale.getlocale()
             lang = lang or "en"
 
-    #
-    #   Get the most recent regular season
-    #      career = 1, playoffs = 0
-    #
+        #
+        #   Get the most recent regular season
+        #      career = 1, playoffs = 0
+        #
         params = {
             "feed": "modulekit",
             "view": "seasons",
@@ -252,9 +149,9 @@ class HockeyTechProvider(BaseSportProvider):
 
         season_id = season.get("season_id", 0)
 
-    #
-    #   Get the list of teams for the most recent regular season
-    #
+        #
+        #   Get the list of teams for the most recent regular season
+        #
         params = {
             "feed": "modulekit",
             "view": "teamsbyseason",
@@ -289,6 +186,9 @@ class HockeyTechProvider(BaseSportProvider):
         return {"data": teams, "url": url}
 
 
+    #
+    #  async_fetch_scoreboard_data()
+    #
     async def async_fetch_scoreboard_data(
         self,
         hass,
@@ -304,7 +204,7 @@ class HockeyTechProvider(BaseSportProvider):
         league_path = self._coordinator.league_path
         league_id = league_path.upper()
 
-        league_config = HOCKEYTECH_LEAGUES.get(league_id)
+        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
 
         if league_config is None:
             _LOGGER.warning(
@@ -347,11 +247,20 @@ class HockeyTechProvider(BaseSportProvider):
             "timestamp": timestamp
         }
 
+
+    #
+    #  _transform_hockeytech_to_espn()
+    #
     def _transform_hockeytech_to_espn(self, ht_data: dict, league_id: str) -> dict | None:
         """Transform HockeyTech scorebar data into ESPN-compatible format."""
 
-        league_config = HOCKEYTECH_LEAGUES.get(league_id)
-        team_colors = HOCKEYTECH_TEAM_COLORS.get(league_id, {})
+        if self._coordinator is None:
+            return None
+
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+
+        league_config = self._coordinator.hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
 
         if ht_data is None or league_config is None:
             return None
@@ -374,15 +283,26 @@ class HockeyTechProvider(BaseSportProvider):
             return espn_data
 
         for game in scorebar:
-            event = self._build_espn_event(game, team_colors)
+            event = self._build_espn_event(game)
             if event is not None:
                 espn_data["events"].append(event)
 
         return espn_data
 
 
-    def _build_espn_event(self, game: dict, team_colors: dict) -> dict | None:
+    #
+    #  _build_espn_event()
+    #
+    def _build_espn_event(self, game: dict) -> dict | None:
         """Build a single ESPN-format event from a HockeyTech game."""
+
+        # HockeyTech GameStatus codes
+        _STATUS_MAP = {
+            "1": "pre",
+            "2": "in",
+            "3": "in",   # Intermission is still "in progress"
+            "4": "post",
+        }
 
         game_id = game.get("ID", "")
         espn_date = self._convert_to_espn_date(game.get("GameDateISO8601", ""))
@@ -397,8 +317,8 @@ class HockeyTechProvider(BaseSportProvider):
         except (ValueError, TypeError):
             pass
 
-        home_competitor = self._build_competitor(game, "Home", "home", team_colors)
-        visitor_competitor = self._build_competitor(game, "Visitor", "away", team_colors)
+        home_competitor = self._build_competitor(game, "Home", "home")
+        visitor_competitor = self._build_competitor(game, "Visitor", "away")
 
         # Determine winners for POST state
         if state == "post":
@@ -449,7 +369,10 @@ class HockeyTechProvider(BaseSportProvider):
         return event
 
 
-    def _build_competitor(self, game: dict, side: str, home_away: str, team_colors: dict) -> dict:
+    #
+    #  _build_competitor()
+    #
+    def _build_competitor(self, game: dict, side: str, home_away: str) -> dict:
         """Build an ESPN-format competitor from HockeyTech game data.
 
         side: "Home" or "Visitor" (HockeyTech field prefix)
@@ -458,7 +381,6 @@ class HockeyTechProvider(BaseSportProvider):
 
         team_code = game.get(f"{side}Code", "")
         team_id = game.get(f"{side}ID", "")
-        colors = team_colors.get(team_code, {})
         team_url = game.get(f"{side}WebcastUrl", "")
         if team_url == "":
             team_url = game.get(f"{side}VideoUrl", "")
@@ -478,8 +400,8 @@ class HockeyTechProvider(BaseSportProvider):
                 "displayName": game.get(f"{side}LongName", ""),
                 "shortDisplayName": game.get(f"{side}Nickname", ""),
                 "logo": game.get(f"{side}Logo", ""),
-                "color": colors.get("color", "D3D3D3"),
-                "alternateColor": colors.get("alternateColor", "A9A9A9"),
+                "color": "D3D3D3",
+                "alternateColor": "A9A9A9",
                 "links": [{"href": f"{team_url}"}],
             },
             "records": [
@@ -491,6 +413,9 @@ class HockeyTechProvider(BaseSportProvider):
         }
 
 
+    #
+    #  _format_record()
+    #
     def _format_record(self, game: dict, side: str) -> str:
         """Format W-L-OTL record string from HockeyTech fields."""
 
@@ -505,6 +430,9 @@ class HockeyTechProvider(BaseSportProvider):
         return f"{wins}-{reg_losses}-{ot_losses}"
 
 
+    #
+    #  _convert_to_espn_date()
+    #
     def _convert_to_espn_date(self, iso_str: str) -> str:
         """Convert HockeyTech ISO8601 date to ESPN date format (e.g., 2026-03-19T23:00Z)."""
 
@@ -518,6 +446,9 @@ class HockeyTechProvider(BaseSportProvider):
             return ""
 
 
+    #
+    #  _build_short_detail()
+    #
     def _build_short_detail(self, game: dict, state: str) -> str:
         """Build the status shortDetail string based on game state."""
 
@@ -550,6 +481,9 @@ class HockeyTechProvider(BaseSportProvider):
         return game.get("GameDateISO8601", "")
 
 
+    #
+    #  _build_venue()
+    #
     def _build_venue(self, game: dict) -> dict:
         """Build ESPN-format venue dict from HockeyTech game data."""
 
@@ -575,6 +509,9 @@ class HockeyTechProvider(BaseSportProvider):
         }
 
 
+    #
+    #  async_call_hockeytech_api()
+    #
     async def async_call_hockeytech_api(self, hass, base_url, params, sensor_name, league_id) -> dict:
         """Call the HockeyTech API.
             Response:

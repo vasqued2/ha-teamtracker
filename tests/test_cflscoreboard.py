@@ -14,11 +14,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from yarl import URL
 
 from custom_components.teamtracker.const import DOMAIN
-from custom_components.teamtracker.provide_hockeytech import (
-    HOCKEYTECH_BASE_URL,
-    HOCKEYTECH_LEAGUES,
-    HOCKEYTECH_TEAM_COLORS,
-)
+from custom_components.teamtracker.provide_hockeytech import HOCKEYTECH_BASE_URL
 from custom_components.teamtracker.sensor import async_setup_platform
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 

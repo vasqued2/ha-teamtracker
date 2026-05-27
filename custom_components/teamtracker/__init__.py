@@ -180,8 +180,8 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     if unload_ok:
         domain_data = hass.data.get(DOMAIN, None)
-        if domain_data:
-            domain_data.pop(entry.entry_id)
+        if domain_data and entry.entry_id in domain_data:
+                domain_data.pop(entry.entry_id)
         
         # Only remove service if this is the last entry
         if not domain_data:
