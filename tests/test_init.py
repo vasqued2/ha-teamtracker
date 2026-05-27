@@ -1,13 +1,15 @@
 """ Tests for TeamTracker """
 
 import logging
+import os
+import shutil
 from unittest.mock import patch
 
 from freezegun import freeze_time
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.teamtracker.const import DOMAIN
+from custom_components.teamtracker.const import DOMAIN, LOCAL_OVERRIDE_FILE
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 
 from tests.const import (
@@ -29,7 +31,7 @@ def expected_lingering_timers() -> bool:
     """
     return False
 
-    
+
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 async def test_setup_entry_and_service_call(
     hass,

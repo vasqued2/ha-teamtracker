@@ -1,3 +1,10 @@
+reload_overrides:
+  name: Teamtracker Reload File Overrides
+  description: Reloads the overrides in the teamtracker_overrides.json file in the config folder.
+  target:
+    entity:
+      domain: sensor
+      integration: teamtracker
 call_api:
   name: Teamtracker Call API
   description: Sets the teamtracker sensor based on the input parameters, calls the ESPN API, and populates the sensor attributes.

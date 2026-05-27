@@ -5,7 +5,6 @@ from datetime import datetime, timedelta, timezone
 import json
 import locale
 import logging
-import os
 from typing import TYPE_CHECKING
 
 import aiohttp
@@ -90,16 +89,10 @@ class HockeyTechProvider(BaseSportProvider):
         if DOMAIN not in hass.data:
             hass.data[DOMAIN] = {}
 
+        # Load the OVERRIDE_DICT if it doesn't exist
         if OVERRIDE_DICT not in hass.data[DOMAIN]:
             hass.data[DOMAIN][OVERRIDE_DICT] = None
-            component_dir = os.path.dirname(__file__)
-            default_file = os.path.join(component_dir, "overrides", "default.json")
-            custom_file = hass.config.path("teamtracker_overrides.json")
-
-            override_dict = await hass.async_add_executor_job(
-                load_file_overrides, default_file, custom_file
-            )
-            
+            override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
             if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
                 hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
 

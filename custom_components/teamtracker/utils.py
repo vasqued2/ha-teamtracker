@@ -4,8 +4,11 @@ import logging
 import os
 import re
 
-_LOGGER = logging.getLogger(__name__)
+from homeassistant.core import HomeAssistant
 
+from .const import DEFAULT_OVERRIDE_FILE, LOCAL_OVERRIDE_FILE
+
+_LOGGER = logging.getLogger(__name__)
 
 #
 # deep_merge()
@@ -76,8 +79,12 @@ def is_integer(val):
 #
 #  load_file_overrides()
 #
-def load_file_overrides(default_file: str, custom_file: str) -> dict:
+def load_file_overrides(hass: HomeAssistant) -> dict:
     """Thread-safe file loading utility."""
+
+    component_dir = os.path.dirname(__file__)
+    default_file = os.path.join(component_dir, "overrides", DEFAULT_OVERRIDE_FILE)
+    custom_file = hass.config.path(LOCAL_OVERRIDE_FILE)
 
     base_data = {}
     if os.path.exists(default_file):

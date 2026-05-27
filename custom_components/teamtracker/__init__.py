@@ -43,6 +43,7 @@ from .const import (
     OVERRIDE_DICT,
     PLATFORMS,
     SERVICE_NAME_CALL_API,
+    SERVICE_NAME_RELOAD_OVERRIDES,
     VERSION,
 )
 from .coordinator import TeamTrackerCoordinator
@@ -70,6 +71,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         return None
 
 
+    #
+    #  async_call_api_service()
+    #    Service to change the path, league, team and conference 
+    #
     async def async_call_api_service(call):
         """Handle the service action call."""
 
@@ -100,6 +105,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                         entity_id,
                     )
 
+    #
+    #  async_reload_overrides()
+    #    Service to reload the override files
+    #
+    async def async_reload_overrides(call):
+        """Handle the service action call to reload the override file."""
+
+        # Initialize DOMAIN in hass.data if it doesn't exist
+        if DOMAIN not in hass.data:
+            hass.data[DOMAIN] = {}
+
+        # Reload the OVERRIDE_DICT
+        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+        hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+
     # Print startup message
 
     sensor_name = entry.data[CONF_NAME]
@@ -115,19 +135,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if DOMAIN not in hass.data:
         hass.data[DOMAIN] = {}
 
+    # Load the OVERRIDE_DICT if it doesn't exist
     if OVERRIDE_DICT not in hass.data[DOMAIN]:
         hass.data[DOMAIN][OVERRIDE_DICT] = None
-        component_dir = os.path.dirname(__file__)
-        default_file = os.path.join(component_dir, "overrides", "default.json")
-        custom_file = hass.config.path("teamtracker_overrides.json")
-
-        override_dict = await hass.async_add_executor_job(
-            load_file_overrides, default_file, custom_file
-        )
-        
+        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
         if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
             hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
-
 
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 
@@ -161,6 +174,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 #  Register services for sensor
 #
     hass.services.async_register(DOMAIN, SERVICE_NAME_CALL_API, async_call_api_service,)
+    hass.services.async_register(DOMAIN, SERVICE_NAME_RELOAD_OVERRIDES, async_reload_overrides,)
 
     return True
 
