@@ -102,37 +102,49 @@ class BaseSportParser(ABC):
     #
     def override_sensor_values(self) -> bool:
 
+        class Default(dict):
+            def __missing__(self, key):
+                return f"{{{key}}}"
+
+        def apply_override(override):
+            if override is None:
+                return None
+            if not isinstance(override, str):
+                return override
+            m = Default(**self._values.to_dict_all_attr())
+            return override.format_map(m)
+
         if self._coordinator is None:
             return True
 
         override_dict = self._coordinator.hass.data[DOMAIN].get(OVERRIDE_DICT, {})
         overrides = override_dict.get(str(self._values.sport_path).lower(), {}).get(str(self._values.league_path).lower(), None)
-
         if overrides is None:
             return True
 
-        self._values.league_name = overrides.get("league_name", self._values.league_name)
-        self._values.league_logo = overrides.get("league_logo", self._values.league_logo)
+        self._values.league_name = apply_override(overrides.get("league_name", self._values.league_name))
+        self._values.league_logo = apply_override(overrides.get("league_logo", self._values.league_logo))
+        self._values.event_url = apply_override(overrides.get("event_url", self._values.event_url))
 
         team_id = self._values.team_id
         team_overrides = overrides.get("teams", {}).get(team_id, None)
         if team_overrides is not None:
-            self._values.team_abbr = team_overrides.get("abbr", self._values.team_abbr)
-            self._values.team_long_name = team_overrides.get("long_name", self._values.team_long_name)
-            self._values.team_name = team_overrides.get("name", self._values.team_name)
-            self._values.team_logo = team_overrides.get("logo", self._values.team_logo)
-            self._values.team_url = team_overrides.get("url", self._values.team_url)
-            self._values.team_colors = team_overrides.get("colors", self._values.team_colors)
+            self._values.team_abbr = apply_override(team_overrides.get("abbr", self._values.team_abbr))
+            self._values.team_long_name = apply_override(team_overrides.get("long_name", self._values.team_long_name))
+            self._values.team_name = apply_override(team_overrides.get("name", self._values.team_name))
+            self._values.team_logo = apply_override(team_overrides.get("logo", self._values.team_logo))
+            self._values.team_url = apply_override(team_overrides.get("url", self._values.team_url))
+            self._values.team_colors = apply_override(team_overrides.get("colors", self._values.team_colors))
 
         opponent_id = self._values.opponent_id
         opponent_overrides = overrides.get("teams", {}).get(opponent_id, None)
         if opponent_overrides is not None:
-            self._values.opponent_abbr = opponent_overrides.get("abbr", self._values.opponent_abbr)
-            self._values.opponent_long_name = opponent_overrides.get("long_name", self._values.opponent_long_name)
-            self._values.opponent_name = opponent_overrides.get("name", self._values.opponent_name)
-            self._values.opponent_logo = opponent_overrides.get("logo", self._values.opponent_logo)
-            self._values.opponent_url = opponent_overrides.get("url", self._values.opponent_url)
-            self._values.opponent_colors = opponent_overrides.get("colors", self._values.opponent_colors)
+            self._values.opponent_abbr = apply_override(opponent_overrides.get("abbr", self._values.opponent_abbr))
+            self._values.opponent_long_name = apply_override(opponent_overrides.get("long_name", self._values.opponent_long_name))
+            self._values.opponent_name = apply_override(opponent_overrides.get("name", self._values.opponent_name))
+            self._values.opponent_logo = apply_override(opponent_overrides.get("logo", self._values.opponent_logo))
+            self._values.opponent_url = apply_override(opponent_overrides.get("url", self._values.opponent_url))
+            self._values.opponent_colors = apply_override(opponent_overrides.get("colors", self._values.opponent_colors))
 
         return True
 

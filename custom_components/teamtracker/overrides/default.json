@@ -24,6 +24,7 @@
     "cfl": {
       "league_name": "Canadian Football League",
       "league_logo": "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png",
+      "event_url": "https://www.cfl.ca/games/{event_url}",
       "teams": {
         "83579": {
           "name": "Tiger-Cats",

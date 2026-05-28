@@ -254,7 +254,8 @@ class CflScoreboardParser(BaseSportParser):
         away = get_value(tournament, "awaySquad", "shortName", default="{shortName}")
         home = get_value(tournament, "homeSquad", "shortName", default="{shortName}")
         self._values.event_name = f"{away}@{home}"                
-        self._values.event_url = None
+        self._values.event_url = get_value(tournament, "cflId", default=None)
+        self._values.event_url = None if (self._values.event_url is None) else str(self._values.event_url)
         self._values.date = get_value(tournament, "date")
         self._values.kickoff_in = arrow.get(self._values.date).humanize(locale=self._lang)
         self._values.series_summary = None
