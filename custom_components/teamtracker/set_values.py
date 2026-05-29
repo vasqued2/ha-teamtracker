@@ -216,6 +216,7 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         ).upper()
         self._values.season = get_value(event, "season", "slug")
 
+        self._values.event_id = get_value(event, "id")
         self._values.event_name = get_value(event, "shortName")
         self._values.event_url = get_value(event, "links", 0, "href")
 

@@ -19,6 +19,7 @@ class TeamTrackerValues:
     # Event Details
     team_abbr: str | None = MISSING
     opponent_abbr: str | None = MISSING
+    event_id: str | None = MISSING
     event_name: str | None = MISSING
     event_url: str | None = MISSING
     date: str | None = MISSING
