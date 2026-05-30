@@ -3,6 +3,7 @@
     "{league_path}": {
       "league_name": "Sample League",
       "league_logo": "leagueLogo.png",
+      "event_url": "https://www.sample_league/games/{event_id}",
       "public_key": "url key",
       "client_code": "url code",
       "teams": {
@@ -24,6 +25,7 @@
     "cfl": {
       "league_name": "Canadian Football League",
       "league_logo": "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png",
+      "event_url": "https://www.cfl.ca/games/{event_id}",
       "teams": {
         "83579": {
           "name": "Tiger-Cats",
@@ -114,42 +116,33 @@
       "league_name": "Canadian Hockey League",
       "league_logo": "https://cdn.chl.ca/uploads/chl/2014/05/06154138/CHL.png",
       "public_key": "f1aa699db3d81487",
-      "client_code": "chl",
-      "teams": {
-        "ID1": {
-          "name": "Team Name",
-          "logo": "Team Name",
-          "url": "http:/",
-          "colors": "xxx"
-        },
-        "ID2": {
-          "name": "Team Name",
-          "logo": "Team Name",
-          "colors": "xxx"
-        }
-      }
+      "client_code": "chl"
     },
     "ohl": {
       "league_name": "Ontario Hockey League",
       "league_logo": "https://media.chl.ca/wp-content/uploads/sites/5/2023/05/25210408/logo_OHL_lg_white-1.png",
+      "event_url": "https://chl.ca/ohl/gamecentre/{event_id}",
       "public_key": "f1aa699db3d81487",
       "client_code": "ohl"
     },
     "whl": {
       "league_name": "Wester Hockey League",
       "league_logo": "https://media.chl.ca/wp-content/uploads/sites/6/2023/08/18153056/Western_Hockey_League.svg_.png",
+      "event_url": "https://chl.ca/whl/gamecentre/{event_id}",
       "public_key": "f1aa699db3d81487",
       "client_code": "whl"
     },
     "lhjmq": {
       "league_name": "Quebec Major Junior Hockey League",
       "league_logo": "https://www.themhl.ca/wp-content/uploads/sites/2/2018/10/QMJHL-Logo.png",
+      "event_url": "https://chl.ca/lhjqm/gamecentre/{event_id}",
       "public_key": "f1aa699db3d81487",
       "client_code": "lhjmq"
     },
     "ahl": {
       "league_name": "American Hockey League",
       "league_logo": "https://1000logos.net/wp-content/uploads/2023/04/American-Hockey-League-logo-768x432.png",
+      "event_url": "https://theahl.com/stats/game-center/{event_id}",
       "public_key": "50c2cd9b5e18e390",
       "client_code": "ahl"
     },
@@ -162,6 +155,7 @@
     "pwhl": {
       "league_name": "Professional Womens Hockey League",
       "league_logo": "https://1000logos.net/wp-content/uploads/2024/10/PWHL-Logo.png",
+      "event_url": "https://www.thepwhl.com/en/stats/game-center/{event_id}",
       "public_key": "446521baf8c38984",
       "client_code": "pwhl",
       "teams": {
@@ -226,30 +220,35 @@
     "ushl": {
       "league_name": "United States Hockey League",
       "league_logo": "https://dbukjj6eu5tsf.cloudfront.net/ushl.sidearmsports.com/images/responsive_2022/ushl_on-dark.svg",
+      "event_url": "https://ushl.com/ht/#/game-summary/{event_id}",
       "public_key": "e828f89b243dc43f",
       "client_code": "ushl"
     },
     "ojhl": {
       "league_name": "Ontario Junior Hockey League",
       "league_logo": "https://www.ojhl.ca/wp-content/uploads/sites/2/2023/04/default-300x200.jpg",
+      "event_url": "https://www.ojhl.ca/stats/game-center/{event_id}",
       "public_key": "77a0bd73d9d363d3",
       "client_code": "ojhl"
     },
     "bchl": {
       "league_name": "British Columbia Hockey League",
       "league_logo": "https://bchl.ca/wp-content/uploads/2015/12/BCHL-Footer-Logo.png",
+      "event_url": "https://bchl.ca/stats/game-center/{event_id}",
       "public_key": "ca4e9e599d4dae55",
       "client_code": "bchl"
     },
     "sjhl": {
       "league_name": "Saskatchewan Junior Hockey League",
       "league_logo": "https://www.sjhl.ca/wp-content/uploads/sites/2/2019/04/cropped-sjhl-512.png",
+      "event_url": "https://www.sjhl.ca/stats/game-center/{event_id}",
       "public_key": "2fb5c2e84bf3e4a8",
       "client_code": "sjhl"
     },
     "ajhl": {
       "league_name": "Alberta Junior Hockey League",
       "league_logo": "https://www.ajhl.ca/wp-content/uploads/sites/2/2023/06/ajhl.png",
+      "event_url": "https://www.ajhl.ca/stats/game-center/{event_id}",
       "public_key": "cbe60a1d91c44ade",
       "client_code": "ajhl"
     },
@@ -262,6 +261,7 @@
     "mhl": {
       "league_name": "Maritime Junior Hockey League",
       "league_logo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Maritime_Junior_A_Hockey_League_Logo.svg/250px-Maritime_Junior_A_Hockey_League_Logo.svg.png",
+      "event_url": "https://www.themhl.ca/stats/game-summary/{event_id}",
       "public_key": "4a948e7faf5ee58d",
       "client_code": "mhl"
     }

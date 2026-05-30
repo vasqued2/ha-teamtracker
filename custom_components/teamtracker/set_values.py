@@ -216,8 +216,10 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
         ).upper()
         self._values.season = get_value(event, "season", "slug")
 
+        self._values.event_id = get_value(event, "id")
         self._values.event_name = get_value(event, "shortName")
         self._values.event_url = get_value(event, "links", 0, "href")
+        self._values.event_stream = get_value(event, "links", 0, "stream")
 
         self._values.date = get_value(
             competition, "date", default=(get_value(event, "date"))
@@ -354,6 +356,13 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             0,
             "href",
             )
+        self._values.team_stream = get_value(
+            competitor,
+            "team",
+            "links",
+            0,
+            "stream",
+            )
         self._values.opponent_url = get_value(
             opponent,
             "team",
@@ -361,6 +370,14 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             0,
             "href",
             )
+        self._values.opponent_stream = get_value(
+            opponent,
+            "team",
+            "links",
+            0,
+            "stream",
+            )
+
         #    _LOGGER.debug("%s: async_set_universal_values() 4: %s", self._sensor_name, self._sensor_name)
 
         self._values.quarter = get_value(

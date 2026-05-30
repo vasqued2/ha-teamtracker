@@ -19,8 +19,10 @@ class TeamTrackerValues:
     # Event Details
     team_abbr: str | None = MISSING
     opponent_abbr: str | None = MISSING
+    event_id: str | None = MISSING
     event_name: str | None = MISSING
     event_url: str | None = MISSING
+    event_stream: str | None = MISSING
     date: str | None = MISSING
     kickoff_in: str | None = MISSING
     series_summary: str | None = MISSING
@@ -40,6 +42,7 @@ class TeamTrackerValues:
     team_homeaway: str | None = MISSING
     team_logo: str | None = MISSING
     team_url: str | None = MISSING
+    team_stream: str | None = MISSING
     team_colors: list[str] | None = MISSING
     team_score: str | None = MISSING
     team_win_probability: float| None= MISSING
@@ -56,6 +59,7 @@ class TeamTrackerValues:
     opponent_homeaway: str | None = MISSING
     opponent_logo: str | None = MISSING
     opponent_url: str | None = MISSING
+    opponent_stream: str | None = MISSING
     opponent_colors: list[str] | None = MISSING
     opponent_score: str | None = MISSING
     opponent_win_probability: float | None = MISSING
