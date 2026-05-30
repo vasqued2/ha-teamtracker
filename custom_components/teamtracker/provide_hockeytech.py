@@ -332,7 +332,6 @@ class HockeyTechProvider(BaseSportProvider):
             "name": f'{game.get("VisitorLongName", "")} at {game.get("HomeLongName", "")}',
             "shortName": f'{game.get("VisitorCode", "")} @ {game.get("HomeCode", "")}',
             "season": {"slug": "regular-season"},
-            "links": [{"href": f'{game.get("FloHockeyUrl", "")}'}],
             "status": {
                 "clock": 0,
                 "period": period,
@@ -359,6 +358,9 @@ class HockeyTechProvider(BaseSportProvider):
             ],
         }
 
+        if url := game.get("FloHockeyUrl"):
+            event["links"] = [{"stream": url}]
+
         return event
 
 
@@ -374,13 +376,8 @@ class HockeyTechProvider(BaseSportProvider):
 
         team_code = game.get(f"{side}Code", "")
         team_id = game.get(f"{side}ID", "")
-        team_url = game.get(f"{side}WebcastUrl", "")
-        if team_url == "":
-            team_url = game.get(f"{side}VideoUrl", "")
-        if team_url == "":
-            team_url = game.get(f"{side}AudioUrl", "")
 
-        return {
+        competitor = {
             "id": team_id,
             "type": "team",
             "order": 0 if home_away == "home" else 1,
@@ -395,7 +392,6 @@ class HockeyTechProvider(BaseSportProvider):
                 "logo": game.get(f"{side}Logo", ""),
                 "color": "D3D3D3",
                 "alternateColor": "A9A9A9",
-                "links": [{"href": f"{team_url}"}],
             },
             "records": [
                 {
@@ -404,6 +400,16 @@ class HockeyTechProvider(BaseSportProvider):
             ],
             "statistics": [],
         }
+
+        team_stream = game.get(f"{side}WebcastUrl", "")
+        if team_stream == "":
+            team_stream = game.get(f"{side}VideoUrl", "")
+        if team_stream == "":
+            team_stream = game.get(f"{side}AudioUrl", "")
+
+        if team_stream != "":
+            competitor["team"]["links"] = [{"stream": team_stream}]
+        return competitor
 
 
     #
