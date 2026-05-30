@@ -46,14 +46,10 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         league_id: str,
         team_id: str,
     ) -> bool:
-        self._sensor_name = sensor_name
-        self._sport_path = sport_path
-        self._league_path = league_path
-        self._league_id = league_id
+        rc = super().setup(sensor_name, sport_path, league_path, league_id, team_id)
         self._default_logo = DEFAULT_LOGO
-        self._team_id = team_id.upper()
 
-        return True
+        return rc
 
 
 

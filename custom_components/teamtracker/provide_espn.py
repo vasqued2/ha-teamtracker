@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 DATA_PROVIDER_ESPN = "espn"
+ESPN_DATA_FORMAT = "espn-json"
 ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 class EspnProvider(BaseSportProvider):
@@ -35,6 +36,7 @@ class EspnProvider(BaseSportProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN
+        self.data_format = ESPN_DATA_FORMAT
         self.ATTRIBUTION: str = "Data provided by ESPN"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)

@@ -12,18 +12,16 @@ from .const import DOMAIN
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
-DEFAULT_DATA_FORMAT = "espn_json"
-
 class BaseSportProvider(ABC):
     """Base class for all sport data providers."""
 
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         # Define the attributes that must be available on all providers
-        self.DATA_PROVIDER: str = "default"
+        self.DATA_PROVIDER: str = "base"
         self.ATTRIBUTION: str = ""
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
-        self.data_format = DEFAULT_DATA_FORMAT
+        self.data_format = "base"
         self._coordinator = coordinator
         if self._coordinator:
             self.data_cache = self._coordinator.hass.data.setdefault(DOMAIN, {}).setdefault("data_cache", {})
