@@ -1,0 +1,1134 @@
+{
+  "copyright": "Copyright 2026 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "totalItems": 15,
+  "totalEvents": 0,
+  "totalGames": 15,
+  "totalGamesInProgress": 0,
+  "dates": [
+    {
+      "date": "2026-05-30",
+      "totalItems": 15,
+      "totalEvents": 0,
+      "totalGames": 15,
+      "totalGamesInProgress": 0,
+      "games": [
+        {
+          "gamePk": 816952,
+          "gameGuid": "a409edbb-16b3-4392-bf0a-d0aebde6df3e",
+          "link": "/api/v1.1/game/816952/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T17:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Final",
+            "codedGameState": "F",
+            "detailedState": "Final",
+            "statusCode": "F",
+            "startTimeTBD": false,
+            "abstractGameCode": "F"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 1410,
+                "name": "Lehigh Valley IronPigs",
+                "link": "/api/v1/teams/1410"
+              },
+              "leagueRecord": {
+                "wins": 26,
+                "losses": 30,
+                "ties": 0,
+                "pct": ".464"
+              },
+              "score": 5,
+              "isWinner": false,
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 422,
+                "name": "Buffalo Bisons",
+                "link": "/api/v1/teams/422"
+              },
+              "leagueRecord": {
+                "wins": 27,
+                "losses": 29,
+                "ties": 0,
+                "pct": ".482"
+              },
+              "score": 6,
+              "isWinner": true,
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2756,
+            "name": "Sahlen Field",
+            "link": "/api/v1/venues/2756"
+          },
+          "content": {
+            "link": "/api/v1/game/816952/content"
+          },
+          "isTie": false,
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-816952-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "day",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 816874,
+          "gameGuid": "3b1ef32d-65d4-4ba8-8ce9-eeb80251cb10",
+          "link": "/api/v1.1/game/816874/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T22:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 564,
+                "name": "Jacksonville Jumbo Shrimp",
+                "link": "/api/v1/teams/564"
+              },
+              "leagueRecord": {
+                "wins": 30,
+                "losses": 25,
+                "ties": 0,
+                "pct": ".545"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 494,
+                "name": "Charlotte Knights",
+                "link": "/api/v1/teams/494"
+              },
+              "leagueRecord": {
+                "wins": 29,
+                "losses": 26,
+                "ties": 0,
+                "pct": ".527"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 4670,
+            "name": "Truist Field",
+            "link": "/api/v1/venues/4670"
+          },
+          "content": {
+            "link": "/api/v1/game/816874/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-816874-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 816569,
+          "gameGuid": "a5e26e93-ed55-4f0c-9c41-8ca8019c66bc",
+          "link": "/api/v1.1/game/816569/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T22:35:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 451,
+                "name": "Iowa Cubs",
+                "link": "/api/v1/teams/451"
+              },
+              "leagueRecord": {
+                "wins": 24,
+                "losses": 30,
+                "ties": 0,
+                "pct": ".444"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 484,
+                "name": "Indianapolis Indians",
+                "link": "/api/v1/teams/484"
+              },
+              "leagueRecord": {
+                "wins": 22,
+                "losses": 33,
+                "ties": 0,
+                "pct": ".400"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2858,
+            "name": "Victory Field",
+            "link": "/api/v1/venues/2858"
+          },
+          "content": {
+            "link": "/api/v1/game/816569/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-816569-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815824,
+          "gameGuid": "4052b96d-8024-4f15-9028-4b1b6a68d14b",
+          "link": "/api/v1.1/game/815824/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T22:35:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 533,
+                "name": "Worcester Red Sox",
+                "link": "/api/v1/teams/533"
+              },
+              "leagueRecord": {
+                "wins": 27,
+                "losses": 25,
+                "ties": 0,
+                "pct": ".519"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 531,
+                "name": "Scranton/Wilkes-Barre RailRiders",
+                "link": "/api/v1/teams/531"
+              },
+              "leagueRecord": {
+                "wins": 26,
+                "losses": 27,
+                "ties": 0,
+                "pct": ".491"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2797,
+            "name": "PNC Field",
+            "link": "/api/v1/venues/2797"
+          },
+          "content": {
+            "link": "/api/v1/game/815824/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815824-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 816054,
+          "gameGuid": "db55681b-a2ac-4496-8fbf-2439e3705cec",
+          "link": "/api/v1.1/game/816054/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T22:35:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 234,
+                "name": "Durham Bulls",
+                "link": "/api/v1/teams/234"
+              },
+              "leagueRecord": {
+                "wins": 23,
+                "losses": 32,
+                "ties": 0,
+                "pct": ".418"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 568,
+                "name": "Norfolk Tides",
+                "link": "/api/v1/teams/568"
+              },
+              "leagueRecord": {
+                "wins": 21,
+                "losses": 34,
+                "ties": 0,
+                "pct": ".382"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2781,
+            "name": "Harbor Park",
+            "link": "/api/v1/venues/2781"
+          },
+          "content": {
+            "link": "/api/v1/game/816054/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-816054-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815902,
+          "gameGuid": "8992cfd6-d16f-424f-9b90-aada2e48c150",
+          "link": "/api/v1.1/game/815902/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T22:45:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 552,
+                "name": "Syracuse Mets",
+                "link": "/api/v1/teams/552"
+              },
+              "leagueRecord": {
+                "wins": 28,
+                "losses": 26,
+                "ties": 0,
+                "pct": ".519"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 534,
+                "name": "Rochester Red Wings",
+                "link": "/api/v1/teams/534"
+              },
+              "leagueRecord": {
+                "wins": 33,
+                "losses": 21,
+                "ties": 0,
+                "pct": ".611"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2773,
+            "name": "ESL Ballpark",
+            "link": "/api/v1/venues/2773"
+          },
+          "content": {
+            "link": "/api/v1/game/815902/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815902-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815597,
+          "gameGuid": "48c921f4-0e24-47c6-a73d-1dcebea03133",
+          "link": "/api/v1.1/game/815597/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T23:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 445,
+                "name": "Columbus Clippers",
+                "link": "/api/v1/teams/445"
+              },
+              "leagueRecord": {
+                "wins": 29,
+                "losses": 25,
+                "ties": 0,
+                "pct": ".537"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 512,
+                "name": "Toledo Mud Hens",
+                "link": "/api/v1/teams/512"
+              },
+              "leagueRecord": {
+                "wins": 26,
+                "losses": 29,
+                "ties": 0,
+                "pct": ".473"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2767,
+            "name": "Fifth Third Field",
+            "link": "/api/v1/venues/2767"
+          },
+          "content": {
+            "link": "/api/v1/game/815597/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815597-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815974,
+          "gameGuid": "db1da56e-3c75-48ff-ab14-ef6c2734b691",
+          "link": "/api/v1.1/game/815974/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T23:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 235,
+                "name": "Memphis Redbirds",
+                "link": "/api/v1/teams/235"
+              },
+              "leagueRecord": {
+                "wins": 33,
+                "losses": 22,
+                "ties": 0,
+                "pct": ".600"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 541,
+                "name": "Omaha Storm Chasers",
+                "link": "/api/v1/teams/541"
+              },
+              "leagueRecord": {
+                "wins": 26,
+                "losses": 28,
+                "ties": 0,
+                "pct": ".481"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 4271,
+            "name": "Werner Park",
+            "link": "/api/v1/venues/4271"
+          },
+          "content": {
+            "link": "/api/v1/game/815974/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815974-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815074,
+          "gameGuid": "30dbd544-e714-44dd-9e92-7e8e3247e629",
+          "link": "/api/v1.1/game/815074/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T23:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 561,
+                "name": "Salt Lake Bees",
+                "link": "/api/v1/teams/561"
+              },
+              "leagueRecord": {
+                "wins": 27,
+                "losses": 27,
+                "ties": 0,
+                "pct": ".500"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 102,
+                "name": "Round Rock Express",
+                "link": "/api/v1/teams/102"
+              },
+              "leagueRecord": {
+                "wins": 22,
+                "losses": 33,
+                "ties": 0,
+                "pct": ".400"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2528,
+            "name": "Dell Diamond",
+            "link": "/api/v1/venues/2528"
+          },
+          "content": {
+            "link": "/api/v1/game/815074/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815074-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 814849,
+          "gameGuid": "790cfe0a-b364-4a79-b275-3b7d41121817",
+          "link": "/api/v1.1/game/814849/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T23:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 238,
+                "name": "Oklahoma City Comets",
+                "link": "/api/v1/teams/238"
+              },
+              "leagueRecord": {
+                "wins": 31,
+                "losses": 23,
+                "ties": 0,
+                "pct": ".574"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 5434,
+                "name": "Sugar Land Space Cowboys",
+                "link": "/api/v1/teams/5434"
+              },
+              "leagueRecord": {
+                "wins": 23,
+                "losses": 32,
+                "ties": 0,
+                "pct": ".418"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 5421,
+            "name": "Constellation Field",
+            "link": "/api/v1/venues/5421"
+          },
+          "content": {
+            "link": "/api/v1/game/814849/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-814849-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 816272,
+          "gameGuid": "b9ad26c9-d583-4773-b7cf-6559b634bcd9",
+          "link": "/api/v1.1/game/816272/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T23:15:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 1960,
+                "name": "St. Paul Saints",
+                "link": "/api/v1/teams/1960"
+              },
+              "leagueRecord": {
+                "wins": 27,
+                "losses": 27,
+                "ties": 0,
+                "pct": ".500"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 416,
+                "name": "Louisville Bats",
+                "link": "/api/v1/teams/416"
+              },
+              "leagueRecord": {
+                "wins": 30,
+                "losses": 24,
+                "ties": 0,
+                "pct": ".556"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2724,
+            "name": "Louisville Slugger Field",
+            "link": "/api/v1/venues/2724"
+          },
+          "content": {
+            "link": "/api/v1/game/816272/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-816272-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 816123,
+          "gameGuid": "141e5146-976f-4dba-a81b-5cf9e5ad9059",
+          "link": "/api/v1.1/game/816123/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-30T23:35:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 431,
+                "name": "Gwinnett Stripers",
+                "link": "/api/v1/teams/431"
+              },
+              "leagueRecord": {
+                "wins": 29,
+                "losses": 26,
+                "ties": 0,
+                "pct": ".527"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 556,
+                "name": "Nashville Sounds",
+                "link": "/api/v1/teams/556"
+              },
+              "leagueRecord": {
+                "wins": 33,
+                "losses": 22,
+                "ties": 0,
+                "pct": ".600"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 4715,
+            "name": "First Horizon Park",
+            "link": "/api/v1/venues/4715"
+          },
+          "content": {
+            "link": "/api/v1/game/816123/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-816123-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815446,
+          "gameGuid": "44625335-30e9-4d97-9ecd-b4e36c2b6b60",
+          "link": "/api/v1.1/game/815446/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-31T00:35:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 4904,
+                "name": "El Paso Chihuahuas",
+                "link": "/api/v1/teams/4904"
+              },
+              "leagueRecord": {
+                "wins": 24,
+                "losses": 31,
+                "ties": 0,
+                "pct": ".436"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 342,
+                "name": "Albuquerque Isotopes",
+                "link": "/api/v1/teams/342"
+              },
+              "leagueRecord": {
+                "wins": 31,
+                "losses": 24,
+                "ties": 0,
+                "pct": ".564"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2683,
+            "name": "Isotopes Park",
+            "link": "/api/v1/venues/2683"
+          },
+          "content": {
+            "link": "/api/v1/game/815446/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815446-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 814773,
+          "gameGuid": "5d31e380-468e-4758-a5a7-cb464f71ff32",
+          "link": "/api/v1.1/game/814773/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-31T01:05:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 400,
+                "name": "Las Vegas Aviators",
+                "link": "/api/v1/teams/400"
+              },
+              "leagueRecord": {
+                "wins": 30,
+                "losses": 23,
+                "ties": 0,
+                "pct": ".566"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 529,
+                "name": "Tacoma Rainiers",
+                "link": "/api/v1/teams/529"
+              },
+              "leagueRecord": {
+                "wins": 23,
+                "losses": 32,
+                "ties": 0,
+                "pct": ".418"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 2745,
+            "name": "Cheney Stadium",
+            "link": "/api/v1/venues/2745"
+          },
+          "content": {
+            "link": "/api/v1/game/814773/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-814773-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        },
+        {
+          "gamePk": 815146,
+          "gameGuid": "9518a915-9715-40e8-96a3-2a1c89a27a9d",
+          "link": "/api/v1.1/game/815146/feed/live",
+          "gameType": "R",
+          "season": "2026",
+          "gameDate": "2026-05-31T01:35:00Z",
+          "officialDate": "2026-05-30",
+          "status": {
+            "abstractGameState": "Preview",
+            "codedGameState": "S",
+            "detailedState": "Scheduled",
+            "statusCode": "S",
+            "startTimeTBD": false,
+            "abstractGameCode": "P"
+          },
+          "teams": {
+            "away": {
+              "team": {
+                "id": 105,
+                "name": "Sacramento River Cats",
+                "link": "/api/v1/teams/105"
+              },
+              "leagueRecord": {
+                "wins": 32,
+                "losses": 21,
+                "ties": 0,
+                "pct": ".604"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            },
+            "home": {
+              "team": {
+                "id": 2310,
+                "name": "Reno Aces",
+                "link": "/api/v1/teams/2310"
+              },
+              "leagueRecord": {
+                "wins": 25,
+                "losses": 30,
+                "ties": 0,
+                "pct": ".455"
+              },
+              "splitSquad": false,
+              "seriesNumber": 10
+            }
+          },
+          "venue": {
+            "id": 3789,
+            "name": "Greater Nevada Field",
+            "link": "/api/v1/venues/3789"
+          },
+          "content": {
+            "link": "/api/v1/game/815146/content"
+          },
+          "gameNumber": 1,
+          "publicFacing": true,
+          "doubleHeader": "N",
+          "gamedayType": "E",
+          "tiebreaker": "N",
+          "calendarEventID": "44-815146-2026-05-30",
+          "seasonDisplay": "2026",
+          "dayNight": "night",
+          "scheduledInnings": 9,
+          "reverseHomeAwayStatus": false,
+          "inningBreakLength": 120,
+          "gamesInSeries": 6,
+          "seriesGameNumber": 5,
+          "seriesDescription": "Regular Season",
+          "recordSource": "S",
+          "ifNecessary": "N",
+          "ifNecessaryDescription": "Normal Game"
+        }
+      ],
+      "events": []
+    }
+  ]
+}

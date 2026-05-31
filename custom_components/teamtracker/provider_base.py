@@ -7,7 +7,8 @@ from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
-from .const import DOMAIN
+from .const import DOMAIN, OVERRIDE_DICT
+from .utils import load_file_overrides
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
@@ -71,6 +72,27 @@ class BaseSportProvider(ABC):
     def _get_cache_key(self) -> str:
         """Return cache key"""
         pass                                               # pylint: disable=unnecessary-pass
+
+
+    #
+    #  _load_override_dict()
+    #
+    async def _async_load_override_dict(
+        self,
+        hass:HomeAssistant) -> bool:
+
+        # Initialize DOMAIN in hass.data if it doesn't exist
+        if DOMAIN not in hass.data:
+            hass.data[DOMAIN] = {}
+
+        # Load the OVERRIDE_DICT if it doesn't exist
+        if OVERRIDE_DICT not in hass.data[DOMAIN]:
+            hass.data[DOMAIN][OVERRIDE_DICT] = None
+            override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+            if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
+                hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+
+        return True
 
 
     @abstractmethod

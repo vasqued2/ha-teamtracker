@@ -265,5 +265,87 @@
       "public_key": "4a948e7faf5ee58d",
       "client_code": "mhl"
     }
+  },
+  "mlbstats": {
+    "mlb": {
+      "sportId": 1,
+      "unusedLeagueName": "Major League Baseball"
+    },
+    "aaa": {
+      "sportId": 11,
+      "unusedLeagueName": "Triple-A"
+    },
+    "aax": {
+      "sportId": 12,
+      "unusedLeagueName": "Double-A"
+    },
+    "afa": {
+      "sportId": 13,
+      "unusedLeagueName": "High-A"
+    },
+    "afx": {
+      "sportId": 14,
+      "unusedLeagueName": "Single-A"
+    },
+    "rok": {
+      "sportId": 16,
+      "unusedLeagueName": "Rookie"
+    },
+    "win": {
+      "sportId": 17,
+      "unusedLeagueName": "Winter Leagues"
+    },
+    "min": {
+      "sportId": 21,
+      "unusedLeagueName": "Minor League Baseball"
+    },
+    "ind": {
+      "sportId": 23,
+      "unusedLeagueName": "Independent Leagues"
+    },
+    "nlb": {
+      "sportId": 61,
+      "unusedLeagueName": "Negro League Baseball"
+    },
+    "kor": {
+      "sportId": 32,
+      "unusedLeagueName": "Korean Baseball Organization"
+    },
+    "jml": {
+      "sportId": 31,
+      "unusedLeagueName": "Nippon Professional Baseball"
+    },
+    "int": {
+      "sportId": 51,
+      "unusedLeagueName": "International Baseball"
+    },
+    "nae": {
+      "sportId": 509,
+      "unusedLeagueName": "International Baseball (18U)"
+    },
+    "nas": {
+      "sportId": 510,
+      "unusedLeagueName": "International Baseball (16 and under)"
+    },
+    "ame": {
+      "sportId": 6005,
+      "unusedLeagueName": "International Baseball (amateur)"
+    },
+    "oly": {
+      "sportId": 52,
+      "unusedLeagueName": "Olympic Baseball"
+    },
+    "bbc": {
+      "sportId": 22,
+      "unusedLeagueName": "College Baseball"
+    },
+    "hsb": {
+      "sportId": 586,
+      "unusedLeagueName": "High School Baseball"
+    },
+    "wps": {
+      "sportId": 576,
+      "unusedLeagueName": "Women's Professional Softball"
+    }
   }
 }

@@ -25,6 +25,45 @@ class CustomDirectoryExtension(AmberSnapshotExtension):
 def snapshot(snapshot):
     return snapshot.use_extension(CustomDirectoryExtension)
 
+
+@pytest.fixture
+async def mock_call_mlbstats_api(hass):
+    """Global fixture to mock the MLB Stats API and return local JSON data."""
+    
+    # Path to your test data
+    DATA_PATH = "tests/tt/"
+
+    async def _get_mock_api_data(hass, base_url, params, sensor_name, team_id, file_override=False):
+        """Helper to load local files based on URL logic."""
+
+        clean_url = base_url.split('?')[0]
+        assert clean_url == base_url
+
+        url = str(URL(base_url).with_query(params))
+
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
+        if sensor_name == "api_error":
+            return {"data": None, "url": url, "timestamp": timestamp}
+
+        if "teams" in clean_url:
+            file_name = "mlbstats-teams.json"
+        else:
+            file_name = "mlbstats-games.json"
+
+        try:
+            with open(f"{DATA_PATH}{file_name}", "r") as f:
+                data = json.load(f)
+                return {"data": data, "url": url, "timestamp": timestamp}
+        except FileNotFoundError:
+            return {"data": None, "url": url, "timestamp": timestamp}
+
+    # Patch the actual utility function
+    with patch("custom_components.teamtracker.provide_mlbstats.MlbStatsProvider.async_call_mlbstats_api", new_callable=AsyncMock) as mock_mlb:
+        mock_mlb.side_effect = _get_mock_api_data
+        yield mock_mlb
+
+
 @pytest.fixture
 async def mock_call_cflscoreboard_api(hass):
     """Global fixture to mock the CFL Scoreboard API and return local JSON data."""

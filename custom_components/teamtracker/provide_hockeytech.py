@@ -16,7 +16,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DOMAIN, OVERRIDE_DICT
 from .provider_base import BaseSportProvider
-from .utils import load_file_overrides
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -85,16 +84,7 @@ class HockeyTechProvider(BaseSportProvider):
         ) -> dict:
         """Fetch teams from any API for a given league."""
 
-        # Initialize DOMAIN in hass.data if it doesn't exist
-        if DOMAIN not in hass.data:
-            hass.data[DOMAIN] = {}
-
-        # Load the OVERRIDE_DICT if it doesn't exist
-        if OVERRIDE_DICT not in hass.data[DOMAIN]:
-            hass.data[DOMAIN][OVERRIDE_DICT] = None
-            override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
-            if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
-                hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+        await self._async_load_override_dict(hass)
 
         league_abbr = league_path.upper()
         league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
