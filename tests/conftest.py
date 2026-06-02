@@ -48,8 +48,10 @@ async def mock_call_mlbstats_api(hass):
 
         if "teams" in clean_url:
             file_name = "mlbstats-teams.json"
-        else:
+        elif "games" in clean_url:
             file_name = "mlbstats-games.json"
+        else:
+            file_name = "mlbstats-game-816874.json"
 
         try:
             with open(f"{DATA_PATH}{file_name}", "r") as f:
