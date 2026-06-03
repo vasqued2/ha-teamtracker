@@ -195,13 +195,13 @@ class BaseSportProvider(ABC):
             return response
 
         # Fetch data and save to cache
-        response = await self.async_fetch_scoreboard_data(hass, lang)
+        response = await self._async_fetch_scoreboard_data(hass, lang)
         self._save_to_cache(CACHE_NAME, key, response)
 
         return response
 
 
-    async def async_fetch_scoreboard_data(
+    async def _async_fetch_scoreboard_data(
         self,
         hass,
         lang: str,

@@ -171,9 +171,9 @@ class HockeyTechProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #
-    async def async_fetch_scoreboard_data(
+    async def _async_fetch_scoreboard_data(
         self,
         hass,
         lang: str,

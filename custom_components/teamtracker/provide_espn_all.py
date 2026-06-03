@@ -66,13 +66,13 @@ class EspnAllLeaguesProvider(EspnProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #    ESPN APIs returning all leagues quickly hit the API_LIMIT, so force use of tight date ranges
     #      1. Get the team schedule from ESPN and determine next upcoming game
     #      2. Call w/ date range up to upcoming game
     #      2. Call w/ date range around upcoming game
     #
-    async def async_fetch_scoreboard_data(
+    async def _async_fetch_scoreboard_data(
         self, 
         hass: HomeAssistant, 
         lang: str,

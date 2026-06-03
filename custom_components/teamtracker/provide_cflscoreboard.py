@@ -97,11 +97,11 @@ class CflScoreboardProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #    Call CFL Scoreboard API
     #      1. API will return all games in current season
     #
-    async def async_fetch_scoreboard_data(self, hass, lang) -> dict:
+    async def _async_fetch_scoreboard_data(self, hass, lang) -> dict:
         """Gets data from ESPN APIs for specified league."""
 
         url_parms: dict[str, str] = {}

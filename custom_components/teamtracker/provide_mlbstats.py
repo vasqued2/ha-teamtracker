@@ -125,11 +125,11 @@ class MlbStatsProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #    Call MLB Stats API
     #      1. API will return all games for a single day
     #
-    async def async_fetch_scoreboard_data(self, hass, lang) -> dict:
+    async def _async_fetch_scoreboard_data(self, hass, lang) -> dict:
         """Gets data from MLB Stats APIs for specified league."""
 
         url_parms: dict[str, str] = {}

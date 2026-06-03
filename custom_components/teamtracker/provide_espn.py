@@ -132,13 +132,13 @@ class EspnProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #    Call ESPN API with using varying date ranges and parameters until events returned
     #      1. Call w/ sport specific date range
     #      2. Call w/o date range specfied (uses ESPN default behavior)
     #      3. Call w/o language parm (some sports not returned in some languages)
     #
-    async def async_fetch_scoreboard_data(self, hass, lang) -> dict:
+    async def _async_fetch_scoreboard_data(self, hass, lang) -> dict:
         """Gets data from ESPN APIs for specified league."""
 
         if not self._coordinator:
