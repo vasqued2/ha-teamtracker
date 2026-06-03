@@ -211,7 +211,7 @@ class BaseSportProvider(ABC):
         return {"data": None, "url": None, "timestamp": None}
 
 
-    async def async_fetch_team_conference_id(
+    async def async_get_team_conference_id(
         self,
         hass: HomeAssistant, 
         sport_path: str, 

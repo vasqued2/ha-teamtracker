@@ -306,7 +306,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
                     CONF_LEAGUE_PATH:   self._league_path,
                 }
             if "college" in self._league_path and self._provider:
-                conf_id = await self._provider.async_fetch_team_conference_id(self.hass, self._sport_path, self._league_path, team_id)
+                conf_id = await self._provider.async_get_team_conference_id(self.hass, self._sport_path, self._league_path, team_id)
                 self._entry_data[CONF_CONFERENCE_ID] = conf_id
 
             return await self.async_step_finalize()
@@ -349,7 +349,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
                 CONF_LEAGUE_PATH:   league_path,
             }
             if "college" in league_path and self._provider:
-                conf_id = await self._provider.async_fetch_team_conference_id(self.hass, sport_path, league_path, team_id)
+                conf_id = await self._provider.async_get_team_conference_id(self.hass, sport_path, league_path, team_id)
                 self._entry_data[CONF_CONFERENCE_ID] = conf_id
 
             return await self.async_step_finalize()

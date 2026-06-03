@@ -110,7 +110,7 @@ class EspnProvider(BaseSportProvider):
         return {"data": teams, "url": url}
 
 
-    async def async_fetch_team_conference_id(
+    async def async_get_team_conference_id(
         self,
         hass: HomeAssistant, 
         sport_path: str, 
