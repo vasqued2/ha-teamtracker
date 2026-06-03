@@ -57,7 +57,7 @@ class BaseSportProvider(ABC):
         #
         #  Call API to get refreshed response and cache it
         #
-        response = await self.async_fetch_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
+        response = await self.async_get_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
         self._save_to_cache(CACHE_NAME, key, response)
 
         return response
@@ -171,14 +171,45 @@ class BaseSportProvider(ABC):
         return {"data": None, "url": None}
 
 
-    @abstractmethod
+    #
+    #  async_get_scoreboard_data()
+    #    Return data from cache or call fetch if needed
+    #
+    async def async_get_scoreboard_data(
+        self,
+        hass,
+        lang: str,
+    ) -> dict:
+        """Return data from cache and call fetch if needed."""
+        CACHE_NAME = "scoreboard_data"
+
+        if not self._coordinator:
+            return {"data": None, "url": None, "timestamp": None}
+
+        #  If cached, return response
+        key = self._get_cache_key()
+        duration = self._coordinator.update_interval
+        response = self._get_from_cache(CACHE_NAME, key, duration)
+        if response:
+            response.update({"cache_flag": True}) # Add key to indicate cache was used
+            return response
+
+        # Fetch data and save to cache
+        response = await self.async_fetch_scoreboard_data(hass, lang)
+        self._save_to_cache(CACHE_NAME, key, response)
+
+        return response
+
+
     async def async_fetch_scoreboard_data(
         self,
         hass,
         lang: str,
     ) -> dict:
         """Fetch and return sport data in the standard format."""
-        pass                                               # pylint: disable=unnecessary-pass
+
+        return {"data": None, "url": None, "timestamp": None}
+
 
     async def async_fetch_team_conference_id(
         self,
