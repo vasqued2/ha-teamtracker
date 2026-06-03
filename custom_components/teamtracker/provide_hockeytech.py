@@ -67,7 +67,8 @@ class HockeyTechProvider(BaseSportProvider):
         return key
 
     #
-    # Return a list of team dictionaries
+    # _async_fetch_team_data()
+    #    Return a list of team dictionaries
     #  [{
     #   "id": team_id,
     #   "displayName": Long Team Name
@@ -75,12 +76,12 @@ class HockeyTechProvider(BaseSportProvider):
     #   "location": City, State, Country of team
     #  }]
     #
-    async def async_fetch_team_data(
+    async def _async_fetch_team_data(
         self, 
         hass: HomeAssistant, 
-        sport_path: str="", 
-        league_path: str ="",
-        sensor_name: str= "ConfigFlow-teams"
+        sport_path: str, 
+        league_path: str,
+        sensor_name: str,
         ) -> dict:
         """Fetch teams from any API for a given league."""
 
@@ -219,7 +220,7 @@ class HockeyTechProvider(BaseSportProvider):
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
-            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
             teams_data = teams_response["data"]
             self.lookups["team_list"] = teams_data
 

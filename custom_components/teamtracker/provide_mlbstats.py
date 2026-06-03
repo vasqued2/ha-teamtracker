@@ -63,7 +63,7 @@ class MlbStatsProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_team_data()
+    #  _async_fetch_team_data()
     #    Return a list of team dictionaries
     #      [{
     #        "id": team_id,
@@ -72,12 +72,12 @@ class MlbStatsProvider(BaseSportProvider):
     #        "location": City, State, Country of team
     #      }]
     #
-    async def async_fetch_team_data(
+    async def _async_fetch_team_data(
         self, 
         hass: HomeAssistant, 
-        sport_path: str="", 
-        league_path: str="",
-        sensor_name: str= "ConfigFlow-teams"
+        sport_path: str, 
+        league_path: str,
+        sensor_name: str,
         ) -> dict:
         """Fetch teams from any API for a given league."""
 

@@ -135,7 +135,7 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
-            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
             teams_data = teams_response["data"]
             self.lookups["team_list"] = teams_data
         response["lookups"] = self.lookups

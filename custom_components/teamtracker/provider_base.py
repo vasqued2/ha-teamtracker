@@ -39,30 +39,66 @@ class BaseSportProvider(ABC):
     #
     async def async_update_sport_data(self) -> dict:
         """Determines to use cached data or API call (if exprired)"""
+        CACHE_NAME = "sport_data"
 
         if not self._coordinator:
-                        return {"data": None, "url": None, "timestamp": None}
-                                #
-        #  Return cached response if not expired
+            return {"data": None, "url": None, "timestamp": None}
+
+        #
+        #  If cached, return response
         #
         key = self._get_cache_key()
-        response = self.data_cache.get(key, {}).get("response", None)
+        duration = self._coordinator.update_interval
+        response = self._get_from_cache(CACHE_NAME, key, duration)
         if response:
-            expiration = datetime.fromisoformat(response["timestamp"]) + self._coordinator.update_interval
+            response.update({"cache_flag": True}) # Add key to indicate cache was used
+            return response
+
+        #
+        #  Call API to get refreshed response and cache it
+        #
+        response = await self.async_fetch_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
+        self._save_to_cache(CACHE_NAME, key, response)
+
+        return response
+
+
+    #
+    #  _get_from_cache()
+    #    Return cached response if not expired
+    #
+    def _get_from_cache(self, 
+        cache_name: str, 
+        key: str,
+        duration: timedelta
+        ) -> dict | None:
+        """Return cache key"""
+
+        response = self.data_cache.get(cache_name, {}).get(key, {}).get("response", None)
+        if response:
+            expiration = datetime.fromisoformat(response["timestamp"]) + duration
             now = datetime.now(timezone.utc)
 
             if now < expiration:
                 response.update({"cache_flag": True}) # Add key to indicate cache was used
                 return response
 
-        #
-        #  Call API to get refreshed response and cache it
-        #
-        response = await self.async_fetch_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
-        if response["data"] is not None:
-            self.data_cache.update({key: {"response": response}})
+        return None
 
-        return response
+
+    #
+    #  _save_to_cache()
+    #    Save response to cache
+    #
+    def _save_to_cache(self, 
+        cache_name: str, 
+        key: str,
+        response: dict | None
+        ) -> None:
+        """Return cache key"""
+
+        if response and response["data"] is not None:
+            self.data_cache.setdefault(cache_name, {}).setdefault(key, {})["response"] = response
 
 
     #
@@ -95,15 +131,45 @@ class BaseSportProvider(ABC):
         return True
 
 
-    @abstractmethod
-    async def async_fetch_team_data(
+    #
+    #  async_get_team_data()
+    #    Return data from cache or call fetch if needed
+    #
+    async def async_get_team_data(
         self,
         hass: HomeAssistant, 
         sport_path: str="",
-        league_path: str=""
+        league_path: str="",
+        sensor_name: str="ConfigFlow-teams",
+    ) -> dict:
+        """Return data from cache and call fetch if needed."""
+        CACHE_NAME = "team_data"
+
+        #  If cached, return response
+        key = self._get_cache_key()
+        duration = timedelta(hours=24)
+        response = self._get_from_cache(CACHE_NAME, key, duration)
+        if response:
+            response.update({"cache_flag": True}) # Add key to indicate cache was used
+            return response
+
+        # Fetch data and save to cache
+        response = await self._async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+        self._save_to_cache(CACHE_NAME, key, response)
+
+        return response
+
+
+    async def _async_fetch_team_data(
+        self,
+        hass: HomeAssistant, 
+        sport_path: str,
+        league_path: str,
+        sensor_name: str,
     ) -> dict:
         """Fetch and return team data in the standard format."""
-        pass                                               # pylint: disable=unnecessary-pass
+        return {"data": None, "url": None}
+
 
     @abstractmethod
     async def async_fetch_scoreboard_data(
