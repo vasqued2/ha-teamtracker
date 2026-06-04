@@ -39,26 +39,14 @@ class BaseSportProvider(ABC):
     #
     async def async_update_sport_data(self) -> dict:
         """Determines to use cached data or API call (if exprired)"""
-        CACHE_NAME = "sport_data"
-
-        if not self._coordinator:
-            return {"data": None, "url": None, "timestamp": None}
-
-        #
-        #  If cached, return response
-        #
-        key = self._get_cache_key()
-        duration = self._coordinator.update_interval
-        response = self._get_from_cache(CACHE_NAME, key, duration)
-        if response:
-            response.update({"cache_flag": True}) # Add key to indicate cache was used
-            return response
 
         #
         #  Call API to get refreshed response and cache it
         #
+        if not self._coordinator:
+            return {"data": None, "url": None, "timestamp": None}
+
         response = await self.async_get_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
-        self._save_to_cache(CACHE_NAME, key, response)
 
         return response
 

@@ -147,7 +147,7 @@ class MlbStatsProvider(BaseSportProvider):
 
         if league_config is None:
             _LOGGER.warning(
-                "%s: No HockeyTech config for league '%s'", sensor_name, league_path
+                "%s: No MLB Stats config for league '%s'", sensor_name, league_path
             )
             sportId = "UNKNOWN_SPORTID"
         else:

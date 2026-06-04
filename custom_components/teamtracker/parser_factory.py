@@ -8,11 +8,13 @@ from .parse_cflscoreboard import CflScoreboardParser
 from .parse_espn import EspnParser
 from .parse_espn_all import EspnAllParser
 from .parse_hockeytech import HockeyTechParser
+from .parse_mlbstats import MlbStatsParser
 from .parser_base import BaseSportParser
 from .provide_cflscoreboard import CFL_DATA_FORMAT
 from .provide_espn import ESPN_DATA_FORMAT
 from .provide_espn_all import ESPNALL_DATA_FORMAT
 from .provide_hockeytech import HT_DATA_FORMAT
+from .provide_mlbstats import MLBSTATS_DATA_FORMAT
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
@@ -31,7 +33,7 @@ def get_parser(data_format:str, coordinator: TeamTrackerCoordinator) -> BaseSpor
         parser = EspnAllParser(coordinator)
     elif data_format == HT_DATA_FORMAT:
         parser = HockeyTechParser(coordinator)
-    else:
-        parser = BaseSportParser(coordinator)
+    elif data_format == MLBSTATS_DATA_FORMAT:
+        parser = MlbStatsParser(coordinator)
 
     return parser

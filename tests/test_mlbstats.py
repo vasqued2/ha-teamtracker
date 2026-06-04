@@ -23,48 +23,43 @@ from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
 CFLSCOREBOARD_DATA = [
     {
         "league_id": "XXX",
-        "team_id": "SSK",
+        "team_id": "105",
         "name": "test_pre",
-        "sport_path": "cflscoreboard",
-        "league_path": "cfl",
+        "sport_path": "mlbstats",
+        "league_path": "aaa",
         "timeout": 120,
-        "conference_id": "9999",
     },
     {
         "league_id": "XXX",
-        "team_id": "EDM",
+        "team_id": "494",
         "name": "test_in",
-        "sport_path": "cflscoreboard",
-        "league_path": "cfl",
+        "sport_path": "mlbstats",
+        "league_path": "aaa",
         "timeout": 120,
-        "conference_id": "9999",
     },
     {
         "league_id": "XXX",
-        "team_id": "OTT",
+        "team_id": "422",
         "name": "test_post",
-        "sport_path": "cflscoreboard",
-        "league_path": "cfl",
+        "sport_path": "mlbstats",
+        "league_path": "aaa",
         "timeout": 120,
-        "conference_id": "9999",
     },
     {
         "league_id": "XXX",
-        "team_id": "TOR",
+        "team_id": "422",
         "name": "api_error_invalid_league",  # Invalid league will result in a bad URL and generate an API Error
-        "sport_path": "cflscoreboard",
+        "sport_path": "mlbstats",
         "league_path": "INVALID_LEAGUE_PATH",
         "timeout": 120,
-        "conference_id": "9999",
     },
     {
         "league_id": "XXX",
         "team_id": "INVALID_TEAM_ID",
         "name": "test_invalid_team",   # Invalid team will use correct league API but won't find team
-        "sport_path": "cflscoreboard",
-        "league_path": "cfl",
+        "sport_path": "mlbstats",
+        "league_path": "aaa",
         "timeout": 120,
-        "conference_id": "9999",
     },
 
 ]
@@ -73,7 +68,7 @@ CFLSCOREBOARD_DATA = [
 
 @freeze_time("2026-05-23 20:00:00")
 @pytest.mark.parametrize("ht", CFLSCOREBOARD_DATA, ids=lambda x: x["name"])
-async def test_mlbstats(hass, snapshot, mock_call_cflscoreboard_api, mocker, ht):
+async def test_mlbstats(hass, snapshot, mock_call_mlbstats_api, mock_call_cflscoreboard_api, mocker, ht):
     """  
         This regression tests attributes for all the hockeytech API
             It runs a test for state PRE, IN, and POST
