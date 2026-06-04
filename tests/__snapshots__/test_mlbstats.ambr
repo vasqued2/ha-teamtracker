@@ -55,7 +55,7 @@
     'series_summary': None,
     'sport': 'baseball',
     'sport_path': 'mlbstats',
-    'state': 'POSt',
+    'state': 'POST',
     'strikes': None,
     'team_abbr': '{shortName}',
     'team_colors': list([
@@ -301,7 +301,7 @@
     'series_summary': None,
     'sport': 'baseball',
     'sport_path': 'mlbstats',
-    'state': 'POSt',
+    'state': 'POST',
     'strikes': None,
     'team_abbr': '{shortName}',
     'team_colors': list([

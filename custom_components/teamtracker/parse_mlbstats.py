@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from datetime import datetime
 import logging
+import re
 from typing import TYPE_CHECKING
 
 import arrow
@@ -10,7 +11,7 @@ import arrow
 from .const import DEFAULT_LAST_UPDATE, DEFAULT_LOGO
 from .models import TeamTrackerValues
 from .parser_base import BaseSportParser
-from .utils import get_value
+from .utils import get_value, is_integer
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
@@ -71,12 +72,17 @@ class MlbStatsParser(BaseSportParser):
             return self._values
 
         data = provider_response["data"]
+        team_list = provider_response.get("lookups", {}).get("team_list", [])
 
         self._lang = lang
-        self._search_key = self._team_id
+        if self._team_id == "*" or is_integer(self._team_id):
+            self._search_key = self._team_id
+        else:
+            self._search_key = self._get_integer_team_id(self._team_id, team_list)
 
         first_date_str =  data.get("dates", [])[0].get("date", DEFAULT_LAST_UPDATE)
-        last_date_str =  data.get("dates", [])[-1].get("date", DEFAULT_LAST_UPDATE)        
+        last_date_str =  data.get("dates", [])[-1].get("date", DEFAULT_LAST_UPDATE)
+
 
         game = self._get_current_game(data)
         if game:
@@ -110,6 +116,38 @@ class MlbStatsParser(BaseSportParser):
         return self._values
 
 
+    #
+    #  _get_integer_team_id()
+    #
+    def _get_integer_team_id(self, 
+        team_id: str, 
+        team_list: list
+    ) -> str:
+        """Return the integer team_id."""
+
+        if team_list:
+            try:
+                integer_team_id = next(
+                    (team["id"] for team in team_list 
+                        if ((self._team_id == team.get("abbreviation", "")) or
+                            (re.fullmatch(self._team_id, team.get("displayName", ""))) or
+                            (re.fullmatch(self._team_id, team.get("location", "")))
+                        )
+                    ), 
+                    team_id
+                )
+                return str(integer_team_id)
+            except re.error as e:
+                _LOGGER.warning(
+                    "%s: Invalid regular expression '%s' in search key (exception %s)",
+                    self._sensor_name,
+                    self._search_key,
+                    e,
+                )
+
+        return team_id
+
+
 
     #
     #  _get_current_game()
@@ -125,13 +163,13 @@ class MlbStatsParser(BaseSportParser):
         for daily_schedule in schedule:
             games = daily_schedule.get("games", {})
             for game in games:
-                game_id = str(get_value(game, "teams", "home", "team", "id", default=""))
-                if (game_id == self._search_key):
+                team_id = str(get_value(game, "teams", "home", "team", "id", default=""))
+                if self._search_key in (team_id, "*"):
                     self._team_side = "home"
                     self._opponent_side = "away"
                     return game
-                game_id = str(get_value(game, "teams", "away", "team", "id", default=""))
-                if (game_id == self._search_key):
+                team_id = str(get_value(game, "teams", "away", "team", "id", default=""))
+                if (self._search_key in (team_id)):
                     self._team_side = "away"
                     self._opponent_side = "home"
                     return game

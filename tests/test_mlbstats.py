@@ -39,7 +39,7 @@ CFLSCOREBOARD_DATA = [
     },
     {
         "league_id": "XXX",
-        "team_id": "422",
+        "team_id": "BUF",
         "name": "test_post",
         "sport_path": "mlbstats",
         "league_path": "aaa",
