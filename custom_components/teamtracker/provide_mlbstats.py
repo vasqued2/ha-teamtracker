@@ -16,7 +16,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DOMAIN, OVERRIDE_DICT
 from .provider_base import BaseSportProvider
-from .utils import get_value
+from .utils import get_value, is_integer, lookup_actual_team_id
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -149,7 +149,20 @@ class MlbStatsProvider(BaseSportProvider):
         sport_path = self._coordinator.sport_path
         league_path = self._coordinator.league_path
 
-        team_id = self._coordinator.team_id.upper()
+        team_id = self._coordinator.team_id
+
+        if "team_list" not in self.lookups:
+            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
+            team_list = teams_response["data"]
+            self.lookups["team_list"] = team_list
+        else:
+            team_list = self.lookups["team_list"]
+
+        # Incoming team_id is either a team_id or a search term to find the team_id
+        #   Searches must be done w/ the actual team_id or a '*'
+        search_key = team_id
+        if team_id != "*" and not is_integer(team_id):
+            search_key = lookup_actual_team_id(sensor_name, team_id, team_list)
 
         league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
 
@@ -172,12 +185,19 @@ class MlbStatsProvider(BaseSportProvider):
 
             data = response.get("data", {})
 
-            # See if there is a live game for the team_id
-            query = f"""
-            dates[].games[?status.abstractGameState == 'Live' &&
-                        (teams.home.team.id == `{team_id}` ||
-                        teams.away.team.id == `{team_id}`)].gamePk[] | [0]
-            """
+            # See if there is a live game for the search_key
+            #  Get first live instance if "*" else match the team ID
+            if search_key == "*":
+                query = """
+                dates[].games[?status.abstractGameState == 'Live'].gamePk[] | [0]
+                """
+            else:
+                query = f"""
+                dates[].games[?status.abstractGameState == 'Live' &&
+                            (teams.home.team.id == `{search_key}` ||
+                            teams.away.team.id == `{search_key}`)].gamePk[] | [0]
+                """
+
             self.live_game_pk = jmespath.search(query, data)
 
         # If the game is live, call the API for the live game
@@ -194,10 +214,6 @@ class MlbStatsProvider(BaseSportProvider):
                 self.live_game_pk = None
 
         # Add required lookup tables
-        if "team_list" not in self.lookups:
-            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
-            teams_data = teams_response["data"]
-            self.lookups["team_list"] = teams_data
         response["lookups"] = self.lookups
 
         return response

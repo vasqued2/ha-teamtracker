@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from datetime import datetime
 import logging
-import re
 from typing import TYPE_CHECKING
 
 import arrow
@@ -11,7 +10,7 @@ import arrow
 from .const import DEFAULT_LAST_UPDATE, DEFAULT_LOGO
 from .models import TeamTrackerValues
 from .parser_base import BaseSportParser
-from .utils import get_value, is_integer
+from .utils import get_value, is_integer, lookup_actual_team_id
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
@@ -31,9 +30,6 @@ class MlbStatsParser(BaseSportParser):
         self._found_competitor = False
         self._event_state = "NOT_FOUND"
         self._prev_values: TeamTrackerValues
-
-        self._team_side = ""
-        self._opponent_side = ""
 
 
     #
@@ -73,22 +69,22 @@ class MlbStatsParser(BaseSportParser):
 
         data = provider_response["data"]
         team_list = provider_response.get("lookups", {}).get("team_list", [])
+        self._lang = lang
+
+        # Incoming team_id is either a team_id or a search term to find the team_id
+        #   Searches must be done w/ the actual team_id or a '*'
+        self._search_key = self._team_id
+        if self._team_id != "*" and not is_integer(self._team_id):
+            self._search_key = lookup_actual_team_id(self._sensor_name, self._team_id, team_list)
 
         live_game_pk = get_value(data, "gamePk", default=None)
         if live_game_pk:
             # Need to determine team and away sides
-            self._team_side = "home"
-            self._opponent_side = "away"
             rc = self._set_live_values(data)
             rc = self.finalize_sensor_values(provider_response)
 
             return self._values
 
-        self._lang = lang
-        if self._team_id == "*" or is_integer(self._team_id):
-            self._search_key = self._team_id
-        else:
-            self._search_key = self._get_integer_team_id(self._team_id, team_list)
 
         first_date_str =  data.get("dates", [])[0].get("date", DEFAULT_LAST_UPDATE)
         last_date_str =  data.get("dates", [])[-1].get("date", DEFAULT_LAST_UPDATE)
@@ -127,39 +123,6 @@ class MlbStatsParser(BaseSportParser):
 
 
     #
-    #  _get_integer_team_id()
-    #
-    def _get_integer_team_id(self, 
-        team_id: str, 
-        team_list: list
-    ) -> str:
-        """Return the integer team_id."""
-
-        if team_list:
-            try:
-                integer_team_id = next(
-                    (team["id"] for team in team_list 
-                        if ((self._team_id == team.get("abbreviation", "")) or
-                            (re.fullmatch(self._team_id, team.get("displayName", ""))) or
-                            (re.fullmatch(self._team_id, team.get("location", "")))
-                        )
-                    ), 
-                    team_id
-                )
-                return str(integer_team_id)
-            except re.error as e:
-                _LOGGER.warning(
-                    "%s: Invalid regular expression '%s' in search key (exception %s)",
-                    self._sensor_name,
-                    self._search_key,
-                    e,
-                )
-
-        return team_id
-
-
-
-    #
     #  _get_current_game()
     #
     def _get_current_game(self, data) -> dict | None:
@@ -175,13 +138,9 @@ class MlbStatsParser(BaseSportParser):
             for game in games:
                 team_id = str(get_value(game, "teams", "home", "team", "id", default=""))
                 if self._search_key in (team_id, "*"):
-                    self._team_side = "home"
-                    self._opponent_side = "away"
                     return game
                 team_id = str(get_value(game, "teams", "away", "team", "id", default=""))
                 if (self._search_key in (team_id)):
-                    self._team_side = "away"
-                    self._opponent_side = "home"
                     return game
         return None
 
@@ -194,6 +153,14 @@ class MlbStatsParser(BaseSportParser):
         game: dict,
     ) -> bool:
 
+        away_id = str(get_value(game, "teams", "away", "team", "id", default=""))
+        if away_id == self._search_key:
+            team_side = "away"
+            opponent_side = "home"
+        else:
+            team_side = "home"
+            opponent_side = "away"
+
         status = get_value(game, "status", "abstractGameState", default="")
         if status.lower() == "preview":
             self._values.state = "PRE"
@@ -205,8 +172,6 @@ class MlbStatsParser(BaseSportParser):
         self._values.season = get_value(game, "gameType", default="")
 
         # Event Details
-        self._values.team_abbr = get_value(game, self._team_side, "shortName", default="{shortName}")
-        self._values.opponent_abbr = get_value(game, self._opponent_side, "shortName", default="{shortName}")
         away = get_value(game, "away", "shortName", default="{shortName}")
         home = get_value(game, "home", "shortName", default="{shortName}")
         self._values.event_name = f"{away}@{home}"                
@@ -230,47 +195,49 @@ class MlbStatsParser(BaseSportParser):
         self._values.overunder = None
 
         # Team Data
-        self._values.team_name = get_value(game, "teams", self._team_side, "team", "name", default="")
+        self._values.team_abbr = get_value(game, team_side, "shortName", default="{shortName}")
+        self._values.team_name = get_value(game, "teams", team_side, "team", "name", default="")
         self._values.team_long_name = self._values.team_name
-        self._values.team_id = str(get_value(game, "teams", self._team_side, "team", "id", default=""))
-        wins = str(get_value(game, "teams", self._team_side, "leagueRecord", "wins", default="0"))
-        losses = str(get_value(game, "teams", self._team_side, "leagueRecord", "losses", default="0"))
-        ties = str(get_value(game, "teams", self._team_side, "leagueRecord", "ties", default="0"))
+        self._values.team_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
+        wins = str(get_value(game, "teams", team_side, "leagueRecord", "wins", default="0"))
+        losses = str(get_value(game, "teams", team_side, "leagueRecord", "losses", default="0"))
+        ties = str(get_value(game, "teams", team_side, "leagueRecord", "ties", default="0"))
         if ties == "0":
             self._values.team_record = f"{wins}-{losses}"
         else:
             self._values.team_record = f"{wins}-{losses}-{ties}"
         self._values.team_rank = None
         self._values.team_conference_id = None
-        self._values.team_homeaway = self._team_side
+        self._values.team_homeaway = team_side
         self._values.team_logo = None
         self._values.team_url = None
         self._values.team_colors = DEFAULT_COLORS
-        self._values.team_score = str(get_value(game, "teams", self._team_side, "score"))
+        self._values.team_score = str(get_value(game, "teams", team_side, "score"))
         self._values.team_win_probability = None
-        self._values.team_winner = get_value(game, "teams", self._team_side, "isWinner")
+        self._values.team_winner = get_value(game, "teams", team_side, "isWinner")
         self._values.team_timeouts = None
 
         # Opponent Data
-        self._values.opponent_name = get_value(game, "teams", self._opponent_side, "team", "name", default="")
+        self._values.opponent_abbr = get_value(game, opponent_side, "shortName", default="{shortName}")
+        self._values.opponent_name = get_value(game, "teams", opponent_side, "team", "name", default="")
         self._values.opponent_long_name = self._values.opponent_name
-        self._values.opponent_id = str(get_value(game, "teams", self._team_side, "team", "id", default=""))
-        wins = str(get_value(game, "teams", self._opponent_side, "leagueRecord", "wins", default="0"))
-        losses = str(get_value(game, "teams", self._opponent_side, "leagueRecord", "losses", default="0"))
-        ties = str(get_value(game, "teams", self._opponent_side, "leagueRecord", "ties", default="0"))
+        self._values.opponent_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
+        wins = str(get_value(game, "teams", opponent_side, "leagueRecord", "wins", default="0"))
+        losses = str(get_value(game, "teams", opponent_side, "leagueRecord", "losses", default="0"))
+        ties = str(get_value(game, "teams", opponent_side, "leagueRecord", "ties", default="0"))
         if ties == "0":
             self._values.opponent_record = f"{wins}-{losses}"
         else:
             self._values.opponent_record = f"{wins}-{losses}-{ties}"
         self._values.opponent_rank = None
         self._values.opponent_conference_id = None
-        self._values.opponent_homeaway = self._opponent_side
+        self._values.opponent_homeaway = opponent_side
         self._values.opponent_logo = None
         self._values.opponent_url = None
         self._values.opponent_colors = DEFAULT_COLORS
-        self._values.opponent_score = str(get_value(game, "teams", self._team_side, "score"))
+        self._values.opponent_score = str(get_value(game, "teams", team_side, "score"))
         self._values.team_win_probability = None
-        self._values.opponent_winner = get_value(game, "teams", self._team_side, "isWinner")
+        self._values.opponent_winner = get_value(game, "teams", team_side, "isWinner")
         self._values.opponent_timeouts = None
 
         # In Game Attributes
@@ -313,12 +280,20 @@ class MlbStatsParser(BaseSportParser):
         game: dict,
     ) -> bool:
 
+        away_id = str(get_value(game, "gameData", "teams", "away", "team", "id", default=""))
+        if away_id == self._search_key:
+            team_side = "away"
+            opponent_side = "home"
+        else:
+            team_side = "home"
+            opponent_side = "away"
+
         self._values.state = "IN"
         self._values.season = get_value(game, "gameData", "game", "type", default="")
 
         # Event Details
-        self._values.team_abbr = get_value(game, "gameData", "teams", self._team_side, "abbreviation", default="{abbreviation}")
-        self._values.opponent_abbr = get_value(game, "gameData", "teams", self._opponent_side, "abbreviation", default="{abbreviation}")
+        self._values.team_abbr = get_value(game, "gameData", "teams", team_side, "abbreviation", default="{abbreviation}")
+        self._values.opponent_abbr = get_value(game, "gameData", "teams", opponent_side, "abbreviation", default="{abbreviation}")
         away = get_value(game, "gameData", "teams", "away", "abbreviation", default="{abbreviation}")
         home = get_value(game, "gameData", "teams", "home", "abbreviation", default="{abbreviation}")
         self._values.event_name = f"{away}@{home}"                
@@ -345,45 +320,45 @@ class MlbStatsParser(BaseSportParser):
         self._values.overunder = None
 
         # Team Data
-        self._values.team_name = get_value(game, "gameData", "teams", self._team_side, "teamName", default="")
-        self._values.team_long_name = get_value(game, "gameData", "teams", self._team_side, "name", default="")
-        self._values.team_id = str(get_value(game, "gameData", "teams", self._team_side, "id", default=""))
-        wins = str(get_value(game, "gameData", "teams", self._team_side, "record", "leagueRecord", "wins", default="0"))
-        losses = str(get_value(game, "gameData", "teams", self._team_side, "record", "leagueRecord", "losses", default="0"))
-        ties = str(get_value(game, "gameData", "teams", self._team_side, "record", "leagueRecord", "ties", default="0"))
+        self._values.team_name = get_value(game, "gameData", "teams", team_side, "teamName", default="")
+        self._values.team_long_name = get_value(game, "gameData", "teams", team_side, "name", default="")
+        self._values.team_id = str(get_value(game, "gameData", "teams", team_side, "id", default=""))
+        wins = str(get_value(game, "gameData", "teams", team_side, "record", "leagueRecord", "wins", default="0"))
+        losses = str(get_value(game, "gameData", "teams", team_side, "record", "leagueRecord", "losses", default="0"))
+        ties = str(get_value(game, "gameData", "teams", team_side, "record", "leagueRecord", "ties", default="0"))
         if ties == "0":
             self._values.team_record = f"{wins}-{losses}"
         else:
             self._values.team_record = f"{wins}-{losses}-{ties}"
         self._values.team_rank = None
-        self._values.team_conference_id = get_value(game, "gameData", "teams", self._team_side, "division", "name", default="")
-        self._values.team_homeaway = self._team_side
+        self._values.team_conference_id = get_value(game, "gameData", "teams", team_side, "division", "name", default="")
+        self._values.team_homeaway = team_side
         self._values.team_logo = None
         self._values.team_url = None
         self._values.team_colors = DEFAULT_COLORS
-        self._values.team_score = str(get_value(game, "liveData", "linescore", "teams", self._team_side, "runs"))
+        self._values.team_score = str(get_value(game, "liveData", "linescore", "teams", team_side, "runs"))
         self._values.team_win_probability = None
         self._values.team_winner = None
         self._values.team_timeouts = None
 
         # Opponent Data
-        self._values.opponent_name = get_value(game, "gameData", "teams", self._opponent_side, "teamName", default="")
-        self._values.opponent_long_name = get_value(game, "gameData", "teams", self._opponent_side, "name", default="")
-        self._values.opponent_id = str(get_value(game, "gameData", "teams", self._opponent_side, "id", default=""))
-        wins = str(get_value(game, "gameData", "teams", self._opponent_side, "record", "leagueRecord", "wins", default="0"))
-        losses = str(get_value(game, "gameData", "teams", self._opponent_side, "record", "leagueRecord", "losses", default="0"))
-        ties = str(get_value(game, "gameData", "teams", self._opponent_side, "record", "leagueRecord", "ties", default="0"))
+        self._values.opponent_name = get_value(game, "gameData", "teams", opponent_side, "teamName", default="")
+        self._values.opponent_long_name = get_value(game, "gameData", "teams", opponent_side, "name", default="")
+        self._values.opponent_id = str(get_value(game, "gameData", "teams", opponent_side, "id", default=""))
+        wins = str(get_value(game, "gameData", "teams", opponent_side, "record", "leagueRecord", "wins", default="0"))
+        losses = str(get_value(game, "gameData", "teams", opponent_side, "record", "leagueRecord", "losses", default="0"))
+        ties = str(get_value(game, "gameData", "teams", opponent_side, "record", "leagueRecord", "ties", default="0"))
         if ties == "0":
             self._values.opponent_record = f"{wins}-{losses}"
         else:
             self._values.opponent_record = f"{wins}-{losses}-{ties}"
         self._values.opponent_rank = None
-        self._values.opponent_conference_id = get_value(game, "gameData", "teams", self._opponent_side, "division", "name", default="")
-        self._values.opponent_homeaway = self._opponent_side
+        self._values.opponent_conference_id = get_value(game, "gameData", "teams", opponent_side, "division", "name", default="")
+        self._values.opponent_homeaway = opponent_side
         self._values.opponent_logo = None
         self._values.opponent_url = None
         self._values.opponent_colors = DEFAULT_COLORS
-        self._values.opponent_score = str(get_value(game, "liveData", "linescore", "teams", self._opponent_side, "runs"))
+        self._values.opponent_score = str(get_value(game, "liveData", "linescore", "teams", opponent_side, "runs"))
         self._values.team_win_probability = None
         self._values.opponent_winner = None
         self._values.opponent_timeouts = None
