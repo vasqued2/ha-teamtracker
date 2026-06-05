@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 import aiohttp
 import arrow
+import jmespath
 from yarl import URL
 
 from homeassistant.core import HomeAssistant
@@ -15,15 +16,21 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DOMAIN, OVERRIDE_DICT
 from .provider_base import BaseSportProvider
+from .utils import get_value
 
 _LOGGER = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
+#
+#  Documentation on the MLB Stat API
+#    https://github.com/brianhaferkamp/mlbapidata
+#    https://www.reddit.com/r/Sabermetrics/comments/wcf3kr/how_to_get_live_milb_game_data/
+#
 DATA_PROVIDER_MLBSTATS = "mlbstats"
 MLBSTATS_DATA_FORMAT = "mlbstats-json"
-MLBSTATS_BASE_URL = "http://statsapi.mlb.com/api/v1"
+MLBSTATS_BASE_URL = "http://statsapi.mlb.com/api"
 
 class MlbStatsProvider(BaseSportProvider):
     """Provider for MLB Stats data."""
@@ -39,6 +46,7 @@ class MlbStatsProvider(BaseSportProvider):
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
         self.lookups: dict[str, list] = {}
+        self.live_game_pk = None
 
 
     #
@@ -100,7 +108,7 @@ class MlbStatsProvider(BaseSportProvider):
             "sportId": league_config["sportId"],
         }
 
-        url = f"{MLBSTATS_BASE_URL}/teams"
+        url = f"{MLBSTATS_BASE_URL}/v1/teams"
         response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
@@ -153,12 +161,37 @@ class MlbStatsProvider(BaseSportProvider):
         else:
             sportId = league_config["sportId"]
 
-        url = f"{MLBSTATS_BASE_URL}/games"
-        url_parms = {
-            "sportId": sportId,
-        }
+        # If the game from the prior call was not live, get the schedule of games
+        if self.live_game_pk is None:
+            url = f"{MLBSTATS_BASE_URL}/v1/games"
+            url_parms = {
+                "sportId": sportId,
+            }
 
-        response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
+            response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
+
+            data = response.get("data", {})
+
+            # See if there is a live game for the team_id
+            query = f"""
+            dates[].games[?status.abstractGameState == 'Live' &&
+                        (teams.home.team.id == `{team_id}` ||
+                        teams.away.team.id == `{team_id}`)].gamePk[] | [0]
+            """
+            self.live_game_pk = jmespath.search(query, data)
+
+        # If the game is live, call the API for the live game
+        if self.live_game_pk:
+            url = f"{MLBSTATS_BASE_URL}/v1.1/game/{self.live_game_pk}/feed/live"
+            url_parms = {
+                "sportId": sportId,
+            }
+            response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
+
+            # If the game is over, the game is no longer live
+            status = get_value(response, "data", "gameData", "status", "abstractGameState", default="Final")
+            if status == "Final":
+                self.live_game_pk = None
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
