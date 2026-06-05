@@ -107,7 +107,7 @@ class CflScoreboardProvider(BaseSportProvider):
         url_parms: dict[str, str] = {}
 
         if not self._coordinator:
-            return{"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path

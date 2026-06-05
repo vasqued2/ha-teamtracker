@@ -268,8 +268,282 @@
   },
   "mlbstats": {
     "mlb": {
+      "unusedLeagueName": "Major League Baseball",
       "sportId": 1,
-      "unusedLeagueName": "Major League Baseball"
+      "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/1.svg",
+      "event_url": "https://www.mlb.com/gameday/{event_id}",
+      "teams": {
+        "108": {
+          "unusedTeamName": "Los Angeles Angels",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/108.svg",
+          "url": "https://www.mlb.com/angels",
+          "colors": [
+            "#BA0021",
+            "#003263"
+          ]
+        },
+        "109": {
+          "unusedTeamName": "Arizona Diamondbacks",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/109.svg",
+          "url": "https://www.mlb.com/dbacks",
+          "colors": [
+            "#A71930",
+            "#E3D4AD"
+          ]
+        },
+        "110": {
+          "unusedTeamName": "Baltimore Orioles",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/110.svg",
+          "url": "https://www.mlb.com/orioles",
+          "colors": [
+            "#DF4601",
+            "#000000"
+          ]
+        },
+        "111": {
+          "unusedTeamName": "Boston Red Sox",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/111.svg",
+          "url": "https://www.mlb.com/redsox",
+          "colors": [
+            "#BD3039",
+            "#0D2B56"
+          ]
+        },
+        "112": {
+          "unusedTeamName": "Chicago Cubs",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/112.svg",
+          "url": "https://www.mlb.com/cubs",
+          "colors": [
+            "#0E3386",
+            "#CC3433"
+          ]
+        },
+        "113": {
+          "unusedTeamName": "Cincinnati Reds",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/113.svg",
+          "url": "https://www.mlb.com/reds",
+          "colors": [
+            "#C6011F",
+            "#000000"
+          ]
+        },
+        "114": {
+          "unusedTeamName": "Cleveland Guardians",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/114.svg",
+          "url": "https://www.mlb.com/guardians",
+          "colors": [
+            "#0C2340",
+            "#E31937"
+          ]
+        },
+        "115": {
+          "unusedTeamName": "Colorado Rockies",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/115.svg",
+          "url": "https://www.mlb.com/rockies",
+          "colors": [
+            "#333366",
+            "#231F20"
+          ]
+        },
+        "116": {
+          "unusedTeamName": "Detroit Tigers",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/116.svg",
+          "url": "https://www.mlb.com/tigers",
+          "colors": [
+            "#0C2340",
+            "#FA4616"
+          ]
+        },
+        "117": {
+          "unusedTeamName": "Houston Astros",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/117.svg",
+          "url": "https://www.mlb.com/astros",
+          "colors": [
+            "#002D62",
+            "#EB6E1F"
+          ]
+        },
+        "118": {
+          "unusedTeamName": "Kansas City Royals",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/118.svg",
+          "url": "https://www.mlb.com/royals",
+          "colors": [
+            "#004687",
+            "#C09A5B"
+          ]
+        },
+        "119": {
+          "unusedTeamName": "Los Angeles Dodgers",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/119.svg",
+          "url": "https://www.mlb.com/dodgers",
+          "colors": [
+            "#005A9C",
+            "#A5ACAF"
+          ]
+        },
+        "120": {
+          "unusedTeamName": "Washington Nationals",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/120.svg",
+          "url": "https://www.mlb.com/nationals",
+          "colors": [
+            "#AB0003",
+            "#142243"
+          ]
+        },
+        "121": {
+          "unusedTeamName": "New York Mets",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/121.svg",
+          "url": "https://www.mlb.com/mets",
+          "colors": [
+            "#002D62",
+            "#FF5910"
+          ]
+        },
+        "133": {
+          "unusedTeamName": "Athletics",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/133.svg",
+          "url": "https://www.mlb.com/athletics",
+          "colors": [
+            "#003831",
+            "#EFB21E"
+          ]
+        },
+        "134": {
+          "unusedTeamName": "Pittsburgh Pirates",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/134.svg",
+          "url": "https://www.mlb.com/pirates",
+          "colors": [
+            "#FDDA24",
+            "#000000"
+          ]
+        },
+        "135": {
+          "unusedTeamName": "San Diego Padres",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/135.svg",
+          "url": "https://www.mlb.com/padres",
+          "colors": [
+            "#2F241D",
+            "#FFC425"
+          ]
+        },
+        "136": {
+          "unusedTeamName": "Seattle Mariners",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/136.svg",
+          "url": "https://www.mlb.com/mariners",
+          "colors": [
+            "#0C2340",
+            "#005C5C"
+          ]
+        },
+        "137": {
+          "unusedTeamName": "San Francisco Giants",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/137.svg",
+          "url": "https://www.mlb.com/giants",
+          "colors": [
+            "#FD5A1E",
+            "#27251F"
+          ]
+        },
+        "138": {
+          "unusedTeamName": "St. Louis Cardinals",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/138.svg",
+          "url": "https://www.mlb.com/cardinals",
+          "colors": [
+            "#C41E3A",
+            "#0C2340"
+          ]
+        },
+        "139": {
+          "unusedTeamName": "Tampa Bay Rays",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/139.svg",
+          "url": "https://www.mlb.com/rays",
+          "colors": [
+            "#092C5C",
+            "#8FBCE6"
+          ]
+        },
+        "140": {
+          "unusedTeamName": "Texas Rangers",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/140.svg",
+          "url": "https://www.mlb.com/rangers",
+          "colors": [
+            "#00337F",
+            "#C0111F"
+          ]
+        },
+        "141": {
+          "unusedTeamName": "Toronto Blue Jays",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/141.svg",
+          "url": "https://www.mlb.com/bluejays",
+          "colors": [
+            "#134A8E",
+            "#1D2D5C"
+          ]
+        },
+        "142": {
+          "unusedTeamName": "Minnesota Twins",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/142.svg",
+          "url": "https://www.mlb.com/twins",
+          "colors": [
+            "#002B5C",
+            "#D31145"
+          ]
+        },
+        "143": {
+          "unusedTeamName": "Philadelphia Phillies",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/143.svg",
+          "url": "https://www.mlb.com/phillies",
+          "colors": [
+            "#E81828",
+            "#002D62"
+          ]
+        },
+        "144": {
+          "unusedTeamName": "Atlanta Braves",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/144.svg",
+          "url": "https://www.mlb.com/braves",
+          "colors": [
+            "#13274F",
+            "#CE1141"
+          ]
+        },
+        "145": {
+          "unusedTeamName": "Chicago White Sox",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/145.svg",
+          "url": "https://www.mlb.com/whitesox",
+          "colors": [
+            "#27251F",
+            "#C4CED4"
+          ]
+        },
+        "146": {
+          "unusedTeamName": "Miami Marlins",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/146.svg",
+          "url": "https://www.mlb.com/marlins",
+          "colors": [
+            "#00A3E0",
+            "#EF426F"
+          ]
+        },
+        "147": {
+          "unusedTeamName": "New York Yankees",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/147.svg",
+          "url": "https://www.mlb.com/yankees",
+          "colors": [
+            "#0C2340",
+            "#FFFFFF"
+          ]
+        },
+        "158": {
+          "unusedTeamName": "Milwaukee Brewers",
+          "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/158.svg",
+          "url": "https://www.mlb.com/brewers",
+          "colors": [
+            "#0A2351",
+            "#B4975A"
+          ]
+        }
+      }
     },
     "aaa": {
       "sportId": 11,

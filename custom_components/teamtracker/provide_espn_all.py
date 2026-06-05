@@ -80,7 +80,7 @@ class EspnAllLeaguesProvider(EspnProvider):
         """Gets data from ESPN APIs for all leagues in specified sport."""
 
         if not self._coordinator:
-            return{"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path

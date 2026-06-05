@@ -143,7 +143,7 @@ class MlbStatsProvider(BaseSportProvider):
         url_parms: dict[str, str] = {}
 
         if not self._coordinator:
-            return{"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path
@@ -176,7 +176,7 @@ class MlbStatsProvider(BaseSportProvider):
 
         # If the game from the prior call was not live, get the schedule of games
         if self.live_game_pk is None:
-            url = f"{MLBSTATS_BASE_URL}/v1/games"
+            url = f"{MLBSTATS_BASE_URL}/v1/schedule/games"
             url_parms = {
                 "sportId": sportId,
             }
