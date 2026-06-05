@@ -83,6 +83,7 @@ class CflScoreboardProvider(BaseSportProvider):
         response = await self.async_call_cflscoreboard_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
+        timestamp = response["timestamp"]
 
         # Build the teams data
         teams = []
@@ -93,7 +94,7 @@ class CflScoreboardProvider(BaseSportProvider):
                 "displayName":   t.get("name", ""),
                 "location":      t.get("location", ""),
             })
-        return {"data": teams, "url": url}
+        return {"data": teams, "url": url, "timestamp": timestamp}
 
 
     #

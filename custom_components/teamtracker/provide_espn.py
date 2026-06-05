@@ -88,6 +88,8 @@ class EspnProvider(BaseSportProvider):
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
+        timestamp = response["timestamp"]
+
         if data:
             raw = (
                 data.get("sports", [{}])[0]
@@ -107,7 +109,7 @@ class EspnProvider(BaseSportProvider):
                 "displayName":   t.get("displayName", t.get("name", "")),
                 "location":      t.get("location", ""),
             })
-        return {"data": teams, "url": url}
+        return {"data": teams, "url": url, "timestamp": timestamp}
 
 
     async def async_get_team_conference_id(

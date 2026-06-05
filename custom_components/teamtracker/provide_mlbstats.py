@@ -98,7 +98,7 @@ class MlbStatsProvider(BaseSportProvider):
             _LOGGER.warning(
                 "%s: No MLBStats config for league '%s'", sensor_name, league_abbr
             )
-            return {"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         #
         #   Use the sportId for the league
@@ -112,6 +112,8 @@ class MlbStatsProvider(BaseSportProvider):
         response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
+        timestamp = ["timestamp"]
+
         if data:
             raw = (
                 data.get("teams", [])
@@ -129,7 +131,7 @@ class MlbStatsProvider(BaseSportProvider):
                 "displayName":   t.get("name", t.get("teamName", "")),
                 "location":      t.get("locationName", ""),
             })
-        return {"data": teams, "url": url}
+        return {"data": teams, "url": url, "timestamp": timestamp}
 
 
     #

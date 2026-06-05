@@ -94,7 +94,7 @@ class HockeyTechProvider(BaseSportProvider):
             _LOGGER.warning(
                 "%s: No HockeyTech config for league '%s'", sensor_name, league_abbr
             )
-            return {"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         try:
             lang = hass.config.language
@@ -149,6 +149,7 @@ class HockeyTechProvider(BaseSportProvider):
         ht_response = await self.async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_abbr)
         ht_data = ht_response["ht_data"]
         url = ht_response["url"]
+        timestamp = ht_response["timestamp"]
 
         if ht_data:
             raw = (
@@ -167,7 +168,7 @@ class HockeyTechProvider(BaseSportProvider):
                 "displayName":   t.get("name", ""),
                 "location":      t.get("city", ""),
             })
-        return {"data": teams, "url": url}
+        return {"data": teams, "url": url, "timestamp": timestamp}
 
 
     #

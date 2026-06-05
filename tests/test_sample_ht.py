@@ -30,14 +30,15 @@ async def mock_call_hockeytech_api_override(hass):
             return None
 
         FILE_NAME = "tests/tt/sample_ht.json"
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
 
         try:
             with open(f"{FILE_NAME}", "r") as f:
                 data = json.load(f)
-                return {"data": data, "url": url}
+                return {"data": data, "url": url, "timestamp": timestamp}
 
         except FileNotFoundError:
-            return {"data": None, "url": url}
+            return {"data": None, "url": url, "timestamp": timestamp}
 
 
     # Patch the actual utility function

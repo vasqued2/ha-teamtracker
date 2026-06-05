@@ -156,7 +156,7 @@ class BaseSportProvider(ABC):
         sensor_name: str,
     ) -> dict:
         """Fetch and return team data in the standard format."""
-        return {"data": None, "url": None}
+        return {"data": None, "url": None, "timestamp": None}
 
 
     #
