@@ -295,7 +295,7 @@ class MlbStatsParser(BaseSportParser):
         self._values.team_logo = None
         self._values.team_url = None
         self._values.team_colors = DEFAULT_COLORS
-        self._values.team_score = str(get_value(game, "teams", team_side, "score"))
+        self._values.team_score = str(get_value(game, "teams", team_side, "score", default=""))
         self._values.team_win_probability = None
         self._values.team_winner = get_value(game, "teams", team_side, "isWinner")
         self._values.team_timeouts = None
@@ -318,7 +318,7 @@ class MlbStatsParser(BaseSportParser):
         self._values.opponent_logo = None
         self._values.opponent_url = None
         self._values.opponent_colors = DEFAULT_COLORS
-        self._values.opponent_score = str(get_value(game, "teams", opponent_side, "score"))
+        self._values.opponent_score = str(get_value(game, "teams", opponent_side, "score", default=""))
         self._values.opponent_win_probability = None
         self._values.opponent_winner = get_value(game, "teams", opponent_side, "isWinner")
         self._values.opponent_timeouts = None
