@@ -35,6 +35,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         self._stop_flag = False
         self._found_competitor = False
         self._event_state = "NOT_FOUND"
+        self._values: TeamTrackerValues
         self._prev_values: TeamTrackerValues
 
 
@@ -415,26 +416,26 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         """Determine if prev_values should be saved"""
 
     #
-    #   If the state or prev_state is POST or IN and > 18 hrs in the future, treat is as PRE
+    #   If the state or prev_state is POST or IN and > 12 hrs in the future, treat is as PRE
     #     This can happen if an event is postponed
     #
         current_state = self._values.state
         if current_state in ("POST", "IN"):
             time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
-            if time_diff > 64800:
+            if time_diff > 43200:
                 current_state = "PRE"
         prev_state = self._prev_values.state
         if prev_state in ("POST", "IN"):
             time_diff = (arrow.get(self._prev_values.date) - arrow.now()).total_seconds()
-            if time_diff > 64800:
+            if time_diff > 43200:
                 prev_state = "PRE"
 
 
         if prev_state == "POST":
             if current_state == "PRE":
-                # Use POST if PRE is more than 18 hours in future
+                # Use POST if PRE is more than 12 hours in future
                 time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
-                if time_diff > 64800:
+                if time_diff > 43200:
                     return True
             elif current_state == "POST":
                 # use POST w/ latest date
@@ -450,11 +451,11 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 if arrow.get(self._prev_values.date) <= arrow.get(self._values.date):
                     return True
             elif current_state == "POST":
-                # Use PRE if less than 18 hours in future
+                # Use PRE if less than 12 hours in future
                 time_diff = abs(
                     arrow.get(self._prev_values.date) - arrow.now()
                 ).total_seconds()
-                if time_diff < 64800:
+                if time_diff < 43200:
                     return True
 
         return False
