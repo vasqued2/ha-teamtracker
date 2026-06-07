@@ -1,7 +1,7 @@
 """ Provide response from MLBSTATS APIs """
 from __future__ import annotations
 
-from datetime import timedelta
+from datetime import date, timedelta
 import json
 import logging
 from typing import TYPE_CHECKING
@@ -179,8 +179,13 @@ class MlbStatsProvider(BaseSportProvider):
         # If the game from the prior call was not live, get the schedule of games
         if self.live_game_pk is None:
             url = f"{MLBSTATS_BASE_URL}/v1/schedule/games"
+            yesterday = (date.today() - timedelta(days=1)).isoformat()
+            tomorrow = (date.today() + timedelta(days=1)).isoformat()
+
             url_parms = {
                 "sportId": sportId,
+                "startDate": yesterday,
+                "endDate": tomorrow,
             }
 
             response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)

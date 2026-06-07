@@ -2,7 +2,7 @@
 # name: test_mlbstats[api_error_invalid_league]
   dict({
     'api_message': None,
-    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=UNKNOWN_SPORTID',
+    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=UNKNOWN_SPORTID&startDate=2026-05-22&endDate=2026-05-24',
     'attribution': 'Copyright 2026 MLB Advanced Media',
     'balls': None,
     'clock': 'Final',
@@ -170,7 +170,7 @@
 # name: test_mlbstats[test_invalid_team]
   dict({
     'api_message': "No competition scheduled for 'INVALID_TEAM_ID' in MLB Stats between 2026-05-30T00:00Z and 2026-05-30T00:00Z",
-    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=11',
+    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=11&startDate=2026-05-22&endDate=2026-05-24',
     'attribution': 'Copyright 2026 MLB Advanced Media',
     'balls': None,
     'clock': None,
@@ -248,7 +248,7 @@
 # name: test_mlbstats[test_post]
   dict({
     'api_message': None,
-    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=11',
+    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=11&startDate=2026-05-22&endDate=2026-05-24',
     'attribution': 'Copyright 2026 MLB Advanced Media',
     'balls': None,
     'clock': 'Final',
@@ -332,7 +332,7 @@
 # name: test_mlbstats[test_pre]
   dict({
     'api_message': None,
-    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=11',
+    'api_url': 'https://statsapi.mlb.com/api/v1/schedule/games?sportId=11&startDate=2026-05-22&endDate=2026-05-24',
     'attribution': 'Copyright 2026 MLB Advanced Media',
     'balls': None,
     'clock': 'Scheduled',

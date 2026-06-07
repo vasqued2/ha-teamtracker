@@ -1,11 +1,12 @@
 """ Parse CFL Scoreboard JSON response """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 import logging
 from typing import TYPE_CHECKING
 
 import arrow
+import jmespath
 
 from .const import DEFAULT_LAST_UPDATE, DEFAULT_LOGO
 from .models import TeamTrackerValues
@@ -140,21 +141,72 @@ class MlbStatsParser(BaseSportParser):
     def _get_current_game(self, data) -> dict | None:
         """Return the tournaments for the current active or recently completed round."""
 
+
+        def game_starts_soon(game: dict) -> bool:
+            """Return True if the game starts within 12 hours."""
+            game_time = datetime.fromisoformat(
+                game["gameDate"].replace("Z", "+00:00")
+            )
+
+            return game_time - datetime.now(UTC) <= timedelta(hours=12)
+
+
         if not data:
             return None
 
-        daily_schedule = {}
-        schedule = get_value(data, "dates", default={})
-        for daily_schedule in schedule:
-            games = daily_schedule.get("games", {})
-            for game in games:
-                team_id = str(get_value(game, "teams", "home", "team", "id", default=""))
-                if self._search_key in (team_id, "*"):
-                    return game
-                team_id = str(get_value(game, "teams", "away", "team", "id", default=""))
-                if (self._search_key in (team_id)):
-                    return game
-        return None
+        game = None
+
+        # Handle wild card
+        if self._search_key == "*":
+            queries = [
+                "sort_by(dates[].games[?status.abstractGameState=='Live'][], &gameDate)[0]",
+                "sort_by(dates[].games[?status.abstractGameState=='Preview'][], &gameDate)[0]",
+                "reverse(sort_by(dates[].games[?status.abstractGameState=='Final'][], &gameDate))[0]",
+            ]
+            for query in queries:
+                game = jmespath.search(query, data)
+                if game:
+                    break
+            return game
+
+        # Return the first live game matching search_key
+        live_query = f"""
+        sort_by(dates[].games[?status.abstractGameState == 'Live' &&
+            (teams.home.team.id == `{self._search_key}` ||
+            teams.away.team.id == `{self._search_key}`)][], &gameDate)[0]
+        """
+        # Return the all preview games matching search_key
+        preview_query = f"""
+        sort_by(dates[].games[?status.abstractGameState == 'Preview' &&
+            (teams.home.team.id == `{self._search_key}` || 
+            teams.away.team.id == `{self._search_key}`)][], &gameDate)
+        """
+        # Return the last complete game matching search_key
+        final_query = f"""
+        reverse(sort_by(dates[].games[?status.abstractGameState == 'Final' &&
+            (teams.home.team.id == `{self._search_key}` ||
+            teams.away.team.id == `{self._search_key}`)][], &gameDate))[0]
+        """
+
+        live_game = jmespath.search(live_query, data)
+        if live_game:
+            return live_game
+
+        preview_games = jmespath.search(preview_query, data) or []
+        # Find first preview game starting soon
+        for game in preview_games:
+            if game_starts_soon(game):
+                return game
+
+        final_game = jmespath.search(final_query, data)
+        if final_game:
+            return final_game
+
+        # No preview within 12 hours, return earliest preview if one exists
+        if preview_games:
+            return preview_games[0]
+
+        return game
 
 
     #
