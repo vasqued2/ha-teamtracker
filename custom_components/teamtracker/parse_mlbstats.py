@@ -18,11 +18,16 @@ if TYPE_CHECKING:
 _LOGGER = logging.getLogger(__name__)
 DEFAULT_COLORS = ["#D3D3D3", "#A9A9A9"]
 
+
+#
+#  MlbStatsParser()
+#    Parser for the MLB Stats API json
+#
 class MlbStatsParser(BaseSportParser):
     """Class to parse responses in MLB Stats format."""
 
     def __init__(self, coordinator: TeamTrackerCoordinator) -> None:
-        # Define the attributes that must be available on all providers
+        """ Initialize the MLB Stats parser"""
         super().__init__(coordinator)
         self._lang = ""
         self._search_key = ""
@@ -35,6 +40,7 @@ class MlbStatsParser(BaseSportParser):
     #
     #  initialize_values()
     #    Set sensor attributes that do not rely on the API
+    #    Override the sport to baseball from the sport_path.
     #
     def initialize_sensor_values(self, provider_response) -> bool:
         rc = super().initialize_sensor_values(provider_response)
@@ -43,6 +49,9 @@ class MlbStatsParser(BaseSportParser):
         return rc
 
 
+    #
+    #  setup()
+    #
     def setup(self,
         sensor_name: str,
         sport_path: str,
@@ -56,6 +65,9 @@ class MlbStatsParser(BaseSportParser):
         return rc
 
 
+    #
+    #  parse_response()
+    #
     def parse_response(
         self,
         provider_response, 
@@ -65,6 +77,11 @@ class MlbStatsParser(BaseSportParser):
 
         rc = self.initialize_sensor_values(provider_response)
         if rc is False:
+            _LOGGER.debug(
+                "%s: Error initalizing sensor values for '%s' from MLB Stats",
+                self._sensor_name,
+                self._search_key,
+            )
             return self._values
 
         data = provider_response["data"]
@@ -77,46 +94,41 @@ class MlbStatsParser(BaseSportParser):
         if self._team_id != "*" and not is_integer(self._team_id):
             self._search_key = lookup_actual_team_id(self._sensor_name, self._team_id, team_list)
 
+        # If the  response contains gamePk, the response is a live game
         live_game_pk = get_value(data, "gamePk", default=None)
         if live_game_pk:
-            # Need to determine team and away sides
             rc = self._set_live_values(data)
-            rc = self.finalize_sensor_values(provider_response)
+        else:
+            game = self._get_current_game(data)
+            if game:
+                rc = self._set_values(game, team_list)
+            else:
+                first_date_str =  data.get("dates", [])[0].get("date", DEFAULT_LAST_UPDATE)
+                last_date_str =  data.get("dates", [])[-1].get("date", DEFAULT_LAST_UPDATE)
 
-            return self._values
+                first_date = datetime.fromisoformat(str(first_date_str)).replace(tzinfo=None)
+                last_date = datetime.fromisoformat(str(last_date_str)).replace(tzinfo=None)
 
-
-        first_date_str =  data.get("dates", [])[0].get("date", DEFAULT_LAST_UPDATE)
-        last_date_str =  data.get("dates", [])[-1].get("date", DEFAULT_LAST_UPDATE)
-
-
-        game = self._get_current_game(data)
-        if game:
-            rc = self._set_values(game, team_list)
-            if rc is False:
+                self._values.api_message = (
+                    "No competition scheduled for '"
+                    + str(self._values.team_abbr)
+                    + "' in MLB Stats between "
+                    + first_date.strftime("%Y-%m-%dT%H:%MZ")
+                    + " and "
+                    + last_date.strftime("%Y-%m-%dT%H:%MZ")
+                )
                 _LOGGER.debug(
-                    "%s: Error parsing response for '%s' from MLB Stats",
+                    "%s: No competitor information '%s' returned by MLB Stats API",
                     self._sensor_name,
                     self._search_key,
                 )
-        else:
-            first_date = datetime.fromisoformat(str(first_date_str)).replace(tzinfo=None)
-            last_date = datetime.fromisoformat(str(last_date_str)).replace(tzinfo=None)
 
-            self._values.api_message = (
-                "No competition scheduled for '"
-                + str(self._values.team_abbr)
-                + "' in MLB Stats between "
-                + first_date.strftime("%Y-%m-%dT%H:%MZ")
-                + " and "
-                + last_date.strftime("%Y-%m-%dT%H:%MZ")
-            )
+        if rc is False:
             _LOGGER.debug(
-                "%s: No competitor information '%s' returned by MLB Stats API",
+                "%s: Error parsing response for '%s' from MLB Stats",
                 self._sensor_name,
                 self._search_key,
             )
-
         rc = self.finalize_sensor_values(provider_response)
 
         return self._values
@@ -146,13 +158,14 @@ class MlbStatsParser(BaseSportParser):
 
 
     #
-    #  Set Values
+    #  _set_values()
     #
     def _set_values(
         self,
         game: dict,
         team_list
     ) -> bool:
+        """ Set values for for PRE and POST games """
 
         away_id = str(get_value(game, "teams", "away", "team", "id", default=""))
         if away_id == self._search_key:
@@ -165,8 +178,6 @@ class MlbStatsParser(BaseSportParser):
         status = get_value(game, "status", "abstractGameState", default="")
         if status.lower() == "preview":
             self._values.state = "PRE"
-        elif status.lower() == "live":
-            self._values.state = "IN"
         else:
             self._values.state = "POST"
 
@@ -174,9 +185,10 @@ class MlbStatsParser(BaseSportParser):
 
         self._values.team_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
         self._values.opponent_id = str(get_value(game, "teams", opponent_side, "team", "id", default=""))
+
+        # Must get abbreviations from the team_list lookup table
         team_abbr = None
         opponent_abbr = None
-
         if isinstance(team_list, list):
             team_abbr = next(
                 (team["abbreviation"] for team in team_list if team["id"] == self._values.team_id),
@@ -292,12 +304,13 @@ class MlbStatsParser(BaseSportParser):
 
 
     #
-    #  _set_live_values
+    #  _set_live_values()
     #
     def _set_live_values(
         self,
         game: dict,
     ) -> bool:
+        """ Set values for for IN games """
 
         away_id = str(get_value(game, "gameData", "teams", "away", "id", default=""))
         if away_id == self._search_key:
@@ -378,7 +391,7 @@ class MlbStatsParser(BaseSportParser):
         self._values.opponent_url = None
         self._values.opponent_colors = DEFAULT_COLORS
         self._values.opponent_score = str(get_value(game, "liveData", "linescore", "teams", opponent_side, "runs"))
-        self._values.team_win_probability = None
+        self._values.opponent_win_probability = None
         self._values.opponent_winner = None
         self._values.opponent_timeouts = None
 
@@ -420,8 +433,9 @@ class MlbStatsParser(BaseSportParser):
         self,
         game: dict,
     ) -> bool:
-        """Generate last play from atomic data"""
+        """Set base runners, pitch count, and last play attributes"""
 
+        # Set the base runners
         player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnFirst","id", default=None)
         self._values.on_first = (player is not None)
         player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnSecond","id", default=None)
@@ -429,6 +443,7 @@ class MlbStatsParser(BaseSportParser):
         player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnThird","id", default=None)
         self._values.on_third = (player is not None)
 
+        # Set the pitch count and last play depending on if a current play exists or not
         self._values.last_play = None
         play_events = get_value(game, "liveData", "plays", "currentPlay", "playEvents", default=[])
         if len(play_events) > 0:
