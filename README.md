@@ -18,7 +18,7 @@ This integration is a fork of the excellent [ha-nfl](https://github.com/zacs/ha-
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vasqued2)
 
 ## Supported Teams and Leagues
-TeamTracker will work for any of the hundreds of teams/leagues for which an ESPN scoreboard API exists.
+TeamTracker will work for any of the thousands of teams/leagues for which an ESPN scoreboard API exists as well as hundreds of teams from over 30 leagues via non-ESPN APIs.
 
 A small subset of the most popular teams/leagues have been pre-configured to simplify their setup.  This is referred to as native support.  Unfortunately, given the large number of teams/leagues for which APIs exist, it is impossible to provide native support for all of them.  
 
