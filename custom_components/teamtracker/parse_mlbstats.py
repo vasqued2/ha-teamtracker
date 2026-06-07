@@ -92,7 +92,7 @@ class MlbStatsParser(BaseSportParser):
 
         game = self._get_current_game(data)
         if game:
-            rc = self._set_values(game)
+            rc = self._set_values(game, team_list)
             if rc is False:
                 _LOGGER.debug(
                     "%s: Error parsing response for '%s' from MLB Stats",
@@ -151,6 +151,7 @@ class MlbStatsParser(BaseSportParser):
     def _set_values(
         self,
         game: dict,
+        team_list
     ) -> bool:
 
         away_id = str(get_value(game, "teams", "away", "team", "id", default=""))
@@ -171,10 +172,27 @@ class MlbStatsParser(BaseSportParser):
 
         self._values.season = get_value(game, "gameType", default="")
 
+        self._values.team_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
+        self._values.opponent_id = str(get_value(game, "teams", opponent_side, "team", "id", default=""))
+        team_abbr = None
+        opponent_abbr = None
+
+        if isinstance(team_list, list):
+            team_abbr = next(
+                (team["abbreviation"] for team in team_list if team["id"] == self._values.team_id),
+                None,  # returned if not found
+            )
+            opponent_abbr = next(
+                (team["abbreviation"] for team in team_list if team["id"] == self._values.opponent_id),
+                None,  # returned if not found
+            )
+
         # Event Details
-        away = get_value(game, "away", "shortName", default="{shortName}")
-        home = get_value(game, "home", "shortName", default="{shortName}")
-        self._values.event_name = f"{away}@{home}"                
+        if team_side == "home":
+            self._values.event_name = f"{opponent_abbr}@{team_abbr}"
+        else:
+            self._values.event_name = f"{team_abbr}@{opponent_abbr}"
+
         self._values.event_id = get_value(game, "gamePk", default=None)
         self._values.event_id = None if (self._values.event_id is None) else str(self._values.event_id)
         self._values.date = get_value(game, "gameDate")
@@ -195,10 +213,11 @@ class MlbStatsParser(BaseSportParser):
         self._values.overunder = None
 
         # Team Data
-        self._values.team_abbr = get_value(game, team_side, "shortName", default="{shortName}")
+
+        self._values.team_abbr = team_abbr
         self._values.team_name = get_value(game, "teams", team_side, "team", "name", default="")
         self._values.team_long_name = self._values.team_name
-        self._values.team_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
+
         wins = str(get_value(game, "teams", team_side, "leagueRecord", "wins", default="0"))
         losses = str(get_value(game, "teams", team_side, "leagueRecord", "losses", default="0"))
         ties = str(get_value(game, "teams", team_side, "leagueRecord", "ties", default="0"))
@@ -218,10 +237,10 @@ class MlbStatsParser(BaseSportParser):
         self._values.team_timeouts = None
 
         # Opponent Data
-        self._values.opponent_abbr = get_value(game, opponent_side, "shortName", default="{shortName}")
+        self._values.opponent_abbr = opponent_abbr
         self._values.opponent_name = get_value(game, "teams", opponent_side, "team", "name", default="")
         self._values.opponent_long_name = self._values.opponent_name
-        self._values.opponent_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
+
         wins = str(get_value(game, "teams", opponent_side, "leagueRecord", "wins", default="0"))
         losses = str(get_value(game, "teams", opponent_side, "leagueRecord", "losses", default="0"))
         ties = str(get_value(game, "teams", opponent_side, "leagueRecord", "ties", default="0"))
@@ -235,14 +254,14 @@ class MlbStatsParser(BaseSportParser):
         self._values.opponent_logo = None
         self._values.opponent_url = None
         self._values.opponent_colors = DEFAULT_COLORS
-        self._values.opponent_score = str(get_value(game, "teams", team_side, "score"))
-        self._values.team_win_probability = None
-        self._values.opponent_winner = get_value(game, "teams", team_side, "isWinner")
+        self._values.opponent_score = str(get_value(game, "teams", opponent_side, "score"))
+        self._values.opponent_win_probability = None
+        self._values.opponent_winner = get_value(game, "teams", opponent_side, "isWinner")
         self._values.opponent_timeouts = None
 
         # In Game Attributes
         self._values.quarter = None
-        self._values.clock = None
+        self._values.clock = get_value(game, "status", "detailedState")
         self._values.possession = None
         self._values.last_play = None
         self._values.down_distance_text = None
@@ -280,7 +299,7 @@ class MlbStatsParser(BaseSportParser):
         game: dict,
     ) -> bool:
 
-        away_id = str(get_value(game, "gameData", "teams", "away", "team", "id", default=""))
+        away_id = str(get_value(game, "gameData", "teams", "away", "id", default=""))
         if away_id == self._search_key:
             team_side = "away"
             opponent_side = "home"
@@ -366,32 +385,17 @@ class MlbStatsParser(BaseSportParser):
         # In Game Attributes
         self._values.quarter = get_value(game, "liveData", "linescore", "currentInning")
         inning = get_value(game, "liveData", "linescore", "currentInningOrdinal")
-        inningHalf = get_value(game, "liveData", "linescore", "inningHalf")
-        self._values.clock = f"{inningHalf} {inning}"
-        if inningHalf.lower == "top":
-            self._values.possession = self._values.opponent_id
+        inning_state = get_value(game, "liveData", "linescore", "inningState")
+        self._values.clock = f"{inning_state} {inning}"
+        if self._values.clock[:3].lower() in ["bot", "mid"]:
+            self._values.possession = str(get_value(game, "gameData", "teams", "home", "id", default=""))
         else:
-            self._values.possession = self._values.team_id
-
-        all_plays = get_value(game, "liveData", "plays", "allPlays", default=[])
-        if len(all_plays) >= 2:
-            last_play = all_plays[-2]
-            self._values.last_play = get_value(last_play, "result", "description", default=None)
-        else:
-            self._values.last_play = None
+            self._values.possession = str(get_value(game, "gameData", "teams", "away", "id", default=""))
 
         self._values.down_distance_text = None
 
         # Baseball Specific
-        self._values.outs = get_value(game, "liveData", "plays", "currentPlay", "count", "outs", default=None)
-        self._values.balls = get_value(game, "liveData", "plays", "currentPlay", "count", "balls", default=None)
-        self._values.strikes = get_value(game, "liveData", "plays", "currentPlay", "count", "strikes", default=None)
-        player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnFirst","id", default=None)
-        self._values.on_first = player is not None
-        player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnSecond","id", default=None)
-        self._values.on_second = player is not None
-        player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnThird","id", default=None)
-        self._values.on_third = player is not None
+        rc = self._set_current_play(game)
 
         # Soccer/Hockey
         self._values.team_shots_on_target = None
@@ -406,4 +410,54 @@ class MlbStatsParser(BaseSportParser):
         # System/API Metadata
         self._values.private_fast_refresh = True
 
+        return rc
+
+
+    #
+    #  _set_current_play
+    #
+    def _set_current_play(
+        self,
+        game: dict,
+    ) -> bool:
+        """Generate last play from atomic data"""
+
+        player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnFirst","id", default=None)
+        self._values.on_first = (player is not None)
+        player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnSecond","id", default=None)
+        self._values.on_second = (player is not None)
+        player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnThird","id", default=None)
+        self._values.on_third = (player is not None)
+
+        self._values.last_play = None
+        play_events = get_value(game, "liveData", "plays", "currentPlay", "playEvents", default=[])
+        if len(play_events) > 0:
+            last_event = play_events[-1]
+
+            self._values.outs = get_value(last_event, "count", "outs", default=None)
+            self._values.balls = get_value(last_event, "count", "balls", default=None)
+            self._values.strikes = get_value(last_event, "count", "strikes", default=None)
+
+            # Generate Last Play
+            description = get_value(last_event, "details", "description", default=False)
+            is_pitch = get_value(last_event, "isPitch", default=False)
+            if is_pitch:
+                pitch_number = get_value(last_event, "pitchNumber", default="")
+                pitcher = get_value(game, "liveData", "plays", "currentPlay", "matchup", "pitcher", "fullName", default="")
+                batter = get_value(game, "liveData", "plays", "currentPlay", "matchup", "batter", "fullName", default="")
+                self._values.last_play = f"{pitcher} pitches to {batter}: Pitch {pitch_number} - {description}"
+            else:
+                self._values.last_play = f"{description}"
+        else:
+            self._values.outs = get_value(game, "liveData", "linescore", "outs", default=None)
+            self._values.balls = get_value(game, "liveData", "linescore", "balls", default=None)
+            self._values.strikes = get_value(game, "liveData", "linescore", "strikes", default=None)
+
+            all_plays = get_value(game, "liveData", "plays", "allPlays", default=[])
+            if len(all_plays) > 1:
+                last_play = all_plays[-2]
+                self._values.last_play = get_value(last_play, "result", "description", default=None)
+
         return True
+
+

@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 #
 DATA_PROVIDER_MLBSTATS = "mlbstats"
 MLBSTATS_DATA_FORMAT = "mlbstats-json"
-MLBSTATS_BASE_URL = "http://statsapi.mlb.com/api"
+MLBSTATS_BASE_URL = "https://statsapi.mlb.com/api"
 
 class MlbStatsProvider(BaseSportProvider):
     """Provider for MLB Stats data."""
@@ -209,6 +209,7 @@ class MlbStatsProvider(BaseSportProvider):
                 "sportId": sportId,
             }
             response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
+            response.update({"live_flag": True}) # Add flag to indicate live data so it won't cache
 
             # If the game is over, the game is no longer live
             status = get_value(response, "data", "gameData", "status", "abstractGameState", default="Final")
@@ -238,7 +239,7 @@ class MlbStatsProvider(BaseSportProvider):
         )
         timestamp = arrow.now().format(arrow.FORMAT_W3C)
 
-        headers = {"User-Agent": self._USER_AGENT, "Accept": "application/ld+json"}
+        headers = {"User-Agent": self._USER_AGENT}
         session = async_get_clientsession(hass)
         try:
             async with session.get(url, headers=headers) as r:

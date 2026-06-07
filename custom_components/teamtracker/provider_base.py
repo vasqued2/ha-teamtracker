@@ -85,8 +85,11 @@ class BaseSportProvider(ABC):
         ) -> None:
         """Return cache key"""
 
-        if response and response["data"] is not None:
-            self.data_cache.setdefault(cache_name, {}).setdefault(key, {})["response"] = response
+        if response:
+            live_data = response.get("live_data", False)
+            data = response.get("data", None)
+            if not live_data and data is not None:
+                self.data_cache.setdefault(cache_name, {}).setdefault(key, {})["response"] = response
 
 
     #
