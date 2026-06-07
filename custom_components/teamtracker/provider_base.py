@@ -187,7 +187,8 @@ class BaseSportProvider(ABC):
 
         # Fetch data and save to cache
         response = await self._async_fetch_scoreboard_data(hass, lang)
-        self._save_to_cache(CACHE_NAME, key, response)
+        if not response.get("live_flag", False):
+            self._save_to_cache(CACHE_NAME, key, response)
 
         return response
 
