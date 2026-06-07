@@ -78,7 +78,7 @@ Custom APIs can be configured for the following leagues using Non-ESPN APIs. The
 | [Double-A](https://www.milb.com/) | mlbstats | aax |
 | [High-A](https://www.milb.com/) | mlbstats | afa |
 | [Single-A](https://www.milb.com/) | mlbstats | afx |
-| Rookie | mlbstats | rok |
+| [Rookie](https://www.milb.com/) | mlbstats | rok |
 | Winter Leagues | mlbstats | win |
 | [Minor League Baseball](https://www.milb.com/) | mlbstats | min |
 | [Independent Leagues](https://www.atlanticleague.com/) | mlbstats | ind |
