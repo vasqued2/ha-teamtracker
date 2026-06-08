@@ -1,7 +1,7 @@
 """ Base class for all parsers """
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 import logging
 from typing import TYPE_CHECKING
 
@@ -149,19 +149,25 @@ class BaseSportParser(ABC):
         return True
 
 
-    @abstractmethod
     #
     #  setup()
     #
     def setup(self,
         sensor_name, sport_path, league_path, league_id, team_id
     ) -> bool:
-        pass
+        self._sensor_name = sensor_name
+        self._sport_path = sport_path
+        self._league_path = league_path
+        self._league_id = league_id
+        self._default_logo = DEFAULT_LOGO
+        self._team_id = team_id.upper()
+
+        return True
 
 
-    @abstractmethod
     #
     #  parse_response()
+    #    This will return foundational attributes only. It should overwritten by subclass
     #
     def parse_response(
         self,
@@ -169,4 +175,5 @@ class BaseSportParser(ABC):
         lang
     ) -> TeamTrackerValues:
 
-        pass                                               # pylint: disable=unnecessary-pass
+        rc = self.initialize_sensor_values(provider_response)    # pylint: disable=unused-variable
+        return self._values

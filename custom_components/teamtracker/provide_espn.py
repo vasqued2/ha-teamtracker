@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
 DATA_PROVIDER_ESPN = "espn"
+ESPN_DATA_FORMAT = "espn-json"
 ESPN_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 class EspnProvider(BaseSportProvider):
@@ -35,6 +36,7 @@ class EspnProvider(BaseSportProvider):
     def __init__(self, coordinator: TeamTrackerCoordinator | None = None) -> None:
         super().__init__(coordinator)
         self.DATA_PROVIDER: str = DATA_PROVIDER_ESPN
+        self.data_format = ESPN_DATA_FORMAT
         self.ATTRIBUTION: str = "Data provided by ESPN"
         self.DEFAULT_REFRESH_RATE: timedelta = timedelta(minutes=10)
         self.RAPID_REFRESH_RATE: timedelta = timedelta(seconds=5)
@@ -63,7 +65,7 @@ class EspnProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_team_data()
+    #  _async_fetch_team_data()
     #    Return a list of team dictionaries
     #      [{
     #        "id": team_id,
@@ -72,12 +74,12 @@ class EspnProvider(BaseSportProvider):
     #        "location": City, State, Country of team
     #      }]
     #
-    async def async_fetch_team_data(
+    async def _async_fetch_team_data(
         self, 
         hass: HomeAssistant, 
-        sport_path: str="", 
-        league_path: str="",
-        sensor_name: str= "ConfigFlow-teams"
+        sport_path: str, 
+        league_path: str,
+        sensor_name: str,
         ) -> dict:
         """Fetch teams from any API for a given league."""
 
@@ -86,6 +88,8 @@ class EspnProvider(BaseSportProvider):
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
+        timestamp = response["timestamp"]
+
         if data:
             raw = (
                 data.get("sports", [{}])[0]
@@ -105,10 +109,10 @@ class EspnProvider(BaseSportProvider):
                 "displayName":   t.get("displayName", t.get("name", "")),
                 "location":      t.get("location", ""),
             })
-        return {"data": teams, "url": url}
+        return {"data": teams, "url": url, "timestamp": timestamp}
 
 
-    async def async_fetch_team_conference_id(
+    async def async_get_team_conference_id(
         self,
         hass: HomeAssistant, 
         sport_path: str, 
@@ -130,17 +134,17 @@ class EspnProvider(BaseSportProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #    Call ESPN API with using varying date ranges and parameters until events returned
     #      1. Call w/ sport specific date range
     #      2. Call w/o date range specfied (uses ESPN default behavior)
     #      3. Call w/o language parm (some sports not returned in some languages)
     #
-    async def async_fetch_scoreboard_data(self, hass, lang) -> dict:
+    async def _async_fetch_scoreboard_data(self, hass, lang) -> dict:
         """Gets data from ESPN APIs for specified league."""
 
         if not self._coordinator:
-            return{"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path
@@ -235,7 +239,7 @@ class EspnProvider(BaseSportProvider):
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
-            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
             teams_data = teams_response["data"]
             self.lookups["team_list"] = teams_data
         response["lookups"] = self.lookups

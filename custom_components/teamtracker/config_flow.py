@@ -238,10 +238,11 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
             return await self.async_step_manual_athlete(user_input=None)
 
         if user_input is not None:
-            self._provider = get_provider(self._sport_path, self._league_path)
+            provider = get_provider(self._sport_path, self._league_path)
+            self._provider = provider
             search_term = user_input.get("search_team", "").strip().lower()
             if search_term:
-                response = await self._provider.async_fetch_team_data(self.hass, self._sport_path, self._league_path)
+                response = await provider.async_get_team_data(self.hass, self._sport_path, self._league_path)
                 self._all_teams = response["data"]
                 if not self._all_teams:
                     self._errors["base"] = "cannot_fetch_teams"
@@ -305,7 +306,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
                     CONF_LEAGUE_PATH:   self._league_path,
                 }
             if "college" in self._league_path and self._provider:
-                conf_id = await self._provider.async_fetch_team_conference_id(self.hass, self._sport_path, self._league_path, team_id)
+                conf_id = await self._provider.async_get_team_conference_id(self.hass, self._sport_path, self._league_path, team_id)
                 self._entry_data[CONF_CONFERENCE_ID] = conf_id
 
             return await self.async_step_finalize()
@@ -348,7 +349,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
                 CONF_LEAGUE_PATH:   league_path,
             }
             if "college" in league_path and self._provider:
-                conf_id = await self._provider.async_fetch_team_conference_id(self.hass, sport_path, league_path, team_id)
+                conf_id = await self._provider.async_get_team_conference_id(self.hass, sport_path, league_path, team_id)
                 self._entry_data[CONF_CONFERENCE_ID] = conf_id
 
             return await self.async_step_finalize()

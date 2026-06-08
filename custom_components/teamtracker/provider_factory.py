@@ -7,6 +7,7 @@ from .provide_cflscoreboard import CflScoreboardProvider
 from .provide_espn import EspnProvider
 from .provide_espn_all import EspnAllLeaguesProvider
 from .provide_hockeytech import HockeyTechProvider
+from .provide_mlbstats import MlbStatsProvider
 from .provider_base import BaseSportProvider
 from .utils import is_integer
 
@@ -23,6 +24,8 @@ def get_provider(sport_path: str, league_path: str, team_id: str="", coordinator
         provider = HockeyTechProvider(coordinator)
     elif sport_path.lower() == "cflscoreboard":
         provider = CflScoreboardProvider(coordinator)
+    elif sport_path.lower() == "mlbstats":
+        provider = MlbStatsProvider(coordinator)
     elif league_path.lower() == "all" and is_integer(team_id):
         provider = EspnAllLeaguesProvider(coordinator)
 

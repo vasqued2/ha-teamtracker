@@ -1,0 +1,1175 @@
+{
+  "copyright": "Copyright 2026 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "teams": [
+    {
+      "allStarStatus": "N",
+      "id": 512,
+      "name": "Toledo Mud Hens",
+      "link": "/api/v1/teams/512",
+      "season": 2026,
+      "venue": {
+        "id": 2767,
+        "name": "Fifth Third Field",
+        "link": "/api/v1/venues/2767"
+      },
+      "teamCode": "tol",
+      "fileCode": "t512",
+      "abbreviation": "TOL",
+      "teamName": "Mud Hens",
+      "locationName": "Toledo",
+      "firstYearOfPlay": "1932",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Toledo",
+      "parentOrgName": "Detroit Tigers",
+      "parentOrgId": 116,
+      "franchiseName": "Toledo",
+      "clubName": "Mud Hens",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 1410,
+      "name": "Lehigh Valley IronPigs",
+      "link": "/api/v1/teams/1410",
+      "season": 2026,
+      "venue": {
+        "id": 3230,
+        "name": "Coca-Cola Park",
+        "link": "/api/v1/venues/3230"
+      },
+      "teamCode": "lhv",
+      "fileCode": "t1410",
+      "abbreviation": "LHV",
+      "teamName": "IronPigs",
+      "locationName": "Allentown",
+      "firstYearOfPlay": "2008",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Lehigh Valley",
+      "parentOrgName": "Philadelphia Phillies",
+      "parentOrgId": 143,
+      "franchiseName": "Lehigh Valley",
+      "clubName": "IronPigs",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 451,
+      "name": "Iowa Cubs",
+      "link": "/api/v1/teams/451",
+      "season": 2026,
+      "venue": {
+        "id": 2844,
+        "name": "Principal Park",
+        "link": "/api/v1/venues/2844"
+      },
+      "teamCode": "iow",
+      "fileCode": "t451",
+      "abbreviation": "IOW",
+      "teamName": "Cubs",
+      "locationName": "Des Moines",
+      "firstYearOfPlay": "1969",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Iowa",
+      "parentOrgName": "Chicago Cubs",
+      "parentOrgId": 112,
+      "franchiseName": "Iowa",
+      "clubName": "Cubs",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 2310,
+      "name": "Reno Aces",
+      "link": "/api/v1/teams/2310",
+      "season": 2026,
+      "venue": {
+        "id": 3789,
+        "name": "Greater Nevada Field",
+        "link": "/api/v1/venues/3789"
+      },
+      "teamCode": "ren",
+      "fileCode": "t2310",
+      "abbreviation": "RNO",
+      "teamName": "Aces",
+      "locationName": "Reno",
+      "firstYearOfPlay": "2009",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 231,
+        "name": "Pacific Coast League West",
+        "link": "/api/v1/divisions/231"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Reno",
+      "parentOrgName": "Arizona Diamondbacks",
+      "parentOrgId": 109,
+      "franchiseName": "Reno",
+      "clubName": "Aces",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 400,
+      "name": "Las Vegas Aviators",
+      "link": "/api/v1/teams/400",
+      "season": 2026,
+      "venue": {
+        "id": 5355,
+        "name": "Las Vegas Ballpark",
+        "link": "/api/v1/venues/5355"
+      },
+      "teamCode": "lvg",
+      "fileCode": "t400",
+      "abbreviation": "LV",
+      "teamName": "Aviators",
+      "locationName": "Las Vegas",
+      "firstYearOfPlay": "1983",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 231,
+        "name": "Pacific Coast League West",
+        "link": "/api/v1/divisions/231"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Las Vegas",
+      "parentOrgName": "Athletics",
+      "parentOrgId": 133,
+      "franchiseName": "Las Vegas",
+      "clubName": "Aviators",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 529,
+      "name": "Tacoma Rainiers",
+      "link": "/api/v1/teams/529",
+      "season": 2026,
+      "venue": {
+        "id": 2745,
+        "name": "Cheney Stadium",
+        "link": "/api/v1/venues/2745"
+      },
+      "teamCode": "tac",
+      "fileCode": "t529",
+      "abbreviation": "TAC",
+      "teamName": "Rainiers",
+      "locationName": "Tacoma",
+      "firstYearOfPlay": "1960",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 231,
+        "name": "Pacific Coast League West",
+        "link": "/api/v1/divisions/231"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Tacoma",
+      "parentOrgName": "Seattle Mariners",
+      "parentOrgId": 136,
+      "franchiseName": "Tacoma",
+      "clubName": "Rainiers",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 531,
+      "name": "Scranton/Wilkes-Barre RailRiders",
+      "link": "/api/v1/teams/531",
+      "season": 2026,
+      "venue": {
+        "id": 2797,
+        "name": "PNC Field",
+        "link": "/api/v1/venues/2797"
+      },
+      "teamCode": "swb",
+      "fileCode": "t531",
+      "abbreviation": "SWB",
+      "teamName": "RailRiders",
+      "locationName": "Moosic",
+      "firstYearOfPlay": "1989",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Scranton/WB",
+      "parentOrgName": "New York Yankees",
+      "parentOrgId": 147,
+      "franchiseName": "Scranton/WB",
+      "clubName": "RailRiders",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 533,
+      "name": "Worcester Red Sox",
+      "link": "/api/v1/teams/533",
+      "season": 2026,
+      "venue": {
+        "id": 5410,
+        "name": "Polar Park",
+        "link": "/api/v1/venues/5410"
+      },
+      "teamCode": "wor",
+      "fileCode": "t533",
+      "abbreviation": "WOR",
+      "teamName": "Red Sox",
+      "locationName": "Worcester",
+      "firstYearOfPlay": "1970",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Worcester",
+      "parentOrgName": "Boston Red Sox",
+      "parentOrgId": 111,
+      "franchiseName": "Worcester",
+      "clubName": "Red Sox",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 342,
+      "name": "Albuquerque Isotopes",
+      "link": "/api/v1/teams/342",
+      "season": 2026,
+      "venue": {
+        "id": 2683,
+        "name": "Isotopes Park",
+        "link": "/api/v1/venues/2683"
+      },
+      "teamCode": "alb",
+      "fileCode": "t342",
+      "abbreviation": "ABQ",
+      "teamName": "Isotopes",
+      "locationName": "Albuquerque",
+      "firstYearOfPlay": "1946",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 233,
+        "name": "Pacific Coast League East",
+        "link": "/api/v1/divisions/233"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Albuquerque",
+      "parentOrgName": "Colorado Rockies",
+      "parentOrgId": 115,
+      "franchiseName": "Albuquerque",
+      "clubName": "Isotopes",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 534,
+      "name": "Rochester Red Wings",
+      "link": "/api/v1/teams/534",
+      "season": 2026,
+      "venue": {
+        "id": 2773,
+        "name": "ESL Ballpark",
+        "link": "/api/v1/venues/2773"
+      },
+      "teamCode": "roc",
+      "fileCode": "t534",
+      "abbreviation": "ROC",
+      "teamName": "Red Wings",
+      "locationName": "Rochester",
+      "firstYearOfPlay": "1927",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Rochester",
+      "parentOrgName": "Washington Nationals",
+      "parentOrgId": 120,
+      "franchiseName": "Rochester",
+      "clubName": "Red Wings",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 541,
+      "name": "Omaha Storm Chasers",
+      "link": "/api/v1/teams/541",
+      "season": 2026,
+      "venue": {
+        "id": 4271,
+        "name": "Werner Park",
+        "link": "/api/v1/venues/4271"
+      },
+      "teamCode": "oma",
+      "fileCode": "t541",
+      "abbreviation": "OMA",
+      "teamName": "Storm Chasers",
+      "locationName": "Papillion",
+      "firstYearOfPlay": "1969",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Omaha",
+      "parentOrgName": "Kansas City Royals",
+      "parentOrgId": 118,
+      "franchiseName": "Omaha",
+      "clubName": "Storm Chasers",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 416,
+      "name": "Louisville Bats",
+      "link": "/api/v1/teams/416",
+      "season": 2026,
+      "venue": {
+        "id": 2724,
+        "name": "Louisville Slugger Field",
+        "link": "/api/v1/venues/2724"
+      },
+      "teamCode": "lou",
+      "fileCode": "t416",
+      "abbreviation": "LOU",
+      "teamName": "Bats",
+      "locationName": "Louisville",
+      "firstYearOfPlay": "1982",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Louisville",
+      "parentOrgName": "Cincinnati Reds",
+      "parentOrgId": 113,
+      "franchiseName": "Louisville",
+      "clubName": "Bats",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 484,
+      "name": "Indianapolis Indians",
+      "link": "/api/v1/teams/484",
+      "season": 2026,
+      "venue": {
+        "id": 2858,
+        "name": "Victory Field",
+        "link": "/api/v1/venues/2858"
+      },
+      "teamCode": "ind",
+      "fileCode": "t484",
+      "abbreviation": "IND",
+      "teamName": "Indians",
+      "locationName": "Indianapolis",
+      "firstYearOfPlay": "1932",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Indianapolis",
+      "parentOrgName": "Pittsburgh Pirates",
+      "parentOrgId": 134,
+      "franchiseName": "Indianapolis",
+      "clubName": "Indians",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 102,
+      "name": "Round Rock Express",
+      "link": "/api/v1/teams/102",
+      "season": 2026,
+      "venue": {
+        "id": 2528,
+        "name": "Dell Diamond",
+        "link": "/api/v1/venues/2528"
+      },
+      "teamCode": "rre",
+      "fileCode": "t102",
+      "abbreviation": "RR",
+      "teamName": "Express",
+      "locationName": "Round Rock",
+      "firstYearOfPlay": "2000",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 233,
+        "name": "Pacific Coast League East",
+        "link": "/api/v1/divisions/233"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Round Rock",
+      "parentOrgName": "Texas Rangers",
+      "parentOrgId": 140,
+      "franchiseName": "Round Rock",
+      "clubName": "Express",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 422,
+      "name": "Buffalo Bisons",
+      "link": "/api/v1/teams/422",
+      "season": 2026,
+      "venue": {
+        "id": 2756,
+        "name": "Sahlen Field",
+        "link": "/api/v1/venues/2756"
+      },
+      "teamCode": "buf",
+      "fileCode": "t422",
+      "abbreviation": "BUF",
+      "teamName": "Bisons",
+      "locationName": "Buffalo",
+      "firstYearOfPlay": "1927",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Buffalo",
+      "parentOrgName": "Toronto Blue Jays",
+      "parentOrgId": 141,
+      "franchiseName": "Buffalo",
+      "clubName": "Bisons",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 4904,
+      "name": "El Paso Chihuahuas",
+      "link": "/api/v1/teams/4904",
+      "season": 2026,
+      "venue": {
+        "id": 4669,
+        "name": "Southwest University Park",
+        "link": "/api/v1/venues/4669"
+      },
+      "teamCode": "elp",
+      "fileCode": "t4904",
+      "abbreviation": "ELP",
+      "teamName": "Chihuahuas",
+      "locationName": "El Paso",
+      "firstYearOfPlay": "2014",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 233,
+        "name": "Pacific Coast League East",
+        "link": "/api/v1/divisions/233"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "El Paso",
+      "parentOrgName": "San Diego Padres",
+      "parentOrgId": 135,
+      "franchiseName": "El Paso",
+      "clubName": "Chihuahuas",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 1960,
+      "name": "St. Paul Saints",
+      "link": "/api/v1/teams/1960",
+      "season": 2026,
+      "venue": {
+        "id": 5472,
+        "name": "CHS Field",
+        "link": "/api/v1/venues/5472"
+      },
+      "teamCode": "stp",
+      "fileCode": "t1960",
+      "abbreviation": "STP",
+      "teamName": "Saints",
+      "locationName": "St. Paul",
+      "firstYearOfPlay": "1993",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "St. Paul",
+      "parentOrgName": "Minnesota Twins",
+      "parentOrgId": 142,
+      "franchiseName": "St. Paul",
+      "clubName": "Saints",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 552,
+      "name": "Syracuse Mets",
+      "link": "/api/v1/teams/552",
+      "season": 2026,
+      "venue": {
+        "id": 2823,
+        "name": "NBT Bank Stadium",
+        "link": "/api/v1/venues/2823"
+      },
+      "teamCode": "syr",
+      "fileCode": "t552",
+      "abbreviation": "SYR",
+      "teamName": "Mets",
+      "locationName": "Syracuse",
+      "firstYearOfPlay": "1927",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Syracuse",
+      "parentOrgName": "New York Mets",
+      "parentOrgId": 121,
+      "franchiseName": "Syracuse",
+      "clubName": "Mets",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 105,
+      "name": "Sacramento River Cats",
+      "link": "/api/v1/teams/105",
+      "season": 2026,
+      "venue": {
+        "id": 2529,
+        "name": "Sutter Health Park",
+        "link": "/api/v1/venues/2529"
+      },
+      "teamCode": "src",
+      "fileCode": "t105",
+      "abbreviation": "SAC",
+      "teamName": "River Cats",
+      "locationName": "Sacramento",
+      "firstYearOfPlay": "2000",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 231,
+        "name": "Pacific Coast League West",
+        "link": "/api/v1/divisions/231"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Sacramento",
+      "parentOrgName": "San Francisco Giants",
+      "parentOrgId": 137,
+      "franchiseName": "Sacramento",
+      "clubName": "River Cats",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 234,
+      "name": "Durham Bulls",
+      "link": "/api/v1/teams/234",
+      "season": 2026,
+      "venue": {
+        "id": 2541,
+        "name": "Durham Bulls Athletic Park",
+        "link": "/api/v1/venues/2541"
+      },
+      "teamCode": "drm",
+      "fileCode": "t234",
+      "abbreviation": "DUR",
+      "teamName": "Bulls",
+      "locationName": "Durham",
+      "firstYearOfPlay": "1945",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Durham",
+      "parentOrgName": "Tampa Bay Rays",
+      "parentOrgId": 139,
+      "franchiseName": "Durham",
+      "clubName": "Bulls",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 235,
+      "name": "Memphis Redbirds",
+      "link": "/api/v1/teams/235",
+      "season": 2026,
+      "venue": {
+        "id": 2542,
+        "name": "AutoZone Park",
+        "link": "/api/v1/venues/2542"
+      },
+      "teamCode": "mrb",
+      "fileCode": "t235",
+      "abbreviation": "MEM",
+      "teamName": "Redbirds",
+      "locationName": "Memphis",
+      "firstYearOfPlay": "1984",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Memphis",
+      "parentOrgName": "St. Louis Cardinals",
+      "parentOrgId": 138,
+      "franchiseName": "Memphis",
+      "clubName": "Redbirds",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 556,
+      "name": "Nashville Sounds",
+      "link": "/api/v1/teams/556",
+      "season": 2026,
+      "venue": {
+        "id": 4715,
+        "name": "First Horizon Park",
+        "link": "/api/v1/venues/4715"
+      },
+      "teamCode": "nas",
+      "fileCode": "t556",
+      "abbreviation": "NAS",
+      "teamName": "Sounds",
+      "locationName": "Nashville",
+      "firstYearOfPlay": "1978",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Nashville",
+      "parentOrgName": "Milwaukee Brewers",
+      "parentOrgId": 158,
+      "franchiseName": "Nashville",
+      "clubName": "Sounds",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 494,
+      "name": "Charlotte Knights",
+      "link": "/api/v1/teams/494",
+      "season": 2026,
+      "venue": {
+        "id": 4670,
+        "name": "Truist Field",
+        "link": "/api/v1/venues/4670"
+      },
+      "teamCode": "chr",
+      "fileCode": "t494",
+      "abbreviation": "CLT",
+      "teamName": "Knights",
+      "locationName": "Charlotte",
+      "firstYearOfPlay": "1954",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Charlotte",
+      "parentOrgName": "Chicago White Sox",
+      "parentOrgId": 145,
+      "franchiseName": "Charlotte",
+      "clubName": "Knights",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 238,
+      "name": "Oklahoma City Comets",
+      "link": "/api/v1/teams/238",
+      "season": 2026,
+      "venue": {
+        "id": 2843,
+        "name": "Chickasaw Bricktown Ballpark",
+        "link": "/api/v1/venues/2843"
+      },
+      "teamCode": "okc",
+      "fileCode": "t238",
+      "abbreviation": "OKC",
+      "teamName": "Comets",
+      "locationName": "Oklahoma City",
+      "firstYearOfPlay": "1962",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 233,
+        "name": "Pacific Coast League East",
+        "link": "/api/v1/divisions/233"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Okla. City",
+      "parentOrgName": "Los Angeles Dodgers",
+      "parentOrgId": 119,
+      "franchiseName": "Oklahoma City",
+      "clubName": "Comets",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 431,
+      "name": "Gwinnett Stripers",
+      "link": "/api/v1/teams/431",
+      "season": 2026,
+      "venue": {
+        "id": 3810,
+        "name": "Gwinnett Field",
+        "link": "/api/v1/venues/3810"
+      },
+      "teamCode": "gwi",
+      "fileCode": "t431",
+      "abbreviation": "GWN",
+      "teamName": "Stripers",
+      "locationName": "Lawrenceville",
+      "firstYearOfPlay": "1966",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Gwinnett",
+      "parentOrgName": "Atlanta Braves",
+      "parentOrgId": 144,
+      "franchiseName": "Gwinnett",
+      "clubName": "Stripers",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 561,
+      "name": "Salt Lake Bees",
+      "link": "/api/v1/teams/561",
+      "season": 2026,
+      "venue": {
+        "id": 6135,
+        "name": "The Ballpark at America First Square",
+        "link": "/api/v1/venues/6135"
+      },
+      "teamCode": "slc",
+      "fileCode": "t561",
+      "abbreviation": "SL",
+      "teamName": "Bees",
+      "locationName": "South Jordan",
+      "firstYearOfPlay": "1994",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 231,
+        "name": "Pacific Coast League West",
+        "link": "/api/v1/divisions/231"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Salt Lake",
+      "parentOrgName": "Los Angeles Angels",
+      "parentOrgId": 108,
+      "franchiseName": "Salt Lake",
+      "clubName": "Bees",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 564,
+      "name": "Jacksonville Jumbo Shrimp",
+      "link": "/api/v1/teams/564",
+      "season": 2026,
+      "venue": {
+        "id": 2852,
+        "name": "Vystar Ballpark",
+        "link": "/api/v1/venues/2852"
+      },
+      "teamCode": "jax",
+      "fileCode": "t564",
+      "abbreviation": "JAX",
+      "teamName": "Jumbo Shrimp",
+      "locationName": "Jacksonville",
+      "firstYearOfPlay": "1970",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Jacksonville",
+      "parentOrgName": "Miami Marlins",
+      "parentOrgId": 146,
+      "franchiseName": "Jacksonville",
+      "clubName": "Jumbo Shrimp",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 568,
+      "name": "Norfolk Tides",
+      "link": "/api/v1/teams/568",
+      "season": 2026,
+      "venue": {
+        "id": 2781,
+        "name": "Harbor Park",
+        "link": "/api/v1/venues/2781"
+      },
+      "teamCode": "nor",
+      "fileCode": "t568",
+      "abbreviation": "NOR",
+      "teamName": "Tides",
+      "locationName": "Norfolk",
+      "firstYearOfPlay": "1961",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 219,
+        "name": "International League East",
+        "link": "/api/v1/divisions/219"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Norfolk",
+      "parentOrgName": "Baltimore Orioles",
+      "parentOrgId": 110,
+      "franchiseName": "Norfolk",
+      "clubName": "Tides",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 5434,
+      "name": "Sugar Land Space Cowboys",
+      "link": "/api/v1/teams/5434",
+      "season": 2026,
+      "venue": {
+        "id": 5421,
+        "name": "Constellation Field",
+        "link": "/api/v1/venues/5421"
+      },
+      "teamCode": "sls",
+      "fileCode": "t5434",
+      "abbreviation": "SUG",
+      "teamName": "Space Cowboys",
+      "locationName": "Sugar Land",
+      "firstYearOfPlay": "2012",
+      "league": {
+        "id": 112,
+        "name": "Pacific Coast League",
+        "link": "/api/v1/league/112"
+      },
+      "division": {
+        "id": 233,
+        "name": "Pacific Coast League East",
+        "link": "/api/v1/divisions/233"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Sugar Land",
+      "parentOrgName": "Houston Astros",
+      "parentOrgId": 117,
+      "franchiseName": "Sugar Land",
+      "clubName": "Space Cowboys",
+      "active": true
+    },
+    {
+      "allStarStatus": "N",
+      "id": 445,
+      "name": "Columbus Clippers",
+      "link": "/api/v1/teams/445",
+      "season": 2026,
+      "venue": {
+        "id": 3970,
+        "name": "Huntington Park",
+        "link": "/api/v1/venues/3970"
+      },
+      "teamCode": "cbs",
+      "fileCode": "t445",
+      "abbreviation": "COL",
+      "teamName": "Clippers",
+      "locationName": "Columbus",
+      "firstYearOfPlay": "1977",
+      "league": {
+        "id": 117,
+        "name": "International League",
+        "link": "/api/v1/league/117"
+      },
+      "division": {
+        "id": 221,
+        "name": "International League West",
+        "link": "/api/v1/divisions/221"
+      },
+      "sport": {
+        "id": 11,
+        "link": "/api/v1/sports/11",
+        "name": "Triple-A"
+      },
+      "shortName": "Columbus",
+      "parentOrgName": "Cleveland Guardians",
+      "parentOrgId": 114,
+      "franchiseName": "Columbus",
+      "clubName": "Clippers",
+      "active": true
+    }
+  ]
+}

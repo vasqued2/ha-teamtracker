@@ -66,13 +66,13 @@ class EspnAllLeaguesProvider(EspnProvider):
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #    ESPN APIs returning all leagues quickly hit the API_LIMIT, so force use of tight date ranges
     #      1. Get the team schedule from ESPN and determine next upcoming game
     #      2. Call w/ date range up to upcoming game
     #      2. Call w/ date range around upcoming game
     #
-    async def async_fetch_scoreboard_data(
+    async def _async_fetch_scoreboard_data(
         self, 
         hass: HomeAssistant, 
         lang: str,
@@ -80,7 +80,7 @@ class EspnAllLeaguesProvider(EspnProvider):
         """Gets data from ESPN APIs for all leagues in specified sport."""
 
         if not self._coordinator:
-            return{"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path
@@ -135,7 +135,7 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
-            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
             teams_data = teams_response["data"]
             self.lookups["team_list"] = teams_data
         response["lookups"] = self.lookups

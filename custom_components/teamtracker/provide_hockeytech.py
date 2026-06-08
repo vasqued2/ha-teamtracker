@@ -16,7 +16,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DOMAIN, OVERRIDE_DICT
 from .provider_base import BaseSportProvider
-from .utils import load_file_overrides
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -68,7 +67,8 @@ class HockeyTechProvider(BaseSportProvider):
         return key
 
     #
-    # Return a list of team dictionaries
+    # _async_fetch_team_data()
+    #    Return a list of team dictionaries
     #  [{
     #   "id": team_id,
     #   "displayName": Long Team Name
@@ -76,25 +76,16 @@ class HockeyTechProvider(BaseSportProvider):
     #   "location": City, State, Country of team
     #  }]
     #
-    async def async_fetch_team_data(
+    async def _async_fetch_team_data(
         self, 
         hass: HomeAssistant, 
-        sport_path: str="", 
-        league_path: str ="",
-        sensor_name: str= "ConfigFlow-teams"
+        sport_path: str, 
+        league_path: str,
+        sensor_name: str,
         ) -> dict:
         """Fetch teams from any API for a given league."""
 
-        # Initialize DOMAIN in hass.data if it doesn't exist
-        if DOMAIN not in hass.data:
-            hass.data[DOMAIN] = {}
-
-        # Load the OVERRIDE_DICT if it doesn't exist
-        if OVERRIDE_DICT not in hass.data[DOMAIN]:
-            hass.data[DOMAIN][OVERRIDE_DICT] = None
-            override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
-            if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
-                hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+        await self._async_load_override_dict(hass)
 
         league_abbr = league_path.upper()
         league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
@@ -103,7 +94,7 @@ class HockeyTechProvider(BaseSportProvider):
             _LOGGER.warning(
                 "%s: No HockeyTech config for league '%s'", sensor_name, league_abbr
             )
-            return {"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         try:
             lang = hass.config.language
@@ -158,6 +149,7 @@ class HockeyTechProvider(BaseSportProvider):
         ht_response = await self.async_call_hockeytech_api(hass, HOCKEYTECH_BASE_URL, params, sensor_name, league_abbr)
         ht_data = ht_response["ht_data"]
         url = ht_response["url"]
+        timestamp = ht_response["timestamp"]
 
         if ht_data:
             raw = (
@@ -176,13 +168,13 @@ class HockeyTechProvider(BaseSportProvider):
                 "displayName":   t.get("name", ""),
                 "location":      t.get("city", ""),
             })
-        return {"data": teams, "url": url}
+        return {"data": teams, "url": url, "timestamp": timestamp}
 
 
     #
-    #  async_fetch_scoreboard_data()
+    #  _async_fetch_scoreboard_data()
     #
-    async def async_fetch_scoreboard_data(
+    async def _async_fetch_scoreboard_data(
         self,
         hass,
         lang: str,
@@ -190,7 +182,7 @@ class HockeyTechProvider(BaseSportProvider):
         """Fetch scoreboard from HockeyTech API and return ESPN-compatible dict."""
 
         if not self._coordinator:
-            return{"data": None, "url": None}
+            return {"data": None, "url": None, "timestamp": None}
 
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path
@@ -229,7 +221,7 @@ class HockeyTechProvider(BaseSportProvider):
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
-            teams_response = await self.async_fetch_team_data(hass, sport_path, league_path, sensor_name)
+            teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
             teams_data = teams_response["data"]
             self.lookups["team_list"] = teams_data
 

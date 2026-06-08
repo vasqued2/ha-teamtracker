@@ -127,6 +127,39 @@ def load_file_overrides(hass: HomeAssistant) -> dict:
 
 
 #
+#  lookup_actual_team_id()
+#
+def lookup_actual_team_id(
+    sensor_name: str,
+    search_key: str, 
+    team_list: list
+) -> str:
+    """Return the integer team_id."""
+
+    if team_list:
+        try:
+            actual_team_id = next(
+                (team["id"] for team in team_list 
+                    if ((search_key.upper() == team.get("abbreviation", "").upper()) or
+                        (re.fullmatch(search_key, team.get("displayName", ""))) or
+                        (re.fullmatch(search_key, team.get("location", "")))
+                    )
+                ), 
+                search_key
+            )
+            return str(actual_team_id)
+        except re.error as e:
+            _LOGGER.warning(
+                "%s: Invalid regular expression '%s' in search key (exception %s)",
+                sensor_name,
+                search_key,
+                e,
+            )
+
+    return search_key
+
+
+#
 #  season_slug_to_name()
 #
 def season_slug_to_name(slug: str) -> str:
