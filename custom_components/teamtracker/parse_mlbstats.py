@@ -1,14 +1,14 @@
 """ Parse CFL Scoreboard JSON response """
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime, timedelta, timezone
 import logging
 from typing import TYPE_CHECKING
 
 import arrow
 import jmespath
 
-from .const import DEFAULT_LAST_UPDATE, DEFAULT_LOGO
+from .const import DEFAULT_LOGO
 from .models import TeamTrackerValues
 from .parser_base import BaseSportParser
 from .utils import get_value, is_integer, lookup_actual_team_id
@@ -104,20 +104,31 @@ class MlbStatsParser(BaseSportParser):
             if game:
                 rc = self._set_values(game, team_list)
             else:
-                first_date_str =  data.get("dates", [])[0].get("date", DEFAULT_LAST_UPDATE)
-                last_date_str =  data.get("dates", [])[-1].get("date", DEFAULT_LAST_UPDATE)
+                dates = data.get("dates", None)
+                first_date_str =  dates[0].get("date", None) if dates else None
+                last_date_str =  dates[-1].get("date", None) if dates else None
 
-                first_date = datetime.fromisoformat(str(first_date_str)).replace(tzinfo=None)
-                last_date = datetime.fromisoformat(str(last_date_str)).replace(tzinfo=None)
+                if dates is None or first_date_str is None or last_date_str is None:
 
-                self._values.api_message = (
-                    "No competition scheduled for '"
-                    + str(self._values.team_abbr)
-                    + "' in MLB Stats between "
-                    + first_date.strftime("%Y-%m-%dT%H:%MZ")
-                    + " and "
-                    + last_date.strftime("%Y-%m-%dT%H:%MZ")
-                )
+                    today = datetime.now(timezone.utc)
+                    self._values.api_message = (
+                        "No upcoming competitions scheduled for league '"
+                        + str(self._league_path)
+                        + "' in MLB Stats on "
+                        + today.strftime("%Y-%m-%dT%H:%MZ")
+                    )
+                else:
+                    first_date = datetime.fromisoformat(str(first_date_str)).replace(tzinfo=None)
+                    last_date = datetime.fromisoformat(str(last_date_str)).replace(tzinfo=None)
+
+                    self._values.api_message = (
+                        "No competition scheduled for '"
+                        + str(self._values.team_abbr)
+                        + "' in MLB Stats between "
+                        + first_date.strftime("%Y-%m-%dT%H:%MZ")
+                        + " and "
+                        + last_date.strftime("%Y-%m-%dT%H:%MZ")
+                    )
                 _LOGGER.debug(
                     "%s: No competitor information '%s' returned by MLB Stats API",
                     self._sensor_name,
