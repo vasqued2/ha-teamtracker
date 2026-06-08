@@ -230,6 +230,8 @@ class MlbStatsParser(BaseSportParser):
         status = get_value(game, "status", "abstractGameState", default="")
         if status.lower() == "preview":
             self._values.state = "PRE"
+        elif status.lower() == "live":
+            self._values.state = "IN"
         else:
             self._values.state = "POST"
 
@@ -495,7 +497,16 @@ class MlbStatsParser(BaseSportParser):
         player = get_value(game, "liveData", "plays", "currentPlay", "matchup", "postOnThird","id", default=None)
         self._values.on_third = (player is not None)
 
-        # Set the pitch count and last play depending on if a current play exists or not
+        # If there is a description of the result of the last play, use that
+        description = get_value(game, "liveData", "plays", "currentPlay", "result", "description", default=None)
+        if description:
+            self._values.last_play = f"{description}"
+            self._values.outs = get_value(game, "liveData", "plays", "currentPlay", "count", "outs", default=None)
+            self._values.balls = get_value(game, "liveData", "plays", "currentPlay", "count", "balls", default=None)
+            self._values.strikes = get_value(game, "liveData", "plays", "currentPlay", "count", "strikes", default=None)
+            return True
+
+        # If there are events in the event list, use that
         self._values.last_play = None
         play_events = get_value(game, "liveData", "plays", "currentPlay", "playEvents", default=[])
         if len(play_events) > 0:
@@ -515,15 +526,17 @@ class MlbStatsParser(BaseSportParser):
                 self._values.last_play = f"{pitcher} pitches to {batter}: Pitch {pitch_number} - {description}"
             else:
                 self._values.last_play = f"{description}"
-        else:
-            self._values.outs = get_value(game, "liveData", "linescore", "outs", default=None)
-            self._values.balls = get_value(game, "liveData", "linescore", "balls", default=None)
-            self._values.strikes = get_value(game, "liveData", "linescore", "strikes", default=None)
+            return True
 
-            all_plays = get_value(game, "liveData", "plays", "allPlays", default=[])
-            if len(all_plays) > 1:
-                last_play = all_plays[-2]
-                self._values.last_play = get_value(last_play, "result", "description", default=None)
+        # Fall back to the list of all plays
+        self._values.outs = get_value(game, "liveData", "linescore", "outs", default=None)
+        self._values.balls = get_value(game, "liveData", "linescore", "balls", default=None)
+        self._values.strikes = get_value(game, "liveData", "linescore", "strikes", default=None)
+
+        all_plays = get_value(game, "liveData", "plays", "allPlays", default=[])
+        if len(all_plays) > 1:
+            last_play = all_plays[-2]
+            self._values.last_play = get_value(last_play, "result", "description", default=None)
 
         return True
 

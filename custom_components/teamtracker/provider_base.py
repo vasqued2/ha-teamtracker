@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta, timezone
+import logging
 from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
@@ -12,6 +13,9 @@ from .utils import load_file_overrides
 
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
+
+_LOGGER = logging.getLogger(__name__)
+
 
 class BaseSportProvider(ABC):
     """Base class for all sport data providers."""
@@ -64,12 +68,20 @@ class BaseSportProvider(ABC):
 
         response = self.data_cache.get(cache_name, {}).get(key, {}).get("response", None)
         if response:
-            expiration = datetime.fromisoformat(response["timestamp"]) + duration
-            now = datetime.now(timezone.utc)
+            timestamp = response.get("timestamp", None)
+            if isinstance(timestamp, str):
+                expiration = datetime.fromisoformat(timestamp) + duration
+                now = datetime.now(timezone.utc)
 
-            if now < expiration:
-                response.update({"cache_flag": True}) # Add key to indicate cache was used
-                return response
+                if now < expiration:
+                    response.update({"cache_flag": True}) # Add key to indicate cache was used
+                    return response
+            else:
+                _LOGGER.warning(
+                    "_get_from_cache(): Cache entry does not have string timestamp for key '%s' timestamp = '%s'",
+                    key,
+                    timestamp
+                )
 
         return None
 

@@ -112,7 +112,7 @@ class MlbStatsProvider(BaseSportProvider):
         response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, league_path)
         data = response["data"]
         url = response["url"]
-        timestamp = ["timestamp"]
+        timestamp = response["timestamp"]
 
         if data:
             raw = (
