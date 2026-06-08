@@ -1755,33 +1755,9 @@
       "sportId": 23,
       "unusedLeagueName": "Independent Leagues"
     },
-    "nlb": {
-      "sportId": 61,
-      "unusedLeagueName": "Negro League Baseball"
-    },
-    "kor": {
-      "sportId": 32,
-      "unusedLeagueName": "Korean Baseball Organization"
-    },
-    "jml": {
-      "sportId": 31,
-      "unusedLeagueName": "Nippon Professional Baseball"
-    },
     "int": {
       "sportId": 51,
       "unusedLeagueName": "International Baseball"
-    },
-    "nae": {
-      "sportId": 509,
-      "unusedLeagueName": "International Baseball (18U)"
-    },
-    "nas": {
-      "sportId": 510,
-      "unusedLeagueName": "International Baseball (16 and under)"
-    },
-    "ame": {
-      "sportId": 6005,
-      "unusedLeagueName": "International Baseball (amateur)"
     },
     "oly": {
       "sportId": 52,
@@ -1790,14 +1766,6 @@
     "bbc": {
       "sportId": 22,
       "unusedLeagueName": "College Baseball"
-    },
-    "hsb": {
-      "sportId": 586,
-      "unusedLeagueName": "High School Baseball"
-    },
-    "wps": {
-      "sportId": 576,
-      "unusedLeagueName": "Women's Professional Softball"
     }
   }
 }

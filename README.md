@@ -82,16 +82,9 @@ Custom APIs can be configured for the following leagues using Non-ESPN APIs. The
 | Winter Leagues | mlbstats | win |
 | [Minor League Baseball](https://www.milb.com/) | mlbstats | min |
 | [Independent Leagues](https://www.atlanticleague.com/) | mlbstats | ind |
-| [Korean Baseball Organization](https://www.koreabaseball.com/) | mlbstats | kor |
-| [Nippon Professional Baseball](https://npb.jp/) | mlbstats | jml |
 | International Baseball | mlbstats | int |
-| International Baseball (18U) | mlbstats | nae |
-| International Baseball (16 and under) | mlbstats | nas |
-| International Baseball (amateur) | mlbstats | ame |
 | [Olympic Baseball](https://www.olympics.com/) | mlbstats | oly |
 | [College Baseball](https://www.ncaa.com/sports/baseball) | mlbstats | bbc |
-| High School Baseball | mlbstats | hsb |
-| [Women's Professional Softball](https://wprofastpitch.com/) | mlbstats | wps |
 
 #### Overriding Incorrect or Unpopulated Sensor Attributes in non-ESPN APIs
 
