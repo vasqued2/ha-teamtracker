@@ -119,7 +119,7 @@ class MlbStatsParser(BaseSportParser):
                     )
                 else:
                     first_date = datetime.fromisoformat(str(first_date_str)).replace(tzinfo=None)
-                    last_date = datetime.fromisoformat(str(last_date_str)).replace(tzinfo=None)
+                    last_date = datetime.fromisoformat(f"{last_date_str}T23:59:59").replace(tzinfo=None)
 
                     self._values.api_message = (
                         "No competition scheduled for '"
