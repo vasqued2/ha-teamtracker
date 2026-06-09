@@ -155,12 +155,12 @@ class EspnProvider(BaseSportProvider):
         url_parms["lang"] = lang[:2]
         url_parms["limit"] = str(API_LIMIT)
 
-        if sport_path not in ("tennis"):
+        if sport_path not in ("tennis", "baseball"):
             d1 = (date.today() - timedelta(days=1)).strftime("%Y%m%d")
             if league_path == "all":
                 d2 = (date.today() + timedelta(days=5)).strftime("%Y%m%d")
-            elif sport_path in ("baseball"):
-                d2 = (date.today() + timedelta(days=1)).strftime("%Y%m%d")
+#            elif sport_path in ("baseball"):
+#                d2 = (date.today() + timedelta(days=1)).strftime("%Y%m%d")
             else:
                 d2 = (date.today() + timedelta(days=90)).strftime("%Y%m%d")
             url_parms["dates"] = f"{d1}-{d2}"
