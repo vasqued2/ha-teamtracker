@@ -245,7 +245,7 @@ async def test_setup_second_team_in_league(
     date = sensor_state.attributes.get("date")
     assert date == "2022-09-08T22:45Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 
@@ -283,7 +283,7 @@ async def test_setup_second_team_in_league(
     date = sensor_state.attributes.get("date")
     assert date == "2022-09-08T18:20Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&dates=20260320-20260322&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == "Cached data"
 

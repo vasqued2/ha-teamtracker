@@ -189,8 +189,15 @@ class MlbStatsProvider(BaseSportProvider):
             }
 
             response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
-
             data = response.get("data", {})
+
+            # If requested dates do not have any games scheduled, try again w/o dates
+            if not data.get("dates", None):
+                url_parms = {
+                    "sportId": sportId,
+                }
+                response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
+                data = response.get("data", {})
 
             # See if there is a live game for the search_key
             #  Get first live instance if "*" else match the team ID
