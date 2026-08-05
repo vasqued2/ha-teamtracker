@@ -32,11 +32,7 @@ class BaseSportProvider(ABC):
             self.data_cache = self._coordinator.hass.data.setdefault(DOMAIN, {}).setdefault("data_cache", {})
         else: # coordinator is None when called from Config Flow
             self.data_cache = {}
-        self._USER_AGENT = (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6) AppleWebKit/605.1.15 (KHTML, like "
-            "Gecko) Version/15.0 Safari/605.1.15"
-        )
-
+        self._USER_AGENT = "curl/8.20.0"
 
     #
     #  async_update_sport_data()
