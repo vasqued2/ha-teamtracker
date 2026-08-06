@@ -268,7 +268,9 @@ class EspnProvider(BaseSportProvider):
             return {"data": data, "url": url, "timestamp": timestamp}
 
 
-        headers = {"User-Agent": self._USER_AGENT, "Accept": "application/ld+json"}
+        headers = {
+#            "User-Agent": self._USER_AGENT, 
+            "Accept": "application/ld+json"}
         session = async_get_clientsession(hass)
         try:
             async with session.get(url, headers=headers) as r:
