@@ -58,7 +58,7 @@ Custom APIs can be configured for the following leagues using Non-ESPN APIs. The
 
 | League | `sport_path` | `league_path` |
 | --- | --- | --- |
-| [Canadian Football League](https://chl.ca//) | cflscoreboard | pwhl | 
+| [Canadian Football League](https://cfl.ca//) | cflscoreboard | cfl | 
 | [Professional Womens Hockey League](https://www.thepwhl.com/) | hockeytech | pwhl | 
 | [Canadian Hockey League](https://chl.ca/) | hockeytech | chl |
 | [Ontario Hockey League](https://ontariohockeyleague.com/) | hockeytech | ohl |
