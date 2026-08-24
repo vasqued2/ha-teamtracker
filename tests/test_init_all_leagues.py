@@ -13,6 +13,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.teamtracker import BaseSportProvider
 from custom_components.teamtracker.const import DOMAIN
+from custom_components.teamtracker.parse_espn_all import EspnAllParser
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 
 from tests.const import CONFIG_DATA, CONFIG_DATA2, CONFIG_DATA3, CONFIG_DATA4
@@ -236,8 +237,28 @@ async def test_all_leagues_all_team_cache_hit(hass, mock_call_espn_api):
     assert api_message == None
 
 
+async def test_all_leagues_league_name_prefers_fresh_season_over_stale_cache():
+    """A stale/incorrect derived_league_name (e.g. a game that was briefly
+    labeled as a friendly before being tagged to its real league, or that
+    simply reflects the last event iterated in the team's schedule rather
+    than the currently matched one - see _async_get_team_schedule) must not
+    override the league name derivable from the matched event's own season
+    slug, which is always fresh. Regression test for EPL/Tottenham showing
+    "Club Friendly" instead of "English Premier League"."""
 
-    
+    parser = EspnAllParser(None)
+    parser._values.season = "2026-27-english-premier-league"
+
+    provider_response = {
+        "lookups": {"derived_league_name": "Club Friendly"},
+    }
+
+    rc = parser.finalize_sensor_values(provider_response)
+
+    assert rc is True
+    assert parser._values.league_name == "English Premier League"
+
+
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
 async def test_all_leagues_cold_start(hass, mock_call_espn_api):
