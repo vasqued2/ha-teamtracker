@@ -259,6 +259,28 @@ async def test_all_leagues_league_name_prefers_fresh_season_over_stale_cache():
     assert parser._values.league_name == "English Premier League"
 
 
+async def test_all_leagues_league_name_uses_alt_game_note_for_cup_rounds():
+    """Cup rounds (e.g. Carabao Cup) have a season slug like "second-round"
+    with no year prefix, so it can't be converted to a competition name -
+    the code must fall back to ESPN's own altGameNote (e.g. "Carabao Cup,
+    Second Round") instead of falling all the way through to the stale
+    derived_league_name cache. Regression test for Tottenham's Carabao Cup
+    match showing "Club Friendly" instead of the actual competition."""
+
+    parser = EspnAllParser(None)
+    parser._values.season = "second-round"
+    parser._alt_game_note = "Carabao Cup, Second Round"
+
+    provider_response = {
+        "lookups": {"derived_league_name": "Club Friendly"},
+    }
+
+    rc = parser.finalize_sensor_values(provider_response)
+
+    assert rc is True
+    assert parser._values.league_name == "Carabao Cup, Second Round"
+
+
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
 @freeze_time("2026-03-21 10:00:00")
 async def test_all_leagues_cold_start(hass, mock_call_espn_api):

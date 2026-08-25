@@ -37,6 +37,7 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         self._event_state = "NOT_FOUND"
         self._values: TeamTrackerValues
         self._prev_values: TeamTrackerValues
+        self._alt_game_note: str | None = None
 
 
 
@@ -66,6 +67,8 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         rc = self.initialize_sensor_values(provider_response)
         if rc is False:
             return self._values
+
+        self._alt_game_note = None
 
         data = provider_response["data"]
 
