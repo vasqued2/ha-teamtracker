@@ -1,6 +1,7 @@
 # serializer version: 1
 # name: test_hockeytech[api_error_invalid_league]
   dict({
+    'alt_game_note': None,
     'api_message': 'API error, no data returned',
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=UNKNOWN_PUBLIC_KEY&client_code=INVALID_LEAGUE_PATH&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
     'attribution': 'Powered by HockeyTech.com',
@@ -79,6 +80,7 @@
 # ---
 # name: test_hockeytech[test_in]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=2c2b89ea7345cae8&client_code=echl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
     'attribution': 'Powered by HockeyTech.com',
@@ -163,6 +165,7 @@
 # ---
 # name: test_hockeytech[test_invalid_team]
   dict({
+    'alt_game_note': None,
     'api_message': "No competition scheduled for 'INVALID_TEAM_ID' between 2026-04-25T23:00Z and 2026-05-05T23:00Z",
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
     'attribution': 'Powered by HockeyTech.com',
@@ -241,6 +244,7 @@
 # ---
 # name: test_hockeytech[test_post]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
     'attribution': 'Powered by HockeyTech.com',
@@ -325,6 +329,7 @@
 # ---
 # name: test_hockeytech[test_pre]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=446521baf8c38984&client_code=pwhl&lang=en&fmt=json&numberofdaysback=0&numberofdaysahead=90',
     'attribution': 'Powered by HockeyTech.com',

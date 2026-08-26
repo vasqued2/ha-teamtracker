@@ -215,7 +215,6 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             )
         ).upper()
         self._values.season = get_value(event, "season", "slug")
-        self._alt_game_note = get_value(competition, "altGameNote")
 
         self._values.event_id = get_value(event, "id")
         self._values.event_name = get_value(event, "shortName")

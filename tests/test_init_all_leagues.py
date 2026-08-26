@@ -269,7 +269,7 @@ async def test_all_leagues_league_name_uses_alt_game_note_for_cup_rounds():
 
     parser = EspnAllParser(None)
     parser._values.season = "second-round"
-    parser._alt_game_note = "Carabao Cup, Second Round"
+    parser._values.alt_game_note = "Carabao Cup, Second Round"
 
     provider_response = {
         "lookups": {"derived_league_name": "Club Friendly"},
@@ -279,6 +279,37 @@ async def test_all_leagues_league_name_uses_alt_game_note_for_cup_rounds():
 
     assert rc is True
     assert parser._values.league_name == "Carabao Cup, Second Round"
+
+
+async def test_all_leagues_set_universal_values_captures_alt_game_note():
+    """_set_universal_values() must pull altGameNote from the matched
+    competition (not some other competition in the event) into
+    self._values.alt_game_note, since finalize_sensor_values() relies on it
+    being set by the time it runs."""
+
+    parser = EspnAllParser(None)
+    parser._sensor_name = "test"
+    parser._values.state = "PRE"
+
+    event = {
+        "date": "2026-08-26T18:45Z",
+        "competitions": [
+            {
+                "altGameNote": "Carabao Cup, Second Round",
+                "date": "2026-08-26T18:45Z",
+                "competitors": [
+                    {"id": "367", "type": "team"},
+                    {"id": "1", "type": "team"},
+                ],
+                "status": {"type": {"state": "pre"}},
+            }
+        ]
+    }
+
+    rc = parser._set_universal_values(event, -1, 0, 0)
+
+    assert rc is True
+    assert parser._values.alt_game_note == "Carabao Cup, Second Round"
 
 
 #@pytest.mark.parametrize("expected_lingering_timers", [True])
