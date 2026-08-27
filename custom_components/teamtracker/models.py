@@ -15,6 +15,7 @@ class TeamTrackerValues:
     league_logo: str | None = MISSING
     league_name: str | None = MISSING
     season: str | None = MISSING
+    alt_game_note: str | None = MISSING
     
     # Event Details
     team_abbr: str | None = MISSING
