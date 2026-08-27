@@ -24,12 +24,12 @@
   "cflscoreboard": {
     "cfl": {
       "league_name": "Canadian Football League",
-      "league_logo": "https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png",
+      "league_logo": "https://1000logos.net/wp-content/uploads/2019/02/CFL-Logo-SVG_001.svg",
       "event_url": "https://www.cfl.ca/games/{event_id}",
       "teams": {
         "83579": {
           "name": "Tiger-Cats",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/83579.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/83579.svg",
           "url": "https://ticats.ca",
           "colors": [
             "#FFB612",
@@ -38,7 +38,7 @@
         },
         "86680": {
           "name": "Alouettes",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/86680.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/86680.svg",
           "url": "https://www.montrealalouettes.com",
           "colors": [
             "#021D49",
@@ -47,7 +47,7 @@
         },
         "88019": {
           "name": "RedBlacks",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/88019.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/88019.svg",
           "url": "https://www.ottawaredblacks.com",
           "colors": [
             "#C8102E",
@@ -56,7 +56,7 @@
         },
         "93775": {
           "name": "Lions",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/93775.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/93775.svg",
           "url": "https://www.bclions.com",
           "colors": [
             "#F15A22",
@@ -65,7 +65,7 @@
         },
         "106752": {
           "name": "Roughriders",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/106752.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/106752.svg",
           "url": "https://www.riderville.com",
           "colors": [
             "#006341",
@@ -74,7 +74,7 @@
         },
         "110380": {
           "name": "Blue Bombers",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/110380.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/110380.svg",
           "url": "https://www.bluebombers.com",
           "colors": [
             "#041E42",
@@ -83,7 +83,7 @@
         },
         "112939": {
           "name": "Stampeders",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/112939.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/112939.svg",
           "url": "https://www.stampeders.com",
           "colors": [
             "#C8102E",
@@ -92,7 +92,7 @@
         },
         "114347": {
           "name": "Elks",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/114347.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/114347.svg",
           "url": "https://www.goelks.com",
           "colors": [
             "#006341",
@@ -101,7 +101,7 @@
         },
         "122345": {
           "name": "Argonauts",
-          "logo": "https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/122345.svg",
+          "logo": "https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/122345.svg",
           "url": "https://www.argonauts.ca",
           "colors": [
             "#5F259F",

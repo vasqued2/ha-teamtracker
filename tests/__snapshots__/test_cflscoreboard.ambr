@@ -1,6 +1,7 @@
 # serializer version: 1
 # name: test_cflscoreboard[api_error_invalid_league]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://cflscoreboard.cfl.ca/json/scoreboard/rounds.json',
     'attribution': 'Data provided by cflscoreboard.cfl.ca',
@@ -85,6 +86,7 @@
 # ---
 # name: test_cflscoreboard[test_in]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://cflscoreboard.cfl.ca/json/scoreboard/rounds.json',
     'attribution': 'Data provided by cflscoreboard.cfl.ca',
@@ -100,7 +102,7 @@
     'icon': 'mdi:scoreboard',
     'last_play': None,
     'league': 'XXX',
-    'league_logo': 'https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png',
+    'league_logo': 'https://1000logos.net/wp-content/uploads/2019/02/CFL-Logo-SVG_001.svg',
     'league_name': 'Canadian Football League',
     'league_path': 'cfl',
     'location': None,
@@ -116,7 +118,7 @@
     'opponent_conference_id': None,
     'opponent_homeaway': 'home',
     'opponent_id': '93775',
-    'opponent_logo': 'https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/93775.svg',
+    'opponent_logo': 'https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/93775.svg',
     'opponent_long_name': 'BC Lions',
     'opponent_name': 'Lions',
     'opponent_rank': None,
@@ -149,7 +151,7 @@
     'team_conference_id': None,
     'team_homeaway': 'away',
     'team_id': '114347',
-    'team_logo': 'https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/114347.svg',
+    'team_logo': 'https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/114347.svg',
     'team_long_name': 'Edmonton Elks',
     'team_name': 'Elks',
     'team_rank': None,
@@ -169,6 +171,7 @@
 # ---
 # name: test_cflscoreboard[test_invalid_team]
   dict({
+    'alt_game_note': None,
     'api_message': "No competition scheduled for 'INVALID_TEAM_ID' in CFL 'Preseason Week 2' between 2026-05-22T00:00Z and 2026-05-23T23:59Z",
     'api_url': 'https://cflscoreboard.cfl.ca/json/scoreboard/rounds.json',
     'attribution': 'Data provided by cflscoreboard.cfl.ca',
@@ -184,7 +187,7 @@
     'icon': 'mdi:scoreboard',
     'last_play': None,
     'league': 'XXX',
-    'league_logo': 'https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png',
+    'league_logo': 'https://1000logos.net/wp-content/uploads/2019/02/CFL-Logo-SVG_001.svg',
     'league_name': 'Canadian Football League',
     'league_path': 'cfl',
     'location': None,
@@ -247,6 +250,7 @@
 # ---
 # name: test_cflscoreboard[test_post]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://cflscoreboard.cfl.ca/json/scoreboard/rounds.json',
     'attribution': 'Data provided by cflscoreboard.cfl.ca',
@@ -262,7 +266,7 @@
     'icon': 'mdi:scoreboard',
     'last_play': None,
     'league': 'XXX',
-    'league_logo': 'https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png',
+    'league_logo': 'https://1000logos.net/wp-content/uploads/2019/02/CFL-Logo-SVG_001.svg',
     'league_name': 'Canadian Football League',
     'league_path': 'cfl',
     'location': None,
@@ -278,7 +282,7 @@
     'opponent_conference_id': None,
     'opponent_homeaway': 'home',
     'opponent_id': '86680',
-    'opponent_logo': 'https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/86680.svg',
+    'opponent_logo': 'https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/86680.svg',
     'opponent_long_name': 'Montreal Alouettes',
     'opponent_name': 'Alouettes',
     'opponent_rank': None,
@@ -311,7 +315,7 @@
     'team_conference_id': None,
     'team_homeaway': 'away',
     'team_id': '88019',
-    'team_logo': 'https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/88019.svg',
+    'team_logo': 'https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/88019.svg',
     'team_long_name': 'Ottawa RedBlacks',
     'team_name': 'RedBlacks',
     'team_rank': None,
@@ -331,6 +335,7 @@
 # ---
 # name: test_cflscoreboard[test_pre]
   dict({
+    'alt_game_note': None,
     'api_message': None,
     'api_url': 'https://cflscoreboard.cfl.ca/json/scoreboard/rounds.json',
     'attribution': 'Data provided by cflscoreboard.cfl.ca',
@@ -346,7 +351,7 @@
     'icon': 'mdi:scoreboard',
     'last_play': None,
     'league': 'XXX',
-    'league_logo': 'https://1000logos.net/wp-content/uploads/2021/06/Canadian-Football-League-CFL-logo-500x281.png',
+    'league_logo': 'https://1000logos.net/wp-content/uploads/2019/02/CFL-Logo-SVG_001.svg',
     'league_name': 'Canadian Football League',
     'league_path': 'cfl',
     'location': None,
@@ -362,7 +367,7 @@
     'opponent_conference_id': None,
     'opponent_homeaway': 'away',
     'opponent_id': '110380',
-    'opponent_logo': 'https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/110380.svg',
+    'opponent_logo': 'https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/110380.svg',
     'opponent_long_name': 'Winnipeg Blue Bombers',
     'opponent_name': 'Blue Bombers',
     'opponent_rank': None,
@@ -395,7 +400,7 @@
     'team_conference_id': None,
     'team_homeaway': 'home',
     'team_id': '106752',
-    'team_logo': 'https://gsm-shared-assets.betstream.betgenius.com/shared/assets/sports/american-football/competitors/logos/svg/106752.svg',
+    'team_logo': 'https://gsm-widgets.betstream.betgenius.com/img/competitions/cfl/competitors-logos/dark/106752.svg',
     'team_long_name': 'Saskatchewan Roughriders',
     'team_name': 'Roughriders',
     'team_rank': None,
