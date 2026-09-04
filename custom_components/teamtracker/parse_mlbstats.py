@@ -19,6 +19,21 @@ if TYPE_CHECKING:
 _LOGGER = logging.getLogger(__name__)
 DEFAULT_COLORS = ["#D3D3D3", "#A9A9A9"]
 
+# MLB Stats `gameType` code -> readable name (see /api/v1/gameTypes)
+GAME_TYPE_NAMES = {
+    "S": "Spring Training",
+    "R": "Regular Season",
+    "F": "Wild Card",
+    "D": "Division Series",
+    "L": "League Championship Series",
+    "W": "World Series",
+    "C": "Championship",
+    "P": "Postseason",
+    "A": "All-Star Game",
+    "I": "Intrasquad",
+    "E": "Exhibition",
+}
+
 
 #
 #  MlbStatsParser()
@@ -246,7 +261,9 @@ class MlbStatsParser(BaseSportParser):
         else:
             self._values.state = "POST"
 
-        self._values.season = get_value(game, "gameType", default="")
+        self._values.season = self._season_name(
+            get_value(game, "seriesDescription"), get_value(game, "gameType", default="")
+        )
 
         self._values.team_id = str(get_value(game, "teams", team_side, "team", "id", default=""))
         self._values.opponent_id = str(get_value(game, "teams", opponent_side, "team", "id", default=""))
@@ -282,10 +299,16 @@ class MlbStatsParser(BaseSportParser):
                 )
             except:
                 self._values.kickoff_in = arrow.get(self._values.date).humanize()
-        self._values.series_summary = None
+        self._values.series_summary = get_value(game, "seriesStatus", "result", default=None)
         self._values.venue = get_value(game, "venue", "name", default=None)
-        self._values.location = None
-        self._values.tv_network = None
+        self._values.location = self._format_location(
+            get_value(game, "venue", "location", "city", default=""),
+            get_value(game, "venue", "location", "stateAbbrev", default=""),
+            get_value(game, "venue", "location", "country", default=""),
+        )
+        self._values.tv_network = self._tv_network(
+            get_value(game, "broadcasts", default=[]), team_side
+        )
         self._values.odds = None
         self._values.overunder = None
 
@@ -386,7 +409,10 @@ class MlbStatsParser(BaseSportParser):
             opponent_side = "away"
 
         self._values.state = "IN"
-        self._values.season = get_value(game, "gameData", "game", "type", default="")
+        self._values.season = self._season_name(
+            get_value(game, "gameData", "game", "seriesDescription"),
+            get_value(game, "gameData", "game", "type", default=""),
+        )
 
         # Event Details
         self._values.team_abbr = get_value(game, "gameData", "teams", team_side, "abbreviation", default="{abbreviation}")
@@ -408,10 +434,11 @@ class MlbStatsParser(BaseSportParser):
                 self._values.kickoff_in = arrow.get(self._values.date).humanize()
         self._values.series_summary = None
         self._values.venue = get_value(game, "gameData", "venue", "name", default="")
-        city = get_value(game, "gameData", "venue", "location", "city", default="")
-        state = get_value(game, "gameData", "venue", "location", "stateAbbrev", default="")
-        country = get_value(game, "gameData", "venue", "location", "country", default="")
-        self._values.location = f"{city}, {state}, {country}"
+        self._values.location = self._format_location(
+            get_value(game, "gameData", "venue", "location", "city", default=""),
+            get_value(game, "gameData", "venue", "location", "stateAbbrev", default=""),
+            get_value(game, "gameData", "venue", "location", "country", default=""),
+        )
         self._values.tv_network = None
         self._values.odds = None
         self._values.overunder = None
@@ -550,5 +577,40 @@ class MlbStatsParser(BaseSportParser):
             self._values.last_play = get_value(last_play, "result", "description", default=None)
 
         return True
+
+
+    #
+    #  Helpers
+    #
+    @staticmethod
+    def _season_name(description, code) -> str:
+        """Return a readable season/game-type name."""
+        if description:
+            return str(description)
+        return GAME_TYPE_NAMES.get(code, code or "")
+
+
+    @staticmethod
+    def _format_location(city, state, country) -> str | None:
+        """Join the non-empty parts of a venue location, e.g. 'San Diego, CA, USA'."""
+        parts = [str(p) for p in (city, state, country) if p]
+        return ", ".join(parts) if parts else None
+
+
+    @staticmethod
+    def _tv_network(broadcasts, team_side) -> str | None:
+        """Return a '/'-joined list of TV networks - national feeds first, then the tracked team's."""
+        names: list[str] = []
+        for national in (True, False):
+            for b in broadcasts or []:
+                if str(b.get("type", "")).upper() != "TV" or not b.get("name"):
+                    continue
+                if bool(b.get("isNational")) is not national:
+                    continue
+                if not national and b.get("homeAway") != team_side:
+                    continue
+                if b["name"] not in names:
+                    names.append(b["name"])
+        return "/".join(names) if names else None
 
 
