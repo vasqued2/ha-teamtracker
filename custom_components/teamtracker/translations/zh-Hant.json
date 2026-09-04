@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "請輸入要搜尋的球隊或運動員。",
+      "no_competitors_found": "在所選運動項目中找不到符合的參賽者。"
+    },
+    "step": {
+      "user": {
+        "title": "選擇運動項目",
+        "description": "選擇運動項目，然後搜尋球隊或運動員。",
+        "data": {
+          "sport": "運動項目"
+        }
+      },
+      "search": {
+        "title": "搜尋參賽者",
+        "description": "搜尋球隊或運動員。結果僅限於所選運動項目。",
+        "data": {
+          "search_competitor": "球隊或運動員名稱"
+        }
+      },
+      "select_competitor": {
+        "title": "選擇參賽者",
+        "description": "從搜尋結果中選擇正確的球隊或運動員。",
+        "data": {
+          "competitor": "球隊或運動員"
+        }
+      },
+      "competition": {
+        "title": "選擇賽事",
+        "description": "追蹤 {competitor_name} 的所有賽事，或僅追蹤一個已驗證賽事。",
+        "data": {
+          "competition": "賽事"
+        }
+      },
+      "custom_api": {
+        "title": "進階 / 自訂 API",
+        "description": "手動輸入 ESPN API 路徑。若要追蹤所有賽事，請將聯賽路徑設為 'all'。",
+        "data": {
+          "sport_path": "運動路徑",
+          "league_path": "聯賽路徑",
+          "team_id": "球隊/運動員 ID 或搜尋值",
+          "conference_id": "聯盟編號（選填）",
+          "name": "顯示名稱（選填）"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "美式足球",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "賽車運動",
+        "rugby": "Rugby",
+        "soccer": "足球",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "進階 / 自訂 API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "所有賽事"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker 選項",
+        "description": "輸入 ESPN API 呼叫使用的 2 字元語言代碼。",
+        "data": {
+          "api_language": "API 語言"
+        }
+      }
+    }
+  }
+}

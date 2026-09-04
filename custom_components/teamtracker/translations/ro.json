@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Introduceți o echipă sau un sportiv pentru căutare.",
+      "no_competitors_found": "Nu a fost găsită nicio echipă sau niciun sportiv corespunzător în sportul selectat."
+    },
+    "step": {
+      "user": {
+        "title": "Selectați sportul",
+        "description": "Alegeți sportul, apoi căutați o echipă sau un sportiv.",
+        "data": {
+          "sport": "Sport"
+        }
+      },
+      "search": {
+        "title": "Căutați echipă sau sportiv",
+        "description": "Căutați o echipă sau un sportiv. Rezultatele sunt limitate la sportul selectat.",
+        "data": {
+          "search_competitor": "Numele echipei sau sportivului"
+        }
+      },
+      "select_competitor": {
+        "title": "Selectați echipa sau sportivul",
+        "description": "Alegeți echipa sau sportivul corect din rezultatele căutării.",
+        "data": {
+          "competitor": "Echipă sau sportiv"
+        }
+      },
+      "competition": {
+        "title": "Selectați competiția",
+        "description": "Urmăriți {competitor_name} în toate competițiile sau limitați urmărirea la o singură competiție verificată.",
+        "data": {
+          "competition": "Competiție"
+        }
+      },
+      "custom_api": {
+        "title": "Avansat / API personalizat",
+        "description": "Introduceți manual căile ESPN API. Folosiți calea ligii 'all' pentru urmărire universală.",
+        "data": {
+          "sport_path": "Calea sportului",
+          "league_path": "Calea ligii",
+          "team_id": "ID echipă / sportiv sau valoare de căutare",
+          "conference_id": "Numărul conferinței (opțional)",
+          "name": "Nume prietenos (opțional)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Fotbal australian",
+        "baseball": "Baseball",
+        "basketball": "Baschet",
+        "football": "Fotbal american",
+        "golf": "Golf",
+        "hockey": "Hochei",
+        "mma": "MMA",
+        "racing": "Automobilism",
+        "rugby": "Rugby",
+        "soccer": "Fotbal",
+        "tennis": "Tenis",
+        "volleyball": "Volei",
+        "custom_api": "Avansat / API personalizat"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Toate competițiile"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opțiuni Team Tracker",
+        "description": "Introduceți codul de limbă din 2 caractere pentru apelurile ESPN API.",
+        "data": {
+          "api_language": "Limba API"
+        }
+      }
+    }
+  }
+}

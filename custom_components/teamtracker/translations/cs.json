@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Zadejte tým nebo sportovce k vyhledání.",
+      "no_competitors_found": "Ve vybraném sportu nebyl nalezen odpovídající účastník."
+    },
+    "step": {
+      "user": {
+        "title": "Vybrat sport",
+        "description": "Vyberte sport a poté vyhledejte tým nebo sportovce.",
+        "data": {
+          "sport": "Sport"
+        }
+      },
+      "search": {
+        "title": "Vyhledat účastníka",
+        "description": "Vyhledejte tým nebo sportovce. Výsledky jsou omezeny na vybraný sport.",
+        "data": {
+          "search_competitor": "Název týmu nebo sportovce"
+        }
+      },
+      "select_competitor": {
+        "title": "Vybrat účastníka",
+        "description": "Vyberte správný tým nebo sportovce z výsledků.",
+        "data": {
+          "competitor": "Tým nebo sportovec"
+        }
+      },
+      "competition": {
+        "title": "Vybrat soutěž",
+        "description": "Sledujte {competitor_name} ve všech soutěžích nebo omezte sledování na jednu ověřenou soutěž.",
+        "data": {
+          "competition": "Soutěž"
+        }
+      },
+      "custom_api": {
+        "title": "Pokročilé / Vlastní API",
+        "description": "Zadejte cesty API ESPN ručně. Pro univerzální sledování použijte jako cestu ligy 'all'.",
+        "data": {
+          "sport_path": "Cesta sportu",
+          "league_path": "Cesta ligy",
+          "team_id": "ID týmu/sportovce nebo hledaná hodnota",
+          "conference_id": "Číslo konference (volitelné)",
+          "name": "Přátelský název (volitelné)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Americký fotbal",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Motoristický sport",
+        "rugby": "Rugby",
+        "soccer": "Fotbal",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Pokročilé / Vlastní API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Všechny soutěže"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Možnosti Team Tracker",
+        "description": "Zadejte dvoupísmenný kód jazyka pro volání API ESPN.",
+        "data": {
+          "api_language": "Jazyk API"
+        }
+      }
+    }
+  }
+}
