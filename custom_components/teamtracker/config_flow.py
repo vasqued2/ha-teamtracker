@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
+import re
 from typing import Any
+from urllib.parse import unquote
 
 import voluptuous as vol
 
@@ -11,6 +14,7 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
     CONF_API_LANGUAGE,
@@ -27,6 +31,9 @@ from .provider_base import BaseSportProvider
 from .provider_factory import get_provider
 
 _LOGGER = logging.getLogger(__name__)
+
+ESPN_CORE_BASE_URL = "https://sports.core.api.espn.com"
+ESPN_SITE_BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 
 
 # Sport groups: key → (display_name, {league_id: display_label})
@@ -130,6 +137,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
         self._all_teams: list[dict] = []
         self._search_results: dict[str, str] = {}
         self._team_meta: dict[str, dict] = {}
+        self._soccer_all_team_cache: list[dict] | None = None
         self._errors: dict[str, str] = {}
         self._entry_data: dict[str, Any] = {}
         self._provider: BaseSportProvider | None= None
@@ -223,6 +231,135 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
             description_placeholders={"sport_name": sport_name},
         )
 
+    @staticmethod
+    def _soccer_teams_from_payload(payload: dict) -> list[dict]:
+        """Extract canonical teams from one ESPN soccer league response."""
+        teams: dict[str, dict] = {}
+        for sport in payload.get("sports") or []:
+            if not isinstance(sport, dict):
+                continue
+            for league in sport.get("leagues") or []:
+                if not isinstance(league, dict):
+                    continue
+                for wrapper in league.get("teams") or []:
+                    if not isinstance(wrapper, dict):
+                        continue
+                    team = (
+                        wrapper.get("team")
+                        if isinstance(wrapper.get("team"), dict)
+                        else wrapper
+                    )
+                    team_id = str(team.get("id") or "").strip()
+                    display_name = str(
+                        team.get("displayName") or team.get("name") or ""
+                    ).strip()
+                    if not team_id or not display_name:
+                        continue
+                    teams[team_id] = {
+                        "id": team_id,
+                        "displayName": display_name,
+                        "abbreviation": str(team.get("abbreviation") or "").strip(),
+                        "location": str(team.get("location") or "").strip(),
+                    }
+        return list(teams.values())
+
+    async def _async_soccer_all_league_paths(self) -> list[str]:
+        """Discover real ESPN soccer leagues instead of using /soccer/all/teams."""
+        paths: set[str] = set()
+
+        # Keep Team Tracker's known soccer leagues as a fallback if the live
+        # catalog is temporarily incomplete, but never treat "all" as a league.
+        for values in NATIVE_LEAGUES.values():
+            if values.get(CONF_SPORT_PATH) != "soccer":
+                continue
+            league_path = str(values.get(CONF_LEAGUE_PATH) or "").strip()
+            if league_path and league_path != "all":
+                paths.add(league_path)
+
+        session = async_get_clientsession(self.hass)
+        url = f"{ESPN_CORE_BASE_URL}/v2/sports/soccer/leagues"
+        try:
+            async with session.get(url, params={"limit": "1000"}) as response:
+                if response.status != 200:
+                    _LOGGER.debug(
+                        "ESPN soccer league catalog returned HTTP %s",
+                        response.status,
+                    )
+                    return sorted(paths)
+                payload = await response.json(content_type=None)
+        except Exception as err:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug("Could not discover ESPN soccer league catalog: %s", err)
+            return sorted(paths)
+
+        if isinstance(payload, dict):
+            for item in payload.get("items") or []:
+                if not isinstance(item, dict):
+                    continue
+                league_path = str(item.get("slug") or "").strip()
+                ref = str(item.get("$ref") or "")
+                if not league_path and ref:
+                    match = re.search(r"/leagues/([^/?#]+)", ref)
+                    if match:
+                        league_path = unquote(match.group(1))
+                if league_path and league_path != "all":
+                    paths.add(league_path)
+
+        return sorted(paths)
+
+    async def _async_fetch_soccer_league_teams(
+        self, league_path: str
+    ) -> list[dict]:
+        """Fetch one real ESPN soccer league team collection."""
+        session = async_get_clientsession(self.hass)
+        url = f"{ESPN_SITE_BASE_URL}/soccer/{league_path}/teams"
+        try:
+            async with session.get(url, params={"limit": "1000"}) as response:
+                if response.status != 200:
+                    return []
+                payload = await response.json(content_type=None)
+        except Exception as err:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug(
+                "Could not fetch ESPN soccer teams for %s: %s",
+                league_path,
+                err,
+            )
+            return []
+
+        if not isinstance(payload, dict):
+            return []
+        return self._soccer_teams_from_payload(payload)
+
+    async def _async_get_soccer_all_teams(self) -> list[dict]:
+        """Merge real soccer league collections by canonical ESPN team ID."""
+        if self._soccer_all_team_cache is not None:
+            return self._soccer_all_team_cache
+
+        league_paths = await self._async_soccer_all_league_paths()
+        semaphore = asyncio.Semaphore(12)
+
+        async def fetch(league_path: str) -> list[dict]:
+            async with semaphore:
+                return await self._async_fetch_soccer_league_teams(league_path)
+
+        responses = await asyncio.gather(
+            *(fetch(league_path) for league_path in league_paths)
+        )
+
+        teams: dict[str, dict] = {}
+        for response in responses:
+            for team in response:
+                team_id = str(team.get("id") or "").strip()
+                if team_id:
+                    teams.setdefault(team_id, team)
+
+        result = sorted(
+            teams.values(),
+            key=lambda team: str(team.get("displayName") or "").casefold(),
+        )
+        if result:
+            self._soccer_all_team_cache = result
+        return result
+
     # ------------------------------------------------------------------ #
     #  Step 3: search team (ESPN link always correct here)                #
     # ------------------------------------------------------------------ #
@@ -238,12 +375,21 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
             return await self.async_step_manual_athlete(user_input=None)
 
         if user_input is not None:
-            provider = get_provider(self._sport_path, self._league_path)
-            self._provider = provider
             search_term = user_input.get("search_team", "").strip().lower()
             if search_term:
-                response = await provider.async_get_team_data(self.hass, self._sport_path, self._league_path)
-                self._all_teams = response["data"]
+                if self._sport_path == "soccer" and self._league_path == "all":
+                    # ESPN does not expose a usable /soccer/all/teams collection.
+                    # Discover actual league collections and merge teams by ID.
+                    self._all_teams = await self._async_get_soccer_all_teams()
+                else:
+                    provider = get_provider(self._sport_path, self._league_path)
+                    self._provider = provider
+                    response = await provider.async_get_team_data(
+                        self.hass,
+                        self._sport_path,
+                        self._league_path,
+                    )
+                    self._all_teams = response["data"]
                 if not self._all_teams:
                     self._errors["base"] = "cannot_fetch_teams"
                 else:

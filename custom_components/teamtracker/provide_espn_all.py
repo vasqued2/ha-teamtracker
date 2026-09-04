@@ -133,6 +133,17 @@ class EspnAllLeaguesProvider(EspnProvider):
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
 
+        # ESPN's sport-wide /all scoreboard can omit a team's competition even
+        # though the already-fetched team schedule contains the full event.
+        # Reuse that cached response only when /all still does not contain the
+        # configured team, and restrict it to the same requested date window.
+        if has_team(response.get("data"), team_id) is False:
+            schedule_response = self._schedule_response_for_dates(
+                schedule_info, url_parms["dates"]
+            )
+            if schedule_response and has_team(schedule_response.get("data"), team_id):
+                response = schedule_response
+
         # Add required lookup tables
         if "team_list" not in self.lookups:
             teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
@@ -142,6 +153,38 @@ class EspnAllLeaguesProvider(EspnProvider):
 
 
         return response
+
+
+    @staticmethod
+    def _schedule_response_for_dates(schedule_info, date_range):
+        """Return cached team-schedule events inside the requested date range."""
+        if not schedule_info:
+            return None
+
+        schedule_response = schedule_info.get("schedule_response")
+        schedule_data = schedule_response.get("data") if schedule_response else None
+        if not schedule_data:
+            return None
+
+        try:
+            start_date, end_date = date_range.split("-", 1)
+        except (AttributeError, ValueError):
+            return None
+
+        events = []
+        for event in schedule_data.get("events", []):
+            event_date = str(event.get("date", ""))[:10].replace("-", "")
+            if len(event_date) == 8 and start_date <= event_date <= end_date:
+                events.append(event)
+
+        if not events:
+            return None
+
+        fallback_response = dict(schedule_response)
+        fallback_data = dict(schedule_data)
+        fallback_data["events"] = events
+        fallback_response["data"] = fallback_data
+        return fallback_response
 
 
     #
@@ -210,6 +253,7 @@ class EspnAllLeaguesProvider(EspnProvider):
             "next_game_date": next_game_date,
             "derived_league_name": derived_league_name,
             "expires": next_game_date or today,
+            "schedule_response": response,
         }
         self.instance_cache[self.TEAM_SCHEDULE_KEY] = result
         return result
