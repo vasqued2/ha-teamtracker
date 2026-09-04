@@ -62,26 +62,81 @@ async def test_soccer_all_discovery_merges_duplicate_ids():
 
 
 @pytest.mark.asyncio
-async def test_custom_api_soccer_all_search_uses_discovered_teams():
+async def test_guided_soccer_search_uses_discovered_leagues():
+    # Guided soccer search must use ESPN's discovered league collections.
     flow = TeamTrackerScoresFlowHandler()
-    flow._sport_key = "XXX"
-    flow._league_id = "XXX"
     flow._sport_path = "soccer"
-    flow._league_path = "all"
-    flow._async_get_soccer_all_teams = AsyncMock(
-        return_value=[OLYMPIACOS, PAOK]
+
+    flow._async_soccer_all_league_paths = AsyncMock(
+        return_value=["gre.1", "ger.1"]
     )
-    flow.async_step_select_team = AsyncMock(return_value={"type": "form"})
 
-    with patch(
-        "custom_components.teamtracker.config_flow.get_provider"
-    ) as get_provider_mock:
-        result = await flow.async_step_search({"search_team": "olympiacos"})
+    async def fake_json(url, params=None):
+        if "/soccer/gre.1/teams" in url:
+            return {
+                "sports": [
+                    {
+                        "leagues": [
+                            {
+                                "name": "Greek Super League",
+                                "teams": [
+                                    {
+                                        "team": {
+                                            "id": "435",
+                                            "displayName": "Olympiacos",
+                                            "abbreviation": "OLY",
+                                            "location": "Piraeus",
+                                        }
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                ]
+            }
 
-    get_provider_mock.assert_not_called()
-    flow._async_get_soccer_all_teams.assert_awaited_once()
-    assert flow._search_results == {
-        "435": "Olympiacos (OLY - 435)",
+        if "/soccer/ger.1/teams" in url:
+            return {
+                "sports": [
+                    {
+                        "leagues": [
+                            {
+                                "name": "Bundesliga",
+                                "teams": [
+                                    {
+                                        "team": {
+                                            "id": "124",
+                                            "displayName": "Borussia Dortmund",
+                                            "abbreviation": "DOR",
+                                            "location": "Dortmund",
+                                        }
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        return None
+
+    flow._json = AsyncMock(side_effect=fake_json)
+
+    result = await flow._search_team_sport("olympiacos")
+
+    flow._async_soccer_all_league_paths.assert_awaited_once()
+
+    requested_urls = [
+        call.args[0]
+        for call in flow._json.await_args_list
+        if call.args
+    ]
+    assert any("/soccer/gre.1/teams" in url for url in requested_urls)
+    assert any("/soccer/ger.1/teams" in url for url in requested_urls)
+
+    assert [(item["id"], item["displayName"]) for item in result] == [
+        ("435", "Olympiacos")
+    ]
+    assert result[0]["competitions"] == {
+        "gre.1": "Greek Super League"
     }
-    assert flow._team_meta == {"435": OLYMPIACOS}
-    assert result == {"type": "form"}

@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Aramak için bir takım veya sporcu girin.",
+      "no_competitors_found": "Seçilen sporda eşleşen bir katılımcı bulunamadı."
+    },
+    "step": {
+      "user": {
+        "title": "Spor seç",
+        "description": "Sporu seçin, ardından bir takım veya sporcu arayın.",
+        "data": {
+          "sport": "Spor"
+        }
+      },
+      "search": {
+        "title": "Katılımcı ara",
+        "description": "Bir takım veya sporcu arayın. Sonuçlar seçilen sporla sınırlandırılır.",
+        "data": {
+          "search_competitor": "Takım veya sporcu adı"
+        }
+      },
+      "select_competitor": {
+        "title": "Katılımcı seç",
+        "description": "Arama sonuçlarından doğru takım veya sporcuyu seçin.",
+        "data": {
+          "competitor": "Takım veya sporcu"
+        }
+      },
+      "competition": {
+        "title": "Müsabaka seç",
+        "description": "{competitor_name} için tüm müsabakaları takip edin veya takibi doğrulanmış tek bir müsabakayla sınırlandırın.",
+        "data": {
+          "competition": "Müsabaka"
+        }
+      },
+      "custom_api": {
+        "title": "Gelişmiş / Özel API",
+        "description": "ESPN API yollarını elle girin. Evrensel takip için lig yolu olarak 'all' kullanın.",
+        "data": {
+          "sport_path": "Spor yolu",
+          "league_path": "Lig yolu",
+          "team_id": "Takım/sporcu kimliği veya arama değeri",
+          "conference_id": "Conference numarası (isteğe bağlı)",
+          "name": "Görünen ad (isteğe bağlı)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Amerikan futbolu",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Motor sporları",
+        "rugby": "Rugby",
+        "soccer": "Futbol",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Gelişmiş / Özel API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Tüm müsabakalar"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker seçenekleri",
+        "description": "ESPN API çağrıları için 2 karakterli dil kodunu girin.",
+        "data": {
+          "api_language": "API dili"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Введите команду или спортсмена для поиска.",
+      "no_competitors_found": "В выбранном виде спорта не найден подходящий участник."
+    },
+    "step": {
+      "user": {
+        "title": "Выберите вид спорта",
+        "description": "Выберите вид спорта, затем найдите команду или спортсмена.",
+        "data": {
+          "sport": "Вид спорта"
+        }
+      },
+      "search": {
+        "title": "Поиск участника",
+        "description": "Найдите команду или спортсмена. Результаты ограничены выбранным видом спорта.",
+        "data": {
+          "search_competitor": "Название команды или имя спортсмена"
+        }
+      },
+      "select_competitor": {
+        "title": "Выберите участника",
+        "description": "Выберите нужную команду или спортсмена из результатов.",
+        "data": {
+          "competitor": "Команда или спортсмен"
+        }
+      },
+      "competition": {
+        "title": "Выберите соревнование",
+        "description": "Следите за {competitor_name} во всех соревнованиях или ограничьте отслеживание одним подтверждённым соревнованием.",
+        "data": {
+          "competition": "Соревнование"
+        }
+      },
+      "custom_api": {
+        "title": "Расширенные настройки / Пользовательский API",
+        "description": "Введите пути ESPN API вручную. Для универсального отслеживания используйте 'all' как путь лиги.",
+        "data": {
+          "sport_path": "Путь вида спорта",
+          "league_path": "Путь лиги",
+          "team_id": "ID команды/спортсмена или поисковое значение",
+          "conference_id": "Номер конференции (необязательно)",
+          "name": "Отображаемое имя (необязательно)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Американский футбол",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Автоспорт",
+        "rugby": "Rugby",
+        "soccer": "Футбол",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Расширенные настройки / Пользовательский API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Все соревнования"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Параметры Team Tracker",
+        "description": "Введите 2-символьный код языка для запросов ESPN API.",
+        "data": {
+          "api_language": "Язык API"
+        }
+      }
+    }
+  }
+}

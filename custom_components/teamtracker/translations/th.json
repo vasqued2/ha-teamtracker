@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "ป้อนทีมหรือนักกีฬาเพื่อค้นหา",
+      "no_competitors_found": "ไม่พบทีมหรือนักกีฬาที่ตรงกันในกีฬาที่เลือก"
+    },
+    "step": {
+      "user": {
+        "title": "เลือกกีฬา",
+        "description": "เลือกกีฬา แล้วค้นหาทีมหรือนักกีฬา",
+        "data": {
+          "sport": "กีฬา"
+        }
+      },
+      "search": {
+        "title": "ค้นหาทีมหรือนักกีฬา",
+        "description": "ค้นหาทีมหรือนักกีฬา ผลลัพธ์จะจำกัดเฉพาะกีฬาที่เลือก",
+        "data": {
+          "search_competitor": "ชื่อทีมหรือนักกีฬา"
+        }
+      },
+      "select_competitor": {
+        "title": "เลือกทีมหรือนักกีฬา",
+        "description": "เลือกทีมหรือนักกีฬาที่ถูกต้องจากผลการค้นหา",
+        "data": {
+          "competitor": "ทีมหรือนักกีฬา"
+        }
+      },
+      "competition": {
+        "title": "เลือกการแข่งขัน",
+        "description": "ติดตาม {competitor_name} ในทุกการแข่งขัน หรือจำกัดการติดตามไว้ที่การแข่งขันที่ยืนยันแล้วหนึ่งรายการ",
+        "data": {
+          "competition": "การแข่งขัน"
+        }
+      },
+      "custom_api": {
+        "title": "ขั้นสูง / API กำหนดเอง",
+        "description": "ป้อนเส้นทาง ESPN API ด้วยตนเอง ใช้เส้นทางลีก 'all' สำหรับการติดตามแบบครอบคลุม",
+        "data": {
+          "sport_path": "เส้นทางกีฬา",
+          "league_path": "เส้นทางลีก",
+          "team_id": "ID ทีม / นักกีฬา หรือค่าค้นหา",
+          "conference_id": "หมายเลขคอนเฟอเรนซ์ (ไม่บังคับ)",
+          "name": "ชื่อที่แสดง (ไม่บังคับ)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "ออสเตรเลียนฟุตบอล",
+        "baseball": "เบสบอล",
+        "basketball": "บาสเกตบอล",
+        "football": "อเมริกันฟุตบอล",
+        "golf": "กอล์ฟ",
+        "hockey": "ฮอกกี้",
+        "mma": "MMA",
+        "racing": "มอเตอร์สปอร์ต",
+        "rugby": "รักบี้",
+        "soccer": "ฟุตบอล",
+        "tennis": "เทนนิส",
+        "volleyball": "วอลเลย์บอล",
+        "custom_api": "ขั้นสูง / API กำหนดเอง"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "การแข่งขันทั้งหมด"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ตัวเลือก Team Tracker",
+        "description": "ป้อนรหัสภาษา 2 ตัวอักษรสำหรับการเรียก ESPN API",
+        "data": {
+          "api_language": "ภาษา API"
+        }
+      }
+    }
+  }
+}

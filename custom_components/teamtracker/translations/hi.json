@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "खोजने के लिए टीम या खिलाड़ी दर्ज करें।",
+      "no_competitors_found": "चुने गए खेल में कोई मेल खाता प्रतिभागी नहीं मिला।"
+    },
+    "step": {
+      "user": {
+        "title": "खेल चुनें",
+        "description": "खेल चुनें, फिर टीम या खिलाड़ी खोजें।",
+        "data": {
+          "sport": "खेल"
+        }
+      },
+      "search": {
+        "title": "प्रतिभागी खोजें",
+        "description": "टीम या खिलाड़ी खोजें। परिणाम केवल चुने गए खेल तक सीमित हैं।",
+        "data": {
+          "search_competitor": "टीम या खिलाड़ी का नाम"
+        }
+      },
+      "select_competitor": {
+        "title": "प्रतिभागी चुनें",
+        "description": "खोज परिणामों से सही टीम या खिलाड़ी चुनें।",
+        "data": {
+          "competitor": "टीम या खिलाड़ी"
+        }
+      },
+      "competition": {
+        "title": "प्रतियोगिता चुनें",
+        "description": "{competitor_name} की सभी प्रतियोगिताओं को ट्रैक करें या ट्रैकिंग को एक सत्यापित प्रतियोगिता तक सीमित करें।",
+        "data": {
+          "competition": "प्रतियोगिता"
+        }
+      },
+      "custom_api": {
+        "title": "उन्नत / कस्टम API",
+        "description": "ESPN API पथ मैन्युअली दर्ज करें। सार्वभौमिक ट्रैकिंग के लिए लीग पथ के रूप में 'all' का उपयोग करें।",
+        "data": {
+          "sport_path": "खेल पथ",
+          "league_path": "लीग पथ",
+          "team_id": "टीम/खिलाड़ी ID या खोज मान",
+          "conference_id": "कॉन्फ़्रेंस संख्या (वैकल्पिक)",
+          "name": "अनुकूल नाम (वैकल्पिक)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "अमेरिकी फुटबॉल",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "मोटरस्पोर्ट",
+        "rugby": "Rugby",
+        "soccer": "फ़ुटबॉल",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "उन्नत / कस्टम API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "सभी प्रतियोगिताएँ"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker विकल्प",
+        "description": "ESPN API कॉल के लिए 2-अक्षर का भाषा कोड दर्ज करें।",
+        "data": {
+          "api_language": "API भाषा"
+        }
+      }
+    }
+  }
+}

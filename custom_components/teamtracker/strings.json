@@ -1,82 +1,82 @@
 {
   "config": {
     "error": {
-      "league": "Invalid league entered.",
-      "cannot_fetch_teams": "Could not fetch teams from ESPN. Check your connection and try again.",
-      "no_teams_found": "No teams found for that search term. Try a different name or leave blank for manual entry."
+      "search_required": "Enter a team or athlete to search for.",
+      "no_competitors_found": "No matching competitor was found in the selected sport."
     },
     "step": {
       "user": {
-        "title": "Select Sport",
-        "description": "Choose the sport for your team or athlete.",
+        "title": "Select sport",
+        "description": "Choose the sport, then search for a team or athlete.",
         "data": {
-          "sport_key": "Sport"
-        }
-      },
-      "league": {
-        "title": "Select League",
-        "description": "Choose the {sport_name} league.",
-        "data": {
-          "league_id": "League"
+          "sport": "Sport"
         }
       },
       "search": {
-        "title": "Search Team",
-        "description": "Type name to search for the {league_name} team, or leave blank to enter the team ID manually.",
+        "title": "Search competitor",
+        "description": "Search for a team or athlete. Results are restricted to the selected sport.",
         "data": {
-          "search_team": "Search team name (optional)"
+          "search_competitor": "Team or athlete name"
         }
       },
-      "select_team": {
-        "title": "Select Team",
-        "description": "Choose your {league_name} team from the search results.",
+      "select_competitor": {
+        "title": "Select competitor",
+        "description": "Choose the correct team or athlete from the search results.",
         "data": {
-          "team_selection": "Team",
-          "name": "Friendly Name (optional)"
+          "competitor": "Team or athlete"
         }
       },
-      "manual_team": {
-        "title": "Manual Team Entry",
-        "description": "Enter the {league_name} team abbreviation or ID number as shown on ESPN, or '*' to match the active/most recent game.",
+      "competition": {
+        "title": "Select competition",
+        "description": "Follow {competitor_name} across all competitions, or restrict tracking to one verified competition.",
         "data": {
-          "team_id": "Team ID",
-          "conference_id": "Conference Number",
-          "name": "Friendly Name"
-        }
-      },
-      "manual_athlete": {
-        "title": "Manual Athlete Entry",
-        "description": "Enter the {league_name} athlete name, a regular expression, or '*' to match the active/most recent game.",
-        "data": {
-          "team_id": "Athlete ID",
-          "conference_id": "Conference Number (NCAA only)",
-          "name": "Friendly Name"
+          "competition": "Competition"
         }
       },
       "custom_api": {
-        "title": "Custom API Configurator",
-        "description": "Enter the 'sport_path' and 'league_path' portion of the ESPN API to configure a custom API",
+        "title": "Advanced / Custom API",
+        "description": "Enter ESPN API paths manually. Use league path 'all' for universal tracking.",
         "data": {
-          "sport_path": "Sport Path",
-          "league_path": "League Path"
+          "sport_path": "Sport path",
+          "league_path": "League path",
+          "team_id": "Team / athlete ID or search value",
+          "conference_id": "Conference number (optional)",
+          "name": "Friendly name (optional)"
         }
-      },
-      "finalize": {
-        "title": "Confirm Name",
-        "description": "Confirm/change the name for the {league_name} {team_name} sensor",
-        "data": {
-          "name": "Friendly Name"
-        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "American Football",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Racing",
+        "rugby": "Rugby",
+        "soccer": "Soccer",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Advanced / Custom API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "All competitions"
       }
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Team Tracker Options",
-        "description": "Enter the 2-character language code to use for the API call.",
+        "title": "Team Tracker options",
+        "description": "Enter the 2-character language code to use for ESPN API calls.",
         "data": {
-          "api_language": "API Language"
+          "api_language": "API language"
         }
       }
     }

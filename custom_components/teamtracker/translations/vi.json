@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Nhập đội hoặc vận động viên để tìm kiếm.",
+      "no_competitors_found": "Không tìm thấy đội hoặc vận động viên phù hợp trong môn thể thao đã chọn."
+    },
+    "step": {
+      "user": {
+        "title": "Chọn môn thể thao",
+        "description": "Chọn môn thể thao, sau đó tìm đội hoặc vận động viên.",
+        "data": {
+          "sport": "Môn thể thao"
+        }
+      },
+      "search": {
+        "title": "Tìm đội hoặc vận động viên",
+        "description": "Tìm đội hoặc vận động viên. Kết quả chỉ giới hạn trong môn thể thao đã chọn.",
+        "data": {
+          "search_competitor": "Tên đội hoặc vận động viên"
+        }
+      },
+      "select_competitor": {
+        "title": "Chọn đội hoặc vận động viên",
+        "description": "Chọn đúng đội hoặc vận động viên từ kết quả tìm kiếm.",
+        "data": {
+          "competitor": "Đội hoặc vận động viên"
+        }
+      },
+      "competition": {
+        "title": "Chọn giải đấu",
+        "description": "Theo dõi {competitor_name} ở tất cả các giải đấu hoặc giới hạn theo dõi ở một giải đấu đã xác minh.",
+        "data": {
+          "competition": "Giải đấu"
+        }
+      },
+      "custom_api": {
+        "title": "Nâng cao / API tùy chỉnh",
+        "description": "Nhập thủ công đường dẫn ESPN API. Dùng đường dẫn giải 'all' để theo dõi toàn bộ.",
+        "data": {
+          "sport_path": "Đường dẫn môn thể thao",
+          "league_path": "Đường dẫn giải",
+          "team_id": "ID đội / vận động viên hoặc giá trị tìm kiếm",
+          "conference_id": "Số conference (tùy chọn)",
+          "name": "Tên hiển thị (tùy chọn)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Bóng bầu dục Úc",
+        "baseball": "Bóng chày",
+        "basketball": "Bóng rổ",
+        "football": "Bóng bầu dục Mỹ",
+        "golf": "Golf",
+        "hockey": "Khúc côn cầu",
+        "mma": "MMA",
+        "racing": "Đua xe",
+        "rugby": "Rugby",
+        "soccer": "Bóng đá",
+        "tennis": "Quần vợt",
+        "volleyball": "Bóng chuyền",
+        "custom_api": "Nâng cao / API tùy chỉnh"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Tất cả giải đấu"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Tùy chọn Team Tracker",
+        "description": "Nhập mã ngôn ngữ 2 ký tự dùng cho các lệnh gọi ESPN API.",
+        "data": {
+          "api_language": "Ngôn ngữ API"
+        }
+      }
+    }
+  }
+}
