@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from copy import deepcopy
-
 import asyncio
 from collections import defaultdict
+from collections.abc import Iterable
+from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from difflib import SequenceMatcher
 import logging
@@ -15,6 +15,7 @@ import unicodedata
 from urllib.parse import unquote
 
 import voluptuous as vol
+from yarl import URL
 
 from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
@@ -93,7 +94,7 @@ def _dropdown(options: list[tuple[str, str]]) -> SelectSelector:
     )
 
 
-def competitor_id(competitor: dict[str, Any]) -> str:
+def _competitor_id(competitor: dict[str, Any]) -> str:
     """Return the canonical ESPN competitor id when present."""
     direct = str(competitor.get("id") or "").strip()
     if direct.isdigit():
@@ -143,7 +144,7 @@ def competitor_matches(competitor: dict[str, Any], search_key: str) -> bool:
     if key == "*":
         return True
 
-    canonical_id = competitor_id(competitor)
+    canonical_id = _competitor_id(competitor)
     if key.isdigit() and canonical_id == key:
         return True
 
@@ -283,6 +284,7 @@ class TeamTrackerScoresFlowHandler(
     VERSION = 3
 
     def __init__(self) -> None:
+        self._soccer_all_team_cache: list[dict] | None = None
         self._sport_path = ""
         self._competitor_kind = "team"
         self._competitor_id = ""
@@ -302,7 +304,6 @@ class TeamTrackerScoresFlowHandler(
         self, url: str, params: dict[str, str] | None = None
     ) -> dict | None:
         """Fetch JSON once per flow and return None for unsupported endpoints."""
-        from yarl import URL
 
         key = str(URL(url).with_query(params))
         if key in self._http_cache:
@@ -1350,6 +1351,29 @@ class TeamTrackerScoresFlowHandler(
                     paths.add(league_path)
 
         return sorted(paths)
+
+    async def _async_fetch_soccer_league_teams(
+        self, league_path: str
+    ) -> list[dict]:
+        """Fetch one real ESPN soccer league team collection."""
+        session = async_get_clientsession(self.hass)
+        url = f"{SITE_BASE_URL}/soccer/{league_path}/teams"
+        try:
+            async with session.get(url, params={"limit": "1000"}) as response:
+                if response.status != 200:
+                    return []
+                payload = await response.json(content_type=None)
+        except Exception as err:  # pylint: disable=broad-exception-caught
+            _LOGGER.debug(
+                "Could not fetch ESPN soccer teams for %s: %s",
+                league_path,
+                err,
+            )
+            return []
+
+        if not isinstance(payload, dict):
+            return []
+        return self._soccer_teams_from_payload(payload)
 
     async def _async_get_soccer_all_teams(self) -> list[dict]:
         """Merge real soccer league collections by canonical ESPN team ID."""

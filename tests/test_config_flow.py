@@ -308,6 +308,11 @@ async def test_options_flow_init(hass, mock_call_espn_api):
     assert result["title"] == ""
     assert result["data"] == {CONF_API_LANGUAGE: "en"}
 
+    # Let the options update/reload finish before test teardown.
+    await hass.async_block_till_done()
+    assert await hass.config_entries.async_unload(entry.entry_id)
+    await hass.async_block_till_done()
+
 
 async def test_individual_search_uses_sport_checked_canonical_search_ids(monkeypatch):
     """Generic ESPN search is fast but cross-sport leakage is rejected locally."""
