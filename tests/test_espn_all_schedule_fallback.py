@@ -536,3 +536,104 @@ async def test_derived_league_name_ac_milan_real_capture():
     result = await provider._async_get_team_schedule()
 
     assert result["derived_league_name"] == "Italian Serie A"
+
+
+def _schedule_provider(events: list[dict]) -> EspnAllLeaguesProvider:
+    provider = object.__new__(EspnAllLeaguesProvider)
+    provider.TEAM_SCHEDULE_KEY = "team-schedule-key"
+    provider.instance_cache = {}
+    provider.lookups = {"team_list": []}
+    provider._coordinator = SimpleNamespace(
+        name="Test Team",
+        sport_path="soccer",
+        league_path="all",
+        team_id="1",
+        hass=None,
+    )
+    provider.async_call_espn_api = AsyncMock(
+        side_effect=[
+            {"data": {"team": {"nextEvent": []}}, "url": "team-info", "timestamp": None},
+            {"data": {"events": events}, "url": "team-schedule", "timestamp": None},
+        ]
+    )
+    return provider
+
+
+@freeze_time("2026-09-04")
+@pytest.mark.asyncio
+async def test_derived_league_name_skips_unlabeled_nearer_event():
+    """An event nearer to today with no usable season label must not win over
+    a farther event that does have one - it should be skipped as a candidate
+    entirely, not picked and produce an empty league name. Regression test
+    for review feedback on PR #1 (Chreece): an unlabeled event today plus a
+    valid league match yesterday must still resolve to the valid league."""
+    provider = _schedule_provider(
+        [
+            {
+                "id": "unlabeled-today",
+                "date": "2026-09-04T12:00Z",
+                "season": {"year": 2026},  # no displayName, no slug
+            },
+            {
+                "id": "valid-yesterday",
+                "date": "2026-09-03T12:00Z",
+                "season": {"year": 2026, "displayName": "2026-27 Valid Current League"},
+            },
+        ]
+    )
+
+    result = await provider._async_get_team_schedule()
+
+    assert result["derived_league_name"] == "Valid Current League"
+
+
+@freeze_time("2026-09-04")
+@pytest.mark.asyncio
+async def test_derived_league_name_skips_unlabeled_nearer_upcoming_event():
+    """Same as above but with both candidates in the future: an unlabeled
+    event tomorrow must not beat a labeled event the day after."""
+    provider = _schedule_provider(
+        [
+            {
+                "id": "unlabeled-tomorrow",
+                "date": "2026-09-05T12:00Z",
+                "season": None,
+            },
+            {
+                "id": "valid-in-two-days",
+                "date": "2026-09-06T12:00Z",
+                "season": {"year": 2026, "displayName": "2026-27 Valid Upcoming League"},
+            },
+        ]
+    )
+
+    result = await provider._async_get_team_schedule()
+
+    assert result["derived_league_name"] == "Valid Upcoming League"
+
+
+@freeze_time("2026-09-04")
+@pytest.mark.asyncio
+async def test_derived_league_name_skips_multiple_unlabeled_nearer_candidates():
+    """Several unlabeled candidates closer to today than the nearest labeled
+    one must all be skipped, still leaving a usable label."""
+    provider = _schedule_provider(
+        [
+            {"id": "unlabeled-1", "date": "2026-09-04T12:00Z", "season": {}},
+            {"id": "unlabeled-2", "date": "2026-09-05T12:00Z", "season": None},
+            {
+                "id": "unlabeled-3",
+                "date": "2026-09-06T12:00Z",
+                "season": {"year": 2026, "slug": "second-round"},
+            },
+            {
+                "id": "valid-farther",
+                "date": "2026-09-10T12:00Z",
+                "season": {"year": 2026, "displayName": "2026-27 Valid Current League"},
+            },
+        ]
+    )
+
+    result = await provider._async_get_team_schedule()
+
+    assert result["derived_league_name"] == "Valid Current League"

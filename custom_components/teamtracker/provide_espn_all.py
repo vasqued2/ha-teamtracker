@@ -382,9 +382,13 @@ class EspnAllLeaguesProvider(EspnProvider):
                 event_date = date.fromisoformat(str(event.get("date", ""))[:10])
             except (TypeError, ValueError):
                 continue
-            name = event.get("season", {}).get("displayName") or season_slug_to_name(
-                event.get("season", {}).get("slug", "")
-            )
+            season = event.get("season") or {}
+            name = season.get("displayName") or season_slug_to_name(season.get("slug", ""))
+            if not name:
+                # No usable label on this event - skip it rather than let it
+                # win purely for being closer to today and blank out a
+                # farther-but-labeled candidate.
+                continue
             candidates.append((event_date, name))
 
         upcoming = [c for c in candidates if c[0] >= today]
