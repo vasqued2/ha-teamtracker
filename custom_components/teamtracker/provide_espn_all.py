@@ -354,30 +354,46 @@ class EspnAllLeaguesProvider(EspnProvider):
         team_response = response
         team_data = response["data"]
 
-        # Try to derive the league_name from the season name or slug 
-        #   since not available from scoreboard API w/ league = "all"
-        season_name = ""
         if team_data:
             next_events = team_data.get("team", {}).get("nextEvent", [])
-            for ne in next_events:
-                eid = ne.get("id")
-                if not eid:
-                    continue
-                season_name = ne.get("season", {}).get("displayName") or season_slug_to_name(
-                    ne.get("season", {}).get("slug", "")
-                )
 
         schedule_url = team_url + "/schedule"
         response = await self.async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
         sched_data = response["data"]
-        if sched_data:
-            for e in sched_data.get("events", []):
-                eid = e.get("id")
-                if not eid:
-                    continue
-                season_name = e.get("season", {}).get("displayName") or season_slug_to_name(
-                    e.get("season", {}).get("slug", "")
-                )
+
+        # Try to derive the league_name from the season name or slug
+        #   since not available from scoreboard API w/ league = "all"
+        #
+        # Both nextEvent and /schedule can list events from several
+        # different competitions a team has played across the season
+        # (domestic league, cup, continental competitions, friendlies).
+        # Pick whichever event is closest to today - the one nearest an
+        # upcoming date, or the most recent one if nothing is upcoming yet -
+        # rather than just taking whichever happens to appear last in the
+        # API response. /schedule in particular is returned newest-first,
+        # so blindly taking "the last one processed" silently landed on the
+        # oldest event in the list (e.g. an early preseason friendly)
+        # instead of the team's actual current competition.
+        candidates = []  # (event_date, season_name)
+        for event in (*next_events, *((sched_data or {}).get("events", []))):
+            if not event.get("id"):
+                continue
+            try:
+                event_date = date.fromisoformat(str(event.get("date", ""))[:10])
+            except (TypeError, ValueError):
+                continue
+            name = event.get("season", {}).get("displayName") or season_slug_to_name(
+                event.get("season", {}).get("slug", "")
+            )
+            candidates.append((event_date, name))
+
+        upcoming = [c for c in candidates if c[0] >= today]
+        if upcoming:
+            season_name = min(upcoming, key=lambda c: c[0])[1]
+        elif candidates:
+            season_name = max(candidates, key=lambda c: c[0])[1]
+        else:
+            season_name = ""
 
         derived_league_name = re.sub(r"^\d{4}(-\d{2})?\s+", "", season_name)
 
