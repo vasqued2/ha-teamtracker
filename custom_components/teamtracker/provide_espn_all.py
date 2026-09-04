@@ -171,6 +171,67 @@ class EspnAllLeaguesProvider(EspnProvider):
 
 
     @staticmethod
+    def _normalize_next_event_team(team):
+        """Normalize ESPN-provided team fields used by the scoreboard parser."""
+        normalized_team = dict(team)
+        if normalized_team.get("logo"):
+            return normalized_team
+
+        for logo in normalized_team.get("logos") or []:
+            if not isinstance(logo, dict) or not logo.get("href"):
+                continue
+            normalized_team["logo"] = logo["href"]
+            break
+
+        return normalized_team
+
+    @staticmethod
+    def _normalize_next_event(event):
+        """Normalize ESPN nextEvent shape without inventing missing data."""
+        normalized_event = dict(event)
+
+        season = event.get("season")
+        season_type = event.get("seasonType")
+        if isinstance(season, dict):
+            normalized_season = dict(season)
+            if (
+                not normalized_season.get("slug")
+                and isinstance(season_type, dict)
+                and season_type.get("name")
+            ):
+                normalized_season["slug"] = re.sub(
+                    r"[^a-z0-9]+",
+                    "-",
+                    str(season_type["name"]).lower(),
+                ).strip("-")
+            normalized_event["season"] = normalized_season
+
+        normalized_competitions = []
+        for competition in event.get("competitions") or []:
+            if not isinstance(competition, dict):
+                continue
+
+            normalized_competition = dict(competition)
+            normalized_competitors = []
+            for competitor in competition.get("competitors") or []:
+                if not isinstance(competitor, dict):
+                    continue
+
+                normalized_competitor = dict(competitor)
+                team = competitor.get("team")
+                if isinstance(team, dict):
+                    normalized_competitor["team"] = (
+                        EspnAllLeaguesProvider._normalize_next_event_team(team)
+                    )
+                normalized_competitors.append(normalized_competitor)
+
+            normalized_competition["competitors"] = normalized_competitors
+            normalized_competitions.append(normalized_competition)
+
+        normalized_event["competitions"] = normalized_competitions
+        return normalized_event
+
+    @staticmethod
     def _next_event_response_for_dates(
         schedule_info, date_range, scoreboard_response
     ):
@@ -195,53 +256,7 @@ class EspnAllLeaguesProvider(EspnProvider):
 
             # team.nextEvent is ESPN data, but its shape differs slightly
             # from scoreboard. Normalize only ESPN-provided equivalents.
-            normalized_event = dict(event)
-
-            season = event.get("season")
-            season_type = event.get("seasonType")
-            if isinstance(season, dict):
-                normalized_season = dict(season)
-                if (
-                    not normalized_season.get("slug")
-                    and isinstance(season_type, dict)
-                    and season_type.get("name")
-                ):
-                    normalized_season["slug"] = re.sub(
-                        r"[^a-z0-9]+",
-                        "-",
-                        str(season_type["name"]).lower(),
-                    ).strip("-")
-                normalized_event["season"] = normalized_season
-
-            normalized_competitions = []
-            for competition in event.get("competitions") or []:
-                if not isinstance(competition, dict):
-                    continue
-                normalized_competition = dict(competition)
-                normalized_competitors = []
-
-                for competitor in competition.get("competitors") or []:
-                    if not isinstance(competitor, dict):
-                        continue
-                    normalized_competitor = dict(competitor)
-                    team = competitor.get("team")
-
-                    if isinstance(team, dict):
-                        normalized_team = dict(team)
-                        if not normalized_team.get("logo"):
-                            for logo in normalized_team.get("logos") or []:
-                                if isinstance(logo, dict) and logo.get("href"):
-                                    normalized_team["logo"] = logo["href"]
-                                    break
-                        normalized_competitor["team"] = normalized_team
-
-                    normalized_competitors.append(normalized_competitor)
-
-                normalized_competition["competitors"] = normalized_competitors
-                normalized_competitions.append(normalized_competition)
-
-            normalized_event["competitions"] = normalized_competitions
-            events.append(normalized_event)
+            events.append(EspnAllLeaguesProvider._normalize_next_event(event))
 
         if not events:
             return None
