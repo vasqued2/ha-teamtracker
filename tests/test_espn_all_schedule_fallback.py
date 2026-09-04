@@ -108,3 +108,314 @@ async def test_all_provider_uses_schedule_when_native_all_omits_team():
     assert result["url"] == "team-schedule"
     assert [event["id"] for event in result["data"]["events"]] == ["401896768"]
     assert result["lookups"]["derived_league_name"] == "Greek Super League"
+
+
+@pytest.mark.asyncio
+async def test_paok_schedule_is_used_when_team_next_event_is_missing():
+    """A missing /all team nextEvent must not hide a real scheduled fixture."""
+    today = date.today()
+    next_game = today + timedelta(days=2)
+
+    schedule_response = {
+        "data": {"events": [_event("401896765", next_game, team_id="605")]},
+        "url": "team-schedule",
+        "timestamp": None,
+    }
+
+    provider = object.__new__(EspnAllLeaguesProvider)
+    provider.TEAM_SCHEDULE_KEY = "team-schedule-key"
+    provider.instance_cache = {}
+    provider.lookups = {"team_list": []}
+    provider._coordinator = SimpleNamespace(
+        name="PAOK",
+        sport_path="soccer",
+        league_path="all",
+        team_id="605",
+        hass=None,
+    )
+
+    provider.async_call_espn_api = AsyncMock(
+        side_effect=[
+            {
+                "data": {"team": {"nextEvent": []}},
+                "url": "team-info",
+                "timestamp": None,
+            },
+            schedule_response,
+            {
+                "data": {"events": []},
+                "url": "all-scoreboard-1",
+                "timestamp": None,
+            },
+            {
+                "data": {"events": []},
+                "url": "all-scoreboard-2",
+                "timestamp": None,
+            },
+        ]
+    )
+
+    result = await provider._async_fetch_scoreboard_data(None, "en")
+
+    assert result["url"] == "team-schedule"
+    assert [event["id"] for event in result["data"]["events"]] == ["401896765"]
+
+
+@pytest.mark.asyncio
+async def test_paok_uses_team_next_event_when_all_schedule_has_only_past_games():
+    # Match the live PAOK failure: /all schedule is past-only, nextEvent is future.
+    today = date.today()
+    next_game = today + timedelta(days=2)
+    past_game = today - timedelta(days=5)
+
+    next_event = _event("401896765", next_game, team_id="605")
+    past_event = _event("401896772", past_game, team_id="605")
+
+    provider = object.__new__(EspnAllLeaguesProvider)
+    provider.lookups = {
+        "team_list": [],
+        "derived_league_name": "Greek Super League",
+    }
+    provider._coordinator = SimpleNamespace(
+        name="PAOK",
+        sport_path="soccer",
+        league_path="all",
+        team_id="605",
+    )
+    provider._async_get_team_schedule = AsyncMock(
+        return_value={
+            "next_game_date": next_game,
+            "derived_league_name": "Greek Super League",
+            "expires": next_game,
+            "next_events": [next_event],
+            "schedule_response": {
+                "data": {"events": [past_event]},
+                "url": "team-schedule",
+                "timestamp": None,
+            },
+        }
+    )
+    provider.async_call_espn_api = AsyncMock(
+        return_value={
+            "data": {"events": []},
+            "url": "all-scoreboard",
+            "timestamp": None,
+        }
+    )
+
+    result = await provider._async_fetch_scoreboard_data(None, "el")
+
+    assert [event["id"] for event in result["data"]["events"]] == ["401896765"]
+
+
+@pytest.mark.asyncio
+async def test_all_provider_uses_next_event_when_schedule_is_past_only():
+    today = date.today()
+    tracked_id = "9001"
+    next_game = today + timedelta(days=2)
+    past_game = today - timedelta(days=5)
+
+    next_event = _event("future-next", next_game, team_id=tracked_id)
+    past_event = _event("past-only", past_game, team_id=tracked_id)
+
+    provider = object.__new__(EspnAllLeaguesProvider)
+    provider.lookups = {"team_list": [], "derived_league_name": "Competition"}
+    provider._coordinator = SimpleNamespace(
+        name="Tracked Team",
+        sport_path="soccer",
+        league_path="all",
+        team_id=tracked_id,
+    )
+    provider._async_get_team_schedule = AsyncMock(
+        return_value={
+            "next_game_date": next_game,
+            "derived_league_name": "Competition",
+            "expires": next_game,
+            "next_events": [next_event],
+            "team_response": {
+                "data": {"team": {"id": tracked_id}},
+                "url": "team-metadata",
+                "timestamp": None,
+            },
+            "schedule_response": {
+                "data": {"events": [past_event]},
+                "url": "team-schedule",
+                "timestamp": None,
+            },
+        }
+    )
+    provider.async_call_espn_api = AsyncMock(
+        return_value={
+            "data": {"events": []},
+            "url": "all-scoreboard",
+            "timestamp": None,
+        }
+    )
+
+    result = await provider._async_fetch_scoreboard_data(None, "en")
+
+    assert result["url"] == "team-metadata"
+    assert [event["id"] for event in result["data"]["events"]] == ["future-next"]
+
+
+def _logo_fallback_event(event_date, team_a="9001", team_b="9002"):
+    return {
+        "id": "logo-event",
+        "date": f"{event_date.isoformat()}T16:00Z",
+        "competitions": [
+            {
+                "competitors": [
+                    {
+                        "id": team_a,
+                        "team": {
+                            "id": team_a,
+                            "displayName": "Team A",
+                            "logos": [
+                                {"href": "https://example.invalid/team-a.svg"}
+                            ],
+                        },
+                    },
+                    {
+                        "id": team_b,
+                        "team": {
+                            "id": team_b,
+                            "displayName": "Team B",
+                        },
+                    },
+                ]
+            }
+        ],
+    }
+
+
+def test_next_event_fallback_logo_parity_is_generic():
+    today = date.today()
+    event = _logo_fallback_event(today + timedelta(days=1))
+    original_a = event["competitions"][0]["competitors"][0]["team"]
+    original_b = event["competitions"][0]["competitors"][1]["team"]
+
+    response = EspnAllLeaguesProvider._next_event_response_for_dates(
+        {
+            "sport_path": "soccer",
+            "next_events": [event],
+            "team_response": {
+                "data": {},
+                "url": "team-metadata",
+                "timestamp": None,
+            },
+        },
+        (
+            f"{today.strftime('%Y%m%d')}-"
+            f"{(today + timedelta(days=1)).strftime('%Y%m%d')}"
+        ),
+        {
+            "data": {"events": []},
+            "url": "all-scoreboard",
+            "timestamp": None,
+        },
+    )
+
+    teams = response["data"]["events"][0]["competitions"][0]["competitors"]
+    assert teams[0]["team"]["logo"] == "https://example.invalid/team-a.svg"
+    assert "logo" not in teams[1]["team"]
+    assert "logo" not in original_a
+    assert "logo" not in original_b
+
+
+def test_next_event_logo_fallback_does_not_assume_soccer_for_other_sports():
+    today = date.today()
+    event = _logo_fallback_event(today + timedelta(days=1))
+
+    response = EspnAllLeaguesProvider._next_event_response_for_dates(
+        {
+            "sport_path": "basketball",
+            "next_events": [event],
+            "team_response": {
+                "data": {},
+                "url": "team-metadata",
+                "timestamp": None,
+            },
+        },
+        (
+            f"{today.strftime('%Y%m%d')}-"
+            f"{(today + timedelta(days=1)).strftime('%Y%m%d')}"
+        ),
+        {
+            "data": {"events": []},
+            "url": "all-scoreboard",
+            "timestamp": None,
+        },
+    )
+
+    teams = response["data"]["events"][0]["competitions"][0]["competitors"]
+    assert teams[0]["team"]["logo"] == "https://example.invalid/team-a.svg"
+    assert "logo" not in teams[1]["team"]
+
+
+@pytest.mark.asyncio
+async def test_next_event_fallback_uses_selected_event_league_and_season():
+    today = date.today()
+    next_game = today + timedelta(days=1)
+    tracked_id = "9001"
+
+    event = _event("selected-event", next_game, team_id=tracked_id)
+    event["season"] = {
+        "year": 2026,
+        "displayName": "2026-27 Selected Competition",
+    }
+    event["seasonType"] = {"name": "Regular Season"}
+
+    for competitor in event["competitions"][0]["competitors"]:
+        team = competitor["team"]
+        team.pop("logo", None)
+        team["logos"] = [
+            {"href": "https://example.invalid/%s.png" % team["id"]}
+        ]
+
+    provider = object.__new__(EspnAllLeaguesProvider)
+    provider.lookups = {
+        "team_list": [],
+        "derived_league_name": "Wrong Competition",
+    }
+    provider._coordinator = SimpleNamespace(
+        name="Tracked Team",
+        sport_path="soccer",
+        league_path="all",
+        team_id=tracked_id,
+    )
+    provider._async_get_team_schedule = AsyncMock(
+        return_value={
+            "next_game_date": next_game,
+            "derived_league_name": "Wrong Competition",
+            "expires": next_game,
+            "next_events": [event],
+            "team_response": {
+                "data": {},
+                "url": "team-metadata",
+                "timestamp": None,
+            },
+            "schedule_response": {
+                "data": {"events": []},
+                "url": "team-schedule",
+                "timestamp": None,
+            },
+        }
+    )
+    provider.async_call_espn_api = AsyncMock(
+        return_value={
+            "data": {"events": []},
+            "url": "all-scoreboard",
+            "timestamp": None,
+        }
+    )
+
+    response = await provider._async_fetch_scoreboard_data(None, "en")
+    selected = response["data"]["events"][0]
+
+    assert selected["id"] == "selected-event"
+    assert selected["season"]["slug"] == "regular-season"
+    assert response["lookups"]["derived_league_name"] == "Selected Competition"
+
+    teams = selected["competitions"][0]["competitors"]
+    assert teams[0]["team"]["logo"].startswith("https://example.invalid/")
+    assert teams[1]["team"]["logo"].startswith("https://example.invalid/")
