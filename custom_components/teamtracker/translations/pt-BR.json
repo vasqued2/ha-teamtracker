@@ -3,7 +3,9 @@
     "error": {
       "league": "Liga inserida inválida.",
       "cannot_fetch_teams": "Não foi possível buscar as equipes da ESPN. Verifique sua conexão e tente novamente.",
-      "no_teams_found": "Nenhuma equipe encontrada para esse termo de busca. Tente um nome diferente ou deixe em branco para entrada manual."
+      "no_teams_found": "Nenhuma equipe encontrada para esse termo de busca. Tente um nome diferente ou deixe em branco para entrada manual.",
+      "sportsdb_team_required": "Informe um nome de equipe do TheSportsDB ou um ID numérico da equipe.",
+      "sportsdb_no_teams_found": "O TheSportsDB não retornou nenhuma equipe correspondente."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Nome amigável"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Crie um sensor independente do TheSportsDB. Informe um ID numérico da equipe para a consulta gratuita ou pesquise pelo nome da equipe. A API gratuita possui resultados limitados para busca por nome e calendário; apoiadores podem informar sua chave de API.",
+        "data": {
+          "sportsdb_api_key": "Chave de API do TheSportsDB (opcional)",
+          "search_team": "Pesquisar nome da equipe (opcional)",
+          "team_id": "ID da equipe (opcional)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Selecionar equipe do TheSportsDB",
+        "description": "Escolha a equipe que deseja acompanhar.",
+        "data": {
+          "team_selection": "Equipe"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Opções do Team Tracker",
         "description": "Insira o código de idioma de 2 caracteres para usar na chamada da API.",
         "data": {
-          "api_language": "Idioma da API"
+          "api_language": "Idioma da API",
+          "sportsdb_api_key": "Nova chave de API do TheSportsDB (deixe em branco para manter a atual)",
+          "sportsdb_clear_api_key": "Usar a chave gratuita do TheSportsDB (remover a chave de apoiador salva)"
         }
       }
     }

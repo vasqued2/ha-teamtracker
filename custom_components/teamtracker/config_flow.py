@@ -11,6 +11,11 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.selector import (
+    TextSelector,
+    TextSelectorConfig,
+    TextSelectorType,
+)
 
 from .const import (
     CONF_API_LANGUAGE,
@@ -19,6 +24,8 @@ from .const import (
     CONF_LEAGUE_PATH,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
+    CONF_SPORTSDB_API_KEY,
+    CONF_SPORTSDB_CLEAR_API_KEY,
     DOMAIN,
     INDIVIDUAL_SPORTS,
     NATIVE_LEAGUES,
@@ -88,6 +95,7 @@ _SPORT_GROUPS: dict[str, tuple[str, dict[str, str]]] = {
 }
 
 SPORT_OPTIONS: dict[str, str] = {
+    "SPORTSDB": "TheSportsDB",
     "XXX": "Custom API",
     **{k: v[0] for k, v in _SPORT_GROUPS.items()}
 }
@@ -133,6 +141,7 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
         self._errors: dict[str, str] = {}
         self._entry_data: dict[str, Any] = {}
         self._provider: BaseSportProvider | None= None
+        self._sportsdb_api_key: str = ""
 
     # ------------------------------------------------------------------ #
     #  Step 1: choose sport group                                         #
@@ -145,9 +154,17 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
 
         if user_input is not None:
             sport_key = user_input["sport_key"]
+            self._sport_key = sport_key
+
+            if sport_key == "SPORTSDB":
+                self._league_id = "SPORTSDB"
+                self._sport_path = "sportsdb"
+                self._league_path = "all"
+                return await self.async_step_sportsdb()
+
             if sport_key == "XXX":
                 return await self.async_step_custom_api()
-            self._sport_key = sport_key
+
             leagues = _SPORT_GROUPS[sport_key][1]
             if len(leagues) == 1:
                 # Only one league for this sport — skip league step
@@ -166,6 +183,176 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
             data_schema=schema,
             errors=self._errors,
         )
+
+    # ------------------------------------------------------------------ #
+    #  TheSportsDB standalone provider                                   #
+    # ------------------------------------------------------------------ #
+    async def async_step_sportsdb(
+        self,
+        user_input: dict[str, Any] | None = None,
+    ) -> config_entries.FlowResult:
+        """Configure a standalone TheSportsDB team sensor."""
+        self._errors = {}
+
+        if user_input is not None:
+            self._sportsdb_api_key = str(
+                user_input.get(CONF_SPORTSDB_API_KEY, "")
+            ).strip()
+
+            api_key = self._sportsdb_api_key or "123"
+            search_term = str(
+                user_input.get("search_team", "")
+            ).strip()
+            team_id = str(
+                user_input.get(CONF_TEAM_ID, "")
+            ).strip()
+
+            provider = get_provider("sportsdb", "all")
+            self._provider = provider
+
+            teams = []
+
+            if team_id:
+                response = await provider.async_lookup_team(
+                    self.hass,
+                    team_id,
+                    api_key=api_key,
+                )
+
+                payload = response.get("data")
+                raw_teams = (
+                    payload.get("teams")
+                    if isinstance(payload, dict)
+                    else None
+                )
+
+                for raw_team in raw_teams or []:
+                    if not isinstance(raw_team, dict):
+                        continue
+
+                    team = provider.team_to_standard(raw_team)
+                    team["sport"] = str(
+                        raw_team.get("strSport") or ""
+                    )
+                    team["league_id"] = str(
+                        raw_team.get("idLeague") or ""
+                    )
+                    team["league_name"] = str(
+                        raw_team.get("strLeague") or ""
+                    )
+                    teams.append(team)
+
+            elif search_term:
+                response = await provider.async_search_teams(
+                    self.hass,
+                    search_term,
+                    api_key=api_key,
+                )
+                teams = response.get("data") or []
+
+            else:
+                self._errors["base"] = "sportsdb_team_required"
+
+            if teams:
+                self._search_results = {
+                    team["id"]: (
+                        f'{team["displayName"]} '
+                        f'({team.get("sport", "")} - {team["id"]})'
+                    )
+                    for team in teams
+                }
+
+                self._team_meta = {
+                    team["id"]: team
+                    for team in teams
+                }
+
+                return await self.async_step_sportsdb_select_team()
+
+            if (
+                not self._errors
+                and user_input is not None
+            ):
+                self._errors["base"] = "sportsdb_no_teams_found"
+
+        schema = vol.Schema(
+            {
+                vol.Optional(
+                    CONF_SPORTSDB_API_KEY,
+                    default="",
+                ): TextSelector(
+                    TextSelectorConfig(
+                        type=TextSelectorType.PASSWORD,
+                        autocomplete="off",
+                    )
+                ),
+                vol.Optional(
+                    "search_team",
+                    default="",
+                ): str,
+                vol.Optional(
+                    CONF_TEAM_ID,
+                    default="",
+                ): cv.string,
+            }
+        )
+
+        return self.async_show_form(
+            step_id="sportsdb",
+            data_schema=schema,
+            errors=self._errors,
+        )
+
+
+    async def async_step_sportsdb_select_team(
+        self,
+        user_input: dict[str, Any] | None = None,
+    ) -> config_entries.FlowResult:
+        """Select a team returned by TheSportsDB."""
+        if user_input is not None:
+            team_id = user_input["team_selection"]
+            meta = self._team_meta[team_id]
+
+            self._team_name = meta.get(
+                "displayName",
+                team_id,
+            )
+
+            self._league_id = "SPORTSDB"
+            self._sport_path = "sportsdb"
+            self._league_path = (
+                meta.get("league_id") or "all"
+            )
+
+            self._entry_data = {
+                CONF_NAME: self._team_name,
+                CONF_LEAGUE_ID: self._league_id,
+                CONF_TEAM_ID: team_id,
+                CONF_SPORT_PATH: self._sport_path,
+                CONF_LEAGUE_PATH: self._league_path,
+            }
+
+            if self._sportsdb_api_key:
+                self._entry_data[
+                    CONF_SPORTSDB_API_KEY
+                ] = self._sportsdb_api_key
+
+            return await self.async_step_finalize()
+
+        schema = vol.Schema(
+            {
+                vol.Required(
+                    "team_selection"
+                ): vol.In(self._search_results)
+            }
+        )
+
+        return self.async_show_form(
+            step_id="sportsdb_select_team",
+            data_schema=schema,
+            errors={},
+        )
+
 
     # ------------------------------------------------------------------ #
     #  Step 2a: Set Up Custom API (sport_key = XXX)                      #
@@ -469,8 +656,39 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
     ) -> config_entries.FlowResult:
         """Manage options."""
         if user_input is not None:
-            self._options.update(user_input)
-            return self.async_create_entry(title="", data=self._options)
+            submitted = dict(user_input)
+
+            if (
+                self.entry
+                and self.entry.data.get(CONF_SPORT_PATH) == "sportsdb"
+            ):
+                clear_key = (
+                    submitted.pop(
+                        CONF_SPORTSDB_CLEAR_API_KEY,
+                        False,
+                    )
+                    is True
+                )
+                new_key = str(
+                    submitted.pop(
+                        CONF_SPORTSDB_API_KEY,
+                        "",
+                    )
+                    or ""
+                ).strip()
+
+                if clear_key:
+                    # An explicit empty option overrides any key stored
+                    # in entry.data and makes the provider use key "123".
+                    self._options[CONF_SPORTSDB_API_KEY] = ""
+                elif new_key:
+                    self._options[CONF_SPORTSDB_API_KEY] = new_key
+
+            self._options.update(submitted)
+            return self.async_create_entry(
+                title="",
+                data=self._options,
+            )
 
         lang = None
         if (
@@ -480,15 +698,37 @@ class TeamTrackerScoresOptionsFlow(config_entries.OptionsFlow):
         ):
             lang = self.entry.options[CONF_API_LANGUAGE]
 
-        options_schema = vol.Schema(
-            {
+        options_fields = {
+            vol.Optional(
+                CONF_API_LANGUAGE,
+                description={"suggested_value": lang},
+                default="",
+            ): cv.string,
+        }
+
+        if (
+            self.entry
+            and self.entry.data.get(CONF_SPORT_PATH) == "sportsdb"
+        ):
+            options_fields[
                 vol.Optional(
-                    CONF_API_LANGUAGE,
-                    description={"suggested_value": lang},
+                    CONF_SPORTSDB_API_KEY,
                     default="",
-                ): cv.string,
-            }
-        )
+                )
+            ] = TextSelector(
+                TextSelectorConfig(
+                    type=TextSelectorType.PASSWORD,
+                    autocomplete="off",
+                )
+            )
+            options_fields[
+                vol.Optional(
+                    CONF_SPORTSDB_CLEAR_API_KEY,
+                    default=False,
+                )
+            ] = cv.boolean
+
+        options_schema = vol.Schema(options_fields)
         return self.async_show_form(
             step_id="init",
             data_schema=options_schema,

@@ -3,7 +3,9 @@
     "error": {
       "league": "Zadaná neplatná liga.",
       "cannot_fetch_teams": "Nepodarilo sa načítať tímy z ESPN. Skontrolujte pripojenie a skúste to znova.",
-      "no_teams_found": "Pre tento hľadaný výraz sa nenašli žiadne tímy. Skúste iný názov alebo ponechajte prázdne pre manuálne zadanie."
+      "no_teams_found": "Pre tento hľadaný výraz sa nenašli žiadne tímy. Skúste iný názov alebo ponechajte prázdne pre manuálne zadanie.",
+      "sportsdb_team_required": "Zadajte názov tímu TheSportsDB alebo číselné ID tímu.",
+      "sportsdb_no_teams_found": "TheSportsDB nevrátil žiadny zodpovedajúci tím."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Priateľský názov"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Vytvorte samostatný senzor TheSportsDB. Zadajte číselné ID tímu pre bezplatné vyhľadanie alebo vyhľadajte tím podľa názvu. Bezplatné API poskytuje obmedzené výsledky vyhľadávania podľa názvu a programu; podporovatelia môžu zadať svoj API kľúč.",
+        "data": {
+          "sportsdb_api_key": "API kľúč TheSportsDB (voliteľné)",
+          "search_team": "Vyhľadať názov tímu (voliteľné)",
+          "team_id": "ID tímu (voliteľné)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Vybrať tím TheSportsDB",
+        "description": "Vyberte tím, ktorý chcete sledovať.",
+        "data": {
+          "team_selection": "Tím"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Možnosti Team Tracker",
         "description": "Zadajte 2-miestny kód jazyka, ktorý sa má použiť pre volanie API.",
         "data": {
-          "api_language": "Jazyk API"
+          "api_language": "Jazyk API",
+          "sportsdb_api_key": "Nový API kľúč TheSportsDB (ponechajte prázdne na zachovanie aktuálneho)",
+          "sportsdb_clear_api_key": "Použiť bezplatný kľúč TheSportsDB (odstrániť uložený kľúč podporovateľa)"
         }
       }
     }

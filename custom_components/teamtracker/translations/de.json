@@ -3,7 +3,9 @@
     "error": {
       "league": "Ungültige Liga eingegeben.",
       "cannot_fetch_teams": "Teams konnten nicht von ESPN abgerufen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
-      "no_teams_found": "Keine Teams für diesen Suchbegriff gefunden. Versuchen Sie einen anderen Namen oder lassen Sie das Feld für eine manuelle Eingabe leer."
+      "no_teams_found": "Keine Teams für diesen Suchbegriff gefunden. Versuchen Sie einen anderen Namen oder lassen Sie das Feld für eine manuelle Eingabe leer.",
+      "sportsdb_team_required": "Geben Sie einen TheSportsDB-Teamnamen oder eine numerische Team-ID ein.",
+      "sportsdb_no_teams_found": "TheSportsDB hat kein passendes Team zurückgegeben."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Anzeigename"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Erstellen Sie einen eigenständigen TheSportsDB-Sensor. Geben Sie für die kostenlose Abfrage eine numerische Team-ID ein oder suchen Sie nach dem Teamnamen. Die kostenlose API bietet nur eingeschränkte Namenssuche und Spielplanergebnisse; Unterstützer können ihren API-Schlüssel eingeben.",
+        "data": {
+          "sportsdb_api_key": "TheSportsDB-API-Schlüssel (optional)",
+          "search_team": "Teamnamen suchen (optional)",
+          "team_id": "Team-ID (optional)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "TheSportsDB-Team auswählen",
+        "description": "Wählen Sie das Team aus, das verfolgt werden soll.",
+        "data": {
+          "team_selection": "Team"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Team Tracker Optionen",
         "description": "Geben Sie den 2-stelligen Sprachcode für den API-Aufruf ein.",
         "data": {
-          "api_language": "API-Sprache"
+          "api_language": "API-Sprache",
+          "sportsdb_api_key": "Neuer TheSportsDB-API-Schlüssel (leer lassen, um den aktuellen zu behalten)",
+          "sportsdb_clear_api_key": "Kostenlosen TheSportsDB-Schlüssel verwenden (gespeicherten Unterstützer-Schlüssel entfernen)"
         }
       }
     }
