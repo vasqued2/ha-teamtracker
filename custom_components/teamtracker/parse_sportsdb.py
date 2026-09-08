@@ -3,13 +3,9 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
 
 from .parse_espn_all import EspnAllParser
 from .utils import get_value
-
-if TYPE_CHECKING:
-    from .coordinator import TeamTrackerCoordinator
 
 
 class SportsDbParser(EspnAllParser):
@@ -33,9 +29,6 @@ class SportsDbParser(EspnAllParser):
         "tennis": "tennis",
         "volleyball": "volleyball",
     }
-
-    def __init__(self, coordinator: TeamTrackerCoordinator) -> None:
-        super().__init__(coordinator)
 
     def initialize_sensor_values(self, provider_response) -> bool:
         """Initialize values and expose the provider's actual sport."""
