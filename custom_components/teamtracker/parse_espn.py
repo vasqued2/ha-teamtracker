@@ -37,6 +37,8 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         self._event_state = "NOT_FOUND"
         self._values: TeamTrackerValues
         self._prev_values: TeamTrackerValues
+        self._observed_event_states: dict[str, str] = {}
+        self._post_started_at: dict[str, arrow.Arrow] = {}
 
 
 
@@ -48,6 +50,8 @@ class EspnParser(BaseSportParser, SetValuesMixin):
         team_id: str,
     ) -> bool:
         rc = super().setup(sensor_name, sport_path, league_path, league_id, team_id)
+        self._observed_event_states.clear()
+        self._post_started_at.clear()
         self._default_logo = DEFAULT_LOGO
 
         return rc
@@ -254,6 +258,9 @@ class EspnParser(BaseSportParser, SetValuesMixin):
                 self._values,
             )
 
+        if rc:
+            self._record_observed_event_state()
+
         if self._values.state == "IN":
             self._stop_flag = True
         time_diff = abs(
@@ -409,56 +416,231 @@ class EspnParser(BaseSportParser, SetValuesMixin):
 
         return None
 
+    _UNIVERSAL_POST_RETENTION_SECONDS = 24 * 60 * 60
+
+    _COLD_START_DURATION_SECONDS = {
+        "australian-football": 3 * 60 * 60,
+        "baseball": 3 * 60 * 60,
+        "basketball": 150 * 60,
+        "football": 210 * 60,
+        "golf": 8 * 60 * 60,
+        "hockey": 150 * 60,
+        "mma": 4 * 60 * 60,
+        "racing": 4 * 60 * 60,
+        "rugby": 2 * 60 * 60,
+        "soccer": 2 * 60 * 60,
+        "tennis": 3 * 60 * 60,
+        "volleyball": 2 * 60 * 60,
+    }
+
+    def _record_observed_event_state(self) -> None:
+        """Remember the real IN -> POST transition for universal sensors."""
+        if str(self._league_path).lower() != "all":
+            return
+
+        raw_event_id = self._values.event_id
+        if not isinstance(raw_event_id, (str, int)):
+            return
+
+        event_id = str(raw_event_id)
+        state = str(self._values.state or "").upper()
+
+        if not event_id or state not in {"PRE", "IN", "POST"}:
+            return
+
+        previous_state = self._observed_event_states.get(event_id)
+
+        if state == "POST" and event_id not in self._post_started_at:
+            now = arrow.now()
+
+            if previous_state == "IN":
+                # Best evidence: HA actually witnessed IN -> POST.
+                self._post_started_at[event_id] = now
+            else:
+                # Cold-start/restart fallback.
+                estimated = self._estimate_post_started_at(
+                    self._values,
+                    now,
+                )
+                if estimated is not None:
+                    self._post_started_at[event_id] = estimated
+
+        self._observed_event_states[event_id] = state
+
+    def _estimate_post_started_at(
+        self,
+        values: TeamTrackerValues,
+        now: arrow.Arrow,
+    ) -> arrow.Arrow | None:
+        """Estimate POST start when HA did not witness the transition."""
+        raw_date = values.date
+
+        if not isinstance(raw_date, str) or not raw_date:
+            return None
+
+        try:
+            event_start = arrow.get(raw_date)
+        except (TypeError, ValueError, arrow.parser.ParserError):
+            return None
+
+        sport = self._sport_path.lower()
+        if isinstance(values.sport, str) and values.sport:
+            sport = values.sport.lower()
+
+        duration = self._COLD_START_DURATION_SECONDS.get(
+            sport,
+            3 * 60 * 60,
+        )
+
+        estimated = event_start.shift(seconds=duration)
+
+        # A POST start cannot be in the future relative to our observation.
+        return estimated if estimated <= now else now
+
+    def _post_started_for(
+        self,
+        values: TeamTrackerValues,
+        now: arrow.Arrow,
+    ) -> arrow.Arrow | None:
+        """Return observed or cold-start POST start for one event."""
+        raw_event_id = values.event_id
+        event_id = (
+            str(raw_event_id)
+            if isinstance(raw_event_id, (str, int))
+            else ""
+        )
+
+        if event_id and event_id in self._post_started_at:
+            return self._post_started_at[event_id]
+
+        estimated = self._estimate_post_started_at(values, now)
+
+        if event_id and estimated is not None:
+            self._post_started_at[event_id] = estimated
+
+        return estimated
+
+    def _universal_keep_post(
+        self,
+        post_values: TeamTrackerValues,
+        pre_values: TeamTrackerValues,
+        now: arrow.Arrow | None = None,
+    ) -> bool:
+        """Apply the universal POST -> PRE handoff contract."""
+        now = now or arrow.now()
+
+        post_started = self._post_started_for(
+            post_values,
+            now,
+        )
+
+        if post_started is None:
+            return False
+
+        max_handoff = post_started.shift(
+            seconds=self._UNIVERSAL_POST_RETENTION_SECONDS
+        )
+
+        try:
+            pre_start = arrow.get(pre_values.date)
+        except (TypeError, ValueError, arrow.parser.ParserError):
+            # Without a valid PRE time, POST still expires after 24 hours.
+            return now < max_handoff
+
+        if pre_start <= post_started:
+            handoff = post_started
+        elif pre_start < max_handoff:
+            # PRE occurs inside POST's 24-hour window:
+            # switch exactly at their midpoint.
+            handoff = post_started + (
+                (pre_start - post_started) / 2
+            )
+        else:
+            # PRE is farther away: keep POST for the full 24 hours.
+            handoff = max_handoff
+
+        return now < handoff
+
+
     #
     #   _async_use_prev_values_flag()
     #
     def _use_prev_values_flag(self):
-        """Determine if prev_values should be saved"""
+        """Determine if prev_values should be saved."""
 
-    #
-    #   If the state or prev_state is POST or IN and > 12 hrs in the future, treat is as PRE
-    #     This can happen if an event is postponed
-    #
         current_state = self._values.state
         if current_state in ("POST", "IN"):
-            time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
+            time_diff = (
+                arrow.get(self._values.date) - arrow.now()
+            ).total_seconds()
             if time_diff > 43200:
                 current_state = "PRE"
+
         prev_state = self._prev_values.state
         if prev_state in ("POST", "IN"):
-            time_diff = (arrow.get(self._prev_values.date) - arrow.now()).total_seconds()
+            time_diff = (
+                arrow.get(self._prev_values.date) - arrow.now()
+            ).total_seconds()
             if time_diff > 43200:
                 prev_state = "PRE"
 
+        universal = str(self._league_path).lower() == "all"
 
         if prev_state == "POST":
             if current_state == "PRE":
-                # Use POST if PRE is more than 12 hours in future
-                time_diff = (arrow.get(self._values.date) - arrow.now()).total_seconds()
+                if universal:
+                    return self._universal_keep_post(
+                        self._prev_values,
+                        self._values,
+                    )
+
+                # Legacy non-ALL behavior.
+                time_diff = (
+                    arrow.get(self._values.date) - arrow.now()
+                ).total_seconds()
                 if time_diff > 43200:
                     return True
+
             elif current_state == "POST":
-                # use POST w/ latest date
-                if arrow.get(self._prev_values.date) > arrow.get(self._values.date):
-                    return True
-                if self._sport_path in ["golf", "racing"] and (
-                    arrow.get(self._prev_values.date) == arrow.get(self._values.date)
+                if (
+                    arrow.get(self._prev_values.date)
+                    > arrow.get(self._values.date)
                 ):
                     return True
+
+                if self._sport_path in ["golf", "racing"] and (
+                    arrow.get(self._prev_values.date)
+                    == arrow.get(self._values.date)
+                ):
+                    return True
+
         if prev_state == "PRE":
             if current_state == "PRE":
-                # use PRE w/ earliest date
-                if arrow.get(self._prev_values.date) <= arrow.get(self._values.date):
+                if (
+                    arrow.get(self._prev_values.date)
+                    <= arrow.get(self._values.date)
+                ):
                     return True
+
             elif current_state == "POST":
-                # Use PRE if less than 12 hours in future
+                if universal:
+                    # Events may arrive in either order. Keep PRE only
+                    # once the same universal handoff point has passed.
+                    return not self._universal_keep_post(
+                        self._values,
+                        self._prev_values,
+                    )
+
+                # Legacy non-ALL behavior.
                 time_diff = abs(
-                    arrow.get(self._prev_values.date) - arrow.now()
+                    arrow.get(self._prev_values.date)
+                    - arrow.now()
                 ).total_seconds()
                 if time_diff < 43200:
                     return True
 
         return False
+
 
     #
     #  _competitor_not_found()

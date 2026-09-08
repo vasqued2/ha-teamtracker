@@ -133,6 +133,32 @@ class EspnAllLeaguesProvider(EspnProvider):
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
 
+        # ESPN's sport-wide /all scoreboard can omit a team's competition even
+        # though the already-fetched team schedule contains the full event.
+        # Reuse that cached response only when /all still does not contain the
+        # configured team, and restrict it to the same requested date window.
+        # ESPN's sport-wide ALL scoreboard can omit a team's competition.
+        # Keep it primary, then reuse already-fetched team-specific sources.
+        # This is generic for every numeric team configured with league_path=all.
+        if has_team(response.get("data"), team_id) is False:
+            next_event_response = self._next_event_response_for_dates(
+                schedule_info, url_parms["dates"], response
+            )
+            if next_event_response and has_team(
+                next_event_response.get("data"), team_id
+            ):
+                response = next_event_response
+                self._set_fallback_derived_league_name(response)
+            else:
+                schedule_response = self._schedule_response_for_dates(
+                    schedule_info, url_parms["dates"]
+                )
+                if schedule_response and has_team(
+                    schedule_response.get("data"), team_id
+                ):
+                    response = schedule_response
+                    self._set_fallback_derived_league_name(response)
+
         # Add required lookup tables
         if "team_list" not in self.lookups:
             teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
@@ -142,6 +168,159 @@ class EspnAllLeaguesProvider(EspnProvider):
 
 
         return response
+
+
+    @staticmethod
+    def _normalize_next_event_team(team):
+        """Normalize ESPN-provided team fields used by the scoreboard parser."""
+        normalized_team = dict(team)
+        if normalized_team.get("logo"):
+            return normalized_team
+
+        for logo in normalized_team.get("logos") or []:
+            if not isinstance(logo, dict) or not logo.get("href"):
+                continue
+            normalized_team["logo"] = logo["href"]
+            break
+
+        return normalized_team
+
+    @staticmethod
+    def _normalize_next_event(event):
+        """Normalize ESPN nextEvent shape without inventing missing data."""
+        normalized_event = dict(event)
+
+        season = event.get("season")
+        season_type = event.get("seasonType")
+        if isinstance(season, dict):
+            normalized_season = dict(season)
+            if (
+                not normalized_season.get("slug")
+                and isinstance(season_type, dict)
+                and season_type.get("name")
+            ):
+                normalized_season["slug"] = re.sub(
+                    r"[^a-z0-9]+",
+                    "-",
+                    str(season_type["name"]).lower(),
+                ).strip("-")
+            normalized_event["season"] = normalized_season
+
+        normalized_competitions = []
+        for competition in event.get("competitions") or []:
+            if not isinstance(competition, dict):
+                continue
+
+            normalized_competition = dict(competition)
+            normalized_competitors = []
+            for competitor in competition.get("competitors") or []:
+                if not isinstance(competitor, dict):
+                    continue
+
+                normalized_competitor = dict(competitor)
+                team = competitor.get("team")
+                if isinstance(team, dict):
+                    normalized_competitor["team"] = (
+                        EspnAllLeaguesProvider._normalize_next_event_team(team)
+                    )
+                normalized_competitors.append(normalized_competitor)
+
+            normalized_competition["competitors"] = normalized_competitors
+            normalized_competitions.append(normalized_competition)
+
+        normalized_event["competitions"] = normalized_competitions
+        return normalized_event
+
+    @staticmethod
+    def _next_event_response_for_dates(
+        schedule_info, date_range, scoreboard_response
+    ):
+        """Return cached team.nextEvent entries inside the requested date range."""
+        if not schedule_info:
+            return None
+
+        next_events = schedule_info.get("next_events") or []
+        if not next_events:
+            return None
+
+        try:
+            start_date, end_date = date_range.split("-", 1)
+        except (AttributeError, ValueError):
+            return None
+
+        events = []
+        for event in next_events:
+            event_date = str(event.get("date", ""))[:10].replace("-", "")
+            if len(event_date) != 8 or not start_date <= event_date <= end_date:
+                continue
+
+            # team.nextEvent is ESPN data, but its shape differs slightly
+            # from scoreboard. Normalize only ESPN-provided equivalents.
+            events.append(EspnAllLeaguesProvider._normalize_next_event(event))
+
+        if not events:
+            return None
+
+        fallback_response = dict(scoreboard_response)
+        fallback_data = dict(scoreboard_response.get("data") or {})
+        fallback_data["events"] = events
+        fallback_response["data"] = fallback_data
+
+        team_response = schedule_info.get("team_response") or {}
+        if team_response.get("url"):
+            fallback_response["url"] = team_response["url"]
+        if team_response.get("timestamp") is not None:
+            fallback_response["timestamp"] = team_response["timestamp"]
+
+        return fallback_response
+
+
+    def _set_fallback_derived_league_name(self, response):
+        """Set ALL league-name lookup from the event actually selected."""
+        events = (response.get("data") or {}).get("events") or []
+        if not events:
+            return
+
+        event = events[0]
+        season = event.get("season") or {}
+        season_name = str(season.get("displayName") or "").strip()
+        if not season_name:
+            season_name = season_slug_to_name(str(season.get("slug") or ""))
+
+        derived = re.sub(r"^\d{4}(-\d{2})?\s+", "", season_name).strip()
+        if derived:
+            self.lookups["derived_league_name"] = derived
+
+    @staticmethod
+    def _schedule_response_for_dates(schedule_info, date_range):
+        """Return cached team-schedule events inside the requested date range."""
+        if not schedule_info:
+            return None
+
+        schedule_response = schedule_info.get("schedule_response")
+        schedule_data = schedule_response.get("data") if schedule_response else None
+        if not schedule_data:
+            return None
+
+        try:
+            start_date, end_date = date_range.split("-", 1)
+        except (AttributeError, ValueError):
+            return None
+
+        events = []
+        for event in schedule_data.get("events", []):
+            event_date = str(event.get("date", ""))[:10].replace("-", "")
+            if len(event_date) == 8 and start_date <= event_date <= end_date:
+                events.append(event)
+
+        if not events:
+            return None
+
+        fallback_response = dict(schedule_response)
+        fallback_data = dict(schedule_data)
+        fallback_data["events"] = events
+        fallback_response["data"] = fallback_data
+        return fallback_response
 
 
     #
@@ -172,44 +351,94 @@ class EspnAllLeaguesProvider(EspnProvider):
         next_events = []
 
         response = await self.async_call_espn_api(self._coordinator.hass, team_url, None, sensor_name, team_id)
+        team_response = response
         team_data = response["data"]
 
-        # Try to derive the league_name from the season name or slug 
-        #   since not available from scoreboard API w/ league = "all"
-        season_name = ""
         if team_data:
             next_events = team_data.get("team", {}).get("nextEvent", [])
-            for ne in next_events:
-                eid = ne.get("id")
-                if not eid:
-                    continue
-                season_name = ne.get("season", {}).get("displayName") or season_slug_to_name(
-                    ne.get("season", {}).get("slug", "")
-                )
 
         schedule_url = team_url + "/schedule"
         response = await self.async_call_espn_api(self._coordinator.hass, schedule_url, None, sensor_name, team_id)
         sched_data = response["data"]
-        if sched_data:
-            for e in sched_data.get("events", []):
-                eid = e.get("id")
-                if not eid:
-                    continue
-                season_name = e.get("season", {}).get("displayName") or season_slug_to_name(
-                    e.get("season", {}).get("slug", "")
-                )
+
+        # Try to derive the league_name from the season name or slug
+        #   since not available from scoreboard API w/ league = "all"
+        #
+        # Both nextEvent and /schedule can list events from several
+        # different competitions a team has played across the season
+        # (domestic league, cup, continental competitions, friendlies).
+        # Pick whichever event is closest to today - the one nearest an
+        # upcoming date, or the most recent one if nothing is upcoming yet -
+        # rather than just taking whichever happens to appear last in the
+        # API response. /schedule in particular is returned newest-first,
+        # so blindly taking "the last one processed" silently landed on the
+        # oldest event in the list (e.g. an early preseason friendly)
+        # instead of the team's actual current competition.
+        candidates = []  # (event_date, season_name)
+        for event in (*next_events, *((sched_data or {}).get("events", []))):
+            if not event.get("id"):
+                continue
+            try:
+                event_date = date.fromisoformat(str(event.get("date", ""))[:10])
+            except (TypeError, ValueError):
+                continue
+            season = event.get("season") or {}
+            name = season.get("displayName") or season_slug_to_name(season.get("slug", ""))
+            if not name:
+                # No usable label on this event - skip it rather than let it
+                # win purely for being closer to today and blank out a
+                # farther-but-labeled candidate.
+                continue
+            candidates.append((event_date, name))
+
+        upcoming = [c for c in candidates if c[0] >= today]
+        if upcoming:
+            season_name = min(upcoming, key=lambda c: c[0])[1]
+        elif candidates:
+            season_name = max(candidates, key=lambda c: c[0])[1]
+        else:
+            season_name = ""
 
         derived_league_name = re.sub(r"^\d{4}(-\d{2})?\s+", "", season_name)
 
         self.lookups["derived_league_name"] = derived_league_name
-        next_game_date = (
-            date.fromisoformat(next_events[0]["date"][:10]) if next_events else None
-        )
+        # team.nextEvent on the aggregate "all" endpoint is not complete for
+        # every soccer league. The team schedule is already fetched above and is
+        # the more complete source, so also derive the earliest non-completed
+        # current/future event from it. This keeps the scoreboard/fallback date
+        # window wide enough when nextEvent is missing.
+        candidate_dates = []
+
+        for event in next_events:
+            try:
+                event_date = date.fromisoformat(str(event.get("date", ""))[:10])
+            except (TypeError, ValueError):
+                continue
+            if event_date >= today:
+                candidate_dates.append(event_date)
+
+        if sched_data:
+            for event in sched_data.get("events", []):
+                status_type = event.get("status", {}).get("type", {})
+                if status_type.get("completed") is True:
+                    continue
+                try:
+                    event_date = date.fromisoformat(str(event.get("date", ""))[:10])
+                except (TypeError, ValueError):
+                    continue
+                if event_date >= today:
+                    candidate_dates.append(event_date)
+
+        next_game_date = min(candidate_dates) if candidate_dates else None
 
         result = {
             "next_game_date": next_game_date,
             "derived_league_name": derived_league_name,
             "expires": next_game_date or today,
+            "schedule_response": response,
+            "team_response": team_response,
+            "next_events": next_events,
+            "sport_path": self._coordinator.sport_path,
         }
         self.instance_cache[self.TEAM_SCHEDULE_KEY] = result
         return result
