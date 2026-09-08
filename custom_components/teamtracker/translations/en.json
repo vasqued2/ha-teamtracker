@@ -3,7 +3,9 @@
     "error": {
       "league": "Invalid league entered.",
       "cannot_fetch_teams": "Could not fetch teams from ESPN. Check your connection and try again.",
-      "no_teams_found": "No teams found for that search term. Try a different name or leave blank for manual entry."
+      "no_teams_found": "No teams found for that search term. Try a different name or leave blank for manual entry.",
+      "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
+      "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Friendly Name"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Create a standalone TheSportsDB sensor. Enter a numeric Team ID for free lookup, or search by team name. The free API has limited name-search and schedule results; supporters can enter their API key.",
+        "data": {
+          "sportsdb_api_key": "TheSportsDB API key (optional)",
+          "search_team": "Search team name (optional)",
+          "team_id": "Team ID (optional)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Select TheSportsDB Team",
+        "description": "Choose the team to track.",
+        "data": {
+          "team_selection": "Team"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Team Tracker Options",
         "description": "Enter the 2-character language code to use for the API call.",
         "data": {
-          "api_language": "API Language"
+          "api_language": "API Language",
+          "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
+          "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
         }
       }
     }

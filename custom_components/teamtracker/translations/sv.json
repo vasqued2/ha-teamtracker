@@ -3,7 +3,9 @@
     "error": {
       "league": "Ogiltig liga angiven.",
       "cannot_fetch_teams": "Kunde inte hämta lag från ESPN. Kontrollera din anslutning och försök igen.",
-      "no_teams_found": "Inga lag hittades för det sökordet. Prova ett annat namn eller lämna tomt för manuell inmatning."
+      "no_teams_found": "Inga lag hittades för det sökordet. Prova ett annat namn eller lämna tomt för manuell inmatning.",
+      "sportsdb_team_required": "Ange ett TheSportsDB-lagnamn eller ett numeriskt lag-ID.",
+      "sportsdb_no_teams_found": "TheSportsDB returnerade inget matchande lag."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Vänligt namn"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Skapa en fristående TheSportsDB-sensor. Ange ett numeriskt lag-ID för gratis uppslagning eller sök efter lagets namn. Det kostnadsfria API:t har begränsade resultat för namnsökning och spelschema; supportrar kan ange sin API-nyckel.",
+        "data": {
+          "sportsdb_api_key": "TheSportsDB API-nyckel (valfritt)",
+          "search_team": "Sök lagnamn (valfritt)",
+          "team_id": "Lag-ID (valfritt)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Välj TheSportsDB-lag",
+        "description": "Välj laget som ska följas.",
+        "data": {
+          "team_selection": "Lag"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Team Tracker Alternativ",
         "description": "Ange den 2-ställiga språkkoden som ska användas för API-anropet.",
         "data": {
-          "api_language": "API Språk"
+          "api_language": "API Språk",
+          "sportsdb_api_key": "Ny TheSportsDB API-nyckel (lämna tomt för att behålla den nuvarande)",
+          "sportsdb_clear_api_key": "Använd gratis TheSportsDB-nyckel (ta bort sparad supporter-nyckel)"
         }
       }
     }

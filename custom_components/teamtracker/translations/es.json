@@ -3,7 +3,9 @@
     "error": {
       "league": "Liga ingresada no válida.",
       "cannot_fetch_teams": "No se pudieron obtener los equipos de ESPN. Compruebe su conexión e inténtelo de nuevo.",
-      "no_teams_found": "No se encontraron equipos para ese término de búsqueda. Pruebe con un nombre diferente o déjelo en blanco para la entrada manual."
+      "no_teams_found": "No se encontraron equipos para ese término de búsqueda. Pruebe con un nombre diferente o déjelo en blanco para la entrada manual.",
+      "sportsdb_team_required": "Introduce un nombre de equipo de TheSportsDB o un ID numérico de equipo.",
+      "sportsdb_no_teams_found": "TheSportsDB no devolvió ningún equipo coincidente."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Nombre amigable"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Crea un sensor independiente de TheSportsDB. Introduce un ID numérico de equipo para la consulta gratuita o busca por nombre de equipo. La API gratuita tiene resultados limitados de búsqueda por nombre y calendario; los colaboradores pueden introducir su clave de API.",
+        "data": {
+          "sportsdb_api_key": "Clave API de TheSportsDB (opcional)",
+          "search_team": "Buscar nombre del equipo (opcional)",
+          "team_id": "ID del equipo (opcional)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Seleccionar equipo de TheSportsDB",
+        "description": "Elige el equipo que quieres seguir.",
+        "data": {
+          "team_selection": "Equipo"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Opciones de Team Tracker",
         "description": "Ingrese el código de idioma de 2 caracteres para usar en la llamada a la API.",
         "data": {
-          "api_language": "Idioma de la API"
+          "api_language": "Idioma de la API",
+          "sportsdb_api_key": "Nueva clave API de TheSportsDB (déjala vacía para conservar la actual)",
+          "sportsdb_clear_api_key": "Usar la clave gratuita de TheSportsDB (eliminar la clave de colaborador guardada)"
         }
       }
     }

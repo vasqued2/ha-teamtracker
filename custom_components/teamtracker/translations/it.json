@@ -3,7 +3,9 @@
     "error": {
       "league": "Campionato inserito non valido.",
       "cannot_fetch_teams": "Impossibile recuperare le squadre da ESPN. Controlla la tua connessione e riprova.",
-      "no_teams_found": "Nessuna squadra trovata per quel termine di ricerca. Prova con un nome diverso o lascia vuoto per l'inserimento manuale."
+      "no_teams_found": "Nessuna squadra trovata per quel termine di ricerca. Prova con un nome diverso o lascia vuoto per l'inserimento manuale.",
+      "sportsdb_team_required": "Inserisci un nome squadra TheSportsDB o un ID squadra numerico.",
+      "sportsdb_no_teams_found": "TheSportsDB non ha restituito alcuna squadra corrispondente."
     },
     "step": {
       "user": {
@@ -67,6 +69,22 @@
         "data": {
           "name": "Nome descrittivo"
         }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Crea un sensore TheSportsDB autonomo. Inserisci un ID squadra numerico per la ricerca gratuita oppure cerca per nome della squadra. L’API gratuita offre risultati limitati per la ricerca per nome e il calendario; i sostenitori possono inserire la propria chiave API.",
+        "data": {
+          "sportsdb_api_key": "Chiave API TheSportsDB (facoltativo)",
+          "search_team": "Cerca nome squadra (facoltativo)",
+          "team_id": "ID squadra (facoltativo)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Seleziona squadra TheSportsDB",
+        "description": "Scegli la squadra da seguire.",
+        "data": {
+          "team_selection": "Squadra"
+        }
       }
     }
   },
@@ -76,7 +94,9 @@
         "title": "Opzioni Team Tracker",
         "description": "Inserisci il codice lingua a 2 caratteri da utilizzare per la chiamata API.",
         "data": {
-          "api_language": "Lingua API"
+          "api_language": "Lingua API",
+          "sportsdb_api_key": "Nuova chiave API TheSportsDB (lascia vuoto per mantenere quella attuale)",
+          "sportsdb_clear_api_key": "Usa la chiave gratuita TheSportsDB (rimuovi la chiave sostenitore salvata)"
         }
       }
     }
