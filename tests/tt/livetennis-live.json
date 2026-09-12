@@ -1,0 +1,155 @@
+{
+  "data": [
+    {
+      "id": 191001,
+      "tournament": "Cincinnati Masters",
+      "tour": "atp",
+      "tournament_id": "1217",
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": "Quarterfinal",
+      "round_code": "QF",
+      "status": "live",
+      "event_status": null,
+      "event_status_updated_at": null,
+      "is_doubles": false,
+      "draw": "singles",
+      "scheduled_time": "2026-09-12T13:00:00Z",
+      "live_at": "2026-09-12T13:04:00Z",
+      "players": {
+        "p1": {
+          "id": 4001,
+          "name": "Jannik Sinner",
+          "tour": "atp",
+          "country": "ita",
+          "ranking": 1,
+          "ranking_points": 11500,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "2001-08-16",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        },
+        "p2": {
+          "id": 4002,
+          "name": "Carlos Alcaraz",
+          "tour": "atp",
+          "country": "esp",
+          "ranking": 2,
+          "ranking_points": 9800,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "2003-05-05",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        }
+      },
+      "score": {
+        "sets": [1, 1],
+        "games": [[6, 3, 4], [4, 6, 3]],
+        "points": ["40", "30"],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "danger": null,
+        "timestamp": "2026-09-12T13:58:00Z"
+      },
+      "winner": null,
+      "outcome": null,
+      "withdrew": null,
+      "has_analysis": false,
+      "has_market": true
+    },
+    {
+      "id": 191002,
+      "tournament": "Cincinnati Masters",
+      "tour": "atp",
+      "tournament_id": "1218",
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": "Quarterfinal",
+      "round_code": "QF",
+      "status": "live",
+      "event_status": null,
+      "event_status_updated_at": null,
+      "is_doubles": false,
+      "draw": "singles",
+      "scheduled_time": "2026-09-12T12:30:00Z",
+      "live_at": "2026-09-12T12:35:00Z",
+      "players": {
+        "p1": {
+          "id": 4003,
+          "name": "Elena Rybakina",
+          "tour": "wta",
+          "country": "kaz",
+          "ranking": 4,
+          "ranking_points": 5100,
+          "ranking_movement": "up",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "1999-06-17",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        },
+        "p2": {
+          "id": 4004,
+          "name": "Coco Gauff",
+          "tour": "wta",
+          "country": "usa",
+          "ranking": 3,
+          "ranking_points": 6200,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "2004-03-13",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        }
+      },
+      "score": {
+        "sets": [1, 0],
+        "games": [[7, 6], [5, 6]],
+        "points": ["5", "4"],
+        "server": 2,
+        "is_tiebreak": true,
+        "win_probability_p1": null,
+        "danger": null,
+        "timestamp": "2026-09-12T13:57:00Z"
+      },
+      "winner": null,
+      "outcome": null,
+      "withdrew": null,
+      "has_analysis": false,
+      "has_market": true
+    }
+  ],
+  "meta": {
+    "limit": 200,
+    "offset": 0,
+    "count": 2,
+    "total": 2,
+    "has_more": false,
+    "next_cursor": null,
+    "watermark": null
+  }
+}

@@ -23,6 +23,7 @@ from .const import (
     INDIVIDUAL_SPORTS,
     NATIVE_LEAGUES,
 )
+from .provide_livetennis import resolve_api_key
 from .provider_base import BaseSportProvider
 from .provider_factory import get_provider
 
@@ -81,6 +82,12 @@ _SPORT_GROUPS: dict[str, tuple[str, dict[str, str]]] = {
         "ATP": "ATP",
         "WTA": "WTA",
     }),
+    "livetennis": ("Tennis (Live Tennis API)", {
+        "LTATP": "ATP",
+        "LTWTA": "WTA",
+        "LTCH": "Challenger",
+        "LTITF": "ITF",
+    }),
     "volleyball": ("Volleyball", {
         "NCAAVB": "NCAA Men's Volleyball",
         "NCAAVBW": "NCAA Women's Volleyball",
@@ -91,6 +98,9 @@ SPORT_OPTIONS: dict[str, str] = {
     "XXX": "Custom API",
     **{k: v[0] for k, v in _SPORT_GROUPS.items()}
 }
+
+# Sport groups that are only selectable when their API key is configured
+_LIVETENNIS_SPORT_KEY = "livetennis"
 
 
 def _get_path_schema(
@@ -159,13 +169,30 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
             return await self.async_step_league()
 
         schema = vol.Schema(
-            {vol.Required("sport_key"): vol.In(SPORT_OPTIONS)}
+            {vol.Required("sport_key"): vol.In(self._sport_options())}
         )
         return self.async_show_form(
             step_id="user",
             data_schema=schema,
             errors=self._errors,
         )
+
+    def _sport_options(self) -> dict[str, str]:
+        """Return the selectable sports.
+
+        The Live Tennis API leagues need a key, so they are offered only when
+        one is configured.  Without a key the list is exactly what it was.
+        """
+        options = dict(SPORT_OPTIONS)
+
+        league_paths = [
+            NATIVE_LEAGUES.get(league_id, {}).get(CONF_LEAGUE_PATH, "")
+            for league_id in _SPORT_GROUPS[_LIVETENNIS_SPORT_KEY][1]
+        ]
+        if not any(resolve_api_key(self.hass, path) for path in league_paths):
+            options.pop(_LIVETENNIS_SPORT_KEY, None)
+
+        return options
 
     # ------------------------------------------------------------------ #
     #  Step 2a: Set Up Custom API (sport_key = XXX)                      #

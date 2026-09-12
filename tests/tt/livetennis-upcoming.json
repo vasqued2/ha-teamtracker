@@ -1,0 +1,137 @@
+{
+  "data": [
+    {
+      "id": 191010,
+      "tournament": "Cincinnati Masters",
+      "tour": "atp",
+      "tournament_id": "1217",
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": "Semifinal",
+      "round_code": "SF",
+      "status": "upcoming",
+      "event_status": null,
+      "event_status_updated_at": null,
+      "is_doubles": false,
+      "draw": "singles",
+      "scheduled_time": "2026-09-13T17:00:00Z",
+      "live_at": null,
+      "players": {
+        "p1": {
+          "id": 4005,
+          "name": "Novak Djokovic",
+          "tour": "atp",
+          "country": "srb",
+          "ranking": 5,
+          "ranking_points": 4800,
+          "ranking_movement": "down",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "1987-05-22",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        },
+        "p2": {
+          "id": 4006,
+          "name": "Daniil Medvedev",
+          "tour": "atp",
+          "country": "rus",
+          "ranking": 8,
+          "ranking_points": 3600,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "1996-02-11",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        }
+      },
+      "score": null,
+      "winner": null,
+      "outcome": null,
+      "withdrew": null,
+      "has_analysis": false,
+      "has_market": false
+    },
+    {
+      "id": 191011,
+      "tournament": "Chengdu Challenger",
+      "tour": "challenger",
+      "tournament_id": null,
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": null,
+      "round_code": null,
+      "status": "upcoming",
+      "event_status": null,
+      "event_status_updated_at": null,
+      "is_doubles": false,
+      "draw": null,
+      "scheduled_time": null,
+      "live_at": null,
+      "players": {
+        "p1": {
+          "id": 4007,
+          "name": "Unscheduled Playerone",
+          "tour": "challenger_men",
+          "country": null,
+          "ranking": null,
+          "ranking_points": null,
+          "ranking_movement": null,
+          "hand": null,
+          "backhand": null,
+          "birthday": null,
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 0,
+            "of": 4,
+            "missing": ["backhand", "birthday", "country", "hand"]
+          }
+        },
+        "p2": {
+          "id": 4008,
+          "name": "Unscheduled Playertwo",
+          "tour": "challenger_men",
+          "country": null,
+          "ranking": null,
+          "ranking_points": null,
+          "ranking_movement": null,
+          "hand": null,
+          "backhand": null,
+          "birthday": null,
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 0,
+            "of": 4,
+            "missing": ["backhand", "birthday", "country", "hand"]
+          }
+        }
+      },
+      "score": null,
+      "winner": null,
+      "outcome": null,
+      "withdrew": null,
+      "has_analysis": false,
+      "has_market": false
+    }
+  ],
+  "meta": {
+    "limit": 200,
+    "offset": 0,
+    "count": 2,
+    "total": 2,
+    "has_more": false,
+    "next_cursor": null,
+    "watermark": null
+  }
+}
