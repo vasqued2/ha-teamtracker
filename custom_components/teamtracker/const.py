@@ -22,6 +22,8 @@ CRICKET = "cricket"
 FOOTBALL = "football"
 GOLF = "golf"
 HOCKEY = "hockey"
+# Provider path rather than an ESPN sport path (see provide_livetennis.py)
+LIVETENNIS = "livetennis"
 MMA = "mma"
 RACING = "racing"
 RUGBY = "rugby"
@@ -147,6 +149,22 @@ NATIVE_LEAGUES = {
         CONF_SPORT_PATH: TENNIS,
         CONF_LEAGUE_PATH: "wta",
     },
+    "LTATP": {
+        CONF_SPORT_PATH: LIVETENNIS,
+        CONF_LEAGUE_PATH: "atp",
+    },
+    "LTWTA": {
+        CONF_SPORT_PATH: LIVETENNIS,
+        CONF_LEAGUE_PATH: "wta",
+    },
+    "LTCH": {
+        CONF_SPORT_PATH: LIVETENNIS,
+        CONF_LEAGUE_PATH: "challenger",
+    },
+    "LTITF": {
+        CONF_SPORT_PATH: LIVETENNIS,
+        CONF_LEAGUE_PATH: "itf",
+    },
     "NCAAVB": {
         CONF_SPORT_PATH: VOLLEYBALL,
         CONF_LEAGUE_PATH: "mens-college-volleyball",
@@ -173,6 +191,7 @@ SPORT_ICON_MAP = {
     VOLLEYBALL: "mdi:volleyball",
 #     Add sport_path and icons for non-ESPN APIs here
     "hockeytech": "mdi:hockey-puck",
+    LIVETENNIS: "mdi:tennis",
 }
 
 # Defaults
@@ -195,7 +214,7 @@ GENERAL_RAPID_REFRESH_RATE = timedelta(seconds=5)
 SERVICE_NAME_CALL_API = "call_api"
 SERVICE_NAME_RELOAD_OVERRIDES = "reload_overrides"
 
-INDIVIDUAL_SPORTS = {"golf", "mma", "tennis"}
+INDIVIDUAL_SPORTS = {"golf", "mma", "tennis", LIVETENNIS}
 
 # Misc
 TEAM_ID = ""

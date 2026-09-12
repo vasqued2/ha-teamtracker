@@ -3,6 +3,7 @@ import asyncio
 from collections.abc import Generator  # <-- New import
 import json
 import logging
+import os
 import threading
 from unittest.mock import AsyncMock, patch
 
@@ -11,7 +12,12 @@ import arrow
 import pytest
 from yarl import URL
 
+from custom_components.teamtracker.provide_livetennis import LIVETENNIS_API_KEY_ENV
+
 _LOGGER = logging.getLogger(__name__)
+
+#  Not a real key; the Live Tennis API is never called from the test suite
+LIVETENNIS_TEST_KEY = "unit-test-key-not-a-real-key"
 
 pytest_plugins = ("pytest_homeassistant_custom_component", "pytest_asyncio")
 
@@ -139,6 +145,53 @@ async def mock_call_hockeytech_api(hass):
     with patch("custom_components.teamtracker.provide_hockeytech.HockeyTechProvider.async_call_hockeytech_api", new_callable=AsyncMock) as mock_hockeytech:
         mock_hockeytech.side_effect = _get_mock_ht_api_data
         yield mock_hockeytech
+
+
+@pytest.fixture
+async def mock_call_livetennis_api(hass):
+    """Global fixture to mock the Live Tennis API and return local JSON data."""
+
+    async def _get_mock_lt_api_data(hass, base_url, params, sensor_name, league_id):
+        """Read FILE_NAME instead of calling the API."""
+
+        status = params.get("status", "live")
+        FILE_NAME = f"tests/tt/livetennis-{status}.json"
+        url = str(URL(base_url).with_query(params))
+
+        timestamp = arrow.now().format(arrow.FORMAT_W3C)
+
+        if "api_error" in sensor_name:
+            return {
+                "lt_data": None,
+                "url": url,
+                "timestamp": timestamp,
+                "status": None,
+            }
+
+        try:
+            with open(FILE_NAME, "r") as f:
+                data = json.load(f)
+            return {
+                "lt_data": data,
+                "url": url,
+                "timestamp": timestamp,
+                "status": 200,
+            }
+
+        except FileNotFoundError:
+            return {
+                "lt_data": None,
+                "url": url,
+                "timestamp": timestamp,
+                "status": 404,
+            }
+
+    with patch.dict(os.environ, {LIVETENNIS_API_KEY_ENV: LIVETENNIS_TEST_KEY}), patch(
+        "custom_components.teamtracker.provide_livetennis.LiveTennisProvider.async_call_livetennis_api",
+        new_callable=AsyncMock,
+    ) as mock_livetennis:
+        mock_livetennis.side_effect = _get_mock_lt_api_data
+        yield mock_livetennis
 
 
 @pytest.fixture

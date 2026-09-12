@@ -1,0 +1,155 @@
+{
+  "data": [
+    {
+      "id": 190900,
+      "tournament": "Cincinnati Masters",
+      "tour": "atp",
+      "tournament_id": "1219",
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": "Round of 16",
+      "round_code": "R16",
+      "status": "completed",
+      "event_status": null,
+      "event_status_updated_at": null,
+      "is_doubles": false,
+      "draw": "singles",
+      "scheduled_time": "2026-09-11T11:00:00Z",
+      "live_at": "2026-09-11T11:06:00Z",
+      "players": {
+        "p1": {
+          "id": 4009,
+          "name": "Iga Swiatek",
+          "tour": "wta",
+          "country": "pol",
+          "ranking": 2,
+          "ranking_points": 8300,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "2001-05-31",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        },
+        "p2": {
+          "id": 4010,
+          "name": "Aryna Sabalenka",
+          "tour": "wta",
+          "country": "blr",
+          "ranking": 1,
+          "ranking_points": 9500,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "1998-05-05",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        }
+      },
+      "score": {
+        "sets": [2, 0],
+        "games": [[6, 6], [3, 4]],
+        "points": [null, null],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "danger": null,
+        "timestamp": "2026-09-11T12:47:00Z"
+      },
+      "winner": 1,
+      "outcome": "completed",
+      "withdrew": null,
+      "has_analysis": false,
+      "has_market": true
+    },
+    {
+      "id": 190901,
+      "tournament": "Cincinnati Masters",
+      "tour": "atp",
+      "tournament_id": "1219",
+      "surface": "hard",
+      "indoor": false,
+      "format": "BO3",
+      "round": "Round of 16",
+      "round_code": "R16",
+      "status": "completed",
+      "event_status": "Retired",
+      "event_status_updated_at": "2026-09-11T14:22:00Z",
+      "is_doubles": false,
+      "draw": "singles",
+      "scheduled_time": "2026-09-11T13:30:00Z",
+      "live_at": "2026-09-11T13:35:00Z",
+      "players": {
+        "p1": {
+          "id": 4011,
+          "name": "Taylor Fritz",
+          "tour": "atp",
+          "country": "usa",
+          "ranking": 6,
+          "ranking_points": 4200,
+          "ranking_movement": "same",
+          "hand": "R",
+          "backhand": 2,
+          "birthday": "1997-10-28",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        },
+        "p2": {
+          "id": 4012,
+          "name": "Ben Shelton",
+          "tour": "atp",
+          "country": "usa",
+          "ranking": 12,
+          "ranking_points": 2450,
+          "ranking_movement": "down",
+          "hand": "L",
+          "backhand": 2,
+          "birthday": "2002-10-09",
+          "is_doubles_team": false,
+          "data_completeness": {
+            "known": 4,
+            "of": 4,
+            "missing": []
+          }
+        }
+      },
+      "score": {
+        "sets": [1, 0],
+        "games": [[], []],
+        "points": [null, null],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "danger": null,
+        "timestamp": "2026-09-11T14:22:00Z"
+      },
+      "winner": 1,
+      "outcome": "retired",
+      "withdrew": 2,
+      "has_analysis": false,
+      "has_market": true
+    }
+  ],
+  "meta": {
+    "limit": 200,
+    "offset": 0,
+    "count": 2,
+    "total": null,
+    "has_more": false,
+    "next_cursor": null,
+    "watermark": null
+  }
+}

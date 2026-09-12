@@ -6,6 +6,7 @@
       "event_url": "https://www.sample_league/games/{event_id}",
       "public_key": "url key",
       "client_code": "url code",
+      "api_key": "provider api key",
       "teams": {
         "{team_id}": {
           "abbr": "ABBR",
