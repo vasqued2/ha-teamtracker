@@ -186,8 +186,8 @@ class EspnAllLeaguesProvider(EspnProvider):
         return normalized_team
 
     @staticmethod
-    def _normalize_next_event(event):
-        """Normalize ESPN nextEvent shape without inventing missing data."""
+    def _normalize_fallback_event(event):
+        """Normalize an ESPN fallback event without inventing missing data."""
         normalized_event = dict(event)
 
         season = event.get("season")
@@ -218,6 +218,19 @@ class EspnAllLeaguesProvider(EspnProvider):
                     continue
 
                 normalized_competitor = dict(competitor)
+
+                # ESPN team metadata / schedule fallback responses may expose
+                # score as an object while the scoreboard parser expects the
+                # usual scalar representation.
+                score = competitor.get("score")
+                if isinstance(score, dict):
+                    if score.get("displayValue") is not None:
+                        normalized_competitor["score"] = str(
+                            score["displayValue"]
+                        )
+                    elif score.get("value") is not None:
+                        normalized_competitor["score"] = str(score["value"])
+
                 team = competitor.get("team")
                 if isinstance(team, dict):
                     normalized_competitor["team"] = (
@@ -230,6 +243,11 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         normalized_event["competitions"] = normalized_competitions
         return normalized_event
+
+    @staticmethod
+    def _normalize_next_event(event):
+        """Normalize ESPN nextEvent using the shared fallback normalization."""
+        return EspnAllLeaguesProvider._normalize_fallback_event(event)
 
     @staticmethod
     def _next_event_response_for_dates(
@@ -311,7 +329,9 @@ class EspnAllLeaguesProvider(EspnProvider):
         for event in schedule_data.get("events", []):
             event_date = str(event.get("date", ""))[:10].replace("-", "")
             if len(event_date) == 8 and start_date <= event_date <= end_date:
-                events.append(event)
+                events.append(
+                    EspnAllLeaguesProvider._normalize_fallback_event(event)
+                )
 
         if not events:
             return None
