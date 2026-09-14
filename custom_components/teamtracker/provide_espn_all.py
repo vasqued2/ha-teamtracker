@@ -117,6 +117,15 @@ class EspnAllLeaguesProvider(EspnProvider):
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
         data = response["data"]
 
+        # The aggregate ALL feed can fill API_LIMIT before this team's events
+        # appear. Remember that the broad response was incomplete even if the
+        # later narrow retry finds the team's next PRE fixture.
+        broad_window_truncated = (
+            isinstance(data, dict)
+            and len(data.get("events") or []) >= API_LIMIT
+            and has_team(data, team_id) is False
+        )
+
         # If event for team not returned, narrow date range and try again
         if has_team(data, team_id) is False:
             if (next_game_date and next_game_date > today_utc):
@@ -132,6 +141,35 @@ class EspnAllLeaguesProvider(EspnProvider):
                     url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
 
                     response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+
+        # When the broad ALL response was truncated, the narrow retry can expose
+        # only the next PRE event and hide a just-completed result. Rebuild only
+        # the small handoff timeline the existing parser expects: yesterday/today
+        # from the already-fetched team schedule plus team.nextEvent. The shared
+        # ESPN parser keeps its normal 12-hour POST -> PRE selection behavior.
+        if broad_window_truncated:
+            recent_start = (today_utc - timedelta(days=1)).strftime("%Y%m%d")
+            recent_end = today_utc.strftime("%Y%m%d")
+
+            recent_schedule_response = self._schedule_response_for_dates(
+                schedule_info,
+                f"{recent_start}-{recent_end}",
+            )
+            next_event_response = self._next_event_response_for_dates(
+                schedule_info,
+                url_parms["dates"],
+                response,
+            )
+            handoff_response = self._merge_handoff_responses(
+                recent_schedule_response,
+                next_event_response,
+            )
+
+            if handoff_response and has_team(
+                handoff_response.get("data"), team_id
+            ):
+                response = handoff_response
+                self._set_fallback_derived_league_name(response)
 
         # ESPN's sport-wide /all scoreboard can omit a team's competition even
         # though the already-fetched team schedule contains the full event.
@@ -289,6 +327,59 @@ class EspnAllLeaguesProvider(EspnProvider):
             fallback_response["url"] = team_response["url"]
         if team_response.get("timestamp") is not None:
             fallback_response["timestamp"] = team_response["timestamp"]
+
+        return fallback_response
+
+
+    @staticmethod
+    def _merge_handoff_responses(schedule_response, next_event_response):
+        """Merge recent schedule data and nextEvent for normal parser handoff."""
+        if not schedule_response and not next_event_response:
+            return None
+
+        events = []
+        seen = set()
+
+        # Schedule first so its richer completed-event shape wins duplicates.
+        for source in (schedule_response, next_event_response):
+            if not source:
+                continue
+
+            for event in (source.get("data") or {}).get("events") or []:
+                if not isinstance(event, dict):
+                    continue
+
+                event_id = event.get("id")
+                key = (
+                    str(event_id)
+                    if event_id is not None
+                    else str(event.get("date") or "")
+                )
+                if key in seen:
+                    continue
+
+                seen.add(key)
+                events.append(event)
+
+        if not events:
+            return None
+
+        events.sort(
+            key=lambda event: str(
+                event.get("date") or "9999-12-31T23:59:59Z"
+            )
+        )
+
+        fallback_response = dict(next_event_response or schedule_response)
+        fallback_data = dict(fallback_response.get("data") or {})
+        fallback_data["events"] = events
+        fallback_response["data"] = fallback_data
+
+        if schedule_response:
+            if schedule_response.get("url"):
+                fallback_response["url"] = schedule_response["url"]
+            if schedule_response.get("timestamp") is not None:
+                fallback_response["timestamp"] = schedule_response["timestamp"]
 
         return fallback_response
 
