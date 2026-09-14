@@ -348,7 +348,9 @@ class EspnAllLeaguesProvider(EspnProvider):
     #
     #    Calls the team info and schedule endpoints to discover the next game
     #    date and build an event_id → league name mapping (substring of season)
-    #    Results are cached in the instance_cache until the next game date passes.
+    #    Future-day results stay cached until match day. On match day the cache
+    #    is limited to the provider's normal refresh interval so PRE/IN/POST
+    #    transitions can be observed without polling the schedule every 5 seconds.
     #
     async def _async_get_team_schedule(self):
         """Fetch team schedule info for 'all' league date computation."""
@@ -358,13 +360,26 @@ class EspnAllLeaguesProvider(EspnProvider):
         league_path = self._coordinator.league_path
         sensor_name = self._coordinator.name
 
+        now = datetime.now(timezone.utc)
         today = date.today()
         cache = self.instance_cache.get(self.TEAM_SCHEDULE_KEY)
 
-        if cache is not None and today <= cache["expires"]:
-            _LOGGER.debug("%s: instance_cache hit for '%s'", sensor_name, team_id)
-            self.lookups["derived_league_name"] = cache["derived_league_name"]
-            return cache
+        if cache is not None:
+            expires = cache["expires"]
+            cache_is_fresh = today < expires
+
+            if today == expires:
+                cached_at = cache.get("cached_at")
+                if isinstance(cached_at, datetime):
+                    cache_age = now - cached_at
+                    cache_is_fresh = (
+                        timedelta(0) <= cache_age < self.DEFAULT_REFRESH_RATE
+                    )
+
+            if cache_is_fresh:
+                _LOGGER.debug("%s: instance_cache hit for '%s'", sensor_name, team_id)
+                self.lookups["derived_league_name"] = cache["derived_league_name"]
+                return cache
 
         team_url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_id}"
 
@@ -455,6 +470,7 @@ class EspnAllLeaguesProvider(EspnProvider):
             "next_game_date": next_game_date,
             "derived_league_name": derived_league_name,
             "expires": next_game_date or today,
+            "cached_at": now,
             "schedule_response": response,
             "team_response": team_response,
             "next_events": next_events,
