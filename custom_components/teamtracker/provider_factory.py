@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 from .provide_cflscoreboard import CflScoreboardProvider
 from .provide_espn import EspnProvider
 from .provide_espn_all import EspnAllLeaguesProvider
+from .provide_espn_all_supplemented import SupplementalEspnAllLeaguesProvider
 from .provide_hockeytech import HockeyTechProvider
 from .provide_mlbstats import MlbStatsProvider
 from .provide_sportsdb import SportsDbProvider
@@ -30,6 +31,9 @@ def get_provider(sport_path: str, league_path: str, team_id: str="", coordinator
     elif sport_path.lower() == "sportsdb":
         provider = SportsDbProvider(coordinator)
     elif league_path.lower() == "all" and is_integer(team_id):
-        provider = EspnAllLeaguesProvider(coordinator)
+        if sport_path.lower() == "soccer":
+            provider = SupplementalEspnAllLeaguesProvider(coordinator)
+        else:
+            provider = EspnAllLeaguesProvider(coordinator)
 
     return provider
