@@ -31,10 +31,9 @@ def get_provider(sport_path: str, league_path: str, team_id: str="", coordinator
     elif sport_path.lower() == "sportsdb":
         provider = SportsDbProvider(coordinator)
     elif league_path.lower() == "all" and (is_integer(team_id) or team_id == ""):
-        # During config flow no team_id exists yet. The ALL provider owns the
-        # soccer/all team-discovery behavior; runtime soccer sensors use the
-        # supplemental subclass while other sports retain the ESPN ALL provider.
-        if sport_path.lower() == "soccer":
+        # Config flow has no team_id yet, so keep discovery on the ESPN ALL
+        # provider. Runtime numeric soccer sensors add the supplemental layer.
+        if sport_path.lower() == "soccer" and is_integer(team_id):
             provider = SupplementalEspnAllLeaguesProvider(coordinator)
         else:
             provider = EspnAllLeaguesProvider(coordinator)
