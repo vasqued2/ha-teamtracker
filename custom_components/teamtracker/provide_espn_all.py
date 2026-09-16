@@ -111,7 +111,14 @@ class EspnAllLeaguesProvider(EspnProvider):
         sensor_name: str,
     ) -> dict:
         """Fetch teams, with soccer/all discovery isolated in this provider."""
-        if sport_path != "soccer" or league_path != "all":
+        # The broad league-catalog crawl exists only to support config-flow team
+        # discovery. Runtime providers already have a configured team and must
+        # never enumerate every soccer league just to populate lookups.
+        if (
+            sport_path != "soccer"
+            or league_path != "all"
+            or self._coordinator is not None
+        ):
             return await super()._async_fetch_team_data(
                 hass,
                 sport_path,
@@ -318,13 +325,48 @@ class EspnAllLeaguesProvider(EspnProvider):
                     self._set_fallback_derived_league_name(response)
 
         if "team_list" not in self.lookups:
-            teams_response = await self.async_get_team_data(
-                hass,
-                sport_path,
-                league_path,
-                sensor_name,
-            )
-            self.lookups["team_list"] = teams_response["data"]
+            if sport_path == "soccer" and league_path == "all":
+                # Runtime already fetched the configured team's metadata above.
+                # Reuse it instead of triggering the config-flow league crawl.
+                team_response = (schedule_info or {}).get("team_response") or {}
+                team_data = (team_response.get("data") or {}).get("team") or {}
+                if (
+                    isinstance(team_data, dict)
+                    and str(team_data.get("id") or "") == team_id
+                ):
+                    logo = str(team_data.get("logo") or "").strip()
+                    if not logo:
+                        for item in team_data.get("logos") or []:
+                            if isinstance(item, dict) and item.get("href"):
+                                logo = str(item["href"])
+                                break
+                    self.lookups["team_list"] = [
+                        {
+                            "id": team_id,
+                            "displayName": str(
+                                team_data.get("displayName")
+                                or team_data.get("name")
+                                or ""
+                            ).strip(),
+                            "abbreviation": str(
+                                team_data.get("abbreviation") or ""
+                            ).strip(),
+                            "location": str(
+                                team_data.get("location") or ""
+                            ).strip(),
+                            "logo": logo,
+                        }
+                    ]
+                else:
+                    self.lookups["team_list"] = []
+            else:
+                teams_response = await self.async_get_team_data(
+                    hass,
+                    sport_path,
+                    league_path,
+                    sensor_name,
+                )
+                self.lookups["team_list"] = teams_response["data"]
         response["lookups"] = self.lookups
         return response
 
