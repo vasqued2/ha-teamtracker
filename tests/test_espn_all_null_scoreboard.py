@@ -1,15 +1,18 @@
 """Regression tests for temporary ESPN soccer/all scoreboard failures."""
 
 from custom_components.teamtracker.provide_espn_all import EspnAllLeaguesProvider
+from custom_components.teamtracker.provide_espn_all_supplemented import (
+    SupplementalEspnAllLeaguesProvider,
+)
 from custom_components.teamtracker.provider_factory import get_provider
 
 
-def test_factory_routes_all_config_lookup_to_all_provider():
+def test_factory_routes_config_lookup_to_espn_all_and_runtime_to_supplemental():
     config_provider = get_provider("soccer", "all")
     runtime_provider = get_provider("soccer", "all", "605")
 
     assert type(config_provider) is EspnAllLeaguesProvider
-    assert type(runtime_provider) is EspnAllLeaguesProvider
+    assert type(runtime_provider) is SupplementalEspnAllLeaguesProvider
 
 
 def test_null_scoreboard_payload_becomes_empty_mapping():
