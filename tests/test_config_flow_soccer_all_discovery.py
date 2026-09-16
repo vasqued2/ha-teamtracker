@@ -1,10 +1,10 @@
-"""Regression tests for Custom API soccer/all team discovery."""
+"""Regression tests for soccer/all team discovery through the provider."""
 
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock
 
 import pytest
 
-from custom_components.teamtracker.config_flow import TeamTrackerScoresFlowHandler
+from custom_components.teamtracker.provide_espn_all import EspnAllLeaguesProvider
 
 
 OLYMPIACOS = {
@@ -21,67 +21,86 @@ PAOK = {
 }
 
 
-def test_soccer_team_payload_extracts_canonical_team():
-    payload = {
+def _team_payload(*teams):
+    return {
         "sports": [
             {
                 "leagues": [
                     {
-                        "teams": [
-                            {"team": OLYMPIACOS},
-                            {"team": OLYMPIACOS},
-                        ]
+                        "teams": [{"team": team} for team in teams],
                     }
                 ]
             }
         ]
     }
 
-    assert TeamTrackerScoresFlowHandler._soccer_teams_from_payload(payload) == [
+
+def test_soccer_team_payload_extracts_canonical_team():
+    payload = _team_payload(OLYMPIACOS, OLYMPIACOS)
+
+    assert EspnAllLeaguesProvider._soccer_teams_from_payload(payload) == [
         OLYMPIACOS
     ]
 
 
 @pytest.mark.asyncio
 async def test_soccer_all_discovery_merges_duplicate_ids():
-    flow = TeamTrackerScoresFlowHandler()
-    flow._async_soccer_all_league_paths = AsyncMock(
-        return_value=["gre.1", "uefa.champions"]
-    )
-    flow._async_fetch_soccer_league_teams = AsyncMock(
+    provider = EspnAllLeaguesProvider()
+    provider.async_call_espn_api = AsyncMock(
         side_effect=[
-            [OLYMPIACOS, PAOK],
-            [{**OLYMPIACOS, "location": ""}],
+            {
+                "data": {
+                    "items": [
+                        {"slug": "gre.1"},
+                        {"slug": "uefa.champions"},
+                    ]
+                },
+                "url": "catalog",
+                "timestamp": "now",
+            },
+            {
+                "data": _team_payload(OLYMPIACOS, PAOK),
+                "url": "gre.1",
+                "timestamp": "now",
+            },
+            {
+                "data": _team_payload({**OLYMPIACOS, "location": ""}),
+                "url": "uefa.champions",
+                "timestamp": "now",
+            },
         ]
     )
 
-    teams = await flow._async_get_soccer_all_teams()
+    response = await provider._async_fetch_team_data(
+        None,
+        "soccer",
+        "all",
+        "ConfigFlow-teams",
+    )
 
-    assert [team["id"] for team in teams] == ["435", "605"]
-    assert flow._async_fetch_soccer_league_teams.await_count == 2
+    assert [team["id"] for team in response["data"]] == ["435", "605"]
+    assert provider.async_call_espn_api.await_count >= 3
 
 
 @pytest.mark.asyncio
-async def test_custom_api_soccer_all_search_uses_discovered_teams():
-    flow = TeamTrackerScoresFlowHandler()
-    flow._sport_key = "XXX"
-    flow._league_id = "XXX"
-    flow._sport_path = "soccer"
-    flow._league_path = "all"
-    flow._async_get_soccer_all_teams = AsyncMock(
-        return_value=[OLYMPIACOS, PAOK]
+async def test_non_soccer_all_uses_original_team_fetch():
+    provider = EspnAllLeaguesProvider()
+    provider._coordinator = None
+
+    # EspnProvider's normal endpoint remains authoritative outside soccer/all.
+    provider.async_call_espn_api = AsyncMock(
+        return_value={
+            "data": _team_payload(OLYMPIACOS),
+            "url": "normal",
+            "timestamp": "now",
+        }
     )
-    flow.async_step_select_team = AsyncMock(return_value={"type": "form"})
 
-    with patch(
-        "custom_components.teamtracker.config_flow.get_provider"
-    ) as get_provider_mock:
-        result = await flow.async_step_search({"search_team": "olympiacos"})
+    response = await provider._async_fetch_team_data(
+        None,
+        "basketball",
+        "all",
+        "ConfigFlow-teams",
+    )
 
-    get_provider_mock.assert_not_called()
-    flow._async_get_soccer_all_teams.assert_awaited_once()
-    assert flow._search_results == {
-        "435": "Olympiacos (OLY - 435)",
-    }
-    assert flow._team_meta == {"435": OLYMPIACOS}
-    assert result == {"type": "form"}
+    assert response["data"] == [OLYMPIACOS]
