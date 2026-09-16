@@ -8,12 +8,12 @@ from typing import Any
 from homeassistant.core import HomeAssistant
 
 from .fixture_resolver import async_get_fixture_resolver, name_score, parse_datetime
-from .provide_espn_all import EspnAllLeaguesProvider
+from .provide_espn_all_resilient import ResilientEspnAllLeaguesProvider
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class SupplementalEspnAllLeaguesProvider(EspnAllLeaguesProvider):
+class SupplementalEspnAllLeaguesProvider(ResilientEspnAllLeaguesProvider):
     """Keep ESPN authoritative while adding fixtures ESPN does not expose."""
 
     async def _async_fetch_scoreboard_data(
