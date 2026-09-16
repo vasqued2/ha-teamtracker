@@ -7,13 +7,14 @@ from typing import Any
 
 from homeassistant.core import HomeAssistant
 
-from .fixture_resolver import async_get_fixture_resolver, name_score, parse_datetime
-from .provide_espn_all_resilient import ResilientEspnAllLeaguesProvider
+from .fixture_resolver import name_score, parse_datetime
+from .fixture_resolver_live import async_get_live_fixture_resolver
+from .provide_espn_all import EspnAllLeaguesProvider
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class SupplementalEspnAllLeaguesProvider(ResilientEspnAllLeaguesProvider):
+class SupplementalEspnAllLeaguesProvider(EspnAllLeaguesProvider):
     """Keep ESPN authoritative while adding fixtures ESPN does not expose."""
 
     async def _async_fetch_scoreboard_data(
@@ -33,7 +34,7 @@ class SupplementalEspnAllLeaguesProvider(ResilientEspnAllLeaguesProvider):
             return response
 
         try:
-            resolver = await async_get_fixture_resolver(hass)
+            resolver = await async_get_live_fixture_resolver(hass)
             supplemental_events = await resolver.async_resolve_events(
                 coordinator=self._coordinator,
                 espn_team_id=team_id,
