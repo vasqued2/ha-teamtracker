@@ -326,39 +326,10 @@ class EspnAllLeaguesProvider(EspnProvider):
 
         if "team_list" not in self.lookups:
             if sport_path == "soccer" and league_path == "all":
-                # Runtime already fetched the configured team's metadata above.
-                # Reuse it instead of triggering the config-flow league crawl.
-                team_response = (schedule_info or {}).get("team_response") or {}
-                team_data = (team_response.get("data") or {}).get("team") or {}
-                if (
-                    isinstance(team_data, dict)
-                    and str(team_data.get("id") or "") == team_id
-                ):
-                    logo = str(team_data.get("logo") or "").strip()
-                    if not logo:
-                        for item in team_data.get("logos") or []:
-                            if isinstance(item, dict) and item.get("href"):
-                                logo = str(item["href"])
-                                break
-                    self.lookups["team_list"] = [
-                        {
-                            "id": team_id,
-                            "displayName": str(
-                                team_data.get("displayName")
-                                or team_data.get("name")
-                                or ""
-                            ).strip(),
-                            "abbreviation": str(
-                                team_data.get("abbreviation") or ""
-                            ).strip(),
-                            "location": str(
-                                team_data.get("location") or ""
-                            ).strip(),
-                            "logo": logo,
-                        }
-                    ]
-                else:
-                    self.lookups["team_list"] = []
+                self.lookups["team_list"] = self._runtime_team_list(
+                    schedule_info,
+                    team_id,
+                )
             else:
                 teams_response = await self.async_get_team_data(
                     hass,
@@ -369,6 +340,34 @@ class EspnAllLeaguesProvider(EspnProvider):
                 self.lookups["team_list"] = teams_response["data"]
         response["lookups"] = self.lookups
         return response
+
+    @staticmethod
+    def _runtime_team_list(schedule_info, team_id):
+        """Build the runtime team lookup from already-fetched team metadata."""
+        team_response = (schedule_info or {}).get("team_response") or {}
+        team_data = (team_response.get("data") or {}).get("team") or {}
+        if (
+            not isinstance(team_data, dict)
+            or str(team_data.get("id") or "") != team_id
+        ):
+            return []
+
+        normalized_team = EspnAllLeaguesProvider._normalize_next_event_team(team_data)
+        return [
+            {
+                "id": team_id,
+                "displayName": str(
+                    normalized_team.get("displayName")
+                    or normalized_team.get("name")
+                    or ""
+                ).strip(),
+                "abbreviation": str(
+                    normalized_team.get("abbreviation") or ""
+                ).strip(),
+                "location": str(normalized_team.get("location") or "").strip(),
+                "logo": str(normalized_team.get("logo") or "").strip(),
+            }
+        ]
 
     @staticmethod
     def _normalize_next_event_team(team):
