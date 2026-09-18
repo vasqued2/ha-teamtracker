@@ -46,9 +46,10 @@ def test_soccer_team_payload_extracts_canonical_team():
 @pytest.mark.asyncio
 async def test_soccer_all_discovery_merges_duplicate_ids():
     provider = EspnAllLeaguesProvider()
-    provider.async_call_espn_api = AsyncMock(
-        side_effect=[
-            {
+
+    async def fake_espn_call(_hass, url, _params, _sensor_name, _team_id):
+        if "/v2/sports/soccer/leagues" in url:
+            return {
                 "data": {
                     "items": [
                         {"slug": "gre.1"},
@@ -57,19 +58,26 @@ async def test_soccer_all_discovery_merges_duplicate_ids():
                 },
                 "url": "catalog",
                 "timestamp": "now",
-            },
-            {
+            }
+        if "/soccer/gre.1/teams" in url:
+            return {
                 "data": _team_payload(OLYMPIACOS, PAOK),
                 "url": "gre.1",
                 "timestamp": "now",
-            },
-            {
+            }
+        if "/soccer/uefa.champions/teams" in url:
+            return {
                 "data": _team_payload({**OLYMPIACOS, "location": ""}),
                 "url": "uefa.champions",
                 "timestamp": "now",
-            },
-        ]
-    )
+            }
+        return {
+            "data": _team_payload(),
+            "url": url,
+            "timestamp": "now",
+        }
+
+    provider.async_call_espn_api = AsyncMock(side_effect=fake_espn_call)
 
     response = await provider._async_fetch_team_data(
         None,
