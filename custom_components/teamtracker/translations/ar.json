@@ -1,0 +1,105 @@
+{
+  "config": {
+    "error": {
+      "search_required": "أدخل فريقًا أو رياضيًا للبحث عنه.",
+      "no_competitors_found": "لم يتم العثور على مشارك مطابق في الرياضة المحددة.",
+      "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
+      "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
+    },
+    "step": {
+      "user": {
+        "title": "اختيار الرياضة",
+        "description": "اختر الرياضة ثم ابحث عن فريق أو رياضي.",
+        "data": {
+          "sport": "الرياضة"
+        }
+      },
+      "search": {
+        "title": "البحث عن مشارك",
+        "description": "ابحث عن فريق أو رياضي. تقتصر النتائج على الرياضة المحددة.",
+        "data": {
+          "search_competitor": "اسم الفريق أو الرياضي"
+        }
+      },
+      "select_competitor": {
+        "title": "اختيار المشارك",
+        "description": "اختر الفريق أو الرياضي الصحيح من نتائج البحث.",
+        "data": {
+          "competitor": "فريق أو رياضي"
+        }
+      },
+      "competition": {
+        "title": "اختيار المسابقة",
+        "description": "تابع {competitor_name} في جميع المسابقات أو قصر المتابعة على مسابقة واحدة تم التحقق منها.",
+        "data": {
+          "competition": "المسابقة"
+        }
+      },
+      "custom_api": {
+        "title": "متقدم / API مخصص",
+        "description": "أدخل مسارات ESPN API يدويًا. استخدم 'all' كمسار للدوري للمتابعة الشاملة.",
+        "data": {
+          "sport_path": "مسار الرياضة",
+          "league_path": "مسار الدوري",
+          "team_id": "معرف الفريق/الرياضي أو قيمة البحث",
+          "conference_id": "رقم المؤتمر (اختياري)",
+          "name": "اسم مألوف (اختياري)"
+        }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Create a standalone TheSportsDB sensor. Enter a numeric Team ID for free lookup, or search by team name. The free API has limited name-search and schedule results; supporters can enter their API key.",
+        "data": {
+          "sportsdb_api_key": "TheSportsDB API key (optional)",
+          "search_team": "Search team name (optional)",
+          "team_id": "Team ID (optional)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Select TheSportsDB Team",
+        "description": "Choose the team to track.",
+        "data": {
+          "team_selection": "Team"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "كرة القدم الأمريكية",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "رياضة المحركات",
+        "rugby": "Rugby",
+        "soccer": "كرة القدم",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "متقدم / API مخصص",
+        "sportsdb": "TheSportsDB"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "جميع المسابقات"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "خيارات Team Tracker",
+        "description": "أدخل رمز اللغة المكون من حرفين لاستخدامه في استدعاءات ESPN API.",
+        "data": {
+          "api_language": "لغة API",
+          "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
+          "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
+        }
+      }
+    }
+  }
+}

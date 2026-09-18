@@ -1,72 +1,91 @@
 {
   "config": {
     "error": {
-      "league": "Liga inserida inválida.",
-      "cannot_fetch_teams": "Não foi possível buscar as equipes da ESPN. Verifique sua conexão e tente novamente.",
-      "no_teams_found": "Nenhuma equipe encontrada para esse termo de busca. Tente um nome diferente ou deixe em branco para entrada manual."
+      "search_required": "Digite um time ou atleta para pesquisar.",
+      "no_competitors_found": "Nenhum participante correspondente foi encontrado no esporte selecionado.",
+      "sportsdb_team_required": "Informe um nome de equipe do TheSportsDB ou um ID numérico da equipe.",
+      "sportsdb_no_teams_found": "O TheSportsDB não retornou nenhuma equipe correspondente."
     },
     "step": {
       "user": {
-        "title": "Selecionar Esporte",
-        "description": "Escolha o esporte para sua equipe ou atleta.",
+        "title": "Selecionar esporte",
+        "description": "Escolha o esporte e depois pesquise um time ou atleta.",
         "data": {
-          "sport_key": "Esporte"
-        }
-      },
-      "league": {
-        "title": "Selecionar Liga",
-        "description": "Escolha a liga de {sport_name}.",
-        "data": {
-          "league_id": "Liga"
+          "sport": "Esporte"
         }
       },
       "search": {
-        "title": "Buscar Equipe",
-        "description": "Digite o nome para buscar a equipe da {league_name}, ou deixe em branco para inserir o ID da equipe manualmente.",
+        "title": "Pesquisar participante",
+        "description": "Pesquise um time ou atleta. Os resultados ficam limitados ao esporte selecionado.",
         "data": {
-          "search_team": "Buscar nome da equipe (opcional)"
+          "search_competitor": "Nome do time ou atleta"
         }
       },
-      "select_team": {
-        "title": "Selecionar Equipe",
-        "description": "Escolha sua equipe da {league_name} nos resultados da busca.",
+      "select_competitor": {
+        "title": "Selecionar participante",
+        "description": "Escolha o time ou atleta correto nos resultados.",
         "data": {
-          "team_selection": "Equipe",
-          "name": "Nome amigável (opcional)"
+          "competitor": "Time ou atleta"
         }
       },
-      "manual_team": {
-        "title": "Entrada Manual de Equipe",
-        "description": "Insira a abreviação da equipe da {league_name} ou o número do ID conforme mostrado na ESPN, ou '*' para corresponder ao jogo ativo/mais recente.",
+      "competition": {
+        "title": "Selecionar competição",
+        "description": "Acompanhe {competitor_name} em todas as competições ou limite o acompanhamento a uma competição verificada.",
         "data": {
-          "team_id": "ID da Equipe",
-          "conference_id": "Número da Conferência",
-          "name": "Nome amigável"
-        }
-      },
-      "manual_athlete": {
-        "title": "Entrada Manual de Atleta",
-        "description": "Insira o nome do atleta da {league_name}, uma expressão regular, ou '*' para corresponder ao jogo ativo/mais recente.",
-        "data": {
-          "team_id": "ID do Atleta",
-          "conference_id": "Número da Conferência (apenas NCAA)",
-          "name": "Nome amigável"
+          "competition": "Competição"
         }
       },
       "custom_api": {
-        "title": "Configurador de API Personalizada",
-        "description": "Insira a parte 'sport_path' e 'league_path' da API da ESPN para configurar uma API personalizada",
+        "title": "Avançado / API personalizada",
+        "description": "Introduza manualmente os caminhos da API ESPN. Use 'all' como caminho da liga para acompanhamento universal.",
         "data": {
-          "sport_path": "Caminho do Esporte (Sport Path)",
-          "league_path": "Caminho da Liga (League Path)"
+          "sport_path": "Caminho do desporto",
+          "league_path": "Caminho da liga",
+          "team_id": "ID do time/atleta ou valor de pesquisa",
+          "conference_id": "Número da conferência (opcional)",
+          "name": "Nome amigável (opcional)"
         }
       },
-      "finalize": {
-        "title": "Confirmar Nome",
-        "description": "Confirmar/alterar o nome do sensor para {league_name} {team_name}",
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Crie um sensor independente do TheSportsDB. Informe um ID numérico da equipe para a consulta gratuita ou pesquise pelo nome da equipe. A API gratuita possui resultados limitados para busca por nome e calendário; apoiadores podem informar sua chave de API.",
         "data": {
-          "name": "Nome amigável"
+          "sportsdb_api_key": "Chave de API do TheSportsDB (opcional)",
+          "search_team": "Pesquisar nome da equipe (opcional)",
+          "team_id": "ID da equipe (opcional)"
         }
+      },
+      "sportsdb_select_team": {
+        "title": "Selecionar equipe do TheSportsDB",
+        "description": "Escolha a equipe que deseja acompanhar.",
+        "data": {
+          "team_selection": "Equipe"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Futebol americano",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Automobilismo",
+        "rugby": "Rugby",
+        "soccer": "Futebol",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Avançado / API personalizada",
+        "sportsdb": "TheSportsDB"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Todas as competições"
       }
     }
   },
@@ -74,9 +93,11 @@
     "step": {
       "init": {
         "title": "Opções do Team Tracker",
-        "description": "Insira o código de idioma de 2 caracteres para usar na chamada da API.",
+        "description": "Digite o código de idioma de 2 caracteres para chamadas à API ESPN.",
         "data": {
-          "api_language": "Idioma da API"
+          "api_language": "Idioma da API",
+          "sportsdb_api_key": "Nova chave de API do TheSportsDB (deixe em branco para manter a atual)",
+          "sportsdb_clear_api_key": "Usar a chave gratuita do TheSportsDB (remover a chave de apoiador salva)"
         }
       }
     }

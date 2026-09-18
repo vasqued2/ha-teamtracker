@@ -6,8 +6,10 @@ from typing import TYPE_CHECKING
 from .provide_cflscoreboard import CflScoreboardProvider
 from .provide_espn import EspnProvider
 from .provide_espn_all import EspnAllLeaguesProvider
+from .provide_espn_all_supplemented import SupplementalEspnAllLeaguesProvider
 from .provide_hockeytech import HockeyTechProvider
 from .provide_mlbstats import MlbStatsProvider
+from .provide_sportsdb import SportsDbProvider
 from .provider_base import BaseSportProvider
 from .utils import is_integer
 
@@ -26,7 +28,14 @@ def get_provider(sport_path: str, league_path: str, team_id: str="", coordinator
         provider = CflScoreboardProvider(coordinator)
     elif sport_path.lower() == "mlbstats":
         provider = MlbStatsProvider(coordinator)
-    elif league_path.lower() == "all" and is_integer(team_id):
-        provider = EspnAllLeaguesProvider(coordinator)
+    elif sport_path.lower() == "sportsdb":
+        provider = SportsDbProvider(coordinator)
+    elif league_path.lower() == "all" and (is_integer(team_id) or team_id == ""):
+        # Config flow has no team_id yet, so keep discovery on the ESPN ALL
+        # provider. Runtime numeric soccer sensors add the supplemental layer.
+        if sport_path.lower() == "soccer" and is_integer(team_id):
+            provider = SupplementalEspnAllLeaguesProvider(coordinator)
+        else:
+            provider = EspnAllLeaguesProvider(coordinator)
 
     return provider

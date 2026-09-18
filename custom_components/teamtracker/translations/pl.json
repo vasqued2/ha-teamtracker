@@ -1,49 +1,49 @@
 {
   "config": {
     "error": {
-      "search_required": "Enter a team or athlete to search for.",
-      "no_competitors_found": "No matching competitor was found in the selected sport.",
+      "search_required": "Wpisz drużynę lub sportowca do wyszukania.",
+      "no_competitors_found": "Nie znaleziono pasującego uczestnika w wybranej dyscyplinie.",
       "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
       "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
     },
     "step": {
       "user": {
-        "title": "Select sport",
-        "description": "Choose the sport, then search for a team or athlete.",
+        "title": "Wybierz dyscyplinę",
+        "description": "Wybierz dyscyplinę, a następnie wyszukaj drużynę lub sportowca.",
         "data": {
-          "sport": "Sport"
+          "sport": "Dyscyplina"
         }
       },
       "search": {
-        "title": "Search competitor",
-        "description": "Search for a team or athlete. Results are restricted to the selected sport.",
+        "title": "Wyszukaj uczestnika",
+        "description": "Wyszukaj drużynę lub sportowca. Wyniki są ograniczone do wybranej dyscypliny.",
         "data": {
-          "search_competitor": "Team or athlete name"
+          "search_competitor": "Nazwa drużyny lub sportowca"
         }
       },
       "select_competitor": {
-        "title": "Select competitor",
-        "description": "Choose the correct team or athlete from the search results.",
+        "title": "Wybierz uczestnika",
+        "description": "Wybierz właściwą drużynę lub sportowca z wyników.",
         "data": {
-          "competitor": "Team or athlete"
+          "competitor": "Drużyna lub sportowiec"
         }
       },
       "competition": {
-        "title": "Select competition",
-        "description": "Follow {competitor_name} across all competitions, or restrict tracking to one verified competition.",
+        "title": "Wybierz rozgrywki",
+        "description": "Śledź {competitor_name} we wszystkich rozgrywkach albo ogranicz śledzenie do jednych zweryfikowanych rozgrywek.",
         "data": {
-          "competition": "Competition"
+          "competition": "Rozgrywki"
         }
       },
       "custom_api": {
-        "title": "Advanced / Custom API",
-        "description": "Enter ESPN API paths manually. Use league path 'all' for universal tracking.",
+        "title": "Zaawansowane / Własne API",
+        "description": "Wprowadź ręcznie ścieżki API ESPN. Użyj 'all' jako ścieżki ligi dla śledzenia uniwersalnego.",
         "data": {
-          "sport_path": "Sport path",
-          "league_path": "League path",
-          "team_id": "Team / athlete ID or search value",
-          "conference_id": "Conference number (optional)",
-          "name": "Friendly name (optional)"
+          "sport_path": "Ścieżka dyscypliny",
+          "league_path": "Ścieżka ligi",
+          "team_id": "ID drużyny/sportowca lub wartość wyszukiwania",
+          "conference_id": "Numer konferencji (opcjonalnie)",
+          "name": "Przyjazna nazwa (opcjonalnie)"
         }
       },
       "sportsdb": {
@@ -70,32 +70,32 @@
         "australian-football": "Australian Football",
         "baseball": "Baseball",
         "basketball": "Basketball",
-        "football": "American Football",
+        "football": "Futbol amerykański",
         "golf": "Golf",
         "hockey": "Hockey",
         "mma": "MMA",
-        "racing": "Racing",
+        "racing": "Sporty motorowe",
         "rugby": "Rugby",
-        "soccer": "Soccer",
+        "soccer": "Piłka nożna",
         "tennis": "Tennis",
         "volleyball": "Volleyball",
-        "custom_api": "Advanced / Custom API",
+        "custom_api": "Zaawansowane / Własne API",
         "sportsdb": "TheSportsDB"
       }
     },
     "competition": {
       "options": {
-        "all_competitions": "All competitions"
+        "all_competitions": "Wszystkie rozgrywki"
       }
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Team Tracker options",
-        "description": "Enter the 2-character language code to use for ESPN API calls.",
+        "title": "Opcje Team Tracker",
+        "description": "Wprowadź 2-znakowy kod języka dla wywołań API ESPN.",
         "data": {
-          "api_language": "API language",
+          "api_language": "Język API",
           "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
           "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
         }

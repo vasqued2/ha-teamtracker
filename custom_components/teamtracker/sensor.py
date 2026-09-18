@@ -21,6 +21,7 @@ from .const import (
     CONF_LEAGUE_PATH,
     CONF_SPORT_PATH,
     CONF_TEAM_ID,
+    CONF_SPORTSDB_API_KEY,
     COORDINATOR,
     DEFAULT_CONFERENCE_ID,
     DEFAULT_ICON,
@@ -50,6 +51,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_API_LANGUAGE): cv.string,
         vol.Optional(CONF_SPORT_PATH): cv.string,
         vol.Optional(CONF_LEAGUE_PATH): cv.string,
+        vol.Optional(CONF_SPORTSDB_API_KEY): cv.string,
     }
 )
 

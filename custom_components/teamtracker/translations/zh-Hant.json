@@ -1,49 +1,49 @@
 {
   "config": {
     "error": {
-      "search_required": "Enter a team or athlete to search for.",
-      "no_competitors_found": "No matching competitor was found in the selected sport.",
+      "search_required": "請輸入要搜尋的球隊或運動員。",
+      "no_competitors_found": "在所選運動項目中找不到符合的參賽者。",
       "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
       "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
     },
     "step": {
       "user": {
-        "title": "Select sport",
-        "description": "Choose the sport, then search for a team or athlete.",
+        "title": "選擇運動項目",
+        "description": "選擇運動項目，然後搜尋球隊或運動員。",
         "data": {
-          "sport": "Sport"
+          "sport": "運動項目"
         }
       },
       "search": {
-        "title": "Search competitor",
-        "description": "Search for a team or athlete. Results are restricted to the selected sport.",
+        "title": "搜尋參賽者",
+        "description": "搜尋球隊或運動員。結果僅限於所選運動項目。",
         "data": {
-          "search_competitor": "Team or athlete name"
+          "search_competitor": "球隊或運動員名稱"
         }
       },
       "select_competitor": {
-        "title": "Select competitor",
-        "description": "Choose the correct team or athlete from the search results.",
+        "title": "選擇參賽者",
+        "description": "從搜尋結果中選擇正確的球隊或運動員。",
         "data": {
-          "competitor": "Team or athlete"
+          "competitor": "球隊或運動員"
         }
       },
       "competition": {
-        "title": "Select competition",
-        "description": "Follow {competitor_name} across all competitions, or restrict tracking to one verified competition.",
+        "title": "選擇賽事",
+        "description": "追蹤 {competitor_name} 的所有賽事，或僅追蹤一個已驗證賽事。",
         "data": {
-          "competition": "Competition"
+          "competition": "賽事"
         }
       },
       "custom_api": {
-        "title": "Advanced / Custom API",
-        "description": "Enter ESPN API paths manually. Use league path 'all' for universal tracking.",
+        "title": "進階 / 自訂 API",
+        "description": "手動輸入 ESPN API 路徑。若要追蹤所有賽事，請將聯賽路徑設為 'all'。",
         "data": {
-          "sport_path": "Sport path",
-          "league_path": "League path",
-          "team_id": "Team / athlete ID or search value",
-          "conference_id": "Conference number (optional)",
-          "name": "Friendly name (optional)"
+          "sport_path": "運動路徑",
+          "league_path": "聯賽路徑",
+          "team_id": "球隊/運動員 ID 或搜尋值",
+          "conference_id": "聯盟編號（選填）",
+          "name": "顯示名稱（選填）"
         }
       },
       "sportsdb": {
@@ -70,32 +70,32 @@
         "australian-football": "Australian Football",
         "baseball": "Baseball",
         "basketball": "Basketball",
-        "football": "American Football",
+        "football": "美式足球",
         "golf": "Golf",
         "hockey": "Hockey",
         "mma": "MMA",
-        "racing": "Racing",
+        "racing": "賽車運動",
         "rugby": "Rugby",
-        "soccer": "Soccer",
+        "soccer": "足球",
         "tennis": "Tennis",
         "volleyball": "Volleyball",
-        "custom_api": "Advanced / Custom API",
+        "custom_api": "進階 / 自訂 API",
         "sportsdb": "TheSportsDB"
       }
     },
     "competition": {
       "options": {
-        "all_competitions": "All competitions"
+        "all_competitions": "所有賽事"
       }
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Team Tracker options",
-        "description": "Enter the 2-character language code to use for ESPN API calls.",
+        "title": "Team Tracker 選項",
+        "description": "輸入 ESPN API 呼叫使用的 2 字元語言代碼。",
         "data": {
-          "api_language": "API language",
+          "api_language": "API 語言",
           "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
           "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
         }

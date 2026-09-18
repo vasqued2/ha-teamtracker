@@ -1,49 +1,49 @@
 {
   "config": {
     "error": {
-      "search_required": "Enter a team or athlete to search for.",
-      "no_competitors_found": "No matching competitor was found in the selected sport.",
+      "search_required": "검색할 팀 또는 선수를 입력하세요.",
+      "no_competitors_found": "선택한 종목에서 일치하는 참가자를 찾지 못했습니다.",
       "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
       "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
     },
     "step": {
       "user": {
-        "title": "Select sport",
-        "description": "Choose the sport, then search for a team or athlete.",
+        "title": "종목 선택",
+        "description": "종목을 선택한 다음 팀 또는 선수를 검색하세요.",
         "data": {
-          "sport": "Sport"
+          "sport": "종목"
         }
       },
       "search": {
-        "title": "Search competitor",
-        "description": "Search for a team or athlete. Results are restricted to the selected sport.",
+        "title": "참가자 검색",
+        "description": "팀 또는 선수를 검색합니다. 결과는 선택한 종목으로 제한됩니다.",
         "data": {
-          "search_competitor": "Team or athlete name"
+          "search_competitor": "팀 또는 선수 이름"
         }
       },
       "select_competitor": {
-        "title": "Select competitor",
-        "description": "Choose the correct team or athlete from the search results.",
+        "title": "참가자 선택",
+        "description": "검색 결과에서 올바른 팀 또는 선수를 선택하세요.",
         "data": {
-          "competitor": "Team or athlete"
+          "competitor": "팀 또는 선수"
         }
       },
       "competition": {
-        "title": "Select competition",
-        "description": "Follow {competitor_name} across all competitions, or restrict tracking to one verified competition.",
+        "title": "대회 선택",
+        "description": "{competitor_name}의 모든 대회를 추적하거나 확인된 하나의 대회로 제한합니다.",
         "data": {
-          "competition": "Competition"
+          "competition": "대회"
         }
       },
       "custom_api": {
-        "title": "Advanced / Custom API",
-        "description": "Enter ESPN API paths manually. Use league path 'all' for universal tracking.",
+        "title": "고급 / 사용자 지정 API",
+        "description": "ESPN API 경로를 직접 입력합니다. 전체 대회를 추적하려면 리그 경로로 'all'을 사용하세요.",
         "data": {
-          "sport_path": "Sport path",
-          "league_path": "League path",
-          "team_id": "Team / athlete ID or search value",
-          "conference_id": "Conference number (optional)",
-          "name": "Friendly name (optional)"
+          "sport_path": "종목 경로",
+          "league_path": "리그 경로",
+          "team_id": "팀/선수 ID 또는 검색 값",
+          "conference_id": "컨퍼런스 번호(선택 사항)",
+          "name": "표시 이름(선택 사항)"
         }
       },
       "sportsdb": {
@@ -70,32 +70,32 @@
         "australian-football": "Australian Football",
         "baseball": "Baseball",
         "basketball": "Basketball",
-        "football": "American Football",
+        "football": "미식축구",
         "golf": "Golf",
         "hockey": "Hockey",
         "mma": "MMA",
-        "racing": "Racing",
+        "racing": "모터스포츠",
         "rugby": "Rugby",
-        "soccer": "Soccer",
+        "soccer": "축구",
         "tennis": "Tennis",
         "volleyball": "Volleyball",
-        "custom_api": "Advanced / Custom API",
+        "custom_api": "고급 / 사용자 지정 API",
         "sportsdb": "TheSportsDB"
       }
     },
     "competition": {
       "options": {
-        "all_competitions": "All competitions"
+        "all_competitions": "모든 대회"
       }
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Team Tracker options",
-        "description": "Enter the 2-character language code to use for ESPN API calls.",
+        "title": "Team Tracker 옵션",
+        "description": "ESPN API 호출에 사용할 2자 언어 코드를 입력하세요.",
         "data": {
-          "api_language": "API language",
+          "api_language": "API 언어",
           "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
           "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
         }

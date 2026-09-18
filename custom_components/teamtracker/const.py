@@ -13,6 +13,8 @@ CONF_LEAGUE_ID = "league_id"
 CONF_LEAGUE_PATH = "league_path"
 CONF_SPORT_PATH = "sport_path"
 CONF_TEAM_ID = "team_id"
+CONF_SPORTSDB_API_KEY = "sportsdb_api_key"
+CONF_SPORTSDB_CLEAR_API_KEY = "sportsdb_clear_api_key"
 
 # Sports
 AUSTRALIAN_FOOTBALL = "australian-football"
@@ -173,6 +175,7 @@ SPORT_ICON_MAP = {
     VOLLEYBALL: "mdi:volleyball",
 #     Add sport_path and icons for non-ESPN APIs here
     "hockeytech": "mdi:hockey-puck",
+    "sportsdb": "mdi:trophy",
 }
 
 # Defaults

@@ -1,49 +1,49 @@
 {
   "config": {
     "error": {
-      "search_required": "Enter a team or athlete to search for.",
-      "no_competitors_found": "No matching competitor was found in the selected sport.",
+      "search_required": "Zadejte tým nebo sportovce k vyhledání.",
+      "no_competitors_found": "Ve vybraném sportu nebyl nalezen odpovídající účastník.",
       "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
       "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
     },
     "step": {
       "user": {
-        "title": "Select sport",
-        "description": "Choose the sport, then search for a team or athlete.",
+        "title": "Vybrat sport",
+        "description": "Vyberte sport a poté vyhledejte tým nebo sportovce.",
         "data": {
           "sport": "Sport"
         }
       },
       "search": {
-        "title": "Search competitor",
-        "description": "Search for a team or athlete. Results are restricted to the selected sport.",
+        "title": "Vyhledat účastníka",
+        "description": "Vyhledejte tým nebo sportovce. Výsledky jsou omezeny na vybraný sport.",
         "data": {
-          "search_competitor": "Team or athlete name"
+          "search_competitor": "Název týmu nebo sportovce"
         }
       },
       "select_competitor": {
-        "title": "Select competitor",
-        "description": "Choose the correct team or athlete from the search results.",
+        "title": "Vybrat účastníka",
+        "description": "Vyberte správný tým nebo sportovce z výsledků.",
         "data": {
-          "competitor": "Team or athlete"
+          "competitor": "Tým nebo sportovec"
         }
       },
       "competition": {
-        "title": "Select competition",
-        "description": "Follow {competitor_name} across all competitions, or restrict tracking to one verified competition.",
+        "title": "Vybrat soutěž",
+        "description": "Sledujte {competitor_name} ve všech soutěžích nebo omezte sledování na jednu ověřenou soutěž.",
         "data": {
-          "competition": "Competition"
+          "competition": "Soutěž"
         }
       },
       "custom_api": {
-        "title": "Advanced / Custom API",
-        "description": "Enter ESPN API paths manually. Use league path 'all' for universal tracking.",
+        "title": "Pokročilé / Vlastní API",
+        "description": "Zadejte cesty API ESPN ručně. Pro univerzální sledování použijte jako cestu ligy 'all'.",
         "data": {
-          "sport_path": "Sport path",
-          "league_path": "League path",
-          "team_id": "Team / athlete ID or search value",
-          "conference_id": "Conference number (optional)",
-          "name": "Friendly name (optional)"
+          "sport_path": "Cesta sportu",
+          "league_path": "Cesta ligy",
+          "team_id": "ID týmu/sportovce nebo hledaná hodnota",
+          "conference_id": "Číslo konference (volitelné)",
+          "name": "Přátelský název (volitelné)"
         }
       },
       "sportsdb": {
@@ -70,32 +70,32 @@
         "australian-football": "Australian Football",
         "baseball": "Baseball",
         "basketball": "Basketball",
-        "football": "American Football",
+        "football": "Americký fotbal",
         "golf": "Golf",
         "hockey": "Hockey",
         "mma": "MMA",
-        "racing": "Racing",
+        "racing": "Motoristický sport",
         "rugby": "Rugby",
-        "soccer": "Soccer",
+        "soccer": "Fotbal",
         "tennis": "Tennis",
         "volleyball": "Volleyball",
-        "custom_api": "Advanced / Custom API",
+        "custom_api": "Pokročilé / Vlastní API",
         "sportsdb": "TheSportsDB"
       }
     },
     "competition": {
       "options": {
-        "all_competitions": "All competitions"
+        "all_competitions": "Všechny soutěže"
       }
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Team Tracker options",
-        "description": "Enter the 2-character language code to use for ESPN API calls.",
+        "title": "Možnosti Team Tracker",
+        "description": "Zadejte dvoupísmenný kód jazyka pro volání API ESPN.",
         "data": {
-          "api_language": "API language",
+          "api_language": "Jazyk API",
           "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
           "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
         }

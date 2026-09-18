@@ -1,0 +1,105 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Introduceți o echipă sau un sportiv pentru căutare.",
+      "no_competitors_found": "Nu a fost găsită nicio echipă sau niciun sportiv corespunzător în sportul selectat.",
+      "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
+      "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
+    },
+    "step": {
+      "user": {
+        "title": "Selectați sportul",
+        "description": "Alegeți sportul, apoi căutați o echipă sau un sportiv.",
+        "data": {
+          "sport": "Sport"
+        }
+      },
+      "search": {
+        "title": "Căutați echipă sau sportiv",
+        "description": "Căutați o echipă sau un sportiv. Rezultatele sunt limitate la sportul selectat.",
+        "data": {
+          "search_competitor": "Numele echipei sau sportivului"
+        }
+      },
+      "select_competitor": {
+        "title": "Selectați echipa sau sportivul",
+        "description": "Alegeți echipa sau sportivul corect din rezultatele căutării.",
+        "data": {
+          "competitor": "Echipă sau sportiv"
+        }
+      },
+      "competition": {
+        "title": "Selectați competiția",
+        "description": "Urmăriți {competitor_name} în toate competițiile sau limitați urmărirea la o singură competiție verificată.",
+        "data": {
+          "competition": "Competiție"
+        }
+      },
+      "custom_api": {
+        "title": "Avansat / API personalizat",
+        "description": "Introduceți manual căile ESPN API. Folosiți calea ligii 'all' pentru urmărire universală.",
+        "data": {
+          "sport_path": "Calea sportului",
+          "league_path": "Calea ligii",
+          "team_id": "ID echipă / sportiv sau valoare de căutare",
+          "conference_id": "Numărul conferinței (opțional)",
+          "name": "Nume prietenos (opțional)"
+        }
+      },
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Create a standalone TheSportsDB sensor. Enter a numeric Team ID for free lookup, or search by team name. The free API has limited name-search and schedule results; supporters can enter their API key.",
+        "data": {
+          "sportsdb_api_key": "TheSportsDB API key (optional)",
+          "search_team": "Search team name (optional)",
+          "team_id": "Team ID (optional)"
+        }
+      },
+      "sportsdb_select_team": {
+        "title": "Select TheSportsDB Team",
+        "description": "Choose the team to track.",
+        "data": {
+          "team_selection": "Team"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Fotbal australian",
+        "baseball": "Baseball",
+        "basketball": "Baschet",
+        "football": "Fotbal american",
+        "golf": "Golf",
+        "hockey": "Hochei",
+        "mma": "MMA",
+        "racing": "Automobilism",
+        "rugby": "Rugby",
+        "soccer": "Fotbal",
+        "tennis": "Tenis",
+        "volleyball": "Volei",
+        "custom_api": "Avansat / API personalizat",
+        "sportsdb": "TheSportsDB"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Toate competițiile"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opțiuni Team Tracker",
+        "description": "Introduceți codul de limbă din 2 caractere pentru apelurile ESPN API.",
+        "data": {
+          "api_language": "Limba API",
+          "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
+          "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
+        }
+      }
+    }
+  }
+}

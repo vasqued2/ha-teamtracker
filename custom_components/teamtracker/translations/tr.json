@@ -1,49 +1,49 @@
 {
   "config": {
     "error": {
-      "search_required": "Enter a team or athlete to search for.",
-      "no_competitors_found": "No matching competitor was found in the selected sport.",
+      "search_required": "Aramak için bir takım veya sporcu girin.",
+      "no_competitors_found": "Seçilen sporda eşleşen bir katılımcı bulunamadı.",
       "sportsdb_team_required": "Enter a TheSportsDB team name or numeric Team ID.",
       "sportsdb_no_teams_found": "No matching team was returned by TheSportsDB."
     },
     "step": {
       "user": {
-        "title": "Select sport",
-        "description": "Choose the sport, then search for a team or athlete.",
+        "title": "Spor seç",
+        "description": "Sporu seçin, ardından bir takım veya sporcu arayın.",
         "data": {
-          "sport": "Sport"
+          "sport": "Spor"
         }
       },
       "search": {
-        "title": "Search competitor",
-        "description": "Search for a team or athlete. Results are restricted to the selected sport.",
+        "title": "Katılımcı ara",
+        "description": "Bir takım veya sporcu arayın. Sonuçlar seçilen sporla sınırlandırılır.",
         "data": {
-          "search_competitor": "Team or athlete name"
+          "search_competitor": "Takım veya sporcu adı"
         }
       },
       "select_competitor": {
-        "title": "Select competitor",
-        "description": "Choose the correct team or athlete from the search results.",
+        "title": "Katılımcı seç",
+        "description": "Arama sonuçlarından doğru takım veya sporcuyu seçin.",
         "data": {
-          "competitor": "Team or athlete"
+          "competitor": "Takım veya sporcu"
         }
       },
       "competition": {
-        "title": "Select competition",
-        "description": "Follow {competitor_name} across all competitions, or restrict tracking to one verified competition.",
+        "title": "Müsabaka seç",
+        "description": "{competitor_name} için tüm müsabakaları takip edin veya takibi doğrulanmış tek bir müsabakayla sınırlandırın.",
         "data": {
-          "competition": "Competition"
+          "competition": "Müsabaka"
         }
       },
       "custom_api": {
-        "title": "Advanced / Custom API",
-        "description": "Enter ESPN API paths manually. Use league path 'all' for universal tracking.",
+        "title": "Gelişmiş / Özel API",
+        "description": "ESPN API yollarını elle girin. Evrensel takip için lig yolu olarak 'all' kullanın.",
         "data": {
-          "sport_path": "Sport path",
-          "league_path": "League path",
-          "team_id": "Team / athlete ID or search value",
-          "conference_id": "Conference number (optional)",
-          "name": "Friendly name (optional)"
+          "sport_path": "Spor yolu",
+          "league_path": "Lig yolu",
+          "team_id": "Takım/sporcu kimliği veya arama değeri",
+          "conference_id": "Conference numarası (isteğe bağlı)",
+          "name": "Görünen ad (isteğe bağlı)"
         }
       },
       "sportsdb": {
@@ -70,32 +70,32 @@
         "australian-football": "Australian Football",
         "baseball": "Baseball",
         "basketball": "Basketball",
-        "football": "American Football",
+        "football": "Amerikan futbolu",
         "golf": "Golf",
         "hockey": "Hockey",
         "mma": "MMA",
-        "racing": "Racing",
+        "racing": "Motor sporları",
         "rugby": "Rugby",
-        "soccer": "Soccer",
+        "soccer": "Futbol",
         "tennis": "Tennis",
         "volleyball": "Volleyball",
-        "custom_api": "Advanced / Custom API",
+        "custom_api": "Gelişmiş / Özel API",
         "sportsdb": "TheSportsDB"
       }
     },
     "competition": {
       "options": {
-        "all_competitions": "All competitions"
+        "all_competitions": "Tüm müsabakalar"
       }
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Team Tracker options",
-        "description": "Enter the 2-character language code to use for ESPN API calls.",
+        "title": "Team Tracker seçenekleri",
+        "description": "ESPN API çağrıları için 2 karakterli dil kodunu girin.",
         "data": {
-          "api_language": "API language",
+          "api_language": "API dili",
           "sportsdb_api_key": "New TheSportsDB API key (leave blank to keep current)",
           "sportsdb_clear_api_key": "Use free TheSportsDB key (remove saved supporter key)"
         }

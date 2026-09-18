@@ -1,72 +1,91 @@
 {
   "config": {
     "error": {
-      "league": "Zadaná neplatná liga.",
-      "cannot_fetch_teams": "Nepodarilo sa načítať tímy z ESPN. Skontrolujte pripojenie a skúste to znova.",
-      "no_teams_found": "Pre tento hľadaný výraz sa nenašli žiadne tímy. Skúste iný názov alebo ponechajte prázdne pre manuálne zadanie."
+      "search_required": "Zadajte tím alebo športovca, ktorého chcete vyhľadať.",
+      "no_competitors_found": "Vo vybranom športe sa nenašiel zodpovedajúci účastník.",
+      "sportsdb_team_required": "Zadajte názov tímu TheSportsDB alebo číselné ID tímu.",
+      "sportsdb_no_teams_found": "TheSportsDB nevrátil žiadny zodpovedajúci tím."
     },
     "step": {
       "user": {
         "title": "Vybrať šport",
-        "description": "Vyberte šport pre svoj tím alebo športovca.",
+        "description": "Vyberte šport a potom vyhľadajte tím alebo športovca.",
         "data": {
-          "sport_key": "Šport"
-        }
-      },
-      "league": {
-        "title": "Vybrať ligu",
-        "description": "Vyberte ligu pre {sport_name}.",
-        "data": {
-          "league_id": "Liga"
+          "sport": "Šport"
         }
       },
       "search": {
-        "title": "Hľadať tím",
-        "description": "Zadajte názov pre vyhľadanie tímu v lige {league_name} alebo ponechajte prázdne pre manuálne zadanie ID tímu.",
+        "title": "Vyhľadať účastníka",
+        "description": "Vyhľadajte tím alebo športovca. Výsledky sú obmedzené na vybraný šport.",
         "data": {
-          "search_team": "Hľadať názov tímu (voliteľné)"
+          "search_competitor": "Názov tímu alebo športovca"
         }
       },
-      "select_team": {
-        "title": "Vybrať tím",
-        "description": "Vyberte svoj tím v lige {league_name} z výsledkov vyhľadávania.",
+      "select_competitor": {
+        "title": "Vybrať účastníka",
+        "description": "Vyberte správny tím alebo športovca z výsledkov.",
         "data": {
-          "team_selection": "Tím",
-          "name": "Priateľský názov (voliteľné)"
+          "competitor": "Tím alebo športovec"
         }
       },
-      "manual_team": {
-        "title": "Manuálne zadanie tímu",
-        "description": "Zadajte skratku tímu {league_name} alebo ID číslo podľa ESPN, alebo '*' pre výber aktívneho/najnovšieho zápasu.",
+      "competition": {
+        "title": "Vybrať súťaž",
+        "description": "Sledujte {competitor_name} vo všetkých súťažiach alebo obmedzte sledovanie na jednu overenú súťaž.",
         "data": {
-          "team_id": "ID tímu",
-          "conference_id": "Číslo konferencie",
-          "name": "Priateľský názov"
-        }
-      },
-      "manual_athlete": {
-        "title": "Manuálne zadanie športovca",
-        "description": "Zadajte meno športovca v lige {league_name}, regulárny výraz alebo '*' pre výber aktívneho/najnovšieho zápasu.",
-        "data": {
-          "team_id": "ID športovca",
-          "conference_id": "Číslo konferencie (iba NCAA)",
-          "name": "Priateľský názov"
+          "competition": "Súťaž"
         }
       },
       "custom_api": {
-        "title": "Konfigurátor vlastného API",
-        "description": "Zadajte časti 'sport_path' a 'league_path' z ESPN API pre konfiguráciu vlastného rozhrania",
+        "title": "Rozšírené / Vlastné API",
+        "description": "Zadajte cesty ESPN API ručne. Pre univerzálne sledovanie použite ako cestu ligy 'all'.",
         "data": {
-          "sport_path": "Cesta k športu (Sport Path)",
-          "league_path": "Cesta k lige (League Path)"
+          "sport_path": "Cesta športu",
+          "league_path": "Cesta ligy",
+          "team_id": "ID tímu/športovca alebo hľadaná hodnota",
+          "conference_id": "Číslo konferencie (voliteľné)",
+          "name": "Zobrazovaný názov (voliteľné)"
         }
       },
-      "finalize": {
-        "title": "Potvrdiť názov",
-        "description": "Potvrdiť/zmeniť názov snímača pre {league_name} {team_name}",
+      "sportsdb": {
+        "title": "TheSportsDB",
+        "description": "Vytvorte samostatný senzor TheSportsDB. Zadajte číselné ID tímu pre bezplatné vyhľadanie alebo vyhľadajte tím podľa názvu. Bezplatné API poskytuje obmedzené výsledky vyhľadávania podľa názvu a programu; podporovatelia môžu zadať svoj API kľúč.",
         "data": {
-          "name": "Priateľský názov"
+          "sportsdb_api_key": "API kľúč TheSportsDB (voliteľné)",
+          "search_team": "Vyhľadať názov tímu (voliteľné)",
+          "team_id": "ID tímu (voliteľné)"
         }
+      },
+      "sportsdb_select_team": {
+        "title": "Vybrať tím TheSportsDB",
+        "description": "Vyberte tím, ktorý chcete sledovať.",
+        "data": {
+          "team_selection": "Tím"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Americký futbal",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Motoristický šport",
+        "rugby": "Rugby",
+        "soccer": "Futbal",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Rozšírené / Vlastné API",
+        "sportsdb": "TheSportsDB"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Všetky súťaže"
       }
     }
   },
@@ -74,9 +93,11 @@
     "step": {
       "init": {
         "title": "Možnosti Team Tracker",
-        "description": "Zadajte 2-miestny kód jazyka, ktorý sa má použiť pre volanie API.",
+        "description": "Zadajte 2-znakový kód jazyka pre volania ESPN API.",
         "data": {
-          "api_language": "Jazyk API"
+          "api_language": "Jazyk API",
+          "sportsdb_api_key": "Nový API kľúč TheSportsDB (ponechajte prázdne na zachovanie aktuálneho)",
+          "sportsdb_clear_api_key": "Použiť bezplatný kľúč TheSportsDB (odstrániť uložený kľúč podporovateľa)"
         }
       }
     }
