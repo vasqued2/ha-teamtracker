@@ -26,7 +26,10 @@ def get_provider(sport_path: str, league_path: str, team_id: str="", coordinator
         provider = CflScoreboardProvider(coordinator)
     elif sport_path.lower() == "mlbstats":
         provider = MlbStatsProvider(coordinator)
-    elif league_path.lower() == "all" and is_integer(team_id):
+    elif league_path.lower() == "all" and (is_integer(team_id) or team_id == ""):
+        # Config flow has no team_id yet. Route its league_path=all team lookup
+        # through the ALL provider; the provider itself decides whether soccer
+        # needs special discovery or the normal ESPN team endpoint should be used.
         provider = EspnAllLeaguesProvider(coordinator)
 
     return provider

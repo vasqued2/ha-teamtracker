@@ -238,10 +238,10 @@ class TeamTrackerScoresFlowHandler(config_entries.ConfigFlow, domain=DOMAIN): # 
             return await self.async_step_manual_athlete(user_input=None)
 
         if user_input is not None:
-            provider = get_provider(self._sport_path, self._league_path)
-            self._provider = provider
             search_term = user_input.get("search_team", "").strip().lower()
             if search_term:
+                provider = get_provider(self._sport_path, self._league_path)
+                self._provider = provider
                 response = await provider.async_get_team_data(self.hass, self._sport_path, self._league_path)
                 self._all_teams = response["data"]
                 if not self._all_teams:
