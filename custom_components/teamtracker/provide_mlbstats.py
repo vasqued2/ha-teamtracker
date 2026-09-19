@@ -32,6 +32,10 @@ DATA_PROVIDER_MLBSTATS = "mlbstats"
 MLBSTATS_DATA_FORMAT = "mlbstats-json"
 MLBSTATS_BASE_URL = "https://statsapi.mlb.com/api"
 
+# Extra data pulled into the schedule response: TV/radio networks, full venue
+# location, and series (games won/lost) status.
+SCHEDULE_HYDRATE = "broadcasts(all),venue(location),seriesStatus"
+
 class MlbStatsProvider(BaseSportProvider):
     """Provider for MLB Stats data."""
     #
@@ -186,6 +190,7 @@ class MlbStatsProvider(BaseSportProvider):
                 "sportId": sportId,
                 "startDate": yesterday,
                 "endDate": tomorrow,
+                "hydrate": SCHEDULE_HYDRATE,
             }
 
             response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
@@ -195,6 +200,7 @@ class MlbStatsProvider(BaseSportProvider):
             if not data.get("dates", None):
                 url_parms = {
                     "sportId": sportId,
+                    "hydrate": SCHEDULE_HYDRATE,
                 }
                 response = await self.async_call_mlbstats_api(hass, url, url_parms, sensor_name, team_id)
                 data = response.get("data", {})

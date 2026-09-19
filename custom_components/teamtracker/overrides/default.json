@@ -268,7 +268,7 @@
   },
   "mlbstats": {
     "mlb": {
-      "unusedLeagueName": "Major League Baseball",
+      "league_name": "Major League Baseball",
       "sportId": 1,
       "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/1.svg",
       "event_url": "https://www.mlb.com/gameday/{event_id}",
@@ -546,7 +546,7 @@
       }
     },
     "aaa": {
-      "unusedLeagueName": "Triple-A",
+      "league_name": "Triple-A",
       "sportId": 11,
       "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/milb-alt.svg",
       "event_url": "https://www.milb.com/gameday/{event_id}",
@@ -824,7 +824,7 @@
       }
     },
     "aax": {
-      "unusedLeagueName": "Double-A",
+      "league_name": "Double-A",
       "sportId": 12,
       "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/milb-alt.svg",
       "event_url": "https://www.milb.com/gameday/{event_id}",
@@ -1132,7 +1132,7 @@
       }
     },
     "afa": {
-      "unusedLeagueName": "High-A",
+      "league_name": "High-A",
       "sportId": 13,
       "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/milb-alt.svg",
       "event_url": "https://www.milb.com/gameday/{event_id}",
@@ -1440,7 +1440,7 @@
       }
     },
     "afx": {
-      "unusedLeagueName": "Single-A",
+      "league_name": "Single-A",
       "sportId": 14,
       "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/milb-alt.svg",
       "event_url": "https://www.milb.com/gameday/{event_id}",
@@ -1738,34 +1738,34 @@
       }
     },
     "rok": {
-      "unusedLeagueName": "Rookie",
+      "league_name": "Rookie",
       "sportId": 16,
       "league_logo": "https://www.mlbstatic.com/team-logos/league-on-light/milb-alt.svg",
       "event_url": "https://www.milb.com/gameday/{event_id}"
     },
     "win": {
       "sportId": 17,
-      "unusedLeagueName": "Winter Leagues"
+      "league_name": "Winter Leagues"
     },
     "min": {
       "sportId": 21,
-      "unusedLeagueName": "Minor League Baseball"
+      "league_name": "Minor League Baseball"
     },
     "ind": {
       "sportId": 23,
-      "unusedLeagueName": "Independent Leagues"
+      "league_name": "Independent Leagues"
     },
     "int": {
       "sportId": 51,
-      "unusedLeagueName": "International Baseball"
+      "league_name": "International Baseball"
     },
     "oly": {
       "sportId": 52,
-      "unusedLeagueName": "Olympic Baseball"
+      "league_name": "Olympic Baseball"
     },
     "bbc": {
       "sportId": 22,
-      "unusedLeagueName": "College Baseball"
+      "league_name": "College Baseball"
     }
   }
 }

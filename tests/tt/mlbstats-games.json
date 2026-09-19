@@ -67,7 +67,13 @@
           "venue": {
             "id": 2756,
             "name": "Sahlen Field",
-            "link": "/api/v1/venues/2756"
+            "link": "/api/v1/venues/2756",
+            "location": {
+              "city": "Buffalo",
+              "state": "New York",
+              "stateAbbrev": "NY",
+              "country": "USA"
+            }
           },
           "content": {
             "link": "/api/v1/game/816952/content"
@@ -89,7 +95,44 @@
           "seriesDescription": "Regular Season",
           "recordSource": "S",
           "ifNecessary": "N",
-          "ifNecessaryDescription": "Normal Game"
+          "ifNecessaryDescription": "Normal Game",
+          "broadcasts": [
+            {
+              "id": 1,
+              "name": "MiLB.TV",
+              "type": "TV",
+              "language": "en",
+              "isNational": true,
+              "homeAway": "home"
+            },
+            {
+              "id": 2,
+              "name": "WBBZ-TV",
+              "type": "TV",
+              "language": "en",
+              "isNational": false,
+              "homeAway": "home"
+            },
+            {
+              "id": 3,
+              "name": "WHLD 1270 AM",
+              "type": "AM",
+              "language": "en",
+              "isNational": false,
+              "homeAway": "home"
+            }
+          ],
+          "seriesStatus": {
+            "gameNumber": 3,
+            "totalGames": 3,
+            "isTied": false,
+            "isOver": true,
+            "wins": 2,
+            "losses": 1,
+            "result": "BUF wins 2-1",
+            "description": "Regular Season",
+            "shortName": "Season"
+          }
         },
         {
           "gamePk": 816874,
