@@ -588,7 +588,7 @@ class EspnAllLeaguesProvider(EspnProvider):
         sensor_name = self._coordinator.name
 
         now = datetime.now(timezone.utc)
-        today = date.today()
+        today = now.date()
         cache = self.instance_cache.get(self.TEAM_SCHEDULE_KEY)
 
         if cache is not None:
