@@ -10,12 +10,7 @@ from urllib.parse import unquote
 
 from homeassistant.core import HomeAssistant
 
-from .const import (
-    API_LIMIT,
-    CONF_LEAGUE_PATH,
-    CONF_SPORT_PATH,
-    NATIVE_LEAGUES,
-)
+from .const import API_LIMIT, CONF_LEAGUE_PATH, CONF_SPORT_PATH, NATIVE_LEAGUES
 from .provide_espn import EspnProvider
 from .utils import has_team, season_slug_to_name
 
@@ -89,6 +84,8 @@ class EspnAllLeaguesProvider(EspnProvider):
                         if isinstance(wrapper.get("team"), dict)
                         else wrapper
                     )
+                    if not isinstance(team, dict):
+                        continue
                     team_id = str(team.get("id") or "").strip()
                     display_name = str(
                         team.get("displayName") or team.get("name") or ""

@@ -9,7 +9,7 @@ from custom_components.teamtracker.const import DOMAIN
 from custom_components.teamtracker.sensor import async_setup_platform
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 
-from tests.const import CONFIG_DATA, PLATFORM_TEST_DATA
+from tests.const import CONFIG_DATA, CONFIG_DATA8, PLATFORM_TEST_DATA
 
 
 @pytest.fixture(autouse=False)
@@ -70,6 +70,61 @@ async def test_sensor(hass, mock_call_espn_api, mocker):
 
 #    assert await entry.async_unload(hass)
 #    await hass.async_block_till_done()
+
+
+
+#@pytest.mark.parametrize("expected_lingering_timers", [True])
+@freeze_time("2026-09-19 10:00:00")
+async def test_sensor_with_teams_api(hass, mock_call_espn_api, mocker):
+    """ test sensor """
+
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="NFL",
+        data=CONFIG_DATA8,
+    )
+
+    mocker.patch("locale.getlocale", return_value=("en", 0))
+
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert "teamtracker" in hass.config.components
+
+    assert len(hass.states.async_entity_ids(SENSOR_DOMAIN)) == 1
+    entries = hass.config_entries.async_entries(DOMAIN)
+    assert len(entries) == 1
+
+#
+# Validate sensor state and attributes based on CONFIG_DATA3
+#
+
+    sensor_state = hass.states.get("sensor.test_tt_all_test08")
+
+    assert sensor_state.state == "PRE"
+    team_abbr = sensor_state.attributes.get("team_abbr")
+    assert team_abbr == "AUB"
+    sport = sensor_state.attributes.get("sport")
+    assert sport == "football"
+    event_name = sensor_state.attributes.get("event_name")
+    assert event_name == "FLA @ AUB"
+    date = sensor_state.attributes.get("date")
+    assert date == "2026-09-19T23:00Z"
+    api_url = sensor_state.attributes.get("api_url")
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/2?lang=en&limit=50&groups=9999"
+    api_message = sensor_state.attributes.get("api_message")
+    assert api_message == None
+
+    #Test teams API specific logic
+    league_name = sensor_state.attributes.get("league_name")
+    assert league_name == "Major League Baseball"
+    team_logo = sensor_state.attributes.get("team_logo")
+    assert team_logo == "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
+    opponent_logo = sensor_state.attributes.get("opponent_logo")
+    assert opponent_logo == "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png"
+    tv_network = sensor_state.attributes.get("tv_network")
+    assert tv_network == "ESPN/ERADM"
 
 
 async def test_setup_platform(hass, mock_call_espn_api):

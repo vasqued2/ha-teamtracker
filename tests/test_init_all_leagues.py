@@ -424,7 +424,7 @@ async def test_all_leagues_team_abbr(hass, mock_call_espn_api):
     date = sensor_state.attributes.get("date")
     assert date == "2026-03-21T17:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&dates=20260320-20260326&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?lang=en&limit=50&groups=9999"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 #

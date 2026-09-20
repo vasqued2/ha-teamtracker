@@ -1,7 +1,7 @@
 """Regression tests for the isolated ESPN ALL team-schedule fallback."""
 
-import json
 from datetime import date, timedelta
+import json
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 

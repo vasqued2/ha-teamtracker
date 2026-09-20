@@ -280,6 +280,14 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             names.extend(b_names)
         self._values.tv_network = "/".join(names) if names else None
 
+        if self._values.tv_network is None:
+            for b in broadcasts:
+                name = get_value(b, "media", "shortName", default = None)
+                if name:
+                    names.append(name)
+            self._values.tv_network = "/".join(names) if names else None
+
+
         self._values.team_id = get_value(competitor, "id")
         self._values.opponent_id = get_value(opponent, "id")
         #    _LOGGER.debug("%s: async_set_universal_values() 4: %s", self._sensor_name, self._sensor_name)
@@ -337,16 +345,20 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
             competitor,
             "team",
             "logo",
-            default=get_value(
-                competitor, "athlete", "flag", "href", default=DEFAULT_LOGO
-            ),
+            default=get_value(competitor, "team", "logos", 0, "href",
+                default=get_value(
+                    competitor, "athlete", "flag", "href", default=DEFAULT_LOGO
+                )
+            )
         )
         self._values.opponent_logo = get_value(
             opponent,
             "team",
             "logo",
-            default=get_value(
-                opponent, "athlete", "flag", "href", default=DEFAULT_LOGO
+            default=get_value(opponent, "team", "logos", 0, "href",
+                default=get_value(
+                    opponent, "athlete", "flag", "href", default=DEFAULT_LOGO
+                )
             ),
         )
         self._values.team_url = get_value(
