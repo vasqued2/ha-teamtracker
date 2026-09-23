@@ -112,7 +112,7 @@ async def test_sensor_with_teams_api(hass, mock_call_espn_api, mocker):
     date = sensor_state.attributes.get("date")
     assert date == "2026-09-19T23:00Z"
     api_url = sensor_state.attributes.get("api_url")
-    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/2?lang=en&limit=50&groups=9999"
+    assert api_url == "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/2?lang=en"
     api_message = sensor_state.attributes.get("api_message")
     assert api_message == None
 

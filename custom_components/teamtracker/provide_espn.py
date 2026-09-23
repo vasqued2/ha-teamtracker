@@ -186,6 +186,22 @@ class EspnProvider(BaseSportProvider):
         url = response["url"]
 
         num_events = 0
+        if isinstance(data, dict) and isinstance(data.get("events"), list):
+            num_events = len(data["events"])
+
+        # First fallback - without language
+        if num_events == 0:
+            url_parms.pop("lang", None)
+            url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
+            _LOGGER.debug(
+                "%s: Calling API without language for '%s' from %s",
+                sensor_name,
+                team_id,
+                url,
+            )
+            response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+
+        num_events = 0
         team_found = False
         if data is not None:
             _LOGGER.debug(
@@ -204,21 +220,14 @@ class EspnProvider(BaseSportProvider):
                 num_events = 0
                 _LOGGER.exception("%s: Error processing ESPN data", sensor_name)
 
-        _LOGGER.debug(
-            "%s: Num_events '%d' from %s",
-            sensor_name,
-            num_events,
-            url,
-        )
-
-        # First fallback - Teams API if team_number is known
+        # Second fallback - Teams API if team_number is known
         if num_events == 0 or team_found is False:
             team_number = self._coordinator.team_number
             if (isinstance(team_number, int)) or (isinstance(team_number, str) and team_number.isdigit()):
 
                 url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{self._coordinator.team_number}"
 
-                response2 = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+                response2 = await self.async_get_teams_teamnumber_data(hass, lang)
                 data = response2["data"]
                 url = response2["url"]
 
@@ -240,22 +249,75 @@ class EspnProvider(BaseSportProvider):
                     url,
                 )
 
-        # Second fallback - without language
-        if num_events == 0:
-            url_parms.pop("lang", None)
-            url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
-            _LOGGER.debug(
-                "%s: Calling API without language for '%s' from %s",
-                sensor_name,
-                team_id,
-                url,
-            )
-
-            response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
-
-
         response["lookups"] = self.lookups
         return response
+
+
+    #
+    #  async_get_teams_teamnumber_data()
+    #    Return data from cache or call fetch if needed
+    #
+    async def async_get_teams_teamnumber_data(
+        self, 
+        hass: HomeAssistant, 
+        lang: str,
+        ) -> dict:
+        """Return data from cache and call fetch if needed."""
+        CACHE_NAME = "teams_teamnumber_data"
+        CACHE_DURATION = timedelta(hours=1)
+
+        if not self._coordinator:
+            return {"data": None, "url": None, "timestamp": None}
+
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        team_number = self._coordinator.team_number
+
+        #  If cached, return response
+        key = f"{self.DATA_PROVIDER}:{sport_path}:{league_path}:{team_number}:{lang}"
+        response = self._get_from_cache(CACHE_NAME, key, CACHE_DURATION)
+        if response:
+            response.update({"cache_flag": True}) # Add key to indicate cache was used
+            return response
+
+        # Fetch data and save to cache
+        response = await self._async_fetch_teams_teamnumber_data(hass, lang)
+        
+        if not response.get("live_flag", False):
+            self._save_to_cache(CACHE_NAME, key, response)
+
+        return response
+
+
+
+    #
+    #  _async_fetch_teams_teamnumber_data()
+    #
+    async def _async_fetch_teams_teamnumber_data(
+        self, 
+        hass: HomeAssistant, 
+        lang: str,
+        ) -> dict:
+        """Fetch team-specific data from teams API."""
+
+        if not self._coordinator:
+            return {"data": None, "url": None, "timestamp": None}
+
+        sensor_name = self._coordinator.name
+        sport_path = self._coordinator.sport_path
+        league_path = self._coordinator.league_path
+        team_number = self._coordinator.team_number
+
+        if team_number is None or team_number.isdigit() is False:
+            return {"data": None, "url": None, "timestamp": None}
+
+        url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_number}"
+        url_parms = {}
+        url_parms["lang"] = lang[:2]
+        response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, league_path)
+
+        return response
+
 
     #
     #  async_call_espn_api()
