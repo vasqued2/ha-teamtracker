@@ -6,7 +6,6 @@ import pytest
 
 from custom_components.teamtracker.provide_espn_all import EspnAllLeaguesProvider
 
-
 OLYMPIACOS = {
     "id": "435",
     "displayName": "Olympiacos",

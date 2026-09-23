@@ -1,0 +1,1171 @@
+{
+  "team": {
+    "id": "2",
+    "uid": "s:20~l:23~t:2",
+    "slug": "auburn-tigers",
+    "location": "Auburn",
+    "name": "Tigers",
+    "nickname": "Auburn",
+    "abbreviation": "AUB",
+    "displayName": "Auburn Tigers",
+    "shortDisplayName": "Auburn",
+    "color": "002b5c",
+    "alternateColor": "f26522",
+    "isActive": true,
+    "logos": [
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "default"
+        ],
+        "lastUpdated": "2025-12-19T23:48Z"
+      },
+      {
+        "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2.png",
+        "width": 500,
+        "height": 500,
+        "alt": "",
+        "rel": [
+          "full",
+          "dark"
+        ],
+        "lastUpdated": "2025-12-19T23:47Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_white_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_white_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_black_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_black_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_primary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_primary_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_secondary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_on_secondary_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_black.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_black"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_white.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "primary_logo_white"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_white_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_white_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_black_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_black_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_primary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_primary_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_secondary_color.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_on_secondary_color"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_black.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_black"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      },
+      {
+        "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_white.png",
+        "width": 4096,
+        "height": 4096,
+        "alt": "",
+        "rel": [
+          "full",
+          "secondary_logo_white"
+        ],
+        "lastUpdated": "2026-07-23T17:18Z"
+      }
+    ],
+    "record": {
+      "items": [
+        {
+          "description": "Overall Record",
+          "type": "total",
+          "summary": "2-0",
+          "stats": [
+            {
+              "name": "OTLosses",
+              "value": 0
+            },
+            {
+              "name": "OTWins",
+              "value": 0
+            },
+            {
+              "name": "avgPointsAgainst",
+              "value": 12
+            },
+            {
+              "name": "avgPointsFor",
+              "value": 30
+            },
+            {
+              "name": "differential",
+              "value": 36
+            },
+            {
+              "name": "divisionWinPercent",
+              "value": 0
+            },
+            {
+              "name": "gamesBehind",
+              "value": 0
+            },
+            {
+              "name": "gamesPlayed",
+              "value": 2
+            },
+            {
+              "name": "leagueWinPercent",
+              "value": 0
+            },
+            {
+              "name": "losses",
+              "value": 0
+            },
+            {
+              "name": "playoffSeed",
+              "value": 2
+            },
+            {
+              "name": "pointDifferential",
+              "value": 36
+            },
+            {
+              "name": "points",
+              "value": 1
+            },
+            {
+              "name": "pointsAgainst",
+              "value": 24
+            },
+            {
+              "name": "pointsFor",
+              "value": 60
+            },
+            {
+              "name": "streak",
+              "value": 2
+            },
+            {
+              "name": "ties",
+              "value": 0
+            },
+            {
+              "name": "winPercent",
+              "value": 1
+            },
+            {
+              "name": "wins",
+              "value": 2
+            },
+            {
+              "name": "divisionLosses",
+              "value": 0
+            },
+            {
+              "name": "divisionRecord",
+              "value": 0
+            },
+            {
+              "name": "divisionTies",
+              "value": 0
+            },
+            {
+              "name": "divisionWins",
+              "value": 0
+            },
+            {
+              "name": "lockedDivRank",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "groups": {
+      "id": "8",
+      "parent": {
+        "id": "80"
+      },
+      "isConference": true
+    },
+    "links": [
+      {
+        "language": "en-US",
+        "rel": [
+          "clubhouse",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/college-football/team/_/id/2/auburn-tigers",
+        "text": "Clubhouse",
+        "shortText": "Clubhouse",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "clubhouse",
+          "mobile",
+          "team"
+        ],
+        "href": "https://www.espn.com/college-football/team/_/id/2/auburn-tigers",
+        "text": "Clubhouse",
+        "shortText": "Clubhouse",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "roster",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/college-football/team/roster/_/id/2",
+        "text": "Roster",
+        "shortText": "Roster",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "roster",
+          "sportscenter",
+          "app",
+          "team"
+        ],
+        "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:2&section=roster",
+        "text": "Roster",
+        "shortText": "Roster",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "stats",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/college-football/team/stats/_/id/2",
+        "text": "Statistics",
+        "shortText": "Statistics",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "stats",
+          "sportscenter",
+          "app",
+          "team"
+        ],
+        "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:2&section=stats",
+        "text": "Statistics",
+        "shortText": "Statistics",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "schedule",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/college-football/team/schedule/_/id/2",
+        "text": "Schedule",
+        "shortText": "Schedule",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "schedule",
+          "sportscenter",
+          "app",
+          "team"
+        ],
+        "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:2&section=scores",
+        "text": "Schedule",
+        "shortText": "Schedule",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "tickets",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.vividseats.com/auburn-tigers-football-tickets--sports-ncaa-football/performer/54?wsUser=717",
+        "text": "Tickets",
+        "shortText": "Tickets",
+        "isExternal": true,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "awards",
+          "desktop",
+          "team"
+        ],
+        "href": "https://www.espn.com/college-football/awards/_/team/2",
+        "text": "Awards",
+        "shortText": "Awards",
+        "isExternal": false,
+        "isPremium": false
+      }
+    ],
+    "nextEvent": [
+      {
+        "id": "401856687",
+        "date": "2026-09-19T23:00Z",
+        "name": "Florida Gators at Auburn Tigers",
+        "shortName": "FLA @ AUB",
+        "season": {
+          "year": 2026,
+          "displayName": "2026"
+        },
+        "seasonType": {
+          "id": "2",
+          "type": 2,
+          "name": "Regular Season",
+          "abbreviation": "reg"
+        },
+        "week": {
+          "number": 3,
+          "text": "Week 3"
+        },
+        "timeValid": true,
+        "competitions": [
+          {
+            "id": "401856687",
+            "date": "2026-09-19T23:00Z",
+            "attendance": 0,
+            "type": {
+              "id": "1",
+              "text": "Standard",
+              "abbreviation": "STD",
+              "slug": "standard",
+              "type": "standard"
+            },
+            "timeValid": true,
+            "neutralSite": false,
+            "boxscoreAvailable": false,
+            "ticketsAvailable": true,
+            "venue": {
+              "fullName": "Jordan-Hare Stadium",
+              "address": {
+                "city": "Auburn",
+                "state": "AL",
+                "zipCode": "36849",
+                "country": "USA"
+              }
+            },
+            "competitors": [
+              {
+                "id": "2",
+                "type": "team",
+                "order": 0,
+                "homeAway": "home",
+                "team": {
+                  "id": "2",
+                  "location": "Auburn",
+                  "nickname": "Auburn",
+                  "abbreviation": "AUB",
+                  "displayName": "Auburn Tigers",
+                  "shortDisplayName": "Auburn",
+                  "logos": [
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "default"
+                      ],
+                      "lastUpdated": "2025-12-19T23:48Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "dark"
+                      ],
+                      "lastUpdated": "2025-12-19T23:47Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_black"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/primary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_white"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_black"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/6a581b24-2e59-a315-6f91-e85d722f4e9f/logos/secondary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_white"
+                      ],
+                      "lastUpdated": "2026-07-23T17:18Z"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "rel": [
+                        "clubhouse",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/_/id/2/auburn-tigers",
+                      "text": "Clubhouse"
+                    },
+                    {
+                      "rel": [
+                        "clubhouse",
+                        "mobile",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/_/id/2/auburn-tigers",
+                      "text": "Clubhouse"
+                    },
+                    {
+                      "rel": [
+                        "roster",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/roster/_/id/2",
+                      "text": "Roster"
+                    },
+                    {
+                      "rel": [
+                        "roster",
+                        "sportscenter",
+                        "app",
+                        "team"
+                      ],
+                      "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:2&section=roster",
+                      "text": "Roster"
+                    },
+                    {
+                      "rel": [
+                        "stats",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/stats/_/id/2",
+                      "text": "Statistics"
+                    },
+                    {
+                      "rel": [
+                        "stats",
+                        "sportscenter",
+                        "app",
+                        "team"
+                      ],
+                      "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:2&section=stats",
+                      "text": "Statistics"
+                    },
+                    {
+                      "rel": [
+                        "schedule",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/schedule/_/id/2",
+                      "text": "Schedule"
+                    },
+                    {
+                      "rel": [
+                        "schedule",
+                        "sportscenter",
+                        "app",
+                        "team"
+                      ],
+                      "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:2&section=scores",
+                      "text": "Schedule"
+                    },
+                    {
+                      "rel": [
+                        "tickets",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.vividseats.com/auburn-tigers-football-tickets--sports-ncaa-football/performer/54?wsUser=717",
+                      "text": "Tickets"
+                    },
+                    {
+                      "rel": [
+                        "awards",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/awards/_/team/2",
+                      "text": "Awards"
+                    }
+                  ]
+                },
+                "curatedRank": {
+                  "current": 99
+                }
+              },
+              {
+                "id": "57",
+                "type": "team",
+                "order": 1,
+                "homeAway": "away",
+                "team": {
+                  "id": "57",
+                  "location": "Florida",
+                  "nickname": "Florida",
+                  "abbreviation": "FLA",
+                  "displayName": "Florida Gators",
+                  "shortDisplayName": "Florida",
+                  "logos": [
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "default"
+                      ],
+                      "lastUpdated": "2025-12-19T23:48Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/57.png",
+                      "width": 500,
+                      "height": 500,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "dark"
+                      ],
+                      "lastUpdated": "2025-12-19T23:47Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/primary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/primary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/primary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/primary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/primary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_black"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/primary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "primary_logo_white"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/secondary_logo_on_white_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_white_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/secondary_logo_on_black_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_black_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/secondary_logo_on_primary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_primary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/secondary_logo_on_secondary_color.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_on_secondary_color"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/secondary_logo_black.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_black"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    },
+                    {
+                      "href": "https://a.espncdn.com/guid/fe74bfd9-c15e-7b3a-ab25-ff4e5636282e/logos/secondary_logo_white.png",
+                      "width": 4096,
+                      "height": 4096,
+                      "alt": "",
+                      "rel": [
+                        "full",
+                        "secondary_logo_white"
+                      ],
+                      "lastUpdated": "2026-07-23T17:26Z"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "rel": [
+                        "clubhouse",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/_/id/57/florida-gators",
+                      "text": "Clubhouse"
+                    },
+                    {
+                      "rel": [
+                        "clubhouse",
+                        "mobile",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/_/id/57/florida-gators",
+                      "text": "Clubhouse"
+                    },
+                    {
+                      "rel": [
+                        "roster",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/roster/_/id/57",
+                      "text": "Roster"
+                    },
+                    {
+                      "rel": [
+                        "roster",
+                        "sportscenter",
+                        "app",
+                        "team"
+                      ],
+                      "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:57&section=roster",
+                      "text": "Roster"
+                    },
+                    {
+                      "rel": [
+                        "stats",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/stats/_/id/57",
+                      "text": "Statistics"
+                    },
+                    {
+                      "rel": [
+                        "stats",
+                        "sportscenter",
+                        "app",
+                        "team"
+                      ],
+                      "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:57&section=stats",
+                      "text": "Statistics"
+                    },
+                    {
+                      "rel": [
+                        "schedule",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/team/schedule/_/id/57",
+                      "text": "Schedule"
+                    },
+                    {
+                      "rel": [
+                        "schedule",
+                        "sportscenter",
+                        "app",
+                        "team"
+                      ],
+                      "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:23~t:57&section=scores",
+                      "text": "Schedule"
+                    },
+                    {
+                      "rel": [
+                        "tickets",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.vividseats.com/florida-gators-football-tickets--sports-ncaa-football/performer/292?wsUser=717",
+                      "text": "Tickets"
+                    },
+                    {
+                      "rel": [
+                        "awards",
+                        "desktop",
+                        "team"
+                      ],
+                      "href": "https://www.espn.com/college-football/awards/_/team/57",
+                      "text": "Awards"
+                    }
+                  ]
+                },
+                "curatedRank": {
+                  "current": 99
+                }
+              }
+            ],
+            "notes": [],
+            "broadcasts": [
+              {
+                "type": {
+                  "id": "1",
+                  "shortName": "TV"
+                },
+                "market": {
+                  "id": "1",
+                  "type": "National"
+                },
+                "media": {
+                  "shortName": "ESPN",
+                  "logo": "https://a.espncdn.com/guid/335fd2d2-97b9-336b-81ee-573eb6bdcffc/logos/default.png",
+                  "darkLogo": ""
+                },
+                "lang": "en",
+                "region": "us",
+                "partnered": false
+              },
+              {
+                "type": {
+                  "id": "5",
+                  "shortName": "Radio"
+                },
+                "market": {
+                  "id": "1",
+                  "type": "National"
+                },
+                "media": {
+                  "shortName": "ERADM"
+                },
+                "lang": "en",
+                "region": "us",
+                "partnered": false
+              }
+            ],
+            "tickets": [
+              {
+                "id": "6070545",
+                "summary": "Tickets as low as $255",
+                "description": "Florida Gators at Auburn Tigers Football",
+                "maxPrice": 1666,
+                "startingPrice": 255,
+                "numberAvailable": 1032,
+                "totalPostings": 382,
+                "links": [
+                  {
+                    "rel": [
+                      "tickets",
+                      "desktop",
+                      "event"
+                    ],
+                    "href": "https://www.vividseats.com/auburn-tigers-football-tickets-jordan-hare-stadium-9-3-2026--sports-ncaa-football/production/6070545?wsUser=717"
+                  },
+                  {
+                    "rel": [
+                      "tickets",
+                      "desktop",
+                      "venue"
+                    ],
+                    "href": "https://www.vividseats.com/jordanhare-stadium-tickets/venue/833?wsUser=717"
+                  }
+                ]
+              }
+            ],
+            "status": {
+              "clock": 0,
+              "displayClock": "0:00",
+              "period": 0,
+              "type": {
+                "id": "1",
+                "name": "STATUS_SCHEDULED",
+                "state": "pre",
+                "completed": false,
+                "description": "Scheduled",
+                "detail": "Sat, September 19th at 7:00 PM EDT",
+                "shortDetail": "9/19 - 7:00 PM EDT"
+              }
+            }
+          }
+        ],
+        "links": [
+          {
+            "language": "en-US",
+            "rel": [
+              "summary",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/college-football/game/_/gameId/401856687/florida-auburn",
+            "text": "Gamecast",
+            "shortText": "Summary",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "summary",
+              "sportscenter",
+              "app",
+              "event"
+            ],
+            "href": "sportscenter://x-callback-url/showGame?sportName=football&leagueAbbrev=college-football&gameId=401856687",
+            "text": "Gamecast",
+            "shortText": "Summary",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "now",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/college-football/game/_/gameId/401856687",
+            "text": "Now",
+            "shortText": "Now",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "preview",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/college-football/preview/_/gameId/401856687",
+            "text": "Preview",
+            "shortText": "Preview",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "watchespn",
+              "desktop",
+              "event"
+            ],
+            "href": "https://www.espn.com/watchespn/index?gameId=401856687&sourceLang=en",
+            "text": "WatchESPN",
+            "shortText": "WatchESPN",
+            "isExternal": false,
+            "isPremium": false
+          },
+          {
+            "language": "en-US",
+            "rel": [
+              "watchespn",
+              "app",
+              "event"
+            ],
+            "href": "watchespn://showEvent?gameId=401856687&sourceLang=en",
+            "text": "WatchESPN",
+            "shortText": "WatchESPN",
+            "isExternal": false,
+            "isPremium": false
+          }
+        ]
+      }
+    ],
+    "standingSummary": "2nd in SEC"
+  }
+}

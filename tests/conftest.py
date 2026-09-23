@@ -164,7 +164,9 @@ async def mock_call_espn_api(hass):
         if "schedule" in clean_url:
             file_name = "schedule.json"
         elif "teams" in clean_url:
-            if clean_url[-1].isdigit(): # if there is any team identifier, use team 194
+            if clean_url.endswith("/2"): # if the team number is 2 (AUB), use the correct file
+                file_name = "teams-2.json"
+            elif clean_url[-1].isdigit(): # if there is any team number, use team 194
                 file_name = "teams-194.json"
             else:
                 file_name = "teams-ncaaf-small.json"

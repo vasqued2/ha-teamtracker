@@ -30,6 +30,7 @@ class TeamTrackerCoordinator(DataUpdateCoordinator):
         """Initialize."""
         self.name = config[CONF_NAME]
         self.team_id = config[CONF_TEAM_ID]
+        self.team_number : str | None = None
         self.league_id = config[CONF_LEAGUE_ID]
         self.league_path = config[CONF_LEAGUE_PATH]
         self.sport_path = config[CONF_SPORT_PATH]

@@ -85,7 +85,8 @@ class EspnParser(BaseSportParser, SetValuesMixin):
             data, "leagues", 0, "name", default=""
         )
 
-        events = data.get("events", [])
+        events = get_value(data, "events",
+            default=get_value(data, "team", "nextEvent", default=[]))
         limit_hit = len(events) == API_LIMIT
         first_date = datetime(9999, 12, 31, 1, 0, 0)
         last_date = datetime(1900, 1, 31, 1, 0, 0)
