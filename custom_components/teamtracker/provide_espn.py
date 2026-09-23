@@ -45,6 +45,49 @@ class EspnProvider(BaseSportProvider):
 
 
     #
+    #  async_update_sport_data()
+    #
+    async def async_update_sport_data(self) -> dict:
+        """Determines to use cached data or API call (if exprired)"""
+
+        #
+        #  Call API to get refreshed response and cache it
+        #
+        if not self._coordinator:
+            return {"data": None, "url": None, "timestamp": None}
+
+        response = await self.async_get_scoreboard_data(self._coordinator.hass, self._coordinator.get_lang())
+        data = response["data"]
+
+        # Check to see if the team was in the response
+        team_id = self._coordinator.team_id.upper()
+        team_found = False
+        if isinstance(data, dict) and isinstance(data.get("events"), list):
+            team_match = jmespath.search(
+                f"events[].competitions[].competitors[?team.abbreviation == '{team_id}' || team.id == '{team_id}'][]",
+                data,)
+            team_found = bool(team_match)
+
+        # If team was not found, try the teams API
+        if team_found is False:
+            response2 = await self.async_get_teams_teamnumber_data(self._coordinator.hass, self._coordinator.get_lang())
+            data = response2["data"]
+
+            if data is not None:
+                team_number = self._coordinator.team_number
+                team_match = jmespath.search(
+                        f"team.nextEvent[0].competitions[0].competitors[?id == '{team_number}'].id | [0]",
+                        data,)
+                if bool(team_match):
+                    # The teams API doesn't have leagues info so insert it from first call
+                    if "leagues" in response["data"]:
+                        response2["data"]["leagues"] = response["data"]["leagues"]
+                    response = response2
+
+        return response
+
+
+    #
     #  _get_cache_key()
     #    Return unique key for espn calls
     #
@@ -201,54 +244,6 @@ class EspnProvider(BaseSportProvider):
             )
             response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
 
-        num_events = 0
-        team_found = False
-        if data is not None:
-            _LOGGER.debug(
-                "%s: Data returned for '%s' from %s",
-                sensor_name,
-                league_path,
-                url,
-            )
-            if isinstance(data, dict) and isinstance(data.get("events"), list):
-                num_events = len(data["events"])
-                team_match = jmespath.search(
-                        f"events[].competitions[].competitors[?team.abbreviation == '{team_id}' || team.id == '{team_id}'][]",
-                        data,)
-                team_found = bool(team_match)
-            else:
-                num_events = 0
-                _LOGGER.exception("%s: Error processing ESPN data", sensor_name)
-
-        # Second fallback - Teams API if team_number is known
-        if num_events == 0 or team_found is False:
-            team_number = self._coordinator.team_number
-            if (isinstance(team_number, int)) or (isinstance(team_number, str) and team_number.isdigit()):
-
-                url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{self._coordinator.team_number}"
-
-                response2 = await self.async_get_teams_teamnumber_data(hass, lang)
-                data = response2["data"]
-                url = response2["url"]
-
-                if data is not None:
-                    team_match = jmespath.search(
-                            f"team.nextEvent[0].competitions[0].competitors[?id == '{team_number}'].id | [0]",
-                            data,)
-                    if bool(team_match):
-                        num_events = 1
-                        # The teams API doesn't have leagues info so insert it from first call
-                        if "leagues" in response["data"]:
-                            response2["data"]["leagues"] = response["data"]["leagues"]
-                        response = response2
-
-                _LOGGER.debug(
-                    "%s: Num_events '%d' from %s",
-                    sensor_name,
-                    num_events,
-                    url,
-                )
-
         response["lookups"] = self.lookups
         return response
 
@@ -316,6 +311,7 @@ class EspnProvider(BaseSportProvider):
         url_parms["lang"] = lang[:2]
         response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, league_path)
 
+        response["lookups"] = self.lookups
         return response
 
 
