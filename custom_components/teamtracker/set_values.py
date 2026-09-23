@@ -413,7 +413,8 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 + ")"
             )
         except:
-            self._values.team_score = get_value(competitor, "score")
+            self._values.team_score = get_value(competitor, "score", "displayValue",
+                default=get_value(competitor, "score"))
         try:
             self._values.opponent_score = (
                 str(get_value(opponent, "score"))
@@ -422,7 +423,8 @@ class SetValuesMixin(SetBaseballMixin, SetCricketMixin, SetGolfMixin, SetHockeyM
                 + ")"
             )
         except:
-            self._values.opponent_score = get_value(opponent, "score")
+            self._values.opponent_score = get_value(opponent, "score", "displayValue",
+                default=get_value(opponent, "score"))
 
         # Some APIs return boolean values as strings, so we need to convert them
 
