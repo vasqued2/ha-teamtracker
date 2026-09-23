@@ -20,7 +20,9 @@ from .const import API_LIMIT
 from .provider_base import BaseSportProvider
 
 _LOGGER = logging.getLogger(__name__)
-
+def _sensor_logger(sensor_name):
+    return _LOGGER.getChild(sensor_name.replace(" ", "_"))
+    
 if TYPE_CHECKING:
     from .coordinator import TeamTrackerCoordinator
 
@@ -197,6 +199,11 @@ class EspnProvider(BaseSportProvider):
 
         # Add required lookup tables
         if "team_list" not in self.lookups:
+            _sensor_logger(sensor_name).debug(
+                "%s: Retrieving team_list for '%s'",
+                sensor_name,
+                league_path,
+            )
             teams_response = await self.async_get_team_data(hass, sport_path, league_path, sensor_name)
             teams_data = teams_response["data"]
             self.lookups["team_list"] = teams_data
@@ -211,6 +218,12 @@ class EspnProvider(BaseSportProvider):
                     if (t["abbreviation"].upper() == team_id):
                         self._coordinator.team_number = t["id"]
                         break
+
+        _sensor_logger(sensor_name).debug(
+            "%s: Retrieving scoreboard data for '%s'",
+            sensor_name,
+            team_id,
+        )
 
         url_parms = {}
         url_parms["lang"] = lang[:2]
@@ -236,13 +249,21 @@ class EspnProvider(BaseSportProvider):
         if num_events == 0:
             url_parms.pop("lang", None)
             url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/scoreboard"
-            _LOGGER.debug(
-                "%s: Calling API without language for '%s' from %s",
-                sensor_name,
-                team_id,
-                url,
-            )
+
             response = await self.async_call_espn_api(hass, url, url_parms, sensor_name, team_id)
+            data = response["data"]
+            url = response["url"]
+
+            num_events = 0
+            if isinstance(data, dict) and isinstance(data.get("events"), list):
+                num_events = len(data["events"])
+
+        _sensor_logger(sensor_name).debug(
+            "%s: Num_events '%d' from %s",
+            sensor_name,
+            num_events,
+            url,
+        )
 
         response["lookups"] = self.lookups
         return response
@@ -301,11 +322,24 @@ class EspnProvider(BaseSportProvider):
         sensor_name = self._coordinator.name
         sport_path = self._coordinator.sport_path
         league_path = self._coordinator.league_path
+        team_id = self._coordinator.team_id.upper()
         team_number = self._coordinator.team_number
 
         if team_number is None or team_number.isdigit() is False:
+            _sensor_logger(sensor_name).debug(
+                "%s: Can not retrieve teams data for '%s', team_number = '%s'",
+                sensor_name,
+                team_id,
+                team_number,
+            )
             return {"data": None, "url": None, "timestamp": None}
 
+        _sensor_logger(sensor_name).debug(
+            "%s: Retrieving teams data for '%s', team_number '%s'",
+            sensor_name,
+            team_id,
+            team_number,
+        )
         url = f"{ESPN_BASE_URL}/{sport_path}/{league_path}/teams/{team_number}"
         url_parms = {}
         url_parms["lang"] = lang[:2]
@@ -324,7 +358,7 @@ class EspnProvider(BaseSportProvider):
         """Call the specified ESPN API."""
 
         url = str(URL(base_url).with_query(params))
-        _LOGGER.debug(
+        _sensor_logger(sensor_name).debug(
             "%s: Calling ESPN API for '%s': %s",
             sensor_name,
             team_id,
@@ -347,15 +381,15 @@ class EspnProvider(BaseSportProvider):
                     try:
                         data = await r.json()
                     except json.JSONDecodeError as e:
-                        _LOGGER.debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
+                        _sensor_logger(sensor_name).debug("%s: HockeyTech response not JSON: %s", sensor_name, e)
                         return {"data": None, "url": url, "timestamp": timestamp}
                 else:
-                    _LOGGER.debug(
+                    _sensor_logger(sensor_name).debug(
                         "%s: API returned status %s: %s", sensor_name, r.status, url
                     )
                     return {"data": None, "url": url, "timestamp": timestamp}
         except (aiohttp.ClientError, TimeoutError) as e:
-            _LOGGER.debug("%s: API call failed: %s", sensor_name, e)
+            _sensor_logger(sensor_name).debug("%s: API call failed: %s", sensor_name, e)
             return {"data": None, "url": url, "timestamp": timestamp}
 
         return {"data": data, "url": url, "timestamp": timestamp}
@@ -368,14 +402,14 @@ class EspnProvider(BaseSportProvider):
     async def _async_override_espn_api(self, sensor_name, team_id, url) -> dict | None:
         """Read a json file to mock the ESPN API."""
 
-        _LOGGER.debug("%s: Overriding API for '%s'", sensor_name, team_id)
+        _sensor_logger(sensor_name).debug("%s: Overriding API for '%s'", sensor_name, team_id)
 
         if sensor_name == "api_error":
             return None
 
         clean_url = url.split('?')[0]
 
-        _LOGGER.debug("%s: Overriding ESPN API (%s) for '%s'", sensor_name, url, team_id)
+        _sensor_logger(sensor_name).debug("%s: Overriding ESPN API (%s) for '%s'", sensor_name, url, team_id)
         if "schedule" in clean_url:
             file_path = "/share/tt/schedule.json"
             if not os.path.exists(file_path):
@@ -407,7 +441,7 @@ class EspnProvider(BaseSportProvider):
                 contents = await f.read()
             data = json.loads(contents)
         except Exception as e: # pylint: disable=broad-exception-caught
-            _LOGGER.debug("%s: API file read failed: %s", sensor_name, e)
+            _sensor_logger(sensor_name).debug("%s: API file read failed: %s", sensor_name, e)
             data = None
 
         return(data)
