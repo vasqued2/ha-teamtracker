@@ -55,11 +55,14 @@ def get_value(json_input, *keys, default=None):
 def has_team(data, target_team_id):
     """Search for team in json data"""
 
-    for event in data.get("events", []):
-        for comp in event.get("competitions", []):
-            for competitor in comp.get("competitors", []):
-                if competitor.get("team", {}).get("id") == target_team_id:
-                    return True
+    try:
+        for event in data.get("events", []):
+            for comp in event.get("competitions", []):
+                for competitor in comp.get("competitors", []):
+                    if competitor.get("team", {}).get("id") == target_team_id:
+                        return True
+    except (AttributeError, TypeError):
+        pass
     return False
 
 

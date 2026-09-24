@@ -113,6 +113,14 @@ CONFIG_DATA7 = {
     "conference_id": "9999",
 }
 
+CONFIG_DATA8 = {
+    "league_id": "NCAAF",
+    "team_id": "AUB",
+    "name": "test_tt_all_test08",
+    "timeout": 120,
+    "conference_id": "9999",
+}
+
 TEST_DATA = [
     {
         "sensor_name": "test_tt_all_test01",
