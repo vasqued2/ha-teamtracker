@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "検索するチームまたは選手を入力してください。",
+      "no_competitors_found": "選択したスポーツで一致するチームまたは選手が見つかりませんでした。"
+    },
+    "step": {
+      "user": {
+        "title": "スポーツを選択",
+        "description": "スポーツを選択してから、チームまたは選手を検索します。",
+        "data": {
+          "sport": "スポーツ"
+        }
+      },
+      "search": {
+        "title": "チーム・選手を検索",
+        "description": "チームまたは選手を検索します。結果は選択したスポーツ内に限定されます。",
+        "data": {
+          "search_competitor": "チーム名または選手名"
+        }
+      },
+      "select_competitor": {
+        "title": "チーム・選手を選択",
+        "description": "検索結果から正しいチームまたは選手を選択してください。",
+        "data": {
+          "competitor": "チームまたは選手"
+        }
+      },
+      "competition": {
+        "title": "大会を選択",
+        "description": "{competitor_name} をすべての大会で追跡するか、確認済みの1大会だけに限定します。",
+        "data": {
+          "competition": "大会"
+        }
+      },
+      "custom_api": {
+        "title": "詳細設定 / カスタム API",
+        "description": "ESPN API パスを手動で入力します。全大会を追跡するにはリーグパスに 'all' を使用します。",
+        "data": {
+          "sport_path": "スポーツパス",
+          "league_path": "リーグパス",
+          "team_id": "チーム/選手 ID または検索値",
+          "conference_id": "カンファレンス番号（任意）",
+          "name": "表示名（任意）"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "アメリカンフットボール",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "モータースポーツ",
+        "rugby": "Rugby",
+        "soccer": "サッカー",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "詳細設定 / カスタム API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "すべての大会"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker オプション",
+        "description": "ESPN API 呼び出しで使用する2文字の言語コードを入力します。",
+        "data": {
+          "api_language": "API 言語"
+        }
+      }
+    }
+  }
+}

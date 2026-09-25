@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "הזן קבוצה או ספורטאי לחיפוש.",
+      "no_competitors_found": "לא נמצאה קבוצה או ספורטאי תואמים בענף שנבחר."
+    },
+    "step": {
+      "user": {
+        "title": "בחירת ענף ספורט",
+        "description": "בחר את ענף הספורט ולאחר מכן חפש קבוצה או ספורטאי.",
+        "data": {
+          "sport": "ענף ספורט"
+        }
+      },
+      "search": {
+        "title": "חיפוש קבוצה או ספורטאי",
+        "description": "חפש קבוצה או ספורטאי. התוצאות מוגבלות לענף הספורט שנבחר.",
+        "data": {
+          "search_competitor": "שם קבוצה או ספורטאי"
+        }
+      },
+      "select_competitor": {
+        "title": "בחירת קבוצה או ספורטאי",
+        "description": "בחר את הקבוצה או הספורטאי הנכונים מתוצאות החיפוש.",
+        "data": {
+          "competitor": "קבוצה או ספורטאי"
+        }
+      },
+      "competition": {
+        "title": "בחירת תחרות",
+        "description": "עקוב אחר {competitor_name} בכל התחרויות, או הגבל את המעקב לתחרות מאומתת אחת.",
+        "data": {
+          "competition": "תחרות"
+        }
+      },
+      "custom_api": {
+        "title": "מתקדם / API מותאם אישית",
+        "description": "הזן ידנית נתיבי ESPN API. השתמש בנתיב ליגה 'all' למעקב אוניברסלי.",
+        "data": {
+          "sport_path": "נתיב ענף",
+          "league_path": "נתיב ליגה",
+          "team_id": "מזהה קבוצה / ספורטאי או ערך חיפוש",
+          "conference_id": "מספר קונפרנס (אופציונלי)",
+          "name": "שם ידידותי (אופציונלי)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "פוטבול אוסטרלי",
+        "baseball": "בייסבול",
+        "basketball": "כדורסל",
+        "football": "פוטבול אמריקאי",
+        "golf": "גולף",
+        "hockey": "הוקי",
+        "mma": "MMA",
+        "racing": "מרוצים",
+        "rugby": "ראגבי",
+        "soccer": "כדורגל",
+        "tennis": "טניס",
+        "volleyball": "כדורעף",
+        "custom_api": "מתקדם / API מותאם אישית"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "כל התחרויות"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "אפשרויות Team Tracker",
+        "description": "הזן קוד שפה בן 2 תווים לשימוש בקריאות ESPN API.",
+        "data": {
+          "api_language": "שפת API"
+        }
+      }
+    }
+  }
+}

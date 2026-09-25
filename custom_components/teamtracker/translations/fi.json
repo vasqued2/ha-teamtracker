@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Anna haettava joukkue tai urheilija.",
+      "no_competitors_found": "Valitusta lajista ei löytynyt vastaavaa osallistujaa."
+    },
+    "step": {
+      "user": {
+        "title": "Valitse laji",
+        "description": "Valitse laji ja hae sitten joukkuetta tai urheilijaa.",
+        "data": {
+          "sport": "Laji"
+        }
+      },
+      "search": {
+        "title": "Hae osallistujaa",
+        "description": "Hae joukkuetta tai urheilijaa. Tulokset rajataan valittuun lajiin.",
+        "data": {
+          "search_competitor": "Joukkueen tai urheilijan nimi"
+        }
+      },
+      "select_competitor": {
+        "title": "Valitse osallistuja",
+        "description": "Valitse oikea joukkue tai urheilija hakutuloksista.",
+        "data": {
+          "competitor": "Joukkue tai urheilija"
+        }
+      },
+      "competition": {
+        "title": "Valitse kilpailu",
+        "description": "Seuraa osallistujaa {competitor_name} kaikissa kilpailuissa tai rajaa seuranta yhteen vahvistettuun kilpailuun.",
+        "data": {
+          "competition": "Kilpailu"
+        }
+      },
+      "custom_api": {
+        "title": "Lisäasetukset / Mukautettu API",
+        "description": "Syötä ESPN API -polut käsin. Käytä liigapolkuna arvoa 'all' yleisseurantaa varten.",
+        "data": {
+          "sport_path": "Lajipolku",
+          "league_path": "Liigapolku",
+          "team_id": "Joukkue-/urheilija-ID tai hakutermi",
+          "conference_id": "Conference-numero (valinnainen)",
+          "name": "Näyttönimi (valinnainen)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Amerikkalainen jalkapallo",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Moottoriurheilu",
+        "rugby": "Rugby",
+        "soccer": "Jalkapallo",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Lisäasetukset / Mukautettu API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Kaikki kilpailut"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker -asetukset",
+        "description": "Anna ESPN API -kutsuissa käytettävä 2-merkkinen kielikoodi.",
+        "data": {
+          "api_language": "API-kieli"
+        }
+      }
+    }
+  }
+}

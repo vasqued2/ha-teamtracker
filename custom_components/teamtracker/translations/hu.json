@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Adj meg egy csapatot vagy sportolót a kereséshez.",
+      "no_competitors_found": "Nem található megfelelő csapat vagy sportoló a kiválasztott sportágban."
+    },
+    "step": {
+      "user": {
+        "title": "Sportág kiválasztása",
+        "description": "Válaszd ki a sportágat, majd keress csapatot vagy sportolót.",
+        "data": {
+          "sport": "Sportág"
+        }
+      },
+      "search": {
+        "title": "Csapat vagy sportoló keresése",
+        "description": "Keress csapatot vagy sportolót. A találatok a kiválasztott sportágra korlátozódnak.",
+        "data": {
+          "search_competitor": "Csapat vagy sportoló neve"
+        }
+      },
+      "select_competitor": {
+        "title": "Csapat vagy sportoló kiválasztása",
+        "description": "Válaszd ki a megfelelő csapatot vagy sportolót a találatok közül.",
+        "data": {
+          "competitor": "Csapat vagy sportoló"
+        }
+      },
+      "competition": {
+        "title": "Versenysorozat kiválasztása",
+        "description": "Kövesd {competitor_name} összes versenyét, vagy korlátozd a követést egy ellenőrzött versenysorozatra.",
+        "data": {
+          "competition": "Versenysorozat"
+        }
+      },
+      "custom_api": {
+        "title": "Speciális / Egyéni API",
+        "description": "Add meg kézzel az ESPN API útvonalait. Az univerzális követéshez használd az 'all' ligaútvonalat.",
+        "data": {
+          "sport_path": "Sportág útvonala",
+          "league_path": "Liga útvonala",
+          "team_id": "Csapat-/sportolóazonosító vagy keresési érték",
+          "conference_id": "Konferencia száma (opcionális)",
+          "name": "Barátságos név (opcionális)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Ausztrál futball",
+        "baseball": "Baseball",
+        "basketball": "Kosárlabda",
+        "football": "Amerikai futball",
+        "golf": "Golf",
+        "hockey": "Jégkorong",
+        "mma": "MMA",
+        "racing": "Autóversenyzés",
+        "rugby": "Rögbi",
+        "soccer": "Labdarúgás",
+        "tennis": "Tenisz",
+        "volleyball": "Röplabda",
+        "custom_api": "Speciális / Egyéni API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Összes versenysorozat"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker beállítások",
+        "description": "Add meg az ESPN API-hívásokhoz használandó kétkarakteres nyelvi kódot.",
+        "data": {
+          "api_language": "API nyelve"
+        }
+      }
+    }
+  }
+}

@@ -1,34 +1,34 @@
 {
   "config": {
     "error": {
-      "search_required": "Digite um time ou atleta para pesquisar.",
-      "no_competitors_found": "Nenhum participante correspondente foi encontrado no esporte selecionado."
+      "search_required": "Introduza uma equipa ou atleta para pesquisar.",
+      "no_competitors_found": "Não foi encontrado nenhum participante correspondente no desporto selecionado."
     },
     "step": {
       "user": {
-        "title": "Selecionar esporte",
-        "description": "Escolha o esporte e depois pesquise um time ou atleta.",
+        "title": "Selecionar desporto",
+        "description": "Escolha o desporto e depois pesquise uma equipa ou atleta.",
         "data": {
-          "sport": "Esporte"
+          "sport": "Desporto"
         }
       },
       "search": {
         "title": "Pesquisar participante",
-        "description": "Pesquise um time ou atleta. Os resultados ficam limitados ao esporte selecionado.",
+        "description": "Pesquise uma equipa ou atleta. Os resultados estão limitados ao desporto selecionado.",
         "data": {
-          "search_competitor": "Nome do time ou atleta"
+          "search_competitor": "Nome da equipa ou atleta"
         }
       },
       "select_competitor": {
         "title": "Selecionar participante",
-        "description": "Escolha o time ou atleta correto nos resultados.",
+        "description": "Escolha a equipa ou atleta correto nos resultados.",
         "data": {
-          "competitor": "Time ou atleta"
+          "competitor": "Equipa ou atleta"
         }
       },
       "competition": {
         "title": "Selecionar competição",
-        "description": "Acompanhe {competitor_name} em todas as competições ou limite o acompanhamento a uma competição verificada.",
+        "description": "Siga {competitor_name} em todas as competições ou limite o acompanhamento a uma competição verificada.",
         "data": {
           "competition": "Competição"
         }
@@ -39,7 +39,7 @@
         "data": {
           "sport_path": "Caminho do desporto",
           "league_path": "Caminho da liga",
-          "team_id": "ID do time/atleta ou valor de pesquisa",
+          "team_id": "ID da equipa/atleta ou valor de pesquisa",
           "conference_id": "Número da conferência (opcional)",
           "name": "Nome amigável (opcional)"
         }
@@ -74,7 +74,7 @@
     "step": {
       "init": {
         "title": "Opções do Team Tracker",
-        "description": "Digite o código de idioma de 2 caracteres para chamadas à API ESPN.",
+        "description": "Introduza o código de idioma de 2 caracteres para chamadas à API ESPN.",
         "data": {
           "api_language": "Idioma da API"
         }

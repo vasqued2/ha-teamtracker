@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Skriv inn et lag eller en utøver å søke etter.",
+      "no_competitors_found": "Ingen samsvarende deltaker ble funnet i den valgte sporten."
+    },
+    "step": {
+      "user": {
+        "title": "Velg sport",
+        "description": "Velg sporten, og søk deretter etter et lag eller en utøver.",
+        "data": {
+          "sport": "Sport"
+        }
+      },
+      "search": {
+        "title": "Søk etter deltaker",
+        "description": "Søk etter et lag eller en utøver. Resultatene er begrenset til den valgte sporten.",
+        "data": {
+          "search_competitor": "Navn på lag eller utøver"
+        }
+      },
+      "select_competitor": {
+        "title": "Velg deltaker",
+        "description": "Velg riktig lag eller utøver fra søkeresultatene.",
+        "data": {
+          "competitor": "Lag eller utøver"
+        }
+      },
+      "competition": {
+        "title": "Velg konkurranse",
+        "description": "Følg {competitor_name} i alle konkurranser, eller begrens sporingen til én bekreftet konkurranse.",
+        "data": {
+          "competition": "Konkurranse"
+        }
+      },
+      "custom_api": {
+        "title": "Avansert / Egendefinert API",
+        "description": "Skriv inn ESPN API-stier manuelt. Bruk 'all' som ligasti for universell sporing.",
+        "data": {
+          "sport_path": "Sportssti",
+          "league_path": "Ligasti",
+          "team_id": "Lag-/utøver-ID eller søkeverdi",
+          "conference_id": "Conference-nummer (valgfritt)",
+          "name": "Visningsnavn (valgfritt)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Amerikansk fotball",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Motorsport",
+        "rugby": "Rugby",
+        "soccer": "Fotball",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Avansert / Egendefinert API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Alle konkurranser"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Team Tracker-alternativer",
+        "description": "Skriv inn språkkoden på 2 tegn for ESPN API-kall.",
+        "data": {
+          "api_language": "API-språk"
+        }
+      }
+    }
+  }
+}

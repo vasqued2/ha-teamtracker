@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "أدخل فريقًا أو رياضيًا للبحث عنه.",
+      "no_competitors_found": "لم يتم العثور على مشارك مطابق في الرياضة المحددة."
+    },
+    "step": {
+      "user": {
+        "title": "اختيار الرياضة",
+        "description": "اختر الرياضة ثم ابحث عن فريق أو رياضي.",
+        "data": {
+          "sport": "الرياضة"
+        }
+      },
+      "search": {
+        "title": "البحث عن مشارك",
+        "description": "ابحث عن فريق أو رياضي. تقتصر النتائج على الرياضة المحددة.",
+        "data": {
+          "search_competitor": "اسم الفريق أو الرياضي"
+        }
+      },
+      "select_competitor": {
+        "title": "اختيار المشارك",
+        "description": "اختر الفريق أو الرياضي الصحيح من نتائج البحث.",
+        "data": {
+          "competitor": "فريق أو رياضي"
+        }
+      },
+      "competition": {
+        "title": "اختيار المسابقة",
+        "description": "تابع {competitor_name} في جميع المسابقات أو قصر المتابعة على مسابقة واحدة تم التحقق منها.",
+        "data": {
+          "competition": "المسابقة"
+        }
+      },
+      "custom_api": {
+        "title": "متقدم / API مخصص",
+        "description": "أدخل مسارات ESPN API يدويًا. استخدم 'all' كمسار للدوري للمتابعة الشاملة.",
+        "data": {
+          "sport_path": "مسار الرياضة",
+          "league_path": "مسار الدوري",
+          "team_id": "معرف الفريق/الرياضي أو قيمة البحث",
+          "conference_id": "رقم المؤتمر (اختياري)",
+          "name": "اسم مألوف (اختياري)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "كرة القدم الأمريكية",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "رياضة المحركات",
+        "rugby": "Rugby",
+        "soccer": "كرة القدم",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "متقدم / API مخصص"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "جميع المسابقات"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "خيارات Team Tracker",
+        "description": "أدخل رمز اللغة المكون من حرفين لاستخدامه في استدعاءات ESPN API.",
+        "data": {
+          "api_language": "لغة API"
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,10 @@
-"""Regression tests for soccer/all team discovery through the provider."""
+"""Regression tests for soccer/all discovery in the provider and guided config flow."""
 
 from unittest.mock import AsyncMock
 
 import pytest
 
+from custom_components.teamtracker.config_flow import TeamTrackerScoresFlowHandler
 from custom_components.teamtracker.provide_espn_all import EspnAllLeaguesProvider
 
 OLYMPIACOS = {
@@ -111,3 +112,124 @@ async def test_non_soccer_all_uses_original_team_fetch():
     )
 
     assert response["data"] == [OLYMPIACOS]
+
+
+def test_guided_config_soccer_team_payload_extracts_canonical_team():
+    payload = {
+        "sports": [
+            {
+                "leagues": [
+                    {
+                        "teams": [
+                            {"team": OLYMPIACOS},
+                            {"team": OLYMPIACOS},
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+
+    assert TeamTrackerScoresFlowHandler._soccer_teams_from_payload(payload) == [
+        OLYMPIACOS
+    ]
+
+
+@pytest.mark.asyncio
+async def test_guided_config_soccer_all_discovery_merges_duplicate_ids():
+    flow = TeamTrackerScoresFlowHandler()
+    flow._async_soccer_all_league_paths = AsyncMock(
+        return_value=["gre.1", "uefa.champions"]
+    )
+    flow._async_fetch_soccer_league_teams = AsyncMock(
+        side_effect=[
+            [OLYMPIACOS, PAOK],
+            [{**OLYMPIACOS, "location": ""}],
+        ]
+    )
+
+    teams = await flow._async_get_soccer_all_teams()
+
+    assert [team["id"] for team in teams] == ["435", "605"]
+    assert flow._async_fetch_soccer_league_teams.await_count == 2
+
+
+@pytest.mark.asyncio
+async def test_guided_soccer_search_uses_discovered_leagues():
+    # Guided soccer search must use ESPN's discovered league collections.
+    flow = TeamTrackerScoresFlowHandler()
+    flow._sport_path = "soccer"
+
+    flow._async_soccer_all_league_paths = AsyncMock(
+        return_value=["gre.1", "ger.1"]
+    )
+
+    async def fake_json(url, params=None):
+        if "/soccer/gre.1/teams" in url:
+            return {
+                "sports": [
+                    {
+                        "leagues": [
+                            {
+                                "name": "Greek Super League",
+                                "teams": [
+                                    {
+                                        "team": {
+                                            "id": "435",
+                                            "displayName": "Olympiacos",
+                                            "abbreviation": "OLY",
+                                            "location": "Piraeus",
+                                        }
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        if "/soccer/ger.1/teams" in url:
+            return {
+                "sports": [
+                    {
+                        "leagues": [
+                            {
+                                "name": "Bundesliga",
+                                "teams": [
+                                    {
+                                        "team": {
+                                            "id": "124",
+                                            "displayName": "Borussia Dortmund",
+                                            "abbreviation": "DOR",
+                                            "location": "Dortmund",
+                                        }
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        return None
+
+    flow._json = AsyncMock(side_effect=fake_json)
+
+    result = await flow._search_team_sport("olympiacos")
+
+    flow._async_soccer_all_league_paths.assert_awaited_once()
+
+    requested_urls = [
+        call.args[0]
+        for call in flow._json.await_args_list
+        if call.args
+    ]
+    assert any("/soccer/gre.1/teams" in url for url in requested_urls)
+    assert any("/soccer/ger.1/teams" in url for url in requested_urls)
+
+    assert [(item["id"], item["displayName"]) for item in result] == [
+        ("435", "Olympiacos")
+    ]
+    assert result[0]["competitions"] == {
+        "gre.1": "Greek Super League"
+    }

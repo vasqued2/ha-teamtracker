@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Wpisz drużynę lub sportowca do wyszukania.",
+      "no_competitors_found": "Nie znaleziono pasującego uczestnika w wybranej dyscyplinie."
+    },
+    "step": {
+      "user": {
+        "title": "Wybierz dyscyplinę",
+        "description": "Wybierz dyscyplinę, a następnie wyszukaj drużynę lub sportowca.",
+        "data": {
+          "sport": "Dyscyplina"
+        }
+      },
+      "search": {
+        "title": "Wyszukaj uczestnika",
+        "description": "Wyszukaj drużynę lub sportowca. Wyniki są ograniczone do wybranej dyscypliny.",
+        "data": {
+          "search_competitor": "Nazwa drużyny lub sportowca"
+        }
+      },
+      "select_competitor": {
+        "title": "Wybierz uczestnika",
+        "description": "Wybierz właściwą drużynę lub sportowca z wyników.",
+        "data": {
+          "competitor": "Drużyna lub sportowiec"
+        }
+      },
+      "competition": {
+        "title": "Wybierz rozgrywki",
+        "description": "Śledź {competitor_name} we wszystkich rozgrywkach albo ogranicz śledzenie do jednych zweryfikowanych rozgrywek.",
+        "data": {
+          "competition": "Rozgrywki"
+        }
+      },
+      "custom_api": {
+        "title": "Zaawansowane / Własne API",
+        "description": "Wprowadź ręcznie ścieżki API ESPN. Użyj 'all' jako ścieżki ligi dla śledzenia uniwersalnego.",
+        "data": {
+          "sport_path": "Ścieżka dyscypliny",
+          "league_path": "Ścieżka ligi",
+          "team_id": "ID drużyny/sportowca lub wartość wyszukiwania",
+          "conference_id": "Numer konferencji (opcjonalnie)",
+          "name": "Przyjazna nazwa (opcjonalnie)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Australian Football",
+        "baseball": "Baseball",
+        "basketball": "Basketball",
+        "football": "Futbol amerykański",
+        "golf": "Golf",
+        "hockey": "Hockey",
+        "mma": "MMA",
+        "racing": "Sporty motorowe",
+        "rugby": "Rugby",
+        "soccer": "Piłka nożna",
+        "tennis": "Tennis",
+        "volleyball": "Volleyball",
+        "custom_api": "Zaawansowane / Własne API"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Wszystkie rozgrywki"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opcje Team Tracker",
+        "description": "Wprowadź 2-znakowy kod języka dla wywołań API ESPN.",
+        "data": {
+          "api_language": "Język API"
+        }
+      }
+    }
+  }
+}

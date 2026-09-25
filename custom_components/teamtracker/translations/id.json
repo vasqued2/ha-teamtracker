@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "search_required": "Masukkan tim atau atlet untuk dicari.",
+      "no_competitors_found": "Tidak ditemukan tim atau atlet yang cocok pada olahraga yang dipilih."
+    },
+    "step": {
+      "user": {
+        "title": "Pilih olahraga",
+        "description": "Pilih olahraga, lalu cari tim atau atlet.",
+        "data": {
+          "sport": "Olahraga"
+        }
+      },
+      "search": {
+        "title": "Cari tim atau atlet",
+        "description": "Cari tim atau atlet. Hasil dibatasi pada olahraga yang dipilih.",
+        "data": {
+          "search_competitor": "Nama tim atau atlet"
+        }
+      },
+      "select_competitor": {
+        "title": "Pilih tim atau atlet",
+        "description": "Pilih tim atau atlet yang benar dari hasil pencarian.",
+        "data": {
+          "competitor": "Tim atau atlet"
+        }
+      },
+      "competition": {
+        "title": "Pilih kompetisi",
+        "description": "Ikuti {competitor_name} di semua kompetisi, atau batasi pelacakan ke satu kompetisi yang terverifikasi.",
+        "data": {
+          "competition": "Kompetisi"
+        }
+      },
+      "custom_api": {
+        "title": "Lanjutan / API Kustom",
+        "description": "Masukkan jalur ESPN API secara manual. Gunakan jalur liga 'all' untuk pelacakan universal.",
+        "data": {
+          "sport_path": "Jalur olahraga",
+          "league_path": "Jalur liga",
+          "team_id": "ID tim / atlet atau nilai pencarian",
+          "conference_id": "Nomor konferensi (opsional)",
+          "name": "Nama ramah (opsional)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "sport": {
+      "options": {
+        "australian-football": "Sepak Bola Australia",
+        "baseball": "Bisbol",
+        "basketball": "Bola Basket",
+        "football": "Sepak Bola Amerika",
+        "golf": "Golf",
+        "hockey": "Hoki",
+        "mma": "MMA",
+        "racing": "Balap",
+        "rugby": "Rugbi",
+        "soccer": "Sepak Bola",
+        "tennis": "Tenis",
+        "volleyball": "Bola Voli",
+        "custom_api": "Lanjutan / API Kustom"
+      }
+    },
+    "competition": {
+      "options": {
+        "all_competitions": "Semua kompetisi"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opsi Team Tracker",
+        "description": "Masukkan kode bahasa 2 karakter untuk panggilan ESPN API.",
+        "data": {
+          "api_language": "Bahasa API"
+        }
+      }
+    }
+  }
+}
