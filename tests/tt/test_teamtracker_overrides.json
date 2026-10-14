@@ -1,7 +1,9 @@
 {
   "hockeytech": {
-    "chl": {
-      "league_name": "Override League Name"
+    "leagues": {
+      "chl": {
+        "league_name": "Override League Name"
+      }
     }
   }
 }

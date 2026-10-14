@@ -31,6 +31,7 @@ from .const import (
     ISSUE_URL,
     NATIVE_LEAGUES,
     OVERRIDE_DICT,
+    SECRETS_DICT,
     SPORT_ICON_MAP,
     VERSION,
 )
@@ -109,9 +110,15 @@ async def async_setup_platform(
     # Load the OVERRIDE_DICT if it doesn't exist
     if OVERRIDE_DICT not in hass.data[DOMAIN]:
         hass.data[DOMAIN][OVERRIDE_DICT] = None
-        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+        files = await hass.async_add_executor_job(load_file_overrides, hass)
+        override_dict = files[OVERRIDE_DICT]
+        secrets_dict = files[SECRETS_DICT]
+
         if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
             hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+        if SECRETS_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][SECRETS_DICT] is None:
+            hass.data[DOMAIN][SECRETS_DICT] = secrets_dict
+
 
     # Setup the data coordinator
     coordinator = TeamTrackerCoordinator(

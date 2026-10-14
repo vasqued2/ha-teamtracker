@@ -96,7 +96,7 @@ class MlbStatsProvider(BaseSportProvider):
         rc = await self._async_load_override_dict(hass)    # pylint: disable=unused-variable
 
         league_abbr = league_path.upper()
-        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
+        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get("leagues", {}).get(league_path.lower(), None)
         
         if league_config is None:
             _LOGGER.warning(
@@ -170,7 +170,7 @@ class MlbStatsProvider(BaseSportProvider):
         if team_id != "*" and not is_integer(team_id):
             search_key = lookup_actual_team_id(sensor_name, team_id, team_list)
 
-        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
+        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get("leagues", {}).get(league_path.lower(), None)
 
         if league_config is None:
             _LOGGER.warning(

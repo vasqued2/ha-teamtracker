@@ -88,7 +88,7 @@ class HockeyTechProvider(BaseSportProvider):
         await self._async_load_override_dict(hass)
 
         league_abbr = league_path.upper()
-        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
+        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get("leagues", {}).get(league_path.lower(), None)
         
         if league_config is None:
             _LOGGER.warning(
@@ -189,7 +189,7 @@ class HockeyTechProvider(BaseSportProvider):
         league_path = self._coordinator.league_path
         league_id = league_path.upper()
 
-        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
+        league_config = hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get("leagues", {}).get(league_path.lower(), None)
 
         if league_config is None:
             _LOGGER.warning(
@@ -245,7 +245,7 @@ class HockeyTechProvider(BaseSportProvider):
         sport_path = self._coordinator.sport_path
         league_path = self._coordinator.league_path
 
-        league_config = self._coordinator.hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get(league_path.lower(), None)
+        league_config = self._coordinator.hass.data.get(DOMAIN, {}).get(OVERRIDE_DICT, {}).get(sport_path.lower(), {}).get("leagues", {}).get(league_path.lower(), None)
 
         if ht_data is None or league_config is None:
             return None

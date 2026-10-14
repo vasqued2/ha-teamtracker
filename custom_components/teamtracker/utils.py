@@ -6,7 +6,13 @@ import re
 
 from homeassistant.core import HomeAssistant
 
-from .const import DEFAULT_OVERRIDE_FILE, LOCAL_OVERRIDE_FILE
+from .const import (
+    DEFAULT_OVERRIDE_FILE,
+    LOCAL_OVERRIDE_FILE,
+    LOCAL_SECRETS_FILE,
+    OVERRIDE_DICT,
+    SECRETS_DICT,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -88,6 +94,7 @@ def load_file_overrides(hass: HomeAssistant) -> dict:
     component_dir = os.path.dirname(__file__)
     default_file = os.path.join(component_dir, "overrides", DEFAULT_OVERRIDE_FILE)
     custom_file = hass.config.path(LOCAL_OVERRIDE_FILE)
+    secrets_file = hass.config.path(LOCAL_SECRETS_FILE)
 
     base_data = {}
     if os.path.exists(default_file):
@@ -125,8 +132,29 @@ def load_file_overrides(hass: HomeAssistant) -> dict:
                 err,
             )
 
+    secrets_data = {}
+    if os.path.exists(secrets_file):
+        try:
+            with open(secrets_file, "r", encoding="utf-8") as f:
+                secrets_data = json.load(f)
+        except json.JSONDecodeError as err:
+            _LOGGER.warning(
+                "File Secrets Error: Invalid JSON in %s: %s",
+                secrets_file,
+                err,
+            )
+        except OSError as err:
+            _LOGGER.debug(
+                "File Secrets Error: Unable to read %s: %s",
+                secrets_file,
+                err,
+            )
+
     override_data = deep_merge(base_data, custom_data)
-    return override_data
+    return {
+            OVERRIDE_DICT: override_data,
+            SECRETS_DICT: secrets_data
+        }
 
 
 #

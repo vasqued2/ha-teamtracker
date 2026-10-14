@@ -42,6 +42,7 @@ from .const import (
     NATIVE_LEAGUES,
     OVERRIDE_DICT,
     PLATFORMS,
+    SECRETS_DICT,
     SERVICE_NAME_CALL_API,
     SERVICE_NAME_RELOAD_OVERRIDES,
     VERSION,
@@ -121,8 +122,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             hass.data[DOMAIN] = {}
 
         # Reload the OVERRIDE_DICT
-        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+        files = await hass.async_add_executor_job(load_file_overrides, hass)
+        override_dict = files[OVERRIDE_DICT]
+        secrets_dict = files[SECRETS_DICT]
         hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+        hass.data[DOMAIN][SECRETS_DICT] = secrets_dict
 
     # Print startup message
 
@@ -142,9 +146,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Load the OVERRIDE_DICT if it doesn't exist
     if OVERRIDE_DICT not in hass.data[DOMAIN]:
         hass.data[DOMAIN][OVERRIDE_DICT] = None
-        override_dict = await hass.async_add_executor_job(load_file_overrides, hass)
+        files = await hass.async_add_executor_job(load_file_overrides, hass)
+        override_dict = files[OVERRIDE_DICT]
+        secrets_dict = files[SECRETS_DICT]
+
         if OVERRIDE_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][OVERRIDE_DICT] is None:
             hass.data[DOMAIN][OVERRIDE_DICT] = override_dict
+        if SECRETS_DICT not in hass.data[DOMAIN] or hass.data[DOMAIN][SECRETS_DICT] is None:
+            hass.data[DOMAIN][SECRETS_DICT] = secrets_dict
 
     entry.async_on_unload(entry.add_update_listener(update_options_listener))
 

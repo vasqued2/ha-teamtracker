@@ -118,7 +118,7 @@ class BaseSportParser(ABC):
             return True
 
         override_dict = self._coordinator.hass.data[DOMAIN].get(OVERRIDE_DICT, {})
-        overrides = override_dict.get(str(self._values.sport_path).lower(), {}).get(str(self._values.league_path).lower(), None)
+        overrides = override_dict.get(str(self._values.sport_path).lower(), {}).get("leagues", {}).get(str(self._values.league_path).lower(), None)
         if overrides is None:
             return True
 
