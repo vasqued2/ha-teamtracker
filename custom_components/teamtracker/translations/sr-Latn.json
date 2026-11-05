@@ -1,0 +1,84 @@
+{
+  "config": {
+    "error": {
+      "league": "Izabrana je nevažeća liga.",
+      "cannot_fetch_teams": "Nije moguće preuzeti timove sa ESPN-a. Proverite vezu i pokušajte ponovo.",
+      "no_teams_found": "Nisu pronađeni timovi za taj pojam za pretragu. Pokušajte sa drugim imenom ili ostavite prazno za ručni unos."
+    },
+    "step": {
+      "user": {
+        "title": "Izaberite sport",
+        "description": "Izaberite sport za svoj tim ili sportistu.",
+        "data": {
+          "sport_key": "Sport"
+        }
+      },
+      "league": {
+        "title": "Izaberite ligu",
+        "description": "Izaberite {sport_name} ligu.",
+        "data": {
+          "league_id": "Liga"
+        }
+      },
+      "search": {
+        "title": "Pretraga tima",
+        "description": "Upišite ime da biste pretražili {league_name} tim, ili ostavite prazno da biste ručno uneli ID tima.",
+        "data": {
+          "search_team": "Pretraga imena tima (opciono)"
+        }
+      },
+      "select_team": {
+        "title": "Izaberite tim",
+        "description": "Izaberite svoj {league_name} tim iz rezultata pretrage.",
+        "data": {
+          "team_selection": "Tim",
+          "name": "Uobičajeno ime (opciono)"
+        }
+      },
+      "manual_team": {
+        "title": "Ručni unos tima",
+        "description": "Unesite skraćenicu {league_name} tima ili ID broj kako je prikazano na ESPN-u, ili '*' da biste uparili aktivnu/najnoviju utakmicu.",
+        "data": {
+          "team_id": "ID tima",
+          "conference_id": "Broj konferencije",
+          "name": "Uobičajeno ime"
+        }
+      },
+      "manual_athlete": {
+        "title": "Ručni unos sportiste",
+        "description": "Unesite ime {league_name} sportiste, regularni izraz ili '*' da biste uparili aktivnu/najnoviju utakmicu.",
+        "data": {
+          "team_id": "ID sportiste",
+          "conference_id": "Broj konferencije (samo NCAA)",
+          "name": "Uobičajeno ime"
+        }
+      },
+      "custom_api": {
+        "title": "Konfigurator prilagođenog API-ja",
+        "description": "Unesite deo 'sport_path' i 'league_path' iz ESPN API-ja da biste konfigurisali prilagođeni API",
+        "data": {
+          "sport_path": "Putanja sporta",
+          "league_path": "Putanja lige"
+        }
+      },
+      "finalize": {
+        "title": "Potvrdite ime",
+        "description": "Potvrdite/promenite ime za {league_name} {team_name} senzor",
+        "data": {
+          "name": "Uobičajeno ime"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opcije praćenja tima",
+        "description": "Unesite dvoznačni kod jezika koji će se koristiti za API poziv.",
+        "data": {
+          "api_language": "Jezik API-ja"
+        }
+      }
+    }
+  }
+}
