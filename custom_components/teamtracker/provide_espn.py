@@ -84,10 +84,37 @@ class EspnProvider(BaseSportProvider):
                     # The teams API doesn't have leagues info so insert it from first call
                     if "leagues" in response["data"]:
                         response2["data"]["leagues"] = response["data"]["leagues"]
+                    await self._async_repair_teams_competitors(response2["data"])
                     response = response2
 
         return response
 
+    #
+    #  _async_repair_teams_competitors()
+    #    ESPN teams/{id} nextEvent repeats the requested team in every competitor.team.
+    #    competitor.id is still correct, so rebuild each mismatched team from teams/{competitor.id}.
+    #
+    async def _async_repair_teams_competitors(self, data: dict) -> None:
+        try:
+            competitors = data["team"]["nextEvent"][0]["competitions"][0]["competitors"]
+        except (KeyError, IndexError, TypeError):
+            return
+        top_team = {k: v for k, v in (data.get("team") or {}).items() if k != "nextEvent"}
+        for comp in competitors:
+            cid = str(comp.get("id") or "")
+            team = comp.get("team") or {}
+            if cid and cid == str(top_team.get("id") or "") == str(team.get("id") or ""):
+                comp["team"] = {**top_team, **team}
+                continue
+            if not cid.isdigit() or str(team.get("id") or "") == cid:
+                continue
+            url = f"{ESPN_BASE_URL}/{self._coordinator.sport_path}/{self._coordinator.league_path}/teams/{cid}"
+            resp = await self.async_call_espn_api(
+                self._coordinator.hass, url, None, self._coordinator.name, self._coordinator.league_path
+            )
+            fixed = (resp.get("data") or {}).get("team")
+            if fixed:
+                comp["team"] = {k: v for k, v in fixed.items() if k != "nextEvent"}
 
     #
     #  _get_cache_key()
