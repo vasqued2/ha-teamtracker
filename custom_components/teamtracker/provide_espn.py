@@ -82,8 +82,9 @@ class EspnProvider(BaseSportProvider):
                         data,)
                 if bool(team_match):
                     # The teams API doesn't have leagues info so insert it from first call
-                    if "leagues" in response["data"]:
-                        response2["data"]["leagues"] = response["data"]["leagues"]
+                    scoreboard_data = response.get("data")
+                    if isinstance(scoreboard_data, dict) and "leagues" in scoreboard_data:
+                        response2["data"]["leagues"] = scoreboard_data["leagues"]
                     response = response2
 
         return response
